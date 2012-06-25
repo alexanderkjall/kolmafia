@@ -160,7 +160,7 @@ public class ChatFrame
 	{
 		if ( this.mainPanel != null )
 		{
-			this.mainPanel.requestFocus();
+			this.mainPanel.requestFocusInWindow();
 		}
 	}
 
@@ -291,7 +291,7 @@ public class ChatFrame
 
 		public void focusGained( FocusEvent e )
 		{
-			this.entryField.requestFocus();
+			this.entryField.requestFocusInWindow();
 		}
 
 		public void focusLost( FocusEvent e )
