@@ -20,6 +20,7 @@
 		<tstamp />
 		<mkdir dir="${build}" />
 		<mkdir dir="${dist}" />
+        <mkdir dir="${test-output}" />
 
 	</target>
 
@@ -195,6 +196,67 @@
 		</copy>
 
 	</target>
+
+
+    <!-- ======================================== -->
+    <!--  generate class files for the unittests  -->
+    <!-- ======================================== -->
+
+    <target name="compile-test" depends="init">
+
+        <javac
+                compiler="modern"
+                source="1.5"
+                target="1.5"
+                srcdir="${test}"
+                destdir="${build}"
+                failonerror="false"
+                debug="on"
+                debuglevel="lines,vars,source"
+                deprecation="off"
+                nowarn="on"
+                includeantruntime="false"
+                errorProperty="compile.failed">
+            <classpath>
+                <pathelement path="${build}/"/>
+                <fileset dir="${test-utils}">
+                    <include name="**/*.jar"/>
+                </fileset>
+            </classpath>
+        </javac>
+
+        <fail if="compile.failed" message="Failed to compile unit tests" />
+
+        <copy todir="${build}" preservelastmodified="true">
+            <fileset dir="${lib}">
+                <exclude name="**/*.jar" />
+                <exclude name="**/*.java" />
+            </fileset>
+        </copy>
+
+    </target>
+
+    <!-- ===================== -->
+    <!--  runs the unit tests  -->
+    <!-- ===================== -->
+
+    <target name="test" depends="compile,compile-test" description="runs junit tests">
+        <junit printsummary="yes" haltonfailure="no" showoutput="no">
+            <classpath>
+                <pathelement path="${build}"/>
+                <fileset dir="${test-utils}">
+                    <include name="**/*.jar"/>
+                </fileset>
+            </classpath>
+
+            <batchtest fork="yes" todir="${test-output}">
+                <formatter type="xml"/>
+                <fileset dir="${test}">
+                    <include name="**/*Test*.java"/>
+                </fileset>
+            </batchtest>
+        </junit>
+    </target>
 
 	<!-- ========================================== -->
 	<!--  generate a zipped TAR of the source code  -->
