@@ -136,7 +136,7 @@ public class SkateParkRequest
 
 	private static int dataBuff( final Object[] data )
 	{
-		return ( data == null ) ? -1 : ((Integer) data[3]).intValue();
+		return ( data == null ) ? -1 : (Integer) data[3];
 	}
 
 	private static String dataSetting( final Object[] data )

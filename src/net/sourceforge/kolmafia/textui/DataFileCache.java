@@ -171,7 +171,7 @@ public class DataFileCache
 
 		Long cacheModifiedTime = (Long) dataFileTimestampCache.get( filename );
 
-		if ( cacheModifiedTime != null && cacheModifiedTime.longValue() == modifiedTime )
+		if ( cacheModifiedTime != null && cacheModifiedTime == modifiedTime )
 		{
 			return (byte[]) dataFileDataCache.get( filename );
 		}
@@ -261,7 +261,7 @@ public class DataFileCache
 			DataFileCache.dataFileDataCache.remove( filename );
 		}
 	
-		DataFileCache.dataFileTimestampCache.put( filename, new Long( modifiedTime ) );
+		DataFileCache.dataFileTimestampCache.put( filename, modifiedTime );
 		DataFileCache.dataFileDataCache.put( filename, data );
 	}
 }

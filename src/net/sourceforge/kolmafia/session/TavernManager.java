@@ -455,7 +455,7 @@ public class TavernManager
 		Integer searchIndex = (Integer) searchList.remove( 0 );
 
 		// That's the square we will visit.
-		return searchIndex.intValue();
+		return searchIndex;
 	}
 
 	public static void handleTavernChange( String responseText )

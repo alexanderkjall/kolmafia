@@ -202,11 +202,11 @@ public class ProfileSnapshot
 				break;
 
 			case LEVEL_FILTER:
-				compareValue = request.getPlayerLevel().intValue() - StringUtilities.parseInt( filter );
+				compareValue = request.getPlayerLevel() - StringUtilities.parseInt( filter );
 				break;
 
 			case PVP_FILTER:
-				compareValue = request.getPvpRank().intValue() - StringUtilities.parseInt( filter );
+				compareValue = request.getPvpRank() - StringUtilities.parseInt( filter );
 				break;
 
 			case CLASS_FILTER:
@@ -214,7 +214,7 @@ public class ProfileSnapshot
 				break;
 
 			case KARMA_FILTER:
-				compareValue = request.getKarma().intValue() - StringUtilities.parseInt( filter );
+				compareValue = request.getKarma() - StringUtilities.parseInt( filter );
 				break;
 
 			case LOGIN_FILTER:
@@ -411,7 +411,7 @@ public class ProfileSnapshot
 		strbuf.append( memberLookup.getPlayerLevel() );
 
 		strbuf.append( "</td><td align=center>" );
-		strbuf.append( KoLConstants.COMMA_FORMAT.format( memberLookup.getCurrentRun() == null ? 0 : memberLookup.getCurrentRun().intValue() ) );
+		strbuf.append( KoLConstants.COMMA_FORMAT.format( memberLookup.getCurrentRun() == null ? 0 : memberLookup.getCurrentRun() ) );
 
 		AscensionHistoryRequest request =
 			AscensionHistoryRequest.getInstance(
@@ -616,7 +616,7 @@ public class ProfileSnapshot
 		strbuf.append( memberLookup.getTurnsPlayed() == null ? "0" : KoLConstants.COMMA_FORMAT.format( memberLookup.getTurnsPlayed().intValue() ) );
 
 		strbuf.append( "</td><td align=center>" );
-		strbuf.append( KoLConstants.COMMA_FORMAT.format( memberLookup.getAscensionCount() == null ? 0 : memberLookup.getAscensionCount().intValue() ) );
+		strbuf.append( KoLConstants.COMMA_FORMAT.format( memberLookup.getAscensionCount() == null ? 0 : memberLookup.getAscensionCount() ) );
 
 		strbuf.append( "</td></tr>" );
 		return strbuf.toString();

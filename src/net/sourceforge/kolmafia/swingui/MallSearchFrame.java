@@ -241,7 +241,7 @@ public class MallSearchFrame
 			if ( this.limitPurchasesCheckBox.isSelected() || defaultPurchases >= 1000 )
 			{
 				Integer value = InputFieldUtilities.getQuantity( "Maximum number of items to purchase?", defaultPurchases, 1 );
-				count = ( value == null ) ? 0 : value.intValue();
+				count = ( value == null ) ? 0 : value;
 			}
 
 			if ( count == 0 )

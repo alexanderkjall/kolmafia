@@ -146,7 +146,7 @@ public class SushiRequest
 		for ( int i = 0; i < BASE_SUSHI.length; ++i )
 		{
 			Object [] sushi = BASE_SUSHI[i];
-			if ( ((Integer)sushi[0]).intValue() == id )
+			if ( (Integer) sushi[0] == id )
 			{
 				return (String)sushi[1];
 			}
@@ -163,7 +163,7 @@ public class SushiRequest
 			Object [] sushi = BASE_SUSHI[i];
 			if ( name.equals( (String)sushi[1] ) )
 			{
-				return ((Integer)sushi[0]).intValue();
+				return (Integer) sushi[0];
 			}
 		}
 
@@ -207,7 +207,7 @@ public class SushiRequest
 		for ( int i = 0; i < TOPPING.length; ++i )
 		{
 			Object [] sushi = TOPPING[i];
-			if ( topping == ((Integer)sushi[1]).intValue() )
+			if ( topping == (Integer) sushi[1] )
 			{
 				return (String)sushi[0] + " " + baseName;
 			}
@@ -223,7 +223,7 @@ public class SushiRequest
 			Object [] sushi = TOPPING[i];
 			if ( name.startsWith( (String)sushi[0] ) )
 			{
-				return ((Integer)sushi[1]).intValue();
+				return (Integer) sushi[1];
 			}
 		}
 
@@ -266,7 +266,7 @@ public class SushiRequest
 		{
 			Object [] sushi = FILLING1[i];
 			if ( baseName.equals( sushi[1] ) &&
-			     filling1 == ((Integer)sushi[2]).intValue() )
+			     filling1 == (Integer) sushi[2] )
 			{
 				return (String)sushi[0];
 			}
@@ -282,7 +282,7 @@ public class SushiRequest
 			Object [] sushi = FILLING1[i];
 			if ( name.indexOf( (String)sushi[0] ) != -1 )
 			{
-				return ((Integer)sushi[2]).intValue();
+				return (Integer) sushi[2];
 			}
 		}
 

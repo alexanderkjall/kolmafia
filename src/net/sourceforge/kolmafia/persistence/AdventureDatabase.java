@@ -874,7 +874,7 @@ public class AdventureDatabase
 
 	private static int fistcoreDataLocation( final Object[] data )
 	{
-		return ( data == null ) ? -1 : ((Integer) data[1] ).intValue();
+		return ( data == null ) ? -1 : (Integer) data[1];
 	}
 
 	private static String fistcoreDataSetting( final Object[] data )

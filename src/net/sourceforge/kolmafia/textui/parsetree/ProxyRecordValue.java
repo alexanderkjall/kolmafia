@@ -117,12 +117,12 @@ public class ProxyRecordValue
 
 		if ( rv instanceof Integer )
 		{
-			return DataTypes.makeIntValue( ((Integer) rv).intValue() );
+			return DataTypes.makeIntValue( (Integer) rv );
 		}
 
 		if ( rv instanceof Float )
 		{
-			return DataTypes.makeFloatValue( ((Float) rv).floatValue() );
+			return DataTypes.makeFloatValue( (Float) rv );
 		}
 
 		if ( rv instanceof String )
@@ -132,7 +132,7 @@ public class ProxyRecordValue
 
 		if ( rv instanceof Boolean )
 		{
-			return DataTypes.makeBooleanValue( ((Boolean) rv).booleanValue() );
+			return DataTypes.makeBooleanValue( (Boolean) rv );
 		}
 
 		if ( rv instanceof CoinmasterData )

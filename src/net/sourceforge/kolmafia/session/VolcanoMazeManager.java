@@ -298,7 +298,7 @@ public abstract class VolcanoMazeManager
 		RequestLogger.printLine( "Map #" + seq + " has " + pcount + " platforms" );
 		for ( int i = 0; i < pcount; ++i )
 		{
-			int square = platforms[ i ].intValue();
+			int square = platforms[i];
 			int old = VolcanoMazeManager.squares[ square];
 			if ( old == 0 )
 			{
@@ -698,7 +698,7 @@ public abstract class VolcanoMazeManager
 		while ( it.hasNext() )
 		{
 			Integer next = (Integer) it.next();
-			int sq = next.intValue();
+			int sq = next;
 
 			// Quit when we are about to move to the goal
 			if ( sq == VolcanoMazeManager.goal )
@@ -737,7 +737,7 @@ public abstract class VolcanoMazeManager
 		while ( it.hasNext() )
 		{
 			Integer next = (Integer) it.next();
-			int pos = next.intValue();
+			int pos = next;
 			RequestLogger.printLine( "Hop to " + VolcanoMazeManager.coordinateString( pos ) );
 		}
 	}
@@ -824,7 +824,7 @@ public abstract class VolcanoMazeManager
 			Integer square = starts[ i ];
 			queue.addLast( new Path( square ) );
 			// We (will) have visited each root
-			visited[ square.intValue() ] = true;
+			visited[square] = true;
 		}
 
 		// Perform a breadth-first search of the maze
@@ -835,7 +835,7 @@ public abstract class VolcanoMazeManager
 			// System.out.println( "Examining path: " + path );
 			
 			Integer last = path.getLast();
-			Neighbors neighbors = VolcanoMazeManager.neighbors[ last.intValue() ];
+			Neighbors neighbors = VolcanoMazeManager.neighbors[last];
 			Integer [] platforms = neighbors.getPlatforms();
 
 			// Examine each neighbor
@@ -843,14 +843,14 @@ public abstract class VolcanoMazeManager
 			{
 				Integer platform = platforms[ i ];
 				// If this is a goal, we have the solution
-				if ( platform.intValue() == VolcanoMazeManager.goal )
+				if ( platform == VolcanoMazeManager.goal )
 				{
 					++VolcanoMazeManager.pathsMade;
 					return new Path( path, platform );
 				}
 
 				// If neighbor not yet seen, add and search it
-				int square = platform.intValue();
+				int square = platform;
 				if ( !visited[ square ] )
 				{
 					++VolcanoMazeManager.pathsMade;
@@ -912,7 +912,7 @@ public abstract class VolcanoMazeManager
 				}
 				Integer ival = new Integer( coord );
 				list.add( ival );
-				this.board[ ival.intValue() ] = true;
+				this.board[ival] = true;
 			}
 			this.platforms = (Integer []) list.toArray( new Integer[ list.size() ] );
 
@@ -964,7 +964,7 @@ public abstract class VolcanoMazeManager
 			// If there is only one neighbor, that's it
 			if ( platforms.length == 1 )
 			{
-				int next = platforms[ 0 ].intValue();
+				int next = platforms[0];
 				// Don't pick the goal!
 				return ( next != VolcanoMazeManager.goal ) ? next : -1;
 			}
@@ -974,7 +974,7 @@ public abstract class VolcanoMazeManager
 			while ( next == VolcanoMazeManager.goal )
 			{
 				int rnd = KoLConstants.RNG.nextInt( platforms.length );
-				next = platforms[ rnd ].intValue();
+				next = platforms[rnd];
 			}
 			return next;
 		}
@@ -1106,7 +1106,7 @@ public abstract class VolcanoMazeManager
 				int square = pos( row, col );
 				if ( map == null || map.inMap( square ) )
 				{
-					list.add( new Integer( square ) );
+					list.add( square );
 				}
 			}
 		}

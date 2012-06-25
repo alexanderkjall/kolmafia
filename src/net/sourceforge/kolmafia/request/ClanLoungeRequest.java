@@ -207,17 +207,17 @@ public class ClanLoungeRequest
 			String stance = (String) game[0];
 			if ( stance.startsWith( tag ) )
 			{
-				return index.intValue();
+				return index;
 			}
 			String stat = (String) game[1];
 			if ( stat.startsWith( tag ) )
 			{
-				return index.intValue();
+				return index;
 			}
 			String effect = (String) game[2];
 			if ( effect.startsWith( tag ) )
 			{
-				return index.intValue();
+				return index;
 			}
 		}
 
@@ -234,12 +234,12 @@ public class ClanLoungeRequest
 			String faxCommand0 = (String) faxOption[0];
 			if ( faxCommand0.startsWith( tag ) )
 			{
-				return index.intValue();
+				return index;
 			}
 			String faxCommand1 = (String) faxOption[1];
 			if ( faxCommand1.startsWith( tag ) )
 			{
-				return index.intValue();
+				return index;
 			}
 		}
 
@@ -256,12 +256,12 @@ public class ClanLoungeRequest
 			String temp = (String) showerOption[0];
 			if ( temp.startsWith( tag ) )
 			{
-				return index.intValue();
+				return index;
 			}
 			String effect = (String) showerOption[1];
 			if ( effect.startsWith( tag ) )
 			{
-				return index.intValue();
+				return index;
 			}
 		}
 
@@ -278,12 +278,12 @@ public class ClanLoungeRequest
 			String action = (String) swimmingOption[0];
 			if ( action.startsWith( tag ) )
 			{
-				return index.intValue();
+				return index;
 			}
 			String effect = (String) swimmingOption[1];
 			if ( effect.startsWith( tag ) )
 			{
-				return index.intValue();
+				return index;
 			}
 		}
 

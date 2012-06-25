@@ -96,7 +96,7 @@ public class EffectDatabase
 			if ( data.length >= 3 )
 			{
 				Integer effectId = Integer.valueOf( data[ 0 ] );
-				if ( effectId.intValue() < 0 )
+				if ( effectId < 0 )
 				{
 					continue;
 				}
@@ -227,13 +227,13 @@ public class EffectDatabase
 	public static final String getEffectName( final String descriptionId )
 	{
 		Object effectId = EffectDatabase.effectByDescription.get( descriptionId );
-		return effectId == null ? null : EffectDatabase.getEffectName( ( (Integer) effectId ).intValue() );
+		return effectId == null ? null : EffectDatabase.getEffectName( (Integer) effectId );
 	}
 
 	public static final int getEffect( final String descriptionId )
 	{
 		Object effectId = EffectDatabase.effectByDescription.get( descriptionId );
-		return effectId == null ? -1 : ( (Integer) effectId ).intValue();
+		return effectId == null ? -1 : (Integer) effectId;
 	}
 
 	public static final String getDescriptionId( final int effectId )
@@ -258,7 +258,7 @@ public class EffectDatabase
 		Object effectId = EffectDatabase.effectByName.get( StringUtilities.getCanonicalName( effectName ) );
 		if ( effectId != null )
 		{
-			return ( (Integer) effectId ).intValue();
+			return (Integer) effectId;
 		}
 
 		List names = EffectDatabase.getMatchingNames( effectName );
@@ -400,7 +400,7 @@ public class EffectDatabase
 		{
 			Entry entry = (Entry) it.next();
 			Integer nextInteger = (Integer) entry.getKey();
-			int effectId = nextInteger.intValue();
+			int effectId = nextInteger;
 
                         // Skip pseudo effects
                         if ( effectId < 1 )
@@ -408,7 +408,7 @@ public class EffectDatabase
                                 continue;
                         }
 
-			for ( int i = lastInteger; i < nextInteger.intValue(); ++i )
+			for ( int i = lastInteger; i < nextInteger; ++i )
 			{
 				writer.println( i );
 			}

@@ -1340,7 +1340,7 @@ public class CoinmastersFrame
 				return defaultComponent;
 			}
 
-			int price = iprice.intValue();
+			int price = iprice;
 			boolean show = CoinmastersDatabase.availableItem( canonicalName );
 
 			if ( show && this.usesTokens )

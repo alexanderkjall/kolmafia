@@ -1180,7 +1180,7 @@ public class AdventureResult
 		for ( int i = 0; i < RequestEditorKit.PUNCHCARDS.length; ++i )
 		{
 			Object [] punchcard = RequestEditorKit.PUNCHCARDS[i];
-			if ( ( (Integer) punchcard[0]).intValue() == itemId )
+			if ( (Integer) punchcard[0] == itemId )
 			{
 				return (String) punchcard[2];
 			}

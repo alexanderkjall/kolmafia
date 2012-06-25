@@ -122,7 +122,7 @@ public class MonsterData
 		}
 		if ( this.health instanceof Integer )
 		{
-			int hp = ((Integer) this.health).intValue();
+			int hp = (Integer) this.health;
 			return hp == 0 ? 0 : (int) Math.floor( Math.max( 1, hp + ML() ) * getBeeosity() );
 		}
 		if ( this.health instanceof String )
@@ -140,7 +140,7 @@ public class MonsterData
 		}
 		if ( this.attack instanceof Integer )
 		{
-			int attack = ((Integer) this.attack).intValue();
+			int attack = (Integer) this.attack;
 			return attack == 0 ? 0 : (int) Math.floor( Math.max( 1, attack + ML() ) * getBeeosity() );
 		}
 		if ( this.attack instanceof String )
@@ -158,7 +158,7 @@ public class MonsterData
 		}
 		if ( this.defense instanceof Integer )
 		{
-			int defense = ((Integer) this.defense).intValue();
+			int defense = (Integer) this.defense;
 			return defense == 0 ? 0 :
 				(int) Math.floor( Math.max( 1, (int) Math.ceil( 0.9 * ( defense + ML() ) ) ) * getBeeosity() );
 		}
@@ -177,7 +177,7 @@ public class MonsterData
 		}
 		if ( this.initiative instanceof Integer )
 		{
-			return ((Integer) this.initiative).intValue();
+			return (Integer) this.initiative;
 		}
 		if ( this.initiative instanceof String )
 		{
@@ -386,7 +386,7 @@ public class MonsterData
 				probability += coefficients[ j ] / ( j + 1 );
 			}
 
-			this.pocketRates.add( new Float( probability ) );
+			this.pocketRates.add( probability );
 		}
 	}
 
@@ -398,7 +398,7 @@ public class MonsterData
 		}
 		if ( this.experience instanceof Integer )
 		{
-			return ((Integer) this.experience).intValue() / 2.0f;
+			return (Integer) this.experience / 2.0f;
 		}
 		if ( this.experience instanceof String )
 		{

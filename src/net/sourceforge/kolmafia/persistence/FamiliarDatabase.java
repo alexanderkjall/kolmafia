@@ -151,11 +151,11 @@ public class FamiliarDatabase
 				FamiliarDatabase.familiarByItem.put( StringUtilities.getCanonicalName( data[ 5 ] ), familiarId );
 
 
-				FamiliarDatabase.combatById.set( familiarId.intValue(), familiarType.indexOf( "combat" ) != -1 );
-				FamiliarDatabase.volleyById.set( familiarId.intValue(), familiarType.indexOf( "stat0" ) != -1 );
-				FamiliarDatabase.sombreroById.set( familiarId.intValue(), familiarType.indexOf( "stat1" ) != -1 );
-				FamiliarDatabase.fairyById.set( familiarId.intValue(), familiarType.indexOf( "item0" ) != -1 );
-				FamiliarDatabase.meatDropById.set( familiarId.intValue(), familiarType.indexOf( "meat0" ) != -1 );
+				FamiliarDatabase.combatById.set( familiarId, familiarType.indexOf( "combat" ) != -1 );
+				FamiliarDatabase.volleyById.set( familiarId, familiarType.indexOf( "stat0" ) != -1 );
+				FamiliarDatabase.sombreroById.set( familiarId, familiarType.indexOf( "stat1" ) != -1 );
+				FamiliarDatabase.fairyById.set( familiarId, familiarType.indexOf( "item0" ) != -1 );
+				FamiliarDatabase.meatDropById.set( familiarId, familiarType.indexOf( "meat0" ) != -1 );
 
 				String canonical = StringUtilities.getCanonicalName( data[ 1 ] );
 				for ( int i = 0; i < 4; ++i )
@@ -270,7 +270,7 @@ public class FamiliarDatabase
 	public static final FamiliarData growFamiliarLarva( final int larvaId )
 	{
 		Object familiarId = FamiliarDatabase.familiarByLarva.get( IntegerPool.get( larvaId ) );
-		return familiarId == null ? null : new FamiliarData( ( (Integer) familiarId ).intValue() );
+		return familiarId == null ? null : new FamiliarData( (Integer) familiarId );
 	}
 
 	/**
@@ -286,7 +286,7 @@ public class FamiliarDatabase
 		Object familiarId = FamiliarDatabase.familiarByName.get( searchString );
 		if ( familiarId != null )
 		{
-			return ( (Integer) familiarId ).intValue();
+			return (Integer) familiarId;
 		}
 
 		String[] familiarNames = new String[ FamiliarDatabase.familiarByName.size() ];
@@ -297,7 +297,7 @@ public class FamiliarDatabase
 			if ( familiarNames[ i ].indexOf( searchString ) != -1 )
 			{
 				familiarId = FamiliarDatabase.familiarByName.get( familiarNames[ i ] );
-				return familiarId == null ? -1 : ( (Integer) familiarId ).intValue();
+				return familiarId == null ? -1 : (Integer) familiarId;
 			}
 		}
 
@@ -353,7 +353,7 @@ public class FamiliarDatabase
 	public static final int getFamiliarByItem( final String item )
 	{
 		Object familiarId = FamiliarDatabase.familiarByItem.get( StringUtilities.getCanonicalName( item ) );
-		return familiarId == null ? -1 : ( (Integer) familiarId ).intValue();
+		return familiarId == null ? -1 : (Integer) familiarId;
 	}
 
 	public static final int getFamiliarLarva( final int familiarId )
@@ -364,7 +364,7 @@ public class FamiliarDatabase
 	public static final int getFamiliarLarva( final Integer familiarId )
 	{
 		Integer id = (Integer) FamiliarDatabase.familiarLarvaById.get( familiarId );
-		return id == null ? 0 : id.intValue();
+		return id == null ? 0 : id;
 	}
 
 	public static final String getFamiliarType( final int familiarId )
@@ -422,7 +422,7 @@ public class FamiliarDatabase
 	public static final int getFamiliarByImageLocation( final String image )
 	{
 		Object familiarId = FamiliarDatabase.familiarByImage.get( image );
-		return familiarId == null ? -1 : ( (Integer) familiarId ).intValue();
+		return familiarId == null ? -1 : (Integer) familiarId;
 	}
 
 	private static final ImageIcon getFamiliarIcon( final String location )
@@ -485,7 +485,7 @@ public class FamiliarDatabase
 		int skills[] = new int[ 4 ];
 		for ( int i = 0; i < 4; ++i )
 		{
-			skills[ i ] = ( (Integer) FamiliarDatabase.eventSkillByName[ i ].get( name ) ).intValue();
+			skills[ i ] = (Integer) FamiliarDatabase.eventSkillByName[i].get( name );
 		}
 		return skills;
 	}
@@ -537,7 +537,7 @@ public class FamiliarDatabase
 		for ( int i = 0; i < familiarIds.length; ++i )
 		{
 			Integer nextInteger = familiarIds[ i ];
-			int familiarId = nextInteger.intValue();
+			int familiarId = nextInteger;
 
 			for ( int j = lastInteger; j < familiarId; ++j )
 			{

@@ -460,7 +460,7 @@ public class UneffectRequest
 				continue;
 			}
 
-			int itemId = ( (Integer) removable.getKey() ).intValue();
+			int itemId = (Integer) removable.getKey();
 			String itemName = ItemDatabase.getItemName( itemId );
 
 			if ( InventoryManager.hasItem( itemId ) ||

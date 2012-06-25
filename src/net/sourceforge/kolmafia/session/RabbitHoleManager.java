@@ -1235,7 +1235,7 @@ public abstract class RabbitHoleManager
 				       Square.coords( square ) );
 		for ( int i = 0; i < path.length - 1; ++i )
 		{
-			int next  = path[ i ].intValue();
+			int next  = path[i];
 			Square nextPiece  = board.get( next );
 			RequestLogger.printLine( "...takes the " +
 						 nextPiece.getTitle() +
@@ -1249,7 +1249,7 @@ public abstract class RabbitHoleManager
 			square = next;
 			piece = nextPiece;
 		}
-		int next = path[ path.length - 1 ].intValue();
+		int next = path[path.length - 1];
 		RequestLogger.printLine( "...which moves to square " +
 					 Square.coords( next ) +
 					 " to win. (" +
@@ -1284,7 +1284,7 @@ public abstract class RabbitHoleManager
 		for ( int i = 0; i < path.length; ++i )
 		{
 			RelayRequest.specialCommandStatus = "Move " + i + " of " + path.length;
-			int square = path[ i ].intValue();
+			int square = path[i];
 			int row = square / 8;
 			int col = square % 8;
 			String url = "choice.php?pwd&whichchoice=443&option=1&xy=" + String.valueOf( col ) + "," + String.valueOf( row );
@@ -1338,7 +1338,7 @@ public abstract class RabbitHoleManager
 
 		for ( int i = 0; i < moves.length; ++i )
 		{
-			int square = moves[ i ].intValue();
+			int square = moves[i];
 
 			// If there is no piece on the square, skip
 			if ( !board.get( square ).isPiece() )
@@ -1461,7 +1461,7 @@ public abstract class RabbitHoleManager
 		for ( int i = hat_data.length - 1; i >= 0; --i )
 		{
 			Object [] data = hat_data[i];
-			if ( ((Integer) data[ 0 ]).intValue() == length )
+			if ( (Integer) data[0] == length )
 			{
 				return data;
 			}
@@ -1600,7 +1600,7 @@ public abstract class RabbitHoleManager
 		while ( it.hasNext() )
 		{
 			Integer key = (Integer) it.next();
-			Object [] data = RabbitHoleManager.getHatData( key.intValue() );
+			Object [] data = RabbitHoleManager.getHatData( key );
 			if ( data == null )
 			{
 				continue;
@@ -1666,7 +1666,7 @@ public abstract class RabbitHoleManager
 
 		for ( int i=0; i <= allHatLen ; ++i )
 		{
-			if ( ( (Integer) HAT_DATA[i][0] ).intValue() == len )
+			if ( (Integer) HAT_DATA[i][0] == len )
 			{
 				effectName = (String) HAT_DATA[i][1];
 				effectModifiers = (String) HAT_DATA[i][2];

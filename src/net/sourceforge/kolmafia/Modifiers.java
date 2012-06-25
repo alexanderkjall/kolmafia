@@ -1946,7 +1946,7 @@ public class Modifiers
 		while ( i.hasNext() )
 		{
 			String name = (String) i.next();
-			int mask = ((Integer) i.next()).intValue();
+			int mask = (Integer) i.next();
 			if ( (synergetic & mask) == mask )
 			{
 				this.add( Modifiers.getModifiers( name ) );
@@ -2684,7 +2684,7 @@ public class Modifiers
 			Entry entry = (Entry) it.next();
 			Integer key = (Integer) entry.getKey();
 			String name = (String) entry.getValue();
-			int type = ItemDatabase.getConsumptionType( key.intValue() );
+			int type = ItemDatabase.getConsumptionType( key );
 
 			switch ( type )
 			{
@@ -2800,7 +2800,7 @@ public class Modifiers
 			Entry entry = (Entry) it.next();
 			Integer key = (Integer) entry.getKey();
 			String name = (String) entry.getValue();
-			if ( SkillDatabase.getSkillType( key.intValue() ) == SkillDatabase.PASSIVE )
+			if ( SkillDatabase.getSkillType( key ) == SkillDatabase.PASSIVE )
 			{
 				passives.put( name, null );
 			}
@@ -2871,7 +2871,7 @@ public class Modifiers
 		while ( it.hasNext() )
 		{
 			String name = (String) it.next();
-			int mask = ((Integer) it.next()).intValue();
+			int mask = (Integer) it.next();
 			synergies.put( name, null );
 		}
 

@@ -316,7 +316,7 @@ public class EquipmentDatabase
 			Entry entry = (Entry) it.next();
 			Integer key = (Integer) entry.getKey();
 			String name = (String) entry.getValue();
-			int type = ItemDatabase.getConsumptionType( key.intValue() );
+			int type = ItemDatabase.getConsumptionType( key );
 
 			switch ( type )
 			{
@@ -378,7 +378,7 @@ public class EquipmentDatabase
 		{
 			String name = (String) keys[ i ];
 			Integer val = (Integer) map.get( name );
-			int itemId = val.intValue();
+			int itemId = val;
 			int power = EquipmentDatabase.getPower( itemId );
 			String req = EquipmentDatabase.getEquipRequirement( itemId );
 			int usage = ItemDatabase.getConsumptionType( itemId );
@@ -505,7 +505,7 @@ public class EquipmentDatabase
 		}
 
 		Integer result = (Integer) EquipmentDatabase.outfitPieces.get( StringUtilities.getCanonicalName( itemName ) );
-		return result == null ? -1 : result.intValue();
+		return result == null ? -1 : result;
 	}
 
 	public static final int getOutfitCount()

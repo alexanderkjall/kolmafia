@@ -500,6 +500,6 @@ public class PyramidRequest
 
 	private static final void setPyramidWheelPlaced( boolean wheelPlaced )
 	{
-		PyramidRequest.pyramidWheelPlaced = Boolean.valueOf( wheelPlaced );
+		PyramidRequest.pyramidWheelPlaced = wheelPlaced;
 	}
 }

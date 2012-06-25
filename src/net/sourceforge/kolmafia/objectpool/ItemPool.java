@@ -1685,11 +1685,11 @@ public class ItemPool
 		{
 			possible.remove( --count );
 		}
-		items.add( String.valueOf( ((Integer) possible.get( 0 )).intValue()
+		items.add( String.valueOf( (Integer) possible.get( 0 )
 			& 0x00FFFFFF ) );
 		if ( count > 1 )
 		{
-			items.add( String.valueOf( ((Integer) possible.get( 1 )).intValue()
+			items.add( String.valueOf( (Integer) possible.get( 1 )
 				& 0x00FFFFFF ) );
 		}
 	}

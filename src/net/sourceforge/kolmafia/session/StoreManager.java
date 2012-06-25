@@ -496,7 +496,7 @@ public abstract class StoreManager
 			}
 			else
 			{
-				prices.put( currentPrice, IntegerPool.get( currentQuantity.intValue() + resultsArray[ i ].getLimit() ) );
+				prices.put( currentPrice, IntegerPool.get( currentQuantity + resultsArray[ i ].getLimit() ) );
 			}
 		}
 

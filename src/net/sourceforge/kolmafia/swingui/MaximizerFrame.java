@@ -2064,7 +2064,7 @@ public class MaximizerFrame
 			while ( syn.hasNext() )
 			{
 				Modifiers mods = Modifiers.getModifiers( (String) syn.next() );
-				int value = ((Integer) syn.next()).intValue();
+				int value = (Integer) syn.next();
 				if ( mods == null )	continue;
 				float delta = this.getScore( mods ) - nullScore;
 				if ( delta > 0.0f ) usefulSynergies |= value;

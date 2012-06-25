@@ -395,7 +395,7 @@ public class ItemDatabase
 			}
 			else
 			{
-				ItemDatabase.useTypeById.set( itemId, useType.intValue() );
+				ItemDatabase.useTypeById.set( itemId, useType );
 			}
 			for ( int i = 1; i < usages.length; ++i )
 			{
@@ -407,7 +407,7 @@ public class ItemDatabase
 				}
 				else
 				{
-					attrs |= useType.intValue();
+					attrs |= useType;
 				}
 			}
 			
@@ -454,7 +454,7 @@ public class ItemDatabase
 		while ( it.hasNext() )
 		{
 			Integer nextInteger = it.next();
-			int itemId = nextInteger.intValue();
+			int itemId = nextInteger;
 
 			// Skip pseudo items
 			if ( itemId == 13 )
@@ -540,7 +540,7 @@ public class ItemDatabase
 		{
 			Entry entry = (Entry) it.next();
 			Integer nextInteger = (Integer) entry.getKey();
-			int itemId = nextInteger.intValue();
+			int itemId = nextInteger;
 
 			// Skip pseudo items
 			if ( itemId == 13 || itemId < 1 )
@@ -854,9 +854,9 @@ public class ItemDatabase
 		Concoction c = ConcoctionPool.get( name );
 		int advs = ( c == null ) ? 0 : c.getAdventuresNeeded( 1, true );
 
-		int unitCost = ItemDatabase.unitCostByName.get( name ).intValue();
-		int start = ItemDatabase.advStartByName.get( name ).intValue();
-		int end = ItemDatabase.advEndByName.get( name ).intValue();
+		int unitCost = ItemDatabase.unitCostByName.get( name );
+		int start = ItemDatabase.advStartByName.get( name );
+		int end = ItemDatabase.advEndByName.get( name );
 
 		// Adventure gain modifier #1 is ode or milk, which adds
 		// unitCost adventures to the result.
@@ -927,8 +927,8 @@ public class ItemDatabase
 	private static final void addAdventureRange( final String name, int unitCost, final boolean gainEffect1, final boolean gainEffect2, final boolean gainEffect3, final boolean gainEffect4, final float result )
 	{
 		// Remove adventure gains from zodiac signs
-		ItemDatabase.getAdventureMap( false, gainEffect1, gainEffect2, gainEffect3, gainEffect4 ).put( name, new Float( result ) );
-		ItemDatabase.getAdventureMap( true, gainEffect1, gainEffect2, gainEffect3, gainEffect4 ).put( name, new Float( result / ( unitCost == 0 ? 1 : unitCost ) ) );
+		ItemDatabase.getAdventureMap( false, gainEffect1, gainEffect2, gainEffect3, gainEffect4 ).put( name, result );
+		ItemDatabase.getAdventureMap( true, gainEffect1, gainEffect2, gainEffect3, gainEffect4 ).put( name, result / (unitCost == 0 ? 1 : unitCost) );
 	}
 
 	private static final Map<String, Float> getAdventureMap( final boolean perUnit,
@@ -1208,7 +1208,7 @@ public class ItemDatabase
 	private static void parseItemDescription( final Integer id, final String itemName, int power )
 	{
 		String descId = ItemDatabase.getDescriptionId( id );
-		int itemId = id.intValue();
+		int itemId = id;
 
 		String rawText = DebugDatabase.rawItemDescriptionText( itemId );
 		String text = DebugDatabase.itemDescriptionText( rawText );
@@ -1351,7 +1351,7 @@ public class ItemDatabase
 			return -1;
 		}
 
-		return ( (Integer) itemId ).intValue();
+		return (Integer) itemId;
 	}
 
 	public static String getCanonicalName( final int itemId )
@@ -1686,7 +1686,7 @@ public class ItemDatabase
 		}
 
 		Integer requirement = ItemDatabase.levelReqByName.get( StringUtilities.getCanonicalName( name ) );
-		return requirement == null ? true : KoLCharacter.getLevel() >= requirement.intValue();
+		return requirement == null ? true : KoLCharacter.getLevel() >= requirement;
 	}
 
 	public static final Integer getRawFullness( final String name )
@@ -1701,7 +1701,7 @@ public class ItemDatabase
 	public static final int getFullness( final String name )
 	{
 		Integer fullness = ItemDatabase.getRawFullness( name );
-		return fullness == null ? 0 : fullness.intValue();
+		return fullness == null ? 0 : fullness;
 	}
 
 	public static final Integer getRawInebriety( final String name )
@@ -1716,7 +1716,7 @@ public class ItemDatabase
 	public static final int getInebriety( final String name )
 	{
 		Integer inebriety = ItemDatabase.getRawInebriety( name );
-		return inebriety == null ? 0 : inebriety.intValue();
+		return inebriety == null ? 0 : inebriety;
 	}
 
 	public static final Integer getRawSpleenHit( final String name )
@@ -1731,7 +1731,7 @@ public class ItemDatabase
 	public static final int getSpleenHit( final String name )
 	{
 		Integer spleenhit = ItemDatabase.getRawSpleenHit( name );
-		return spleenhit == null ? 0 : spleenhit.intValue();
+		return spleenhit == null ? 0 : spleenhit;
 	}
 
 	public static final String getQuality( final String name )
@@ -1805,7 +1805,7 @@ public class ItemDatabase
 			return 0.0f;
 		}
 
-		return range.floatValue();
+		return range;
 	}
 
 	public static final String getMuscleByName( final String name )
@@ -1927,7 +1927,7 @@ public class ItemDatabase
 			Entry entry = (Entry) it.next();
 			Integer bit = (Integer) entry.getKey();
 
-			if ( ( attrs & bit.intValue() ) != 0 )
+			if ( ( attrs & bit) != 0 )
 			{
 				result.append( ", " );
 				result.append( (String) entry.getValue() );
@@ -2045,7 +2045,7 @@ public class ItemDatabase
 	public static final String getItemName( final String descriptionId )
 	{
 		Integer itemId = ItemDatabase.itemIdByDescription.get( descriptionId );
-		return itemId == null ? null : ItemDatabase.getItemName( itemId.intValue() );
+		return itemId == null ? null : ItemDatabase.getItemName( itemId );
 	}
 
 	/**
@@ -2058,7 +2058,7 @@ public class ItemDatabase
 	public static final int getItemIdFromDescription( final String descriptionId )
 	{
 		Integer itemId = ItemDatabase.itemIdByDescription.get( descriptionId );
-		return itemId == null ? -1 : itemId.intValue();
+		return itemId == null ? -1 : itemId;
 	}
 
 	/**

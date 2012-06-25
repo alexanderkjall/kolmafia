@@ -2965,7 +2965,7 @@ public class DailyDeedsPanel
 						if ( ad != null && !ad.getName().equals( "(none)" ) &&
 								EquipmentManager.canEquip( ad ) )
 						{
-							if ( ( (Integer) hat_data[ i ][ 0 ] ).intValue() == RabbitHoleManager
+							if ( (Integer) hat_data[i][0] == RabbitHoleManager
 								.hatLength( ad.getName() ) )
 							{
 								HatterDaily.effectHats.add( ad.getName() );

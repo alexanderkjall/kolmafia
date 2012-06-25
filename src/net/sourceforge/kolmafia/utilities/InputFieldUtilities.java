@@ -340,7 +340,7 @@ public class InputFieldUtilities
 	{
 		if ( field.getValue() instanceof Integer )
 		{
-			return ( (Integer) field.getValue() ).intValue();
+			return (Integer) field.getValue();
 		}
 
 		return defaultValue;

@@ -135,7 +135,7 @@ public class KoLDatabase
 		{
 			if ( values.get( i ) != null )
 			{
-				total += ( (Integer) values.get( i ) ).intValue();
+				total += (Integer) values.get( i );
 			}
 		}
 

@@ -92,7 +92,7 @@ public class TrendyRequest
 	{
 		TrendyRequest.initialize();
 		Boolean value = (Boolean)map.get( key.toLowerCase() );
-		return value == null || value.booleanValue();
+		return value == null || value;
 	}
 
 	public static boolean isTrendy( final String type, final String key )
@@ -195,7 +195,7 @@ public class TrendyRequest
 			for ( int i = 0; i < splits.length; ++i )
 			{
 				String object = splits[ i ].trim().toLowerCase();
-				map.put( object, Boolean.valueOf( available ) );
+				map.put( object, available );
 			}
 		}
 

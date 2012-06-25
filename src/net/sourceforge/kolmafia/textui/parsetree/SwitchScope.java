@@ -138,7 +138,7 @@ public class SwitchScope
 			{
 				Value test = tests[testIndex];
 				Integer offset = offsets[testIndex];
-				if ( offset.intValue() != index )
+				if ( offset != index )
 				{
 					break;
 				}

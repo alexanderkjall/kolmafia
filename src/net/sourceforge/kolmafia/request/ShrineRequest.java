@@ -83,7 +83,7 @@ public class ShrineRequest
 
 	private static int dataId( final Object[] data )
 	{
-		return ( data == null ) ? 0 : ((Integer) data[0]).intValue();
+		return ( data == null ) ? 0 : (Integer) data[0];
 	}
 
 	private static String dataAction( final Object[] data )

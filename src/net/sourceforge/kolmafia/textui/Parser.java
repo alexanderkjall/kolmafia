@@ -372,7 +372,7 @@ public class Parser
 			}
 		}
 
-		this.imports.put( scriptFile, new Long( scriptFile.lastModified() ) );
+		this.imports.put( scriptFile, scriptFile.lastModified() );
 		this.mainMethod = null;
 
 		return result;

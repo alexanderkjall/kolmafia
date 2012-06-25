@@ -77,7 +77,7 @@ public class NamespaceInterpreter
 				Entry entry = (Entry) it.next();
 				File file = (File) entry.getKey();
 				Long date = (Long) entry.getValue();
-				shouldRefresh = date.longValue() != file.lastModified();
+				shouldRefresh = date != file.lastModified();
 			}
 		}
 

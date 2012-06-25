@@ -92,7 +92,7 @@ public class ClanRumpusRequest
 			if ( name.equals( flavor ) )
 			{
 				Integer index = (Integer) CHIP_FLAVORS[i][1];
-				return index.intValue();
+				return index;
 			}
 		}
 

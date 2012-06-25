@@ -213,7 +213,7 @@ public class Expression
 				break;
 
 			case '#':
-				v = ((Float) this.literals.get( (int) s[ --sp ] )).floatValue();
+				v = (Float) this.literals.get( (int) s[--sp] );
 				break;
 				
 			// Valid with ModifierExpression:
@@ -545,7 +545,7 @@ public class Expression
 			}
 			else
 			{
-				return this.literal( new Float( v ), '#' );
+				return this.literal( v, '#' );
 			}
 		}
 		if ( this.optional( "-" ) )

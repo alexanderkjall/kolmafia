@@ -548,7 +548,7 @@ public class ProfileRequest
 
 	public Integer getPlayerLevel()
 	{
-		if ( this.playerLevel == null || this.playerLevel.intValue() == 0 )
+		if ( this.playerLevel == null || this.playerLevel == 0 )
 		{
 			this.initialize();
 		}
@@ -612,7 +612,7 @@ public class ProfileRequest
 
 	public Integer getPvpRank()
 	{
-		if ( this.pvpRank == null || this.pvpRank.intValue() == 0 )
+		if ( this.pvpRank == null || this.pvpRank == 0 )
 		{
 			this.initialize();
 		}
@@ -641,7 +641,7 @@ public class ProfileRequest
 	public Integer getPower()
 	{
 		this.initialize();
-		return IntegerPool.get( this.muscle.intValue() + this.mysticism.intValue() + this.moxie.intValue() );
+		return IntegerPool.get( this.muscle + this.mysticism + this.moxie );
 	}
 
 	public Integer getEquipmentPower()
@@ -701,9 +701,9 @@ public class ProfileRequest
 
 		if ( this.getPvpRank().intValue() != pr.getPvpRank().intValue() )
 		{
-			return this.getPvpRank().intValue() - pr.getPvpRank().intValue();
+			return this.getPvpRank() - pr.getPvpRank();
 		}
 
-		return this.getPlayerLevel().intValue() - pr.getPlayerLevel().intValue();
+		return this.getPlayerLevel() - pr.getPlayerLevel();
 	}
 }

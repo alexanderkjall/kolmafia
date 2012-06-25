@@ -1219,7 +1219,7 @@ public class DwarfFactoryRequest
 
 		private void mapCharacter( final char c, final int i )
 		{
-			Character code = new Character( Character.toUpperCase( c ) );
+			Character code = Character.toUpperCase( c );
 			Integer val = IntegerPool.get( i );
 			this.mapCharacter( code, val );
 		}
@@ -1246,7 +1246,7 @@ public class DwarfFactoryRequest
 			for ( int i = 0; i < 7; ++i )
 			{
 				Character code = (Character)this.charMap.get( IntegerPool.get( i ) );
-				valueBuilder.append( code == null ? '-' : code.charValue() );
+				valueBuilder.append( code == null ? '-' : code );
 			}
 			return valueBuilder.toString();
 		}
@@ -1266,7 +1266,7 @@ public class DwarfFactoryRequest
 				{
 					return -1;
 				}
-				number = ( number * 7 ) + val.intValue();
+				number = ( number * 7 ) + val;
 			}
 			return number;
 		}
@@ -1278,7 +1278,7 @@ public class DwarfFactoryRequest
 
 		private void addNewDigit( final char ch )
 		{
-			Character digit = new Character( ch );
+			Character digit = ch;
 			if ( !this.digits.contains( digit ) )
 			{
 				this.digits.add( digit );
@@ -1547,7 +1547,7 @@ public class DwarfFactoryRequest
 			Character val = (Character) this.charMap.get( IntegerPool.get( index ) );
 			if ( val != null )
 			{
-				this.generatePermutations( prefix + val.charValue() );
+				this.generatePermutations( prefix + val );
 				return;
 			}
 
@@ -1556,7 +1556,7 @@ public class DwarfFactoryRequest
 				Character rune = (Character) this.digits.get( i );
 
 				// If we're already using this character, skip
-				char ch = rune.charValue();
+				char ch = rune;
 				if ( prefix.indexOf( ch ) != -1 )
 				{
 					continue;
@@ -1565,7 +1565,7 @@ public class DwarfFactoryRequest
 				// If we know this rune, only use it in the
 				// correct position.
 				Integer j = (Integer) this.digitMap.get( rune );
-				if ( j != null && j.intValue() != index )
+				if ( j != null && j != index )
 				{
 					continue;
 				}
@@ -2054,7 +2054,7 @@ public class DwarfFactoryRequest
 				String value = Preferences.getString( setting );
 				if ( value.length() == 1 )
 				{
-					Character rune = new Character( value.charAt( 0 ) );
+					Character rune = value.charAt( 0 );
 					Integer id = IntegerPool.get( itemId );
 					this.itemMap.put( rune, id );
 					this.runeMap.put( id, rune );
@@ -2182,13 +2182,13 @@ public class DwarfFactoryRequest
 		private int findItem( final char rune )
 		{
 			Integer val = (Integer) this.itemMap.get( new Character( rune ) );
-			return val == null ? -1 : val.intValue();
+			return val == null ? -1 : val;
 		}
 
 		private char findRune( final int itemId )
 		{
 			Character val = (Character) this.runeMap.get( IntegerPool.get( itemId ) );
-			return val == null ? 0 : val.charValue();
+			return val == null ? 0 : val;
 		}
 
 		private int findHopper( final char rune )

@@ -206,9 +206,9 @@ public class SkillDatabase
 		}
 
 		String category;
-		int categoryId = skillId.intValue() / 1000;
+		int categoryId = skillId / 1000;
 
-		switch ( skillId.intValue() )
+		switch ( skillId )
 		{
 		case 3:			// Smile of Mr. A
 		case SNOWCONE:		// Summon Snowcones
@@ -327,7 +327,7 @@ public class SkillDatabase
 	public static final int getSkillLevel( final int skillId )
 	{
 		Object level = SkillDatabase.levelById.get( IntegerPool.get( skillId ) );
-		return level == null ? -1 : ( (Integer) level ).intValue();
+		return level == null ? -1 : (Integer) level;
 	}
 
 	public static final int getSkillPurchaseCost( final int skillId )
@@ -420,7 +420,7 @@ public class SkillDatabase
 	public static final int getSkillType( final int skillId )
 	{
 		Object skillType = SkillDatabase.skillTypeById.get( IntegerPool.get( skillId ) );
-		return skillType == null ? -1 : ( (Integer) skillType ).intValue();
+		return skillType == null ? -1 : (Integer) skillType;
 	}
 
 	public static final String getSkillCategory( final int skillId )
@@ -439,7 +439,7 @@ public class SkillDatabase
 	public static final int getSkillId( final String skillName )
 	{
 		Object skillId = SkillDatabase.skillByName.get( StringUtilities.getCanonicalName( skillName ) );
-		return skillId == null ? -1 : ( (Integer) skillId ).intValue();
+		return skillId == null ? -1 : (Integer) skillId;
 	}
 
 	/**
@@ -504,7 +504,7 @@ public class SkillDatabase
 			return 0;
 		}
 
-		int cost = ( (Integer) mpConsumption ).intValue();
+		int cost = (Integer) mpConsumption;
 		if ( cost == 0 )
 		{
 			return 0;
@@ -675,7 +675,7 @@ public class SkillDatabase
 			return 0;
 		}
 
-		int actualDuration = ( (Integer) duration ).intValue();
+		int actualDuration = (Integer) duration;
 		if ( actualDuration == 0 )
 		{
 			return 0;
@@ -751,7 +751,7 @@ public class SkillDatabase
 		Object skillType = SkillDatabase.skillTypeById.get( IntegerPool.get( skillId ) );
 		if ( skillType == null )
 			return false;
-		int type = ( (Integer) skillType ).intValue();
+		int type = (Integer) skillType;
 		return type == SUMMON || type == REMEDY || type == SELF_ONLY || type == SONG;
 	}
 
@@ -806,7 +806,7 @@ public class SkillDatabase
 	private static final boolean isType( final int skillId, final int type )
 	{
 		Object skillType = SkillDatabase.skillTypeById.get( IntegerPool.get( skillId ) );
-		return skillType == null ? false : ( (Integer) skillType ).intValue() == type;
+		return skillType == null ? false : (Integer) skillType == type;
 	}
 
 	/**
@@ -989,8 +989,8 @@ public class SkillDatabase
 			Object value = SkillDatabase.skillTypeById.get( id );
 			if ( value == null )
 				continue;
-			int skillType = ( (Integer) value ).intValue();
-			int skillId = ( (Integer) id ).intValue();
+			int skillType = (Integer) value;
+			int skillId = (Integer) id;
 
 			if ( type == SkillDatabase.ALL )
 			{
@@ -1015,7 +1015,7 @@ public class SkillDatabase
 				continue;
 			}
 
-			list.add( UseSkillRequest.getInstance( ( (Integer) keys[ i ] ).intValue() ) );
+			list.add( UseSkillRequest.getInstance( (Integer) keys[i] ) );
 		}
 
 		return list;
@@ -1290,7 +1290,7 @@ public class SkillDatabase
 		{
 			return;
 		}
-		int newCasts = ( (Integer) oldCasts ).intValue() + count;
+		int newCasts = (Integer) oldCasts + count;
 		SkillDatabase.castsById.put( IntegerPool.get( skillId ), IntegerPool.get( newCasts ) );
 	}
 
@@ -1306,6 +1306,6 @@ public class SkillDatabase
 		{
 			return 0;
 		}
-		return ( (Integer) casts ).intValue();
+		return (Integer) casts;
 	}
 }

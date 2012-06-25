@@ -132,7 +132,7 @@ public class DebugModifiers
 		while ( i.hasNext() )
 		{
 			Object key = i.next();
-			int ikey = ((Integer) key).intValue();
+			int ikey = (Integer) key;
 			String item = (String) DebugModifiers.wanted.get( key );
 			DebugModifiers.buffer.append( item );
 			ArrayList list = new ArrayList();

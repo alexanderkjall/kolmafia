@@ -190,8 +190,8 @@ public class StoreManageFrame
 				String item = (String) StoreManageFrame.this.manageTable.getValueAt( i, 0 );
 				itemId[ i ] = ItemDatabase.getItemId( item );
 
-				prices[ i ] = ( (Integer) StoreManageFrame.this.manageTable.getValueAt( i, 1 ) ).intValue();
-				int cheapest = ( (Integer) StoreManageFrame.this.manageTable.getValueAt( i, 2 ) ).intValue();
+				prices[ i ] = (Integer) StoreManageFrame.this.manageTable.getValueAt( i, 1 );
+				int cheapest = (Integer) StoreManageFrame.this.manageTable.getValueAt( i, 2 );
 
 				if ( cheapest >= 1000000 && prices[ i ] < cheapest * 0.15  )
 				{
@@ -214,7 +214,7 @@ public class StoreManageFrame
 				}
 
 				limits[ i ] =
-					( (Boolean) StoreManageFrame.this.manageTable.getValueAt( i, 4 ) ).booleanValue() ? Math.max(
+                        (Boolean) StoreManageFrame.this.manageTable.getValueAt( i, 4 ) ? Math.max(
 						1, oldLimit ) : 0;
 			}
 
@@ -396,15 +396,15 @@ public class StoreManageFrame
 				return;
 			}
 
-			int price = ( (Integer) StoreManageFrame.this.addTable.getValueAt( 0, 1 ) ).intValue();
-			int quantity = ( (Integer) StoreManageFrame.this.addTable.getValueAt( 0, 3 ) ).intValue();
+			int price = (Integer) StoreManageFrame.this.addTable.getValueAt( 0, 1 );
+			int quantity = (Integer) StoreManageFrame.this.addTable.getValueAt( 0, 3 );
 
 			if ( quantity <= 0 )
 			{
 				quantity = soldItem.getCount() - quantity;
 			}
 
-			int limit = ( (Boolean) StoreManageFrame.this.addTable.getValueAt( 0, 4 ) ).booleanValue() ? 1 : 0;
+			int limit = (Boolean) StoreManageFrame.this.addTable.getValueAt( 0, 4 ) ? 1 : 0;
 			soldItem = new AdventureResult( soldItem.getItemId(), quantity );
 
 			StoreManageFrame.this.addTable.setValueAt( new AdventureResult( "-select an item-", 1, false ), 0, 0 );

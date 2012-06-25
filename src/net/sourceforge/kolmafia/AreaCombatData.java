@@ -263,7 +263,7 @@ public class AreaCombatData
 
 	public int getWeighting( final int i )
 	{
-		int raw = ( (Integer) this.weightings.get( i ) ).intValue();
+		int raw = this.weightings.get( i );
 		if ( ((raw >> (KoLCharacter.getAscensions() & 1)) & 1) == 0 )
 		{
 			return -2;	// impossible this ascension
@@ -618,7 +618,7 @@ public class AreaCombatData
 
 			buffer.append( "<br>" );
 
-			float stealRate = Math.min( ( (Float) pocketRates.get( i ) ).floatValue() * pocketModifier, 1.0f );
+			float stealRate = Math.min( (Float) pocketRates.get( i ) * pocketModifier, 1.0f );
 			int rawDropRate = item.getCount() >> 16;
 			float dropRate = Math.min( rawDropRate * itemModifier, 100.0f );
 			float effectiveDropRate = stealRate * 100.0f + ( 1.0f - stealRate ) * dropRate;

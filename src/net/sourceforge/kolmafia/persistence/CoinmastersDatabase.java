@@ -204,7 +204,7 @@ public class CoinmastersDatabase
 			return 0;
 		}
 		Integer price = (Integer) prices.get( StringUtilities.getCanonicalName( name ) );
-		return ( price == null ) ? 0 : price.intValue();
+		return ( price == null ) ? 0 : price;
 	}
 
 	public static final boolean availableItem( final String name )

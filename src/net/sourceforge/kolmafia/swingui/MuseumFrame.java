@@ -181,7 +181,7 @@ public class MuseumFrame
 					Integer value = InputFieldUtilities.getQuantity(
 							"Moving " + ( (AdventureResult) selection[ i ] ).getName() + "...",
 							( (AdventureResult) selection[ i ] ).getCount(), 1 );
-					int count = ( value == null ) ? 0 : value.intValue();
+					int count = ( value == null ) ? 0 : value;
 					selection[ i ] = ( (AdventureResult) selection[ i ] ).getInstance( count );
 				}
 			}

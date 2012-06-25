@@ -176,7 +176,7 @@ public abstract class KoLmafiaASH
 		if ( !createInterpreter )
 		{
 			Long timestamp = (Long) KoLmafiaASH.TIMESTAMPS.get( toExecute );
-			createInterpreter = timestamp.longValue() != toExecute.lastModified();
+			createInterpreter = timestamp != toExecute.lastModified();
 		}
 
 		if ( !createInterpreter )
@@ -191,7 +191,7 @@ public abstract class KoLmafiaASH
 				Entry entry = (Entry) it.next();
 				File file = (File) entry.getKey();
 				Long timestamp = (Long) entry.getValue();
-				createInterpreter = timestamp.longValue() != file.lastModified();
+				createInterpreter = timestamp != file.lastModified();
 			}
 		}
 
@@ -205,7 +205,7 @@ public abstract class KoLmafiaASH
 				return null;
 			}
 
-			KoLmafiaASH.TIMESTAMPS.put( toExecute, new Long( toExecute.lastModified() ) );
+			KoLmafiaASH.TIMESTAMPS.put( toExecute, toExecute.lastModified() );
 			KoLmafiaASH.INTERPRETERS.put( toExecute, interpreter );
 		}
 

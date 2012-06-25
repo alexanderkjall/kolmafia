@@ -3583,7 +3583,7 @@ public class UseItemRequest
 			for ( int i = 0; i < KoLCharacter.PASTA_GUARDIANS.length; ++ i )
 			{
 				Object [] entity = KoLCharacter.PASTA_GUARDIANS[i];
-				int summonItem = ((Integer)entity[1]).intValue();
+				int summonItem = (Integer) entity[1];
 				if ( itemId != summonItem )
 				{
 					continue;

@@ -2195,8 +2195,8 @@ public abstract class ChoiceManager
 	{
 		for ( int i = 0; i < ChoiceManager.CHOICE_COST.length; ++i )
 		{
-			if ( choice == ((Integer)ChoiceManager.CHOICE_COST[ i ][ 0 ]).intValue() &&
-			     decision == ((Integer)ChoiceManager.CHOICE_COST[ i ][ 1 ]).intValue() )
+			if ( choice == (Integer) ChoiceManager.CHOICE_COST[i][0] &&
+			     decision == (Integer) ChoiceManager.CHOICE_COST[i][1] )
 			{
 				return (AdventureResult) ChoiceManager.CHOICE_COST[ i ][ 2 ];
 			}

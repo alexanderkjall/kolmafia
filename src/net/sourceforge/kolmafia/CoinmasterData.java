@@ -343,7 +343,7 @@ public class CoinmasterData
 		{
 			String name = StringUtilities.getCanonicalName( itemName );
 			Integer price = (Integer) this.buyPrices.get( name );
-			return price != null ? price.intValue() : 0;
+			return price != null ? price : 0;
 		}
 		return 0;
 	}
@@ -379,7 +379,7 @@ public class CoinmasterData
 		{
 			String name = StringUtilities.getCanonicalName( itemName );
 			Integer price = (Integer) this.sellPrices.get( name );
-			return price != null ? price.intValue() : 0;
+			return price != null ? price : 0;
 		}
 		return 0;
 	}

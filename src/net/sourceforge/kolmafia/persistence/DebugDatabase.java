@@ -232,7 +232,7 @@ public class DebugDatabase
 
 		while ( it.hasNext() )
 		{
-			int id = ( (Integer) it.next() ).intValue();
+			int id = (Integer) it.next();
 			if ( id < 1 )
 			{
 				continue;
@@ -671,7 +671,7 @@ public class DebugDatabase
 	private static final void checkLevelDatum( final String name, final String text, final PrintStream report )
 	{
 		Integer requirement = ItemDatabase.getLevelReqByName( name );
-		int level = requirement == null ? 0 : requirement.intValue();
+		int level = requirement == null ? 0 : requirement;
 		int descLevel = DebugDatabase.parseLevel( text );
 		if ( level != descLevel )
 		{
@@ -1031,7 +1031,7 @@ public class DebugDatabase
 
 		while ( it.hasNext() )
 		{
-			int id = ( (Integer) it.next() ).intValue();
+			int id = (Integer) it.next();
 			if ( id < 1 )
 			{
 				continue;
@@ -1276,7 +1276,7 @@ public class DebugDatabase
 
 		while ( it.hasNext() )
 		{
-			int id = ( (Integer) it.next() ).intValue();
+			int id = (Integer) it.next();
 			if ( id < 1 )
 			{
 				continue;
@@ -1306,7 +1306,7 @@ public class DebugDatabase
 			++itemId;
 			while ( it.hasNext() )
 			{
-				int id = ( (Integer) it.next() ).intValue();
+				int id = (Integer) it.next();
 				if ( id < 0 )
 				{
 					continue;
@@ -1510,7 +1510,7 @@ public class DebugDatabase
 		while ( it.hasNext() )
 		{
 			Integer id = ( (Integer) it.next() );
-			int itemId = id.intValue();
+			int itemId = id;
 			if ( itemId < 1 || !ItemDatabase.isUsable( itemId ) )
 			{
 				continue;
@@ -1564,7 +1564,7 @@ public class DebugDatabase
 		for ( int i = 0; i < keys.length; ++i )
 		{
 			String name = (String) keys[ i ];
-			int size = ((Integer) map.get( name ) ).intValue();
+			int size = (Integer) map.get( name );
 			DebugDatabase.checkConsumable( report, name, size );
 		}
 	}
@@ -1579,7 +1579,7 @@ public class DebugDatabase
 			return;
 		}
 
-		int level = ItemDatabase.getLevelReqByName( name ).intValue();
+		int level = ItemDatabase.getLevelReqByName( name );
 		String adv = ItemDatabase.getAdvRangeByName( name );
 		String quality = DebugDatabase.parseQuality( text );
 		String mus = ItemDatabase.getMuscleByName( name );

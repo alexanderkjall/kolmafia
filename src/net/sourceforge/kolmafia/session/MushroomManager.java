@@ -278,7 +278,7 @@ public abstract class MushroomManager
 				{
 					if ( touched[ i ].equals( MushroomManager.MUSHROOMS[ j ][ 3 ] ) )
 					{
-						touchIndex[ touchCount ] = ( (Integer) MushroomManager.MUSHROOMS[ j ][ 4 ] ).intValue();
+						touchIndex[ touchCount ] = (Integer) MushroomManager.MUSHROOMS[j][4];
 					}
 				}
 
@@ -304,7 +304,7 @@ public abstract class MushroomManager
 	{
 		for ( int i = 0; i < MushroomManager.MUSHROOMS.length; ++i )
 		{
-			if ( mushroomType == ( (Integer) MushroomManager.MUSHROOMS[ i ][ 0 ] ).intValue() )
+			if ( mushroomType == (Integer) MushroomManager.MUSHROOMS[i][0] )
 			{
 				return isAdult ? (String) MushroomManager.MUSHROOMS[ i ][ 3 ] : (String) MushroomManager.MUSHROOMS[ i ][ 2 ];
 			}
@@ -401,7 +401,7 @@ public abstract class MushroomManager
 		{
 			if ( mushroomImage.endsWith( "/" + MushroomManager.MUSHROOMS[ i ][ 1 ] ) )
 			{
-				return ( (Integer) MushroomManager.MUSHROOMS[ i ][ 0 ] ).intValue();
+				return (Integer) MushroomManager.MUSHROOMS[i][0];
 			}
 		}
 
@@ -681,7 +681,7 @@ public abstract class MushroomManager
 			{
 				if ( gif.equals( MushroomManager.MUSHROOMS[ i ][ 1 ] ) )
 				{
-					return ( (Integer) MushroomManager.MUSHROOMS[ i ][ 0 ] ).intValue();
+					return (Integer) MushroomManager.MUSHROOMS[i][0];
 				}
 			}
 		}

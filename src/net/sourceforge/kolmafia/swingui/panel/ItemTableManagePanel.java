@@ -531,7 +531,7 @@ public class ItemTableManagePanel
 				return Integer.MIN_VALUE;
 			}
 				
-			quantity = value.intValue();
+			quantity = value;
 
 			break;
 		}
@@ -582,7 +582,7 @@ public class ItemTableManagePanel
 				{
 					return Integer.MIN_VALUE;
 				}
-				quantity = value.intValue();
+				quantity = value;
 			}
 
 			break;

@@ -415,7 +415,7 @@ public class Preferences
 			map.put( name, value );
 		}
 
-		return ((Boolean) value).booleanValue();
+		return (Boolean) value;
 	}
 
 	public static final int getInteger( final String user, final String name )
@@ -434,7 +434,7 @@ public class Preferences
 			map.put( name, value );
 		}
 
-		return ((Integer) value).intValue();
+		return (Integer) value;
 	}
 
 	public static final float getFloat( final String user, final String name )
@@ -449,11 +449,11 @@ public class Preferences
 
 		if ( !(value instanceof Float) )
 		{
-			value = new Float( StringUtilities.parseFloat( value.toString() ) );
+			value = StringUtilities.parseFloat( value.toString() );
 			map.put( name, value );
 		}
 
-		return ((Float) value).floatValue();
+		return (Float) value;
 	}
 
 	private static final TreeMap getMap( final String name )
@@ -486,7 +486,7 @@ public class Preferences
 		boolean old = Preferences.getBoolean( user, name );
 		if ( old != value )
 		{
-			Preferences.setObject( user, name, value ? "true" : "false", Boolean.valueOf( value ) );
+			Preferences.setObject( user, name, value ? "true" : "false", value );
 		}
 	}
 
@@ -504,7 +504,7 @@ public class Preferences
 		float old = Preferences.getFloat( user, name );
 		if ( old != value )
 		{
-			Preferences.setObject( user, name, String.valueOf( value ), new Float( value ) );
+			Preferences.setObject( user, name, String.valueOf( value ), value );
 		}
 	}
 

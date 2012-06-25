@@ -1891,11 +1891,11 @@ public abstract class RuntimeLibrary
 			Object arg;
 			if ( val.getType().equals( DataTypes.TYPE_FLOAT ) )
 			{
-				arg = new Double( val.floatValue() );
+				arg = val.floatValue();
 			}
 			else
 			{
-				arg = new Long( val.intValue() );
+				arg = val.intValue();
 			}
 			return new Value( String.format( fmt.toString(), arg ) );
 		}
