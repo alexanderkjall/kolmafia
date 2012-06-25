@@ -1,0 +1,465 @@
+3
+# Syntax is:
+# id	Name	Type	MP Cost	Duration[	Level]
+# Type can be: 0 (Passive), 1 (Noncombat item summon), 2 (Noncombat healing)
+# 3 (Noncombat non-shruggable effect), 4 (Noncombat shruggable effect), 5 (Combat)
+# 6 (Boris Songs)
+
+1	Liver of Steel	0	0	0
+2	Chronic Indigestion	5	5	0
+3	The Smile of Mr. A.	4	5	40
+4	Arse Shoot	4	5	0
+5	Stomach of Steel	0	0	0
+6	Spleen of Steel	0	0	0
+7
+8
+9
+10	Powers of Observatiogn	0	0	0
+11	Gnefarious Pickpocketing	0	0	0
+12	Torso Awaregness	0	0	0
+13	Gnomish Hardigness	0	0	0
+14	Cosmic Ugnderstanding	0	0	0
+15	CLEESH	5	10	0
+
+# The following Mr. Skills have the listed skill ID on the Character
+# Sheet, but need a different skill ID on the Use Skills page
+
+# 16	Summon Snowcone	1	5	0
+# 17	Summon Hilarious Objects	1	5	0
+# 18	Summon Candy Hearts	1	0	0
+
+19	Transcendent Olfaction	5	40	0
+20	Really Expensive Jewelrycrafting	0	0	0
+
+# Available only on the Bad Moon path
+
+21	Lust	0	0	0
+22	Gluttony	0	0	0
+23	Greed	0	0	0
+24	Sloth	0	0	0
+25	Wrath	0	0	0
+26	Envy	0	0	0
+27	Pride	0	0	0
+
+# Available from hobopolis skill books
+
+28	Awesome Balls of Fire	5	120	0
+29	Conjure Relaxing Campfire	5	30	0
+30	Snowclone	5	120	0
+31	Maximum Chill	5	30	0
+32	Eggsplosion	5	120	0
+33	Mudbath	5	30	0
+34
+35
+36	Grease Lightning	5	120	0
+37	Inappropriate Backrub	5	30	0
+38	Natural Born Scrabbler	0	0	0
+39	Thrift and Grift	0	0	0
+40	Abs of Tin	0	0	0
+41	Marginally Insane	0	0	0
+42	Raise Backup Dancer	5	120	0
+43	Creepy Lullaby	5	30	0
+44	Rainbow Gravitation	1	30	0
+45	Vent Rage Gland	3	15	0
+46	Slimy Sinews	0	0	0
+47	Slimy Synapses	0	0	0
+48	Slimy Shoulders	0	0	0
+49	Gothy Handwave	5	1	0
+50	Break It On Down	5	2	0
+51	Pop and Lock It	5	2	0
+52	Run Like the Wind	5	2	0
+53	Summon Crimbo Candy	1	3	0
+54	Unaccompanied Miner	0	0	0
+55	Volcanometeor Showeruption	5	0	0
+56	Wassail	5	30	0
+57	Toynado	5	120	0
+58	Fashionably Late	0	0	0
+59	Executive Narcolepsy	0	0	0
+60	Lunch Break	1	10	0
+61	Offensive Joke	5	15	0
+62	Managerial Manipulation	4	5	20
+63	Natural Born Skeleton Killer	0	0	0
+64	Miyagi Massage	3	5	1
+65	Salamander Kata	3	5	1
+66	Flying Fire Fist	5	0	0
+67	Stinkpalm	5	0	0
+68	Seven-Finger Strike	5	0	0
+69	Knuckle Sandwich	5	0	0
+70	Chilled Monkey Brain Technique	5	0	0
+71	Drunken Baby Style	5	0	0
+72	Worldpunch	3	11	1
+73	Zendo Kobushi Kancho	5	0	0
+74	Master of the Surprising Fist	0	0	0
+75	Summon &quot;Boner Battalion&quot;	3	200	30
+77	Torment Plant	5	5	0
+78	Pinch Ghost	5	5	0
+79	Tattle	5	7	0
+80	Thick-Skinned	0	0	0
+81	Chip on your Shoulder	0	0	0
+82	Request Sandwich	1	5	0
+83	Frigidalmatian	3	300	1
+
+# Skills available to Clubbers
+
+1000	Seal Clubbing Frenzy	3	1	5	0
+1001
+1002
+1003	Thrust-Smack	5	3	0	4
+1004	Lunge-Smack	5	5	0
+1005	Lunging Thrust-Smack	5	8	0	10
+1006	Super-Advanced Meatsmithing	0	0	0	5
+1007	Tongue of the Otter	2	7	0	3
+1008	Hide of the Otter	0	0	0	1	1
+1009	Claws of the Otter	0	0	0	2
+1010	Tongue of the Walrus	2	10	0	9
+1011	Hide of the Walrus	0	0	0	7
+1012	Claws of the Walrus	0	0	0	8
+1013
+1014	Eye of the Stoat	0	0	0	6
+1015	Rage of the Reindeer	3	10	10	11
+1016	Pulverize	0	0	0	15
+1017	Double-Fisted Skull Smashing	0	0	0	12
+1018	Northern Exposure	0	0	0	13
+1019	Musk of the Moose	3	10	10	14
+1020	Snarl of the Timberwolf	3	10	10
+1021
+1022	Clobber	5	1	0	0
+1023	Harpoon!	5	30	0
+1024	Holiday Weight Gain	3	10	10
+1025	Iron Palm Technique	3	5	10
+
+# Skills available to Tamers
+
+2000	Patience of the Tortoise	3	1	5	0
+2001
+2002
+2003	Headbutt	5	3	0	1
+2004	Skin of the Leatherback	0	0	0	2
+2005	Shieldbutt	5	5	0	10
+2006	Armorcraftiness	0	0	0	5
+2007	Ghostly Shell	4	6	5	4
+2008	Reptilian Fortitude	4	10	5	9
+2009	Empathy of the Newt	4	15	5	8
+2010	Tenacity of the Snapper	4	8	5	6
+2011	Wisdom of the Elder Tortoises	0	0	0	11
+2012	Astral Shell	4	10	5	12
+2013
+2014	Amphibian Sympathy	0	0	0	3
+2015	Kneebutt	5	4	0	7
+2016	Cold-Blooded Fearlessness	0	0	0	13
+2017
+2018
+2019
+2020	Hero of the Half-Shell	0	0	0	14
+2021	Tao of the Terrapin	0	0	0	15
+2022	Spectral Snapper	5	20	0
+2023	Toss	5	1	0	0
+2024	Summon Leviatuga	5	40	0
+2025	Jingle Bells	4	5	5
+2026	Curiosity of Br'er Tarrypin	4	10	5
+2103	Head + Knee Combo	5	8	0
+2105	Head + Shield Combo	5	9	0
+2106	Knee + Shield Combo	5	10	0
+2107	Head + Knee + Shield Combo	5	13	0
+
+# Skills available to Pastamancers
+
+3000	Manicotti Meditation	3	1	5	0
+3001
+3002
+3003	Ravioli Shurikens	5	4	0	1
+3004	Entangling Noodles	5	3	0	2
+3005	Cannelloni Cannon	5	6	0	4
+3006	Pastamastery	1	10	0	5
+3007	Stuffed Mortar Shell	5	13	0	8
+3008	Weapon of the Pastalord	5	24	0	10
+3009	Lasagna Bandages	2	6	0	3
+3010	Leash of Linguini	3	12	10	11
+3011	Spirit of Rigatoni	0	0	0	7
+3012	Cannelloni Cocoon	2	20	0	12
+3013
+3014	Spirit of Ravioli	0	0	0	9
+3015	Springy Fusilli	3	10	10	6
+3016	Tolerance of the Kitchen	0	0	0	13
+3017	Flavour of Magic	0	0	0	14
+3018	Transcendental Noodlecraft	0	0	0	15
+3019	Fearful Fettucini	5	24	0
+3020	Spaghetti Spear	5	1	0	0
+3021	Tempuramancy	0	0	0
+3022	Candyblast	5	6	0
+3023	Stringozzi Serpent	5	13	0
+3024	Canticle of Carboloading	3	10	0
+
+# The 5 sub-skills of Flavour of Magic usable from the Use Skills page:
+
+3101	Spirit of Cayenne	3	1	999
+3102	Spirit of Peppermint	3	1	999
+3103	Spirit of Garlic	3	1	999
+3104	Spirit of Wormwood	3	1	999
+3105	Spirit of Bacon Grease	3	1	999
+3106	Spirit of Nothing	3	1	0
+
+# Skills available to Saucerors
+
+4000	Sauce Contemplation	3	1	5	0
+4001
+4002
+4003	Stream of Sauce	5	3	0	1
+4004	Expert Panhandling	0	0	0	3
+4005	Saucestorm	5	10	0	6
+4006	Advanced Saucecrafting	1	10	0	5
+4007	Elemental Saucesphere	4	10	5	4
+4008	Jalape&ntilde;o Saucesphere	4	5	5	7
+4009	Wave of Sauce	5	16	0	8
+4010	Intrinsic Spiciness	0	0	0	9
+4011	Jaba&ntilde;ero Saucesphere	4	10	5	10
+4012	Saucegeyser	5	28	0	11
+4013
+4014	Saucy Salve	5	4	0	2
+4015	Impetuous Sauciness	0	0	0	12
+4016	Diminished Gag Reflex	0	0	0	13
+4017	Immaculate Seasoning	0	0	0	14
+4018	The Way of Sauce	0	0	0	15
+4019	Scarysauce	4	10	5
+4020	Salsaball	5	1	0	0
+4021	Deep Saucery	0	0	0
+4022	Surge of Icing	5	10	0
+4023	K&auml;seso&szlig;esturm	5	10	0
+
+# Skills available to Bandits
+
+5000	Disco Aerobics	3	1	5	0
+5001
+5002
+5003	Disco Eye-Poke	5	3	0	1
+5004	Nimble Fingers	0	0	0	6
+5005	Disco Dance of Doom	5	5	0	4
+5006	Mad Looting Skillz	0	0	0	8
+5007	Disco Nap	2	8	0	3
+5008	Disco Dance II: Electric Boogaloo	5	7	0	7
+5009	Disco Fever	0	0	0	11
+5010	Overdeveloped Sense of Self Preservation	0	0	0	2
+5011	Disco Power Nap	2	12	0	9
+5012	Disco Face Stab	5	10	0	10
+5013
+5014	Advanced Cocktailcrafting	1	10	0	5
+5015	Ambidextrous Funkslinging	0	0	0	12
+5016	Heart of Polyester	0	0	0	13
+5017	Smooth Movement	3	10	10	14
+5018	Superhuman Cocktailcrafting	0	0	0	15
+5019	Tango of Terror	5	8	0
+5021	Suckerpunch	5	1	0	0
+5022	Salacious Cocktailcrafting	0	0	0
+5023	Stealth Mistletoe	5	5	0
+5024	Kung Fu Hustler	0	0	0
+
+# Skills available to Thieves
+
+6000	Moxie of the Mariachi	3	1	5	0
+6001
+6002
+6003	Aloysius' Antiphon of Aptitude	4	40	5	11
+6004	The Moxious Madrigal	4	2	5	1
+6005	Cletus's Canticle of Celerity	4	4	5	3
+6006	The Polka of Plenty	4	7	5	5
+6007	The Magical Mojomuscular Melody	4	3	5	2
+6008	The Power Ballad of the Arrowsmith	4	5	5	4
+6009	Brawnee's Anthem of Absorption	4	13	5	8
+6010	Fat Leon's Phat Loot Lyric	4	11	5	7
+6011	The Psalm of Pointiness	4	15	5	9
+6012	Jackasses' Symphony of Destruction	4	9	5	6
+6013	Stevedave's Shanty of Superiority	4	30	5	10
+6014	The Ode to Booze	4	50	5	12
+6015	The Sonata of Sneakiness	4	20	5	13
+6016	Carlweather's Cantata of Confrontation	4	20	5	14
+6017	Ur-Kel's Aria of Annoyance	4	30	5	15
+6018	Dirge of Dreadfulness	4	9	5
+6019
+6020	The Ballad of Richie Thingfinder	4	50	5
+6021	Benetton's Medley of Diversity	4	50	5
+6022	Elron's Explosive Etude	4	50	5
+6023	Chorale of Companionship	4	50	5
+6024	Prelude of Precision	4	50	5
+6025	Sing	5	1	0	0
+6026	Donho's Bubbly Ballad	4	75	5
+6027	Cringle's Curative Carol	4	5	5
+6028	Inigo's Incantation of Inspiration	4	100	5
+
+# Skills granted conditionally
+
+7001	Give In To Your Vampiric Urges	5	0	0
+7002	Shake Hands	5	0	0
+7003	Hot Breath	5	5	0
+7004	Cold Breath	5	5	0
+7005	Spooky Breath	5	5	0
+7006	Stinky Breath	5	5	0
+7007	Sleazy Breath	5	5	0
+7008	Moxious Maneuver	5	0	0
+7009	Magic Missile	5	0	0
+7010	Fire red bottle-rocket	5	5	0
+7011	Fire blue bottle-rocket	5	5	0
+7012	Fire orange bottle-rocket	5	5	0
+7013	Fire purple bottle-rocket	5	5	0
+7014	Fire black bottle-rocket	5	5	0
+7015	Creepy Grin	5	30	0
+7016	Start Trash Fire	5	100	0
+7017	Overload Discarded Refrigerator	5	100	0
+7018	Trashquake	5	100	0
+7019	Zombo's Visage	5	100	0
+7020	Hypnotize Hobo	5	100	0
+7021	Ask Richard for a Bandage	5	0	0
+7022	Ask Richard for a Grenade	5	0	0
+7023	Ask Richard to Rough the Hobo Up a Bit	5	0	0
+7024	Summon Mayfly Swarm	5	0	0
+7025	Get a You-Eye View	5	30	0
+7026
+7027
+7028
+7029
+7030
+7031
+7032
+7033
+7034
+7035
+7036
+7037
+7038	Vicious Talon Slash	5	5	0
+7039	All-You-Can-Beat Wing Buffet	5	10	0
+7040	Tunnel Upwards	5	0	0
+7041	Tunnel Downwards	5	0	0
+7042	Rise From Your Ashes	5	20	0
+7043	Antarctic Flap	5	20	0
+7044	The Statue Treatment	5	20	0
+7045	Feast on Carrion	5	20	0
+7046	Give Your Opponent &quot;The Bird&quot;	5	20	0
+7047	Ask the hobo for a drink	5	0	0
+7048	Ask the hobo for something to eat	5	0	0
+7049	Ask the hobo for some violence	5	0	0
+7050	Ask the hobo to tell you a joke	5	0	0
+7051	Ask the hobo to dance for you	5	0	0
+7052	Summon hobo underling	5	0	0
+7053	Rouse Sapling	5	15	0
+7054	Spray Sap	5	15	0
+7055	Put Down Roots	5	15	0
+7056	Fire off a Roman Candle	5	10	0
+7057
+7058
+7059
+7060
+7061	Spring Raindrop Attack	5	0	0
+7062	Summer Siesta	5	10	0
+7063	Falling Leaf Whirlwind	5	10	0
+7064	Winter's Bite Technique	5	10	0
+7065	The 17 Cuts	5	10	0
+7066
+7067
+7068
+7069	Recite 'The Spirit of Crimbo'	5	0	0
+7070	Disarm	5	15	0
+7071	Entangle	5	15	0
+7072
+7073	Strangle	5	15	0
+7074	Consume Burrowgrub	5	0	0
+7075	Play an Accordion Solo	5	10	0
+7076	Play a Guitar Solo	5	10	0
+7077	Play a Drum Solo	5	10	0
+7078	Play a Flute Solo	5	10	0
+7079	Furious Cleave	5	5	0
+7080	Mighty Shout	5	0	0
+7081	Open the Bag o' Tricks	5	0	0
+7082	Point at your opponent	5	0	0
+7083	Apprivoisez la tortue	5	3	0
+7084
+7085
+7086
+7087
+7088
+7089
+7090
+7091
+7092
+7093
+7094	Static Shock	5	0	0
+7095	Give Your Opponent the Stinkeye	5	0	0
+7096	Bashing Slam Smash	5	15	0
+7097	Turtle of Seven Tails	5	15	0
+7098	Noodles of Fire	5	15	0
+7099	Saucemageddon	5	35	0
+7100	Funk Bluegrass Fusion	5	10	0
+7101	Extreme High Note	5	15	0
+7102	Goldensh&ouml;wer	5	0	0
+7103	Shoot Web	5	0	0
+7104	Wrath of the Volcano God	5	0	0
+7105	Wrath of the Lightning God	5	0	0
+7106	Wrath of the Trickster God	5	0	0
+7107	Spew Poison	5	0	0
+7108	Fire a badly romantic arrow	5	0	0
+7109	Fire a boxing-glove arrow	5	0	0
+7110	Fire a poison arrow	5	0	0
+7111	Fire a fingertrap arrow	5	0	0
+7112	Nuclear Breath	5	10	0
+7113	Squeeze Stress Ball	5	0	0
+7114	Throw Shield	5	0	0
+7115	Release the Boots	5	0	0
+7116	Feed	5	0	0
+7117	Siphon Spirit	5	0	0
+
+# Skills granted by books on your Mystical Bookshelf
+
+8000	Summon Snowcones	1	2	0
+8001	Summon Stickers	1	2	0
+8002	Summon Sugar Sheets	1	2	0
+8003	Summon Clip Art	1	2	0
+8100	Summon Candy Hearts	1	0	0
+8101	Summon Party Favor	1	0	0
+8102	Summon Love Song	1	0	0
+8103	Summon BRICKOs	1	0	0
+8104	Summon Dice	1	0	0
+8105	Summon Resolutions	1	0	0
+8200	Summon Hilarious Objects	1	5	0
+8201	Summon Tasteful Items	1	5	0
+8202	Summon Alice's Army Cards	1	5	0
+
+# Skills available to Avatars of Boris
+
+11000	Mighty Axing	5	0	0
+
+# Fighting
+11001	Cleave	5	5	0	1
+11002	Ferocity	0	0	0	2
+11003	Broadside	5	10	0	3
+11004	Sick Pythons	0	0	0	4
+11005	Pep Talk	3	1	1	5
+11006	Throw Trusty	5	7	0	6
+11007	Legendary Luck	0	0	0	7
+11008	Song of Cockiness	6	15	20	8
+11009	Legendary Impatience	0	0	0	9
+11010	Bifurcating Blow	5	10	0	10
+
+# Yelling
+11011	Intimidating Bellow	5	3	0	1
+11012	Legendary Bravado	0	0	0	2
+11013	Song of Accompaniment	6	10	20	3
+11014	Big Lungs	0	0	0	4
+11015	Song of Solitude	6	15	20	5
+11016	Good Singing Voice	0	0	0	6
+11017	Song of Fortune	6	10	20	7
+11018	Louder Bellows	0	0	0	8
+11019	Song of Battle	6	10	20	9
+11020	Banishing Shout	5	50	0	10
+
+# Eating
+11021	Demand Sandwich	1	5	0	1
+11022	Legendary Girth	0	0	0	2
+11023	Song of the Glorious Lunch	6	10	5	3
+11024	Big Boned	0	0	0	4
+11025	Legendary Appetite	0	0	0	5
+11026	Heroic Belch	5	5	0	6
+11027	Hungry Eyes	0	0	0	7
+11028	More to Love	0	0	0	8
+11029	Barrel Chested	0	0	0	9
+11030	Gourmand	0	0	0	10
+
+# Healing
+11031	Laugh It Off	2	1	0

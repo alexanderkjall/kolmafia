@@ -1,0 +1,89 @@
+1
+1	Bugbear Costume	bugbear beanie, bugbear bungguard
+2	Filthy Hippy Disguise	filthy knitted dread sack, filthy corduroys
+3	Frat Boy Ensemble	homoerotic frat-paddle, Orcish baseball cap, Orcish cargo shorts
+4	Knob Goblin Harem Girl Disguise	Knob Goblin harem veil, Knob Goblin harem pants
+5	Knob Goblin Elite Guard Uniform	Knob Goblin elite helm, Knob Goblin elite polearm, Knob Goblin elite pants
+6	Hot and Cold Running Ninja Suit	cold ninja mask, icy-hot katana, ninja hot pants
+7	eXtreme Cold-Weather Gear	eXtreme scarf, snowboarder pants, eXtreme mittens
+8	Mining Gear	miner's helmet, 7-Foot Dwarven mattock, miner's pants
+9	Swashbuckling Getup	eyepatch, swashbuckling pants, stuffed shoulder parrot
+10	Terrifying Clown Suit	foolscap fool's cap, bloody clown pants, big red clown nose, polka-dot bow tie, clown shoes
+11	Crimbo Duds	Crimbo hat, Crimbo pants, Crimbo sword
+12	Star Garb	star buckler, star hat, star pants
+# No outfit #13
+14	Furry Suit	furry pants, wolf mask
+15	8-Bit Finery	pixel hat, pixel pants, pixel sword
+16	Yendorian Finery	cornuthaum, ring of aggravate monster, vorpal blade
+17	OK Lumberjack Outfit	balaclava, disbelief suspenders, los chinos
+18	Radio Free Regalia	Radio Free Baseball Cap, Radio Free Foil, Radio Free Pants
+19	Bow Tux	bow staff, bowlegged pants, bowler
+20	Clockwork Apparatus	clockwork hat, clockwork pants, clockwork trench coat
+21	Gnauga Hides	gnauga hide buckler, gnauga hide chaps, gnauga hide whip
+22	Time Trappings	time helmet, time sword, time trousers
+23	Cloaca-Cola Uniform	Cloaca-Cola fatigues, Cloaca-Cola helmet, Cloaca-Cola shield
+24	Dyspepsi-Cola Uniform	Dyspepsi-Cola fatigues, Dyspepsi-Cola helmet, Dyspepsi-Cola shield
+25	Arboreal Raiment	can of fake snow, colored-light "necklace", tree skirt
+26	Grass Guise	grass blade, grass hat, grass skirt
+27	Encephalic Ensemble	Cerebral Cloche, Cerebral Culottes, Cerebral Crossbow
+28	Glad Bag Glad Rags	giant discarded plastic fork, giant discarded bottlecap, giant discarded torn-up glove
+29	Antique Arms and Armor	antique greaves, antique helmet, antique spear, antique shield
+30	Terrycloth Tackle	makeshift turban, makeshift skirt, makeshift cape
+31	Tropical Crimbo Duds	Tropical Crimbo Hat, Tropical Crimbo Sword, Tropical Crimbo Shorts
+32	War Hippy Fatigues	bullet-proof corduroys, round purple sunglasses, reinforced beaded headband
+33	Frat Warrior Fatigues	beer helmet, distressed denim pants, bejeweled pledge pin
+34	Bounty-Hunting Rig	bounty-hunting helmet, bounty-hunting rifle, bounty-hunting pants
+35	Black Armaments	black sword, black helmet, black shield, black greaves
+36	Palmist Paraphernalia	palm-frond whip, palm-frond capris, extra-large palm-frond toupee
+37	Tapered Threads	duct tape dockers, duct tape fedora, duct tape sword
+38	Roy Orbison Disguise	clingfilm cap, clingfilm slippers, clingfilm trousers
+39	Cursed Zombie Pirate Costume	cursed eyepatch, cursed breeches, cursed cutlass
+40	Crimborg Assault Armor	biomechanical crimborg helmet, C.B.F.G., biomechanical crimborg leg armor
+41	El Vibrato Relics	El Vibrato helmet, El Vibrato energy spear, El Vibrato leg guards
+42	Pyretic Panhandler Paraphernalia	Ol' Scratch's stovepipe hat, Ol' Scratch's ash can, Ol' Scratch's ol' britches
+43	Hyperborean Hobo Habiliments	Frosty's old silk hat, Frosty's nailbat, Frosty's carrot
+44	Vile Vagrant Vestments	Wand of Oscus, Oscus's dumpster waders, Oscus's pelt
+45	Dire Drifter Duds	Zombo's skullcap, Zombo's shield, Zombo's grievous greaves
+46	Tawdry Tramp Togs	Chester's bag of candy, Chester's cutoffs, Chester's moustache
+47	Hodgman's Regal Frippery	Hodgman's porkpie hat, Hodgman's lobsterskin pants, Hodgman's bow tie
+48	Arrrbor Day Apparrrrrel	willowy bonnet, crotchety pants, Saccharine Maple pendant
+49	Mutant Couture	parasitic claw, parasitic tentacles, parasitic headgnawer, parasitic strangleworm
+50	Dwarvish War Uniform	dwarvish war helmet, dwarvish war mattock, dwarvish war kilt
+51	Wumpus-Hair Wardrobe	wumpus-hair loincloth, wumpus-hair whip, wumpus-hair wig
+52	Pork Elf Prizes	pig-iron helm, pig-iron shinguards, pig-iron bracers
+53	Grimy Reaper's Vestments	corroded breeches, corrosive cowl, villainous scythe
+54	Slimesuit	hardened slime hat, hardened slime pants, hardened slime belt
+55	Primitive Radio Duds	Voluminous Radio Hat, Voluminous Radio Pants, Voluminous Radio Sneakers
+56	Floaty Fatigues	floaty rock helmet, floaty rock pants, floaty rock necklace
+57
+58	Vestments of the Treeslayer	bark beret, bark boxers, bark bracelet
+59
+60
+61
+62	Snowman Suit	snow hat, snow pants, snow belt
+63	Frigid Northlands Garb	sealhide hood, sealhide buckler, sealhide leggings
+64	Legendary Regalia of the Seal Crusher	Scalp of Gorgolok, Sledgehammer of the V&aelig;lkyr, Krakrox's Loincloth, Claw of the Infernal Seal
+65	Legendary Regalia of the Chelonian Overlord	Elder Turtle Shell, Flail of the Seven Aspects, Galapagosian Cuisses, Garter of the Turtle Poacher
+66	Legendary Regalia of the Pasta Master	Colander of Em-er'il, Wrath of the Capsaician Pastalords, Angelhair Culottes, Bandolier of the Spaghetti Elemental
+67	Legendary Regalia of the Saucemaestro	Ancient Saucehelm, Windsor Pan of the Source, Newman's Own Trousers, Gravyskin Belt of the Sauceblob
+68	Legendary Regalia of the Groovelord	Disco 'Fro Pick, Seeger's Unstoppable Banjo, Volartta's bellbottoms, Bling of the New Wave
+69	Legendary Regalia of the Master Squeezeboxer	El Sombrero De Lopez, The Trickster's Trikitixa, Lederhosen of the Night, La Hebilla del Cintur&oacute;n de Lopez
+70	BRICKOfig Outfit	BRICKO hat, BRICKO sword, BRICKO pants
+71	Knight's Armor	helm of the white knight, trousers of the white knight, wristwatch of the white knight
+72	Fancy Tux	fancy tophat, fancy tuxedo pants, fancy black tie
+73	Transparent Trappings	plexiglass pith helmet, plexiglass pikestaff, plexiglass pants, plexiglass pendant, plexiglass pocketwatch, plexiglass pinky ring
+74	Unblemished Uniform	stainless steel skullcap, stainless steel shillelagh, stainless steel slacks, stainless steel scarf, stainless steel solitaire, stainless steel suspenders
+75	Blasphemous Bedizenment	Brimstone Beret, Brimstone Bludgeon, Brimstone Bunker, Brimstone Boxers, Brimstone Brooch, Brimstone Bracelet
+76	Smoked Pottery	pottery shield, pottery hat, pottery training pants
+77	1000th Birthday Suit	bone spurs, bonedanna, boneana hammock
+78	Uncle Hobo's Rags	Uncle Hobo's stocking cap, Uncle Hobo's gift baggy pants, Uncle Hobo's epic beard
+79	Paperclippery	paperclip-on tie, paperclip pants, paperclip turban, paperclip cape
+80	Cold Comforts	double-ice cap, double-ice box, double-ice britches
+81	Bits o' Honey	honeycap, honey dipper, honey britches
+82	Luniform	Moonthril Circlet, Moonthril Flamberge, Moonthril Greaves
+83	Dark Bro's Vestments	The Necbromancer's Hat, The Necbromancer's Stein, The Necbromancer's Shorts
+84	Sucker Samurai Suit	sucker hakama, sucker kabuto, sucker tachi
+85	Wax Wardrobe	wax hat, wax pants
+
+# Outfits for which KoL does not provide an outfit id, and thus are
+# given id #0 to tell KoLmafia to treat it in a special way.

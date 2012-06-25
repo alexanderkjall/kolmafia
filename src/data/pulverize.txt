@@ -1,0 +1,312 @@
+2
+# Data provided courtesy of the Garden of Earthly Delights
+# The Well-Tempered Anvil: http://www.feesher.com/anvil/export_data.php
+
+# Format: <item><tab><result>
+# <result> can be any of:
+#	an item name - for items that don't smash into powders/nuggets wads as usual.
+#	nosmash - for items that can't be smashed at all.
+#	upgrade - for powders and nuggets that can be upgraded at the Malus.
+#	<number> - a bitmask of pulverization results
+# 	TBD: a way of specifying nonstandard yields and elements, if that is needed.
+
+# Powders upgrade to nuggets or wads.
+twinkly powder	upgrade
+hot powder	upgrade
+cold powder	upgrade
+stench powder	upgrade
+spooky powder	upgrade
+sleaze powder	upgrade
+
+# Nuggets upgrade to wads.
+twinkly nuggets	upgrade
+hot nuggets	upgrade
+cold nuggets	upgrade
+stench nuggets	upgrade
+spooky nuggets	upgrade
+sleaze nuggets	upgrade
+sewer nuggets	upgrade
+
+# Floaty items are upgradeable.
+floaty sand	upgrade
+floaty pebbles	upgrade
+floaty gravel	upgrade
+
+# Ultra-rare items smash into ultimate wads.
+17-ball	ultimate wad
+Counterclockwise Watch	ultimate wad
+crazy bastard sword	ultimate wad
+Dallas Dynasty Falcon Crest shield	ultimate wad
+hockey stick of furious angry rage	ultimate wad
+hypnodisk	ultimate wad
+incredibly dense meat gem	ultimate wad
+Talisman of Baio	ultimate wad
+Talisman of Bakula	ultimate wad
+
+# Antique Arms & Armor got nerfed.
+antique greaves	useless powder
+antique helmet	useless powder
+antique shield	useless powder
+antique spear	useless powder
+
+# Equipment made entirely out of items from NPC stores smash to useless powder.
+# Note that the NPC-buyable items themselves don't need to be listed here, they
+# are automatically considered to smash to useless powder.
+Gnollish autoplunger	useless powder
+
+# Hobopolis boss loot pulverizes into epic wads.
+Chester's Aquarius medallion	epic wad
+Chester's bag of candy	epic wad
+Chester's cutoffs	epic wad
+Chester's moustache	epic wad
+Chester's muscle shirt	epic wad
+Chester's sunglasses	epic wad
+Frosty's arm	epic wad
+Frosty's carrot	epic wad
+Frosty's nailbat	epic wad
+Frosty's old silk hat	epic wad
+Frosty's snowball sack	epic wad
+Hodgman's almanac	epic wad
+Hodgman's bow tie	epic wad
+Hodgman's cane	epic wad
+hodgman's disgusting technicolor overcoat	epic wad
+Hodgman's garbage sticker	epic wad
+Hodgman's harmonica	epic wad
+hodgman's imaginary hamster	epic wad
+Hodgman's lobsterskin pants	epic wad
+Hodgman's lucky sock	epic wad
+Hodgman's metal detector	epic wad
+Hodgman's porkpie hat	epic wad
+Hodgman's varcolac paw	epic wad
+Hodgman's whackin' stick	epic wad
+Ol' Scratch's ash can	epic wad
+Ol' Scratch's infernal pitchfork	epic wad
+Ol' Scratch's manacles	epic wad
+Ol' Scratch's ol' britches	epic wad
+Ol' Scratch's stove door	epic wad
+Ol' Scratch's stovepipe hat	epic wad
+Oscus's dumpster waders	epic wad
+Oscus's flypaper pants	epic wad
+Oscus's garbage can lid	epic wad
+Oscus's pelt	epic wad
+Uncle Hobo's gift baggy pants	epic wad
+Uncle Hobo's epic beard	epic wad
+Uncle Hobo's stocking cap	epic wad
+Uncle Hobo's fingerless tinsel gloves	epic wad
+Uncle Hobo's highest bough	epic wad
+Uncle Hobo's belt	epic wad
+Wand of Oscus	epic wad
+Zombo's grievous greaves	epic wad
+Zombo's shield	epic wad
+Zombo's shoulder blade	epic wad
+Zombo's skull ring	epic wad
+Zombo's skullcap	epic wad
+
+# Mother Slime loot, and products thereof, pulverizes into epic wads
+hardened slime belt	epic wad
+hardened slime hat	epic wad
+hardened slime pants	epic wad
+chamoisole	epic wad
+baneful bandolier	epic wad
+corroded breeches	epic wad
+corrosive cowl	epic wad
+diabolical crossbow	epic wad
+grisly shield	epic wad
+malevolent medallion	epic wad
+pernicious cudgel	epic wad
+villainous scythe	epic wad
+
+# The Necbromancer loot pulverizes into epic wads
+The Necbromancer's Hat	epic wad
+The Necbromancer's Shorts	epic wad
+The Necbromancer's Stein	epic wad
+The Necbromancer's Wizard Staff	epic wad
+
+# Starting equipment is useless.
+seal-clubbing club	useless powder
+turtle totem	useless powder
+pasta spoon	useless powder
+saucepan	useless powder
+disco ball	useless powder
+stolen accordion	useless powder
+mariachi pants	useless powder
+old sweatpants	useless powder
+
+# Unenchanted equipment is useless.
+Wand of Nagamar	useless powder
+hemp string	useless powder
+chisel	useless powder
+
+# Anniversary items do not appear in the Pulverize menu online, however they
+# can be smashed by direct form submission - presumably a bug, prevent that.
+anniversary chutney sculpture	nosmash
+spandex anniversary shorts	nosmash
+jar of anniversary jam	nosmash
+bucket of anniversary lard	nosmash
+anniversary concrete fedora	nosmash
+anniversary safety glass vest	nosmash
+anniversary burlap belt	nosmash
+anniversary balsa wood socks	nosmash
+
+# Miscellaneous exceptions.
+tiny plastic sword	nosmash
+wad of Crovacite	wad of Crovacite
+Emblem of Ak'gyxoth	nosmash
+green peawee marble	useless powder
+brown crock marble	useless powder
+red China marble	useless powder
+lemonade marble	useless powder
+bumblebee marble	useless powder
+jet bennie marble	useless powder
+beige clambroth marble	useless powder
+steely marble	useless powder
+beach ball marble	useless powder
+black catseye marble	useless powder
+big bumboozer marble	useless powder
+hobo code binder	nosmash
+cane-mail shirt	candycaine powder
+cane-mail pants	candycaine powder
+giant candy cane	candycaine powder
+
+# Equipment dropped, or made from drops, in The Sea has special results.
+7-inch discus	sea salt crystal
+aerated diving helmet	sea salt crystal
+amber aviator shades	sea salt crystal
+bezoar ring	sea salt crystal
+brand new key	sea salt crystal
+brass dorsal fin	sea salt crystal
+collapsible baton	sea salt crystal
+diving muff	sea salt crystal
+eelskin shield	sea salt crystal
+eelskin hat	sea salt crystal
+eelskin pants	sea salt crystal
+fish scimitar	sea salt crystal
+fish stick	sea salt crystal
+fish bazooka	sea salt crystal
+ganger bandana	sea salt crystal
+glowing esca	sea salt crystal
+halibut	sea salt crystal
+Mer-kin breastplate	sea salt crystal
+Mer-kin hookspear	sea salt crystal
+Mer-kin digpick	sea salt crystal
+Mer-kin prayerbeads	sea salt crystal
+Mer-kin roundshield	sea salt crystal
+Mer-kin sneakmask	sea salt crystal
+Mer-kin takebag	sea salt crystal
+moist sailor's cap	sea salt crystal
+non-stick pugil stick	sea salt crystal
+nurse's hat	sea salt crystal
+octopus's spade	sea salt crystal
+pink pinkslip slip	sea salt crystal
+PVC staff	sea salt crystal
+rusty compass	sea salt crystal
+rusty speargun	sea salt crystal
+rusty diving helmet	sea salt crystal
+sea salt scrubs	sea salt crystal
+shark jumper	sea salt crystal
+shark tooth necklace	sea salt crystal
+skate blade	sea salt crystal
+skate board	sea salt crystal
+sponge helmet	sea salt crystal
+spongy shield	sea salt crystal
+square sponge pants	sea salt crystal
+straw hat	sea salt crystal
+teflon shield	sea salt crystal
+teflon spatula	sea salt crystal
+teflon swim fins	sea salt crystal
+velcro boots	sea salt crystal
+velcro broadsword	sea salt crystal
+velcro paddle ball	sea salt crystal
+velcro shield	sea salt crystal
+vinyl boots	sea salt crystal
+vinyl shield	sea salt crystal
+water-polo cap	sea salt crystal
+water-polo mitt	sea salt crystal
+
+# Mr. Store equipment is not pulverizable.
+Mr. Accessory	nosmash
+Golden Mr. Accessory	nosmash
+Ms. Accessory	nosmash
+Mr. Accessory Jr.	nosmash
+Mr. Eh?	nosmash
+ice sickle	nosmash
+ice baby	nosmash
+ice pick	nosmash
+ice skates	nosmash
+Jekyllin hide belt	nosmash
+jewel-eyed wizard hat	nosmash
+Juju Mojo Mask	nosmash
+Travoltan trousers	nosmash
+pilgrim shield	nosmash
+liar's pants	nosmash
+flaming juggler's balls	nosmash
+flaming pink shirt	nosmash
+evil flaming eyeball pendant	nosmash
+bottle-rocket crossbow	nosmash
+navel ring of navel gazing	nosmash
+V for Vivala mask	nosmash
+naughty fortune teller	nosmash
+origami pasties	nosmash
+origami riding crop	nosmash
+mayfly bait necklace	nosmash
+haiku katana	nosmash
+scratch 'n' sniff sword	nosmash
+scratch 'n' sniff crossbow	nosmash
+Spooky Putty mitre	nosmash
+Spooky Putty leotard	nosmash
+Spooky Putty ball	nosmash
+Spooky Putty snake	nosmash
+Elvish sunglasses	nosmash
+Bag o' Tricks	nosmash
+stinky cheese sword	nosmash
+stinky cheese diaper	nosmash
+stinky cheese wheel	nosmash
+stinky cheese eye	nosmash
+Staff of Queso Escusado	nosmash
+Crown of Thrones	nosmash
+Greatest American Pants	nosmash
+Operation Patriot Shield	nosmash
+Loathing Legion abacus	nosmash
+Loathing Legion can opener	nosmash
+Loathing Legion chainsaw	nosmash
+Loathing Legion corkscrew	nosmash
+Loathing Legion defibrillator	nosmash
+Loathing Legion double prism	nosmash
+Loathing Legion electric knife	nosmash
+Loathing Legion flamethrower	nosmash
+Loathing Legion hammer	nosmash
+Loathing Legion helicopter	nosmash
+Loathing Legion kitchen sink	nosmash
+Loathing Legion many-purpose hook	nosmash
+Loathing Legion moondial	nosmash
+Loathing Legion necktie	nosmash
+Loathing Legion pizza stone	nosmash
+Loathing Legion rollerblades	nosmash
+Loathing Legion tape measure	nosmash
+plastic vampire fangs	nosmash
+
+# Depleted grimacite items.
+depleted Grimacite hammer	chunk of depleted Grimacite
+depleted Grimacite gravy boat	chunk of depleted Grimacite
+depleted Grimacite weightlifting belt	chunk of depleted Grimacite
+depleted Grimacite grappling hook	chunk of depleted Grimacite
+depleted Grimacite ninja mask	chunk of depleted Grimacite
+depleted Grimacite shinguards	chunk of depleted Grimacite
+depleted Grimacite astrolabe	chunk of depleted Grimacite
+
+# Shummoned sugar shtuff shmashes into sugar shards.
+sugar chapeau	sugar shard
+sugar shank	sugar shard
+sugar shillelagh	sugar shard
+sugar shirt	sugar shard
+sugar shotgun	sugar shard
+sugar shorts	sugar shard
+
+# BRICKO items break into bricks
+BRICKO hat	BRICKO brick
+BRICKO sword	BRICKO brick
+BRICKO pants	BRICKO brick
+BRICKO bulwark	BRICKO brick
+
+# Special cases. We need a better way to specify these.
+bejeweled cufflinks	258112

@@ -1,0 +1,1270 @@
+1
+global	addChatCommandLine	false
+global	addCreationQueue	true
+global	addStatusBarToFrames	false
+global	allowCloseableDesktopTabs	false
+global	allowNegativeTally	true
+global	allowNonMoodBurning	true
+global	allowSummonBurning	true
+global	autoLogin
+global	allowSocketTimeout	false
+global	autoHighlightOnFocus	true
+global	autoPlantHardcore	false
+global	autoPlantSoftcore	false
+global	autoSatisfyWithCloset	false
+global	autoSatisfyWithCoinmasters	false
+global	autoSatisfyWithMall	false
+global	autoSatisfyWithNPCs	false
+global	autoSatisfyWithStash	false
+global	autoSatisfyWithStorage	true
+global	breakfastHardcore	Advanced Saucecrafting,Pastamastery,Advanced Cocktailcrafting
+global	breakfastSoftcore	Advanced Saucecrafting,Pastamastery,Advanced Cocktailcrafting
+global	browserBookmarks
+global	cacheMallSearches	false
+global	charsheetDropdown	1
+global	chatBeep	false
+global	chatFontSize
+global	chatLinksUseRelay	false
+global	chatStyle	0
+global	cloverProtectActive	true
+global	coinMasterIndex	1
+global	combatHotkey0
+global	combatHotkey1
+global	combatHotkey2
+global	combatHotkey3
+global	combatHotkey4
+global	combatHotkey5
+global	combatHotkey6
+global	combatHotkey7
+global	combatHotkey8
+global	combatHotkey9
+global	commandLineNamespace
+global	compactChessboard	false
+global	connectViaAddress	false
+global	cookies.inventory
+global	copyAsHTML	false
+global	customizedTabs	false
+global	dailyDeedsOptions	Breakfast,Daily Dungeon,Submit Spading Data,Chips,Library Card,Telescope,Ball Pit,Styx Pixie,VIP Pool,Swimming Pool,April Shower,Bag o' Tricks,Legendary Beat,Outrageous Sombrero,Feast,Friars,Skate Park,Concert,Demon Summoning,Rage Gland,Free Rests,Hot Tub,Nuns,Oscus' Soda,Express Card,Flush Mojo,Pudding,Hatter,Melange,Stills,Photocopy,Putty,Camera,Romantic Arrow,Bonus Adventures,Familiar Drops,Free Fights,Free Runaways
+global	dailyDeedsVersion	3
+global	debugBuy	false
+global	debugConsequences	false
+global	debugFoxtrotRemoval	false
+global	debugPathnames	true
+global	defaultBorderColor	blue
+global	defaultDropdown1	0
+global	defaultDropdown2	1
+global	defaultDropdownSplit	0
+global	defaultLimit	5
+global	displayName
+global	externalEditor
+global	gapProtection	false
+global	getBreakfast
+global	grabCloversHardcore	false
+global	grabCloversSoftcore	true
+global	greenScreenProtection	false
+global	grimoireSkillsHardcore	none
+global	grimoireSkillsSoftcore	Summon Hilarious Objects
+global	guiUsesOneWindow	false
+global	harvestGardenHardcore	none
+global	harvestGardenSoftcore	none
+global	headerStates	Usable|item name:0|autosell:1|quantity:2|mallprice:-1|power:-1|fill:-1|adv/fill:-1;Restores|item name:0|autosell:1|quantity:2|mallprice:-1|HP restore:-1|MP restore:-1;General|item name:0|autosell:1|quantity:2|mallprice:-1|power:-1|fill:-1|adv/fill:-1;Recent|item name:0|autosell:1|quantity:2|mallprice:-1|power:-1|fill:-1|adv/fill:-1;Closet|item name:0|autosell:1|quantity:2|mallprice:-1|power:-1|fill:-1|adv/fill:-1;Storage|item name:0|autosell:1|quantity:2|mallprice:-1|power:-1|fill:-1|adv/fill:-1;Free Pulls|item name:0|autosell:1|quantity:2|mallprice:-1|power:-1|fill:-1|adv/fill:-1;Creatable|item name:0|autosell:1|quantity:2|mallprice:-1|fill:-1|adv/fill:-1|level req:-1;Cookable|item name:0|autosell:1|quantity:2|mallprice:-1|fill:-1|adv/fill:-1|level req:-1;Mixable|item name:0|autosell:1|quantity:2|mallprice:-1|fill:-1|adv/fill:-1|level req:-1;Fine Tuning|not implemented:0;Equipment|item name:0|power:1|quantity:2|mallprice:-1|autosell:-1;Storage|item name:0|autosell:1|quantity:2|mallprice:-1|power:-1|fill:-1|adv/fill:-1;Create|item name:0|autosell:1|quantity:2|mallprice:-1|fill:-1|adv/fill:-1|level req:-1;
+global	hideServerDebugText	false
+global	highlightList
+global	http.proxyHost
+global	http.proxyPassword
+global	http.proxyPort
+global	http.proxyUser
+global	https.proxyHost
+global	https.proxyPassword
+global	https.proxyPort
+global	https.proxyUser
+global	initialDesktop	AdventureFrame,CommandDisplayFrame,MallSearchFrame,GearChangeFrame,SkillBuffFrame
+global	initialFrames
+global	innerChatColor	#ffa98c
+global	innerTabColor	#8ca9ff
+global	itemManagerIndex	0
+global	lastBuffRequestType	0
+global	lastRelayUpdate
+global	lastRssUpdate	0
+global	lastRssVersion
+global	lastUserAgent
+global	lastUsername
+global	libramSkillsHardcore	none
+global	libramSkillsSoftcore	none
+global	logAcquiredItems	true
+global	logBattleAction	true
+global	logBrowserInteractions	false
+global	logChatMessages	true
+global	logCleanedHTML	false
+global	logDecoratedResponses	false
+global	logFamiliarActions	true
+global	logGainMessages	true
+global	logReadableHTML	false
+global	loginRecoveryHardcore	false
+global	loginRecoverySoftcore	true
+global	loginScript
+global	loginServerName
+global	loginWindowLogo	lantern.gif
+global	logMonsterHealth	true
+global	logoutScript
+global	logReverseOrder	false
+global	logStatGains	true
+global	logStatusEffects	true
+global	logStatusOnLogin	false
+global	macroDebug	false
+global	macroLens	false
+global	mementoListActive	false
+global	mergeHobopolisChat	false
+global	outerChatColor	#b4460f
+global	outerTabColor	#0f46b4
+global	pathedSummonsHardcore	true
+global	pathedSummonsSoftcore	false
+global	preferredWebBrowser
+global	previousNotifyList	<>
+global	previousUpdateVersion
+global	previousUpdateRevision	0
+global	protectAgainstOverdrink	true
+global	proxySet	false
+global	readManualHardcore	true
+global	readManualSoftcore	true
+global	relayAddsCustomCombat	true
+global	relayAddsDiscoHelper	false
+global	relayAddsGraphicalCLI	false
+global	relayAddsQuickScripts	false
+global	relayAddsRestoreLinks	true
+global	relayAddsUpArrowLinks	true
+global	relayAddsUseLinks	true
+global	relayAddsWikiLinks	false
+global	relayAllowRemoteAccess	false
+global	relayBrowserOnly	false
+global	relayFormatsChatText	false
+global	relayHidesJunkMallItems	false
+global	relayMaintainsEffects	false
+global	relayMaintainsHealth	false
+global	relayMaintainsMana	false
+global	relayOverridesImages	false
+global	relayRunsAfterAdventureScript	false
+global	relayRunsBeforeBattleScript	false
+global	relayRunsBeforePVPScript	false
+global	relaySkillButtonCount	5
+global	relayTextualizesEffects	false
+global	relayTrimsZapList	false
+global	relayUsesCachedImages	false
+global	relayUsesInlineLinks	true
+global	relayUsesIntegratedChat	false
+global	relayViewsCustomItems	false
+global	relayWarnOnRecoverFailure	true
+global	removeMalignantEffects	false
+global	saveSettingsOnSet	true
+global	saveState
+global	saveStateActive
+global	scriptButtonPosition	0
+global	scriptList	restore hp | restore mp
+global	sharePriceData	false
+global	showAllRequests	false
+global	showExceptionalRequests	false
+global	statusDropdown	0
+global	stealthLogin	true
+global	swingLookAndFeel
+global	switchEquipmentForBuffs	false
+global	tomeSkillsHardcore	Summon Snowcone
+global	tomeSkillsSoftcore	Summon Snowcone
+global	toolbarPosition	1
+global	useChatToolbar	true
+global	useContactsFrame	true
+global	useCrimboToysHardcore	false
+global	useCrimboToysSoftcore	true
+global	useDecoratedTabs
+global	useDevProxyServer	false
+global	useDockIconBadge	false
+global	useLastUserAgent	false
+global	useNaiveSecureLogin	false
+global	useSecureLogin	false
+global	useShinyTabbedChat	true
+global	useSystemTrayIcon	false
+global	useTabbedChatFrame	true
+global	useToolbars	true
+global	useZoneComboBox	false
+global	userAgent
+global	visitLoungeHardcore	true
+global	visitLoungeSoftcore	true
+global	visitRumpusHardcore	true
+global	visitRumpusSoftcore	true
+
+user	addingScrolls	-1
+user	afterAdventureScript
+user	arcadeGameHints	false
+user	autoAbortThreshold	-0.05
+user	autoAntidote	0
+user	autoBuyPriceLimit	20000
+user	autoCraft	true
+user	autoEntangle	false
+user	autoManaRestore	false
+user	autoOlfact
+user	autoPotionID	false
+user	autoPutty
+user	autoRepairBoxServants	false
+user	autoSphereID	false
+user	autoSteal	true
+user	autostartGalaktikQuest	true
+user	availableCandyCredits	0
+user	availableDimes	0
+user	availableQuarters	0
+user	availableStoreCredits	0
+user	availableSwagger	0
+user	badMoonEncounter01	false
+user	badMoonEncounter02	false
+user	badMoonEncounter03	false
+user	badMoonEncounter04	false
+user	badMoonEncounter05	false
+user	badMoonEncounter06	false
+user	badMoonEncounter07	false
+user	badMoonEncounter08	false
+user	badMoonEncounter09	false
+user	badMoonEncounter10	false
+user	badMoonEncounter11	false
+user	badMoonEncounter12	false
+user	badMoonEncounter13	false
+user	badMoonEncounter14	false
+user	badMoonEncounter15	false
+user	badMoonEncounter16	false
+user	badMoonEncounter17	false
+user	badMoonEncounter18	false
+user	badMoonEncounter19	false
+user	badMoonEncounter20	false
+user	badMoonEncounter21	false
+user	badMoonEncounter22	false
+user	badMoonEncounter23	false
+user	badMoonEncounter24	false
+user	badMoonEncounter25	false
+user	badMoonEncounter26	false
+user	badMoonEncounter27	false
+user	badMoonEncounter28	false
+user	badMoonEncounter29	false
+user	badMoonEncounter30	false
+user	badMoonEncounter31	false
+user	badMoonEncounter32	false
+user	badMoonEncounter33	false
+user	badMoonEncounter34	false
+user	badMoonEncounter35	false
+user	badMoonEncounter36	false
+user	badMoonEncounter37	false
+user	badMoonEncounter38	false
+user	badMoonEncounter39	false
+user	badMoonEncounter40	false
+user	badMoonEncounter41	false
+user	badMoonEncounter42	false
+user	badMoonEncounter43	false
+user	badMoonEncounter44	false
+user	badMoonEncounter45	false
+user	badMoonEncounter46	false
+user	badMoonEncounter47	false
+user	badMoonEncounter48	false
+user	ballpitBonus	1
+user	banishingShoutMonsters
+user	bankedKarma	0
+user	barrelGoal	1
+user	barrelLayout	?????????
+user	bartenderTurnsUsed	0
+user	basementMallPrices	1
+user	battleAction	attack with weapon
+user	beeCounter	0
+user	beforePVPScript
+user	betweenBattleScript
+user	biodataEngineering	0
+user	biodataGalley	0
+user	biodataMedbay	0
+user	biodataMorgue	0
+user	biodataNavigation	0
+user	biodataScienceLab	0
+user	biodataSonar	0
+user	biodataSpecialOps	0
+user	biodataWasteProcessing	0
+user	birdformCold	0
+user	birdformHot	0
+user	birdformRoc	0
+user	birdformSleaze	0
+user	birdformSpooky	0
+user	birdformStench	0
+user	blackPuddingsDefeated	0
+user	blankOutUsed	0
+user	bootsCharged	false
+user	borisPoints	0
+user	breakableHandling	1
+user	breakableHandling1964	2
+user	breakfastCompleted	false
+user	buffBotCasting
+user	buffBotMessageDisposal	0
+user	buffBotPhilanthropyType	1
+user	burrowgrubHiveUsed	false
+user	burrowgrubSummonsRemaining	0
+user	buyScript
+user	cameraMonster
+user	camerasUsed	0
+user	carboLoading	0
+user	cellarLayout	0
+user	charitableDonations	0
+user	chatbotScript
+user	chatbotScriptExecuted	false
+user	chatLiterate	false
+user	chefTurnsUsed	0
+user	chessboardsCleared	0
+user	chosenTrip
+user	clanAttacksEnabled	false
+user	cocktailSummons	0
+user	counterScript
+user	concertVisited	false
+user	crimboTreeDays	7
+user	currentBountyItem	0
+user	currentFullness	0
+user	currentHippyStore	none
+user	currentJunkyardTool
+user	currentJunkyardLocation
+user	currentMojoFilters	0
+user	currentMood	default
+user	currentNunneryMeat	0
+user	currentPvpVictories
+user	currentSpleenUse	0
+user	currentWheelPosition	muscle
+user	customCombatScript	default
+user	cyrptAlcoveEvilness	0
+user	cyrptCrannyEvilness	0
+user	cyrptNicheEvilness	0
+user	cyrptNookEvilness	0
+user	cyrptTotalEvilness	0
+user	dailyDungeonDone	false
+user	dbNemesisSkill1	0
+user	dbNemesisSkill2	0
+user	dbNemesisSkill3	0
+user	defaultFlowerLossMessage
+user	defaultFlowerWinMessage
+user	demonName1
+user	demonName2
+user	demonName3
+user	demonName4
+user	demonName5
+user	demonName6	Tatter
+user	demonName7	Ak'gyxoth
+user	demonName8
+user	demonName9
+user	demonName10
+user	demonSummoned	false
+user	desktopHeight	600
+user	desktopWidth	800
+user	distentionPillActive	false
+user	dolphinItem
+user	doorCode
+user	expressCardUsed	false
+user	extraRolloverAdventures	0
+user	fistSkillsKnown	0
+user	fistTeachingsHaikuDungeon	false
+user	fistTeachingsPokerRoom	false
+user	fistTeachingsBarroomBrawl	false
+user	fistTeachingsConservatory	false
+user	fistTeachingsBatHole	false
+user	fistTeachingsFunHouse	false
+user	fistTeachingsMenagerie	false
+user	fistTeachingsSlums	false
+user	fistTeachingsFratHouse	false
+user	fistTeachingsRoad	false
+user	fistTeachingsNinjaSnowmen	false
+user	flyeredML	0
+user	fossilB	0
+user	fossilD	0
+user	fossilN	0
+user	fossilP	0
+user	fossilS	0
+user	fossilW	0
+user	fratboysDefeated	0
+user	friarsBlessingReceived	false
+user	goldenMrAccessories	0
+user	gongPath	0
+user	gourdItemCount	5
+user	grimoire1Summons	0
+user	grimoire2Summons	0
+user	grimoire3Summons	0
+user	guardTurtlesFreed	0
+user	guyMadeOfBeesCount	0
+user	guyMadeOfBeesDefeated	false
+user	heroDonationBoris	0
+user	heroDonationJarlsberg	0
+user	heroDonationSneakyPete	0
+user	hiddenCityLayout	0000000000000000000000000
+user	hippiesDefeated	0
+user	hpAutoRecovery	-0.05
+user	hpAutoRecoveryItems	cannelloni cocoon;scroll of drastic healing;tongue of the walrus;lasagna bandages;doc galaktik's ailment ointment
+user	hpAutoRecoveryTarget	1.0
+user	invalidBuffMessage	You sent an amount which does not correspond to a valid buff amount.
+user	kingLiberated	false
+user	kingLiberatedScript
+user	knownAscensions	-1
+user	lastAdventure
+user	lastArcadeAscension	-1
+user	lastBadMoonReset	-1
+user	lastBangPotion819
+user	lastBangPotion820
+user	lastBangPotion821
+user	lastBangPotion822
+user	lastBangPotion823
+user	lastBangPotion824
+user	lastBangPotion825
+user	lastBangPotion826
+user	lastBangPotion827
+user	lastBangPotionReset	-1
+user	lastBarrelSmashed	0
+user	lastBattlefieldReset	-1
+user	lastBreakfast	-1
+user	lastCellarReset	-1
+user	lastChanceBurn
+user	lastChanceThreshold	100
+user	lastChessboard
+user	lastCouncilVisit	0
+user	lastCounterDay	-1
+user	lastDispensaryOpen	-1
+user	lastDoorCodeReset	-1
+user	lastDustyBottle2271
+user	lastDustyBottle2272
+user	lastDustyBottle2273
+user	lastDustyBottle2274
+user	lastDustyBottle2275
+user	lastDustyBottle2276
+user	lastDustyBottleReset	-1
+user	lastDwarfDiceRolls
+user	lastDwarfDigitRunes	-------
+user	lastDwarfEquipmentRunes
+user	lastDwarfFactoryItem118
+user	lastDwarfFactoryItem119
+user	lastDwarfFactoryItem120
+user	lastDwarfFactoryItem360
+user	lastDwarfFactoryItem361
+user	lastDwarfFactoryItem362
+user	lastDwarfFactoryItem363
+user	lastDwarfFactoryItem364
+user	lastDwarfFactoryItem365
+user	lastDwarfFactoryItem910
+user	lastDwarfFactoryItem3199
+user	lastDwarfOfficeItem3208
+user	lastDwarfOfficeItem3209
+user	lastDwarfOfficeItem3210
+user	lastDwarfOfficeItem3211
+user	lastDwarfOfficeItem3212
+user	lastDwarfOfficeItem3213
+user	lastDwarfOfficeItem3214
+user	lastDwarfOreRunes
+user	lastDwarfFactoryReset	-1
+user	lastDwarfHopper1
+user	lastDwarfHopper2
+user	lastDwarfHopper3
+user	lastDwarfHopper4
+user	lastEVHelmetValue	0
+user	lastEVHelmetReset	-1
+user	lastEasterEggBalloon	-1
+user	lastEmptiedStorage	-1
+user	lastEncounter
+user	lastFilthClearance	-1
+user	lastGalleryUnlock	-1
+user	lastGuildStoreOpen	-1
+user	lastGuyMadeOfBeesReset	-1
+user	lastHiddenCityAscension	0
+user	lastFratboyCall	-1
+user	lastFriarCeremonyAscension	-1
+user	lastHippyCall	-1
+user	lastKeyotronUse	-1
+user	lastKingLiberation	-1
+user	lastLouvreMap	0
+user	lastManorUnlock	-1
+user	lastMessageId
+user	lastMiningReset	-1
+user	lastNemesisReset	-1
+user	lastPaperStripReset	-1
+user	lastPaperStrip3144
+user	lastPaperStrip4138
+user	lastPaperStrip4139
+user	lastPaperStrip4140
+user	lastPaperStrip4141
+user	lastPaperStrip4142
+user	lastPaperStrip4143
+user	lastPaperStrip4144
+user	lastPastamancerGhostReset	-1
+user	lastPirateEphemera
+user	lastPirateEphemeraReset	-1
+user	lastPirateInsult1	false
+user	lastPirateInsult2	false
+user	lastPirateInsult3	false
+user	lastPirateInsult4	false
+user	lastPirateInsult5	false
+user	lastPirateInsult6	false
+user	lastPirateInsult7	false
+user	lastPirateInsult8	false
+user	lastPirateInsultReset	-1
+user	lastPorkoBoard
+user	lastPorkoPayouts
+user	lastPorkoExpected
+user	lastPyramidReset	-1
+user	lastQuartetAscension	-1
+user	lastQuartetRequest	0
+user	lastSecondFloorUnlock	-1
+user	lastSemirareReset	-1
+user	lastSkateParkReset	-1
+user	lastSlimeVial3885
+user	lastSlimeVial3886
+user	lastSlimeVial3887
+user	lastSlimeVial3888
+user	lastSlimeVial3889
+user	lastSlimeVial3890
+user	lastSlimeVial3891
+user	lastSlimeVial3892
+user	lastSlimeVial3893
+user	lastSlimeVial3894
+user	lastSlimeVial3895
+user	lastSlimeVial3896
+user	lastStoneSphere2174
+user	lastStoneSphere2175
+user	lastStoneSphere2176
+user	lastStoneSphere2177
+user	lastStoneSphereReset	-1
+user	lastTavernAscension	0
+user	lastTavernSquare	0
+user	lastTelescopeReset	-1
+user	lastTempleAdventures	-1
+user	lastTempleButtonsUnlock	-1
+user	lastTempleUnlock	-1
+user	lastTowerClimb	-1
+user	lastTr4pz0rQuest	-1
+user	lastVioletFogMap	0
+user	lastWuTangDefeated	-1
+user	lastZapperWand	0
+user	libramSummons	0
+user	libraryCardUsed	false
+user	louvreDesiredGoal	7
+user	louvreGoal	0
+user	louvreLayout
+user	louvreOverride
+user	manaBurnSummonThreshold	10
+user	manaBurningThreshold	-0.05
+user	manaBurningTrigger	-0.05
+user	maximizerMRULength	0
+user	maximizerMRUList	mainstat;mus;mys;mox;familiar weight;HP;MP;ML;DA;DR;+combat -tie;-combat -tie;initiative;exp;meat drop;item drop;2.0 meat, 1.0 item;item, sea;weapon dmg;ranged dmg;elemental dmg;spell dmg;adv;hot res;cold res;spooky res;stench res;sleaze res;all res;mp regen;ML, 0.001 slime res;4 clownosity;7 raveosity;+four songs
+user	maxManaBurn	1000
+user	mayflyExperience	0
+user	meansuckerPrice	400
+user	meatDropSpading	false
+user	mineLayout1
+user	mineLayout2
+user	mineLayout3
+user	mineLayout4
+user	mmgAutoConfirmBets	false
+user	mmgDisabled	false
+user	mmgSearchMinimum
+user	mmgSearchMaximum
+user	moleTunnelLevel	0
+user	mpAutoRecovery	-0.5
+user	mpAutoRecoveryItems	phonics down;knob goblin superseltzer;mountain stream soda;magical mystery juice;knob goblin seltzer;cherry cloaca cola;soda water
+user	mpAutoRecoveryTarget	0.3
+user	munchiesPillsUsed	0
+user	noodleSummons	0
+user	nunsVisits	0
+user	oceanAction	savecontinue
+user	oceanDestination	manual
+user	olfactedMonster	unknown
+user	oscusSodaUsed	false
+user	outrageousSombreroUsed	false
+user	parasolUsed	0
+user	pastamancerGhostExperience	0
+user	pastamancerGhostName
+user	pastamancerGhostSummons	0
+user	pastamancerGhostType
+user	pastamancerOrbedExperience	0
+user	pastamancerOrbedName
+user	pastamancerOrbedType
+user	pendingMapReflections	0
+user	photocopyMonster
+user	plantingDate
+user	plantingDay	-1
+user	plantingLength
+user	plantingScript
+user	poolSharkCount	0
+user	postAscensionScript
+user	preAscensionScript
+user	preBlackbirdFamiliar
+user	prismaticSummons	0
+user	promptAboutCrafting	1
+user	pyramidPosition	0
+user	pyramidBombUsed	false
+user	questF01Primordial	unstarted
+user	questF02Hyboria	unstarted
+user	questF03Future	unstarted
+user	questF04Elves	unstarted
+user	questF05Clancy	unstarted
+user	questG01Meatcar	unstarted
+user	questG02Whitecastle	unstarted
+user	questG03Ego	unstarted
+user	questG04Nemesis	unstarted
+user	questG05Dark	unstarted
+user	questG06Delivery	unstarted
+user	questI01Scapegoat	unstarted
+user	questI02Beat 	unstarted
+user	questL02Larva	unstarted
+user	questL03Rat	unstarted
+user	questL04Bat	unstarted
+user	questL05Goblin	unstarted
+user	questL06Friar	unstarted
+user	questL07Cyrptic	unstarted
+user	questL08Trapper	unstarted
+user	questL09Lol	unstarted
+user	questL10Garbage	unstarted
+user	questL11MacGuffin	unstarted
+user	questL11Worship	unstarted
+user	questL11Manor	unstarted
+user	questL11Palindome	unstarted
+user	questL11Pyramid	unstarted
+user	questL12War	unstarted
+user	questL13Final	unstarted
+user	questM01Untinker	unstarted
+user	questM02Artist	unstarted
+user	questM03Bugbear	unstarted
+user	questM04Galaktic	unstarted
+user	questM05Toot	unstarted
+user	questM06Gourd	unstarted
+user	questM07Hammer	unstarted
+user	questM08Baker	unstarted
+user	questM09Rocks	unstarted
+user	questM10Azazel	unstarted
+user	questM11Postal	unstarted
+user	questM12Pirate	unstarted
+user	questM13Escape	unstarted
+user	questM14Bounty	unstarted
+user	questS01OldGuy	unstarted
+user	questS02Monkees	unstarted
+user	rageGlandVented	false
+user	rainDohMonster
+user	raveCombo1
+user	raveCombo2
+user	raveCombo3
+user	raveCombo4
+user	raveCombo5
+user	raveCombo6
+user	reagentSummons	0
+user	recentLocations	5
+user	recoveryScript
+user	relayCounters
+user	relayShowSpoilers	false
+user	rememberDesktopSize	false
+user	requireBoxServants	false
+user	requireSewerTestItems	false
+user	romanticTarget
+user	scriptMRULength	0
+user	scriptMRUList
+user	seaodesFound	0
+user	semirareCounter	0
+user	semirareLocation
+user	serverAddsCustomCombat	false
+user	sexChanges	0
+user	showGainsPerUnit	false
+user	showTurnFreeOnly	false
+user	sideDefeated	neither
+user	sidequestArenaCompleted	none
+user	sidequestFarmCompleted	none
+user	sidequestJunkyardCompleted	none
+user	sidequestLighthouseCompleted	none
+user	sidequestNunsCompleted	none
+user	sidequestOrchardCompleted	none
+user	singleFamiliarRun	0
+user	skateParkStatus	war
+user	skillBurn3	-100
+user	skillBurn1019	-100
+user	skillBurn5017	-100
+user	skillBurn6014	-100
+user	skillBurn6015	-100
+user	skillBurn6016	-100
+user	skillBurn6020	-100
+user	skillBurn6021	-100
+user	skillBurn6022	-100
+user	skillBurn6023	-100
+user	skillBurn6024	-100
+user	skillBurn6026	-100
+user	skillBurn6028	-100
+user	skillLevel46	0
+user	skillLevel47	0
+user	skillLevel48	0
+user	slimelingFullness	0.0
+user	slimelingStacksDropped	0
+user	slimelingStacksDue	0
+user	sortByRoom	true
+user	spadingData
+user	spiceMelangeUsed	false
+user	spookyPuttyCopiesMade	0
+user	spookyPuttyMonster
+user	stationaryButton1
+user	stationaryButton2
+user	stationaryButton3
+user	stationaryButton4
+user	stationaryButton5
+user	styxPixieVisited	false
+user	sugarCounter4178	0
+user	sugarCounter4179	0
+user	sugarCounter4180	0
+user	sugarCounter4181	0
+user	sugarCounter4182	0
+user	sugarCounter4183	0
+user	sugarCounter4191	0
+user	tavernLayout	0000000000000000000000000
+user	telescope1
+user	telescope2
+user	telescope3
+user	telescope4
+user	telescope5
+user	telescope6
+user	telescope7
+user	telescopeLookedHigh	false
+user	telescopeUpgrades	0
+user	tempuraSummons	0
+user	textColors	crappy:#999999|good:green|awesome:blue|epic:#8a2be2|junk:gray|memento:olive|notavailable:gray
+user	thanksMessage	Thank you for the donation!
+user	timesRested	99
+user	tomeSummons	0
+user	totalCharitableDonations	0
+user	trapperOre	chrome ore
+user	usable1HWeapons	3
+user	usable1xAccs	1
+user	usable2HWeapons	1
+user	usable3HWeapons	1
+user	usableAccessories	3
+user	usableHats	2
+user	usableOffhands	1
+user	usableOther	1
+user	usablePants	2
+user	usableShirts	1
+user	valueOfAdventure	500
+user	valueOfInventory	1.8
+user	valueOfStill	0
+user	valueOfTome	0
+user	violetFogGoal	0
+user	violetFogLayout
+user	volcanoMaze1
+user	volcanoMaze2
+user	volcanoMaze3
+user	volcanoMaze4
+user	volcanoMaze5
+user	warProgress	unstarted
+user	waxMonster
+user	welcomeBackAdv	0
+user	wineCellarProgress	0
+user	_absintheDrops	0
+user	_aguaDrops	0
+user	_akgyxothUsed	false
+user	_allYearSucker	false
+user	_aprilShower	false
+user	_astralDrops	0
+user	_badlyRomanticArrows	0
+user	_bagOTricksUsed	false
+user	_bagOfCandy	false
+user	_bagOfCandyUsed	false
+user	_ballastTurtleUsed	false
+user	_ballInACupUsed	false
+user	_ballpit	false
+user	_banderRunaways	0
+user	_beerLensDrops	0
+user	_benettonsCasts	0
+user	_bonersSummoned	false
+user	_bootStomps	0
+user	_borrowedTimeUsed	false
+user	_boxingGloveArrows	0
+user	_boxOfHammersUsed	false
+user	_brickoFights	0
+user	_brickoEyeSummons	0
+user	_cameraUsed	false
+user	_candySummons	0
+user	_carboLoaded	false
+user	_carnieCandyDrops	0
+user	_companionshipCasts	0
+user	_chipBags	0
+user	_chocolateCigarsUsed	0
+user	_chocolatesUsed	0
+user	_coalPaperweightUsed	false
+user	_creepyVoodooDollUsed	false
+user	_crimboTree	false
+user	_darkChocolateHeart	false
+user	_deluxeKlawSummons	0
+user	_demandSandwich	0
+user	_distentionPillUsed	false
+user	_donhosCasts	0
+user	_elronsCasts	0
+user	_essentialTofuUsed	false
+user	_feastedFamiliars
+user	_feastUsed	0
+user	_fingertrapArrows	0
+user	_fudgeWaspFights	0
+user	_gapBuffs	0
+user	_gibbererAdv	0
+user	_gnollEyeUsed	false
+user	_gongDrops	0
+user	_grooseDrops	0
+user	_guildManualUsed	false
+user	_hareAdv	0
+user	_hippyMeatCollected	false
+user	_hipsterAdv	0
+user	_hobbyHorseUsed	false
+user	_hoboUnderlingSummons	0
+user	_hotTubSoaks	0
+user	_hyperinflatedSealLungUsed	false
+user	_iceballUses	0
+user	_inigosCasts	0
+user	_interviewVlad	false
+user	_interviewIsabella	false
+user	_interviewMasquerade	false
+user	_ironicMoustache	false
+user	_jukebox	false
+user	_kloopDrops	0
+user	_jackassPlumberGame	false
+user	_jingleBellUsed	false
+user	_klawSummons	0
+user	_kolConSixPackUsed	false
+user	_lastZomboEye	0
+user	_leafblowerML	1
+user	_legendaryBeat	false
+user	_lookingGlass	false
+user	_lunchBreak	false
+user	_madTeaParty	false
+user	_mayflowerDrops	0
+user	_mayflySummons	0
+user	_mediumSiphons	0
+user	_navelRunaways	0
+user	_olympicSwimmingPool	false
+user	_pasteDrops	0
+user	_photocopyUsed	false
+user	_pieDrops	0
+user	_piePartsCount	0
+user	_pneumaticityPotionUsed	false
+user	_poisonArrows	0
+user	_poolGames	0
+user	_precisionCasts	0
+user	_raindohCopiesMade	0
+user	_requestSandwichSucceeded	false
+user	_resolutionAdv	0
+user	_riftletAdv	0
+user	_romanticFightsLeft	0
+user	_sealFigurineUses	0
+user	_sealsSummoned	0
+user	_setOfJacksUsed	false
+user	_sexChanged	false
+user	_skateBuff1	false
+user	_skateBuff2	false
+user	_skateBuff3	false
+user	_skateBuff4	false
+user	_skateBuff5	false
+user	_smilesOfMrA	0
+user	_softwareGlitchTurnReceived	false
+user	_stabonicScrollUsed	false
+user	_stinkyCheeseCount	0
+user	_stinkyCheeseBanisherUsed	false
+user	_stressBallSqueezes	0
+user	_stuffedPocketwatchUsed	false
+user	_styxSprayUsed	false
+user	_syntheticDogHairPillUsed	false
+user	_templeHiddenPower	false
+user	_tempuraAirUsed	false
+user	_thingfinderCasts	0
+user	_timeHelmetAdv	0
+user	_toastSummons	0
+user	_tokenDrops	0
+user	_transponderDrops	0
+user	_treasuryEliteMeatCollected	false
+user	_treasuryHaremMeatCollected	false
+user	_trivialAvocationsGame	false
+user	_userMods
+user	_vitachocCapsulesUsed	0
+user	_vmaskAdv	0
+user	_vmaskBanisherUsed	false
+user	_whiteRiceDrops	0
+user	_zapCount	0
+user	choiceAdventure2	2
+user	choiceAdventure3	3
+user	choiceAdventure4	3
+user	choiceAdventure5	2
+user	choiceAdventure6	1
+user	choiceAdventure7	1
+user	choiceAdventure8	3
+user	choiceAdventure9	2
+user	choiceAdventure10	1
+user	choiceAdventure11	3
+user	choiceAdventure12	2
+user	choiceAdventure14	4
+user	choiceAdventure15	4
+user	choiceAdventure16	4
+user	choiceAdventure17	4
+user	choiceAdventure18	4
+user	choiceAdventure19	4
+user	choiceAdventure20	4
+user	choiceAdventure21	2
+user	choiceAdventure22	4
+user	choiceAdventure23	4
+user	choiceAdventure24	4
+user	choiceAdventure25	2
+user	choiceAdventure26	2
+user	choiceAdventure27	2
+user	choiceAdventure28	2
+user	choiceAdventure29	2
+user	choiceAdventure40	3
+user	choiceAdventure41	3
+user	choiceAdventure42	3
+user	choiceAdventure45	1
+user	choiceAdventure46	3
+user	choiceAdventure47	2
+user	choiceAdventure71	1
+user	choiceAdventure72	2
+user	choiceAdventure73	2
+user	choiceAdventure74	2
+user	choiceAdventure75	3
+user	choiceAdventure76	3
+user	choiceAdventure77	2
+user	choiceAdventure78	1
+user	choiceAdventure79	1
+user	choiceAdventure80	99
+user	choiceAdventure81	1
+user	choiceAdventure82	1
+user	choiceAdventure83	1
+user	choiceAdventure84	2
+user	choiceAdventure85	1
+user	choiceAdventure86	2
+user	choiceAdventure87	2
+user	choiceAdventure88	1
+user	choiceAdventure89	6
+user	choiceAdventure90	2
+user	choiceAdventure91	1
+user	choiceAdventure105	3
+user	choiceAdventure106	4
+user	choiceAdventure107	4
+user	choiceAdventure108	4
+user	choiceAdventure109	1
+user	choiceAdventure110	4
+user	choiceAdventure111	3
+user	choiceAdventure112	1
+user	choiceAdventure113	2
+user	choiceAdventure114	2
+user	choiceAdventure115	1
+user	choiceAdventure116	4
+user	choiceAdventure117	1
+user	choiceAdventure118	2
+user	choiceAdventure120	4
+user	choiceAdventure123	2
+user	choiceAdventure125	3
+user	choiceAdventure126	1
+user	choiceAdventure127	3
+user	choiceAdventure129	1
+user	choiceAdventure130	1
+user	choiceAdventure131	1
+user	choiceAdventure132	2
+user	choiceAdventure134	2
+user	choiceAdventure135	2
+user	choiceAdventure136	4
+user	choiceAdventure137	4
+user	choiceAdventure138	4
+user	choiceAdventure139	1
+user	choiceAdventure140	2
+user	choiceAdventure141	1
+user	choiceAdventure142	3
+user	choiceAdventure143	1
+user	choiceAdventure144	1
+user	choiceAdventure145	1
+user	choiceAdventure146	3
+user	choiceAdventure147	3
+user	choiceAdventure148	1
+user	choiceAdventure149	2
+user	choiceAdventure151	2
+user	choiceAdventure152	1
+user	choiceAdventure153	4
+user	choiceAdventure154	1
+user	choiceAdventure155	4
+user	choiceAdventure156	1
+user	choiceAdventure157	4
+user	choiceAdventure158	1
+user	choiceAdventure159	4
+user	choiceAdventure160	1
+user	choiceAdventure161	4
+user	choiceAdventure162	1
+user	choiceAdventure163	1
+user	choiceAdventure164	2
+user	choiceAdventure165	2
+user	choiceAdventure166	3
+user	choiceAdventure167	3
+user	choiceAdventure168	3
+user	choiceAdventure169	3
+user	choiceAdventure170	1
+user	choiceAdventure171	3
+user	choiceAdventure172	1
+user	choiceAdventure177	4
+user	choiceAdventure178	1
+user	choiceAdventure180	1
+user	choiceAdventure181	1
+user	choiceAdventure182	1
+user	choiceAdventure184	6
+user	choiceAdventure185	3
+user	choiceAdventure186	1
+user	choiceAdventure187	0
+user	choiceAdventure188	0
+user	choiceAdventure189	0
+user	choiceAdventure191	1
+user	choiceAdventure197	1
+user	choiceAdventure198	1
+user	choiceAdventure199	1
+user	choiceAdventure200	0
+user	choiceAdventure201	0
+user	choiceAdventure202	0
+user	choiceAdventure203	0
+user	choiceAdventure204	0
+user	choiceAdventure205	0
+user	choiceAdventure206	0
+user	choiceAdventure207	2
+user	choiceAdventure208	2
+user	choiceAdventure211	0
+user	choiceAdventure212	0
+user	choiceAdventure213	2
+user	choiceAdventure214	2
+user	choiceAdventure215	3
+user	choiceAdventure216	2
+user	choiceAdventure217	3
+user	choiceAdventure218	1
+user	choiceAdventure219	2
+user	choiceAdventure220	2
+user	choiceAdventure221	1
+user	choiceAdventure222	1
+user	choiceAdventure223	0
+user	choiceAdventure224	2
+user	choiceAdventure225	0
+user	choiceAdventure272	2
+user	choiceAdventure273	3
+user	choiceAdventure276	0
+user	choiceAdventure277	1
+user	choiceAdventure278	0
+user	choiceAdventure279	0
+user	choiceAdventure280	0
+user	choiceAdventure281	0
+user	choiceAdventure282	0
+user	choiceAdventure283	0
+user	choiceAdventure284	0
+user	choiceAdventure286	0
+user	choiceAdventure287	0
+user	choiceAdventure288	0
+user	choiceAdventure289	0
+user	choiceAdventure290	0
+user	choiceAdventure291	0
+user	choiceAdventure292	0
+user	choiceAdventure293	0
+user	choiceAdventure294	0
+user	choiceAdventure295	0
+user	choiceAdventure296	1
+user	choiceAdventure297	2
+user	choiceAdventure298	1
+user	choiceAdventure299	1
+user	choiceAdventure303	1
+user	choiceAdventure304	1
+user	choiceAdventure305	1
+user	choiceAdventure306	1
+user	choiceAdventure307	1
+user	choiceAdventure308	1
+user	choiceAdventure309	1
+user	choiceAdventure310	0
+user	choiceAdventure311	0
+user	choiceAdventure317	1
+user	choiceAdventure318	1
+user	choiceAdventure319	1
+user	choiceAdventure320	1
+user	choiceAdventure321	1
+user	choiceAdventure322	1
+user	choiceAdventure326	0
+user	choiceAdventure327	1
+user	choiceAdventure328	1
+user	choiceAdventure329	1
+user	choiceAdventure330	2
+user	choiceAdventure331	1
+user	choiceAdventure332	1
+user	choiceAdventure333	1
+user	choiceAdventure334	1
+user	choiceAdventure335	1
+user	choiceAdventure336	1
+user	choiceAdventure337	0
+user	choiceAdventure338	1
+user	choiceAdventure339	1
+user	choiceAdventure340	1
+user	choiceAdventure341	1
+user	choiceAdventure342	1
+user	choiceAdventure343	1
+user	choiceAdventure344	1
+user	choiceAdventure345	1
+user	choiceAdventure346	1
+user	choiceAdventure347	1
+user	choiceAdventure348	1
+user	choiceAdventure349	0
+user	choiceAdventure350	0
+user	choiceAdventure351	1
+user	choiceAdventure352	0
+user	choiceAdventure353	0
+user	choiceAdventure354	0
+user	choiceAdventure355	0
+user	choiceAdventure353	0
+user	choiceAdventure354	0
+user	choiceAdventure355	0
+user	choiceAdventure353	0
+user	choiceAdventure354	0
+user	choiceAdventure355	0
+user	choiceAdventure356	0
+user	choiceAdventure357	0
+user	choiceAdventure358	0
+user	choiceAdventure361	0
+user	choiceAdventure362	0
+user	choiceAdventure363	0
+user	choiceAdventure364	2
+user	choiceAdventure365	2
+user	choiceAdventure387	1
+user	choiceAdventure388	1
+user	choiceAdventure389	1
+user	choiceAdventure390	1
+user	choiceAdventure391	1
+user	choiceAdventure392	0
+user	choiceAdventure393	0
+user	choiceAdventure395	1
+user	choiceAdventure402	0
+user	choiceAdventure403	0
+user	choiceAdventure423	1
+user	choiceAdventure424	1
+user	choiceAdventure425	1
+user	choiceAdventure426	1
+user	choiceAdventure427	1
+user	choiceAdventure428	1
+user	choiceAdventure429	1
+user	choiceAdventure430	1
+user	choiceAdventure431	1
+user	choiceAdventure432	1
+user	choiceAdventure433	1
+user	choiceAdventure435	1
+user	choiceAdventure438	1
+user	choiceAdventure439	1
+user	choiceAdventure444	1
+user	choiceAdventure445	1
+user	choiceAdventure446	1
+user	choiceAdventure447	1
+user	choiceAdventure448	1
+user	choiceAdventure449	1
+user	choiceAdventure451	5
+user	choiceAdventure457	2
+user	choiceAdventure458	1
+user	choiceAdventure460	0
+user	choiceAdventure461	0
+user	choiceAdventure462	0
+user	choiceAdventure463	0
+user	choiceAdventure464	0
+user	choiceAdventure465	0
+user	choiceAdventure467	0
+user	choiceAdventure468	0
+user	choiceAdventure469	0
+user	choiceAdventure470	0
+user	choiceAdventure471	0
+user	choiceAdventure472	0
+user	choiceAdventure473	0
+user	choiceAdventure474	0
+user	choiceAdventure475	0
+user	choiceAdventure477	0
+user	choiceAdventure478	0
+user	choiceAdventure480	0
+user	choiceAdventure483	0
+user	choiceAdventure484	0
+user	choiceAdventure485	0
+user	choiceAdventure486	0
+user	choiceAdventure488	0
+user	choiceAdventure489	0
+user	choiceAdventure490	0
+user	choiceAdventure491	0
+user	choiceAdventure496	1
+user	choiceAdventure497	0
+user	choiceAdventure502	0
+user	choiceAdventure503	0
+user	choiceAdventure504	0
+user	choiceAdventure505	0
+user	choiceAdventure506	0
+user	choiceAdventure507	0
+user	choiceAdventure509	1
+user	choiceAdventure510	1
+user	choiceAdventure511	2
+user	choiceAdventure512	1
+user	choiceAdventure513	1
+user	choiceAdventure514	1
+user	choiceAdventure515	1
+user	choiceAdventure517	1
+user	choiceAdventure519	0
+user	choiceAdventure521	1
+user	choiceAdventure522	2
+user	choiceAdventure523	5
+user	choiceAdventure527	1
+user	choiceAdventure528	1
+user	choiceAdventure529	0
+user	choiceAdventure530	1
+user	choiceAdventure531	0
+user	choiceAdventure532	0
+user	choiceAdventure533	0
+user	choiceAdventure534	0
+user	choiceAdventure535	0
+user	choiceAdventure536	0
+user	choiceAdventure538	1
+user	choiceAdventure539	1
+user	choiceAdventure542	1
+user	choiceAdventure543	1
+user	choiceAdventure544	1
+user	choiceAdventure546	0
+user	choiceAdventure548	0
+user	choiceAdventure549	0
+user	choiceAdventure550	0
+user	choiceAdventure551	0
+user	choiceAdventure552	0
+user	choiceAdventure553	0
+user	choiceAdventure554	0
+user	choiceAdventure557	0
+user	choiceAdventure558	0
+user	choiceAdventure559	0
+user	choiceAdventure560	1
+user	choiceAdventure561	0
+user	choiceAdventure562	0
+user	choiceAdventure563	1
+user	choiceAdventure564	1
+user	choiceAdventure565	0
+user	choiceAdventure566	1
+user	choiceAdventure567	1
+user	choiceAdventure568	0
+user	choiceAdventure569	1
+user	choiceAdventure571	1
+user	choiceAdventure572	1
+user	choiceAdventure573	1
+user	choiceAdventure574	1
+user	choiceAdventure576	1
+user	choiceAdventure577	1
+user	choiceAdventure578	0
+user	choiceAdventure579	0
+user	choiceAdventure581	0
+user	choiceAdventure582	0
+user	choiceAdventure583	1
+user	choiceAdventure584	0
+
+user	unknownRecipe3542	true
+user	unknownRecipe3543	true
+user	unknownRecipe3544	true
+user	unknownRecipe3545	true
+user	unknownRecipe3546	true
+user	unknownRecipe3547	true
+user	unknownRecipe3548	true
+user	unknownRecipe3749	true
+user	unknownRecipe3751	true
+user	unknownRecipe4172	true
+user	unknownRecipe4173	true
+user	unknownRecipe4174	true
+user	unknownRecipe5060	true
+user	unknownRecipe5061	true
+user	unknownRecipe5062	true
+user	unknownRecipe5063	true
+user	unknownRecipe5064	true
+user	unknownRecipe5066	true
+user	unknownRecipe5067	true
+user	unknownRecipe5069	true
+user	unknownRecipe5070	true
+user	unknownRecipe5072	true
+user	unknownRecipe5073	true
+user	unknownRecipe5671	true

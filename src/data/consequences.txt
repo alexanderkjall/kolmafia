@@ -1,0 +1,162 @@
+1
+# Format:
+#	type <tab> spec <tab> regex <tab> action [ <tab> action ]...
+#
+# type is one of:
+#	DESC_ITEM - spec is an item name, regex is applied to its description.
+#	DESC_SKILL - spec is a skill name, regex is applied to its description.
+#	DESC_EFFECT - spec is an effect name, regex is applied to its description.
+#	MONSTER - spec is a KoL monster name, regex is applied to the initial combat
+#		page.  The first text action replaces the monster's name.
+#
+# The currently defined actions are:
+#	"text" - returns a text value.  Normally this would just be printed, but some
+#		consequence types may define some other meaning for text actions.
+#	name=value - set a preference.
+#	anything else - assumed to be a text action.  Not safe for text that starts
+#		with a punctuation mark, or contains an equal sign; quote it to be sure.
+#
+# Two levels of text substitution are performed on actions:
+#	1. A $ followed by a digit is replaced by the corresponding numbered group
+#		in the regex match.
+#	2. Text enclosed in [square brackets] is interpreted as a modifier
+#		expression, and replaced with the resulting value.
+#		See modifiers.txt for full details, although only the basic math
+#		operators are expected to be useful here.
+
+DESC_ITEM	The Landscaper's leafblower	\+(\d+) Monster Level	_leafblowerML=$1
+DESC_ITEM	Spooky Putty monster	a picture of (a|an|something totally unrecognizable|)\s*(.*?)!	spookyPuttyMonster=$2
+DESC_ITEM	shaking 4-d camera	an angry (monster)?(.*?) or something	cameraMonster=$2
+DESC_ITEM	photocopied monster	likeness of (a|an) (.*?) on it	photocopyMonster=$2
+DESC_ITEM	fossilized necklace	(\d+) bat	fossilB=[min(5,$1)]
+DESC_ITEM	fossilized necklace	(\d+) serpent	fossilS=[min(5,$1)]
+DESC_ITEM	fossilized necklace	(\d+) baboon	fossilN=[min(5,$1)]
+DESC_ITEM	fossilized necklace	(\d+) wyrm	fossilW=[min(5,$1)]
+DESC_ITEM	fossilized necklace	(\d+) demon	fossilD=[min(5,$1)]
+DESC_ITEM	fossilized necklace	(\d+) spider	fossilP=[min(5,$1)]
+
+DESC_SKILL	Slimy Sinews	giving you \+(\d+)	skillLevel46=$1
+DESC_SKILL	Slimy Synapses	giving you \+(\d+)	skillLevel47=$1
+DESC_SKILL	Slimy Shoulders	giving you \+(\d+)	skillLevel48=$1
+DESC_SKILL	Banishing Shout	curently banished:<br>([^<]+)<br>(?:([^<]+)<br>(?:([^<]+)<br>|</blockquote>)|</blockquote>)	banishingShoutMonsters=$1|$2|$3
+
+DESC_EFFECT	Towering Strength	\+(\d+)%	chessboardsCleared=[($1-100)/2]
+DESC_EFFECT	Mitre Cut	\+(\d+)%	chessboardsCleared=[($1-100)/2]
+DESC_EFFECT	Knightlife	\+(\d+)%	chessboardsCleared=[($1-100)/2]
+DESC_EFFECT	Having a Ball!	\+(\d+)%	ballpitBonus=$1
+DESC_EFFECT	On the Trail	I mean "(.*?)\."<	olfactedMonster=$1
+
+# Monster disambiguation:
+
+MONSTER	Animated Nightstand	darkstand\.gif	"Animated Nightstand (Mahogany)"
+MONSTER	Animated Nightstand	.	"Animated Nightstand (White)"
+
+MONSTER	Orcish Frat Boy	fratskirt\.gif	"Orcish Frat Boy (Pledge)"
+MONSTER	Orcish Frat Boy	rectify	"Orcish Frat Boy (Music Lover)"
+MONSTER	Orcish Frat Boy	.	"Orcish Frat Boy (Paddler)"
+
+MONSTER	Guard Turtle	frenchturtle\.gif	"French Guard Turtle"
+
+MONSTER	Trippy Floating Head	kasemhead\.gif	"Trippy Floating Head (Casey Kasem)"
+MONSTER	Trippy Floating Head	tarkinhead\.gif	"Trippy Floating Head (Grand Moff Tarkin)"
+MONSTER	Trippy Floating Head	.	"Trippy Floating Head (Mona Lisa)"
+
+MONSTER	Ninja Snowman	ninjarice\.gif	"Ninja Snowman (Chopsticks)"
+MONSTER	Ninja Snowman	.	"Ninja Snowman (Hilt/Mask)"
+
+MONSTER	The Darkness	darkness\.gif	"The Darkness (blind)"
+
+MONSTER	Ed the Undying	/ed(\d)\.gif	"Ed the Undying ($1)"
+MONSTER	Ed the Undying	.	"Ed the Undying (1)"
+
+MONSTER	Shadow Lemming Trampler	.	"Your Shadow"
+MONSTER	Shadow Tern Slapper	.	"Your Shadow"
+MONSTER	Shadow Puffin Intimidator	.	"Your Shadow"
+MONSTER	Shadow Ermine Thumper	.	"Your Shadow"
+MONSTER	Shadow Penguin Frightener	.	"Your Shadow"
+MONSTER	Shadow Malamute Basher	.	"Your Shadow"
+MONSTER	Shadow Narwhal Pummeler	.	"Your Shadow"
+MONSTER	Shadow Otter Crusher	.	"Your Shadow"
+MONSTER	Shadow Caribou Smacker	.	"Your Shadow"
+MONSTER	Shadow Moose Harasser	.	"Your Shadow"
+MONSTER	Shadow Reindeer Threatener	.	"Your Shadow"
+MONSTER	Shadow Ox Wrestler	.	"Your Shadow"
+MONSTER	Shadow Walrus Bludgeoner	.	"Your Shadow"
+MONSTER	Shadow Whale Boxer	.	"Your Shadow"
+MONSTER	Shadow Seal Clubber	.	"Your Shadow"
+MONSTER	Shadow Toad Coach	.	"Your Shadow"
+MONSTER	Shadow Skink Trainer	.	"Your Shadow"
+MONSTER	Shadow Frog Director	.	"Your Shadow"
+MONSTER	Shadow Gecko Supervisor	.	"Your Shadow"
+MONSTER	Shadow Newt Herder	.	"Your Shadow"
+MONSTER	Shadow Frog Boss	.	"Your Shadow"
+MONSTER	Shadow Iguana Driver	.	"Your Shadow"
+MONSTER	Shadow Salamander Subduer	.	"Your Shadow"
+MONSTER	Shadow Bullfrog Overseer	.	"Your Shadow"
+MONSTER	Shadow Rattlesnake Chief	.	"Your Shadow"
+MONSTER	Shadow Crocodile Lord	.	"Your Shadow"
+MONSTER	Shadow Cobra Commander	.	"Your Shadow"
+MONSTER	Shadow Alligator Subjugator	.	"Your Shadow"
+MONSTER	Shadow Asp Master	.	"Your Shadow"
+MONSTER	Shadow Turtle Tamer	.	"Your Shadow"
+MONSTER	Shadow Dough Acolyte	.	"Your Shadow"
+MONSTER	Shadow Yeast Scholar	.	"Your Shadow"
+MONSTER	Shadow Noodle Neophyte	.	"Your Shadow"
+MONSTER	Shadow Starch Savant	.	"Your Shadow"
+MONSTER	Shadow Carbohydrate Cognoscenti	.	"Your Shadow"
+MONSTER	Shadow Spaghetti Sage	.	"Your Shadow"
+MONSTER	Shadow Macaroni Magician	.	"Your Shadow"
+MONSTER	Shadow Vermicelli Enchanter	.	"Your Shadow"
+MONSTER	Shadow Linguini Thaumaturge	.	"Your Shadow"
+MONSTER	Shadow Ravioli Sorcerer	.	"Your Shadow"
+MONSTER	Shadow Manicotti Magus	.	"Your Shadow"
+MONSTER	Shadow Spaghetti Spellbinder	.	"Your Shadow"
+MONSTER	Shadow Cannelloni Conjurer	.	"Your Shadow"
+MONSTER	Shadow Angel-Hair Archmage	.	"Your Shadow"
+MONSTER	Shadow Pastamancer	.	"Your Shadow"
+MONSTER	Shadow Allspice Acolyte	.	"Your Shadow"
+MONSTER	Shadow Cilantro Seer	.	"Your Shadow"
+MONSTER	Shadow Parsley Enchanter	.	"Your Shadow"
+MONSTER	Shadow Sage Sage	.	"Your Shadow"
+MONSTER	Shadow Rosemary Diviner	.	"Your Shadow"
+MONSTER	Shadow Thyme Wizard	.	"Your Shadow"
+MONSTER	Shadow Tarragon Thaumaturge	.	"Your Shadow"
+MONSTER	Shadow Oreganoccultist	.	"Your Shadow"
+MONSTER	Shadow Basillusionist	.	"Your Shadow"
+MONSTER	Shadow Coriander Conjurer	.	"Your Shadow"
+MONSTER	Shadow Bay Leaf Brujo	.	"Your Shadow"
+MONSTER	Shadow Sesame Soothsayer	.	"Your Shadow"
+MONSTER	Shadow Marinara Mage	.	"Your Shadow"
+MONSTER	Shadow Alfredo Archmage	.	"Your Shadow"
+MONSTER	Shadow Sauceror	.	"Your Shadow"
+MONSTER	Shadow Funk Footpad	.	"Your Shadow"
+MONSTER	Shadow Rhythm Rogue	.	"Your Shadow"
+MONSTER	Shadow Chill Crook	.	"Your Shadow"
+MONSTER	Shadow Jiggy Grifter	.	"Your Shadow"
+MONSTER	Shadow Beat Snatcher	.	"Your Shadow"
+MONSTER	Shadow Sample Swindler	.	"Your Shadow"
+MONSTER	Shadow Move Buster	.	"Your Shadow"
+MONSTER	Shadow Jam Horker	.	"Your Shadow"
+MONSTER	Shadow Groove Filcher	.	"Your Shadow"
+MONSTER	Shadow Vibe Robber	.	"Your Shadow"
+MONSTER	Shadow Boogie Brigand	.	"Your Shadow"
+MONSTER	Shadow Flow Purloiner	.	"Your Shadow"
+MONSTER	Shadow Jive Pillager	.	"Your Shadow"
+MONSTER	Shadow Rhymer and Stealer	.	"Your Shadow"
+MONSTER	Shadow Disco Bandit	.	"Your Shadow"
+MONSTER	Shadow Polka Criminal	.	"Your Shadow"
+MONSTER	Shadow Mariachi Larcenist	.	"Your Shadow"
+MONSTER	Shadow Zydeco Rogue	.	"Your Shadow"
+MONSTER	Shadow Chord Horker	.	"Your Shadow"
+MONSTER	Shadow Chromatic Crook	.	"Your Shadow"
+MONSTER	Shadow Squeezebox Scoundrel	.	"Your Shadow"
+MONSTER	Shadow Concertina Con Artist	.	"Your Shadow"
+MONSTER	Shadow Button Box Burglar	.	"Your Shadow"
+MONSTER	Shadow Hurdy-Gurdy Hooligan	.	"Your Shadow"
+MONSTER	Shadow Sub-Sub-Apprentice Accordion Thief	.	"Your Shadow"
+MONSTER	Shadow Sub-Apprentice Accordion Thief	.	"Your Shadow"
+MONSTER	Shadow Pseudo-Apprentice Accordion Thief	.	"Your Shadow"
+MONSTER	Shadow Hemi-Apprentice Accordion Thief	.	"Your Shadow"
+MONSTER	Shadow Apprentice Accordion Thief	.	"Your Shadow"
+MONSTER	Shadow Accordion Thief	.	"Your Shadow"
+MONSTER	Shadow Avatar of Boris	.	"Your Shadow"
