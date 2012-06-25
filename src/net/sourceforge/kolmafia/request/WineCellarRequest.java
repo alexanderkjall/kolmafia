@@ -83,7 +83,7 @@ public class WineCellarRequest
 			return;
 		}
 
-		if ( location.indexOf( "action=pourwine" ) != -1 )
+		if ( location.contains( "action=pourwine" ) )
 		{
 			// As you pour the wine into the goblet, you hear a loud gurgling followed
 			// by a grinding of gears. You lean over for a closer look, and a cloud of
@@ -99,7 +99,7 @@ public class WineCellarRequest
 			// 
 			// Oh, man. You double over in pain.
 			
-			if ( responseText.indexOf( "choking green smoke" ) != -1 )
+			if ( responseText.contains( "choking green smoke" ) )
 			{
 				Preferences.setInteger( "wineCellarProgress", 0 );
 			}
@@ -108,7 +108,7 @@ public class WineCellarRequest
 			// grinding of gears from within the pedestal, and the topmost glyph on the
 			// wall begins to glow more brightly.
 
-			else if ( responseText.indexOf( "topmost glyph" ) != -1 )
+			else if ( responseText.contains( "topmost glyph" ) )
 			{
 				Preferences.setInteger( "wineCellarProgress", 1 );
 			}
@@ -117,7 +117,7 @@ public class WineCellarRequest
 			// grinding of gears from within the pedestal, and the leftmost glyph on the
 			// wall begins to glow more brightly.
 
-			else if ( responseText.indexOf( "leftmost glyph" ) != -1 )
+			else if ( responseText.contains( "leftmost glyph" ) )
 			{
 				Preferences.setInteger( "wineCellarProgress", 2 );
 			}
@@ -126,7 +126,7 @@ public class WineCellarRequest
 			// grinding of gears from within the pedestal, and a section of the cellar's
 			// back wall slides aside to reveal a hidden passage. Eureka!
 
-			else if ( responseText.indexOf( "Eureka!" ) != -1 )
+			else if ( responseText.contains( "Eureka!" ) )
 			{
 				Preferences.setInteger( "wineCellarProgress", 3 );
 			}
@@ -153,27 +153,27 @@ public class WineCellarRequest
 			return;
 		}
 
-		if ( location.indexOf( "action=summon" ) != -1 )
+		if ( location.contains( "action=summon" ) )
 		{
 			// You step up to the altar and begin to speak, but
 			// then you notice that the air doesn't have that
 			// greasy static-electricity feel that you associate
 			// with an active magical field. It must take some time
 			// for it to recharge after a summoning attempt.
-			if ( responseText.indexOf( "greasy static-electricity feel" ) != -1 )
+			if ( responseText.contains( "greasy static-electricity feel" ) )
 			{
 				Preferences.setBoolean( "demonSummoned", true );
 			}
-			else if ( responseText.indexOf( "You light three black candles" ) != -1 )
+			else if ( responseText.contains( "You light three black candles" ) )
 			{
 				AdventureRequest.registerDemonName( "Summoning Chamber", responseText );
 				ResultProcessor.processItem( ItemPool.BLACK_CANDLE, -3 );
 				ResultProcessor.processItem( ItemPool.EVIL_SCROLL, -1 );
 
-				if ( responseText.indexOf( "some sort of crossed signal" ) == -1 &&
-					responseText.indexOf( "hum, which eventually cuts off" ) == -1 &&
-					responseText.indexOf( "get right back to you" ) == -1 &&
-					responseText.indexOf( "Please check the listing" ) == -1 )
+				if ( !responseText.contains( "some sort of crossed signal" ) &&
+                        !responseText.contains( "hum, which eventually cuts off" ) &&
+                        !responseText.contains( "get right back to you" ) &&
+                        !responseText.contains( "Please check the listing" ) )
 				{
 					Preferences.setBoolean( "demonSummoned", true );
 				}
@@ -188,7 +188,7 @@ public class WineCellarRequest
 			return false;
 		}
 
-		if ( urlString.indexOf( "action=summon" ) != -1 )
+		if ( urlString.contains( "action=summon" ) )
 		{
 			Matcher matcher = DEMON_PATTERN.matcher( urlString );
 			if ( !matcher.find() )
@@ -210,7 +210,7 @@ public class WineCellarRequest
 			return true;
 		}
 
-		if ( urlString.indexOf( "action=pourwine" ) != -1 )
+		if ( urlString.contains( "action=pourwine" ) )
 		{
 			Matcher matcher = BOTTLE_PATTERN.matcher( urlString );
 			if ( !matcher.find() )
@@ -226,7 +226,7 @@ public class WineCellarRequest
 			return true;
 		}
 
-		if ( urlString.indexOf( "place=chamber" ) != -1 )
+		if ( urlString.contains( "place=chamber" ) )
 		{
 			String message = "[" + KoLAdventure.getAdventureCount() + "] Summoning Chamber";
 
@@ -244,7 +244,7 @@ public class WineCellarRequest
 
 	public static void handleCellarChange( String responseText )
 	{
-		if ( responseText.indexOf( "place=chamber" ) != -1 )
+		if ( responseText.contains( "place=chamber" ) )
 		{
 			QuestDatabase.setQuestIfBetter( Quest.MANOR, "step2" );
 		}

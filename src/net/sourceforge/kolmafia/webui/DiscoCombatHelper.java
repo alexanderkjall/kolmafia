@@ -305,7 +305,7 @@ public class DiscoCombatHelper
 		name = name.trim().toLowerCase();
 		for ( int i = 0; i < NUM_COMBOS; ++i )
 		{
-			if ( COMBOS[ i ][ 0 ].toLowerCase().indexOf( name ) != -1 )
+			if ( COMBOS[i][0].toLowerCase().contains( name ) )
 			{
 				return COMBOS[ i ][ 0 ];
 			}
@@ -318,7 +318,7 @@ public class DiscoCombatHelper
 		name = name.trim().toLowerCase();
 		for ( int i = 0; i < NUM_COMBOS; ++i )
 		{
-			if ( COMBOS[ i ][ 0 ].toLowerCase().indexOf( name ) != -1 )
+			if ( COMBOS[i][0].toLowerCase().contains( name ) )
 			{
 				return getCombo( i );
 			}
@@ -521,12 +521,12 @@ public class DiscoCombatHelper
 		if ( DiscoCombatHelper.counter ==  3 )
 		{
 			// Your opponent seems to be temporarily unconscious
-			if ( responseText.indexOf( "seems to be temporarily unconscious" ) != -1 )
+			if ( responseText.contains( "seems to be temporarily unconscious" ) )
 			{
 				DiscoCombatHelper.learnRaveCombo( RAVE_KNOCKOUT );
 			}
 			// He bleeds from various wounds you've inflicted
-			if ( responseText.indexOf( "bleeds from various wounds you've inflicted" ) != -1 )
+			if ( responseText.contains( "bleeds from various wounds you've inflicted" ) )
 			{
 				DiscoCombatHelper.learnRaveCombo( RAVE_BLEEDING );
 			}
@@ -599,7 +599,7 @@ public class DiscoCombatHelper
 		{
 			// Your savage beatdown seems to have knocked loose
 			// some treasure. Sweet!
-			if ( responseText.indexOf( "seems to have knocked loose some treasure" ) != -1 )
+			if ( responseText.contains( "seems to have knocked loose some treasure" ) )
 			{
 				DiscoCombatHelper.learnRaveCombo( RAVE_STEAL );
 			}
@@ -607,7 +607,7 @@ public class DiscoCombatHelper
 			// good about the extra dance practice you're
 			// getting. You're starting to get tired of beating up
 			// on this same dude. Why isn't he dead yet?
-			else if ( responseText.indexOf( "extra dance practice" ) != -1 )
+			else if ( responseText.contains( "extra dance practice" ) )
 			{
 				DiscoCombatHelper.learnRaveCombo( RAVE_SUBSTATS );
 			}
@@ -615,7 +615,7 @@ public class DiscoCombatHelper
 			// Your dance routine leaves you feeling extra-focused
 			// and in the zone. Ooh yeeaah.
 
-			else if ( responseText.indexOf( "extra-focused and in the zone" ) != -1 )
+			else if ( responseText.contains( "extra-focused and in the zone" ) )
 			{
 				DiscoCombatHelper.learnRaveCombo( RAVE_CONCENTRATION );
 			}
@@ -624,7 +624,7 @@ public class DiscoCombatHelper
 			// groovy and at one with the universe. It's a little
 			// unsettling, but you soon get used to it.
 
-			else if ( responseText.indexOf( "feeling particularly groovy" ) != -1 )
+			else if ( responseText.contains( "feeling particularly groovy" ) )
 			{
 				DiscoCombatHelper.learnRaveCombo( RAVE_NIRVANA );
 			}

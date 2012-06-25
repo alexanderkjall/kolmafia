@@ -108,7 +108,7 @@ public class LunarLunchRequest
 
 	public static final boolean registerRequest( final String urlString )
 	{
-		if ( !urlString.startsWith( "spaaace.php" ) || urlString.indexOf( "place=shop3" ) == -1 )
+		if ( !urlString.startsWith( "spaaace.php" ) || !urlString.contains( "place=shop3" ) )
 		{
 			return false;
 		}

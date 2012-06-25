@@ -236,13 +236,13 @@ public class CoinMasterRequest
 
 			super.run();
 
-			if ( this.responseText.indexOf( "You don't have enough" ) != -1 )
+			if ( this.responseText.contains( "You don't have enough" ) )
 			{
 				KoLmafia.updateDisplay( MafiaState.ERROR, "You can't afford that item." );
 				return;
 			}
 
-			if ( this.responseText.indexOf( "You don't have that many of that item" ) != -1 )
+			if ( this.responseText.contains( "You don't have that many of that item" ) )
 			{
 				KoLmafia.updateDisplay( MafiaState.ERROR, "You don't have that many of that item to turn in." );
 				return;
@@ -288,12 +288,12 @@ public class CoinMasterRequest
 		String buy = data.getBuyAction();
 		String sell = data.getSellAction();
 		if ( buy != null && action.equals( buy ) &&
-		     responseText.indexOf( "You don't have enough" ) == -1 )
+                !responseText.contains( "You don't have enough" ) )
 		{
 			CoinMasterRequest.completePurchase( data, urlString );
 		}
 		else if ( sell != null && action.equals( sell ) &&
-			  responseText.indexOf( "You don't have that many" ) == -1 )
+                !responseText.contains( "You don't have that many" ) )
 		{
 			CoinMasterRequest.completeSale( data, urlString );
 		}
@@ -330,7 +330,7 @@ public class CoinMasterRequest
 		if ( tokenTest != null )
 		{
 			boolean positive = data.getPositiveTest();
-			boolean found = responseText.indexOf( tokenTest ) != -1;
+			boolean found = responseText.contains( tokenTest );
 			// If there is a positive check for tokens and we found it
 			// or a negative check for tokens and we didn't find it,
 			// we can parse the token count on this page
@@ -412,7 +412,7 @@ public class CoinMasterRequest
 
 		int itemId = StringUtilities.parseInt( itemMatcher.group( 1 ) );
 		String storageAction = data.getStorageAction();
-		boolean storage = storageAction != null && urlString.indexOf( storageAction ) != -1;
+		boolean storage = storageAction != null && urlString.contains( storageAction );
 
 		CoinMasterRequest.buyStuff( data, itemId, count, storage );
 	}
@@ -450,7 +450,7 @@ public class CoinMasterRequest
 		String tradeAll = data.getTradeAllAction();
 		String property = data.getProperty();
 		String storageAction = data.getStorageAction();
-		boolean storage = storageAction != null && urlString.indexOf( storageAction ) != -1;
+		boolean storage = storageAction != null && urlString.contains( storageAction );
 		int itemId = StringUtilities.parseInt( itemMatcher.group( 1 ) );
 		LockableListModel items = data.getBuyItems();
 		AdventureResult item = AdventureResult.findItem( itemId, items );
@@ -467,7 +467,7 @@ public class CoinMasterRequest
 			{
 				count = StringUtilities.parseInt( countMatcher.group(1) );
 			}
-			else if ( tradeAll != null && urlString.indexOf( tradeAll ) != -1 )
+			else if ( tradeAll != null && urlString.contains( tradeAll ) )
 			{
 				int available =
 					storage ? tokenItem.getCount( KoLConstants.storage ) :

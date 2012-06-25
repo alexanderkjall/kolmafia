@@ -548,7 +548,7 @@ public class ChoiceOptionsPanel
 			this.addItem( "El Vibrato power sphere" );
 			this.addItem( "the plinth" );
 			this.addItem( "random choice" );
-			if ( dest.indexOf( "," ) != -1 )
+			if ( dest.contains( "," ) )
 			{
 				this.addItem( "go to " + dest );
 			}
@@ -597,7 +597,7 @@ public class ChoiceOptionsPanel
 			{
 				index = 7;
 			}
-			else if ( dest.indexOf( "," ) != -1 )
+			else if ( dest.contains( "," ) )
 			{
 				index = 8;
 			}

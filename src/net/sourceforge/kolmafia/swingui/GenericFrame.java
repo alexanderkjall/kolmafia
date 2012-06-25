@@ -278,7 +278,7 @@ public abstract class GenericFrame
 	public static boolean appearsInTab( String frameName )
 	{
 		String tabSetting = Preferences.getString( "initialDesktop" );
-		return tabSetting.indexOf( frameName ) != -1;
+		return tabSetting.contains( frameName );
 	}
 
 	public JTabbedPane getTabbedPane()
@@ -733,7 +733,7 @@ public abstract class GenericFrame
 		Dimension screenSize = KoLConstants.TOOLKIT.getScreenSize();
 		String position = Preferences.getString( this.frameName );
 
-		if ( position == null || position.indexOf( "," ) == -1 )
+		if ( position == null || !position.contains( "," ) )
 		{
 			this.setLocationRelativeTo( null );
 

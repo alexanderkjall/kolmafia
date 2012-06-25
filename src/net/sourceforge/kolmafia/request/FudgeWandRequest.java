@@ -163,7 +163,7 @@ public class FudgeWandRequest
 	{
 		CoinmasterData data = FudgeWandRequest.FUDGEWAND;
 
-		if ( location.indexOf( "option=6" ) != -1 )
+		if ( location.contains( "option=6" ) )
 		{
 			// We exited the choice adventure.
 			return;
@@ -193,7 +193,7 @@ public class FudgeWandRequest
 
 		// using the wand is simply a visit
 		// inv_use.php?whichitem=5441
-		if ( urlString.startsWith( "inv_use.php" ) && urlString.indexOf( "whichitem=5441" ) != -1 )
+		if ( urlString.startsWith( "inv_use.php" ) && urlString.contains( "whichitem=5441" ) )
 		{
 			RequestLogger.updateSessionLog();
 			RequestLogger.updateSessionLog( "Visiting " + data.getMaster() );
@@ -201,12 +201,12 @@ public class FudgeWandRequest
 		}
 
 		// choice.php?pwd&whichchoice=562&option=3
-		if ( !urlString.startsWith( "choice.php" ) || urlString.indexOf( "whichchoice=562" ) == -1 )
+		if ( !urlString.startsWith( "choice.php" ) || !urlString.contains( "whichchoice=562" ) )
 		{
 			return false;
 		}
 
-		if ( urlString.indexOf( "option=6" ) != -1 )
+		if ( urlString.contains( "option=6" ) )
 		{
 			// We exited the choice adventure.
 			return true;

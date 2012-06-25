@@ -67,7 +67,7 @@ public class DisplayFrameListener
 				 {	 
 					 GenericFrame frame = (GenericFrame) frames[ i ];	 
 	 
-					 if ( frame.showInWindowMenu() && interfaceSetting.indexOf( frame.getFrameName() ) == -1 )	 
+					 if ( frame.showInWindowMenu() && !interfaceSetting.contains( frame.getFrameName() ) )
 					 {	 
 						 frame.setVisible( true );	 
 					 }	 

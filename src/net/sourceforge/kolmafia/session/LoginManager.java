@@ -220,7 +220,7 @@ public class LoginManager
 		{
 			KoLmafiaGUI.intializeMainInterfaces();
 		}
-		else if ( Preferences.getString( "initialFrames" ).indexOf( "LocalRelayServer" ) != -1 )
+		else if ( Preferences.getString( "initialFrames" ).contains( "LocalRelayServer" ) )
 		{
 			KoLmafiaGUI.constructFrame( "LocalRelayServer" );
 		}

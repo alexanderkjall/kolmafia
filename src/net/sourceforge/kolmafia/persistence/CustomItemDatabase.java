@@ -191,7 +191,7 @@ public class CustomItemDatabase
 			return;
 
 		String urlString = request.getURLString();
-		if ( urlString.indexOf( "showplayer.php" ) == -1 )
+		if ( !urlString.contains( "showplayer.php" ) )
 		{
 			return;
 		}

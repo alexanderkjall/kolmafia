@@ -91,7 +91,7 @@ public class PyramidRequest
 		// some time trying to clear it away, but you don't really make
 		// any progress.
 
-		if ( responseText.indexOf( "spend some time trying to clear it away" ) != -1 )
+		if ( responseText.contains( "spend some time trying to clear it away" ) )
 		{
 			PyramidRequest.setPyramidPosition( 1 );
 			return;
@@ -107,7 +107,7 @@ public class PyramidRequest
 		// When you return to the far chamber, you see an opening in
 		// the ceiling that looks just low enough for you to reach.
 
-		if ( responseText.indexOf( "you see an opening in the ceiling" ) != -1 )
+		if ( responseText.contains( "you see an opening in the ceiling" ) )
 		{
 			PyramidRequest.setPyramidPosition( 1 );
 			PyramidRequest.setPyramidBombUsed( true );
@@ -121,7 +121,7 @@ public class PyramidRequest
 		// corridor to the second room, where you find a stone basket
 		// suspended from the ceiling by a rusty chain.
 
-		if ( responseText.indexOf( "where you find a stone basket suspended from the ceiling" ) != -1 )
+		if ( responseText.contains( "where you find a stone basket suspended from the ceiling" ) )
 		{
 			PyramidRequest.setPyramidPosition( 2 );
 			
@@ -140,7 +140,7 @@ public class PyramidRequest
 		// You enter the first chamber, and find it empty save for a
 		// pile of rubble reaching all the way to the ceiling.
 
-		if ( responseText.indexOf( "pile of rubble reaching all the way to the ceiling" ) != -1 )
+		if ( responseText.contains( "pile of rubble reaching all the way to the ceiling" ) )
 		{
 			PyramidRequest.setPyramidPosition( 3 );
 
@@ -151,14 +151,14 @@ public class PyramidRequest
 			// It only takes tokens, though, and you don't have
 			// any. Tough luck.
 
-			if ( responseText.indexOf( "It only takes tokens" ) != -1 )
+			if ( responseText.contains( "It only takes tokens" ) )
 			{
 			}
 
 			// You fish out your bronze token, drop it into the
 			// slot, and collect your bomb. Score!
 
-			else if ( responseText.indexOf( "collect your bomb" ) != -1 )
+			else if ( responseText.contains( "collect your bomb" ) )
 			{
 				ResultProcessor.processItem( ItemPool.ANCIENT_BRONZE_TOKEN, -1 );
 			}
@@ -171,7 +171,7 @@ public class PyramidRequest
 			// as it always was. More rubble must've poured in from
 			// the ceiling after you blew up the first pile.
 
-			else if ( responseText.indexOf( "hide behind the vending machine" ) != -1 )
+			else if ( responseText.contains( "hide behind the vending machine" ) )
 			{
 				ResultProcessor.processItem( ItemPool.ANCIENT_BOMB, -1 );
 			}
@@ -182,7 +182,7 @@ public class PyramidRequest
 		// You enter the first chamber, and find a stone basket of
 		// tokens hanging from the ceiling.
 
-		if ( responseText.indexOf( "find a stone basket of tokens" ) != -1 )
+		if ( responseText.contains( "find a stone basket of tokens" ) )
 		{
 			PyramidRequest.setPyramidPosition( 4 );
 
@@ -198,14 +198,14 @@ public class PyramidRequest
 		// You enter the first chamber, and see what appears to be a
 		// vending machine full of bombs.
 
-		if ( responseText.indexOf( "see what appears to be a vending machine full of bombs" ) != -1 )
+		if ( responseText.contains( "see what appears to be a vending machine full of bombs" ) )
 		{
 			PyramidRequest.setPyramidPosition( 5 );
 
 			// You fish your bronze token out of your pocket, and
 			// drop it into the slot.
 
-			if ( responseText.indexOf( "You fish your bronze token out of your pocket, and drop it into the slot" ) != -1 )
+			if ( responseText.contains( "You fish your bronze token out of your pocket, and drop it into the slot" ) )
 			{
 				ResultProcessor.processItem( ItemPool.ANCIENT_BRONZE_TOKEN, -1 );
 			}
@@ -248,7 +248,7 @@ public class PyramidRequest
 	public static final String getPyramidLocationString( final String urlString )
 	{
 		if ( !urlString.startsWith( "pyramid.php" ) ||
-                     urlString.indexOf( "action=lower" ) == -1 )
+                !urlString.contains( "action=lower" ) )
 		{
 			return null;
 		}

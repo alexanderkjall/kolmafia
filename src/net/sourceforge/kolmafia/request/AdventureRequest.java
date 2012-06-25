@@ -183,7 +183,7 @@ public class AdventureRequest
 		if ( this.formSource.equals( "mountains.php" ) )
 		{
 			AdventureRequest.ZONE_UNLOCK.constructURLString( "mountains.php" ).run();
-			if ( AdventureRequest.ZONE_UNLOCK.responseText.indexOf( "value=80" ) != -1 )
+			if ( AdventureRequest.ZONE_UNLOCK.responseText.contains( "value=80" ) )
 			{
 				KoLmafia.updateDisplay( MafiaState.PENDING, "The Orc Chasm has already been bridged." );
 				return;
@@ -256,12 +256,12 @@ public class AdventureRequest
 		{
 			this.addFormField( "action", "Yep." );
 
-			if ( this.responseText.indexOf( "Locked Door" ) != -1 && AdventureRequest.SKELETON_KEY.getCount( KoLConstants.inventory ) + AdventureRequest.SKELETON_KEY.getCount( KoLConstants.closet ) > 1 )
+			if ( this.responseText.contains( "Locked Door" ) && AdventureRequest.SKELETON_KEY.getCount( KoLConstants.inventory ) + AdventureRequest.SKELETON_KEY.getCount( KoLConstants.closet ) > 1 )
 			{
 				ResultProcessor.processResult( AdventureRequest.SKELETON_KEY.getInstance( -1 ) );
 				this.addFormField( "option", "2" );
 			}
-			else if ( this.responseText.indexOf( "\"Move on\"" ) != -1 )
+			else if ( this.responseText.contains( "\"Move on\"" ) )
 			{
 				this.addFormField( "option", "2" );
 			}
@@ -301,7 +301,7 @@ public class AdventureRequest
 			return;
 		}
 
-		if ( this.formSource.equals( "dungeon.php" ) && this.responseText.indexOf( "You have reached the bottom of today's Dungeon" ) != -1 )
+		if ( this.formSource.equals( "dungeon.php" ) && this.responseText.contains( "You have reached the bottom of today's Dungeon" ) )
 		{
 			KoLmafia.updateDisplay( MafiaState.PENDING, "Daily dungeon completed." );
 			return;
@@ -318,7 +318,7 @@ public class AdventureRequest
 
 		// If you haven't unlocked the orc chasm yet, try doing so now.
 
-		if ( this.adventureId.equals( "80" ) && this.responseText.indexOf( "You shouldn't be here." ) != -1 )
+		if ( this.adventureId.equals( "80" ) && this.responseText.contains( "You shouldn't be here." ) )
 		{
 			AdventureRequest bridge = new AdventureRequest( "Bridge the Orc Chasm", "mountains.php", "" );
 			bridge.run();
@@ -347,7 +347,7 @@ public class AdventureRequest
 		// This is a server error. Hope for the best and repeat the
 		// request.
 
-		if ( this.responseText.indexOf( "No adventure data exists for this location" ) != -1 )
+		if ( this.responseText.contains( "No adventure data exists for this location" ) )
 		{
 			KoLmafia.updateDisplay( MafiaState.ERROR, "Server error.  Please wait and try again." );
 			return;
@@ -356,8 +356,8 @@ public class AdventureRequest
 		// Nothing more to do in this area
 
 		if ( this.formSource.equals( "adventure.php" ) &&
-		     this.responseText.indexOf( "adventure.php" ) == -1 &&
-		     this.responseText.indexOf( "You acquire" ) == -1 )
+                !this.responseText.contains( "adventure.php" ) &&
+                !this.responseText.contains( "You acquire" ) )
 		{
 			if ( !KoLmafia.isAutoStop( this.encounter ) )
 			{
@@ -398,7 +398,7 @@ public class AdventureRequest
 		// Trick-or-treating requires a costume;
 		// notify the user of this error.
 
-		if ( this.formSource.equals( "trickortreat.php" ) && this.responseText.indexOf( "without a costume" ) != -1 )
+		if ( this.formSource.equals( "trickortreat.php" ) && this.responseText.contains( "without a costume" ) )
 		{
 			KoLmafia.updateDisplay( MafiaState.ERROR, "You must wear a costume." );
 			return;
@@ -407,7 +407,7 @@ public class AdventureRequest
 
 	public static final void handleShoreVisit( final String location, final String responseText )
 	{
-		if ( location.indexOf( "whichtrip" ) == -1 )
+		if ( !location.contains( "whichtrip" ) )
 		{
 			return;
 		}
@@ -421,10 +421,10 @@ public class AdventureRequest
 		//
 		// You don't have enough Adventures left
 
-		if ( responseText.indexOf( "You're too drunk" ) != -1 ||
-		     responseText.indexOf( "What? Where? Huh?" ) != -1 ||
-		     responseText.indexOf( "You can't afford" ) != -1 ||
-		     responseText.indexOf( "You don't have enough Adventures left" ) != -1 )
+		if ( responseText.contains( "You're too drunk" ) ||
+                responseText.contains( "What? Where? Huh?" ) ||
+                responseText.contains( "You can't afford" ) ||
+                responseText.contains( "You don't have enough Adventures left" ) )
 		{
 			return;
 		}
@@ -438,9 +438,9 @@ public class AdventureRequest
 		// If we did not get a tower item and were already counting
 		// down, keep the existing counter.
 		if ( TurnCounter.isCounting( "The Shore" ) &&
-		     responseText.indexOf( "<b>barbed-wire fence</b>" ) == -1 &&
-		     responseText.indexOf( "<b>tropical orchid</b>" ) == -1 &&
-		     responseText.indexOf( "<b>stick of dynamite</b>" ) == -1 )
+                !responseText.contains( "<b>barbed-wire fence</b>" ) &&
+                !responseText.contains( "<b>tropical orchid</b>" ) &&
+                !responseText.contains( "<b>stick of dynamite</b>" ) )
 		{
 			return;
 		}
@@ -598,23 +598,23 @@ public class AdventureRequest
 			break;
 		case 269:
 			// The Haunted Sorority House
-			if ( responseText.indexOf( "Skeleton" ) != -1 )
+			if ( responseText.contains( "Skeleton" ) )
 			{
 				override = "sexy sorority skeleton";
 			}
-			else if ( responseText.indexOf( "Vampire" ) != -1 )
+			else if ( responseText.contains( "Vampire" ) )
 			{
 				override = "sexy sorority vampire";
 			}
-			else if ( responseText.indexOf( "Werewolf" ) != -1 )
+			else if ( responseText.contains( "Werewolf" ) )
 			{
 				override = "sexy sorority werewolf";
 			}
-			else if ( responseText.indexOf( "Zombie" ) != -1 )
+			else if ( responseText.contains( "Zombie" ) )
 			{
 				override = "sexy sorority zombie";
 			}
-			else if ( responseText.indexOf( "Ghost" ) != -1 )
+			else if ( responseText.contains( "Ghost" ) )
 			{
 				override = "sexy sorority ghost";
 			}
@@ -635,7 +635,7 @@ public class AdventureRequest
 
 		case 292:
 			// Lord Flameface's Castle Entrance
-			if ( responseText.indexOf( "adventureimages/fireservant" ) != -1 )
+			if ( responseText.contains( "adventureimages/fireservant" ) )
 			{
 				override = "Servant Of Lord Flameface";
 			}
@@ -662,7 +662,7 @@ public class AdventureRequest
 		}
 
 		// No "encounter" when moving on the chessboard
-		if ( choice == 443 && urlString.indexOf( "xy" ) != -1 )
+		if ( choice == 443 && urlString.contains( "xy" ) )
 		{
 			return null;
 		}
@@ -751,7 +751,7 @@ public class AdventureRequest
 				// Dvorak's revenge
 				// You jump to the last letter, and put your pom-poms down with a sign of relief --
 				// thank goodness that's over. Worst. Spelling bee. Ever.
-				if ( responseText.indexOf ( "put your pom-poms down" ) != -1 )
+				if ( responseText.contains( "put your pom-poms down" ) )
 				{
 					QuestDatabase.setQuestProgress( Quest.WORSHIP, "step2" );
 				}
@@ -761,7 +761,7 @@ public class AdventureRequest
 				// Limerick Dungeon
 				for ( int i = 0; i < LIMERICKS.length; ++i )
 				{
-					if ( responseText.indexOf( LIMERICKS[i][1] ) != -1 )
+					if ( responseText.contains( LIMERICKS[i][1] ) )
 					{
 						return LIMERICKS[i][0];
 					}
@@ -773,7 +773,7 @@ public class AdventureRequest
 				// We'll all be flat
 				// You make your way to the pipe organ at the end of the ballroom. You straighten your
 				// coat, crack your knuckles, and begin to play the sheet music from the diary.
-				if ( responseText.indexOf ( "You make your way to the pipe organ" ) != -1 )
+				if ( responseText.contains( "You make your way to the pipe organ" ) )
 				{
 					QuestDatabase.setQuestProgress( Quest.MANOR, "step1" );
 				}
@@ -785,7 +785,7 @@ public class AdventureRequest
 				// realization that the Haunted Pantry is actually connected to an entire house.
 				//
 				// You'd think you would've noticed that sooner!
-				if ( responseText.indexOf( "think you would've noticed that sooner" ) != -1 )
+				if ( responseText.contains( "think you would've noticed that sooner" ) )
 				{
 					Preferences.setInteger( "lastManorUnlock", KoLCharacter.getAscensions() );
 				}
@@ -796,7 +796,7 @@ public class AdventureRequest
 				// and find him just where you left him, continuing to whine about his stubbed toe.
 				//
 				// "Here you go, tough guy" you say, and hand him the unguent.
-				if ( responseText.indexOf( "you say, and hand him the unguent" ) != -1 )
+				if ( responseText.contains( "you say, and hand him the unguent" ) )
 				{
 					ResultProcessor.processItem( ItemPool.PUNGENT_UNGUENT, -1 );
 				}
@@ -809,14 +809,14 @@ public class AdventureRequest
 				// pyramid. However, you do see what looks like a collection of small buildings off in
 				// the distance, and start heading toward them.
 
-				if ( responseText.indexOf( "do see what looks like a collection of small buildings" ) != -1 )
+				if ( responseText.contains( "do see what looks like a collection of small buildings" ) )
 				{
 					QuestDatabase.setQuestIfBetter( Quest.PYRAMID, "step2" );
 				}
 
 				// No Colors Anymore
 				// no black paint: "Okay, fine," you sigh, and trudge off to find some black paint.
-				else if ( responseText.indexOf( "trudge off to find some black paint" ) != -1 )
+				else if ( responseText.contains( "trudge off to find some black paint" ) )
 				{
 					QuestDatabase.setQuestIfBetter( Quest.PYRAMID, "step3" );
 				}
@@ -825,7 +825,7 @@ public class AdventureRequest
 				// pack. Gnasir lends you a brush, and you paint the door black as night, black as coal.
 
 				// Also occurs in Still No Colors Anymore
-				else if ( responseText.indexOf( "you paint the door black as night, black as coal" ) != -1 )
+				else if ( responseText.contains( "you paint the door black as night, black as coal" ) )
 				{
 					QuestDatabase.setQuestIfBetter( Quest.PYRAMID, "step4" );
 				}
@@ -833,7 +833,7 @@ public class AdventureRequest
 				// Walk Without Rhythm
 
 				// no drum machine: Grumbling, you head back toward the oasis.
-				else if ( responseText.indexOf( "Grumbling, you head back toward the oasis" ) != -1 )
+				else if ( responseText.contains( "Grumbling, you head back toward the oasis" ) )
 				{
 					QuestDatabase.setQuestIfBetter( Quest.PYRAMID, "step5" );
 				}
@@ -842,7 +842,7 @@ public class AdventureRequest
 				// Gnasir. He nods approvingly. "Well chosen. This thumper will serve you well.
 				
 				// also happens in Walk Without Rhythm 2
-				else if ( responseText.indexOf( "This thumper will serve you well" ) != -1 )
+				else if ( responseText.contains( "This thumper will serve you well" ) )
 				{
 					QuestDatabase.setQuestIfBetter( Quest.PYRAMID, "step6" );
 				}
@@ -1037,7 +1037,7 @@ public class AdventureRequest
 			{
 				Object [] demons = AdventureRequest.demons[ i ];
 				String text = (String) demons[ 2 ];
-				if ( responseText.indexOf( text ) != -1 )
+				if ( responseText.contains( text ) )
 				{
 					setting = (String) demons[ 3 ];
 					break;
@@ -1084,27 +1084,27 @@ public class AdventureRequest
 		}
 		else if ( formSource.startsWith( "choice.php" ) )
 		{
-			return responseText.indexOf( "choice.php" ) != -1;
+			return responseText.contains( "choice.php" );
 		}
 		else if ( formSource.startsWith( "hiddencity.php" ) )
 		{
-			return formSource.indexOf( "which=" ) != -1;
+			return formSource.contains( "which=" );
 		}
 		else if ( formSource.startsWith( "cave.php" ) )
 		{
-			return formSource.indexOf( "sanctum" ) != -1;
+			return formSource.contains( "sanctum" );
 		}
 		else if ( formSource.startsWith( "shore.php" ) )
 		{
-			return formSource.indexOf( "whichtrip" ) != -1;
+			return formSource.contains( "whichtrip" );
 		}
 		else if ( formSource.startsWith( "cobbsknob.php" ) )
 		{
-			return formSource.indexOf( "throneroom" ) != -1;
+			return formSource.contains( "throneroom" );
 		}
 		else if ( formSource.startsWith( "cyrpt.php" ) )
 		{
-			return formSource.indexOf( "action" ) != -1;
+			return formSource.contains( "action" );
 		}
 		else if ( formSource.startsWith( "cellar.php" ) )
 		{
@@ -1113,17 +1113,17 @@ public class AdventureRequest
 		}
 		else if ( formSource.startsWith( "palinshelves.php" ) )
 		{
-			return responseText.indexOf( "palinshelves.php" ) != -1;
+			return responseText.contains( "palinshelves.php" );
 		}
 		else if ( formSource.startsWith( "suburbandis.php" ) )
 		{
-			return formSource.indexOf( "action=dothis" ) != -1;
+			return formSource.contains( "action=dothis" );
 		}
 		else if ( formSource.startsWith( "tiles.php" ) )
 		{
 			// Only register initial encounter of Dvorak's Revenge
 			DvorakDecorator.saveResponse( responseText );
-			return responseText.indexOf( "I before E, except after C" ) != -1;
+			return responseText.contains( "I before E, except after C" );
 		}
 		else if ( formSource.startsWith( "barrel.php?smash" ) )
 		{
@@ -1170,14 +1170,14 @@ public class AdventureRequest
 
 	public static final void handleServerRedirect( final String redirectLocation )
 	{
-		if ( redirectLocation.indexOf( "main.php" ) != -1 )
+		if ( redirectLocation.contains( "main.php" ) )
 		{
 			return;
 		}
 
 		AdventureRequest.ZONE_UNLOCK.constructURLString( redirectLocation );
 
-		if ( redirectLocation.indexOf( "palinshelves.php" ) != -1 )
+		if ( redirectLocation.contains( "palinshelves.php" ) )
 		{
 			AdventureRequest.ZONE_UNLOCK.run();
 			AdventureRequest.ZONE_UNLOCK.constructURLString(
@@ -1185,7 +1185,7 @@ public class AdventureRequest
 			return;
 		}
 
-		if ( redirectLocation.indexOf( "tiles.php" ) != -1 )
+		if ( redirectLocation.contains( "tiles.php" ) )
 		{
 			AdventureRequest.handleDvoraksRevenge( AdventureRequest.ZONE_UNLOCK );
 			return;

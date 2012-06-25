@@ -242,7 +242,7 @@ public abstract class KoLmafiaASH
 
 			if ( !matches )
 			{
-				matches = func.getName().toLowerCase().indexOf( filter ) != -1;
+				matches = func.getName().toLowerCase().contains( filter );
 			}
 
 			Iterator it2 = func.getReferences();
@@ -250,7 +250,7 @@ public abstract class KoLmafiaASH
 			if ( !matches )
 			{
 				matches =
-					it2.hasNext() && ( (VariableReference) it2.next() ).getType().toString().indexOf( filter ) != -1;
+					it2.hasNext() && ((VariableReference) it2.next()).getType().toString().contains( filter );
 			}
 
 			if ( !matches )

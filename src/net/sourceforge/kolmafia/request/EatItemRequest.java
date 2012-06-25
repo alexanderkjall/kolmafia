@@ -420,7 +420,7 @@ public class EatItemRequest
 		// Special handling for fortune cookies, since you can smash
 		// them, as well as eat them
 		if ( item.getItemId() == ItemPool.FORTUNE_COOKIE &&
-		     responseText.indexOf( "You brutally smash the fortune cookie" ) != -1 )
+                responseText.contains( "You brutally smash the fortune cookie" ) )
 		{
 			ResultProcessor.processResult( item.getNegation() );
 			return;
@@ -429,7 +429,7 @@ public class EatItemRequest
 		int fullness = ItemDatabase.getFullness( item.getName() );
 		int count = item.getCount();
 
-		if ( responseText.indexOf( "too full" ) != -1 )
+		if ( responseText.contains( "too full" ) )
 		{
 			UseItemRequest.lastUpdate = "Consumption limit reached.";
 			KoLmafia.updateDisplay( MafiaState.ERROR, UseItemRequest.lastUpdate );
@@ -488,7 +488,7 @@ public class EatItemRequest
 				// sizzlicious! The salad fork cools, and you
 				// discard it."
 
-				if ( responseText.indexOf( "The salad fork cools" ) == -1 )
+				if ( !responseText.contains( "The salad fork cools" ) )
 				{
 					success = false;
 				}
@@ -499,7 +499,7 @@ public class EatItemRequest
 				// "You eat the <food> with your fudge spork,
 				// and then you eat your fudge spork. How sweet it is!"
 
-				if ( responseText.indexOf( "you eat your fudge spork" ) == -1 )
+				if ( !responseText.contains( "you eat your fudge spork" ) )
 				{
 					success = false;
 				}
@@ -529,7 +529,7 @@ public class EatItemRequest
 		// You feel the canticle take hold, and feel suddenly bloated
 		// as the pasta expands in your belly.
 		if ( KoLCharacter.getClassType() == KoLCharacter.PASTAMANCER &&
-		     responseText.indexOf( "feel suddenly bloated" ) != -1 )
+                responseText.contains( "feel suddenly bloated" ) )
 		{
 			Preferences.setInteger( "carboLoading", 0 );
 		}
@@ -538,7 +538,7 @@ public class EatItemRequest
 
 		// If we ate a distention pill, the next thing we eat should
 		// detect the extra message and decrement fullness by 1.
-		if ( responseText.indexOf( "feel your stomach shrink" ) != -1 )
+		if ( responseText.contains( "feel your stomach shrink" ) )
 		{
 			// If we got this message, we definitely used a pill today.
 			String message = "Incrementing fullness by " + ( fullnessUsed - 1 )
@@ -602,7 +602,7 @@ public class EatItemRequest
 			// pudding. You're not positive that that's a good
 			// thing. Bleah."
 
-			if ( responseText.indexOf( "blood sausage" ) != -1 )
+			if ( responseText.contains( "blood sausage" ) )
 			{
 				return;
 			}
@@ -622,14 +622,14 @@ public class EatItemRequest
 
 			// "You don't have time to properly enjoy a black
 			// pudding right now."
-			if ( responseText.indexOf( "don't have time" ) != -1 )
+			if ( responseText.contains( "don't have time" ) )
 			{
 				UseItemRequest.lastUpdate = "Insufficient adventures left.";
 			}
 
 			// "You're way too beaten up to enjoy a black pudding
 			// right now. Because they're tough to chew. Yeah."
-			else if ( responseText.indexOf( "too beaten up" ) != -1 )
+			else if ( responseText.contains( "too beaten up" ) )
 			{
 				UseItemRequest.lastUpdate = "Too beaten up.";
 			}
@@ -642,7 +642,7 @@ public class EatItemRequest
 			return;
 
 		case ItemPool.STEEL_STOMACH:
-			if ( responseText.indexOf( "You acquire a skill" ) != -1 )
+			if ( responseText.contains( "You acquire a skill" ) )
 			{
 				ResponseTextParser.learnSkill( "Stomach of Steel" );
 			}

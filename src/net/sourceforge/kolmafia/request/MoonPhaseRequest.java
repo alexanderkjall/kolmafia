@@ -86,7 +86,7 @@ public class MoonPhaseRequest
 		String parseText = this.responseText;
 
 		// Get current phase of Ronald and Grimace
-		if ( parseText.indexOf( "minimoon" ) != -1 )
+		if ( parseText.contains( "minimoon" ) )
 		{
 			parseText = parseText.replaceAll( "minimoon", "" );
 		}
@@ -99,7 +99,7 @@ public class MoonPhaseRequest
 				StringUtilities.parseInt( moonMatcher.group( 2 ) ) - 1 );
 		}
 
-		KoLCharacter.setClan( this.responseText.indexOf( "clan_hall.php" ) != -1 );
+		KoLCharacter.setClan( this.responseText.contains( "clan_hall.php" ) );
 	}
 
 	public static final void decorate( final StringBuffer buffer )
@@ -197,7 +197,7 @@ public class MoonPhaseRequest
 		for ( int i = 0; i < KoLConstants.GOTO_MENU.length; ++i )
 		{
 			String tag = KoLConstants.GOTO_MENU[ i ][ 0 ];
-			if ( originalMenu.indexOf( tag ) != -1 )
+			if ( originalMenu.contains( tag ) )
 			{
 				continue;
 			}

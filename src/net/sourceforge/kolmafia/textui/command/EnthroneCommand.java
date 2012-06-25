@@ -82,7 +82,7 @@ public class EnthroneCommand
 				FamiliarData.NO_FAMILIAR ) );
 			return;
 		}
-		else if ( parameters.indexOf( "(no change)" ) != -1 )
+		else if ( parameters.contains( "(no change)" ) )
 		{
 			return;
 		}

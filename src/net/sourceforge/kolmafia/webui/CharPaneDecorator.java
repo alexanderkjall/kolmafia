@@ -202,7 +202,7 @@ public class CharPaneDecorator
 
 		if ( matcher.find() )
 		{
-			String color = text.indexOf( "red" ) != -1 || current <= dangerous ?
+			String color = text.contains( "red" ) || current <= dangerous ?
 				"red" : "black";
 
 			// Craft a replacement for the current value
@@ -1051,7 +1051,7 @@ public class CharPaneDecorator
 
 				buffer.append( "\"" );
 
-				if ( effectName.indexOf( "Poisoned" ) != -1 || effectName.equals( "Beaten Up" ) )
+				if ( effectName.contains( "Poisoned" ) || effectName.equals( "Beaten Up" ) )
 				{
 					buffer.append( " style=\"color:red\"" );
 				}

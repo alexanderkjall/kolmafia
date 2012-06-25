@@ -127,14 +127,14 @@ public abstract class MineDecorator
 			return;
 		}
 		String pref = "mineLayout" + m.group( 1 );
-		if ( location.indexOf( "reset=1" ) != -1 )
+		if ( location.contains( "reset=1" ) )
 		{
 			Preferences.setString( pref, "" );
 			return;
 		}
 		m = WHICH_PATTERN.matcher( location );
-		if ( !m.find() || ( responseText.indexOf( "You acquire" ) == -1 &&
-			responseText.indexOf( "An inexpert swing" ) == -1 ) )
+		if ( !m.find() || (!responseText.contains( "You acquire" ) &&
+                !responseText.contains( "An inexpert swing" )) )
 		{
 			return;
 		}

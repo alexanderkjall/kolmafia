@@ -184,7 +184,7 @@ public class MallPurchaseRequest
 		// purchasing the item.	 If that's the case, just return
 		// without doing anything; nothing left to do.
 
-		if ( this.responseText.indexOf( "You can't afford" ) != -1 )
+		if ( this.responseText.contains( "You can't afford" ) )
 		{
 			KoLmafia.updateDisplay( MafiaState.ERROR, "Not enough funds." );
 			return;
@@ -192,7 +192,7 @@ public class MallPurchaseRequest
 
 		// If you are on a player's ignore list, you can't buy from his store
 
-		if ( this.responseText.indexOf( "That player will not sell to you" ) != -1 )
+		if ( this.responseText.contains( "That player will not sell to you" ) )
 		{
 			KoLmafia.updateDisplay( "You are on this shop's ignore list (#" + this.shopId + "). Skipping..." );
 			return;
@@ -203,7 +203,7 @@ public class MallPurchaseRequest
 		// to yield" message.  In that case, you may wish to
 		// re-attempt the purchase.
 
-		if ( this.responseText.indexOf( "This store doesn't" ) != -1 || this.responseText.indexOf( "failed to yield" ) != -1 )
+		if ( this.responseText.contains( "This store doesn't" ) || this.responseText.contains( "failed to yield" ) )
 		{
 			Matcher itemChangedMatcher =
 				Pattern.compile(

@@ -180,7 +180,7 @@ public abstract class HPRestoreItemList
 		for ( int i = 0; i < HPRestoreItemList.CONFIGURES.length; ++i )
 		{
 			restoreCheckbox[ i ] = new JCheckBox( HPRestoreItemList.CONFIGURES[ i ].toString() );
-			restoreCheckbox[ i ].setSelected( hpRestoreSetting.indexOf( HPRestoreItemList.CONFIGURES[ i ].toString().toLowerCase() ) != -1 );
+			restoreCheckbox[ i ].setSelected( hpRestoreSetting.contains( HPRestoreItemList.CONFIGURES[i].toString().toLowerCase() ) );
 		}
 
 		return restoreCheckbox;
@@ -192,7 +192,7 @@ public abstract class HPRestoreItemList
 
 		for ( int i = 0; i < HPRestoreItemList.CONFIGURES.length; ++i )
 		{
-			restoreCheckbox[ i ].setSelected( hpRestoreSetting.indexOf( HPRestoreItemList.CONFIGURES[ i ].toString().toLowerCase() ) != -1 );
+			restoreCheckbox[ i ].setSelected( hpRestoreSetting.contains( HPRestoreItemList.CONFIGURES[i].toString().toLowerCase() ) );
 		}
 	}
 
@@ -261,7 +261,7 @@ public abstract class HPRestoreItemList
 				return true;
 			}
 			String name = this.itemUsed.getName();
-			return name.indexOf( "b" ) == -1 && name.indexOf( "B" ) == -1 ;
+			return !name.contains( "b" ) && !name.contains( "B" );
 		}
 
 		public int compareTo( final Object o )

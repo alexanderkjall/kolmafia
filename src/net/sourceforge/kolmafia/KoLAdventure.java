@@ -512,7 +512,7 @@ public class KoLAdventure
 
 		// Disguise zones require outfits
 		if ( !this.adventureId.equals( AdventurePool.COLA_BATTLEFIELD_ID ) &&
-		     ( this.adventureName.indexOf( "Disguise" ) != -1 || this.adventureName.indexOf( "Uniform" ) != -1 ) )
+		     (this.adventureName.contains( "Disguise" ) || this.adventureName.contains( "Uniform" )) )
 		{
 			int outfitId = EquipmentDatabase.getOutfitId( this );
 
@@ -568,7 +568,7 @@ public class KoLAdventure
 
 			RequestThread.postRequest( KoLAdventure.ZONE_UNLOCK.constructURLString(
 				"plains.php" ) );
-			this.isValidAdventure = KoLAdventure.ZONE_UNLOCK.responseText.indexOf( "dome.gif" ) != -1;
+			this.isValidAdventure = KoLAdventure.ZONE_UNLOCK.responseText.contains( "dome.gif" );
 			return;
 		}
 
@@ -601,7 +601,7 @@ public class KoLAdventure
 			return;
 		}
 
-		if ( this.formSource.indexOf( "adventure.php" ) == -1 )
+		if ( !this.formSource.contains( "adventure.php" ) )
 		{
 			this.isValidAdventure = true;
 			return;
@@ -759,7 +759,7 @@ public class KoLAdventure
 			KoLAdventure.ZONE_UNLOCK.constructURLString( "plains.php" );
 			RequestThread.postRequest( KoLAdventure.ZONE_UNLOCK );
 
-			if ( KoLAdventure.ZONE_UNLOCK.responseText.indexOf( "beanstalk.php" ) == -1 )
+			if ( !KoLAdventure.ZONE_UNLOCK.responseText.contains( "beanstalk.php" ) )
 			{
 				// We see no beanstalk in the Nearby Plains.
 				// Acquire an enchanted bean and plant it.
@@ -834,19 +834,19 @@ public class KoLAdventure
 		{
 			RequestThread.postRequest( KoLAdventure.ZONE_UNLOCK.constructURLString( "bathole.php" ) );
 
-			if ( this.adventureId.equals( AdventurePool.BATRAT_ID ) && KoLAdventure.ZONE_UNLOCK.responseText.indexOf( "batrockleft.gif" ) == -1 )
+			if ( this.adventureId.equals( AdventurePool.BATRAT_ID ) && !KoLAdventure.ZONE_UNLOCK.responseText.contains( "batrockleft.gif" ) )
 			{
 				this.isValidAdventure = true;
 				return;
 			}
 
-			if ( this.adventureId.equals( AdventurePool.BEANBAT_ID ) && KoLAdventure.ZONE_UNLOCK.responseText.indexOf( "batrockright.gif" ) == -1 )
+			if ( this.adventureId.equals( AdventurePool.BEANBAT_ID ) && !KoLAdventure.ZONE_UNLOCK.responseText.contains( "batrockright.gif" ) )
 			{
 				this.isValidAdventure = true;
 				return;
 			}
 
-			if ( this.adventureId.equals( AdventurePool.BOSSBAT_ID ) && KoLAdventure.ZONE_UNLOCK.responseText.indexOf( "batrockbottom.gif" ) == -1 )
+			if ( this.adventureId.equals( AdventurePool.BOSSBAT_ID ) && !KoLAdventure.ZONE_UNLOCK.responseText.contains( "batrockbottom.gif" ) )
 			{
 				this.isValidAdventure = true;
 				return;
@@ -854,15 +854,15 @@ public class KoLAdventure
 
 			int sonarToUse = 0;
 
-			if ( KoLAdventure.ZONE_UNLOCK.responseText.indexOf( "batrockleft.gif" ) != -1 )
+			if ( KoLAdventure.ZONE_UNLOCK.responseText.contains( "batrockleft.gif" ) )
 			{
 				sonarToUse = 3;
 			}
-			else if ( KoLAdventure.ZONE_UNLOCK.responseText.indexOf( "batrockright.gif" ) != -1 )
+			else if ( KoLAdventure.ZONE_UNLOCK.responseText.contains( "batrockright.gif" ) )
 			{
 				sonarToUse = 2;
 			}
-			else if ( KoLAdventure.ZONE_UNLOCK.responseText.indexOf( "batrockbottom.gif" ) != -1 )
+			else if ( KoLAdventure.ZONE_UNLOCK.responseText.contains( "batrockbottom.gif" ) )
 			{
 				sonarToUse = 1;
 			}
@@ -875,15 +875,15 @@ public class KoLAdventure
 
 			if ( this.adventureId.equals( AdventurePool.BATRAT_ID ) )
 			{
-				this.isValidAdventure = KoLAdventure.ZONE_UNLOCK.responseText.indexOf( "batrockleft.gif" ) == -1;
+				this.isValidAdventure = !KoLAdventure.ZONE_UNLOCK.responseText.contains( "batrockleft.gif" );
 			}
 			else if ( this.adventureId.equals( AdventurePool.BEANBAT_ID ) )
 			{
-				this.isValidAdventure = KoLAdventure.ZONE_UNLOCK.responseText.indexOf( "batrockright.gif" ) == -1;
+				this.isValidAdventure = !KoLAdventure.ZONE_UNLOCK.responseText.contains( "batrockright.gif" );
 			}
 			else
 			{
-				this.isValidAdventure = KoLAdventure.ZONE_UNLOCK.responseText.indexOf( "batrockbottom.gif" ) == -1;
+				this.isValidAdventure = !KoLAdventure.ZONE_UNLOCK.responseText.contains( "batrockbottom.gif" );
 			}
 
 			return;
@@ -892,7 +892,7 @@ public class KoLAdventure
 		if ( this.adventureId.equals( AdventurePool.WHITEYS_GROVE_ID ) )
 		{
 			RequestThread.postRequest( KoLAdventure.ZONE_UNLOCK.constructURLString( "woods.php" ) );
-			this.isValidAdventure = KoLAdventure.ZONE_UNLOCK.responseText.indexOf( "grove.gif" ) != -1;
+			this.isValidAdventure = KoLAdventure.ZONE_UNLOCK.responseText.contains( "grove.gif" );
 
 			if ( !visitedCouncil && !this.isValidAdventure )
 			{
@@ -906,7 +906,7 @@ public class KoLAdventure
 		if ( this.zone.equals( "McLarge" ) && !this.adventureId.equals( AdventurePool.MINE_OFFICE_ID ))
 		{
 			RequestThread.postRequest( KoLAdventure.ZONE_UNLOCK.constructURLString( "mclargehuge.php" ) );
-			if ( KoLAdventure.ZONE_UNLOCK.responseText.indexOf( this.adventureId ) != -1 )
+			if ( KoLAdventure.ZONE_UNLOCK.responseText.contains( this.adventureId ) )
 			{
 				this.isValidAdventure = true;
 				return;
@@ -1002,7 +1002,7 @@ public class KoLAdventure
 
 		if ( this.request instanceof AdventureRequest && !this.adventureId.equals( AdventurePool.ORC_CHASM_ID ) )
 		{
-			if ( !this.isNonCombatsOnly() && action.indexOf( "dictionary" ) != -1 && FightRequest.DICTIONARY1.getCount( KoLConstants.inventory ) < 1 && FightRequest.DICTIONARY2.getCount( KoLConstants.inventory ) < 1 )
+			if ( !this.isNonCombatsOnly() && action.contains( "dictionary" ) && FightRequest.DICTIONARY1.getCount( KoLConstants.inventory ) < 1 && FightRequest.DICTIONARY2.getCount( KoLConstants.inventory ) < 1 )
 			{
 				KoLmafia.updateDisplay( MafiaState.ERROR, "Sorry, you don't have a dictionary." );
 				return;
@@ -1035,7 +1035,7 @@ public class KoLAdventure
 			// Check for dictionaries as a battle strategy, if the
 			// person is not adventuring at the chasm.
 
-			if ( !this.adventureId.equals( AdventurePool.ORC_CHASM_ID ) && this.request.getAdventuresUsed() == 1 && action.indexOf( "dictionary" ) != -1 )
+			if ( !this.adventureId.equals( AdventurePool.ORC_CHASM_ID ) && this.request.getAdventuresUsed() == 1 && action.contains( "dictionary" ) )
 			{
 				if ( !KoLCharacter.getFamiliar().isCombatFamiliar() )
 				{
@@ -1153,7 +1153,7 @@ public class KoLAdventure
 			return false;
 		}
 
-		if ( urlString.indexOf( "?" ) == -1 )
+		if ( !urlString.contains( "?" ) )
 		{
 			return true;
 		}
@@ -1758,7 +1758,7 @@ public class KoLAdventure
 
 		for ( int i = 1; i < ADVENTURE_FAILURES.length; ++i )
 		{
-			if ( responseText.indexOf( (String) ADVENTURE_FAILURES[ i ][ 0 ] ) != -1 )
+			if ( responseText.contains( (String) ADVENTURE_FAILURES[i][0] ) )
 			{
 				return i;
 			}

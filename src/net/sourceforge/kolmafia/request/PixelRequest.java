@@ -121,7 +121,7 @@ public class PixelRequest
 		int itemId = StringUtilities.parseInt( itemMatcher.group( 1 ) );
 		int quantity = 1;
 
-		if ( urlString.indexOf( "makemax=" ) != -1 )
+		if ( urlString.contains( "makemax=" ) )
 		{
 			quantity = CreateItemRequest.getInstance( itemId ).getQuantityPossible();
 		}

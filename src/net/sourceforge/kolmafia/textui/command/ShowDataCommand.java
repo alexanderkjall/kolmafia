@@ -430,8 +430,8 @@ public class ShowDataCommand
 		for ( int i = 0; i < items.length; ++i )
 		{
 			currentItem = StringUtilities.getCanonicalName( items[ i ].toString() );
-			if ( currentItem.indexOf( filter ) != -1 ||
-				m.reset( currentItem ).replaceAll( "" ).indexOf( filter ) != -1 )
+			if ( currentItem.contains( filter ) ||
+                    m.reset( currentItem ).replaceAll( "" ).contains( filter ) )
 			{
 				resultList.add( items[ i ] );
 			}

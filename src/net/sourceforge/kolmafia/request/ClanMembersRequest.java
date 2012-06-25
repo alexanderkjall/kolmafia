@@ -168,7 +168,7 @@ public class ClanMembersRequest
 
 			super.run();
 		}
-		while ( this.responseText != null && this.responseText.indexOf( "next page &gt;&gt;" ) != -1 );
+		while ( this.responseText != null && this.responseText.contains( "next page &gt;&gt;" ) );
 	}
 
 	private void retrieveClanId()

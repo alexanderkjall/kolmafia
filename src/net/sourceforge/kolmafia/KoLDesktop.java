@@ -424,7 +424,7 @@ public class KoLDesktop
 		for ( int i = 0; i < KoLDesktop.INSTANCE.tabListing.size(); ++i )
 		{
 			GenericFrame frame = (GenericFrame) KoLDesktop.INSTANCE.tabListing.get( i );
-			if ( !( frame instanceof ChatFrame ) && setting.indexOf( frame.getFrameName() ) == -1 )
+			if ( !( frame instanceof ChatFrame ) && !setting.contains( frame.getFrameName() ) )
 			{
 				frame.dispose();
 			}

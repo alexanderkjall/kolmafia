@@ -648,7 +648,7 @@ public abstract class KoLmafia
 
 		KoLmafia.lastMessage = message;
 
-		if ( message.indexOf( KoLConstants.LINE_BREAK ) == -1 )
+		if ( !message.contains( KoLConstants.LINE_BREAK ) )
 		{
 			KoLmafia.updateDisplayState( state, message );
 		}
@@ -903,7 +903,7 @@ public abstract class KoLmafia
 		// if the Cyrpt quest is active, force evilometer refresh
 		// (if we don't know evil levels already)
 		if ( Preferences.getString( Quest.CYRPT.getPref() ).equals( QuestDatabase.STARTED )
-			|| Preferences.getString( Quest.CYRPT.getPref() ).indexOf( "step" ) != -1 )
+			|| Preferences.getString( Quest.CYRPT.getPref() ).contains( "step" ) )
 		{
 			if ( Preferences.getInteger( "cyrptTotalEvilness" ) == 0 )
 			{
@@ -1371,7 +1371,7 @@ public abstract class KoLmafia
 				// You're allowed to trick or treat even when falling down drunk,
 				// so ignore any problems in this case.
 			}
-			else if ( holiday.indexOf( "St. Sneaky Pete's Day" ) == -1 && holiday.indexOf( "Drunksgiving" ) == -1 )
+			else if ( !holiday.contains( "St. Sneaky Pete's Day" ) && !holiday.contains( "Drunksgiving" ) )
 			{
 				KoLmafia.updateDisplay( MafiaState.ERROR, "You are too drunk to continue." );
 				return;
@@ -1566,7 +1566,7 @@ public abstract class KoLmafia
 	public static final String getSaveState( final String loginname )
 	{
 		String password = Preferences.getString( loginname, "saveState" );
-		if ( password == null || password.length() == 0 || password.indexOf( "/" ) != -1 )
+		if ( password == null || password.length() == 0 || password.contains( "/" ) )
 		{
 			return null;
 		}
@@ -1853,7 +1853,7 @@ public abstract class KoLmafia
 
 		if ( encounterType == KoLmafia.SEMIRARE &&
 		     !KoLmafia.ignoreSpecialMonsters &&
-		     responseText.indexOf( "hear a wolf whistle" ) == -1 )
+                !responseText.contains( "hear a wolf whistle" ) )
 		{
 			KoLCharacter.registerSemirare();
 			return;
@@ -2147,7 +2147,7 @@ public abstract class KoLmafia
 		// This player is currently online in channel clan.
 		// This player is currently away from KoL in channel trade and listening to clan.
 		String text = KoLmafia.whoisPlayer( player );
-		return text != null && text.indexOf( "This player is currently" ) != -1;
+		return text != null && text.contains( "This player is currently" );
 	}
 
 	/**
@@ -2262,7 +2262,7 @@ public abstract class KoLmafia
 
 				while ( ( line = reader.readLine() ) != null )
 				{
-					if ( line.indexOf( "public static final String VERSION_NAME" ) != -1 )
+					if ( line.contains( "public static final String VERSION_NAME" ) )
 					{
 						int quote1 = line.indexOf( "\"" ) + 1;
 						int quote2 = line.lastIndexOf( "\"" );

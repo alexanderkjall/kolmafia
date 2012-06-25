@@ -131,7 +131,7 @@ public class AWOLQuartermasterRequest
 		CoinmasterData data = AWOLQuartermasterRequest.AWOL;
 
 		// If you don't have enough commendations, you are redirected to inventory.php
-		if ( responseText.indexOf( "You don't have enough commendations" ) == -1 )
+		if ( !responseText.contains( "You don't have enough commendations" ) )
 		{
 			// inv_use.php?whichitem=5116&pwd&doit=69&tobuy=xxx&howmany=yyy
 			CoinMasterRequest.completePurchase( data, location );
@@ -147,7 +147,7 @@ public class AWOLQuartermasterRequest
 	public static final boolean registerRequest( final String urlString )
 	{
 		// inv_use.php?whichitem=5116&pwd&doit=69&tobuy=xxx&howmany=yyy
-		if ( !urlString.startsWith( "inv_use.php" ) || urlString.indexOf( "whichitem=5116" ) == -1 )
+		if ( !urlString.startsWith( "inv_use.php" ) || !urlString.contains( "whichitem=5116" ) )
 		{
 			return false;
 		}
@@ -155,7 +155,7 @@ public class AWOLQuartermasterRequest
 		// Save URL. If request fails, we are redirected to inventory.php
 		AWOLQuartermasterRequest.lastURL = urlString;
 
-		if ( urlString.indexOf( "doit=69" ) != -1 )
+		if ( urlString.contains( "doit=69" ) )
 		{
 			CoinmasterData data = AWOLQuartermasterRequest.AWOL;
 			CoinMasterRequest.registerRequest( data, urlString );

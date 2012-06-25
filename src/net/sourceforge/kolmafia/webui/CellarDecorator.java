@@ -166,7 +166,7 @@ public abstract class CellarDecorator
 				continue;
 			}
 			Matcher cell = THREECELLS.matcher( row.group( 0 ) );
-			if ( !cell.find() || cell.group( 1 ).indexOf( "glyph" ) != -1 )
+			if ( !cell.find() || cell.group( 1 ).contains( "glyph" ) )
 			{
 				continue;
 			}

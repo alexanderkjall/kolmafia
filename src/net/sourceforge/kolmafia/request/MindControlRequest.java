@@ -120,7 +120,7 @@ public class MindControlRequest
 
 	public static boolean registerRequest( final String urlString )
 	{
-		if ( urlString.indexOf( "action=changedial" ) != -1 && urlString.indexOf( "tuneradio" ) == -1 )
+		if ( urlString.contains( "action=changedial" ) && !urlString.contains( "tuneradio" ) )
 		{
 			return false;
 		}

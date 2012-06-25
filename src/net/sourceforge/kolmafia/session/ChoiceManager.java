@@ -2465,15 +2465,15 @@ public abstract class ChoiceManager
 			result = ChoiceManager.dynamicChoiceSpoilers( 4, choice, "Welcome to the Footlocker" );
 
 			// Fill in items corresponding to choices
-			if ( result[ 2 ][ 0 ].indexOf( "polearm" ) != -1 )
+			if ( result[2][0].contains( "polearm" ) )
 			{
 				result[ 3 ][ 0 ] = "310";
 			}
-			else if ( result[ 2 ][ 0 ].indexOf( "pants" ) != -1 )
+			else if ( result[2][0].contains( "pants" ) )
 			{
 				result[ 3 ][ 0 ] = "309";
 			}
-			else if ( result[ 2 ][ 0 ].indexOf( "helm" ) != -1 )
+			else if ( result[2][0].contains( "helm" ) )
 			{
 				result[ 3 ][ 0 ] = "308";
 			}
@@ -2920,7 +2920,7 @@ public abstract class ChoiceManager
 			return;
 		}
 
-		for ( int stepCount = 0; request.responseText.indexOf( "action=choice.php" ) != -1; ++stepCount )
+		for ( int stepCount = 0; request.responseText.contains( "action=choice.php" ); ++stepCount )
 		{
 			Matcher choiceMatcher = ChoiceManager.CHOICE_PATTERN.matcher( request.responseText );
 
@@ -3153,7 +3153,7 @@ public abstract class ChoiceManager
 			// ridiculous trophy case.
 
 			if ( ChoiceManager.lastDecision == 3 &&
-			     text.indexOf( "ridiculous trophy case" ) != -1 )
+                    text.contains( "ridiculous trophy case" ) )
 			{
 				ResultProcessor.processResult( ItemPool.get( ItemPool.HOT_WING, -3 ) );
 			}
@@ -3165,7 +3165,7 @@ public abstract class ChoiceManager
 			// Suddenly Salad!
 		case 239:
 			// Sizzling Weasel On a Stick
-			if ( ChoiceManager.lastDecision == 1 && text.indexOf( "You gain" ) != -1 )
+			if ( ChoiceManager.lastDecision == 1 && text.contains( "You gain" ) )
 			{
 				// You spend 20 hobo nickels
 				AdventureResult cost = new AdventureResult( "hobo nickel", -20 );
@@ -3182,7 +3182,7 @@ public abstract class ChoiceManager
 			// Mad Jack's Corn Squeezery
 		case 244:
 			// Bathtub Jimmy's Gin Mill
-			if ( ChoiceManager.lastDecision == 1 && text.indexOf( "You gain" ) != -1 )
+			if ( ChoiceManager.lastDecision == 1 && text.contains( "You gain" ) )
 			{
 				// You spend 20 hobo nickels
 				AdventureResult cost = new AdventureResult( "hobo nickel", -20 );
@@ -3216,7 +3216,7 @@ public abstract class ChoiceManager
 			// with gooey green algae, wait a few days, and then
 			// you reap what you sow. Sowed. Sew?
 
-			if ( ChoiceManager.lastDecision == 1 && text.indexOf( "you reap what you sow" ) != -1 )
+			if ( ChoiceManager.lastDecision == 1 && text.contains( "you reap what you sow" ) )
 			{
 				ResultProcessor.processResult( ItemPool.get( ItemPool.SEED_PACKET, -1 ) );
 				ResultProcessor.processResult( ItemPool.get( ItemPool.GREEN_SLIME, -1 ) );
@@ -3260,7 +3260,7 @@ public abstract class ChoiceManager
 			// the basement of the abandoned building into the hole
 			// on the left side of the gate
 
-			if ( text.indexOf( "Krakrox plugged the small stone block" ) != -1 )
+			if ( text.contains( "Krakrox plugged the small stone block" ) )
 			{
 				ResultProcessor.processResult( ItemPool.get( ItemPool.SMALL_STONE_BLOCK, -1 ) );
 			}
@@ -3269,7 +3269,7 @@ public abstract class ChoiceManager
 			// in the belly of the giant snake into the hole on the
 			// right side of the gate
 
-			else if ( text.indexOf( "Krakrox plugged the little stone block" ) != -1 )
+			else if ( text.contains( "Krakrox plugged the little stone block" ) )
 			{
 				ResultProcessor.processResult( ItemPool.get( ItemPool.LITTLE_STONE_BLOCK, -1 ) );
 			}
@@ -3285,7 +3285,7 @@ public abstract class ChoiceManager
 			// temple is now open to you, if you are ready to face
 			// whatever lies inside.
 
-			if ( text.indexOf( "two halves of the stone circle" ) != -1 )
+			if ( text.contains( "two halves of the stone circle" ) )
 			{
 				ResultProcessor.processResult( ItemPool.get( ItemPool.HALF_STONE_CIRCLE, -1 ) );
 				ResultProcessor.processResult( ItemPool.get( ItemPool.STONE_HALF_CIRCLE, -1 ) );
@@ -3302,7 +3302,7 @@ public abstract class ChoiceManager
 			// Beach Spaceport." And with that, she gives you a
 			// kiss and scampers off. Homina-homina.
 
-			if ( text.indexOf( "Homina-homina" ) != -1 )
+			if ( text.contains( "Homina-homina" ) )
 			{
 				ResultProcessor.processResult( ItemPool.get( ItemPool.SUPREME_BEING_GLOSSARY, -1 ) );
 			}
@@ -3316,7 +3316,7 @@ public abstract class ChoiceManager
 			// elsewhere, because your ancestral memories are
 			// total, absolute jerks.
 
-			if ( text.indexOf( "total, absolute jerks" ) != -1 )
+			if ( text.contains( "total, absolute jerks" ) )
 			{
 				EquipmentManager.discardEquipment( ItemPool.RUBY_ROD );
 				ResultProcessor.processResult( ItemPool.get( ItemPool.ESSENCE_OF_HEAT, -1 ) );
@@ -3381,7 +3381,7 @@ public abstract class ChoiceManager
 		case 450:
 			// The Duchess' Cottage
 			if ( ChoiceManager.lastDecision == 1 &&
-				text.indexOf( "Delectable and pulchritudinous!" ) != -1 )
+                    text.contains( "Delectable and pulchritudinous!" ) )
 			{	// Option 1 is Feed the Duchess
 				ResultProcessor.processItem( ItemPool.BEAUTIFUL_SOUP, -1 );
 				ResultProcessor.processItem( ItemPool.LOBSTER_QUA_GRILL, -1 );
@@ -3476,8 +3476,8 @@ public abstract class ChoiceManager
 			// though, the E.M.U. gives an all-over shudder, a sad
 			// little servo whine, and falls apart.
 
-			if ( text.indexOf( "WHOOMP" ) != -1 ||
-			     text.indexOf( "a sad little servo whine" ) != -1 )
+			if ( text.contains( "WHOOMP" ) ||
+                    text.contains( "a sad little servo whine" ) )
 			{
 				EquipmentManager.discardEquipment( ItemPool.EMU_UNIT );
 				QuestDatabase.setQuestIfBetter( Quest.GENERATOR, QuestDatabase.FINISHED );
@@ -3498,7 +3498,7 @@ public abstract class ChoiceManager
 			//
 			// Treat this is simply discarding the pants you are
 			// wearing
-			if ( text.indexOf( "oddly chilly" ) != -1 )
+			if ( text.contains( "oddly chilly" ) )
 			{
 				EquipmentManager.discardEquipment( EquipmentManager.getEquipment( EquipmentManager.PANTS ) );
 			}
@@ -3513,11 +3513,11 @@ public abstract class ChoiceManager
 			// Fudge Mountain Breakdown
 			if ( ChoiceManager.lastDecision == 2 )
 			{
-				if ( text.indexOf( "but nothing comes out" ) != -1 )
+				if ( text.contains( "but nothing comes out" ) )
 				{
 					Preferences.setInteger( "_fudgeWaspFights", 3 );
 				}
-				else if ( text.indexOf( "trouble has taken a holiday" ) != -1 )
+				else if ( text.contains( "trouble has taken a holiday" ) )
 				{
 					// The Advent Calendar hasn't been punched out enough to find fudgewasps yet
 				}
@@ -3531,7 +3531,7 @@ public abstract class ChoiceManager
 		case 589:
 			// Autopsy Auturvy
 			// The tweezers you used dissolve in the caustic fluid. Rats.
-			if ( text.indexOf( "dissolve in the caustic fluid" ) != -1 )
+			if ( text.contains( "dissolve in the caustic fluid" ) )
 			{
 				ResultProcessor.processItem( ItemPool.AUTOPSY_TWEEZERS, -1 );
 			}
@@ -3567,11 +3567,11 @@ public abstract class ChoiceManager
 		case 21:
 			// Under the Knife
 			if ( ChoiceManager.lastDecision == 1 &&
-				text.indexOf( "anaesthetizes you" ) != -1 )
+                    text.contains( "anaesthetizes you" ) )
 			{
 				Preferences.increment( "sexChanges", 1 );
 				Preferences.setBoolean( "_sexChanged", true );
-				KoLCharacter.setGender( text.indexOf( "in more ways than one" ) != -1 ?
+				KoLCharacter.setGender( text.contains( "in more ways than one" ) ?
 					KoLCharacter.FEMALE : KoLCharacter.MALE );
 				ConcoctionDatabase.setRefreshNeeded( false );
 			}
@@ -3719,7 +3719,7 @@ public abstract class ChoiceManager
 			// the thermal vent. It pops and sizzles as you stick
 			// it in your sack."
 
-			if ( text.indexOf( "pops and sizzles" ) != -1 )
+			if ( text.contains( "pops and sizzles" ) )
 			{
 				Preferences.increment( "tempuraSummons", 1 );
 			}
@@ -3731,7 +3731,7 @@ public abstract class ChoiceManager
 			// "You head down the tunnel into the cave, and manage
 			// to find another seaode. Sweet! I mean... salty!"
 
-			if ( text.indexOf( "salty!" ) != -1 )
+			if ( text.contains( "salty!" ) )
 			{
 				Preferences.increment( "seaodesFound", 1 );
 			}
@@ -3766,7 +3766,7 @@ public abstract class ChoiceManager
 			// this party
 
 			if ( ChoiceManager.lastDecision == 1  &&
-			     text.indexOf( "very strict dress code" ) == -1 )
+                    !text.contains( "very strict dress code" ) )
 			{
 				Preferences.setBoolean( "_madTeaParty", true );
 			}
@@ -3803,7 +3803,7 @@ public abstract class ChoiceManager
 
 		case 524:
 			// The Adventures of Lars the Cyberian
-			if ( text.indexOf( "Skullhead's Screw" ) != -1 )
+			if ( text.contains( "Skullhead's Screw" ) )
 			{
 				// You lose the book if you receive the reward.
 				// I don't know if that's always the result of
@@ -3823,24 +3823,24 @@ public abstract class ChoiceManager
 
 		case 549:
 			// Dark in the Attic
-			if ( text.indexOf( "The silver pellets tear through the sorority werewolves" ) != -1 )
+			if ( text.contains( "The silver pellets tear through the sorority werewolves" ) )
 			{
 				ResultProcessor.processItem( ItemPool.SILVER_SHOTGUN_SHELL, -1 );
 				RequestLogger.printLine( "You took care of a bunch of werewolves." );
 			}
-			else if ( text.indexOf( "quietly sneak away" ) != -1 )
+			else if ( text.contains( "quietly sneak away" ) )
 			{
 				RequestLogger.printLine( "You need a silver shotgun shell to kill werewolves." );
 			}
-			else if ( text.indexOf( "a loose shutter" ) != -1 )
+			else if ( text.contains( "a loose shutter" ) )
 			{
 				RequestLogger.printLine( "All the werewolves have been defeated." );
 			}
-			else if ( text.indexOf( "crank up the volume on the boombox" ) != -1 )
+			else if ( text.contains( "crank up the volume on the boombox" ) )
 			{
 				RequestLogger.printLine( "You crank up the volume on the boombox." );
 			}
-			else if ( text.indexOf( "a firm counterclockwise twist" ) != -1 )
+			else if ( text.contains( "a firm counterclockwise twist" ) )
 			{
 				RequestLogger.printLine( "You crank down the volume on the boombox." );
 			}
@@ -3848,37 +3848,37 @@ public abstract class ChoiceManager
 
 		case 550:
 			// The Unliving Room
-			if ( text.indexOf( "you pull out the chainsaw blades" ) != -1 )
+			if ( text.contains( "you pull out the chainsaw blades" ) )
 			{
 				ResultProcessor.processItem( ItemPool.CHAINSAW_CHAIN, -1 );
 				RequestLogger.printLine( "You took out a bunch of zombies." );
 			}
-			else if ( text.indexOf( "a wet tearing noise" ) != -1 )
+			else if ( text.contains( "a wet tearing noise" ) )
 			{
 				RequestLogger.printLine( "You need a chainsaw chain to kill zombies." );
 			}
-			else if ( text.indexOf( "a bloody tangle" ) != -1 )
+			else if ( text.contains( "a bloody tangle" ) )
 			{
 				RequestLogger.printLine( "All the zombies have been defeated." );
 			}
-			else if ( text.indexOf( "the skeletons collapse into piles of loose bones" ) != -1 )
+			else if ( text.contains( "the skeletons collapse into piles of loose bones" ) )
 			{
 				ResultProcessor.processItem( ItemPool.FUNHOUSE_MIRROR, -1 );
 				RequestLogger.printLine( "You made short work of some skeletons." );
 			}
-			else if ( text.indexOf( "couch in front of the door" ) != -1 )
+			else if ( text.contains( "couch in front of the door" ) )
 			{
 				RequestLogger.printLine( "You need a funhouse mirror to kill skeletons." );
 			}
-			else if ( text.indexOf( "just coats" ) != -1 )
+			else if ( text.contains( "just coats" ) )
 			{
 				RequestLogger.printLine( "All the skeletons have been defeated." );
 			}
-			else if ( text.indexOf( "close the windows" ) != -1 )
+			else if ( text.contains( "close the windows" ) )
 			{
 				RequestLogger.printLine( "You close the windows." );
 			}
-			else if ( text.indexOf( "open the windows" ) != -1 )
+			else if ( text.contains( "open the windows" ) )
 			{
 				RequestLogger.printLine( "You open the windows." );
 			}
@@ -3886,23 +3886,23 @@ public abstract class ChoiceManager
 
 		case 551:
 			// Debasement
-			if ( text.indexOf( "the vampire girls shriek" ) != -1 )
+			if ( text.contains( "the vampire girls shriek" ) )
 			{
 				RequestLogger.printLine( "You slew some vampires." );
 			}
-			else if ( text.indexOf( "gets back in her coffin" ) != -1 )
+			else if ( text.contains( "gets back in her coffin" ) )
 			{
 				RequestLogger.printLine( "You need to equip plastic vampire fangs to kill vampires." );
 			}
-			else if ( text.indexOf( "they recognize you" ) != -1 )
+			else if ( text.contains( "they recognize you" ) )
 			{
 				RequestLogger.printLine( "You have already killed some vampires." );
 			}
-			else if ( text.indexOf( "crank up the fog machine" ) != -1 )
+			else if ( text.contains( "crank up the fog machine" ) )
 			{
 				RequestLogger.printLine( "You crank up the fog machine." );
 			}
-			else if ( text.indexOf( "turn the fog machine way down" ) != -1 )
+			else if ( text.contains( "turn the fog machine way down" ) )
 			{
 				RequestLogger.printLine( "You crank down the fog machine." );
 			}
@@ -3910,7 +3910,7 @@ public abstract class ChoiceManager
 
 		case 553:
 			// Relocked and Reloaded
-			if ( text.indexOf( "You melt" ) != -1 )
+			if ( text.contains( "You melt" ) )
 			{
 				int item = 0;
 				switch ( ChoiceManager.lastDecision )
@@ -3940,7 +3940,7 @@ public abstract class ChoiceManager
 
 		case 558:
 			// Tool Time
-			if ( text.indexOf( "You acquire an item" ) != -1 )
+			if ( text.contains( "You acquire an item" ) )
 			{
 				int amount = 3 + ChoiceManager.lastDecision;
 				ResultProcessor.processItem( ItemPool.LOLLIPOP_STICK, -amount );
@@ -4014,7 +4014,7 @@ public abstract class ChoiceManager
 			break;
 		}
 
-		if ( ChoiceManager.initializeAfterChoice && text.indexOf( "choice.php" ) == -1 )
+		if ( ChoiceManager.initializeAfterChoice && !text.contains( "choice.php" ) )
 		{
 			Runnable initializeRunner = new Runnable()
 			{
@@ -4142,7 +4142,7 @@ public abstract class ChoiceManager
 
 		if ( urlString.startsWith( "fight.php" ) )
 		{
-			if ( text.indexOf( "guy made of bee pollen" ) != -1 )
+			if ( text.contains( "guy made of bee pollen" ) )
 			{
 				// Record that we beat the guy made of bees.
 				Preferences.setBoolean( "guyMadeOfBeesDefeated", true );
@@ -4150,7 +4150,7 @@ public abstract class ChoiceManager
 		}
 		else if ( urlString.startsWith( "choice.php" ) )
 		{
-			if ( text.indexOf( "that ship is sailed" ) != -1 )
+			if ( text.contains( "that ship is sailed" ) )
 			{
 				// For some reason, we didn't notice when we
 				// beat the guy made of bees. Record it now.
@@ -4212,7 +4212,7 @@ public abstract class ChoiceManager
 		int umbrella = InventoryManager.getAccessibleCount( ItemPool.GATORSKIN_UMBRELLA );
 
 		// You steel your nerves and descend into the darkened tunnel.
-		if ( text.indexOf( "You steel your nerves and descend into the darkened tunnel." ) == -1 )
+		if ( !text.contains( "You steel your nerves and descend into the darkened tunnel." ) )
 		{
 			return;
 		}
@@ -4224,7 +4224,7 @@ public abstract class ChoiceManager
 		// the glyphs for 'longcut' and 'crewcut', respectively. You
 		// head down the 'shortcut' tunnel.
 
-		if ( text.indexOf( "'crewcut'" ) != -1 )
+		if ( text.contains( "'crewcut'" ) )
 		{
 			explorations += 1;
 		}
@@ -4234,7 +4234,7 @@ public abstract class ChoiceManager
 		// circle. If you climb it you'll end up back where you
 		// started." You continue down the tunnel, instead.
 
-		if ( text.indexOf( "in a big circle" ) != -1 )
+		if ( text.contains( "in a big circle" ) )
 		{
 			explorations += 3;
 		}
@@ -4244,7 +4244,7 @@ public abstract class ChoiceManager
 		// are just advertisements for Amalgamated Ladderage, Inc. You
 		// head toward the Egress.
 
-		if ( text.indexOf( "Amalgamated Ladderage" ) != -1 )
+		if ( text.contains( "Amalgamated Ladderage" ) )
 		{
 			explorations += 5;
 		}
@@ -4253,7 +4253,7 @@ public abstract class ChoiceManager
 
 		// "How about these?" you ask, offering the fish some of your
 		// unfortunate dumplings.
-		if ( text.indexOf( "some of your unfortunate dumplings" ) != -1 )
+		if ( text.contains( "some of your unfortunate dumplings" ) )
 		{
 			// Remove unfortunate dumplings from inventory
 			ResultProcessor.processItem( ItemPool.DUMPLINGS, -1 );
@@ -4267,7 +4267,7 @@ public abstract class ChoiceManager
 
 		// Before you can ask him what kind of tribute he wants, you
 		// see his eyes light up at the sight of your sewer wad.
-		if ( text.indexOf( "the sight of your sewer wad" ) != -1 )
+		if ( text.contains( "the sight of your sewer wad" ) )
 		{
 			// Remove sewer wad from inventory
 			ResultProcessor.processItem( ItemPool.SEWER_WAD, -1 );
@@ -4281,7 +4281,7 @@ public abstract class ChoiceManager
 
 		// He finds a bottle of Ooze-O, and begins giggling madly. He
 		// uncorks the bottle, takes a drink, and passes out in a heap.
-		if ( text.indexOf( "He finds a bottle of Ooze-O" ) != -1 )
+		if ( text.contains( "He finds a bottle of Ooze-O" ) )
 		{
 			// Remove bottle of Ooze-O from inventory
 			ResultProcessor.processItem( ItemPool.OOZE_O, -1 );
@@ -4300,7 +4300,7 @@ public abstract class ChoiceManager
 		// without the bang, and you're not made out of cork, and
 		// champagne doesn't usually smell like sewage. Anyway. You
 		// continue down the tunnel.
-		if ( text.indexOf( "it takes three whole bottles" ) != -1 )
+		if ( text.contains( "it takes three whole bottles" ) )
 		{
 			// Remove 3 bottles of oil of oiliness from inventory
 			ResultProcessor.processItem( ItemPool.OIL_OF_OILINESS, -3 );
@@ -4316,7 +4316,7 @@ public abstract class ChoiceManager
 		// beneath the sewagefall without incident. There's not much
 		// left of the umbrella, though, and you discard it before
 		// moving deeper into the tunnel.
-		if ( text.indexOf( "your gatorskin umbrella allows you to pass" ) != -1 )
+		if ( text.contains( "your gatorskin umbrella allows you to pass" ) )
 		{
 			// Unequip gatorskin umbrella and discard it.
 
@@ -4353,7 +4353,7 @@ public abstract class ChoiceManager
 		// with a crank on the opposite side. What luck -- looks like
 		// somebody else opened this grate from the other side!
 
-		if ( text.indexOf( "somebody else opened this grate" ) != -1 )
+		if ( text.contains( "somebody else opened this grate" ) )
 		{
 			explorations += 5;
 		}
@@ -4857,7 +4857,7 @@ public abstract class ChoiceManager
 			// 4 - turn off boombox (lower area ML)
 			// 5 - mass kill werewolves
 
-			boolean boomboxOn = responseText.indexOf( "sets your heart pounding and pulse racing" ) != -1;
+			boolean boomboxOn = responseText.contains( "sets your heart pounding and pulse racing" );
 
 			switch ( StringUtilities.parseInt( decision ) )
 			{
@@ -4900,7 +4900,7 @@ public abstract class ChoiceManager
 			// 4 - mass kill skeletons
 			// 5 - get costume item
 
-			boolean windowsClosed = responseText.indexOf( "covered all their windows" ) != -1;
+			boolean windowsClosed = responseText.contains( "covered all their windows" );
 			int chainsaw = InventoryManager.getCount( ItemPool.CHAINSAW_CHAIN );
 			int mirror = InventoryManager.getCount( ItemPool.FUNHOUSE_MIRROR );
 
@@ -4946,7 +4946,7 @@ public abstract class ChoiceManager
 			// 3 - turn up the fog machine (raise area ML)
 			// 4 - turn down the fog machine (lower area ML)
 
-			boolean fogOn = responseText.indexOf( "white clouds of artificial fog" ) != -1;
+			boolean fogOn = responseText.contains( "white clouds of artificial fog" );
 
 			switch ( StringUtilities.parseInt( decision ) )
 			{
@@ -5266,7 +5266,7 @@ public abstract class ChoiceManager
 		{
 			String decisionText = matcher.group( 2 );
 			
-			if ( decisionText.indexOf( text ) != -1 )
+			if ( decisionText.contains( text ) )
 			{
 				return StringUtilities.getEntityDecode( matcher.group( 1 ) );
 			}

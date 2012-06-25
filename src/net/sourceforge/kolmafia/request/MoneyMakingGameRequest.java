@@ -171,7 +171,7 @@ public class MoneyMakingGameRequest
 	{
 		String responseText = this.responseText;
 
-		if ( responseText.indexOf( "You can't gamble without a casino pass." ) != -1 )
+		if ( responseText.contains( "You can't gamble without a casino pass." ) )
 		{
 			KoLmafia.updateDisplay( MafiaState.ERROR, "You don't have a casino pass." );
 			return;
@@ -206,7 +206,7 @@ public class MoneyMakingGameRequest
 	{
 		// You can't make a wager for less than 1,000 Meat. Sad, but
 		// true.
-		if ( responseText.indexOf( "can't make a wager" ) != -1 )
+		if ( responseText.contains( "can't make a wager" ) )
 		{
 			return "You must bet at least 1,000 meat.";
 		}
@@ -222,14 +222,14 @@ public class MoneyMakingGameRequest
 		// that you don't have enough Meat to make that big of a
 		// wager. Care to try again?"
 
-		if ( responseText.indexOf( "don't have enough" ) != -1 )
+		if ( responseText.contains( "don't have enough" ) )
 		{
 			return "You don't have enough meat.";
 		}
 
 		// You can't have more than five bets running at one
 		// time. Strange, but true.
-		if ( responseText.indexOf( "Strange, but true" ) != -1 )
+		if ( responseText.contains( "Strange, but true" ) )
 		{
 			return "You can only have five bets at a time.";
 		}
@@ -241,7 +241,7 @@ public class MoneyMakingGameRequest
 	{
 		// You don't have a bet with that ID. Likely, someone already
 		// took it.
-		if ( responseText.indexOf( "don't have a bet with that ID" ) != -1 )
+		if ( responseText.contains( "don't have a bet with that ID" ) )
 		{
 			return "Could not retract bet.";
 		}
@@ -254,7 +254,7 @@ public class MoneyMakingGameRequest
 		// The old man looks at you quizzically. &quot;There's no bet
 		// like that anywhere in our records. Maybe someone else got to
 		// it before you could.&quot;
-		if ( responseText.indexOf( "no bet like that" ) != -1 )
+		if ( responseText.contains( "no bet like that" ) )
 		{
 			return "Could not take bet.";
 		}
@@ -267,8 +267,8 @@ public class MoneyMakingGameRequest
 		// you. &quot;Hagnk's secretary says that you don't have enough
 		// to take that bet.&quot;
 
-		if ( responseText.indexOf( "fish out enough" ) != -1 ||
-		     responseText.indexOf( "don't have enough" ) != -1)
+		if ( responseText.contains( "fish out enough" ) ||
+                responseText.contains( "don't have enough" ) )
 		{
 			return "You don't have enough meat.";
 		}
@@ -301,7 +301,7 @@ public class MoneyMakingGameRequest
 
 		// When you make a bet, you are redirected from the URL you
 		// submitted to make it to bet.php
-		if ( responseText.indexOf( "You make a bet." ) != -1 )
+		if ( responseText.contains( "You make a bet." ) )
 		{
 			MoneyMakingGameManager.makeBet( responseText );
 			MoneyMakingGameManager.makingBet = 0;

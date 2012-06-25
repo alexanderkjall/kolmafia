@@ -271,7 +271,7 @@ public class RequestLogger
 		RequestLogger.debugStream.println( message );
 		
 		if ( StaticEntity.backtraceTrigger != null &&
-			message.indexOf( StaticEntity.backtraceTrigger ) != -1 )
+                message.contains( StaticEntity.backtraceTrigger ) )
 		{
 			StaticEntity.printStackTrace( "Backtrace triggered by message" );
 		}
@@ -323,7 +323,7 @@ public class RequestLogger
 				colorBuffer.append( "<br>" );
 			}
 
-			if ( message.indexOf( "<" ) == -1 && message.indexOf( KoLConstants.LINE_BREAK ) != -1 )
+			if ( !message.contains( "<" ) && message.contains( KoLConstants.LINE_BREAK ) )
 			{
 				colorBuffer.append( "</pre>" );
 			}
@@ -405,7 +405,7 @@ public class RequestLogger
 	public static final void updateSessionLog( final String line )
 	{
 		if ( StaticEntity.backtraceTrigger != null &&
-			line.indexOf( StaticEntity.backtraceTrigger ) != -1 )
+                line.contains( StaticEntity.backtraceTrigger ) )
 		{
 			StaticEntity.printStackTrace( "Backtrace triggered by session log message" );
 		}
@@ -450,7 +450,7 @@ public class RequestLogger
 	public static final void updateDebugLog( final String line )
 	{
 		if ( StaticEntity.backtraceTrigger != null &&
-			line.indexOf( StaticEntity.backtraceTrigger ) != -1 )
+                line.contains( StaticEntity.backtraceTrigger ) )
 		{
 			StaticEntity.printStackTrace( "Backtrace triggered by debug log message" );
 		}
@@ -567,7 +567,7 @@ public class RequestLogger
 		// Anything else that doesn't submit an actual form
 		// should not be registered.
 
-		if ( urlString.indexOf( "?" ) == -1 )
+		if ( !urlString.contains( "?" ) )
 		{
 			return;
 		}

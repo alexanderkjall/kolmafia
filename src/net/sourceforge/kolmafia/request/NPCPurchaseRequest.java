@@ -130,7 +130,7 @@ public class NPCPurchaseRequest
 
 	public static String pickForm( final String storeId )
 	{
-		return  storeId.indexOf( "." ) != -1 ?
+		return storeId.contains( "." ) ?
 			storeId :
 			storeId.equals( "fdkol" ) ?
 			"shop.php" :
@@ -360,7 +360,7 @@ public class NPCPurchaseRequest
 
 		// When we purchase items from NPC stores using ajax, the
 		// response tells us nothing about the contents of the store.
-		if ( urlString.indexOf( "ajax=1" ) != -1 )
+		if ( urlString.contains( "ajax=1" ) )
 		{
 			return;
 		}
@@ -385,16 +385,16 @@ public class NPCPurchaseRequest
 
 			String side = "none";
 
-			if ( responseText.indexOf( "peach" ) != -1 &&
-			     responseText.indexOf( "pear" ) != -1 &&
-			     responseText.indexOf( "plum" ) != -1 )
+			if ( responseText.contains( "peach" ) &&
+                    responseText.contains( "pear" ) &&
+                    responseText.contains( "plum" ) )
 			{
 				Preferences.setInteger( "lastFilthClearance", KoLCharacter.getAscensions() );
 				side = "hippy";
 			}
-			else if ( responseText.indexOf( "bowl of rye sprouts" ) != -1 &&
-				  responseText.indexOf( "cob of corn" ) != -1 &&
-				  responseText.indexOf( "juniper berries" ) != -1 )
+			else if ( responseText.contains( "bowl of rye sprouts" ) &&
+                    responseText.contains( "cob of corn" ) &&
+                    responseText.contains( "juniper berries" ) )
 			{
 				Preferences.setInteger( "lastFilthClearance", KoLCharacter.getAscensions() );
 				side = "fratboy";

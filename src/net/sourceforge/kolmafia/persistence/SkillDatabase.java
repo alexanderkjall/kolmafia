@@ -1202,7 +1202,7 @@ public class SkillDatabase
 		for ( int i = 0; i < skills.length; ++i )
 		{
 			String skill = skills[ i ].getSkillName();
-			if ( skill.toLowerCase().indexOf( name ) != -1 )
+			if ( skill.toLowerCase().contains( name ) )
 			{
 				if ( ambiguous )
 				{

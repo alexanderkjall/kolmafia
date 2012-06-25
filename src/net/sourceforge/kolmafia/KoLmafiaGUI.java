@@ -364,7 +364,7 @@ public class KoLmafiaGUI
 				GenericRequest beachCheck = new GenericRequest( "main.php" );
 				RequestThread.postRequest( beachCheck );
 
-				if ( beachCheck.responseText.indexOf( "beach.php" ) != -1 )
+				if ( beachCheck.responseText.contains( "beach.php" ) )
 				{
 					MicroBreweryRequest.getMenu();
 				}

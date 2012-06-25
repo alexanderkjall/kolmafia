@@ -101,7 +101,7 @@ public class EventManager
 			return false;
 		}
 
-		if ( eventHTML.indexOf( "logged" ) != -1 || eventHTML.indexOf( "has left the building" ) != -1 )
+		if ( eventHTML.contains( "logged" ) || eventHTML.contains( "has left the building" ) )
 		{
 			return false;
 		}
@@ -123,7 +123,7 @@ public class EventManager
 			RequestLogger.printLine( eventHTML );
 		}
 
-		boolean moneyMakingGameEvent = eventHTML.indexOf( "href='bet.php'" ) != -1;
+		boolean moneyMakingGameEvent = eventHTML.contains( "href='bet.php'" );
 
 		// The event may be marked up with color and links to
 		// user profiles. For example:
@@ -190,7 +190,7 @@ public class EventManager
 
 		for ( int i = 0; i < events.length; ++i )
 		{
-			if ( events[ i ].indexOf( "/" ) == -1 )
+			if ( !events[i].contains( "/" ) )
 			{
 				events[ i ] = null;
 			}

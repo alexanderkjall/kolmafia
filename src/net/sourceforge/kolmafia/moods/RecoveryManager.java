@@ -347,7 +347,7 @@ public class RecoveryManager
 		for ( int i = 0; i < techniques.length; ++i )
 		{
 			currentTechniqueName = techniques[ i ].toString().toLowerCase();
-			if ( restoreSetting.indexOf( currentTechniqueName ) == -1 )
+			if ( !restoreSetting.contains( currentTechniqueName ) )
 			{
 				continue;
 			}
@@ -554,7 +554,7 @@ public class RecoveryManager
 
 		for ( int i = 0; i < MPRestoreItemList.CONFIGURES.length; ++i )
 		{
-			if ( mpRestoreSetting.indexOf( MPRestoreItemList.CONFIGURES[ i ].toString().toLowerCase() ) != -1 )
+			if ( mpRestoreSetting.contains( MPRestoreItemList.CONFIGURES[i].toString().toLowerCase() ) )
 			{
 				AdventureResult item = MPRestoreItemList.CONFIGURES[ i ].getItem();
 				if ( item != null )

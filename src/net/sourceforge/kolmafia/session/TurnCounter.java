@@ -90,7 +90,7 @@ public class TurnCounter
 				}
 				this.exemptions.add( word.substring( 4 ) );
 			}
-			else if ( word.indexOf( ".php" ) != -1 )
+			else if ( word.contains( ".php" ) )
 			{
 				this.URL = word;
 			}
@@ -417,7 +417,7 @@ public class TurnCounter
 			{
 				continue;
 			}
-			if ( current.parsedLabel.toLowerCase().indexOf( label ) == -1 )
+			if ( !current.parsedLabel.toLowerCase().contains( label ) )
 			{
 				continue;
 			}
@@ -457,7 +457,7 @@ public class TurnCounter
 			// altar does not take a turn. But give a warning, in
 			// case they are exploring
 
-			return urlString.indexOf( "?" ) == -1 ? 0 : 1;
+			return !urlString.contains( "?" ) ? 0 : 1;
 		}
 
 		if ( path.equals( "crimbo09.php" ) )

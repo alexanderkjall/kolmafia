@@ -184,8 +184,8 @@ public class IslandArenaRequest
 		//
 		// You're all rocked out.
 
-		if ( this.responseText.indexOf( "pretty much tapped out" ) != -1 ||
-		     this.responseText.indexOf( "You're all rocked out" ) != -1 )
+		if ( this.responseText.contains( "pretty much tapped out" ) ||
+                this.responseText.contains( "You're all rocked out" ) )
 		{
 			KoLmafia.updateDisplay( "You can only visit the Mysterious Island Arena once a day." );
 			return;
@@ -197,7 +197,7 @@ public class IslandArenaRequest
 
 	public static final void parseResponse( final String location, final String responseText )
 	{
-		if ( location.indexOf( "action=concert" ) != -1 )
+		if ( location.contains( "action=concert" ) )
 		{
 			Preferences.setBoolean( "concertVisited", true );
 		}

@@ -1369,11 +1369,11 @@ public class FamiliarTrainingFrame
 		{
 			FamiliarTrainingFrame.results.append( "<font color=red>" + message + "</font><br>" );
 		}
-		else if ( message.indexOf( "experience" ) != -1 )
+		else if ( message.contains( "experience" ) )
 		{
 			FamiliarTrainingFrame.results.append( "<font color=green>" + message + "</font><br>" );
 		}
-		else if ( message.indexOf( "prize" ) != -1 )
+		else if ( message.contains( "prize" ) )
 		{
 			FamiliarTrainingFrame.results.append( "<font color=blue>" + message + "</font><br>" );
 		}
@@ -2616,7 +2616,7 @@ public class FamiliarTrainingFrame
 		public void processMatchResult( final String response, final int xp )
 		{
 			// If the contest did not take place, bail now
-			if ( response.indexOf( "You enter" ) == -1 )
+			if ( !response.contains( "You enter" ) )
 			{
 				return;
 			}
@@ -2626,7 +2626,7 @@ public class FamiliarTrainingFrame
 			if ( xp > 0 )
 			{
 				message =
-					this.familiar.getName() + " gains " + xp + " experience" + ( response.indexOf( "gains a pound" ) != -1 ? " and a pound." : "." );
+					this.familiar.getName() + " gains " + xp + " experience" + (response.contains( "gains a pound" ) ? " and a pound." : "." );
 			}
 			else
 			{

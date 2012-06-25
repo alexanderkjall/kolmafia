@@ -315,7 +315,7 @@ public class RequestEditorKit
 		}
 
 		// Handle topmenu
-		if ( location.indexOf( "menu.php" ) != -1 )
+		if ( location.contains( "menu.php" ) )
 		{
 			MoonPhaseRequest.decorate( buffer );
 			StringUtilities.singleStringReplace( buffer, "</body>",
@@ -518,7 +518,7 @@ public class RequestEditorKit
 				SorceressLairManager.decorateFamiliars( buffer );
 			}
 		}
-		else if ( location.indexOf( "lchat.php" ) != -1 )
+		else if ( location.contains( "lchat.php" ) )
 		{
 			StringUtilities.globalStringDelete( buffer, "spacing: 0px;" );
 			StringUtilities.globalStringReplace( buffer, "cycles++", "cycles = 0" );
@@ -602,7 +602,7 @@ public class RequestEditorKit
 			VolcanoMazeManager.decorate( location, buffer );
 		}
 		else if ( location.startsWith( "wand.php" ) &&
-			location.indexOf( "notrim=1" ) == -1 )
+                !location.contains( "notrim=1" ) )
 		{
 			ZapRequest.decorate( buffer );
 		}
@@ -626,7 +626,7 @@ public class RequestEditorKit
 			StringUtilities.insertBefore(
 				buffer, "</head>", "<link rel=\"stylesheet\" href=\"/basics.css\" />" );
 
-			if ( location.indexOf( "?" ) == -1 && RequestEditorKit.maps.contains( location ) )
+			if ( !location.contains( "?" ) && RequestEditorKit.maps.contains( location ) )
 			{
 				buffer.insert(
 					buffer.indexOf( "</tr>" ),
@@ -663,7 +663,7 @@ public class RequestEditorKit
 			Matcher eventMatcher = EventManager.EVENT_PATTERN.matcher( buffer.toString() );
 			boolean showingEvents = eventMatcher.find();
 
-			if ( EventManager.hasEvents() && ( location.indexOf( "main.php" ) != -1 || showingEvents ) )
+			if ( EventManager.hasEvents() && (location.contains( "main.php" ) || showingEvents ) )
 			{
 				int eventTableInsertIndex = 0;
 
@@ -1158,7 +1158,7 @@ public class RequestEditorKit
 		monsterData.append( ", Type: " );
 		monsterData.append( MonsterDatabase.phylumNames[ MonsterStatusTracker.getMonsterPhylum() ] );
 
-		if ( monsterName.indexOf( "pirate" ) != -1 && !( monsterName.equalsIgnoreCase( "Stone Temple Pirate" ) ) )
+		if ( monsterName.contains( "pirate" ) && !( monsterName.equalsIgnoreCase( "Stone Temple Pirate" ) ) )
 		{
 			int count = BeerPongRequest.countPirateInsults();
 			monsterData.append( ", Insults: ");
@@ -2398,7 +2398,7 @@ public class RequestEditorKit
 
 			GenericRequest formSubmitter = new GenericRequest( "" );
 
-			if ( action.indexOf( "?" ) != -1 )
+			if ( action.contains( "?" ) )
 			{
 				// For quirky URLs where there's a question mark
 				// in the middle of the URL, just string the data
@@ -2480,7 +2480,7 @@ public class RequestEditorKit
 
 	public static final GenericRequest extractRequest( String location )
 	{
-		if ( location.indexOf( "pics.communityofloathing.com" ) != -1 )
+		if ( location.contains( "pics.communityofloathing.com" ) )
 		{
 			FileUtilities.downloadImage( location );
 			location = location.substring( location.indexOf( "/" ) );

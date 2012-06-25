@@ -157,7 +157,7 @@ public class QuestDatabase
 
 	public static String titleToPref( final String title )
 	{
-		if ( title.indexOf( "White Citadel" ) != -1 )
+		if ( title.contains( "White Citadel" ) )
 		{
 			// Hard code this quest, for now. The familiar name in the middle of the string is annoying to
 			// deal with.
@@ -165,7 +165,7 @@ public class QuestDatabase
 		}
 		for ( int i = 0; i < questLogData.length; ++i )
 		{
-			if ( questLogData[ i ][ 1 ].toLowerCase().indexOf( title.toLowerCase() ) != -1 )
+			if ( questLogData[i][1].toLowerCase().contains( title.toLowerCase() ) )
 			{
 				return questLogData[ i ][ 0 ];
 			}
@@ -196,7 +196,7 @@ public class QuestDatabase
 	{
 		for ( int i = 0; i < questLogData.length; ++i )
 		{
-			if ( questLogData[ i ][ 0 ].toLowerCase().indexOf( pref.toLowerCase() ) != -1 )
+			if ( questLogData[i][0].toLowerCase().contains( pref.toLowerCase() ) )
 			{
 				return questLogData[ i ][ 1 ];
 			}
@@ -210,7 +210,7 @@ public class QuestDatabase
 	{
 		for ( int i = 0; i < questLogData.length; ++i )
 		{
-			if ( questLogData[ i ][ 0 ].toLowerCase().indexOf( pref.toLowerCase() ) != -1 )
+			if ( questLogData[i][0].toLowerCase().contains( pref.toLowerCase() ) )
 			{
 				return i;
 			}
@@ -227,7 +227,7 @@ public class QuestDatabase
 		{
 			return handleWarStatus( details );
 		}
-		if ( pref.equals( "questG04Nemesis" ) && details.indexOf( "Demonic Lord of Revenge" ) != -1 )
+		if ( pref.equals( "questG04Nemesis" ) && details.contains( "Demonic Lord of Revenge" ) )
 		{
 			// Hard code the end of the nemesis quest, for now. We could eventually programmatically handle
 			// the <demon name> in the response.
@@ -256,7 +256,7 @@ public class QuestDatabase
 
 		for ( int i = 2; i < questLogData[ index ].length; ++i )
 		{
-			if ( questLogData[ index ][ i ].indexOf( details ) != -1 )
+			if ( questLogData[index][i].contains( details ) )
 			{
 				foundAtStep = i - 2;
 				break;
@@ -276,7 +276,7 @@ public class QuestDatabase
 			{
 				cleanedQuest = QuestDatabase.HTML_WHITESPACE.matcher( questLogData[ index ][ i ] )
 					.replaceAll( "" ).toLowerCase();
-				if ( cleanedQuest.indexOf( cleanedResponse ) != -1 )
+				if ( cleanedQuest.contains( cleanedResponse ) )
 				{
 					foundAtStep = i - 2;
 					break;
@@ -310,8 +310,8 @@ public class QuestDatabase
 					questEnd = cleanedQuest.substring( cleanedQuest.length() - 100 );
 				}
 
-				if ( cleanedResponse.indexOf( questStart ) != -1
-					|| cleanedResponse.indexOf( questEnd ) != -1 )
+				if ( cleanedResponse.contains( questStart )
+					|| cleanedResponse.contains( questEnd ) )
 				{
 					foundAtStep = i - 2;
 					break;
@@ -341,18 +341,17 @@ public class QuestDatabase
 
 	private static String handleWarStatus( String details )
 	{
-		if ( details.indexOf( "You led the filthy hippies to victory" ) != -1
-			|| details.indexOf( "You led the Orcish frat boys to victory" ) != -1
-			|| details.indexOf( "You started a chain of events" ) != -1 )
+		if ( details.contains( "You led the filthy hippies to victory" )
+			|| details.contains( "You led the Orcish frat boys to victory" )
+			|| details.contains( "You started a chain of events" ) )
 		{
 			return QuestDatabase.FINISHED;
 		}
-		else if ( details.indexOf( "You've managed to get the war between the hippies and frat boys started" ) != -1 )
+		else if ( details.contains( "You've managed to get the war between the hippies and frat boys started" ) )
 		{
 			return "step1";
 		}
-		else if ( details
-			.indexOf( "The Council has gotten word of tensions building between the hippies and the frat boys" ) != -1 )
+		else if ( details.contains( "The Council has gotten word of tensions building between the hippies and the frat boys" ) )
 		{
 			return QuestDatabase.STARTED;
 		}
@@ -368,7 +367,7 @@ public class QuestDatabase
 		}
 
 		if ( !status.equals( QuestDatabase.STARTED ) && !status.equals( QuestDatabase.FINISHED )
-			&& status.indexOf( "step" ) == -1 && !status.equals( QuestDatabase.UNSTARTED ) )
+			&& !status.contains( "step" ) && !status.equals( QuestDatabase.UNSTARTED ) )
 		{
 			return;
 		}
@@ -399,7 +398,7 @@ public class QuestDatabase
 			{
 				cleanedQuest = QuestDatabase.HTML_WHITESPACE.matcher( councilData[ i ][ j ] )
 					.replaceAll( "" ).toLowerCase();
-				if ( cleanedResponse.indexOf( cleanedQuest ) != -1 )
+				if ( cleanedResponse.contains( cleanedQuest ) )
 				{
 					pref = councilData[ i ][ 0 ];
 					status = councilData[ i ][ 1 ];
@@ -430,8 +429,8 @@ public class QuestDatabase
 						questEnd = cleanedQuest.substring( cleanedQuest.length() - 100 );
 					}
 
-					if ( cleanedResponse.indexOf( questStart ) != -1
-						|| cleanedResponse.indexOf( questEnd ) != -1 )
+					if ( cleanedResponse.contains( questStart )
+						|| cleanedResponse.contains( questEnd ) )
 					{
 						pref = councilData[ i ][ 0 ];
 						status = councilData[ i ][ 1 ];

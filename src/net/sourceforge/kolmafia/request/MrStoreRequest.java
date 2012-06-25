@@ -120,7 +120,7 @@ public class MrStoreRequest
 		if ( action != null && this.action.equals( "pullmras" ) )
 		{
 			// You can't pull any more items out of storage today.
-			if ( responseText.indexOf( "You can't pull any more items out of storage today" ) != -1 )
+			if ( responseText.contains( "You can't pull any more items out of storage today" ) )
 			{
 				KoLmafia.updateDisplay( MafiaState.ERROR, "You can't pull any more items out of storage today." );
 			}
@@ -174,7 +174,7 @@ public class MrStoreRequest
 		String action = GenericRequest.getAction( urlString );
 		if ( action != null && action.equals( "pullmras" ) )
 		{
-			if ( responseText.indexOf( "You acquire" ) != -1 )
+			if ( responseText.contains( "You acquire" ) )
 			{
 				// We pulled a Mr. A from storage.
 				AdventureResult remove = MrStoreRequest.MR_A.getInstance( -1 );

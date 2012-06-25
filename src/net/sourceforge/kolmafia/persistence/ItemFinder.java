@@ -107,11 +107,11 @@ public class ItemFinder
 		{
 			String name0 = (String) nameList.get( 0 );
 			String name1 = (String) nameList.get( 1 );
-			if ( name0.indexOf( name1 ) != -1 )
+			if ( name0.contains( name1 ) )
 			{
 				nameList.remove( 0 );
 			}
-			else if ( name1.indexOf( name0 ) != -1 )
+			else if ( name1.contains( name0 ) )
 			{
 				nameList.remove( 1 );
 			}
@@ -137,11 +137,11 @@ public class ItemFinder
 		{
 			String name0 = (String) nameList.get( 0 );
 			String name1 = (String) nameList.get( 1 );
-			if ( name0.indexOf( name1 ) != -1 )
+			if ( name0.contains( name1 ) )
 			{
 				nameList.remove( 0 );
 			}
-			else if ( name1.indexOf( name0 ) != -1 )
+			else if ( name1.contains( name0 ) )
 			{
 				nameList.remove( 1 );
 			}
@@ -402,7 +402,7 @@ public class ItemFinder
 			itemCount = 0;
 			parameters = parameters.substring( 1 ).trim();
 		}
-		else if ( parameters.indexOf( "\u00B6" ) == -1 &&
+		else if ( !parameters.contains( "\u00B6" ) &&
 			ItemDatabase.getItemId( parameters, 1 ) != -1 )
 		{
 			itemCount = 1;

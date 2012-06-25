@@ -151,11 +151,11 @@ public class FamiliarDatabase
 				FamiliarDatabase.familiarByItem.put( StringUtilities.getCanonicalName( data[ 5 ] ), familiarId );
 
 
-				FamiliarDatabase.combatById.set( familiarId, familiarType.indexOf( "combat" ) != -1 );
-				FamiliarDatabase.volleyById.set( familiarId, familiarType.indexOf( "stat0" ) != -1 );
-				FamiliarDatabase.sombreroById.set( familiarId, familiarType.indexOf( "stat1" ) != -1 );
-				FamiliarDatabase.fairyById.set( familiarId, familiarType.indexOf( "item0" ) != -1 );
-				FamiliarDatabase.meatDropById.set( familiarId, familiarType.indexOf( "meat0" ) != -1 );
+				FamiliarDatabase.combatById.set( familiarId, familiarType.contains( "combat" ) );
+				FamiliarDatabase.volleyById.set( familiarId, familiarType.contains( "stat0" ) );
+				FamiliarDatabase.sombreroById.set( familiarId, familiarType.contains( "stat1" ) );
+				FamiliarDatabase.fairyById.set( familiarId, familiarType.contains( "item0" ) );
+				FamiliarDatabase.meatDropById.set( familiarId, familiarType.contains( "meat0" ) );
 
 				String canonical = StringUtilities.getCanonicalName( data[ 1 ] );
 				for ( int i = 0; i < 4; ++i )
@@ -294,7 +294,7 @@ public class FamiliarDatabase
 
 		for ( int i = 0; i < familiarNames.length; ++i )
 		{
-			if ( familiarNames[ i ].indexOf( searchString ) != -1 )
+			if ( familiarNames[i].contains( searchString ) )
 			{
 				familiarId = FamiliarDatabase.familiarByName.get( familiarNames[ i ] );
 				return familiarId == null ? -1 : (Integer) familiarId;

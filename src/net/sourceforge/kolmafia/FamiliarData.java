@@ -114,7 +114,7 @@ public class FamiliarData
 		this.id = id;
 		this.name = name;
 		this.race = id == -1 ? "(none)" : FamiliarDatabase.getFamiliarName( id );
-		this.beeware = this.race.indexOf( "b" ) != -1 || this.race.indexOf( "B" ) != -1;
+		this.beeware = this.race.contains( "b" ) || this.race.contains( "B" );
 
 		this.weight = weight;
 		this.item = item;
@@ -126,7 +126,7 @@ public class FamiliarData
 	{
 		this.id = StringUtilities.parseInt( dataMatcher.group( 2 ) );
 		this.race = dataMatcher.group( 4 );
-		this.beeware = this.race.indexOf( "b" ) != -1 || this.race.indexOf( "B" ) != -1;
+		this.beeware = this.race.contains( "b" ) || this.race.contains( "B" );
 
 		String image = dataMatcher.group( 1 );
 		FamiliarDatabase.registerFamiliar( this.id, this.race, image );
@@ -141,7 +141,7 @@ public class FamiliarData
 		this.setWeight();
 		String itemData = dataMatcher.group( 6 );
 		this.item = FamiliarData.parseFamiliarItem( this.id, itemData );
-		this.favorite = itemData.indexOf( "[unfavorite]" ) != -1;
+		this.favorite = itemData.contains( "[unfavorite]" );
 	}
 
 	public final boolean canEquip()
@@ -190,7 +190,7 @@ public class FamiliarData
 
 			experienceModifier -= itemModifier;
 
-			if ( responseText.indexOf( "offer some words of encouragement and support" ) != -1 )
+			if ( responseText.contains( "offer some words of encouragement and support" ) )
 			{
 				experienceModifier += 3;
 			}
@@ -297,7 +297,7 @@ public class FamiliarData
 
 	private static final AdventureResult parseFamiliarItem( final int id, final String text )
 	{
-		if ( text.indexOf( "<img" ) == -1 )
+		if ( !text.contains( "<img" ) )
 		{
 			return EquipmentRequest.UNEQUIP;
 		}
@@ -340,7 +340,7 @@ public class FamiliarData
 				familiar.update( matcher );
 			}
 
-			if ( matcher.group( 6 ).indexOf( "kick out" ) != -1 )
+			if ( matcher.group( 6 ).contains( "kick out" ) )
 			{
 				hatseat = familiar;
 			}
@@ -353,7 +353,7 @@ public class FamiliarData
 		}
 
 		// He may have familiars but none are equipped.
-		if ( responseText.indexOf( "You do not currently have a familiar" ) != -1 )
+		if ( responseText.contains( "You do not currently have a familiar" ) )
 		{
 			first = FamiliarData.NO_FAMILIAR;
 		}

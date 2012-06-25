@@ -95,7 +95,7 @@ public class StringUtilities
 			// we aren't keeping a reference to the longer string.
 			utf8String = new String( utf8String );
 
-			if ( utf8String.indexOf( "&" ) == -1 || utf8String.indexOf( ";" ) == -1 )
+			if ( !utf8String.contains( "&" ) || !utf8String.contains( ";" ) )
 			{
 				entityString = CharacterEntities.escape( utf8String );
 			}

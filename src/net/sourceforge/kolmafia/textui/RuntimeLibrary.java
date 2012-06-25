@@ -3873,7 +3873,7 @@ public abstract class RuntimeLibrary
 
 	public static Value contains_text( Interpreter interpreter, final Value source, final Value search )
 	{
-		return DataTypes.makeBooleanValue( source.toString().indexOf( search.toString() ) != -1 );
+		return DataTypes.makeBooleanValue( source.toString().contains( search.toString() ) );
 	}
 
 	public static Value extract_meat( Interpreter interpreter, final Value string )

@@ -141,7 +141,7 @@ public class BountyHunterHunterRequest
 				Preferences.setInteger( "currentBountyItem", ar.getItemId() );
 			}
 
-			if ( responseText.indexOf( "You acquire" ) != -1 )
+			if ( responseText.contains( "You acquire" ) )
 			{
 				// He turned in a bounty for a lucre
 				BountyHunterHunterRequest.abandonBounty();

@@ -69,8 +69,8 @@ public class EditCommand
 			scriptFile = new File( UtilityConstants.DATA_LOCATION, parameters );
 			if ( !scriptFile.exists() )
 			{
-				if ( parameters.indexOf( "/" ) != -1 ||
-					parameters.indexOf( "\\" ) != -1 )
+				if ( parameters.contains( "/" ) ||
+                        parameters.contains( "\\" ) )
 				{	// Let user explicitly give the top-level directory,
 					// as in "edit data/mymap.txt".
 					scriptFile = new File( UtilityConstants.ROOT_LOCATION, parameters );

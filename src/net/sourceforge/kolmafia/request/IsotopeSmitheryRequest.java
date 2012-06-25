@@ -98,7 +98,7 @@ public class IsotopeSmitheryRequest
 
 	public static final boolean registerRequest( final String urlString )
 	{
-		if ( !urlString.startsWith( "spaaace.php" ) || urlString.indexOf( "place=shop1" ) == -1 )
+		if ( !urlString.startsWith( "spaaace.php" ) || !urlString.contains( "place=shop1" ) )
 		{
 			return false;
 		}

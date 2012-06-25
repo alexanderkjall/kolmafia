@@ -100,7 +100,7 @@ public class ChefStaffRequest
 
 	public static final boolean parseCreation( final String urlString, final String responseText )
 	{
-		if ( responseText.indexOf( "You don't have all of the items I'll need to make that Chefstaff." ) != -1 )
+		if ( responseText.contains( "You don't have all of the items I'll need to make that Chefstaff." ) )
 		{
 			return true;
 		}
@@ -139,7 +139,7 @@ public class ChefStaffRequest
 
 	public static final boolean registerRequest( final String urlString )
 	{
-		if ( !urlString.startsWith( "guild.php" ) || urlString.indexOf( "action=makestaff" ) == -1 )
+		if ( !urlString.startsWith( "guild.php" ) || !urlString.contains( "action=makestaff" ) )
 		{
 			return false;
 		}

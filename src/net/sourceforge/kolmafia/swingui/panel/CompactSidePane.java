@@ -381,7 +381,7 @@ public class CompactSidePane
 				String key = "|" + fam.getRace().toLowerCase();
 				for ( int i = 0; i < 9; ++i )
 				{
-					if ( custom[ i ] != null && custom[ i ].indexOf( key ) != -1 )
+					if ( custom[ i ] != null && custom[i].contains( key ) )
 					{
 						customMenu[ i ].add( new FamiliarMenuItem( fam ) );
 						added = true;

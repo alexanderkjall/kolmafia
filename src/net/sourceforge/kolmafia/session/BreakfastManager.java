@@ -254,7 +254,7 @@ public class BreakfastManager
 		{
 			String skill = UseSkillRequest.BREAKFAST_SKILLS[ i ];
 
-			if ( skillSetting.indexOf( skill ) == -1 )
+			if ( !skillSetting.contains( skill ) )
 			{
 				continue;
 			}

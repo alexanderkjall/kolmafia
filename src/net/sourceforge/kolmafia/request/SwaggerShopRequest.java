@@ -157,7 +157,7 @@ public class SwaggerShopRequest
 			return false;
 		}
 
-		if ( urlString.indexOf( "place=shop" ) == -1 && urlString.indexOf( "action=buy" ) == -1 )
+		if ( !urlString.contains( "place=shop" ) && !urlString.contains( "action=buy" ) )
 		{
 			return false;
 		}

@@ -293,7 +293,7 @@ public class StorageRequest
 		// These data do not appear on the three item pages, and items
 		// do not appear on page 5.
 
-		if ( urlString.indexOf( "which=5" ) != -1 )
+		if ( urlString.contains( "which=5" ) )
 		{
 			Matcher meatInStorageMatcher = StorageRequest.STORAGEMEAT_PATTERN.matcher( responseText );
 			if ( meatInStorageMatcher.find() )
@@ -301,7 +301,7 @@ public class StorageRequest
 				int meat = StringUtilities.parseInt( meatInStorageMatcher.group( 1 ) );
 				KoLCharacter.setStorageMeat( meat );
 			}
-			else if ( responseText.indexOf( "Hagnk doesn't have any of your meat" ) != -1 )
+			else if ( responseText.contains( "Hagnk doesn't have any of your meat" ) )
 			{
 				KoLCharacter.setStorageMeat( 0 );
 			}
@@ -380,7 +380,7 @@ public class StorageRequest
 
 	public static final boolean parseTransfer( final String urlString, final String responseText )
 	{
-		if ( urlString.indexOf( "action" ) == -1 )
+		if ( !urlString.contains( "action" ) )
 		{
 			StorageRequest.parseStorage( urlString, responseText );
 			return true;
@@ -389,14 +389,14 @@ public class StorageRequest
 
 		boolean transfer = false;
 
-		if ( urlString.indexOf( "action=pullall" ) != -1 )
+		if ( urlString.contains( "action=pullall" ) )
 		{
 			// Hagnk leans back and yells something
 			// ugnigntelligible to a group of Knob Goblin teegnage
 			// delignquegnts, who go and grab all of your stuff
 			// from storage and bring it to you.
 
-			if ( responseText.indexOf( "go and grab all of your stuff" ) != -1 )
+			if ( responseText.contains( "go and grab all of your stuff" ) )
 			{
 				KoLConstants.storage.clear();
 				KoLConstants.freepulls.clear();
@@ -420,7 +420,7 @@ public class StorageRequest
 				// "favorite things", we may have left items in storage.
 
 				// Refresh and check.
-				if ( KoLCharacter.isTrendy() || urlString.indexOf( "favonly=1" ) != -1 )
+				if ( KoLCharacter.isTrendy() || urlString.contains( "favonly=1" ) )
 				{
 					RequestThread.postRequest( new StorageRequest( REFRESH ) );
 					KoLCharacter.updateStatus();
@@ -431,18 +431,18 @@ public class StorageRequest
 			}
 		}
 
-		else if ( urlString.indexOf( "action=takemeat" ) != -1 )
+		else if ( urlString.contains( "action=takemeat" ) )
 		{
-			if ( responseText.indexOf( "Meat out of storage" ) != -1 )
+			if ( responseText.contains( "Meat out of storage" ) )
 			{
 				StorageRequest.transferMeat( urlString );
 				transfer = true;
 			}
 		}
 
-		else if ( urlString.indexOf( "action=pull" ) != -1 )
+		else if ( urlString.contains( "action=pull" ) )
 		{
-			if ( responseText.indexOf( "moved from storage to inventory" ) != -1 )
+			if ( responseText.contains( "moved from storage to inventory" ) )
 			{
 				// Pull items from storage and/or freepulls
 				StorageRequest.transferItems( responseText );
@@ -450,7 +450,7 @@ public class StorageRequest
 			}
 		}
 
-		if ( urlString.indexOf( "ajax=1" ) == -1 )
+		if ( !urlString.contains( "ajax=1" ) )
 		{
 			StorageRequest.parseStorage( urlString, responseText );
 		}
@@ -531,14 +531,14 @@ public class StorageRequest
 			return false;
 		}
 
-		if ( urlString.indexOf( "action=pullall" ) != -1 )
+		if ( urlString.contains( "action=pullall" ) )
 		{
 			RequestLogger.updateSessionLog();
 			RequestLogger.updateSessionLog( "Emptying storage" );
 			return true;
 		}
 
-		if ( urlString.indexOf( "action=takemeat" ) != -1 )
+		if ( urlString.contains( "action=takemeat" ) )
 		{
 			int meat = TransferItemRequest.transferredMeat( urlString, "amt" );
 			String message = "pull: " + meat + " Meat";
@@ -552,7 +552,7 @@ public class StorageRequest
 			return true;
 		}
 
-		if ( urlString.indexOf( "pull" ) != -1 )
+		if ( urlString.contains( "pull" ) )
 		{
 			return TransferItemRequest.registerRequest(
 				"pull", urlString, KoLConstants.storage, 0 );

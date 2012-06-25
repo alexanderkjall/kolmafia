@@ -543,7 +543,7 @@ public class MaximizerFrame
 				{
 					if ( includeAll )
 					{
-						if ( cmd.indexOf( "BM" ) != -1 &&
+						if ( cmd.contains( "BM" ) &&
 							!KoLCharacter.inBadMoon() )
 						{
 							continue;	// no use displaying this in non-BM
@@ -557,7 +557,7 @@ public class MaximizerFrame
 				}
 
 				if ( hasEffect &&
-					cmd.toLowerCase().indexOf( name.toLowerCase() ) == -1 )
+                        !cmd.toLowerCase().contains( name.toLowerCase() ) )
 				{
 					text = text + " (to remove " + name + ")";
 				}
@@ -571,7 +571,7 @@ public class MaximizerFrame
 					cmd.startsWith( "drink " ) || cmd.startsWith( "eat " ) )
 				{
 					// Hardcoded exception for "Trivia Master", which has a non-standard use command.
-					if ( !KoLCharacter.canInteract() && cmd.indexOf( "Trivial Avocations Card" ) != -1 )
+					if ( !KoLCharacter.canInteract() && cmd.contains( "Trivial Avocations Card" ) )
 					{
 						continue;
 					}
@@ -579,7 +579,7 @@ public class MaximizerFrame
 					{
 						item = ItemFinder.getFirstMatchingItem(
 							cmd.substring( cmd.indexOf( " " ) + 1 ).trim(), false );
-						if ( item == null && cmd.indexOf( "," ) == -1 )
+						if ( item == null && !cmd.contains( "," ) )
 						{
 							if ( includeAll )
 							{
@@ -668,15 +668,15 @@ public class MaximizerFrame
 					}
 					else if ( side.equals( "fratboy" ) )
 					{
-						available = cmd.indexOf( "Elvish" ) != -1 ||
-						            cmd.indexOf( "Winklered" ) != -1 ||
-						            cmd.indexOf( "White-boy Angst" ) != -1;
+						available = cmd.contains( "Elvish" ) ||
+                                cmd.contains( "Winklered" ) ||
+                                cmd.contains( "White-boy Angst" );
 					}
 					else if ( side.equals( "hippy" ) )
 					{
-						available = cmd.indexOf( "Moon" ) != -1 ||
-						            cmd.indexOf( "Dilated" ) != -1 ||
-						            cmd.indexOf( "Optimist" ) != -1;
+						available = cmd.contains( "Moon" ) ||
+                                cmd.contains( "Dilated" ) ||
+                                cmd.contains( "Optimist" );
 					}
 
 					if ( !available )
@@ -854,7 +854,7 @@ public class MaximizerFrame
 						cmd = "";
 					}
 					full = ItemDatabase.getSpleenHit( iname );
-					if ( full > 0 && cmd.indexOf( "chew" ) == -1 )
+					if ( full > 0 && !cmd.contains( "chew" ) )
 					{
 						RequestLogger.printLine( "(Note: extender for " +
 							name + " is a spleen item that doesn't use 'chew')" );
@@ -1693,7 +1693,7 @@ public class MaximizerFrame
 				else if ( keyword.startsWith( "com" ) )
 				{
 					index = Modifiers.COMBAT_RATE;
-					if ( Modifiers.currentZone.indexOf( "the sea" ) != -1 )
+					if ( Modifiers.currentZone.contains( "the sea" ) )
 					{
 						this.weight[ Modifiers.UNDERWATER_COMBAT_RATE ] = weight;
 					}
@@ -2188,7 +2188,7 @@ public class MaximizerFrame
 							continue;
 						}
 						String type = EquipmentDatabase.getItemType( id );
-						if ( this.weaponType != null && type.indexOf( this.weaponType ) == -1 )
+						if ( this.weaponType != null && !type.contains( this.weaponType ) )
 						{
 							continue;
 						}

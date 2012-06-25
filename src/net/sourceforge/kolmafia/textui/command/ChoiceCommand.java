@@ -84,7 +84,7 @@ public class ChoiceCommand
 			while ( i.hasNext() )
 			{
 				Map.Entry e = (Map.Entry) i.next();
-				if ( ((String) e.getValue()).toLowerCase().indexOf( parameters.toLowerCase() ) != -1 )
+				if ( ((String) e.getValue()).toLowerCase().contains( parameters.toLowerCase() ) )
 				{
 					decision = (Integer) e.getKey();
 					break;

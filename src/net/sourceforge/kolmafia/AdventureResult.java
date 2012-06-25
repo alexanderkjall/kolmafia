@@ -1415,7 +1415,7 @@ public class AdventureResult
 			for ( int i = 0; i < this.matches.length && !hasMatch; ++i )
 			{
 				String match = this.matches[ i ];
-				hasMatch = arName.indexOf( this.matches[ i ] ) != -1;
+				hasMatch = arName.contains( this.matches[i] );
 			}
 
 			return hasMatch ^ this.negated;
@@ -1444,7 +1444,7 @@ public class AdventureResult
 
 		public static WildcardResult getInstance( String text )
 		{
-			if ( text.indexOf( "any" ) == -1 )
+			if ( !text.contains( "any" ) )
 			{
 				return null;
 			}

@@ -91,7 +91,7 @@ public class HermitCommand
 
 		for ( int i = 0; i < KoLConstants.hermitItems.size() && itemId == -1; ++i )
 		{
-			if ( KoLConstants.hermitItems.get( i ).toString().toLowerCase().indexOf( parameters ) != -1 )
+			if ( KoLConstants.hermitItems.get( i ).toString().toLowerCase().contains( parameters ) )
 			{
 				if ( KoLmafiaCLI.isExecutingCheckOnlyCommand )
 				{

@@ -341,11 +341,11 @@ public class FamiliarRequest
 			return false;
 		}
 
-		if ( urlString.indexOf( "action=putback" ) != -1 )
+		if ( urlString.contains( "action=putback" ) )
 		{
 			RequestLogger.updateSessionLog();
 			RequestLogger.updateSessionLog( "familiar none" );
-			if ( urlString.indexOf( "ajax=" ) != -1 )
+			if ( urlString.contains( "ajax=" ) )
 			{
 				KoLCharacter.setFamiliar( FamiliarData.NO_FAMILIAR );
 			}
@@ -353,7 +353,7 @@ public class FamiliarRequest
 			return true;
 		}
 
-		if ( urlString.indexOf( "action=equip" ) != -1 )
+		if ( urlString.contains( "action=equip" ) )
 		{
 			Matcher familiarMatcher = FamiliarRequest.ITEM_PATTERN.matcher( urlString );
 			if ( !familiarMatcher.find() )
@@ -368,7 +368,7 @@ public class FamiliarRequest
 			return true;
 		}
 
-		if ( urlString.indexOf( "action=unequip" ) != -1 )
+		if ( urlString.contains( "action=unequip" ) )
 		{
 			Matcher familiarMatcher = FamiliarRequest.UNEQUIP_PATTERN.matcher( urlString );
 			if ( !familiarMatcher.find() )
@@ -382,14 +382,14 @@ public class FamiliarRequest
 			return true;
 		}
 
-		if ( urlString.indexOf( "action=lockequip" ) != -1 )
+		if ( urlString.contains( "action=lockequip" ) )
 		{
 			if ( EquipmentManager.familiarItemLockable() )
 			{
 				String verb = EquipmentManager.familiarItemLocked() ? "unlock" : "lock";
 				RequestLogger.updateSessionLog();
 				RequestLogger.updateSessionLog( "familiar " + verb );
-				if ( urlString.indexOf( "frominv=" ) != -1 )
+				if ( urlString.contains( "frominv=" ) )
 				{	// If the lock icon is clicked from the Equipment page (rather than
 					// the Familiars page), the results are shown via a redirect that we
 					// don't follow.  Must change the lock state here, instead.
@@ -401,7 +401,7 @@ public class FamiliarRequest
 		}
 
 		// See if we are putting the familiar into the Crown of Thrones
-		if ( urlString.indexOf( "action=hatseat" ) != -1 )
+		if ( urlString.contains( "action=hatseat" ) )
 		{
 			Matcher familiarMatcher = FamiliarRequest.UNEQUIP_PATTERN.matcher( urlString );
 			if ( !familiarMatcher.find() )
@@ -414,7 +414,7 @@ public class FamiliarRequest
 			{
 				RequestLogger.updateSessionLog();
 				RequestLogger.updateSessionLog( "enthrone none" );
-				if ( urlString.indexOf( "ajax=" ) != -1 )
+				if ( urlString.contains( "ajax=" ) )
 				{
 					KoLCharacter.setEnthroned( FamiliarData.NO_FAMILIAR );
 				}
@@ -435,7 +435,7 @@ public class FamiliarRequest
 
 			RequestLogger.updateSessionLog();
 			RequestLogger.updateSessionLog( "enthrone " + fam.toString() );
-			if ( urlString.indexOf( "ajax=" ) != -1 )
+			if ( urlString.contains( "ajax=" ) )
 			{
 				KoLCharacter.setEnthroned( fam );
 			}
@@ -492,7 +492,7 @@ public class FamiliarRequest
 		// If we're not going to see the familiar page, change to the
 		// new familiar here.
 
-		if ( urlString.indexOf( "ajax=" ) != -1 )
+		if ( urlString.contains( "ajax=" ) )
 		{
 			KoLCharacter.setFamiliar( changeTo );
 		}

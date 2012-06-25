@@ -187,7 +187,7 @@ public class GalaktikRequest
 	{
 		GalaktikRequest.parseResponse( this.getURLString(), this.responseText );
 
-		if ( this.responseText.indexOf( "You can't afford that" ) != -1 )
+		if ( this.responseText.contains( "You can't afford that" ) )
 		{
 			KoLmafia.updateDisplay( MafiaState.ERROR, "You can't afford that cure." );
 			return;
@@ -213,7 +213,7 @@ public class GalaktikRequest
 		// medicines, and I simply don't have the time to go out and gather them myself.
 		// First...
 		
-		if ( responseText.indexOf( "I've run out of ingredients for some of my patent" ) != -1 )
+		if ( responseText.contains( "I've run out of ingredients for some of my patent" ) )
 		{
 			QuestDatabase.setQuestProgress( Quest.GALAKTIK, QuestDatabase.STARTED );
 		}
@@ -225,7 +225,7 @@ public class GalaktikRequest
 		// Invigorating Tonics. Of course, I'll be taking a loss every
 		// time, but you, my friend, you deserve it!
 
-		if ( responseText.indexOf( "You've found my herbs!" ) != -1 )
+		if ( responseText.contains( "You've found my herbs!" ) )
 		{
 			ResultProcessor.processItem( ItemPool.FRAUDWORT, -3 );
 			ResultProcessor.processItem( ItemPool.SHYSTERWEED, -3 );
@@ -233,19 +233,19 @@ public class GalaktikRequest
 			GalaktikRequest.discount = true;
 			QuestDatabase.setQuestProgress( Quest.GALAKTIK, QuestDatabase.FINISHED );
 		}
-		else if ( responseText.indexOf( "Restore HP (6 Meat each)" ) != -1 ||
-			  responseText.indexOf( "Restore MP (12 Meat each)" ) != -1 )
+		else if ( responseText.contains( "Restore HP (6 Meat each)" ) ||
+                responseText.contains( "Restore MP (12 Meat each)" ) )
 		{
 			QuestDatabase.setQuestProgress( Quest.GALAKTIK, QuestDatabase.FINISHED );
 			GalaktikRequest.discount = true;
 		}
-		else if ( responseText.indexOf( "Restore HP (10 Meat each)" ) != -1 ||
-			  responseText.indexOf( "Restore MP (17 Meat each)" ) != -1 )
+		else if ( responseText.contains( "Restore HP (10 Meat each)" ) ||
+                responseText.contains( "Restore MP (17 Meat each)" ) )
 		{
 			GalaktikRequest.discount = false;
 		}
 
-		if ( responseText.indexOf( "You can't afford that" ) != -1 )
+		if ( responseText.contains( "You can't afford that" ) )
 		{
 			return;
 		}

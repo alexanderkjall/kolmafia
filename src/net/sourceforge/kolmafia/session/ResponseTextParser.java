@@ -308,14 +308,14 @@ public class ResponseTextParser
 			NemesisRequest.parseResponse( location, responseText );
 		}
 
-		else if ( location.startsWith( "charsheet.php" ) && location.indexOf( "ajax=1" ) == -1 )
+		else if ( location.startsWith( "charsheet.php" ) && !location.contains( "ajax=1" ) )
 		{
 			CharSheetRequest.parseStatus( responseText );
 		}
 
 		else if ( location.startsWith( "choice.php" ) )
 		{
-			if ( location.indexOf( "whichchoice=562" ) != -1 )
+			if ( location.contains( "whichchoice=562" ) )
 			{
 				FudgeWandRequest.parseResponse( location, responseText );
 			}
@@ -372,7 +372,7 @@ public class ResponseTextParser
 			VendingMachineRequest.parseResponse( location, responseText );
 		}
 
-		else if ( location.startsWith( "familiar.php" ) && location.indexOf( "ajax=1" ) == -1 )
+		else if ( location.startsWith( "familiar.php" ) && !location.contains( "ajax=1" ) )
 		{
 			FamiliarData.registerFamiliarData( responseText );
 		}
@@ -417,7 +417,7 @@ public class ResponseTextParser
 			HiddenCityRequest.parseResponse( location, responseText );
 		}
 
-		else if ( location.startsWith( "desc_skill.php" ) && location.indexOf( "self=true" ) != -1 )
+		else if ( location.startsWith( "desc_skill.php" ) && location.contains( "self=true" ) )
 		{
 			Matcher m = ResponseTextParser.NEWSKILL2_PATTERN.matcher( location );
 			if ( m.find() )
@@ -427,7 +427,7 @@ public class ResponseTextParser
 			}
 		}
 
-		else if ( location.startsWith( "desc_item.php" ) && location.indexOf( "otherplayer=" ) == -1 )
+		else if ( location.startsWith( "desc_item.php" ) && !location.contains( "otherplayer=" ) )
 		{
 			Matcher m = ResponseTextParser.DESCITEM_PATTERN.matcher( location );
 			if ( m.find() )
@@ -481,12 +481,12 @@ public class ResponseTextParser
 		else if ( location.startsWith( "inventory.php" ) )
 		{
 			// If KoL is showing us our current equipment, parse it.
-			if ( location.indexOf( "which=2" ) != -1 || location.indexOf( "curequip=1" ) != -1 )
+			if ( location.contains( "which=2" ) || location.contains( "curequip=1" ) )
 			{
 				EquipmentRequest.parseEquipment( location, responseText );
 
 				// Slimeling binge requests come here, too
-				if ( location.indexOf( "action=slime" ) != -1 )
+				if ( location.contains( "action=slime" ) )
 				{
 					UseItemRequest.parseBinge( location, responseText );
 				}
@@ -500,7 +500,7 @@ public class ResponseTextParser
 			}
 
 			// If there is a consumption message, parse it
-			else if ( location.indexOf( "action=message" ) != -1 || location.indexOf( "action=breakbricko" ) != -1 )
+			else if ( location.contains( "action=message" ) || location.contains( "action=breakbricko" ) )
 			{
 				UseItemRequest.parseConsumption( responseText, false );
 				AWOLQuartermasterRequest.parseResponse( location, responseText );
@@ -508,25 +508,25 @@ public class ResponseTextParser
 			}
 
 			// If there is a binge message, parse it
-			else if ( location.indexOf( "action=ghost" ) != -1 || location.indexOf( "action=hobo" ) != -1 || location.indexOf( "action=slime" ) != -1 || location.indexOf( "action=candy" ) != -1 )
+			else if ( location.contains( "action=ghost" ) || location.contains( "action=hobo" ) || location.contains( "action=slime" ) || location.contains( "action=candy" ) )
 			{
 				UseItemRequest.parseBinge( location, responseText );
 			}
-			else if ( location.indexOf( "action=closetpush" ) != -1 || location.indexOf( "action=closetpull" ) != -1 )
+			else if ( location.contains( "action=closetpush" ) || location.contains( "action=closetpull" ) )
 			{
 				ClosetRequest.parseTransfer( location, responseText );
 			}
 
 		}
 
-		else if ( location.startsWith( "inv_equip.php" ) && location.indexOf( "ajax=1" ) != -1 )
+		else if ( location.startsWith( "inv_equip.php" ) && location.contains( "ajax=1" ) )
 		{
 			// If we are changing equipment via a chat command,
 			// try to deduce what changed.
 			EquipmentRequest.parseEquipmentChange( location, responseText );
 		}
 
-		else if ( ( location.startsWith( "inv_eat.php" ) || location.startsWith( "inv_booze.php" ) || location.startsWith( "inv_use.php" ) || location.startsWith( "inv_familiar.php" ) ) && location.indexOf( "whichitem" ) != -1 )
+		else if ( ( location.startsWith( "inv_eat.php" ) || location.startsWith( "inv_booze.php" ) || location.startsWith( "inv_use.php" ) || location.startsWith( "inv_familiar.php" ) ) && location.contains( "whichitem" ) )
 		{
 			UseItemRequest.parseConsumption( responseText, false );
 		}
@@ -600,7 +600,7 @@ public class ResponseTextParser
 			PixelRequest.parseResponse( location, responseText );
 		}
 
-		else if ( ( location.startsWith( "multiuse.php" ) || location.startsWith( "skills.php" ) ) && location.indexOf( "useitem" ) != -1 )
+		else if ( ( location.startsWith( "multiuse.php" ) || location.startsWith( "skills.php" ) ) && location.contains( "useitem" ) )
 		{
 			UseItemRequest.parseConsumption( responseText, false );
 		}
@@ -662,7 +662,7 @@ public class ResponseTextParser
 
 		else if ( location.startsWith( "skills.php" ) )
 		{
-			if ( location.indexOf( "action=useditem" ) != -1 )
+			if ( location.contains( "action=useditem" ) )
 			{
 				UseItemRequest.parseConsumption( responseText, false );
 			}
@@ -768,7 +768,7 @@ public class ResponseTextParser
 			ZapRequest.parseResponse( location, responseText );
 		}
 
-		else if ( location.indexOf( "action=pyro" ) != -1 )
+		else if ( location.contains( "action=pyro" ) )
 		{
 			PyroRequest.parseResponse( location, responseText );
 		}
@@ -836,7 +836,7 @@ public class ResponseTextParser
 		// Camp, it doesn't tell you the name of the skill.
 		// It simply says: "You leargn a new skill. Whee!"
 
-		if ( responseText.indexOf( "You leargn a new skill." ) != -1 )
+		if ( responseText.contains( "You leargn a new skill." ) )
 		{
 			Matcher matcher = ResponseTextParser.NEWSKILL2_PATTERN.matcher( location );
 			if ( matcher.find() )

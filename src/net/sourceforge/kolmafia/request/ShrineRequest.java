@@ -222,9 +222,9 @@ public class ShrineRequest
 
 		String preference = dataSetting( data );
 
-		if ( responseText.indexOf( "You gain" ) == -1 )
+		if ( !responseText.contains( "You gain" ) )
 		{
-			return responseText.indexOf( "That's not enough" ) == -1 ?
+			return !responseText.contains( "That's not enough" ) ?
 				"Donation limit exceeded." :
 				"Donation must be larger.";
 		}

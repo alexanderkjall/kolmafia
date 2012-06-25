@@ -327,7 +327,7 @@ public class ClosetRequest
 
 	public static final boolean parseTransfer( final String urlString, final String responseText )
 	{
-		if ( urlString.indexOf( "action" ) == -1 )
+		if ( !urlString.contains( "action" ) )
 		{
 			ClosetRequest.parseCloset( urlString, responseText );
 			return true;
@@ -335,7 +335,7 @@ public class ClosetRequest
 
 		boolean success = false;
 
-		if ( urlString.indexOf( "action=addtakeclosetmeat" ) != -1 )
+		if ( urlString.contains( "action=addtakeclosetmeat" ) )
 		{
 			// Determine how much meat is left in your closet by locating
 			// "Your closet contains x meat" and update the display with
@@ -348,9 +348,9 @@ public class ClosetRequest
 			KoLCharacter.setClosetMeat( after );
 			success = before != after;
 		}
-		else if ( urlString.indexOf( "action=closetpull" ) != -1 )
+		else if ( urlString.contains( "action=closetpull" ) )
 		{
-			if ( responseText.indexOf( "You acquire" ) == -1 )
+			if ( !responseText.contains( "You acquire" ) )
 			{
 				return false;
 			}
@@ -365,9 +365,9 @@ public class ClosetRequest
 					null, 0 );
 			success = true;
 		}
-		else if ( urlString.indexOf( "action=closetpush" ) != -1 )
+		else if ( urlString.contains( "action=closetpush" ) )
 		{
-			if ( responseText.indexOf( "in your closet" ) != -1 )
+			if ( responseText.contains( "in your closet" ) )
 			{
 				TransferItemRequest.transferItems( urlString,
 					TransferItemRequest.ITEMID_PATTERN,
@@ -377,9 +377,9 @@ public class ClosetRequest
 				success = true;
 			}
 		}
-		else if ( urlString.indexOf( "action=pullallcloset" ) != -1 )
+		else if ( urlString.contains( "action=pullallcloset" ) )
 		{
-			if ( responseText.indexOf( "taken from your closet" ) == -1 )
+			if ( !responseText.contains( "taken from your closet" ) )
 			{
 				return false;
 			}
@@ -408,7 +408,7 @@ public class ClosetRequest
 			return false;
 		}
 
-		if ( urlString.indexOf( "action=closetpull" ) != -1 )
+		if ( urlString.contains( "action=closetpull" ) )
 		{
 			return TransferItemRequest.registerRequest(
 				"take from closet", urlString,
@@ -417,7 +417,7 @@ public class ClosetRequest
 				KoLConstants.closet, 0 );
 		}
 
-		if ( urlString.indexOf( "action=closetpush" ) != -1 )
+		if ( urlString.contains( "action=closetpush" ) )
 		{
 			return TransferItemRequest.registerRequest(
 				"add to closet", urlString,
@@ -429,13 +429,13 @@ public class ClosetRequest
 		int meat = TransferItemRequest.transferredMeat( urlString, "quantity" );
 		String message = null;
 
-		if ( urlString.indexOf( "action=addtakeclosetmeat" ) != -1 )
+		if ( urlString.contains( "action=addtakeclosetmeat" ) )
 		{
-			if ( urlString.indexOf( "addtake=add" ) != -1 )
+			if ( urlString.contains( "addtake=add" ) )
 			{
 				message = "add to closet: " + meat + " Meat";
 			}
-			else if ( urlString.indexOf( "addtake=take" ) != -1 )
+			else if ( urlString.contains( "addtake=take" ) )
 			{
 				message = "take from closet " + meat + " Meat";
 			}

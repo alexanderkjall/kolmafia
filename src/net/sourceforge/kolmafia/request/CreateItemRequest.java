@@ -641,7 +641,7 @@ public class CreateItemRequest
 
 		// Check to see if box-servant was overworked and exploded.
 
-		if ( this.responseText.indexOf( "Smoke" ) != -1 )
+		if ( this.responseText.contains( "Smoke" ) )
 		{
 			KoLmafia.updateDisplay( "Your box servant has escaped!" );
 		}
@@ -654,7 +654,7 @@ public class CreateItemRequest
 			return 0;
 		}
 
-		if ( location.indexOf( "action=pulverize" ) != -1 )
+		if ( location.contains( "action=pulverize" ) )
 		{
 			return PulverizeRequest.parseResponse( location, responseText );
 		}
@@ -741,7 +741,7 @@ public class CreateItemRequest
 			created = qty;
 		}
 
-		if ( responseText.indexOf( "Smoke" ) != -1 )
+		if ( responseText.contains( "Smoke" ) )
 		{
 			String servant = "servant";
 			if ( mode.equals( "cook" ) )
@@ -769,7 +769,7 @@ public class CreateItemRequest
 
 		// If nothing was created, don't deal with ingredients
 
-		if ( responseText.indexOf( "You acquire" ) == -1 )
+		if ( !responseText.contains( "You acquire" ) )
 		{
 			return true;
 		}
@@ -778,19 +778,19 @@ public class CreateItemRequest
 		boolean stills = false;
 
 		// Using the Still decrements available daily uses
-		if ( urlString.indexOf( "action=stillbooze" ) != -1 || urlString.indexOf( "action=stillfruit" ) != -1 )
+		if ( urlString.contains( "action=stillbooze" ) || urlString.contains( "action=stillfruit" ) )
 		{
 			stills = true;
 		}
 
 		// Using the Malus uses 5 ingredients at a time
-		else if ( urlString.indexOf( "action=malussmash" ) != -1 )
+		else if ( urlString.contains( "action=malussmash" ) )
 		{
 			multiplier = 5;
 		}
 
 		// The only other guild creation uses the Wok
-		else if ( urlString.indexOf( "action=wokcook" ) == -1 )
+		else if ( !urlString.contains( "action=wokcook" ) )
 		{
 			return true;
 		}
@@ -1207,12 +1207,12 @@ public class CreateItemRequest
 			return Crimbo07Request.registerRequest( urlString );
 		}
 
-		if ( urlString.indexOf( "action=makestaff" ) != -1 )
+		if ( urlString.contains( "action=makestaff" ) )
 		{
 			return ChefStaffRequest.registerRequest( urlString );
 		}
 
-		if ( urlString.indexOf( "action=makepaste" ) != -1 || urlString.indexOf( "action=makestuff" ) != -1 )
+		if ( urlString.contains( "action=makepaste" ) || urlString.contains( "action=makestuff" ) )
 		{
 			return CombineMeatRequest.registerRequest( urlString );
 		}
@@ -1286,38 +1286,38 @@ public class CreateItemRequest
 
 		if ( urlString.startsWith( "craft.php" ) )
 		{
-			if ( urlString.indexOf( "action=pulverize" ) != -1 )
+			if ( urlString.contains( "action=pulverize" ) )
 			{
 				return false;
 			}
-			else if ( urlString.indexOf( "action=craft" ) == -1 )
+			else if ( !urlString.contains( "action=craft" ) )
 			{
 				return true;
 			}
-			else if ( urlString.indexOf( "mode=combine" ) != -1 )
+			else if ( urlString.contains( "mode=combine" ) )
 			{
 				isCreationURL = true;
 				command.append( "Combine " );
 			}
-			else if ( urlString.indexOf( "mode=cocktail" ) != -1 )
+			else if ( urlString.contains( "mode=cocktail" ) )
 			{
 				isCreationURL = true;
 				command.append( "Mix " );
 				usesTurns = !KoLCharacter.hasBartender();
 			}
-			else if ( urlString.indexOf( "mode=cook" ) != -1 )
+			else if ( urlString.contains( "mode=cook" ) )
 			{
 				isCreationURL = true;
 				command.append( "Cook " );
 				usesTurns = !KoLCharacter.hasChef();
 			}
-			else if ( urlString.indexOf( "mode=smith" ) != -1 )
+			else if ( urlString.contains( "mode=smith" ) )
 			{
 				isCreationURL = true;
 				command.append( "Smith " );
 				usesTurns = true;
 			}
-			else if ( urlString.indexOf( "mode=jewelry" ) != -1 )
+			else if ( urlString.contains( "mode=jewelry" ) )
 			{
 				isCreationURL = true;
 				command.append( "Ply " );
@@ -1331,12 +1331,12 @@ public class CreateItemRequest
 		}
 		else if ( urlString.startsWith( "knoll.php" ) )
 		{
-			if ( urlString.indexOf( "action=combine" ) != -1 )
+			if ( urlString.contains( "action=combine" ) )
 			{
 				isCreationURL = true;
 				command.append( "Combine " );
 			}
-			else if ( urlString.indexOf( "action=smith" ) != -1 )
+			else if ( urlString.contains( "action=smith" ) )
 			{
 				isCreationURL = true;
 				command.append( "Smith " );
@@ -1345,18 +1345,18 @@ public class CreateItemRequest
 		}
 		else if ( urlString.startsWith( "guild.php" ) )
 		{
-			if ( urlString.indexOf( "action=stillbooze" ) != -1 || urlString.indexOf( "action=stillfruit" ) != -1 )
+			if ( urlString.contains( "action=stillbooze" ) || urlString.contains( "action=stillfruit" ) )
 			{
 				isCreationURL = true;
 				command.append( "Distill " );
 			}
-			else if ( urlString.indexOf( "action=wokcook" ) != -1 )
+			else if ( urlString.contains( "action=wokcook" ) )
 			{
 				isCreationURL = true;
 				command.append( "Wok " );
 				usesTurns = true;
 			}
-			else if ( urlString.indexOf( "action=malussmash" ) != -1 )
+			else if ( urlString.contains( "action=malussmash" ) )
 			{
 				isCreationURL = true;
 				command.append( "Pulverize " );
@@ -1365,7 +1365,7 @@ public class CreateItemRequest
 		}
 		else if ( urlString.startsWith( "gnomes.php" ) )
 		{
-			if ( urlString.indexOf( "action=tinksomething" ) != -1 )
+			if ( urlString.contains( "action=tinksomething" ) )
 			{
 				isCreationURL = true;
 				command.append( "Tinker " );
@@ -1414,7 +1414,7 @@ public class CreateItemRequest
 
 	private static final AdventureResult [] findIngredients( final String urlString )
 	{
-		if ( urlString.startsWith( "craft.php" ) && urlString.indexOf( "target" ) != -1 )
+		if ( urlString.startsWith( "craft.php" ) && urlString.contains( "target" ) )
 		{
 			// Crafting is going to make an item from ingredients.
 			// Return the ingredients we think will be used.
@@ -1449,7 +1449,7 @@ public class CreateItemRequest
 			}
 		}
 
-		if ( urlString.indexOf( "action=wokcook" ) != -1 )
+		if ( urlString.contains( "action=wokcook" ) )
 		{
 			ingredients.add( ItemPool.get( ItemPool.DRY_NOODLES, 1 ) );
 			ingredients.add( ItemPool.get( ItemPool.MSG, 1 ) );
@@ -1468,8 +1468,8 @@ public class CreateItemRequest
 
 	private static final int getQuantity( final String urlString, final AdventureResult [] ingredients, int multiplier )
 	{
-		if ( urlString.indexOf( "max=on" ) == -1 &&
-			urlString.indexOf( "smashall=1" ) == -1 )
+		if ( !urlString.contains( "max=on" ) &&
+                !urlString.contains( "smashall=1" ) )
 		{
 			Matcher matcher = CreateItemRequest.QUANTITY_PATTERN.matcher( urlString );
 			return matcher.find() ?
@@ -1515,7 +1515,7 @@ public class CreateItemRequest
 			ResultProcessor.processItem( item.getItemId(), 0 - quantity );
 		}
 
-		if ( urlString.indexOf( "mode=combine" ) != -1 )
+		if ( urlString.contains( "mode=combine" ) )
 		{
 			ResultProcessor.processItem( ItemPool.MEAT_PASTE, 0 - quantity );
 		}

@@ -746,7 +746,7 @@ public class OptionsFrame
 					return;
 				}
 
-				KoLConstants.bookmarks.add( "New bookmark " + ( KoLConstants.bookmarks.size() + 1 ) + "|" + newName + "|" + String.valueOf( newName.indexOf( "pwd" ) != -1 ) );
+				KoLConstants.bookmarks.add( "New bookmark " + ( KoLConstants.bookmarks.size() + 1 ) + "|" + newName + "|" + String.valueOf( newName.contains( "pwd" ) ) );
 			}
 		}
 
@@ -1981,7 +1981,7 @@ public class OptionsFrame
 			String skillString = Preferences.getString( "breakfast" + this.breakfastType );
 			for ( int i = 0; i < UseSkillRequest.BREAKFAST_SKILLS.length; ++i )
 			{
-				this.skillOptions[ i ].setSelected( skillString.indexOf( UseSkillRequest.BREAKFAST_SKILLS[ i ] ) != -1 );
+				this.skillOptions[ i ].setSelected( skillString.contains( UseSkillRequest.BREAKFAST_SKILLS[i] ) );
 			}
 
 			this.loginRecovery.setSelected( Preferences.getBoolean( "loginRecovery" + this.breakfastType ) );

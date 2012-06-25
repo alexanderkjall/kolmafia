@@ -646,7 +646,7 @@ public class IslandDecorator
 	public static final void decorateArena( final String urlString, final StringBuffer buffer )
 	{
 		// If he's not visiting the arena, punt
-		if ( urlString.indexOf( "place=concert" ) == -1 )
+		if ( !urlString.contains( "place=concert" ) )
 		{
 			return;
 		}
@@ -708,7 +708,7 @@ public class IslandDecorator
 	public static final void decorateNunnery( final String urlString, final StringBuffer buffer )
 	{
 		// If he's not visiting the nunnery, punt
-		if ( urlString.indexOf( "place=nunnery" ) == -1 )
+		if ( !urlString.contains( "place=nunnery" ) )
 		{
 			return;
 		}
@@ -759,19 +759,19 @@ public class IslandDecorator
 		// "It picks a radish off of itself and tosses it at you..."
 
 		String text = responseText;
-		if ( text.indexOf( "bombing run" ) != -1 )
+		if ( text.contains( "bombing run" ) )
 		{
 			IslandDecorator.missingGremlinTool = "molybdenum hammer";
 		}
-		else if ( text.indexOf( "eyeball-peeler" ) != -1 )
+		else if ( text.contains( "eyeball-peeler" ) )
 		{
 			IslandDecorator.missingGremlinTool = "molybdenum crescent wrench";
 		}
-		else if ( text.indexOf( "fibula" ) != -1 )
+		else if ( text.contains( "fibula" ) )
 		{
 			IslandDecorator.missingGremlinTool = "molybdenum pliers";
 		}
-		else if ( text.indexOf( "off of itself" ) != -1 )
+		else if ( text.contains( "off of itself" ) )
 		{
 			IslandDecorator.missingGremlinTool = "molybdenum screwdriver";
 		}
@@ -1190,7 +1190,7 @@ public class IslandDecorator
 	{
 		for ( int i = 0; i < table.length; ++i )
 		{
-			if ( responseText.indexOf( table[ i ] ) != -1 )
+			if ( responseText.contains( table[i] ) )
 			{
 				return true;
 			}
@@ -1201,7 +1201,7 @@ public class IslandDecorator
 	public static final void handleBattlefield( final String responseText )
 	{
 		// Nothing to do until battle is done
-		if ( responseText.indexOf( "WINWINWIN" ) == -1 )
+		if ( !responseText.contains( "WINWINWIN" ) )
 		{
 			return;
 		}
@@ -1224,7 +1224,7 @@ public class IslandDecorator
 			return;
 		}
 
-		if ( responseText.indexOf( "Giant explosions in slow motion" ) != -1 )
+		if ( responseText.contains( "Giant explosions in slow motion" ) )
 		{
 			// FightRequest can't handle this.
 			ResultProcessor.processResults( true, responseText );
@@ -1442,38 +1442,38 @@ public class IslandDecorator
 
 	private static final int parseQuest( final String location )
 	{
-		if ( location.indexOf( "place=concert" ) != -1 ||
-		     location.indexOf( "action=concert" ) != -1 )
+		if ( location.contains( "place=concert" ) ||
+                location.contains( "action=concert" ) )
 		{
 			return IslandDecorator.ARENA;
 		}
 
-		if ( location.indexOf( "action=junkman" ) != -1 )
+		if ( location.contains( "action=junkman" ) )
 		{
 			return IslandDecorator.JUNKYARD;
 		}
 
-		if ( location.indexOf( "action=stand" ) != -1 )
+		if ( location.contains( "action=stand" ) )
 		{
 			return IslandDecorator.ORCHARD;
 		}
 
-		if ( location.indexOf( "action=farmer" ) != -1 )
+		if ( location.contains( "action=farmer" ) )
 		{
 			return IslandDecorator.FARM;
 		}
 
-		if ( location.indexOf( "place=nunnery" ) != -1 )
+		if ( location.contains( "place=nunnery" ) )
 		{
 			return IslandDecorator.NUNS;
 		}
 
-		if ( location.indexOf( "action=pyro" ) != -1 )
+		if ( location.contains( "action=pyro" ) )
 		{
 			return IslandDecorator.LIGHTHOUSE;
 		}
 
-		if ( location.indexOf( "whichcamp" ) != -1 )
+		if ( location.contains( "whichcamp" ) )
 		{
 			return IslandDecorator.CAMP;
 		}
@@ -1547,7 +1547,7 @@ public class IslandDecorator
 		// You roll up to the amphitheater and see that the Goat Cheese
 		// Occurence is well into the first song of their four-hour,
 		// one-song set.
-		if ( responseText.indexOf( "well into the first song" ) != -1 )
+		if ( responseText.contains( "well into the first song" ) )
 		{
 			Preferences.setString( "sidequestArenaCompleted", "hippy" );
 			return;
@@ -1559,7 +1559,7 @@ public class IslandDecorator
 		// show. Speaking of which, they're hitting the stage in just a
 		// couple of minutes -- you should come back in a few and check
 		// 'em out. It's a totally awesome show, man."
-		if ( responseText.indexOf( "I'll take 'em" ) != -1 )
+		if ( responseText.contains( "I'll take 'em" ) )
 		{
 			Preferences.setString( "sidequestArenaCompleted", "hippy" );
 			if ( InventoryManager.hasItem( ItemPool.JAM_BAND_FLYERS ) )
@@ -1571,7 +1571,7 @@ public class IslandDecorator
 
 		// You roll up to the amphitheater and see that Radioactive
 		// Child has already taken the stage.
-		if ( responseText.indexOf( "has already taken the stage" ) != -1 )
+		if ( responseText.contains( "has already taken the stage" ) )
 		{
 			Preferences.setString( "sidequestArenaCompleted", "fratboy" );
 			return;
@@ -1580,7 +1580,7 @@ public class IslandDecorator
 		// "Hey, bra," he says, "you did excellent work promoting the
 		// show. If you have any flyers left, I'll take them; we can
 		// use them at the next show."
-		if ( responseText.indexOf( "I'll take them" ) != -1 )
+		if ( responseText.contains( "I'll take them" ) )
 		{
 			Preferences.setString( "sidequestArenaCompleted", "fratboy" );
 			if ( InventoryManager.hasItem( ItemPool.ROCK_BAND_FLYERS ) )
@@ -1592,7 +1592,7 @@ public class IslandDecorator
 
 		// The stage at the Mysterious Island Arena is empty.
 
-		if ( responseText.indexOf( "The stage at the Mysterious Island Arena is empty" ) != -1 )
+		if ( responseText.contains( "The stage at the Mysterious Island Arena is empty" ) )
 		{
 			// Didn't complete quest or defeated the side you
 			// advertised for.
@@ -1660,7 +1660,7 @@ public class IslandDecorator
 		// bored, the longer my life will seem. Anyway, I don't really
 		// want it, so you might as well take it."
 
-		else if ( responseText.indexOf( "I made this while you were off getting my tools" ) != -1 )
+		else if ( responseText.contains( "I made this while you were off getting my tools" ) )
 		{
 			tool = "";
 			location = "";
@@ -1688,15 +1688,15 @@ public class IslandDecorator
 		ResultProcessor.processItem( ItemPool.MOLYBDENUM_PLIERS, -1 );
 		ResultProcessor.processItem( ItemPool.MOLYBDENUM_WRENCH, -1 );
 
-		if ( responseText.indexOf( "spark plug earring" ) != -1 ||
-		     responseText.indexOf( "woven baling wire bracelets" ) != -1 ||
-		     responseText.indexOf( "gearbox necklace" ) != -1 )
+		if ( responseText.contains( "spark plug earring" ) ||
+                responseText.contains( "woven baling wire bracelets" ) ||
+                responseText.contains( "gearbox necklace" ) )
 		{
 			Preferences.setString( "sidequestJunkyardCompleted", "hippy" );
 		}
-		else if ( responseText.indexOf( "rusty chain necklace" ) != -1 ||
-			  responseText.indexOf( "sawblade shield" ) != -1 ||
-			  responseText.indexOf( "wrench bracelet" ) != -1 )
+		else if ( responseText.contains( "rusty chain necklace" ) ||
+                responseText.contains( "sawblade shield" ) ||
+                responseText.contains( "wrench bracelet" ) )
 		{
 			Preferences.setString( "sidequestJunkyardCompleted", "fratboy" );
 		}
@@ -1707,7 +1707,7 @@ public class IslandDecorator
 		// "Is that... it is! The heart of the filthworm queen! You've
 		// done it! You've freed our orchard from the tyranny of
 		// nature!"
-		if ( responseText.indexOf( "tyranny of nature" ) == -1 )
+		if ( !responseText.contains( "tyranny of nature" ) )
 		{
 			return;
 		}
@@ -1730,13 +1730,13 @@ public class IslandDecorator
 	{
 		// "Well... How about dedicating a portion of your farm to
 		// growing soybeans, to help feed the hippy army?"
-		if ( responseText.indexOf( "growing soybeans" ) != -1 ||
-		     responseText.indexOf( "blocks of megatofu" ) != -1 )
+		if ( responseText.contains( "growing soybeans" ) ||
+                responseText.contains( "blocks of megatofu" ) )
 		{
 			Preferences.setString( "sidequestFarmCompleted", "hippy" );
 		}
-		else if ( responseText.indexOf( "growing hops" ) != -1 ||
-			  responseText.indexOf( "bottles of McMillicancuddy" ) != -1 )
+		else if ( responseText.contains( "growing hops" ) ||
+                responseText.contains( "bottles of McMillicancuddy" ) )
 		{
 			Preferences.setString( "sidequestFarmCompleted", "fratboy" );
 		}
@@ -1746,25 +1746,25 @@ public class IslandDecorator
 	{
 		// "Hello, weary Adventurer! Please, allow us to tend to your
 		// wounds."
-		if ( responseText.indexOf( "tend to your wounds" ) != -1 )
+		if ( responseText.contains( "tend to your wounds" ) )
 		{
 			Preferences.setString( "sidequestNunsCompleted", "hippy" );
 		}
-		else if ( responseText.indexOf( "refreshing massage" ) != -1 )
+		else if ( responseText.contains( "refreshing massage" ) )
 		{
 			Preferences.setString( "sidequestNunsCompleted", "fratboy" );
 		}
-		else if ( responseText.indexOf( "world-weary traveler" ) != -1 )
+		else if ( responseText.contains( "world-weary traveler" ) )
 		{
 			Preferences.setString( "sidequestNunsCompleted", "none" );
 		}
 
-		if ( responseText.indexOf( "The Sisters tend to your wounds" ) != -1 ||
-		     responseText.indexOf( "The Sisters give you an invigorating massage" ) != -1 )
+		if ( responseText.contains( "The Sisters tend to your wounds" ) ||
+                responseText.contains( "The Sisters give you an invigorating massage" ) )
 		{
 			Preferences.increment( "nunsVisits", 1 );
 		}
-		else if ( responseText.indexOf( "all of the Sisters are busy right now" ) != -1 )
+		else if ( responseText.contains( "all of the Sisters are busy right now" ) )
 		{
 			Preferences.setInteger( "nunsVisits", 99 );
 		}
@@ -1775,7 +1775,7 @@ public class IslandDecorator
 		// He gazes at you thoughtfully for a few seconds, then a smile
 		// lights up his face and he says "My life... er... my bombs
 		// for you. My bombs for you, bumpty-bumpty-bump!"
-		if ( responseText.indexOf( "My bombs for you" ) == -1 )
+		if ( !responseText.contains( "My bombs for you" ) )
 		{
 			return;
 		}
@@ -1811,7 +1811,7 @@ public class IslandDecorator
 
 	public static void parseCamp( final String location, final String responseText )
 	{
-		if ( location.indexOf( "whichcamp" ) == -1 )
+		if ( !location.contains( "whichcamp" ) )
 		{
 			return;
 		}
@@ -1941,8 +1941,8 @@ public class IslandDecorator
 
 	private static final void deduceWinner( final String responseText )
 	{
-		boolean hippiesLost = responseText.indexOf( "snarfblat=149" ) != -1;
-		boolean fratboysLost = responseText.indexOf( "snarfblat=150" ) != -1;
+		boolean hippiesLost = responseText.contains( "snarfblat=149" );
+		boolean fratboysLost = responseText.contains( "snarfblat=150" );
 		String loser = ( !hippiesLost ) ? "fratboys" : ( !fratboysLost ) ? "hippies" : "both";
 		Preferences.setString( "sideDefeated", loser );
 		Preferences.setString( "warProgress", "finished" );

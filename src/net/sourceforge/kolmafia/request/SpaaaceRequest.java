@@ -120,7 +120,7 @@ public class SpaaaceRequest
 
 		QuestDatabase.setQuestIfBetter( Quest.GENERATOR, QuestDatabase.STARTED );
 
-		if ( urlString.indexOf( "place=shop" ) != -1 )
+		if ( urlString.contains( "place=shop" ) )
 		{
 			// Learn new items by simply visiting a Spaaace shop
 			Matcher matcher = ITEM_PATTERN.matcher( responseText );
@@ -611,7 +611,7 @@ public class SpaaaceRequest
 
 		// You hand Juliedriel your isotope. She takes it with
 		// a pair of tongs, and hands you three Porko chips
-		if ( responseText.indexOf( "You hand Juliedriel your isotope" ) != -1 )
+		if ( responseText.contains( "You hand Juliedriel your isotope" ) )
 		{
 			ResultProcessor.processItem( ItemPool.LUNAR_ISOTOPE, -1 );
 		}
@@ -780,7 +780,7 @@ public class SpaaaceRequest
 			return false;
 		}
 
-		if ( urlString.indexOf( "place=shop" ) != -1 )
+		if ( urlString.contains( "place=shop" ) )
 		{
 			// Let appropriate Coin Master claim this
 			return false;
@@ -791,15 +791,15 @@ public class SpaaaceRequest
 
 		if ( action == null )
 		{
-			if ( urlString.indexOf( "place=porko" ) != -1 )
+			if ( urlString.contains( "place=porko" ) )
 			{
 				message = "Visiting The Porko Palace";
 			}
-			else if ( urlString.indexOf( "place=grimace" ) != -1 )
+			else if ( urlString.contains( "place=grimace" ) )
 			{
 				return true;
 			}
-			else if ( urlString.indexOf( "arrive=1" ) != -1 )
+			else if ( urlString.contains( "arrive=1" ) )
 			{
 				return true;
 			}

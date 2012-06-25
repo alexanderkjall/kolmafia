@@ -378,7 +378,7 @@ public abstract class SorceressLairManager
 			{
 				continue;
 			}
-			if ( text.indexOf( desc ) != -1 )
+			if ( text.contains( desc ) )
 			{
 				return SorceressLairManager.GATE_DATA[ i ];
 			}
@@ -550,7 +550,7 @@ public abstract class SorceressLairManager
 			{
 				continue;
 			}
-			if ( text.indexOf( desc ) != -1 )
+			if ( text.contains( desc ) )
 			{
 				return SorceressLairManager.GUARDIAN_DATA[ i ];
 			}
@@ -594,7 +594,7 @@ public abstract class SorceressLairManager
 
 		RequestThread.postRequest( SorceressLairManager.QUEST_HANDLER.constructURLString( "main.php" ) );
 
-		if ( SorceressLairManager.QUEST_HANDLER.responseText.indexOf( "lair.php" ) == -1 )
+		if ( !SorceressLairManager.QUEST_HANDLER.responseText.contains( "lair.php" ) )
 		{
 			// Visit the council to see if the quest can be
 			// unlocked, but only if you've reached level 13.
@@ -609,7 +609,7 @@ public abstract class SorceressLairManager
 
 				RequestThread.postRequest( CouncilFrame.COUNCIL_VISIT );
 				RequestThread.postRequest( SorceressLairManager.QUEST_HANDLER.constructURLString( "main.php" ) );
-				unlockedQuest = SorceressLairManager.QUEST_HANDLER.responseText.indexOf( "lair.php" ) != -1;
+				unlockedQuest = SorceressLairManager.QUEST_HANDLER.responseText.contains( "lair.php" );
 			}
 
 			if ( !unlockedQuest )
@@ -830,7 +830,7 @@ public abstract class SorceressLairManager
 
 		// Just check to see if there is a link to lair3.php
 
-		if ( SorceressLairManager.QUEST_HANDLER.responseText.indexOf( "lair3.php" ) == -1 )
+		if ( !SorceressLairManager.QUEST_HANDLER.responseText.contains( "lair3.php" ) )
 		{
 			KoLmafia.updateDisplay( MafiaState.ERROR, "Failed to complete entryway." );
 			return;
@@ -853,8 +853,8 @@ public abstract class SorceressLairManager
 
 		RequestThread.postRequest( SorceressLairManager.QUEST_HANDLER.constructURLString( "lair1.php" ) );
 
-		if ( SorceressLairManager.QUEST_HANDLER.responseText.indexOf( "gatesdone" ) == -1 &&
-		     SorceressLairManager.QUEST_HANDLER.responseText.indexOf( "cave1beesdone" ) == -1)
+		if ( !SorceressLairManager.QUEST_HANDLER.responseText.contains( "gatesdone" ) &&
+                !SorceressLairManager.QUEST_HANDLER.responseText.contains( "cave1beesdone" ) )
 		{
 			KoLmafia.updateDisplay( "Crossing three door puzzle..." );
 			// Do not attempt to cross the gate of bees without the
@@ -894,7 +894,7 @@ public abstract class SorceressLairManager
 		// Now, unequip all of your equipment and cross through
 		// the mirror. Process the mirror shard that results.
 
-		if ( SorceressLairManager.QUEST_HANDLER.responseText.indexOf( "lair2.php" ) == -1 )
+		if ( !SorceressLairManager.QUEST_HANDLER.responseText.contains( "lair2.php" ) )
 		{
 			RequestThread.postRequest( new FamiliarRequest( FamiliarData.NO_FAMILIAR ) );
 			RequestThread.postRequest( new EquipmentRequest( SpecialOutfit.BIRTHDAY_SUIT ) );
@@ -911,8 +911,8 @@ public abstract class SorceressLairManager
 	private static final boolean passThreeGatePuzzle()
 	{
 		// Visiting the gates with the correct effects opens them.
-		if ( SorceressLairManager.QUEST_HANDLER.responseText.indexOf( "gatesdone.gif" ) != -1 ||
-		     SorceressLairManager.QUEST_HANDLER.responseText.indexOf( "cave1beesdone.gif" ) != -1 )
+		if ( SorceressLairManager.QUEST_HANDLER.responseText.contains( "gatesdone.gif" ) ||
+                SorceressLairManager.QUEST_HANDLER.responseText.contains( "cave1beesdone.gif" ) )
 		{
 			return true;
 		}
@@ -999,8 +999,8 @@ public abstract class SorceressLairManager
 
 		// The gates should be passable. Visit them again.
 		RequestThread.postRequest( SorceressLairManager.QUEST_HANDLER.constructURLString( "lair1.php?action=gates" ) );
-		if ( SorceressLairManager.QUEST_HANDLER.responseText.indexOf( "gatesdone.gif" ) != -1 ||
-		     SorceressLairManager.QUEST_HANDLER.responseText.indexOf( "cave1beesdone.gif" ) != -1 )
+		if ( SorceressLairManager.QUEST_HANDLER.responseText.contains( "gatesdone.gif" ) ||
+                SorceressLairManager.QUEST_HANDLER.responseText.contains( "cave1beesdone.gif" ) )
 		{
 			return true;
 		}
@@ -1130,12 +1130,12 @@ public abstract class SorceressLairManager
 			KoLmafia.updateDisplay( "Inserting skeleton key..." );
 			RequestThread.postRequest( SorceressLairManager.QUEST_HANDLER.constructURLString( "lair2.php?preaction=key&whichkey=" + SorceressLairManager.SKELETON.getItemId() ) );
 
-			if ( SorceressLairManager.QUEST_HANDLER.responseText.indexOf( "prepreaction" ) != -1 )
+			if ( SorceressLairManager.QUEST_HANDLER.responseText.contains( "prepreaction" ) )
 			{
 				RequestThread.postRequest( SorceressLairManager.QUEST_HANDLER.constructURLString( "lair2.php?prepreaction=skel" ) );
 			}
 		}
-		while ( SorceressLairManager.QUEST_HANDLER.responseText.indexOf( "looks like I owe you a beating" ) != -1 );
+		while ( SorceressLairManager.QUEST_HANDLER.responseText.contains( "looks like I owe you a beating" ) );
 
 		if ( !SorceressLairManager.isItemAvailable( SorceressLairManager.RHYTHM ) )
 		{
@@ -1321,7 +1321,7 @@ public abstract class SorceressLairManager
 		KoLmafia.updateDisplay( "Inserting Richard's star key..." );
 		RequestThread.postRequest( SorceressLairManager.QUEST_HANDLER.constructURLString( "lair2.php?preaction=key&whichkey=" + SorceressLairManager.STAR_KEY.getItemId() ) );
 
-		if ( SorceressLairManager.QUEST_HANDLER.responseText.indexOf( "prepreaction" ) != -1 )
+		if ( SorceressLairManager.QUEST_HANDLER.responseText.contains( "prepreaction" ) )
 		{
 			RequestThread.postRequest( SorceressLairManager.QUEST_HANDLER.constructURLString( "lair2.php?prepreaction=starcage" ) );
 
@@ -1332,7 +1332,7 @@ public abstract class SorceressLairManager
 			// to no avail. It doesn't appear to be made
 			// out of the right stuff."
 
-			if ( SorceressLairManager.QUEST_HANDLER.responseText.indexOf( "right stuff" ) != -1 )
+			if ( SorceressLairManager.QUEST_HANDLER.responseText.contains( "right stuff" ) )
 			{
 				KoLmafia.updateDisplay( MafiaState.ERROR, "Failed to equip a star weapon." );
 			}
@@ -1341,7 +1341,7 @@ public abstract class SorceressLairManager
 			// in the face, and it knocks you back into the
 			// main cavern."
 
-			if ( SorceressLairManager.QUEST_HANDLER.responseText.indexOf( "knocks you back" ) != -1 )
+			if ( SorceressLairManager.QUEST_HANDLER.responseText.contains( "knocks you back" ) )
 			{
 				KoLmafia.updateDisplay( MafiaState.ERROR, "Failed to equip star hat." );
 			}
@@ -1350,7 +1350,7 @@ public abstract class SorceressLairManager
 			// blown backwards.  You give up, and go back
 			// out to the main cavern."
 
-			if ( SorceressLairManager.QUEST_HANDLER.responseText.indexOf( "You give up" ) != -1 )
+			if ( SorceressLairManager.QUEST_HANDLER.responseText.contains( "You give up" ) )
 			{
 				KoLmafia.updateDisplay( MafiaState.ERROR, "Failed to equip star starfish." );
 			}
@@ -1382,7 +1382,7 @@ public abstract class SorceressLairManager
 		KoLmafia.updateDisplay( "Inserting digital key..." );
 		RequestThread.postRequest( SorceressLairManager.QUEST_HANDLER.constructURLString( "lair2.php?preaction=key&whichkey=" + SorceressLairManager.DIGITAL.getItemId() ) );
 
-		if ( SorceressLairManager.QUEST_HANDLER.responseText.indexOf( "prepreaction" ) != -1 )
+		if ( SorceressLairManager.QUEST_HANDLER.responseText.contains( "prepreaction" ) )
 		{
 			RequestThread.postRequest( SorceressLairManager.QUEST_HANDLER.constructURLString( "lair2.php?prepreaction=sequence&seq1=up&seq2=up&seq3=down&seq4=down&seq5=left&seq6=right&seq7=left&seq8=right&seq9=b&seq10=a" ) );
 		}
@@ -1415,7 +1415,7 @@ public abstract class SorceressLairManager
 				KoLmafia.updateDisplay( "Inserting Boris's key..." );
 				RequestThread.postRequest( SorceressLairManager.QUEST_HANDLER.constructURLString( "lair2.php?preaction=key&whichkey=" + SorceressLairManager.BORIS.getItemId() ) );
 
-				if ( SorceressLairManager.QUEST_HANDLER.responseText.indexOf( "prepreaction" ) != -1 )
+				if ( SorceressLairManager.QUEST_HANDLER.responseText.contains( "prepreaction" ) )
 				{
 					RequestThread.postRequest( SorceressLairManager.QUEST_HANDLER.constructURLString( "lair2.php?prepreaction=sorcriddle1&answer=fish" ) );
 				}
@@ -1433,7 +1433,7 @@ public abstract class SorceressLairManager
 				KoLmafia.updateDisplay( "Inserting Jarlsberg's key..." );
 				RequestThread.postRequest( SorceressLairManager.QUEST_HANDLER.constructURLString( "lair2.php?preaction=key&whichkey=" + SorceressLairManager.JARLSBERG.getItemId() ) );
 
-				if ( SorceressLairManager.QUEST_HANDLER.responseText.indexOf( "prepreaction" ) != -1 )
+				if ( SorceressLairManager.QUEST_HANDLER.responseText.contains( "prepreaction" ) )
 				{
 					RequestThread.postRequest( SorceressLairManager.QUEST_HANDLER.constructURLString( "lair2.php?prepreaction=sorcriddle2&answer=phish" ) );
 				}
@@ -1451,7 +1451,7 @@ public abstract class SorceressLairManager
 				KoLmafia.updateDisplay( "Inserting Sneaky Pete's key..." );
 				RequestThread.postRequest( SorceressLairManager.QUEST_HANDLER.constructURLString( "lair2.php?preaction=key&whichkey=" + SorceressLairManager.SNEAKY_PETE.getItemId() ) );
 
-				if ( SorceressLairManager.QUEST_HANDLER.responseText.indexOf( "prepreaction" ) != -1 )
+				if ( SorceressLairManager.QUEST_HANDLER.responseText.contains( "prepreaction" ) )
 				{
 					RequestThread.postRequest( SorceressLairManager.QUEST_HANDLER.constructURLString( "lair2.php?prepreaction=sorcriddle3&answer=fsh" ) );
 				}
@@ -1550,7 +1550,7 @@ public abstract class SorceressLairManager
 		RequestThread.postRequest( SorceressLairManager.QUEST_HANDLER.constructURLString( "lair4.php" ) );
 		int currentLevel = 0;
 
-		if ( SorceressLairManager.QUEST_HANDLER.responseText.indexOf( "lair5.php" ) != -1 )
+		if ( SorceressLairManager.QUEST_HANDLER.responseText.contains( "lair5.php" ) )
 		{
 			// There is a link to higher in the tower.
 
@@ -1558,15 +1558,15 @@ public abstract class SorceressLairManager
 			currentLevel = 3;
 		}
 
-		if ( SorceressLairManager.QUEST_HANDLER.responseText.indexOf( "value=\"level1\"" ) != -1 )
+		if ( SorceressLairManager.QUEST_HANDLER.responseText.contains( "value=\"level1\"" ) )
 		{
 			currentLevel += 1;
 		}
-		else if ( SorceressLairManager.QUEST_HANDLER.responseText.indexOf( "value=\"level2\"" ) != -1 )
+		else if ( SorceressLairManager.QUEST_HANDLER.responseText.contains( "value=\"level2\"" ) )
 		{
 			currentLevel += 2;
 		}
-		else if ( SorceressLairManager.QUEST_HANDLER.responseText.indexOf( "value=\"level3\"" ) != -1 )
+		else if ( SorceressLairManager.QUEST_HANDLER.responseText.contains( "value=\"level3\"" ) )
 		{
 			currentLevel += 3;
 		}
@@ -1609,7 +1609,7 @@ public abstract class SorceressLairManager
 
 		// Figure out how far he's gotten into the Sorceress's Chamber
 		RequestThread.postRequest( SorceressLairManager.QUEST_HANDLER.constructURLString( "lair6.php" ) );
-		if ( SorceressLairManager.QUEST_HANDLER.responseText.indexOf( "ascend.php" ) != -1 )
+		if ( SorceressLairManager.QUEST_HANDLER.responseText.contains( "ascend.php" ) )
 		{
 			KoLmafia.updateDisplay( "You've already beaten Her Naughtiness." );
 			return -1;
@@ -1728,7 +1728,7 @@ public abstract class SorceressLairManager
 		RequestThread.postRequest( SorceressLairManager.QUEST_HANDLER );
 		if ( !KoLmafia.permitsContinue() ) return -1;
 
-		if ( SorceressLairManager.QUEST_HANDLER.responseText.indexOf( "You don't have time to mess around in the Tower." ) != -1 )
+		if ( SorceressLairManager.QUEST_HANDLER.responseText.contains( "You don't have time to mess around in the Tower." ) )
 		{
 			KoLmafia.updateDisplay( MafiaState.ERROR, "You're out of adventures." );
 			return -1;
@@ -1832,7 +1832,7 @@ public abstract class SorceressLairManager
 
 		// Enter the code and check for success
 		RequestThread.postRequest( request.constructURLString( "lair6.php?action=doorcode&code=" + code ) );
-		if ( request.responseText.indexOf( "the door slides open" ) == -1 )
+		if ( !request.responseText.contains( "the door slides open" ) )
 		{
 			KoLmafia.updateDisplay( MafiaState.ERROR, "I used the wrong code. Sorry." );
 		}
@@ -1867,7 +1867,7 @@ public abstract class SorceressLairManager
 		Matcher matcher;
 
 		// Check for variant, per Visual WIKI
-		if ( lines[ 7 ].indexOf( "You're full of it" ) != -1 )
+		if ( lines[7].contains( "You're full of it" ) )
 		{
 			matcher = Pattern.compile( "digit is (\\d)" ).matcher( lines[ 5 ] );
 			if ( !matcher.find() )
@@ -1890,7 +1890,7 @@ public abstract class SorceressLairManager
 		}
 		else
 		{
-			if ( lines[ 13 ].indexOf( "South" ) != -1 )
+			if ( lines[13].contains( "South" ) )
 			{
 				matcher = Pattern.compile( "digit is (\\d)" ).matcher( lines[ 5 ] );
 			}
@@ -1977,7 +1977,7 @@ public abstract class SorceressLairManager
 			return;
 		}
 
-		if ( SorceressLairManager.QUEST_HANDLER.responseText.indexOf( "You don't have time to mess around up here." ) != -1 )
+		if ( SorceressLairManager.QUEST_HANDLER.responseText.contains( "You don't have time to mess around up here." ) )
 		{
 			KoLmafia.updateDisplay( MafiaState.ERROR, "You're out of adventures." );
 			return;
@@ -2018,10 +2018,10 @@ public abstract class SorceressLairManager
 			RequestThread.postRequest( SorceressLairManager.QUEST_HANDLER );
 		}
 		while ( Preferences.getBoolean( "serverAddsCustomCombat" )
-				? SorceressLairManager.QUEST_HANDLER.responseText.indexOf( "(show old combat form)" ) != -1
-				: SorceressLairManager.QUEST_HANDLER.responseText.indexOf( "fight.php" ) != -1 );
+				? SorceressLairManager.QUEST_HANDLER.responseText.contains( "(show old combat form)" )
+				: SorceressLairManager.QUEST_HANDLER.responseText.contains( "fight.php" ) );
 
-		if ( SorceressLairManager.QUEST_HANDLER.responseText.indexOf( "a veritable volcano of fey force" ) != -1 )
+		if ( SorceressLairManager.QUEST_HANDLER.responseText.contains( "a veritable volcano of fey force" ) )
 		{
 			KoLmafia.updateDisplay( "Your shadow has been defeated." );
 		}
@@ -2180,7 +2180,7 @@ public abstract class SorceressLairManager
 
 		// If you do not successfully pass the familiar, you will get a
 		// "stomp off in a huff" message.
-		if ( SorceressLairManager.QUEST_HANDLER.responseText.indexOf( "stomp off in a huff" ) == -1 )
+		if ( !SorceressLairManager.QUEST_HANDLER.responseText.contains( "stomp off in a huff" ) )
 		{
 			return;
 		}
@@ -2196,7 +2196,7 @@ public abstract class SorceressLairManager
 		for ( int i = 0; i < SorceressLairManager.FAMILIAR_DATA.length; ++i )
 		{
 			String [] data = SorceressLairManager.FAMILIAR_DATA[ i ];
-			if ( text.indexOf( data[ 0 ] ) != -1 )
+			if ( text.contains( data[0] ) )
 			{
 				race = data[ 1 ];
 				familiar = KoLCharacter.findFamiliar( race );
@@ -2247,12 +2247,12 @@ public abstract class SorceressLairManager
 	public static final void parseEntrywayResponse( final String urlString, final String responseText )
 	{
 		// lair2.php?preaction=key&whichkey=xxx
-		if ( urlString.indexOf( "preaction=key" ) != -1 )
+		if ( urlString.contains( "preaction=key" ) )
 		{
 			// Unexplained Jamaican Man says: "Don't get greedy,
 			// mon. One balloon should be enough for anybody."
-			if ( responseText.indexOf( "easter egg balloon" ) != -1 ||
-			     responseText.indexOf( "One balloon should be enough" ) != -1 )
+			if ( responseText.contains( "easter egg balloon" ) ||
+                    responseText.contains( "One balloon should be enough" ) )
 			{
 				Preferences.setInteger( "lastEasterEggBalloon", KoLCharacter.getAscensions() );
 			}
@@ -2264,7 +2264,7 @@ public abstract class SorceressLairManager
 	public static final void parseChamberResponse( final String urlString, final String responseText )
 	{
 		// lair6.php
-		if ( urlString.indexOf( "preaction=lightdoor" ) != -1 )
+		if ( urlString.contains( "preaction=lightdoor" ) )
 		{
 			SorceressLairManager.setDoorCode( responseText );
 			return;
@@ -2400,34 +2400,34 @@ public abstract class SorceressLairManager
 	{
 		// lair.php and lair1-6.php all can check for the same things.
 		// Work backwards from the end to see what zones are unlocked.
-		if ( responseText.indexOf( "ascend.php" ) != -1 )
+		if ( responseText.contains( "ascend.php" ) )
 		{
 			QuestDatabase.setQuestProgress( Quest.FINAL, QuestDatabase.FINISHED );
 		}
-		else if ( responseText.indexOf( "#Map4" ) != -1 || responseText.indexOf( "towerup2.gif" ) != -1 )
+		else if ( responseText.contains( "#Map4" ) || responseText.contains( "towerup2.gif" ) )
 		{
 			QuestDatabase.setQuestIfBetter( Quest.FINAL, "step5" );
 		}
-		else if ( responseText.indexOf( "#Map3" ) != -1 )
+		else if ( responseText.contains( "#Map3" ) )
 		{
 			QuestDatabase.setQuestIfBetter( Quest.FINAL, "step4" );
 		}
-		else if ( responseText.indexOf( "#Map2" ) != -1 )
+		else if ( responseText.contains( "#Map2" ) )
 		{
 			QuestDatabase.setQuestIfBetter( Quest.FINAL, "step4" );
 		}
 		// Cave done - third step
-		else if ( responseText.indexOf( "#Map" ) != -1 || responseText.indexOf( "cave22done" ) != -1 )
+		else if ( responseText.contains( "#Map" ) || responseText.contains( "cave22done" ) )
 		{
 			QuestDatabase.setQuestIfBetter( Quest.FINAL, "step3" );
 		}
 		// Huge mirror broken - second step
-		else if ( responseText.indexOf( "cave1mirrordone" ) != -1 )
+		else if ( responseText.contains( "cave1mirrordone" ) )
 		{
 			QuestDatabase.setQuestIfBetter( Quest.FINAL, "step2" );
 		}
 		// Passed the three gates - first step
-		else if ( responseText.indexOf( "cave1mirror.gif" ) != -1 )
+		else if ( responseText.contains( "cave1mirror.gif" ) )
 		{
 			QuestDatabase.setQuestIfBetter( Quest.FINAL, "step1" );
 		}

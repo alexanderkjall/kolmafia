@@ -48,7 +48,7 @@ public class ModifierExpression
 	{
 		// The first check also matches "[zone(The Slime Tube)]"
 		// Hence the second check.
-		if ( text.indexOf( "T" ) != -1 && EffectDatabase.contains( this.name ) )
+		if ( text.contains( "T" ) && EffectDatabase.contains( this.name ) )
 		{
 			this.effect = new AdventureResult( name, 0, true );
 		}

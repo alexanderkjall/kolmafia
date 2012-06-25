@@ -252,7 +252,7 @@ public class ChatSender
 			message = message.substring( privateMessageMatcher.end() ).trim();
 		}
 
-		if ( message.length() <= 256 || contact == null || contact.equals( "/clan" ) || message.indexOf( " && " ) != -1 )
+		if ( message.length() <= 256 || contact == null || contact.equals( "/clan" ) || message.contains( " && " ) )
 		{
 			String graf = ChatSender.getGraf( contact, message );
 

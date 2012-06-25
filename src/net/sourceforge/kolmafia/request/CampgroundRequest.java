@@ -392,7 +392,7 @@ public class CampgroundRequest
 			// Your black-and-blue light cycles wildly between
 			// black and blue, then emits a shower of sparks as it
 			// goes permanently black.
-			if ( responseText.indexOf( "goes permanently black" ) != -1 )
+			if ( responseText.contains( "goes permanently black" ) )
 			{
 				CampgroundRequest.removeCampgroundItem( BLACK_BLUE_LIGHT );
 			}
@@ -400,7 +400,7 @@ public class CampgroundRequest
 			// Your blue plasma ball crackles weakly, emits a whine
 			// that sounds like "pika...pika...pika..." and goes
 			// dark.
-			if ( responseText.indexOf( "crackles weakly" ) != -1 )
+			if ( responseText.contains( "crackles weakly" ) )
 			{
 				CampgroundRequest.removeCampgroundItem( PLASMA_BALL );
 			}
@@ -409,7 +409,7 @@ public class CampgroundRequest
 			// wildly, singing "Daisy, Daisy, tell me your answer
 			// true," in ever-slower, distorted loops. Looks like
 			// it's ready to go to its eternal fishy reward.
-			if ( responseText.indexOf( "eternal fishy reward" ) != -1 )
+			if ( responseText.contains( "eternal fishy reward" ) )
 			{
 				CampgroundRequest.removeCampgroundItem( LOUDMOUTH_LARRY );
 			}
@@ -417,14 +417,14 @@ public class CampgroundRequest
 			// You dream that your teeth fall out, and you put them
 			// in your pocket for safe keeping. Fortunately, when
 			// you wake up, you appear to have grown a new set.
-			if ( responseText.indexOf( "your teeth fall out" ) != -1 )
+			if ( responseText.contains( "your teeth fall out" ) )
 			{
 				ResultProcessor.processItem( ItemPool.LOOSE_TEETH, 1 );
 			}
 
 			// "Hey," he says, "youse got some teeth. T'anks. Here
 			// youse goes."
-			if ( responseText.indexOf( "youse got some teeth" ) != -1 )
+			if ( responseText.contains( "youse got some teeth" ) )
 			{
 				ResultProcessor.processItem( ItemPool.LOOSE_TEETH, -1 );
 			}
@@ -456,9 +456,9 @@ public class CampgroundRequest
 
 	private static final void parseCampground( final String responseText )
 	{
-		KoLCharacter.setTelescope( responseText.indexOf( "action=telescope" ) != -1 );
-		KoLCharacter.setBookshelf( responseText.indexOf( "action=bookshelf" ) != -1 );
-		KoLCharacter.setHippyStoneBroken( responseText.indexOf( "smashstone.gif" ) != -1 );
+		KoLCharacter.setTelescope( responseText.contains( "action=telescope" ) );
+		KoLCharacter.setBookshelf( responseText.contains( "action=bookshelf" ) );
+		KoLCharacter.setHippyStoneBroken( responseText.contains( "smashstone.gif" ) );
 
 		findImage( responseText, "pagoda.gif", ItemPool.PAGODA_PLANS );
 		findImage( responseText, "maid.gif", ItemPool.MAID );
@@ -798,11 +798,11 @@ public class CampgroundRequest
 		for ( int i = 0; i < BOOKS.length; ++i )
 		{
 			String book = BOOKS[i][0];
-			if ( responseText.indexOf( book ) != -1 )
+			if ( responseText.contains( book ) )
 			{
 				String skill = BOOKS[i][1];
 				KoLCharacter.addAvailableSkill( skill, true );
-				if ( book.indexOf( "Libram" ) != -1 )
+				if ( book.contains( "Libram" ) )
 				{
 					libram = skill;
 				}
@@ -876,7 +876,7 @@ public class CampgroundRequest
 		{
 			// Detect a redirection to campground.php from
 			// skills.php The first one was already logged.
-			if ( urlString.indexOf( "skilluse=1" ) != -1 )
+			if ( urlString.contains( "skilluse=1" ) )
 			{
 				return true;
 			}

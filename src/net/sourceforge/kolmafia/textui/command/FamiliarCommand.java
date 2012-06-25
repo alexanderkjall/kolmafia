@@ -105,7 +105,7 @@ public class FamiliarCommand
 			RequestThread.postRequest( new FamiliarRequest( true ) );
 			return;
 		}
-		else if ( parameters.indexOf( "(no change)" ) != -1 )
+		else if ( parameters.contains( "(no change)" ) )
 		{
 			return;
 		}

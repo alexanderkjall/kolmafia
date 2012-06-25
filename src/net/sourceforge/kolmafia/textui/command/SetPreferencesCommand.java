@@ -92,7 +92,7 @@ public class SetPreferencesCommand
 
 		if ( name.equals( "battleAction" ) )
 		{
-			if ( value.indexOf( ";" ) != -1 || value.startsWith( "consult" ) )
+			if ( value.contains( ";" ) || value.startsWith( "consult" ) )
 			{
 				CombatActionManager.setDefaultAction( value );
 				value = "custom combat script";

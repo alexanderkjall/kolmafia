@@ -172,7 +172,7 @@ public abstract class ClanManager
 		GenericRequest whiteListFinder = new GenericRequest( "clan_office.php" );
 		whiteListFinder.run();
 
-		if ( whiteListFinder.responseText != null && whiteListFinder.responseText.indexOf( "clan_whitelist.php" ) != -1 )
+		if ( whiteListFinder.responseText != null && whiteListFinder.responseText.contains( "clan_whitelist.php" ) )
 		{
 			whiteListFinder = new GenericRequest( "clan_whitelist.php" );
 			whiteListFinder.run();

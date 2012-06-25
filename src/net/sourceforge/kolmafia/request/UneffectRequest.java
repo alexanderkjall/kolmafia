@@ -572,7 +572,7 @@ public class UneffectRequest
 			return false;
 		}
 
-		if ( location.indexOf( "?" ) == -1 )
+		if ( !location.contains( "?" ) )
 		{
 			return true;
 		}

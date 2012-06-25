@@ -143,13 +143,13 @@ public class UntinkerRequest
 
 		super.run();
 
-		if ( this.responseText.indexOf( "You acquire" ) == -1 )
+		if ( !this.responseText.contains( "You acquire" ) )
 		{
 			ResultProcessor.processResult( new AdventureResult( this.itemId, 1 ) );
 
 			UntinkerRequest.AVAILABLE_CHECKER.run();
 
-			if ( UntinkerRequest.AVAILABLE_CHECKER.responseText.indexOf( "<select" ) == -1 )
+			if ( !UntinkerRequest.AVAILABLE_CHECKER.responseText.contains( "<select" ) )
 			{
 				UntinkerRequest.canUntinker = UntinkerRequest.completeQuest();
 
@@ -182,13 +182,13 @@ public class UntinkerRequest
 	{
 		// Either place=untinker or action=untinker
 
-		if ( !location.startsWith( "forestvillage.php" ) || location.indexOf( "untinker" ) == -1 )
+		if ( !location.startsWith( "forestvillage.php" ) || !location.contains( "untinker" ) )
 		{
 			return;
 		}
 
 		// "Thanks! I'll tell ya, I'm just lost without my screwdriver. Here, lemme mark the Knoll on your map."
-		if ( responseText.indexOf( "I'm just lost without my screwdriver" ) != -1 )
+		if ( responseText.contains( "I'm just lost without my screwdriver" ) )
 		{
 			QuestDatabase.setQuestProgress( Quest.UNTINKER, QuestDatabase.STARTED );
 		}
@@ -202,9 +202,9 @@ public class UntinkerRequest
 		}
 
 		UntinkerRequest.lastUserId = KoLCharacter.getUserId();
-		UntinkerRequest.canUntinker = responseText.indexOf( "you don't have anything like that" ) != -1 || responseText.indexOf( "<select name=whichitem>" ) != -1;
+		UntinkerRequest.canUntinker = responseText.contains( "you don't have anything like that" ) || responseText.contains( "<select name=whichitem>" );
 
-		if ( responseText.indexOf( "You acquire" ) != -1 )
+		if ( responseText.contains( "You acquire" ) )
 		{
 			Matcher matcher = TransferItemRequest.ITEMID_PATTERN.matcher( location );
 			if ( !matcher.find() )
@@ -215,7 +215,7 @@ public class UntinkerRequest
 			int itemId = StringUtilities.parseInt( matcher.group( 1 ) );
 			AdventureResult result = new AdventureResult( itemId, -1 );
 
-			if ( location.indexOf( "untinkerall=on" ) != -1 )
+			if ( location.contains( "untinkerall=on" ) )
 			{
 				result = result.getInstance( 0 - result.getCount( KoLConstants.inventory ) );
 			}
@@ -242,7 +242,7 @@ public class UntinkerRequest
 		// paste, but you don't have anything like that..."
 
 		UntinkerRequest.canUntinker =
-			UntinkerRequest.AVAILABLE_CHECKER.responseText.indexOf( "you don't have anything like that" ) != -1 || UntinkerRequest.AVAILABLE_CHECKER.responseText.indexOf( "<select name=whichitem>" ) != -1;
+                UntinkerRequest.AVAILABLE_CHECKER.responseText.contains( "you don't have anything like that" ) || UntinkerRequest.AVAILABLE_CHECKER.responseText.contains( "<select name=whichitem>" );
 
 		return UntinkerRequest.canUntinker;
 	}
@@ -287,7 +287,7 @@ public class UntinkerRequest
 		AdventureResult sideTripItem = UntinkerRequest.SCREWDRIVER.getNegation();
 
 		String action = Preferences.getString( "battleAction" );
-		if ( action.indexOf( "dictionary" ) != -1 )
+		if ( action.contains( "dictionary" ) )
 		{
 			KoLmafiaCLI.DEFAULT_SHELL.executeCommand( "set", "battleAction=attack" );
 		}
@@ -307,15 +307,15 @@ public class UntinkerRequest
 		// have the needed accomplishment.
 
 		UntinkerRequest.AVAILABLE_CHECKER.run();
-		return UntinkerRequest.AVAILABLE_CHECKER.responseText.indexOf( "Degrassi Knoll" ) == -1;
+		return !UntinkerRequest.AVAILABLE_CHECKER.responseText.contains( "Degrassi Knoll" );
 	}
 
 	public static final void decorate( final String urlString, final StringBuffer buffer )
 	{
 		// We decorate simple visits to the untinker and also
 		// accepting his quest
-		if ( urlString.indexOf( "place=untinker" ) == -1 &&
-		     urlString.indexOf( "action=screwquest" ) == -1 )
+		if ( !urlString.contains( "place=untinker" ) &&
+                !urlString.contains( "action=screwquest" ) )
 		{
 			return;
 		}
@@ -374,7 +374,7 @@ public class UntinkerRequest
 		}
 
 		String message;
-		if ( urlString.indexOf( "action=untinker" ) != -1 )
+		if ( urlString.contains( "action=untinker" ) )
 		{
 			Matcher matcher = TransferItemRequest.ITEMID_PATTERN.matcher( urlString );
 			if ( !matcher.find() )
@@ -383,13 +383,13 @@ public class UntinkerRequest
 			}
 
 			String name = ItemDatabase.getItemName( StringUtilities.parseInt( matcher.group( 1 ) ) );
-			message = "untinker " + ( urlString.indexOf( "untinkerall=on" ) != -1 ? "*" : "1" ) + " " + name;
+			message = "untinker " + (urlString.contains( "untinkerall=on" ) ? "*" : "1" ) + " " + name;
 		}
-		else if ( urlString.indexOf( "action=screwquest" ) != -1 )
+		else if ( urlString.contains( "action=screwquest" ) )
 		{
 			message = "Accepting quest to find the Untinker's screwdriver";
 		}
-		else if ( urlString.indexOf( "place=untinker" ) != -1 )
+		else if ( urlString.contains( "place=untinker" ) )
 		{
 			RequestLogger.printLine( "" );
 			RequestLogger.updateSessionLog();

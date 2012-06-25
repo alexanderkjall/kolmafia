@@ -109,7 +109,7 @@ public class TelescopeRequest
 			// "You've already peered into the Heavens
 			// today. You're already feeling as inspired as you can
 			// be for one day."
-			if ( this.responseText.indexOf( "already peered" ) != -1 )
+			if ( this.responseText.contains( "already peered" ) )
 			{
 				KoLmafia.updateDisplay( MafiaState.ERROR, "You've already done that today." );
 				return;
@@ -128,7 +128,7 @@ public class TelescopeRequest
 			return;
 		}
 
-		if ( urlString.indexOf( "action=telescopehigh" ) != -1 )
+		if ( urlString.contains( "action=telescopehigh" ) )
 		{
 			Preferences.setBoolean( "telescopeLookedHigh", true );
 			return;
@@ -141,7 +141,7 @@ public class TelescopeRequest
 			return;
 		}
 
-		if ( urlString.indexOf( "action=telescopelow" ) == -1 )
+		if ( !urlString.contains( "action=telescopelow" ) )
 		{
 			return;
 		}

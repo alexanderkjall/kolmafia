@@ -105,7 +105,7 @@ public class TicketCounterRequest
 
 	public static boolean parseResponse( final String urlString, final String responseText )
 	{
-		if ( urlString.indexOf( "action=redeem" ) != -1 )
+		if ( urlString.contains( "action=redeem" ) )
 		{
 			CoinMasterRequest.parseResponse( TicketCounterRequest.TICKET_COUNTER, urlString, responseText );
 			return true;

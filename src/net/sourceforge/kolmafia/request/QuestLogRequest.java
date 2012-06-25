@@ -113,7 +113,7 @@ public class QuestLogRequest
 		}
 		String pref = Preferences.getString( Quest.MACGUFFIN.getPref() );
 
-		return pref.equals( QuestDatabase.FINISHED ) || pref.indexOf( "step" ) != -1;
+		return pref.equals( QuestDatabase.FINISHED ) || pref.contains( "step" );
 	}
 
 	public static final boolean isHippyStoreAvailable()
@@ -148,11 +148,11 @@ public class QuestLogRequest
 
 	public static final void registerQuests( final boolean isExternal, final String urlString, final String responseText )
 	{
-		if ( urlString.indexOf( "which=" ) == -1 )
+		if ( !urlString.contains( "which=" ) )
 		{
 			for ( int i = 1; i < 4; ++i )
 			{
-				if ( responseText.indexOf( "questlog.php?which=" + i ) == -1 )
+				if ( !responseText.contains( "questlog.php?which=" + i ) )
 				{
 					parseResponse( responseText, i );
 					break;
@@ -160,24 +160,24 @@ public class QuestLogRequest
 			}
 		}
 
-		else if ( urlString.indexOf( "which=1" ) != -1 )
+		else if ( urlString.contains( "which=1" ) )
 		{
 			parseResponse( responseText, 1 );
 		}
 
-		else if ( urlString.indexOf( "which=2" ) != -1 )
+		else if ( urlString.contains( "which=2" ) )
 		{
 			parseResponse( responseText, 2 );
 
 			GalaktikRequest.setDiscount( QuestLogRequest.finishedQuest( Quest.GALAKTIK.getPref() ) );
 		}
 
-		else if ( urlString.indexOf( "which=3" ) != -1 )
+		else if ( urlString.contains( "which=3" ) )
 		{
 			QuestLogRequest.other = responseText;
 
-			ChatManager.setChatLiteracy( QuestLogRequest.other.indexOf( QuestLogRequest.ALTAR_OF_LITERACY ) != -1 );
-			QuestLogRequest.dungeonOfDoomAvailable = QuestLogRequest.other.indexOf( QuestLogRequest.DUNGEONS_OF_DOOM ) != -1;
+			ChatManager.setChatLiteracy( QuestLogRequest.other.contains( QuestLogRequest.ALTAR_OF_LITERACY ) );
+			QuestLogRequest.dungeonOfDoomAvailable = QuestLogRequest.other.contains( QuestLogRequest.DUNGEONS_OF_DOOM );
 		}
 	}
 

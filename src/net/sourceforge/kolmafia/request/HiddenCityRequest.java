@@ -266,7 +266,7 @@ public class HiddenCityRequest
 		// places in the carving, and step back as the door slowly
 		// slides to one side with a loud grinding noise.
 
-		if ( responseText.indexOf( "socket the four triangular stones" ) != -1 )
+		if ( responseText.contains( "socket the four triangular stones" ) )
 		{
 			ResultProcessor.processItem( ItemPool.TRIANGULAR_STONE, -4 );
 			return true;
@@ -296,8 +296,8 @@ public class HiddenCityRequest
 		// looking for, but that it was close enough to be worth
 		// something.
 
-		if ( responseText.indexOf( "sinks into the altar" ) != -1 ||
-		     responseText.indexOf( "disappears into the altar" ) != -1 )
+		if ( responseText.contains( "sinks into the altar" ) ||
+                responseText.contains( "disappears into the altar" ) )
 		{
 			ResultProcessor.processItem( itemId, -1 );
 			return true;
@@ -380,31 +380,31 @@ public class HiddenCityRequest
 			return;
 		}
 
-		if ( responseText.indexOf( "Mansion House of the Black Friars" ) != -1 )
+		if ( responseText.contains( "Mansion House of the Black Friars" ) )
 		{
 			HiddenCityRequest.addHiddenCityLocation( square, 'T' );
 		}
-		else if ( responseText.indexOf( "An altar with a carving of a god of nature" ) != -1 )
+		else if ( responseText.contains( "An altar with a carving of a god of nature" ) )
 		{
 			HiddenCityRequest.addHiddenCityLocation( square, 'N' );
 		}
-		else if ( responseText.indexOf( "An altar with a carving of a god of lightning" ) != -1 )
+		else if ( responseText.contains( "An altar with a carving of a god of lightning" ) )
 		{
 			HiddenCityRequest.addHiddenCityLocation( square, 'L' );
 		}
-		else if ( responseText.indexOf( "An altar with a carving of a god of water" ) != -1 )
+		else if ( responseText.contains( "An altar with a carving of a god of water" ) )
 		{
 			HiddenCityRequest.addHiddenCityLocation( square, 'W' );
 		}
-		else if ( responseText.indexOf( "An altar with a carving of a god of fire" ) != -1 )
+		else if ( responseText.contains( "An altar with a carving of a god of fire" ) )
 		{
 			HiddenCityRequest.addHiddenCityLocation( square, 'F' );
 		}
-		else if ( responseText.indexOf( "Dr. Henry \"Dakota\" Fanning, Ph.D., R.I.P." ) != -1 )
+		else if ( responseText.contains( "Dr. Henry \"Dakota\" Fanning, Ph.D., R.I.P." ) )
 		{
 			HiddenCityRequest.addHiddenCityLocation( square, 'A' );
 		}
-		else if ( responseText.indexOf( "cleared that ancient protector spirit out" ) != -1 )
+		else if ( responseText.contains( "cleared that ancient protector spirit out" ) )
 		{
 			HiddenCityRequest.addHiddenCityLocation( square, 'D' );
 		}
@@ -533,7 +533,7 @@ public class HiddenCityRequest
 		// If the request was redirected to an adventure, handle it and
 		// let the caller record it
 		if ( redirect.startsWith( "fight.php" ) ||
-		     redirect.indexOf( "snarfblat=118" ) != -1 )
+                redirect.contains( "snarfblat=118" ) )
 		{
 			HiddenCityRequest.validateHiddenCity();
 			if ( HiddenCityRequest.getHiddenCityLocation( square ) == '0' )

@@ -191,7 +191,7 @@ public abstract class MPRestoreItemList
 		for ( int i = 0; i < MPRestoreItemList.CONFIGURES.length; ++i )
 		{
 			restoreCheckbox[ i ] = new JCheckBox( MPRestoreItemList.CONFIGURES[ i ].toString() );
-			restoreCheckbox[ i ].setSelected( mpRestoreSetting.indexOf( MPRestoreItemList.CONFIGURES[ i ].toString().toLowerCase() ) != -1 );
+			restoreCheckbox[ i ].setSelected( mpRestoreSetting.contains( MPRestoreItemList.CONFIGURES[i].toString().toLowerCase() ) );
 		}
 
 		return restoreCheckbox;
@@ -203,7 +203,7 @@ public abstract class MPRestoreItemList
 
 		for ( int i = 0; i < MPRestoreItemList.CONFIGURES.length; ++i )
 		{
-			restoreCheckbox[ i ].setSelected( mpRestoreSetting.indexOf( MPRestoreItemList.CONFIGURES[ i ].toString().toLowerCase() ) != -1 );
+			restoreCheckbox[ i ].setSelected( mpRestoreSetting.contains( MPRestoreItemList.CONFIGURES[i].toString().toLowerCase() ) );
 		}
 	}
 
@@ -289,7 +289,7 @@ public abstract class MPRestoreItemList
 				return true;
 			}
 			String name = this.itemUsed.getName();
-			return name.indexOf( "b" ) == -1 && name.indexOf( "B" ) == -1 ;
+			return !name.contains( "b" ) && !name.contains( "B" );
 		}
 
 		public void recoverMP( final int needed, final boolean purchase )

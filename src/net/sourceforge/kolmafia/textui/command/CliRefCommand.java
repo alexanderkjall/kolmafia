@@ -101,7 +101,7 @@ public class CliRefCommand
 				continue;
 			}
 			String usage = handler.getUsage( name );
-			if ( usage == null || name.indexOf( filter ) == -1 && usage.toLowerCase().indexOf( filter ) == -1 )
+			if ( usage == null || !name.contains( filter ) && !usage.toLowerCase().contains( filter ) )
 			{
 				continue;
 			}

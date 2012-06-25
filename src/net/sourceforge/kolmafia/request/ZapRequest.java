@@ -180,7 +180,7 @@ public class ZapRequest
 
 		// "The Crown of the Goblin King shudders for a moment, but
 		// nothing happens."
-		if ( this.responseText.indexOf( "nothing happens" ) != -1 )
+		if ( this.responseText.contains( "nothing happens" ) )
 		{
 			KoLmafia.updateDisplay( MafiaState.ERROR, "The " + this.item.getName() + " is not zappable." );
 			return;
@@ -197,13 +197,13 @@ public class ZapRequest
 			return;
 		}
 
-		if ( responseText.indexOf( "nothing happens" ) != -1 )
+		if ( responseText.contains( "nothing happens" ) )
 		{
 			return;
 		}
 
 		// If it blew up, remove wand and zero usages
-		if ( responseText.indexOf( "abruptly explodes" ) != -1 )
+		if ( responseText.contains( "abruptly explodes" ) )
 		{
 			ResultProcessor.processResult( KoLCharacter.getZapper().getNegation() );
 			// set to -1 because will be incremented below

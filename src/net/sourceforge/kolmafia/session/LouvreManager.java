@@ -345,7 +345,7 @@ public abstract class LouvreManager
 		}
 
 		String override = Preferences.getString( "louvreOverride" );
-		if ( override.indexOf( "," ) != -1 )
+		if ( override.contains( "," ) )
 		{
 			String[] options = override.split( "\\s*,\\s*" );
 			if ( options.length > stepCount )
@@ -506,7 +506,7 @@ public abstract class LouvreManager
 		// Perhaps we have reached a goal
 		for ( int i = 0; i < LouvreManager.LouvreGoalStrings.length; ++i )
 		{
-			if ( text.indexOf( LouvreManager.LouvreGoalStrings[ i ] ) != -1 )
+			if ( text.contains( LouvreManager.LouvreGoalStrings[i] ) )
 			{
 				LouvreManager.mapChoice( lastChoice, lastDecision, i + 1 );
 				return true;

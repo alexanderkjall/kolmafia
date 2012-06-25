@@ -149,11 +149,11 @@ public class CharPaneRequest
 
 		// We can deduce whether we are in compact charpane mode
 
-		CharPaneRequest.compactCharacterPane = responseText.indexOf( "<br>Lvl. " ) != -1;
+		CharPaneRequest.compactCharacterPane = responseText.contains( "<br>Lvl. " );
 
 		// If we are in Valhalla, do special processing
-		if ( responseText.indexOf( "otherimages/spirit.gif" ) != -1 ||
-		     responseText.indexOf( "<br>Lvl. <img" ) != -1 )
+		if ( responseText.contains( "otherimages/spirit.gif" ) ||
+                responseText.contains( "<br>Lvl. <img" ) )
 		{
 			processValhallaCharacterPane( responseText );
 			return true;
@@ -608,7 +608,7 @@ public class CharPaneRequest
 		{
 			duration = Integer.MAX_VALUE;
 		}
-		else if ( durationString.indexOf( "&" ) != -1 || durationString.indexOf( "<" ) != -1 )
+		else if ( durationString.contains( "&" ) || durationString.contains( "<" ) )
 		{
 			return null;
 		}
@@ -766,7 +766,7 @@ public class CharPaneRequest
 		if ( matcher.find() )
 		{
 			int weight = StringUtilities.parseInt( matcher.group(1) );
-			boolean feasted = responseText.indexOf( "well-fed" ) != -1;
+			boolean feasted = responseText.contains( "well-fed" );
 			KoLCharacter.getFamiliar().checkWeight( weight, feasted );
 		}
 

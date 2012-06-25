@@ -77,7 +77,7 @@ public class EquipCommand
 			return;
 		}
 
-		if ( parameters.indexOf( "(no change)" ) != -1 )
+		if ( parameters.contains( "(no change)" ) )
 		{
 			return;
 		}
@@ -106,7 +106,7 @@ public class EquipCommand
 			for ( int i = 0; i <= EquipmentManager.FAMILIAR; ++i )
 			{
 				AdventureResult item = EquipmentManager.getEquipment( i );
-				if ( item != null && item.getName().toLowerCase().indexOf( parameters ) != -1 )
+				if ( item != null && item.getName().toLowerCase().contains( parameters ) )
 				{
 					return;
 				}

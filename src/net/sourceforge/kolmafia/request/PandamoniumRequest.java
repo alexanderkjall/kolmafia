@@ -172,17 +172,17 @@ public class PandamoniumRequest
 	{
 		if ( action.equals( "mourn" ) )
 		{
-			if ( urlString.indexOf( "preaction=insult" ) != -1 )
+			if ( urlString.contains( "preaction=insult" ) )
 			{
 				return "Trying to insult Mourn";
 			}
 
-			if ( urlString.indexOf( "preaction=observe" ) != -1 )
+			if ( urlString.contains( "preaction=observe" ) )
 			{
 				return "Trying some observational humor on Mourn";
 			}
 
-			if ( urlString.indexOf( "preaction=prop" ) != -1 )
+			if ( urlString.contains( "preaction=prop" ) )
 			{
 				return "Trying some prop comedy on Mourn";
 			}
@@ -192,7 +192,7 @@ public class PandamoniumRequest
 
 		if ( action.equals( "sven" ) )
 		{
-			if ( urlString.indexOf( "preaction=try" ) == -1 )
+			if ( !urlString.contains( "preaction=try" ) )
 			{
 				return null;
 			}
@@ -240,7 +240,7 @@ public class PandamoniumRequest
 		if ( action.equals( "sven" ) )
 		{
 			// pandamonium.php?action=sven&bandmember=Flargwurm&togive=4673&preaction=try
-			if ( urlString.indexOf( "preaction=try" ) != -1 )
+			if ( urlString.contains( "preaction=try" ) )
 			{
 				return null;
 			}
@@ -287,7 +287,7 @@ public class PandamoniumRequest
 			// You pull out the purple plush unicorn, the bright,
 			// rainbow-colored lollipop, and the frilly pink tutu
 			// and lay them in front of him.
-			if ( responseText.indexOf( "and lay them in front of him" ) != -1 )
+			if ( responseText.contains( "and lay them in front of him" ) )
 			{
 				ResultProcessor.processItem( ItemPool.AZAZELS_UNICORN, -1 );
 				ResultProcessor.processItem( ItemPool.AZAZELS_LOLLYPOP, -1 );
@@ -301,7 +301,7 @@ public class PandamoniumRequest
 			// pandamonium.php?action=sven&bandmember=Flargwurm&togive=4673&preaction=try
 			// When you give an item, it removes it from inventory,
 			// whether or not it was the right item.
-			if ( urlString.indexOf( "preaction=try" ) == -1 )
+			if ( !urlString.contains( "preaction=try" ) )
 			{
 				return false;
 			}
@@ -331,7 +331,7 @@ public class PandamoniumRequest
 		{
 			// When you bring 5 bus passes and 5 imp airs, they are
 			// removed from inventory and you get Azazel's tutu
-			if ( responseText.indexOf( "Here's your talisman" ) != -1 )
+			if ( responseText.contains( "Here's your talisman" ) )
 			{
 				ResultProcessor.processResult( ItemPool.get( ItemPool.IMP_AIR, -5 ) );
 				ResultProcessor.processResult( ItemPool.get( ItemPool.BUS_PASS, -5 ) );
@@ -344,18 +344,18 @@ public class PandamoniumRequest
 		{
 			int itemId = -1;
 
-			if ( urlString.indexOf( "preaction=insult" ) != -1 &&
-			     responseText.indexOf( "Mourn chuckles appreciatively" ) != -1 )
+			if ( urlString.contains( "preaction=insult" ) &&
+                    responseText.contains( "Mourn chuckles appreciatively" ) )
 			{
 				itemId = ItemPool.INSULT_PUPPET;
 			}
-			else if ( urlString.indexOf( "preaction=observe" ) != -1  &&
-				  responseText.indexOf( "Mourn slaps his knee and bellows laughter" ) != -1 )
+			else if ( urlString.contains( "preaction=observe" ) &&
+                    responseText.contains( "Mourn slaps his knee and bellows laughter" ) )
 			{
 				itemId = ItemPool.OBSERVATIONAL_GLASSES;
 			}
-			else if ( urlString.indexOf( "preaction=prop" ) != -1 &&
-				  responseText.indexOf( "Mourn giggles a little" ) != -1 )
+			else if ( urlString.contains( "preaction=prop" ) &&
+                    responseText.contains( "Mourn giggles a little" ) )
 			{
 				itemId = ItemPool.COMEDY_PROP;
 			}
@@ -379,7 +379,7 @@ public class PandamoniumRequest
 			return;
 		}
 
-		if ( url.indexOf( "action=sven" ) != -1 )
+		if ( url.contains( "action=sven" ) )
 		{
 			PandamoniumRequest.decorateSven( buffer );
 		}
@@ -534,7 +534,7 @@ public class PandamoniumRequest
 		}
 
 		RelayRequest.specialCommandResponse = response;
-		if ( response.indexOf( "<form" ) == -1 )
+		if ( !response.contains( "<form" ) )
 		{
 			PandamoniumRequest.lastResponse = null;
 		}

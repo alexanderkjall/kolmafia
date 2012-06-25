@@ -161,7 +161,7 @@ public class SkateParkRequest
 		{
 			Object [] data = BUFF_DATA[i];
 			String canonicalPlace = dataCanonicalPlace( data );
-			if ( canonicalPlace.indexOf( place ) == -1 )
+			if ( !canonicalPlace.contains( place ) )
 			{
 				continue;
 			}
@@ -267,19 +267,19 @@ public class SkateParkRequest
 		// Deduce the state of war
 		String status = null;
 
-		if ( responseText.indexOf( "ocean/rumble" ) != -1 )
+		if ( responseText.contains( "ocean/rumble" ) )
 		{
 			status = "war";
 		}
-		else if ( responseText.indexOf( "ocean/ice_territory" ) != -1 )
+		else if ( responseText.contains( "ocean/ice_territory" ) )
 		{
 			status = "ice";
 		}
-		else if ( responseText.indexOf( "ocean/roller_territory" ) != -1 )
+		else if ( responseText.contains( "ocean/roller_territory" ) )
 		{
 			status = "roller";
 		}
-		else if ( responseText.indexOf( "ocean/fountain" ) != -1 )
+		else if ( responseText.contains( "ocean/fountain" ) )
 		{
 			status = "peace";
 		}
@@ -299,8 +299,8 @@ public class SkateParkRequest
 		}
 
 		Object [] data = actionToData( action );
-		boolean effect = responseText.indexOf( "You acquire an effect" ) != -1;
-		boolean error = responseText.indexOf( dataError( data ) ) != -1;
+		boolean effect = responseText.contains( "You acquire an effect" );
+		boolean error = responseText.contains( dataError( data ) );
 		if ( effect || error )
 		{
 			Preferences.setBoolean( dataSetting( data ), true );

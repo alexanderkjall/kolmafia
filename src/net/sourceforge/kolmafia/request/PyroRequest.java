@@ -74,7 +74,7 @@ public class PyroRequest
                 // boom!&quot;<p>He takes the gunpowder into a back room, and
                 // returns with an armload of big bombs."
 
-		if ( responseText.indexOf( "eyes light up" ) != -1 )
+		if ( responseText.contains( "eyes light up" ) )
 		{
 			int count = PyroRequest.GUNPOWDER.getCount( KoLConstants.inventory );
 			ResultProcessor.processItem( ItemPool.GUNPOWDER, -count );
@@ -94,7 +94,7 @@ public class PyroRequest
 			return false;
 		}
 
-		if ( urlString.indexOf( "action=pyro" ) == -1 )
+		if ( !urlString.contains( "action=pyro" ) )
 		{
 			return false;
 		}

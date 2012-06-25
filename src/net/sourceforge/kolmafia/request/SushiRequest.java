@@ -171,7 +171,7 @@ public class SushiRequest
 		for ( int i = 0; i < FILLING1.length; ++i )
 		{
 			Object [] sushi = FILLING1[i];
-			if ( name.indexOf( (String)sushi[0] ) != -1 )
+			if ( name.contains( (String) sushi[0] ) )
 			{
 				return SushiRequest.nameToId( (String)sushi[1] );
 			}
@@ -280,7 +280,7 @@ public class SushiRequest
 		for ( int i = 0; i < FILLING1.length; ++i )
 		{
 			Object [] sushi = FILLING1[i];
-			if ( name.indexOf( (String)sushi[0] ) != -1 )
+			if ( name.contains( (String) sushi[0] ) )
 			{
 				return (Integer) sushi[2];
 			}
@@ -416,7 +416,7 @@ public class SushiRequest
 		// "That looks good, but you're way too full to eat it right
 		// now."
 
-		if ( responseText.indexOf( "too full to eat it" ) != -1 )
+		if ( responseText.contains( "too full to eat it" ) )
 		{
 			return;
 		}

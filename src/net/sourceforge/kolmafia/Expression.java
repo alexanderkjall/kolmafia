@@ -218,16 +218,16 @@ public class Expression
 				
 			// Valid with ModifierExpression:
 			case 'l':
-				v = Modifiers.currentLocation.indexOf( (String) this.literals.get( (int) s[ --sp ] ) ) == -1 ? 0.0f : 1.0f;
+				v = !Modifiers.currentLocation.contains( (String) this.literals.get( (int) s[--sp] ) ) ? 0.0f : 1.0f;
 				break;
 			case 'z':
-				v = Modifiers.currentZone.indexOf( (String) this.literals.get( (int) s[ --sp ] ) ) == -1 ? 0.0f : 1.0f;
+				v = !Modifiers.currentZone.contains( (String) this.literals.get( (int) s[--sp] ) ) ? 0.0f : 1.0f;
 				break;
 			case 'w':
-				v = Modifiers.currentFamiliar.indexOf( (String) this.literals.get( (int) s[ --sp ] ) ) == -1 ? 0.0f : 1.0f;
+				v = !Modifiers.currentFamiliar.contains( (String) this.literals.get( (int) s[--sp] ) ) ? 0.0f : 1.0f;
 				break;
 			case 'h':
-				v = Modifiers.mainhandClass.indexOf( (String) this.literals.get( (int) s[ --sp ] ) ) == -1 ? 0.0f : 1.0f;
+				v = !Modifiers.mainhandClass.contains( (String) this.literals.get( (int) s[--sp] ) ) ? 0.0f : 1.0f;
 				break;
 			case 'e':
 				AdventureResult eff = new AdventureResult( (String) this.literals.get( (int) s[ --sp ] ), 1, true );

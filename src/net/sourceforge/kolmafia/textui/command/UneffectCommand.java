@@ -58,7 +58,7 @@ public class UneffectCommand
 	@Override
 	public void run( final String cmd, final String parameters )
 	{
-		if ( parameters.indexOf( "," ) != -1 )
+		if ( parameters.contains( "," ) )
 		{
 			String[] effects = parameters.split( "\\s*,\\s*" );
 			for ( int i = 0; i < effects.length; ++i )

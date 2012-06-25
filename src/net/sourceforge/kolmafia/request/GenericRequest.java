@@ -312,7 +312,7 @@ public class GenericRequest
 
 	private static final boolean substringMatches( final String a, final String b )
 	{
-		return a.indexOf( b ) != -1 || b.indexOf( a ) != -1;
+		return a.contains( b ) || b.contains( a );
 	}
 
 	/**
@@ -525,7 +525,7 @@ public class GenericRequest
 
 	public void addFormFields( final String fields, final boolean encoded )
 	{
-		if ( fields.indexOf( "&" ) == -1 )
+		if ( !fields.contains( "&" ) )
 		{
 			this.addFormField( fields, encoded );
 			return;
@@ -1152,14 +1152,14 @@ public class GenericRequest
 
 		String location = this.getURLString();
 		if ( StaticEntity.backtraceTrigger != null &&
-			location.indexOf( StaticEntity.backtraceTrigger ) != -1 )
+                location.contains( StaticEntity.backtraceTrigger ) )
 		{
 			StaticEntity.printStackTrace( "Backtrace triggered by page load" );
 		}
 
-		if ( location.indexOf( "clan" ) != -1 )
+		if ( location.contains( "clan" ) )
 		{
-			if ( location.indexOf( "action=leaveclan" ) != -1 || location.indexOf( "action=joinclan" ) != -1 )
+			if ( location.contains( "action=leaveclan" ) || location.contains( "action=joinclan" ) )
 			{
 				ClanManager.resetClanId();
 			}
@@ -1188,14 +1188,14 @@ public class GenericRequest
 
 			// If he wants us to automatically get a worthless item
 			// in the sewer, do it.
-			if ( location.indexOf( "autoworthless=on" ) != -1 )
+			if ( location.contains( "autoworthless=on" ) )
 			{
 				InventoryManager.retrieveItem( HermitRequest.WORTHLESS_ITEM, false );
 			}
 
 			// If he wants us to automatically get a hermit permit, if needed, do it.
 			// If he happens to have a hermit script, use it and obviate permits
-			if ( location.indexOf( "autopermit=on" ) != -1 )
+			if ( location.contains( "autopermit=on" ) )
 			{
 				if ( InventoryManager.hasItem( HermitRequest.HACK_SCROLL ) )
 				{
@@ -1380,13 +1380,13 @@ public class GenericRequest
 		// If you're about to fight the Naughty Sorceress,
 		// clear your list of effects.
 
-		if ( urlString.startsWith( "lair6.php" ) && urlString.indexOf( "place=5" ) != -1 )
+		if ( urlString.startsWith( "lair6.php" ) && urlString.contains( "place=5" ) )
 		{
 			KoLConstants.activeEffects.clear();
 			// *** Do we retain intrinsic effects?
 		}
 
-		if ( urlString.startsWith( "ascend.php" ) && urlString.indexOf( "action=ascend" ) != -1 )
+		if ( urlString.startsWith( "ascend.php" ) && urlString.contains( "action=ascend" ) )
 		{
 			GenericRequest.ascending = true;
 			KoLmafia.forceContinue();
@@ -1430,8 +1430,8 @@ public class GenericRequest
 		String requestURL = GenericRequest.decodeField( request.formURLString );
 		return requestURL == null ||
 			// Disallow mall searches
-			requestURL.indexOf( "mall.php" ) != -1 ||
-			requestURL.indexOf( "manageprices.php" ) != -1 ||
+                requestURL.contains( "mall.php" ) ||
+                requestURL.contains( "manageprices.php" ) ||
 			// Disallow anything to do with chat
 			request.isChatRequest;
 	}
@@ -1526,7 +1526,7 @@ public class GenericRequest
 
 		if ( !urlString.startsWith( "http:" ) && !urlString.startsWith( "https:" ) )
 		{
-			if ( Preferences.getBoolean( "useSecureLogin" ) && urlString.indexOf( "login.php" ) != -1 )
+			if ( Preferences.getBoolean( "useSecureLogin" ) && urlString.contains( "login.php" ) )
 			{
 				context = GenericRequest.KOL_SECURE_ROOT;
 			}
@@ -2074,7 +2074,7 @@ public class GenericRequest
 		{
 			AdventureRequest.handleShoreVisit( urlString, this.responseText );
 		}
-		else if ( urlString.startsWith( "lair6.php" ) && urlString.indexOf( "place=6" ) != -1 )
+		else if ( urlString.startsWith( "lair6.php" ) && urlString.contains( "place=6" ) )
 		{
 			KoLCharacter.liberateKing();
 		}
@@ -2119,7 +2119,7 @@ public class GenericRequest
 		if ( !GenericRequest.choiceHandled && !this.isChatRequest )
 		{
 			// Handle choices AFTER result processing
-			GenericRequest.choiceHandled = this.responseText.indexOf( "choice.php" ) == -1;
+			GenericRequest.choiceHandled = !this.responseText.contains( "choice.php" );
 			ChoiceManager.postChoice2( this );
 		}
 
@@ -2154,7 +2154,7 @@ public class GenericRequest
 		}
 		else
 		{
-			this.containsUpdate |= this.responseText.indexOf( "charpane.php" ) != -1;
+			this.containsUpdate |= this.responseText.contains( "charpane.php" );
 		}
 
 		if ( this.containsUpdate )
@@ -2267,29 +2267,29 @@ public class GenericRequest
 		// The Hippy Camp (In Disguise)'s A Case of the Baskets, the message
 		// is "Like the smoke your ten-leaf clover disappears in a puff of"
 
-		if ( this.responseText.indexOf( "clover" ) != -1 &&
-			( this.responseText.indexOf( " puff of smoke" ) != -1 ||
-				this.responseText.indexOf( "into the leprechaun's pocket" ) != -1 ||
-			this.responseText.indexOf( "disappears in a puff of" ) != -1 ) )
+		if ( this.responseText.contains( "clover" ) &&
+			(this.responseText.contains( " puff of smoke" ) ||
+                    this.responseText.contains( "into the leprechaun's pocket" ) ||
+                    this.responseText.contains( "disappears in a puff of" )) )
 		{
 			ResultProcessor.processItem( ItemPool.TEN_LEAF_CLOVER, -1 );
 		}
 
 		if ( urlString.startsWith( "dungeon.php" ) &&
-			this.responseText.indexOf( "key breaks off in the lock" ) != -1 )
+                this.responseText.contains( "key breaks off in the lock" ) )
 		{
 			// Unfortunately, the key breaks off in the lock.
 			ResultProcessor.processItem( ItemPool.SKELETON_KEY, -1 );
 		}
 
-		if ( this.responseText.indexOf( "You break the bottle on the ground" ) != -1 )
+		if ( this.responseText.contains( "You break the bottle on the ground" ) )
 		{
 			// You break the bottle on the ground, and stomp it to powder
 			ResultProcessor.processItem( ItemPool.EMPTY_AGUA_DE_VIDA_BOTTLE, -1 );
 		}
 
-		if ( this.responseText.indexOf( "FARQUAR" ) != -1 ||
-			this.responseText.indexOf( "Sleeping Near the Enemy" ) != -1 )
+		if ( this.responseText.contains( "FARQUAR" ) ||
+                this.responseText.contains( "Sleeping Near the Enemy" ) )
 		{
 			// The password to the Dispensary is known!
 			Preferences.setInteger( "lastDispensaryOpen", KoLCharacter.getAscensions() );

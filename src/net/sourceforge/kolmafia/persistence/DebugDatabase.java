@@ -450,17 +450,17 @@ public class DebugDatabase
 
 	public static final String parseAccess( final String text )
 	{
-		if ( text.indexOf( "Quest Item" ) != -1 )
+		if ( text.contains( "Quest Item" ) )
 		{
 			return "none";
 		}
 
-		if ( text.indexOf( "Gift Item" ) != -1 )
+		if ( text.contains( "Gift Item" ) )
 		{
 			return "gift";
 		}
 
-		if ( text.indexOf( "Cannot be traded" ) != -1 )
+		if ( text.contains( "Cannot be traded" ) )
 		{
 			return "display";
 		}
@@ -495,12 +495,12 @@ public class DebugDatabase
 		{
 			return KoLConstants.CONSUME_DRINK;
 		}
-		if ( type.indexOf( "self or others" ) != -1 )
+		if ( type.contains( "self or others" ) )
 		{
 			// Curse items are special
 			return KoLConstants.NO_CONSUME;
 		}
-		if ( type.indexOf( "usable" ) != -1 || type.equals( "gift package" ) )
+		if ( type.contains( "usable" ) || type.equals( "gift package" ) )
 		{
 			return KoLConstants.CONSUME_USE;
 		}
@@ -547,7 +547,7 @@ public class DebugDatabase
 		{
 			return KoLConstants.EQUIP_PANTS;
 		}
-		if ( type.indexOf( "weapon" ) != -1 )
+		if ( type.contains( "weapon" ) )
 		{
 			return KoLConstants.EQUIP_WEAPON;
 		}
@@ -561,15 +561,15 @@ public class DebugDatabase
 	public static final int typeToSecondary( final String type )
 	{
 		int attributes = 0;
-		if ( type.indexOf( "combat" ) != -1 )
+		if ( type.contains( "combat" ) )
 		{
 			attributes |= ItemDatabase.ATTR_COMBAT;
 		}
-		if ( type.indexOf( "self or others" ) != -1 )
+		if ( type.contains( "self or others" ) )
 		{
 			attributes |= ItemDatabase.ATTR_CURSE;
 		}
-		if ( type.indexOf( "(Fancy" ) != -1 )
+		if ( type.contains( "(Fancy" ) )
 		{
 			attributes |= ItemDatabase.ATTR_FANCY;
 		}
@@ -735,15 +735,15 @@ public class DebugDatabase
 		String type = DebugDatabase.parseType( text );
 		boolean isWeapon = false, isShield = false, hasPower = false;
 
-		if ( type.indexOf( "weapon" ) != -1 )
+		if ( type.contains( "weapon" ) )
 		{
 			isWeapon = true;
 		}
-		else if ( type.indexOf( "shield" ) != -1 )
+		else if ( type.contains( "shield" ) )
 		{
 			isShield = true;
 		}
-		else if ( type.indexOf( "hat" ) != -1 || type.indexOf( "pants" ) != -1 || type.indexOf( "shirt" ) != -1 )
+		else if ( type.contains( "hat" ) || type.contains( "pants" ) || type.contains( "shirt" ) )
 		{
 			hasPower = true;
 		}
@@ -826,15 +826,15 @@ public class DebugDatabase
 			}
 		}
 
-		if ( type.indexOf( "weapon" ) != -1 )
+		if ( type.contains( "weapon" ) )
 		{
-			if ( type.indexOf( "ranged" ) != -1 )
+			if ( type.contains( "ranged" ) )
 			{
 				return "Mox: 0";
 			}
-			else if ( type.indexOf( "utensil" ) != -1 ||
-				  type.indexOf( "saucepan" ) != -1 ||
-				  type.indexOf( "chefstaff" ) != -1 )
+			else if ( type.contains( "utensil" ) ||
+                    type.contains( "saucepan" ) ||
+                    type.contains( "chefstaff" ) )
 			{
 				return "Mys: 0";
 			}
@@ -922,7 +922,7 @@ public class DebugDatabase
 		// section of the item description.
 
 		// Damage Reduction can appear in either place
-		if ( known.indexOf( "Damage Reduction" ) == -1 )
+		if ( !known.contains( "Damage Reduction" ) )
 		{
 			String dr = Modifiers.parseDamageReduction( text );
 			known = DebugDatabase.appendModifier( known, dr );

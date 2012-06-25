@@ -146,7 +146,7 @@ public class PvpManager
 				continue;
 			}
 
-			if ( Preferences.getString( "currentPvpVictories" ).indexOf( targets[ i ].getPlayerName() ) != -1 )
+			if ( Preferences.getString( "currentPvpVictories" ).contains( targets[i].getPlayerName() ) )
 			{
 				continue;
 			}
@@ -167,7 +167,7 @@ public class PvpManager
 			request.setTargetType( "0" );
 			RequestThread.postRequest( request );
 
-			if ( request.responseText.indexOf( "lost some dignity in the attempt" ) != -1 )
+			if ( request.responseText.contains( "lost some dignity in the attempt" ) )
 			{
 				KoLmafia.updateDisplay( MafiaState.ERROR, "You lost to " + targets[ i ].getPlayerName() + "." );
 			}

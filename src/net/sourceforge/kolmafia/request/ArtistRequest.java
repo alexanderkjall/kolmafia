@@ -77,13 +77,13 @@ public class ArtistRequest
 			return;
 		}
 
-		if ( location.indexOf( "place=artist" ) == -1 && location.indexOf( "action=whisker" ) == -1 )
+		if ( !location.contains( "place=artist" ) && !location.contains( "action=whisker" ) )
 		{
 			return;
 		}
 
 		String message = "You have unlocked a new tattoo.";
-		if ( responseText.indexOf( message ) != -1 )
+		if ( responseText.contains( message ) )
 		{
 			RequestLogger.printLine( message );
 			RequestLogger.updateSessionLog( message );
@@ -91,14 +91,14 @@ public class ArtistRequest
 
 		// First time accepting:
 		// Great. If I'm going to work, I'll need my paintbrush, my palette, and my paint.
-		if ( responseText.indexOf( "If I'm going to work, I'll need my paintbrush" ) != -1 )
+		if ( responseText.contains( "If I'm going to work, I'll need my paintbrush" ) )
 		{
 			QuestDatabase.setQuestProgress( Quest.ARTIST, QuestDatabase.STARTED );
 		}
 
 		// Subsequent times:
 		// You still need to find my tools! Please hurry!
-		else if ( responseText.indexOf( "still need to find my tools" ) != -1 )
+		else if ( responseText.contains( "still need to find my tools" ) )
 		{
 			QuestDatabase.setQuestProgress( Quest.ARTIST, QuestDatabase.STARTED );
 		}
@@ -107,7 +107,7 @@ public class ArtistRequest
 		// says "Oh, hey, umm, do you want this empty pail? I don't
 		// really have room for it, so if you want it, you can have it.
 
-		if ( responseText.indexOf( "do you want this empty pail" ) != -1 )
+		if ( responseText.contains( "do you want this empty pail" ) )
 		{
 			ResultProcessor.processItem( ItemPool.PRETENTIOUS_PALETTE, -1 );
 			ResultProcessor.processItem( ItemPool.PRETENTIOUS_PAINTBRUSH, -1 );
@@ -116,8 +116,8 @@ public class ArtistRequest
 			return;
 		}
 
-		if ( location.indexOf( "action=whisker" ) != -1 &&
-		     responseText.indexOf( "Thanks, Adventurer." ) != -1 )
+		if ( location.contains( "action=whisker" ) &&
+                responseText.contains( "Thanks, Adventurer." ) )
 		{
 			int count = ArtistRequest.WHISKER.getCount( KoLConstants.inventory );
 			ResultProcessor.processItem( ItemPool.RAT_WHISKER, -count );
@@ -133,12 +133,12 @@ public class ArtistRequest
 		}
 
 		String message;
-		if ( urlString.indexOf( "action=whisker" ) != -1 )
+		if ( urlString.contains( "action=whisker" ) )
 		{
 			int count = ArtistRequest.WHISKER.getCount( KoLConstants.inventory );
 			message = "Selling " + count + " rat whisker" + ( count > 1 ? "s" : "" ) + " to the pretentious artist";
 		}
-		else if ( urlString.indexOf( "place=artist" ) != -1 )
+		else if ( urlString.contains( "place=artist" ) )
 		{
 			RequestLogger.printLine( "" );
 			RequestLogger.updateSessionLog();

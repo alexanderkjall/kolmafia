@@ -403,7 +403,7 @@ public class RelayAgent
 			return true;
 		}
 
-		if ( this.path.indexOf( "?" ) != -1 )
+		if ( this.path.contains( "?" ) )
 		{
 			return false;
 		}
@@ -516,7 +516,7 @@ public class RelayAgent
 
 			if ( this.path.startsWith( "/afterlife.php" ) && this.request.responseCode == 302 )
 			{
-				if ( this.path.indexOf( "asctype=1" ) != -1 )
+				if ( this.path.contains( "asctype=1" ) )
 				{
 					KoLmafia.resetCounters();
 				}

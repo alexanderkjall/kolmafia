@@ -423,7 +423,7 @@ public class DrinkItemRequest
 
 	public static final void parseConsumption( final AdventureResult item, final AdventureResult helper, final String responseText )
 	{
-		if ( responseText.indexOf( "too drunk" ) != -1 )
+		if ( responseText.contains( "too drunk" ) )
 		{
 			UseItemRequest.lastUpdate = "Inebriety limit reached.";
 			KoLmafia.updateDisplay( MafiaState.ERROR, UseItemRequest.lastUpdate );
@@ -449,7 +449,7 @@ public class DrinkItemRequest
 				// throw the flute in front of a plastic
 				// fireplace and break it."
 
-				if ( responseText.indexOf( "a plastic fireplace" ) == -1 )
+				if ( !responseText.contains( "a plastic fireplace" ) )
 				{
 					success = false;
 				}
@@ -461,7 +461,7 @@ public class DrinkItemRequest
 				// <drink> and discard the no-longer-frosty
 				// mug."
 
-				if ( responseText.indexOf( "discard the no-longer-frosty" ) == -1 )
+				if ( !responseText.contains( "discard the no-longer-frosty" ) )
 				{
 					success = false;
 				}
@@ -507,7 +507,7 @@ public class DrinkItemRequest
 		switch ( item.getItemId() )
 		{
 		case ItemPool.STEEL_LIVER:
-			if ( responseText.indexOf( "You acquire a skill" ) != -1 )
+			if ( responseText.contains( "You acquire a skill" ) )
 			{
 				ResponseTextParser.learnSkill( "Liver of Steel" );
 			}

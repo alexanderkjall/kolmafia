@@ -424,7 +424,7 @@ public abstract class ChatManager
 
 		String content = message.getContent();
 
-		if ( content.indexOf( " has " ) != -1 )
+		if ( content.contains( " has " ) )
 		{
 			switch ( KoLmafia.displayState )
 			{

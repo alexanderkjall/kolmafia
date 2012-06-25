@@ -171,7 +171,7 @@ public class SpleenItemRequest
 
 	public static final void parseConsumption( final AdventureResult item, final AdventureResult helper, final String responseText )
 	{
-		if ( responseText.indexOf( "That item isn't usable in quantity" ) != -1 )
+		if ( responseText.contains( "That item isn't usable in quantity" ) )
 		{
 			KoLmafia.updateDisplay( MafiaState.ERROR, "Internal data error: item incorrectly flagged as multi-usable." );
 			return;
@@ -181,7 +181,7 @@ public class SpleenItemRequest
 		int count = item.getCount();
 		int spleenUse = spleenHit * count;
 
-		if ( responseText.indexOf( "rupture" ) != -1 )
+		if ( responseText.contains( "rupture" ) )
 		{
 			UseItemRequest.lastUpdate = "Your spleen might go kablooie.";
 			KoLmafia.updateDisplay( MafiaState.ERROR, UseItemRequest.lastUpdate );
@@ -225,7 +225,7 @@ public class SpleenItemRequest
 		switch ( item.getItemId() )
 		{
 		case ItemPool.STEEL_SPLEEN:
-			if ( responseText.indexOf( "You acquire a skill" ) != -1 )
+			if ( responseText.contains( "You acquire a skill" ) )
 			{
 				ResponseTextParser.learnSkill( "Spleen of Steel" );
 			}

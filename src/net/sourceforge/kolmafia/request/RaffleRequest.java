@@ -122,7 +122,7 @@ public class RaffleRequest
 			return true;
 		}
 
-		if ( responseText.indexOf( "You cannot afford" ) != -1 )
+		if ( responseText.contains( "You cannot afford" ) )
 		{
 			return false;
 		}

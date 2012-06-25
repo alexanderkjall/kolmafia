@@ -135,7 +135,7 @@ public class LootHunterMenuItem
 			if ( bounties.isEmpty() )
 			{
 				int bounty = Preferences.getInteger( "currentBountyItem" );
-				if ( hunterRequest.responseText.indexOf( "already turned in a Bounty today" ) != -1 )
+				if ( hunterRequest.responseText.contains( "already turned in a Bounty today" ) )
 				{
 					KoLmafia.updateDisplay( MafiaState.ERROR, "You've already turned in a bounty today." );
 					return;

@@ -222,13 +222,13 @@ public abstract class WumpusManager
 			return;
 		}
 
-		if ( text.indexOf( "Wait for the bats to drop you" ) != -1 )
+		if ( text.contains( "Wait for the bats to drop you" ) )
 		{
 			WumpusManager.knownBats( room, VISIT );
 			return;
 		}
 
-		if ( text.indexOf( "Thump" ) != -1 )
+		if ( text.contains( "Thump" ) )
 		{
 			WumpusManager.knownPit( room, VISIT );
 			return;
@@ -265,15 +265,15 @@ public abstract class WumpusManager
 		// in the current room.
 
 		int warn = WARN_INDEFINITE;
-		if ( text.indexOf( "squeaking coming from somewhere nearby" ) != -1 )
+		if ( text.contains( "squeaking coming from somewhere nearby" ) )
 		{
 			warn |= WARN_BATS;
 		}
-		if ( text.indexOf( "hear a low roaring sound nearby" ) != -1 )
+		if ( text.contains( "hear a low roaring sound nearby" ) )
 		{
 			warn |= WARN_PIT;
 		}
-		if ( text.indexOf( "the Wumpus must be nearby" ) != -1 )
+		if ( text.contains( "the Wumpus must be nearby" ) )
 		{
 			warn |= WARN_WUMPUS;
 		}
@@ -668,7 +668,7 @@ public abstract class WumpusManager
 		}
 
 		// Unfortunately, the wumpus was nowhere to be seen.
-		if ( text.indexOf( "wumpus was nowhere to be seen" ) != -1  )
+		if ( text.contains( "wumpus was nowhere to be seen" ) )
 		{
 			WumpusManager.last = WumpusManager.current;
 			WumpusManager.eliminateHazard( room, WARN_WUMPUS );
@@ -681,8 +681,8 @@ public abstract class WumpusManager
 		// Now that you have successfully snuck up and surprised the
 		// wumpus, it doesn't seem to really know how to react.
 
-		if ( text.indexOf( "unexpectedly, a wumpus" ) != -1 ||
-		     text.indexOf( "surprised the wumpus" ) != -1 )
+		if ( text.contains( "unexpectedly, a wumpus" ) ||
+                text.contains( "surprised the wumpus" ) )
 		{
 			WumpusManager.last = WumpusManager.current;
 			WumpusManager.knownWumpus( room, VISIT );

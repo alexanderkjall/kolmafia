@@ -432,14 +432,14 @@ public class RelayRequest
 		this.headers.add( "Date: " + new Date() );
 		this.headers.add( "Server: " + KoLConstants.VERSION_NAME );
 
-		if ( status.indexOf( "302" ) != -1 )
+		if ( status.contains( "302" ) )
 		{
 			this.headers.add( "Location: " + responseText );
 
 			this.responseCode = 302;
 			this.responseText = "";
 		}
-		else if ( status.indexOf( "200" ) != -1 )
+		else if ( status.contains( "200" ) )
 		{
 			this.responseCode = 200;
 
@@ -905,7 +905,7 @@ public class RelayRequest
 		// Proceed with familiar
 		warning.append( "<td align=center valign=center><div id=\"lucky\" style=\"padding: 4px 4px 4px 4px\"><a style=\"text-decoration: none\" href=\"" );
 		warning.append( url );
-		warning.append( url.indexOf( "?" ) == -1 ? "?" : "&" );
+		warning.append( !url.contains( "?" ) ? "?" : "&" );
 		warning.append( CONFIRM_FAMILIAR );
 		warning.append( "=on\"><img src=\"/images/");
 
@@ -1231,7 +1231,7 @@ public class RelayRequest
 			{
 				warning.append( "<a href=\"" );
 				warning.append( url );
-				warning.append( url.indexOf( "?" ) == -1 ? "?" : "&" );
+				warning.append( !url.contains( "?" ) ? "?" : "&" );
 				warning.append( confirm );
 				warning.append( "=on" );
 				if ( extra != null )
@@ -1295,7 +1295,7 @@ public class RelayRequest
 		// Proceed with clover
 		warning.append( "<td align=center valign=center><div id=\"lucky\" style=\"padding: 4px 4px 4px 4px\"><a style=\"text-decoration: none\" href=\"" );
 		warning.append( url );
-		warning.append( url.indexOf( "?" ) == -1 ? "?" : "&" );
+		warning.append( !url.contains( "?" ) ? "?" : "&" );
 		warning.append( CONFIRM_CLOVER );
 		warning.append( "=on\"><img src=\"/images/itemimages/clover.gif\" width=30 height=30 border=0>" );
 		warning.append( "</a></div></td>" );
@@ -1554,7 +1554,7 @@ public class RelayRequest
 	private void handleChat()
 	{
 		String chatText;
-		boolean tabbedChat = this.getPath().indexOf( "j=1" ) > -1;
+		boolean tabbedChat = this.getPath().contains( "j=1" );
 
 		if ( this.getPath().startsWith( "newchatmessages.php" ) && !tabbedChat )
 		{
@@ -1723,7 +1723,7 @@ public class RelayRequest
 
 			if ( mainpane != null )
 			{
-				if ( mainpane.indexOf( ".php" ) == -1 )
+				if ( !mainpane.contains( ".php" ) )
 				{
 					mainpane = mainpane + ".php";
 				}

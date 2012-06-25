@@ -489,7 +489,7 @@ public class FightRequest
 		// <input type=hidden name=action value="summon">
 
 		String responseText = FightRequest.lastResponseText;
-		return responseText.indexOf( "<input type=hidden name=action value=\"summon\">" ) != -1;
+		return responseText.contains( "<input type=hidden name=action value=\"summon\">" );
 	}
 
 	public static final boolean wonInitiative()
@@ -501,11 +501,11 @@ public class FightRequest
 	public static final boolean wonInitiative( String text )
 	{
 		// Regular encounter
-		if ( text.indexOf( "You get the jump" ) != -1 )
+		if ( text.contains( "You get the jump" ) )
 			return true;
 
 		// Can Has Cyborger
-		if ( text.indexOf( "The Jump: " ) != -1 )
+		if ( text.contains( "The Jump: " ) )
 			return true;
 
 		// Blavious Kloop
@@ -513,19 +513,19 @@ public class FightRequest
 		// You leap into combat, as quick as a wink,
 		// attacking the monster before he can blink!
 
-		if ( text.indexOf( "as quick as a wink" ) != -1 )
+		if ( text.contains( "as quick as a wink" ) )
 			return true;
 
 		// Who got the jump? Oh please, who, tell me, who?
 		// It wasn't your foe, so it must have been you!
 
-		if ( text.indexOf( "It wasn't your foe, so it must have been you" ) != -1 )
+		if ( text.contains( "It wasn't your foe, so it must have been you" ) )
 			return true;
 
 		// Your foe is so slow! So slow is your foe!
 		// Much slower than you, who are ready to go!
 
-		if ( text.indexOf( "Your foe is so slow" ) != -1 )
+		if ( text.contains( "Your foe is so slow" ) )
 			return true;
 
 		// Haiku dungeon
@@ -534,21 +534,21 @@ public class FightRequest
 		//    you're already attacking.
 		//    You're sneaky like that.
 
-		if ( text.indexOf( "You're sneaky like that." ) != -1 )
+		if ( text.contains( "You're sneaky like that." ) )
 			return true;
 
 		//    You leap at your foe,
 		//    throwing caution to the wind,
 		//    and get the first strike.
 
-		if ( text.indexOf( "and get the first strike." ) != -1 )
+		if ( text.contains( "and get the first strike." ) )
 			return true;
 
 		//    You jump at your foe
 		//    and strike before he's ready.
 		//    Nice and sportsmanlike.
 
-		if ( text.indexOf( "Nice and sportsmanlike." ) != -1 )
+		if ( text.contains( "Nice and sportsmanlike." ) )
 			return true;
 
 		return false;
@@ -577,7 +577,7 @@ public class FightRequest
 				FightRequest.ireallymeanit = null;
 			}
 
-			if ( macro != null && macro.length() > 0 && ( macro.indexOf( "\n" ) != -1 || macro.indexOf( ";" ) != -1 ) )
+			if ( macro != null && macro.length() > 0 && (macro.contains( "\n" ) || macro.contains( ";" )) )
 			{
 				this.handleMacroAction( macro );
 			}
@@ -589,7 +589,7 @@ public class FightRequest
 
 		for ( int i = 0; i < FightRequest.RARE_MONSTERS.length; ++i )
 		{
-			if ( MonsterStatusTracker.getLastMonsterName().indexOf( FightRequest.RARE_MONSTERS[ i ] ) != -1 )
+			if ( MonsterStatusTracker.getLastMonsterName().contains( FightRequest.RARE_MONSTERS[i] ) )
 			{
 				KoLmafia.updateDisplay( MafiaState.ABORT, "You have encountered the " + this.encounter );
 				FightRequest.nextAction = "abort";
@@ -628,7 +628,7 @@ public class FightRequest
 
 			if ( macro != null && macro.length() > 0 )
 			{
-				if ( macro.indexOf( "\n" ) != -1 || macro.indexOf( ";" ) != -1 )
+				if ( macro.contains( "\n" ) || macro.contains( ";" ) )
 				{
 					this.handleMacroAction( macro );
 					return;
@@ -745,7 +745,7 @@ public class FightRequest
 		// In case the player continues the script from the relay browser,
 		// insert a jump to the next restart point.
 
-		if ( macro.indexOf( "#mafiarestart" ) != -1 )
+		if ( macro.contains( "#mafiarestart" ) )
 		{
 			String label = "mafiaskip" + macro.length();
 
@@ -807,7 +807,7 @@ public class FightRequest
 		}
 
 		// User wants to run away
-		if ( FightRequest.nextAction.indexOf( "run" ) != -1 && FightRequest.nextAction.indexOf( "away" ) != -1 )
+		if ( FightRequest.nextAction.contains( "run" ) && FightRequest.nextAction.contains( "away" ) )
 		{
 			Matcher runAwayMatcher = CombatActionManager.TRY_TO_RUN_AWAY_PATTERN.matcher( FightRequest.nextAction );
 
@@ -860,8 +860,8 @@ public class FightRequest
 
 		// Actually steal if the action says to steal
 
-		if ( FightRequest.nextAction.indexOf( "steal" ) != -1 &&
-		     FightRequest.nextAction.indexOf( "stealth" ) == -1 )
+		if ( FightRequest.nextAction.contains( "steal" ) &&
+                !FightRequest.nextAction.contains( "stealth" ) )
 		{
 			if ( FightRequest.canStillSteal() && MonsterStatusTracker.shouldSteal() )
 			{
@@ -1661,7 +1661,7 @@ public class FightRequest
 		// Same applies for autoattack macros, we detect their action elsewhere.
 
 		if ( autoAttackAction == 0 || String.valueOf( autoAttackAction ).startsWith( "99" ) ||
-			responseText.indexOf( "<!-- macroaction:" ) != -1 )
+                responseText.contains( "<!-- macroaction:" ) )
 		{
 			return false;
 		}
@@ -1714,17 +1714,17 @@ public class FightRequest
 
 			FightRequest.haveFought = true;
 
-			if ( responseText.indexOf( "There is a blinding flash of light, and a chorus of heavenly voices rises in counterpoint to the ominous organ music." ) != -1 )
+			if ( responseText.contains( "There is a blinding flash of light, and a chorus of heavenly voices rises in counterpoint to the ominous organ music." ) )
 			{
 				FightRequest.transmogrifyNemesisWeapon( false );
 			}
 
-			if ( responseText.indexOf( "stomps in place restlessly" ) != -1 )
+			if ( responseText.contains( "stomps in place restlessly" ) )
 			{
 				FightRequest.canStomp = true;
 			}
 
-			if ( responseText.indexOf( "hear a wolf whistle" ) != -1)
+			if ( responseText.contains( "hear a wolf whistle" ) )
 			{
 				KoLmafia.ignoreSpecialMonsters();
 				Preferences.increment( "_romanticFightsLeft", -1 );
@@ -1888,10 +1888,10 @@ public class FightRequest
 		// Perform other processing for the final round
 		FightRequest.updateRoundData( macroMatcher );
 
-		if ( responseText.indexOf( "Macro Abort" ) != -1 ||
-		     responseText.indexOf( "Macro abort" ) != -1 ||
-		     responseText.indexOf( "macro abort" ) != -1 ||
-		     responseText.indexOf( "Could not match item(s) for use" ) != -1 )
+		if ( responseText.contains( "Macro Abort" ) ||
+                responseText.contains( "Macro abort" ) ||
+                responseText.contains( "macro abort" ) ||
+                responseText.contains( "Could not match item(s) for use" ) )
 		{
 			FightRequest.nextAction = "abort";
 		}
@@ -1930,25 +1930,25 @@ public class FightRequest
 
 		// Check for equipment breakage.
 
-		if ( responseText.indexOf( "Your antique helmet, weakened" ) != -1 )
+		if ( responseText.contains( "Your antique helmet, weakened" ) )
 		{
 			EquipmentManager.breakEquipment( ItemPool.ANTIQUE_HELMET,
 				"Your antique helmet broke." );
 		}
 
-		if ( responseText.indexOf( "sunders your antique spear" ) != -1 )
+		if ( responseText.contains( "sunders your antique spear" ) )
 		{
 			EquipmentManager.breakEquipment( ItemPool.ANTIQUE_SPEAR,
 				"Your antique spear broke." );
 		}
 
-		if ( responseText.indexOf( "Your antique shield, weakened" ) != -1 )
+		if ( responseText.contains( "Your antique shield, weakened" ) )
 		{
 			EquipmentManager.breakEquipment( ItemPool.ANTIQUE_SHIELD,
 				"Your antique shield broke." );
 		}
 
-		if ( responseText.indexOf( "Your antique greaves, weakened" ) != -1 )
+		if ( responseText.contains( "Your antique greaves, weakened" ) )
 		{
 			EquipmentManager.breakEquipment( ItemPool.ANTIQUE_GREAVES,
 				"Your antique greaves broke." );
@@ -1959,14 +1959,14 @@ public class FightRequest
 		// hundred years, you chuck the useless hunk of plastic as far
 		// from you as you can.
 
-		if ( responseText.indexOf( "You try to unlock your cyber-mattock" ) != -1 )
+		if ( responseText.contains( "You try to unlock your cyber-mattock" ) )
 		{
 			EquipmentManager.breakEquipment( ItemPool.CYBER_MATTOCK,
 				"Your cyber-mattock broke." );
 		}
 
 		// "You sigh and discard the belt in a nearby trash can."
-		if ( responseText.indexOf( "You sigh and discard the belt" ) != -1 )
+		if ( responseText.contains( "You sigh and discard the belt" ) )
 		{
 			EquipmentManager.breakEquipment( ItemPool.CHEAP_STUDDED_BELT,
 				"Your cheap studded belt broke." );
@@ -1975,49 +1975,49 @@ public class FightRequest
 		// "The adhesive on the fake piercing comes loose and it falls
 		// off. Looks like those things weren't meant to withstand as
 		// much sweat as your eyebrow is capable of producing."
-		if ( responseText.indexOf( "The adhesive on the fake piercing comes loose" ) != -1 )
+		if ( responseText.contains( "The adhesive on the fake piercing comes loose" ) )
 		{
 			EquipmentManager.breakEquipment( ItemPool.STICK_ON_EYEBROW_PIERCING,
 				"Your stick-on eyebrow piercing broke." );
 		}
 
-		if ( responseText.indexOf( "Your sugar chapeau slides" ) != -1 )
+		if ( responseText.contains( "Your sugar chapeau slides" ) )
 		{
 			EquipmentManager.breakEquipment( ItemPool.SUGAR_CHAPEAU,
 				"Your sugar chapeau shattered." );
 		}
 
-		if ( responseText.indexOf( "your sugar shank handle" ) != -1 )
+		if ( responseText.contains( "your sugar shank handle" ) )
 		{
 			EquipmentManager.breakEquipment( ItemPool.SUGAR_SHANK,
 				"Your sugar shank shattered." );
 		}
 
-		if ( responseText.indexOf( "drop something as sticky as the sugar shield" ) != -1 )
+		if ( responseText.contains( "drop something as sticky as the sugar shield" ) )
 		{
 			EquipmentManager.breakEquipment( ItemPool.SUGAR_SHIELD,
 				"Your sugar shield shattered." );
 		}
 
-		if ( responseText.indexOf( "Your sugar shillelagh absorbs the shock" ) != -1 )
+		if ( responseText.contains( "Your sugar shillelagh absorbs the shock" ) )
 		{
 			EquipmentManager.breakEquipment( ItemPool.SUGAR_SHILLELAGH,
 				"Your sugar shillelagh shattered." );
 		}
 
-		if ( responseText.indexOf( "Your sugar shirt falls apart" ) != -1 )
+		if ( responseText.contains( "Your sugar shirt falls apart" ) )
 		{
 			EquipmentManager.breakEquipment( ItemPool.SUGAR_SHIRT,
 				"Your sugar shirt shattered." );
 		}
 
-		if ( responseText.indexOf( "Your sugar shotgun falls apart" ) != -1 )
+		if ( responseText.contains( "Your sugar shotgun falls apart" ) )
 		{
 			EquipmentManager.breakEquipment( ItemPool.SUGAR_SHOTGUN,
 				"Your sugar shotgun shattered." );
 		}
 
-		if ( responseText.indexOf( "Your sugar shorts crack" ) != -1 )
+		if ( responseText.contains( "Your sugar shorts crack" ) )
 		{
 			EquipmentManager.breakEquipment( ItemPool.SUGAR_SHORTS,
 				"Your sugar shorts shattered." );
@@ -2040,14 +2040,14 @@ public class FightRequest
 			}
 		}
 
-		if ( responseText.indexOf( "Axel screams, and lets go of your hand" ) != -1 )
+		if ( responseText.contains( "Axel screams, and lets go of your hand" ) )
 		{
 			EquipmentManager.discardEquipment( ItemPool.SPOOKY_LITTLE_GIRL );
 			KoLmafia.updateDisplay( MafiaState.PENDING, "Your Spooky little girl ran off." );
 		}
 
 		// "[slimeling] leaps on your opponent, sliming it for XX damage.  It's inspiring!"
-		if ( responseText.indexOf( "leaps on your opponent" ) != -1 )
+		if ( responseText.contains( "leaps on your opponent" ) )
 		{
 			float fullness = Math.max( Preferences.getFloat( "slimelingFullness" ) - 1.0F, 0.0F );
 			Preferences.setFloat("slimelingFullness", fullness );
@@ -2056,7 +2056,7 @@ public class FightRequest
 		// "As you're trying to get away, you sink in the silty muck on
 		// the sea floor. You manage to get yourself unmired, but your
 		// greaves seem to have gotten instantly rusty in the process..."
-		if ( responseText.indexOf( "have gotten instantly rusty" ) != -1 )
+		if ( responseText.contains( "have gotten instantly rusty" ) )
 		{
 			EquipmentManager.discardEquipment( ItemPool.ANTIQUE_GREAVES );
 			KoLmafia.updateDisplay( MafiaState.PENDING, "Your antique greaves got rusted." );
@@ -2064,33 +2064,33 @@ public class FightRequest
 
 		// Check for familiar actions
 
-		if ( responseText.indexOf( "shimmers briefly, and you feel it getting earlier." ) != -1 )
+		if ( responseText.contains( "shimmers briefly, and you feel it getting earlier." ) )
 		{
 			Preferences.increment( "_riftletAdv", 1 );
 		}
 
-		if ( responseText.indexOf( "sees that you're about to get attacked and trips it before it can attack you." ) != -1
-			|| responseText.indexOf( "does the Time Warp, then does the Time Warp again. Clearly, madness has taken its toll on him." ) != -1
-			|| responseText.indexOf( "The air shimmers around you." ) != -1 )
+		if ( responseText.contains( "sees that you're about to get attacked and trips it before it can attack you." )
+			|| responseText.contains( "does the Time Warp, then does the Time Warp again. Clearly, madness has taken its toll on him." )
+			|| responseText.contains( "The air shimmers around you." ) )
 		{
 			Preferences.increment( "_timeHelmetAdv", 1 );
 		}
 
-		if ( responseText.indexOf( "into last week. It saves you some time, because you already beat" ) != -1 )
+		if ( responseText.contains( "into last week. It saves you some time, because you already beat" ) )
 		{
 			Preferences.increment( "_vmaskAdv", 1 );
 		}
 
-		if ( responseText.indexOf( "stomps your opponent into paste" ) != -1
-			|| responseText.indexOf( "stomps your opponents into paste" ) != -1
-			|| responseText.indexOf( "shuffles its heels, gets a running start, then leaps on" ) != -1 )
+		if ( responseText.contains( "stomps your opponent into paste" )
+			|| responseText.contains( "stomps your opponents into paste" )
+			|| responseText.contains( "shuffles its heels, gets a running start, then leaps on" ) )
 		{
 			Preferences.setBoolean( "bootsCharged", false );
 		}
 		// <name> rubs its soles together, then stomps in place
 		// restlessly. Clearly, the violence it's done so far is
 		// only making it ache for some quality stomping.
-		if ( responseText.indexOf( "making it ache for some quality stomping" ) != -1 )
+		if ( responseText.contains( "making it ache for some quality stomping" ) )
 		{
 			Preferences.setBoolean( "bootsCharged", true );
 		}
@@ -2133,7 +2133,7 @@ public class FightRequest
 			return;
 		}
 
-		boolean won = responseText.indexOf( "<!--WINWINWIN-->" ) != -1;
+		boolean won = responseText.contains( "<!--WINWINWIN-->" );
 
 		if ( won )
 		{
@@ -2147,9 +2147,9 @@ public class FightRequest
 		// fight is continuing
 
 		if ( !won &&
-			responseText.indexOf( Preferences.getBoolean( "serverAddsCustomCombat" ) ?
-				"(show old combat form)" :
-				"fight.php" ) != -1 )
+                responseText.contains( Preferences.getBoolean( "serverAddsCustomCombat" ) ?
+                        "(show old combat form)" :
+                        "fight.php" ) )
 		{
 			return;
 		}
@@ -2157,7 +2157,7 @@ public class FightRequest
 		// The turtle blinks at you with gratitude for freeing it from
 		// its brainwashing, and trudges off over the horizon.
 		// ...Eventually.
-		if ( responseText.indexOf( "freeing it from its brainwashing" ) != -1 )
+		if ( responseText.contains( "freeing it from its brainwashing" ) )
 		{
 			int free = Preferences.increment( "guardTurtlesFreed" );
 			String message = "Freed guard turtle #" + free;
@@ -2165,7 +2165,7 @@ public class FightRequest
 			RequestLogger.updateSessionLog( message );
 		}
 
-		if ( responseText.indexOf( "your Epic Weapon reverts to its original form in a puff of failure" ) != -1 )
+		if ( responseText.contains( "your Epic Weapon reverts to its original form in a puff of failure" ) )
 		{
 			FightRequest.transmogrifyNemesisWeapon( true );
 		}
@@ -2179,28 +2179,28 @@ public class FightRequest
 			AdventureResult bountyItem = ItemPool.get( bountyItemId, 1 );
 			String bountyItemName = bountyItem.getName();
 
-			if ( responseText.indexOf( bountyItemName ) == -1 && !problemFamiliar() )
+			if ( !responseText.contains( bountyItemName ) && !problemFamiliar() )
 			{
 				KoLmafia.updateDisplay( MafiaState.PENDING, "Bounty item failed to drop from expected monster." );
 			}
 		}
 
 		// Check for GMoB defeat
-		if ( responseText.indexOf( "guy made of bee pollen" ) != -1 )
+		if ( responseText.contains( "guy made of bee pollen" ) )
 		{
 			// Record that we beat the guy made of bees.
 			Preferences.setBoolean( "guyMadeOfBeesDefeated", true );
 		}
 
 		// Check for runaways. Only a free runaway decreases chance
-		if ( responseText.indexOf( "shimmers as you quickly float away" ) != -1 ||
-		     responseText.indexOf( "your pants suddenly activate" ) != -1 )
+		if ( responseText.contains( "shimmers as you quickly float away" ) ||
+                responseText.contains( "your pants suddenly activate" ) )
 		{
 			Preferences.increment( "_navelRunaways", 1 );
 		}
 
-		if ( responseText.indexOf( "his back, and flooms away" ) != -1 ||
-			 responseText.indexOf( "speed your escape.  Thanks" ) != -1 )
+		if ( responseText.contains( "his back, and flooms away" ) ||
+                responseText.contains( "speed your escape.  Thanks" ) )
 		{
 			Preferences.increment( "_banderRunaways", 1 );
 		}
@@ -2231,14 +2231,14 @@ public class FightRequest
 		}
 
 		// Increment Organ Grinder combat counter
-		if ( responseText.indexOf( "picking a few choice bits to put in his grinder" ) != -1 ||
-		     responseText.indexOf( "picks some organs out of your opponent and tosses them into his grinder." ) != -1 ||
-		     responseText.indexOf( "squealing something about burning his Longers and Lingers." ) != -1 ||
-		     responseText.indexOf( "chattering about how the upper story on his Gregory is standing up." ) != -1 ||
-		     responseText.indexOf( "My Hampton has a funny feeling about this one, mate" ) != -1 ||
-		     responseText.indexOf( "shivers as he rummages for grindable organs" ) != -1 ||
-		     responseText.indexOf( "squelches around in its body for some grinder fodder" ) != -1 ||
-		     responseText.indexOf( "and harvests a few choice bits for his grinder." ) != -1 )
+		if ( responseText.contains( "picking a few choice bits to put in his grinder" ) ||
+                responseText.contains( "picks some organs out of your opponent and tosses them into his grinder." ) ||
+                responseText.contains( "squealing something about burning his Longers and Lingers." ) ||
+                responseText.contains( "chattering about how the upper story on his Gregory is standing up." ) ||
+                responseText.contains( "My Hampton has a funny feeling about this one, mate" ) ||
+                responseText.contains( "shivers as he rummages for grindable organs" ) ||
+                responseText.contains( "squelches around in its body for some grinder fodder" ) ||
+                responseText.contains( "and harvests a few choice bits for his grinder." ) )
 		{
 			Preferences.increment( "_piePartsCount", 1 );
 		}
@@ -2274,7 +2274,7 @@ public class FightRequest
 			// <name> pulls an oversized pocketwatch out of his
 			// waistcoat and winds it. "Two days slow, that's what
 			// it is," he says.
-			if ( responseText.indexOf( "oversized pocketwatch" ) != -1 )
+			if ( responseText.contains( "oversized pocketwatch" ) )
 			{
 				Preferences.increment( "extraRolloverAdventures", 1 );
 				Preferences.increment( "_hareAdv", 1 );
@@ -2289,7 +2289,7 @@ public class FightRequest
 		case FamiliarPool.GIBBERER:
 			// <name> mutters dark secrets under his breath, and
 			// you feel time slow down.
-			if ( responseText.indexOf( "you feel time slow down" ) != -1 )
+			if ( responseText.contains( "you feel time slow down" ) )
 			{
 				Preferences.increment( "extraRolloverAdventures", 1 );
 				Preferences.increment( "_gibbererAdv", 1 );
@@ -2299,7 +2299,7 @@ public class FightRequest
 		case FamiliarPool.STOCKING_MIMIC:
 			// <name> reaches deep inside himself and pulls out a
 			// big bag of candy. Cool!
-			if ( responseText.indexOf( "pulls out a big bag of candy" ) != -1 )
+			if ( responseText.contains( "pulls out a big bag of candy" ) )
 			{
 				AdventureResult item = ItemPool.get( ItemPool.BAG_OF_MANY_CONFECTIONS, 1 );
 				// The Stocking Mimic will do this once a day
@@ -2311,7 +2311,7 @@ public class FightRequest
 			}
 
 			// <name> gorges himself on candy from his bag.
-			if ( responseText.indexOf( "gorges himself on candy from his bag" ) != -1 )
+			if ( responseText.contains( "gorges himself on candy from his bag" ) )
 			{
 				familiar.addNonCombatExperience( 1 );
 			}
@@ -2320,7 +2320,7 @@ public class FightRequest
 		case FamiliarPool.HIPSTER:
 			//  The words POWER UP appear above <name>'s head as he
 			//  instantly grows a stupid-looking moustache.
-			if ( responseText.indexOf( "instantly grows a stupid-looking moustache" ) != -1 )
+			if ( responseText.contains( "instantly grows a stupid-looking moustache" ) )
 			{
 				AdventureResult item = ItemPool.get( ItemPool.IRONIC_MOUSTACHE, 1 );
 				// The Mini-Hipster will do this once a day
@@ -2341,7 +2341,7 @@ public class FightRequest
 		}
 
 		if ( KoLCharacter.hasEquipped( ItemPool.get( ItemPool.HATSEAT, 1 ) ) &&
-			responseText.indexOf( "gains 1 Experience" ) != -1 )
+                responseText.contains( "gains 1 Experience" ) )
 		{
 			KoLCharacter.getEnthroned().addNonCombatExperience( 1 );
 		}
@@ -2378,11 +2378,11 @@ public class FightRequest
 				// "Well," you say, "it would really help the war effort if
 				// your convent could serve as a hospital for our wounded
 				// troops."
-				if ( responseText.indexOf( "could serve as a hospital" ) != -1 )
+				if ( responseText.contains( "could serve as a hospital" ) )
 				{
 					Preferences.setString( "sidequestNunsCompleted", "hippy" );
 				}
-				else if ( responseText.indexOf( "could serve as a massage parlor" ) != -1 )
+				else if ( responseText.contains( "could serve as a massage parlor" ) )
 				{
 					Preferences.setString( "sidequestNunsCompleted", "fratboy" );
 				}
@@ -2420,7 +2420,7 @@ public class FightRequest
 		// kinky. Unfortunately, it looks like the batteries in the
 		// thing were only good for that one use."
 
-		if ( responseText.indexOf( "You pull out your personal massager" ) != -1 )
+		if ( responseText.contains( "You pull out your personal massager" ) )
 		{
 			ResultProcessor.processItem( ItemPool.PERSONAL_MASSAGER, -1 );
 			KoLConstants.activeEffects.remove( KoLAdventure.BEATEN_UP );
@@ -2547,7 +2547,7 @@ public class FightRequest
 
 		if ( isMonster )
 		{
-			rv = MonsterStatusTracker.getLastMonsterName().indexOf( pref ) != -1;
+			rv = MonsterStatusTracker.getLastMonsterName().contains( pref );
 		}
 		else
 		{
@@ -2596,7 +2596,7 @@ public class FightRequest
 
 			for ( int i = 0; i < strings.length; ++i )
 			{
-				if ( effectText.indexOf( strings[i][1] ) != -1 )
+				if ( effectText.contains( strings[i][1] ) )
 				{
 					if ( ItemPool.eliminationProcessor( strings, i,
 						potionId,
@@ -2637,7 +2637,7 @@ public class FightRequest
 
 			for ( int i = 0; i < strings.length; ++i )
 			{
-				if ( effectText.indexOf( strings[i][1] ) != -1 )
+				if ( effectText.contains( strings[i][1] ) )
 				{
 					FightRequest.identifyStoneSphere( i, sphereId );
 					break;
@@ -2748,7 +2748,7 @@ public class FightRequest
 			// <option value="7074" picurl="nopic" selected>Consume
 			// Burrowgrub (0 Mojo Points)</option>
 
-			if ( responseText.indexOf( "option value=\"7074\"" ) == -1 )
+			if ( !responseText.contains( "option value=\"7074\"" ) )
 			{
 				// We can't actually conclude anything from the lack of an
 				// option to consume another one - it's possible that the
@@ -2775,7 +2775,7 @@ public class FightRequest
 
 		// You slap a flyer up on your opponent. It enrages it.
 
-		if ( responseText.indexOf( "You slap a flyer" ) != -1 )
+		if ( responseText.contains( "You slap a flyer" ) )
 		{
 			int ML = Math.max( 0, MonsterStatusTracker.getMonsterBaseAttack() );
 			Preferences.increment( "flyeredML", ML );
@@ -2834,13 +2834,13 @@ public class FightRequest
 		int limit = KoLCharacter.hasEquipped( ItemPool.get( ItemPool.SPAGHETTI_BANDOLIER, 1 ) ) ? 15 : 10;
 
 		// You are mentally exhausted by the effort of summoning <name>.
-		if ( responseText.indexOf( "You are mentally exhausted" ) != -1 )
+		if ( responseText.contains( "You are mentally exhausted" ) )
 		{
 			uses = limit;
 		}
 
 		// Your brain feels tired.
-		else if ( responseText.indexOf( "Your brain feels tired" ) != -1 && uses < limit - 2 )
+		else if ( responseText.contains( "Your brain feels tired" ) && uses < limit - 2 )
 		{
 			uses = limit - 2;
 		}
@@ -3164,7 +3164,7 @@ public class FightRequest
 
 	private static final int parseHaikuDamage( final String text )
 	{
-		if ( text.indexOf( "damage" ) == -1 && text.indexOf( "from you to your foe" ) == -1 )
+		if ( !text.contains( "damage" ) && !text.contains( "from you to your foe" ) )
 		{
 			return 0;
 		}
@@ -3280,9 +3280,9 @@ public class FightRequest
 			// <b><font color=black>XXX</font></b> hit points better -
 			// than you were before.
 
-			if ( haiku.indexOf( "Your wounds fly away" ) != -1 ||
-				 haiku.indexOf( "restored to your body" ) != -1 ||
-				 haiku.indexOf( "You're feeling better" ) != -1 )
+			if ( haiku.contains( "Your wounds fly away" ) ||
+                    haiku.contains( "restored to your body" ) ||
+                    haiku.contains( "You're feeling better" ) )
 			{
 				gain = "gain";
 			}
@@ -3322,12 +3322,12 @@ public class FightRequest
 			// Like that sports drink commercial --
 			// is it in you?  Yes.
 
-			if ( haiku.indexOf( "You feel quite refreshed" ) != -1 ||
-				 haiku.indexOf( "A contented belch" ) != -1 ||
-				 haiku.indexOf( "ENERGIZED" ) != -1 ||
-				 haiku.indexOf( "Mana from heaven" ) != -1 ||
-				 haiku.indexOf( "Spring rain falls within" ) != -1 ||
-				 haiku.indexOf( "sports drink" ) != -1 )
+			if ( haiku.contains( "You feel quite refreshed" ) ||
+                    haiku.contains( "A contented belch" ) ||
+                    haiku.contains( "ENERGIZED" ) ||
+                    haiku.contains( "Mana from heaven" ) ||
+                    haiku.contains( "Spring rain falls within" ) ||
+                    haiku.contains( "sports drink" ) )
 			{
 				gain = "gain";
 			}
@@ -3358,7 +3358,7 @@ public class FightRequest
 			return;
 		}
 
-		if ( haiku.indexOf( "damage" ) != -1 )
+		if ( haiku.contains( "damage" ) )
 		{
 			// Using a combat item
 			int damage = StringUtilities.parseInt( points );
@@ -3496,13 +3496,13 @@ public class FightRequest
 			// You heal a few damage -- not much, I'll admit,
 			// but the hitpoints you've added will help you a bit.
 
-			if ( verse.indexOf( "You heal" ) != -1 ||
-			     verse.indexOf( "you heal" ) != -1 ||
-			     verse.indexOf( "feel a lot better" ) != -1 ||
-			     verse.indexOf( "added onto your score" ) != -1 ||
-			     verse.indexOf( "regenerate" ) != -1 ||
-			     verse.indexOf( "more hit points" ) != -1||
-			     verse.indexOf( "help clear up the lumps" ) != -1 )
+			if ( verse.contains( "You heal" ) ||
+                    verse.contains( "you heal" ) ||
+                    verse.contains( "feel a lot better" ) ||
+                    verse.contains( "added onto your score" ) ||
+                    verse.contains( "regenerate" ) ||
+                    verse.contains( "more hit points" ) ||
+                    verse.contains( "help clear up the lumps" ) )
 			{
 				gain = "gain";
 			}
@@ -3558,12 +3558,12 @@ public class FightRequest
 			// Your MP just went up by 11 quarts!
 			// (I'm not sure how you measure amounts of this sort.)
 
-			if ( verse.indexOf( "Magical energy floods into your veins" ) != -1 ||
-			     verse.indexOf( "mystical fuel" ) != -1 ||
-			     verse.indexOf( "your MP restored" ) != -1	||
-			     verse.indexOf( "set some more monsters on fire" ) != -1 ||
-			     verse.indexOf( "add spring to your step" ) != -1 ||
-			     verse.indexOf( "Your MP just went up" ) != -1 )
+			if ( verse.contains( "Magical energy floods into your veins" ) ||
+                    verse.contains( "mystical fuel" ) ||
+                    verse.contains( "your MP restored" ) ||
+                    verse.contains( "set some more monsters on fire" ) ||
+                    verse.contains( "add spring to your step" ) ||
+                    verse.contains( "Your MP just went up" ) )
 			{
 				gain = "gain";
 			}
@@ -3598,7 +3598,7 @@ public class FightRequest
 		// You hurl a thing that you took from your pack,
 		// and deal <b>1</b> points with a thingly attack.
 
-		if ( verse.indexOf( "thingly attack" ) != -1 )
+		if ( verse.contains( "thingly attack" ) )
 		{
 			// Using a combat item
 			int damage = StringUtilities.parseInt( points );
@@ -3976,7 +3976,7 @@ public class FightRequest
 				// Come raise a glass high, and come join in the revel!
 				// We're all celebrating! You went up a level!
 
-				else if ( FightRequest.anapest && str.indexOf( "You went up a level" ) != -1 )
+				else if ( FightRequest.anapest && str.contains( "You went up a level" ) )
 				{
 					String msg = "You gain a Level!";
 					status.shouldRefresh |= ResultProcessor.processGainLoss( msg, null );
@@ -3990,7 +3990,7 @@ public class FightRequest
 			if ( onclick != null )
 			{
 				if ( onclick.startsWith( "descitem" ) &&
-					str.indexOf( "An item drops:" ) == -1 )
+                        !str.contains( "An item drops:" ) )
 				{
 					Matcher m = INT_PATTERN.matcher( onclick );
 					if ( !m.find() )
@@ -4001,7 +4001,7 @@ public class FightRequest
 					int itemId = ItemDatabase.getItemIdFromDescription( m.group() );
 					AdventureResult result = ItemPool.get( itemId, 1 );
 					ResultProcessor.processItem( true, "You acquire an item:", result, (List) null );
-					if ( str.indexOf( "Item unequipped:" ) != -1 )
+					if ( str.contains( "Item unequipped:" ) )
 					{	// Item removed by Zombo
 						EquipmentManager.discardEquipment( itemId );
 					}
@@ -4057,8 +4057,8 @@ public class FightRequest
 			}
 
 			if ( image.equals( "hp.gif" ) &&
-			     ( str.indexOf( "regains" ) != -1 ||
-			       str.indexOf( "She looks about" ) != -1 ) )
+			     (str.contains( "regains" ) ||
+                         str.contains( "She looks about" )) )
 			{
 				// The monster heals itself
 				Matcher m = INT_PATTERN.matcher( str );
@@ -4245,7 +4245,7 @@ public class FightRequest
 				return;
 			}
 
-			boolean ghostAction = status.ghost != null && str.indexOf( status.ghost) != -1;
+			boolean ghostAction = status.ghost != null && str.contains( status.ghost );
 			if ( ghostAction && status.logFamiliar )
 			{
 				// Pastamancer ghost action
@@ -4302,7 +4302,7 @@ public class FightRequest
 					continue;
 				}
 
-				if ( text.indexOf( "you feel all warm and fuzzy" ) != -1 )
+				if ( text.contains( "you feel all warm and fuzzy" ) )
 				{
 					if ( status.logFamiliar )
 					{
@@ -4311,7 +4311,7 @@ public class FightRequest
 					continue;
 				}
 
-				boolean ghostAction = status.ghost != null && text.indexOf( status.ghost) != -1;
+				boolean ghostAction = status.ghost != null && text.contains( status.ghost );
 				if ( ghostAction && status.logFamiliar )
 				{
 					// Pastamancer ghost action
@@ -4535,7 +4535,7 @@ public class FightRequest
 
 	private static boolean handleEvilometer( String text, TagStatus status )
 	{
-		if ( text.indexOf( "Evilometer" ) == -1 )
+		if ( !text.contains( "Evilometer" ) )
 		{
 			return false;
 		}
@@ -4563,11 +4563,11 @@ public class FightRequest
 		}
 
 		int evilness =
-			text.indexOf( "a single beep" ) != -1 ? 1 :
-			text.indexOf( "beeps three times" ) != -1 ? 3 :
-			text.indexOf( "three quick beeps" ) != -1 ? 3 :
-			text.indexOf( "five quick beeps" ) != -1 ? 5 :
-			text.indexOf( "loud" ) != -1 ? Preferences.getInteger( setting ) :
+                text.contains( "a single beep" ) ? 1 :
+                        text.contains( "beeps three times" ) ? 3 :
+                                text.contains( "three quick beeps" ) ? 3 :
+                                        text.contains( "five quick beeps" ) ? 5 :
+                                                text.contains( "loud" ) ? Preferences.getInteger( setting ) :
 			0;
 
 		if ( evilness == 0 )
@@ -4587,7 +4587,7 @@ public class FightRequest
 	
 	private static boolean handleKeyotron( String text, TagStatus status )
 	{
-		if ( text.indexOf( "key-o-tron" ) == -1 )
+		if ( !text.contains( "key-o-tron" ) )
 		{
 			return false;
 		}
@@ -4595,7 +4595,7 @@ public class FightRequest
 		// Your key-o-tron emits 2 short tones, indicating that it has successfully processed biometric data from this subject.
 		// Your key-o-tron emits a short buzz, indicating that it has already collected enough biometric data of this type.
 		
-		if ( text.indexOf( "already collected" ) != -1 )
+		if ( text.contains( "already collected" ) )
 		{
 			return true;
 		}
@@ -4730,7 +4730,7 @@ public class FightRequest
 			//   or
 			// You hold Zombo's eye out toward your opponent,
 			// but nothing happens. (failure)
-			if ( responseText.indexOf( "You hold Zombo's eye out toward your opponent, whose gaze is transfixed by it." ) != -1 )
+			if ( responseText.contains( "You hold Zombo's eye out toward your opponent, whose gaze is transfixed by it." ) )
 			{
 				Preferences.setInteger( "_lastZomboEye", KoLAdventure.getAdventureCount() );
 				// "Safe" interval between uses is 50 turns
@@ -4754,15 +4754,15 @@ public class FightRequest
 			// You hurl the iceball at your opponent, dealing X damage.
 			// Unfortunately, the iceball completely disintegrates on impact.
 
-			if ( responseText.indexOf( "back in your sack" ) != -1 )
+			if ( responseText.contains( "back in your sack" ) )
 			{
 				Preferences.setInteger( "_iceballUses", 1 );
 			}
-			else if ( responseText.indexOf( "pretty slushy" ) != -1 )
+			else if ( responseText.contains( "pretty slushy" ) )
 			{
 				Preferences.setInteger( "_iceballUses", 2 );
 			}
-			else if ( responseText.indexOf( "completely disintegrates" ) != -1 )
+			else if ( responseText.contains( "completely disintegrates" ) )
 			{
 				Preferences.setInteger( "_iceballUses", 3 );
 				return true;
@@ -4785,8 +4785,8 @@ public class FightRequest
 			//   or
 			// A nearby hippy soldier sees you about to start
 			// ringing your windchimes (failure)
-			if ( responseText.indexOf( "bang out a series of chimes" ) != -1 ||
-			     responseText.indexOf( "ringing your windchimes" ) != -1 )
+			if ( responseText.contains( "bang out a series of chimes" ) ||
+                    responseText.contains( "ringing your windchimes" ) )
 			{
 				IslandDecorator.ensureUpdatedBigIsland();
 				Preferences.setInteger( "lastHippyCall", KoLAdventure.getAdventureCount() );
@@ -4797,7 +4797,7 @@ public class FightRequest
 			}
 
 			// Then he takes your windchimes and wanders off.
-			if ( responseText.indexOf( "he takes your windchimes" ) != -1 )
+			if ( responseText.contains( "he takes your windchimes" ) )
 			{
 				return true;
 			}
@@ -4812,8 +4812,8 @@ public class FightRequest
 			//   or
 			// A nearby frat soldier sees you about to send a
 			// message to HQ (failure)
-			if ( responseText.indexOf( "punch a few buttons on the phone" ) != -1 ||
-			     responseText.indexOf( "send a message to HQ" ) != -1 )
+			if ( responseText.contains( "punch a few buttons on the phone" ) ||
+                    responseText.contains( "send a message to HQ" ) )
 			{
 				IslandDecorator.ensureUpdatedBigIsland();
 				Preferences.setInteger( "lastFratboyCall", KoLAdventure.getAdventureCount() );
@@ -4824,7 +4824,7 @@ public class FightRequest
 			}
 
 			// Then he takes your phone and wanders off.
-			if ( responseText.indexOf( "he takes your phone" ) != -1 )
+			if ( responseText.contains( "he takes your phone" ) )
 			{
 				return true;
 			}
@@ -4842,14 +4842,14 @@ public class FightRequest
 			// into your sack. He doesn't seem to appreciate it too
 			// much...
 
-			if ( responseText.indexOf( "make a perfect copy" ) != -1 )
+			if ( responseText.contains( "make a perfect copy" ) )
 			{
 				Preferences.increment( "spookyPuttyCopiesMade", 1 );
 				Preferences.setString( "spookyPuttyMonster", MonsterStatusTracker.getLastMonsterName() );
 				Preferences.setString( "autoPutty", "" );
 				return true;
 			}
-			if ( responseText.indexOf( "too scared to copy any more monsters today" ) != -1 )
+			if ( responseText.contains( "too scared to copy any more monsters today" ) )
 			{
 				Preferences.setInteger( "spookyPuttyCopiesMade", 5 );
 			}
@@ -4861,14 +4861,14 @@ public class FightRequest
 			// It makes a scary noise, and a tiny, ghostly image
 			// of your opponent appears inside it. 
 
-			if ( responseText.indexOf( "ghostly image of your opponent" ) != -1 )
+			if ( responseText.contains( "ghostly image of your opponent" ) )
 			{
 				Preferences.increment( "_raindohCopiesMade", 1 );
 				Preferences.setString( "rainDohMonster", MonsterStatusTracker.getLastMonsterName() );
 				Preferences.setString( "autoPutty", "" );
 				return true;
 			}
-			if ( responseText.indexOf( "too scared to use this box anymore today" ) != -1 )
+			if ( responseText.contains( "too scared to use this box anymore today" ) )
 			{
 				Preferences.setInteger( "_raindohCopiesMade", 5 );
 			}
@@ -4880,7 +4880,7 @@ public class FightRequest
 			// -POOF- noise, you take snap a picture of him. Your
 			// camera begins to shake, rattle and roll.
 
-			if ( responseText.indexOf( "old-timey <i>-POOF-</i> noise" ) != -1 )
+			if ( responseText.contains( "old-timey <i>-POOF-</i> noise" ) )
 			{
 				Preferences.setString( "cameraMonster", MonsterStatusTracker.getLastMonsterName() );
 				Preferences.increment( "camerasUsed" );
@@ -4896,7 +4896,7 @@ public class FightRequest
 			// is enraged, and smashes the copier to pieces, but
 			// not before it produces a sheet of paper.
 
-			if ( responseText.indexOf( "press the COPY button" ) != -1 )
+			if ( responseText.contains( "press the COPY button" ) )
 			{
 				Preferences.setString( "photocopyMonster", MonsterStatusTracker.getLastMonsterName() );
 				Preferences.setString( "autoPutty", "" );
@@ -4932,14 +4932,14 @@ public class FightRequest
 			// You quickly quaff the anti-anti-antidote. You feel
 			// better.
 
-			return responseText.indexOf( "You quickly quaff" ) != -1;
+			return responseText.contains( "You quickly quaff" );
 
 		case ItemPool.GLOB_OF_BLANK_OUT:
 
 			// As you're moseying, you notice that the last of the Blank-Out
 			// is gone, and that your hand is finally clean. Yay!
 
-			if ( responseText.indexOf( "your hand is finally clean" ) != -1 )
+			if ( responseText.contains( "your hand is finally clean" ) )
 			{
 				Preferences.setInteger( "blankOutUsed", 0 );
 				return true;
@@ -4952,7 +4952,7 @@ public class FightRequest
 			// You hand him the pinkslip. He reads it, frowns, and
 			// swims sulkily away.
 
-			return responseText.indexOf( "swims sulkily away" ) != -1;
+			return responseText.contains( "swims sulkily away" );
 
 		case ItemPool.PUMPKIN_BOMB:
 
@@ -4961,14 +4961,14 @@ public class FightRequest
 			// yellow and flying pumpkin guts, there's nothing left
 			// of her but a stain on the ground.
 
-			return responseText.indexOf( "toss the pumpkin" ) != -1;
+			return responseText.contains( "toss the pumpkin" );
 
 		case ItemPool.PEPPERMINT_PARASOL:
 
 			// You hold up the parasol, and a sudden freak gust of wind
 			// sends you hurtling through the air to safety.
 
-			if ( responseText.indexOf( "sudden freak gust" ) != -1 )
+			if ( responseText.contains( "sudden freak gust" ) )
 			{
 				Preferences.increment( "_navelRunaways" );
 				Preferences.increment( "parasolUsed" );
@@ -4978,7 +4978,7 @@ public class FightRequest
 			// You throw away the shredded (but delicious-smelling) wreck
 			// that was once a useful tool.
 
-			if ( responseText.indexOf( "You throw away the shredded" ) != -1 )
+			if ( responseText.contains( "You throw away the shredded" ) )
 			{
 				Preferences.setInteger( "parasolUsed", 0 );
 				return true;
@@ -5030,7 +5030,7 @@ public class FightRequest
 			// accidentally hit the Attack button instead of using
 			// that skill.
 
-			if ( responseText.indexOf( "jumps onto the keyboard" ) != -1 )
+			if ( responseText.contains( "jumps onto the keyboard" ) )
 			{
 				FightRequest.nextAction = "attack";
 				return;
@@ -5041,7 +5041,7 @@ public class FightRequest
 			// couple of minutes fishing it out from underneath a
 			// couch. It's as adorable as it is annoying.
 
-			if ( responseText.indexOf( "bats it out of your hand" ) != -1 )
+			if ( responseText.contains( "bats it out of your hand" ) )
 			{
 				return;
 			}
@@ -5059,7 +5059,7 @@ public class FightRequest
 			// sub-optimal. I recommend that you attack with your
 			// weapon, instead.
 
-			if ( responseText.indexOf( "calculated to be sub-optimal" ) != -1 )
+			if ( responseText.contains( "calculated to be sub-optimal" ) )
 			{
 				FightRequest.nextAction = "attack";
 				return;
@@ -5076,7 +5076,7 @@ public class FightRequest
 		     // If we have Cunctatitis and decide to procrastinate,
 		     // we did nothing
 		     ( KoLConstants.activeEffects.contains( FightRequest.CUNCTATITIS ) &&
-		       responseText.indexOf( "You decide to" ) != -1 )
+                     responseText.contains( "You decide to" ))
 		     )
 		{
 			return;
@@ -5095,7 +5095,7 @@ public class FightRequest
 			// consumed.
 
 			if ( KoLCharacter.inBeecore() &&
-			     responseText.indexOf( "You are too scared of Bs" ) != -1 )
+                    responseText.contains( "You are too scared of Bs" ) )
 			{
 				FightRequest.nextAction = "abort";
 				return;
@@ -5122,7 +5122,7 @@ public class FightRequest
 			return;
 		}
 
-		if ( responseText.indexOf( "You don't have that skill" ) != -1 )
+		if ( responseText.contains( "You don't have that skill" ) )
 		{
 			return;
 		}
@@ -5141,7 +5141,7 @@ public class FightRequest
 		// over by the gust of wind it creates, and lose track of what
 		// you're doing.
 
-		if ( responseText.indexOf( "Bonerdagon suddenly starts furiously beating its wings" ) != -1 )
+		if ( responseText.contains( "Bonerdagon suddenly starts furiously beating its wings" ) )
 		{
 			return;
 		}
@@ -5161,11 +5161,11 @@ public class FightRequest
 			return;
 
 		case 7024:	// Summon Mayfly Swarm
-			if ( responseText.indexOf( "mayfly bait and swing it" ) != -1 )
+			if ( responseText.contains( "mayfly bait and swing it" ) )
 			{
 				Preferences.increment( "_mayflySummons", 1 );
 				Preferences.increment( "mayflyExperience",
-					responseText.indexOf( "mayfly aphrodisiac" ) != -1 ? 2 : 1 );
+                        responseText.contains( "mayfly aphrodisiac" ) ? 2 : 1 );
 			}
 			break;
 
@@ -5274,7 +5274,7 @@ public class FightRequest
 			break;
 
 		case ItemPool.SHRINKING_POWDER:
-			if ( responseText.indexOf( "gets smaller and angrier" ) != -1 )
+			if ( responseText.contains( "gets smaller and angrier" ) )
 			{
 				MonsterStatusTracker.damageMonster( MonsterStatusTracker.getMonsterHealth() / 2 );
 			}
@@ -5282,7 +5282,7 @@ public class FightRequest
 
 		case 819: case 820: case 821: case 822: case 823:
 		case 824: case 825: case 826: case 827:
-			if ( AdventureResult.bangPotionName( itemId ).indexOf( "healing" ) != -1 )
+			if ( AdventureResult.bangPotionName( itemId ).contains( "healing" ) )
 			{
 				MonsterStatusTracker.healMonster( 16 );
 			}
@@ -5468,7 +5468,7 @@ public class FightRequest
 
 		FightRequest.nextAction = null;
 
-		if ( urlString.equals( "fight.php" ) || urlString.indexOf( "ireallymeanit=" ) != -1 )
+		if ( urlString.equals( "fight.php" ) || urlString.contains( "ireallymeanit=" ) )
 		{
 			return true;
 		}
@@ -5488,7 +5488,7 @@ public class FightRequest
 			action.append( " " );
 		}
 
-		if ( urlString.indexOf( "macro" ) != -1 )
+		if ( urlString.contains( "macro" ) )
 		{
 			Matcher m = FightRequest.WHICHMACRO_PATTERN.matcher( urlString );
 			if ( m.find() )
@@ -5501,7 +5501,7 @@ public class FightRequest
 				action.append( "executes a macro!" );
 			}
 		}
-		else if ( urlString.indexOf( "runaway" ) != -1 )
+		else if ( urlString.contains( "runaway" ) )
 		{
 			FightRequest.nextAction = "runaway";
 			if ( shouldLogAction )
@@ -5509,7 +5509,7 @@ public class FightRequest
 				action.append( "casts RETURN!" );
 			}
 		}
-		else if ( urlString.indexOf( "steal" ) != -1 )
+		else if ( urlString.contains( "steal" ) )
 		{
 			FightRequest.nextAction = "steal";
 			if ( shouldLogAction )
@@ -5517,7 +5517,7 @@ public class FightRequest
 				action.append( "tries to steal an item!" );
 			}
 		}
-		else if ( urlString.indexOf( "attack" ) != -1 )
+		else if ( urlString.contains( "attack" ) )
 		{
 			FightRequest.nextAction = "attack";
 			if ( shouldLogAction )
@@ -5525,7 +5525,7 @@ public class FightRequest
 				action.append( "attacks!" );
 			}
 		}
-		else if ( urlString.indexOf( "summon" ) != -1 )
+		else if ( urlString.contains( "summon" ) )
 		{
 			FightRequest.nextAction = "summon ghost";
 			if ( shouldLogAction )
@@ -5537,7 +5537,7 @@ public class FightRequest
 				action.append( "!" );
 			}
 		}
-		else if ( urlString.indexOf( "chefstaff" ) != -1 )
+		else if ( urlString.contains( "chefstaff" ) )
 		{
 			FightRequest.nextAction = "jiggle";
 			if ( shouldLogAction )
@@ -5677,7 +5677,7 @@ public class FightRequest
 
 		if ( shouldLogAction )
 		{
-			if ( urlString.indexOf( "[AA]" ) != -1 )
+			if ( urlString.contains( "[AA]" ) )
 			{	// pseudo-parameter for parsing an autoattack
 				action.append( " (auto-attack)" );
 			}

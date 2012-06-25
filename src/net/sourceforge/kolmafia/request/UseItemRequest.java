@@ -629,7 +629,7 @@ public class UseItemRequest
 
 		case ItemPool.MOVEABLE_FEAST:
 			String familiar = KoLCharacter.getFamiliar().getRace();
-			if ( Preferences.getString( "_feastedFamiliars" ).indexOf( familiar ) != -1 )
+			if ( Preferences.getString( "_feastedFamiliars" ).contains( familiar ) )
 			{
 				UseItemRequest.limiter = "a previous " + familiar + " feasting";
 				return 0; 
@@ -1444,34 +1444,34 @@ public class UseItemRequest
 		//
 		// You're not currently using a Gluttonous Green Ghost.
 
-		if ( responseText.indexOf( "don't currently have" ) != -1 ||
-		     responseText.indexOf( "not currently using" ) != -1 )
+		if ( responseText.contains( "don't currently have" ) ||
+                responseText.contains( "not currently using" ) )
 		{
 			return false;
 		}
 
 		// You don't have that many of those.
 
-		if ( responseText.indexOf( "don't have that many" ) != -1 )
+		if ( responseText.contains( "don't have that many" ) )
 		{
 			return true;
 		}
 
 		// [familiar name] approaches the [item] but doesn't seem interested.
-		if ( responseText.indexOf( "doesn't seem interested" ) != -1 )
+		if ( responseText.contains( "doesn't seem interested" ) )
 		{
 			return true;
 		}
 
 		// That is not something you can give to your Slimeling
-		if ( responseText.indexOf( "not something you can give" ) != -1 )
+		if ( responseText.contains( "not something you can give" ) )
 		{
 			return true;
 		}
 
 		// <name> takes the <candy> and quickly consumes them. He
 		// grows a bit.
-		if ( responseText.indexOf( "He grows a bit" ) != -1 )
+		if ( responseText.contains( "He grows a bit" ) )
 		{
 			KoLCharacter.getFamiliar().addNonCombatExperience( item.getCount() );
 		}
@@ -1527,21 +1527,21 @@ public class UseItemRequest
 		// If you are in Beecore, certain items can't B used
 		// "You are too scared of Bs to xxx that item."
 		if ( KoLCharacter.inBeecore() &&
-		     responseText.indexOf( "You are too scared of Bs" ) != -1 )
+                responseText.contains( "You are too scared of Bs" ) )
 		{
 			UseItemRequest.lastUpdate = "You are too scared of Bs";
 			KoLmafia.updateDisplay( MafiaState.ERROR, UseItemRequest.lastUpdate );
 			return;
 		}
 
-		if ( responseText.indexOf( "be at least level" ) != -1 )
+		if ( responseText.contains( "be at least level" ) )
 		{
 			UseItemRequest.lastUpdate = "Item level too high.";
 			KoLmafia.updateDisplay( MafiaState.ERROR, UseItemRequest.lastUpdate );
 			return;
 		}
 
-		if ( responseText.indexOf( "You may not" ) != -1 )
+		if ( responseText.contains( "You may not" ) )
 		{
 			UseItemRequest.lastUpdate = "Pathed ascension.";
 			KoLmafia.updateDisplay( MafiaState.ERROR, UseItemRequest.lastUpdate );
@@ -1596,11 +1596,11 @@ public class UseItemRequest
 				// A voice speaks (for a long time) from the
 				// helmet:
 
-				if ( responseText.indexOf( "A tinny voice emerges from the drone" ) != -1 )
+				if ( responseText.contains( "A tinny voice emerges from the drone" ) )
 				{
 					// produces sparking, etc. drones - no special handling needed
 				}
-				else if ( responseText.indexOf( "(for a long time)" ) == -1 )
+				else if ( !responseText.contains( "(for a long time)" ) )
 				{
 					success = false;
 				}
@@ -1630,7 +1630,7 @@ public class UseItemRequest
 			// SingleUseRequest or MultiUseRequest removed all the
 			// ingredients.
 
-			if ( responseText.indexOf( "You acquire" ) != -1 )
+			if ( responseText.contains( "You acquire" ) )
 			{
 				// If the user navigates to the equipment page,
 				// we will be called again with inventory page
@@ -1643,7 +1643,7 @@ public class UseItemRequest
 			String name = item.getName();
 			String plural = ItemDatabase.getPluralName( item.getItemId() );
 
-			if ( responseText.indexOf( "You don't have that many" ) != -1 )
+			if ( responseText.contains( "You don't have that many" ) )
 			{
 				UseItemRequest.lastUpdate = "You don't have that many " + plural;
 			}
@@ -1661,28 +1661,28 @@ public class UseItemRequest
 
 		if ( consumptionType == KoLConstants.GROW_FAMILIAR )
 		{
-			if ( responseText.indexOf( "You've already got a familiar of that type." ) != -1 )
+			if ( responseText.contains( "You've already got a familiar of that type." ) )
 			{
 				UseItemRequest.lastUpdate = "You already have that familiar.";
 				KoLmafia.updateDisplay( MafiaState.ERROR, UseItemRequest.lastUpdate );
 				return;
 			}
 
-			if ( responseText.indexOf( "you glance fearfully at the moons" ) != -1 )
+			if ( responseText.contains( "you glance fearfully at the moons" ) )
 			{
 				UseItemRequest.lastUpdate = "Can't hatch that familiar in Bad Moon.";
 				KoLmafia.updateDisplay( MafiaState.ERROR, UseItemRequest.lastUpdate );
 				return;
 			}
 
-			if ( responseText.indexOf( "You don't have a Terrarium to put that in." ) != -1 )
+			if ( responseText.contains( "You don't have a Terrarium to put that in." ) )
 			{
 				UseItemRequest.lastUpdate = "You don't have a Terrarium yet.";
 				KoLmafia.updateDisplay( MafiaState.ERROR, UseItemRequest.lastUpdate );
 				return;
 			}
 
-			if ( responseText.indexOf( "Boris has no need for familiars" ) != -1 )
+			if ( responseText.contains( "Boris has no need for familiars" ) )
 			{
 				UseItemRequest.lastUpdate = "Boris has no need for familiars!";
 				KoLmafia.updateDisplay( MafiaState.ERROR, UseItemRequest.lastUpdate );
@@ -1710,7 +1710,7 @@ public class UseItemRequest
 			return;
 		}
 
-		if ( responseText.indexOf( "That item isn't usable in quantity" ) != -1 )
+		if ( responseText.contains( "That item isn't usable in quantity" ) )
 		{
 			KoLmafia.updateDisplay( MafiaState.ERROR, "Internal data error: item incorrectly flagged as multi-usable." );
 			return;
@@ -1720,7 +1720,7 @@ public class UseItemRequest
 		// that can fail with a "too full" message, even though it's
 		// not a food.
 
-		if ( responseText.indexOf( "too full" ) != -1 )
+		if ( responseText.contains( "too full" ) )
 		{
 			UseItemRequest.lastUpdate = "Consumption limit reached.";
 			KoLmafia.updateDisplay( MafiaState.ERROR, UseItemRequest.lastUpdate );
@@ -1771,7 +1771,7 @@ public class UseItemRequest
 			// You jam your screwdriver into your xxx and pry it
 			// apart.
 			if ( UseItemRequest.lastUntinker != null &&
-			     responseText.indexOf( "You jam your screwdriver" ) != -1 )
+                    responseText.contains( "You jam your screwdriver" ) )
 			{
 				ResultProcessor.processResult( UseItemRequest.lastUntinker.getNegation() );
 				UseItemRequest.lastUntinker = null;
@@ -1802,7 +1802,7 @@ public class UseItemRequest
 			// You spend a little while messing with all of the
 			// latches and clasps and little bits of metal, and end
 			// up with ...
-			if ( responseText.indexOf( "latches and clasps" ) != -1 )
+			if ( responseText.contains( "latches and clasps" ) )
 			{
 				ResultProcessor.processResult( item.getNegation() );
 			}
@@ -1812,7 +1812,7 @@ public class UseItemRequest
 		case ItemPool.WHEN_CARD:
 		case ItemPool.WHO_CARD:
 		case ItemPool.WHERE_CARD: {
-			if ( responseText.indexOf( "Answer:" ) == -1 )
+			if ( !responseText.contains( "Answer:" ) )
 			{
 				ResultProcessor.processResult( item );
 				break;
@@ -1846,7 +1846,7 @@ public class UseItemRequest
 			// <fruit> that was bouncing around in the machine. You
 			// wonder where it went.
 			if ( UseItemRequest.lastFruit != null &&
-			     responseText.indexOf( "into the tube" ) != -1 )
+                    responseText.contains( "into the tube" ) )
 			{
 				ResultProcessor.processResult(
 					UseItemRequest.lastFruit.getNegation() );
@@ -1899,7 +1899,7 @@ public class UseItemRequest
 			// "You can't receive things from other players
 			// right now."
 
-			if ( responseText.indexOf( "You can't receive things" ) != -1 )
+			if ( responseText.contains( "You can't receive things" ) )
 			{
 				UseItemRequest.lastUpdate = "You can't open that package yet.";
 				KoLmafia.updateDisplay( MafiaState.ERROR, UseItemRequest.lastUpdate );
@@ -1920,7 +1920,7 @@ public class UseItemRequest
 		case ItemPool.TOASTER:
 
 			// You push the lever and are rewarded with toast
-			if ( responseText.indexOf( "rewarded with toast" ) != -1 )
+			if ( responseText.contains( "rewarded with toast" ) )
 			{
 				Preferences.increment( "_toastSummons", 1 );
 			}
@@ -1938,7 +1938,7 @@ public class UseItemRequest
 			// "Even though your name isn't Lee, you're flattered
 			// and hand over your dictionary."
 
-			if ( responseText.indexOf( "you're flattered" ) == -1 )
+			if ( !responseText.contains( "you're flattered" ) )
 			{
 				ResultProcessor.processResult( item );
 			}
@@ -1954,7 +1954,7 @@ public class UseItemRequest
 
 			// "The UB3r 31337 HaX0R stands before you."
 
-			if ( responseText.indexOf( "The UB3r 31337 HaX0R stands before you." ) != -1 )
+			if ( responseText.contains( "The UB3r 31337 HaX0R stands before you." ) )
 			{
 				int remaining = item.getCount() - 1;
 				if ( remaining > 0 )
@@ -1984,7 +1984,7 @@ public class UseItemRequest
 			// is a worthy institution, and you should respect and
 			// obey it, no matter what."
 
-			if ( responseText.indexOf( "back to work" ) != -1 || responseText.indexOf( "fireworks are illegal" ) != -1 )
+			if ( responseText.contains( "back to work" ) || responseText.contains( "fireworks are illegal" ) )
 			{
 				ResultProcessor.processResult( item );
 			}
@@ -2004,8 +2004,8 @@ public class UseItemRequest
 
 			// "You don't have time to bang a gong. Nor do you have
 			// time to get it on, or to get it on."
-			if ( responseText.indexOf( "sobered up a little" ) != -1  ||
-			     responseText.indexOf( "don't have time to bang" ) != -1 )
+			if ( responseText.contains( "sobered up a little" ) ||
+                    responseText.contains( "don't have time to bang" ) )
 			{
 				UseItemRequest.lastUpdate = "Insufficient adventures or sobriety to use a gong.";
 				KoLmafia.updateDisplay( MafiaState.ERROR, UseItemRequest.lastUpdate );
@@ -2015,7 +2015,7 @@ public class UseItemRequest
 			// "You're already in the middle of a journey of
 			// reincarnation."
 
-			if ( responseText.indexOf( "middle of a journey of reincarnation" ) != -1 )
+			if ( responseText.contains( "middle of a journey of reincarnation" ) )
 			{
 				if ( UseItemRequest.retrying ||
 					KoLConstants.activeEffects.contains(
@@ -2076,7 +2076,7 @@ public class UseItemRequest
 			// Otherwise, "it immediately grows into an enormous
 			// beanstalk".
 
-			if ( responseText.indexOf( "grows into an enormous beanstalk" ) == -1 )
+			if ( !responseText.contains( "grows into an enormous beanstalk" ) )
 			{
 				ResultProcessor.processResult( item );
 			}
@@ -2093,7 +2093,7 @@ public class UseItemRequest
 			// celebrity-gossip magazines, and end up feeling kind
 			// of dirty."
 
-			if ( responseText.indexOf( "feeling kind of dirty" ) == -1 )
+			if ( !responseText.contains( "feeling kind of dirty" ) )
 			{
 				ResultProcessor.processResult( item );
 			}
@@ -2105,7 +2105,7 @@ public class UseItemRequest
 			// "Your song has pleased me greatly. I will reward you
 			// with some of my crazy imps, to do your bidding."
 
-			if ( responseText.indexOf( "pleased me greatly" ) == -1 )
+			if ( !responseText.contains( "pleased me greatly" ) )
 			{
 				UseItemRequest.lastUpdate = "Your music was inadequate.";
 				KoLmafia.updateDisplay( MafiaState.ERROR, UseItemRequest.lastUpdate );
@@ -2119,7 +2119,7 @@ public class UseItemRequest
 			// "I'm sorry, adventurer, but the Sorceress is in
 			// another castle!"
 
-			if ( responseText.indexOf( "Sorceress is in another castle" ) == -1 )
+			if ( !responseText.contains( "Sorceress is in another castle" ) )
 			{
 				UseItemRequest.lastUpdate = "You couldn't make it all the way to the back door.";
 				KoLmafia.updateDisplay( MafiaState.ERROR, UseItemRequest.lastUpdate );
@@ -2136,7 +2136,7 @@ public class UseItemRequest
 			ResultProcessor.processResult(
 				new AdventureResult( AdventureResult.HP, KoLCharacter.getMaximumHP() ) );
 
-			if ( responseText.indexOf( "crumble" ) == -1 )
+			if ( !responseText.contains( "crumble" ) )
 			{
 				ResultProcessor.processResult( item );
 			}
@@ -2151,7 +2151,7 @@ public class UseItemRequest
 		case ItemPool.ANTIDOTE:
 			// You're unpoisoned -- don't waste the anti-anti-antidote.
 
-			if ( responseText.indexOf( "don't waste the anti" ) != -1 )
+			if ( responseText.contains( "don't waste the anti" ) )
 			{
 				ResultProcessor.processResult( item );
 				return;
@@ -2176,7 +2176,7 @@ public class UseItemRequest
 			// Successfully using a ketchup hound uses up the Hey
 			// Deze nuts and pagoda plan.
 
-			if ( responseText.indexOf( "pagoda" ) != -1 )
+			if ( responseText.contains( "pagoda" ) )
 			{
 				ResultProcessor.processItem( ItemPool.HEY_DEZE_NUTS, -1 );
 				ResultProcessor.processItem( ItemPool.PAGODA_PLANS, -1 );
@@ -2193,7 +2193,7 @@ public class UseItemRequest
 			// "You follow the Dolphin King's map to the bottom of
 			// the sea, and find his glorious treasure."
 
-			if ( responseText.indexOf( "find his glorious treasure" ) == -1 )
+			if ( !responseText.contains( "find his glorious treasure" ) )
 			{
 				UseItemRequest.lastUpdate = "You don't have everything you need.";
 				KoLmafia.updateDisplay( MafiaState.ERROR, UseItemRequest.lastUpdate );
@@ -2207,7 +2207,7 @@ public class UseItemRequest
 			// "You make your way to the deepest part of the tank,
 			// and find a chest engraved with the initials S. L."
 
-			if ( responseText.indexOf( "deepest part of the tank" ) == -1 )
+			if ( !responseText.contains( "deepest part of the tank" ) )
 			{
 				UseItemRequest.lastUpdate = "You don't have everything you need.";
 				KoLmafia.updateDisplay( MafiaState.ERROR, UseItemRequest.lastUpdate );
@@ -2221,7 +2221,7 @@ public class UseItemRequest
 			// "You place it atop the Altar, and grab the Scalpel
 			// at the exact same moment."
 
-			if ( responseText.indexOf( "exact same moment" ) == -1 )
+			if ( !responseText.contains( "exact same moment" ) )
 			{
 				UseItemRequest.lastUpdate = "You don't have everything you need.";
 				KoLmafia.updateDisplay( MafiaState.ERROR, UseItemRequest.lastUpdate );
@@ -2239,7 +2239,7 @@ public class UseItemRequest
 			// "Since you've already built a bitchin' meatcar, you
 			// wad the shopping list up and throw it away."
 
-			if ( responseText.indexOf( "throw it away" ) == -1 )
+			if ( !responseText.contains( "throw it away" ) )
 			{
 				ResultProcessor.processResult( item );
 			}
@@ -2253,7 +2253,7 @@ public class UseItemRequest
 			// "You memorize the location of the door, then eat
 			// both the map and the encryption key."
 
-			if ( responseText.indexOf( "memorize the location" ) == -1 )
+			if ( !responseText.contains( "memorize the location" ) )
 			{
 				UseItemRequest.lastUpdate = "You don't have everything you need.";
 				KoLmafia.updateDisplay( MafiaState.ERROR, UseItemRequest.lastUpdate );
@@ -2274,7 +2274,7 @@ public class UseItemRequest
 			// What was it that the man in black told you about the
 			// map? Something about "as the crow flies?""
 
-			if ( responseText.indexOf( "can't make head or tail of it" ) != -1 )
+			if ( responseText.contains( "can't make head or tail of it" ) )
 			{
 				UseItemRequest.lastUpdate = "You need a guide.";
 				KoLmafia.updateDisplay( MafiaState.ERROR, UseItemRequest.lastUpdate );
@@ -2386,7 +2386,7 @@ public class UseItemRequest
 			// ironically. There seems to be only one in the store,
 			// though."
 
-			if ( responseText.indexOf( "ironically" ) != -1 )
+			if ( responseText.contains( "ironically" ) )
 			{
 				int remaining = item.getCount() - 1;
 				if ( remaining > 0 )
@@ -2409,7 +2409,7 @@ public class UseItemRequest
 			// "Your mouth is still cold from the last snowcone you
 			// ate. Try again later."
 
-			if ( responseText.indexOf( "still cold" ) != -1 )
+			if ( responseText.contains( "still cold" ) )
 			{
 				UseItemRequest.lastUpdate = "Your mouth is too cold.";
 				KoLmafia.updateDisplay( MafiaState.ERROR, UseItemRequest.lastUpdate );
@@ -2428,7 +2428,7 @@ public class UseItemRequest
 			// high-pressure sauce potion. If you took this one,
 			// you'd explode.  And not in a good way."
 
-			if ( responseText.indexOf( "you'd explode" ) != -1 )
+			if ( responseText.contains( "you'd explode" ) )
 			{
 				UseItemRequest.lastUpdate = "You're already under pressure.";
 				KoLmafia.updateDisplay( MafiaState.ERROR, UseItemRequest.lastUpdate );
@@ -2448,7 +2448,7 @@ public class UseItemRequest
 			// this dimension. You really don't feel like eating
 			// another one just now."
 
-			if ( responseText.indexOf( "a little queasy" ) != -1 )
+			if ( responseText.contains( "a little queasy" ) )
 			{
 				UseItemRequest.lastUpdate = "Your stomach is too queasy.";
 				KoLmafia.updateDisplay( MafiaState.ERROR, UseItemRequest.lastUpdate );
@@ -2468,7 +2468,7 @@ public class UseItemRequest
 			// after the last one. The conflicting emotions would
 			// drive you totally mad."
 
-			if ( responseText.indexOf( "conflicting emotions" ) != -1 )
+			if ( responseText.contains( "conflicting emotions" ) )
 			{
 				UseItemRequest.lastUpdate = "Your heart is already filled with emotions.";
 				KoLmafia.updateDisplay( MafiaState.ERROR, UseItemRequest.lastUpdate );
@@ -2499,7 +2499,7 @@ public class UseItemRequest
 
 			// You feel charged up!
 
-			if ( responseText.indexOf( "charged up" ) != -1 )
+			if ( responseText.contains( "charged up" ) )
 			{
 				Preferences.setInteger( "_zapCount", 0 );
 			}
@@ -2510,7 +2510,7 @@ public class UseItemRequest
 			// "Following The Oracle's advice, you treat the plus
 			// sign as a book, and read it."
 
-			if ( responseText.indexOf( "you treat the plus sign as a book" ) == -1 )
+			if ( !responseText.contains( "you treat the plus sign as a book" ) )
 			{
 				UseItemRequest.lastUpdate = "You don't know how to use it.";
 				KoLmafia.updateDisplay( MafiaState.ERROR, UseItemRequest.lastUpdate );
@@ -2665,7 +2665,7 @@ public class UseItemRequest
 		case ItemPool.JERK_BOOK:
 		case ItemPool.HJODOR_GUIDE:
 		{
-			if ( KoLCharacter.inAxecore() && responseText.indexOf( "didn't like to read" ) != -1 )
+			if ( KoLCharacter.inAxecore() && responseText.contains( "didn't like to read" ) )
 			{
 				UseItemRequest.lastUpdate = "Boris didn't like to read. ";
 				KoLmafia.updateDisplay( MafiaState.ERROR, UseItemRequest.lastUpdate );
@@ -2709,7 +2709,7 @@ public class UseItemRequest
 
 			// You can learn the appropriate skill up to 10 times.
 			// What does it say if you try to use the 11th?
-			if ( responseText.indexOf( "You gain a skill" ) == -1 )
+			if ( !responseText.contains( "You gain a skill" ) )
 			{	// Item may be consumed even if you already have the skill
 				// ResultProcessor.processResult( item );
 				return;
@@ -2742,7 +2742,7 @@ public class UseItemRequest
 			// "Whoo, man, lemme tell you, you don't need to be
 			// eating another one of those just now, okay?"
 
-			if ( responseText.indexOf( "whirling maelstrom" ) == -1 )
+			if ( !responseText.contains( "whirling maelstrom" ) )
 			{
 				ResultProcessor.processResult( item );
 			}
@@ -2753,7 +2753,7 @@ public class UseItemRequest
 
 			// You're not quite bored enough to drink that much tea.
 
-			if ( responseText.indexOf( "not quite bored enough" ) != -1 )
+			if ( responseText.contains( "not quite bored enough" ) )
 			{
 				UseItemRequest.lastUpdate = "You're not bored enough to drink that much tea.";
 				KoLmafia.updateDisplay( MafiaState.ERROR, UseItemRequest.lastUpdate );
@@ -2772,7 +2772,7 @@ public class UseItemRequest
 			// "No way are you gonna drink another one of those
 			// until the last one wears off."
 
-			if ( responseText.indexOf( "licorice" ) == -1 )
+			if ( !responseText.contains( "licorice" ) )
 			{
 				ResultProcessor.processResult( item );
 			}
@@ -2784,7 +2784,7 @@ public class UseItemRequest
 			// The magic that had previously animated the animals kicks back
 			// in, and it stands up shakily and looks at you. "Graaangh?"
 
-			if ( responseText.indexOf( "Graaangh?" ) == -1 )
+			if ( !responseText.contains( "Graaangh?" ) )
 			{
 				UseItemRequest.lastUpdate = "You're missing some parts.";
 				KoLmafia.updateDisplay( MafiaState.ERROR, UseItemRequest.lastUpdate );
@@ -2806,7 +2806,7 @@ public class UseItemRequest
 			// "Dammit! Your hooks were still on there! Oh well. At
 			// least now you know where the pyramid is."
 
-			if ( responseText.indexOf( "hooks were still on" ) != -1 )
+			if ( responseText.contains( "hooks were still on" ) )
 			{
 				if ( KoLCharacter.hasEquipped( ItemPool.WORM_RIDING_HOOKS, EquipmentManager.WEAPON ) )
 				{
@@ -2825,13 +2825,13 @@ public class UseItemRequest
 			}
 
 			// "You don't have time to play the drums."
-			if ( responseText.indexOf( "don't have time" ) != -1 )
+			if ( responseText.contains( "don't have time" ) )
 			{
 				UseItemRequest.lastUpdate = "Insufficient adventures left.";
 			}
 
 			// "You're too beaten-up to play the drums."
-			else if ( responseText.indexOf( "too beaten up" ) != -1 )
+			else if ( responseText.contains( "too beaten up" ) )
 			{
 				UseItemRequest.lastUpdate = "Too beaten up.";
 			}
@@ -2840,7 +2840,7 @@ public class UseItemRequest
 			// machine. You press buttons at random, waiting for
 			// something interesting to happen, but you only
 			// succeed in annoying your neighbors."
-			else if ( responseText.indexOf( "head to your campsite" ) != -1 )
+			else if ( responseText.contains( "head to your campsite" ) )
 			{
 				UseItemRequest.lastUpdate = "Can't find the beach";
 			}
@@ -2865,7 +2865,7 @@ public class UseItemRequest
 			// next to that library across the street from the
 			// Sleazy Back Alley) to see what you can get for
 			// it. Turns out you can get X Meat for it."
-			if ( responseText.indexOf( "rare coin dealer in Seaside Town" ) != -1 )
+			if ( responseText.contains( "rare coin dealer in Seaside Town" ) )
 			{
 				return;
 			}
@@ -2873,7 +2873,7 @@ public class UseItemRequest
 			// You consider taking the piece of thirteen to a rare
 			// coin dealer to see if it's worth anything, but you
 			// don't really have time.
-			if ( responseText.indexOf( "don't really have time" ) != -1 )
+			if ( responseText.contains( "don't really have time" ) )
 			{
 				UseItemRequest.lastUpdate = "Insufficient adventures left.";
 			}
@@ -2881,7 +2881,7 @@ public class UseItemRequest
 			// "You consider taking the piece of thirteen to a rare
 			// coin dealer to see if it's worth anything, but
 			// you're feeling pretty crappy right now."
-			else if ( responseText.indexOf( "feeling pretty crappy" ) != -1 )
+			else if ( responseText.contains( "feeling pretty crappy" ) )
 			{
 				UseItemRequest.lastUpdate = "Too beaten up.";
 			}
@@ -2904,7 +2904,7 @@ public class UseItemRequest
 			// You can't tell what this is supposed to be a copy
 			// of. You squish it back into a sheet.
 
-			if ( responseText.indexOf( "squish it back into a sheet" ) != -1 )
+			if ( responseText.contains( "squish it back into a sheet" ) )
 			{
 				Preferences.setString( "spookyPuttyMonster", "" );
 				return;
@@ -2921,13 +2921,13 @@ public class UseItemRequest
 		case ItemPool.D10:
 
 			// You don't have time to go on an adventure. Even an imaginary one.
-			if ( responseText.indexOf( "don't have time" ) != -1 )
+			if ( responseText.contains( "don't have time" ) )
 			{
 				UseItemRequest.lastUpdate = "Insufficient adventures left.";
 			}
 
 			// Your imagination is too drunk right now.
-			else if ( responseText.indexOf( "Your imagination is too drunk" ) != -1 )
+			else if ( responseText.contains( "Your imagination is too drunk" ) )
 			{
 				UseItemRequest.lastUpdate = "Inebriety limit reached.";
 			}
@@ -2935,7 +2935,7 @@ public class UseItemRequest
 			// Using one of these items will eventually do
 			// something. I am sorry that eventually is not now,
 			// but I ran out of time before KoL Con.
-			else if ( responseText.indexOf( "eventually is not now" ) != -1 )
+			else if ( responseText.contains( "eventually is not now" ) )
 			{
 				UseItemRequest.lastUpdate = "Not yet implemented.";
 			}
@@ -2959,7 +2959,7 @@ public class UseItemRequest
 			// a cart with a big target in it is pulled into view and
 			// the arrow hits it dead center. BULLSEYE.
 
-			if ( responseText.indexOf( "BULLSEYE" ) != -1 )
+			if ( responseText.contains( "BULLSEYE" ) )
 			{
 				String message = "You get a bullseye at " + distance + " feet.";
 				KoLmafia.updateDisplay( message );
@@ -2968,13 +2968,13 @@ public class UseItemRequest
 
 			// It goes [Xd12] feet, and doesn't hit anything interesting.
 			// You grumble and put the dice away.
-			else if ( responseText.indexOf( "You grumble and put the dice away" ) != -1 )
+			else if ( responseText.contains( "You grumble and put the dice away" ) )
 			{
 				UseItemRequest.lastUpdate = "You grumble and put the dice away.";
 			}
 
 			// Y'know, you're never going to be able to top what happened last time. That was awesome.
-			else if ( responseText.indexOf( "That was awesome" ) != -1 )
+			else if ( responseText.contains( "That was awesome" ) )
 			{
 				UseItemRequest.lastUpdate = "You already hit a bullseye.";
 			}
@@ -2991,7 +2991,7 @@ public class UseItemRequest
 		case ItemPool.D20:
 
 			// You already rolled for initiative.
-			if ( responseText.indexOf( "You already rolled for initiative" ) != -1 )
+			if ( responseText.contains( "You already rolled for initiative" ) )
 			{
 				UseItemRequest.lastUpdate = "You already rolled for initiative";
 			}
@@ -2999,7 +2999,7 @@ public class UseItemRequest
 			// You can't figure out a good way to roll that
 			// quantity of 20-sided dice. Maybe you should've paid
 			// less attention in gym class.
-			else if ( responseText.indexOf( "Maybe you should've paid less attention in gym class" ) != -1 )
+			else if ( responseText.contains( "Maybe you should've paid less attention in gym class" ) )
 			{
 				UseItemRequest.lastUpdate = "Rolling that many d20s doesn't do anything interesting.";
 			}
@@ -3024,7 +3024,7 @@ public class UseItemRequest
 		case ItemPool.BRICKO_CATHEDRAL:
 		case ItemPool.BRICKO_CHICKEN:
 
-			if ( responseText.indexOf( "You're sick of playing with BRICKOs today" ) != -1 )
+			if ( responseText.contains( "You're sick of playing with BRICKOs today" ) )
 			{
 				Preferences.setInteger( "_brickoFights", 10 );
 			}
@@ -3048,7 +3048,7 @@ public class UseItemRequest
 
 			// You already have too many songs stuck in your head.
 
-			if ( responseText.indexOf( "too many songs stuck in your head" ) != -1 )
+			if ( responseText.contains( "too many songs stuck in your head" ) )
 			{
 				UseItemRequest.lastUpdate = "You have the maximum number of AT buffs already.";
 				KoLmafia.updateDisplay( MafiaState.ERROR, UseItemRequest.lastUpdate );
@@ -3124,7 +3124,7 @@ public class UseItemRequest
 			// you probably shouldn't copy anything else until
 			// you've dealt with this copy you've already got.
 
-			if ( responseText.indexOf( "you drop your pants and giggle" ) != -1 )
+			if ( responseText.contains( "you drop your pants and giggle" ) )
 			{
 				Preferences.setString( "photocopyMonster", "Your butt" );
 			}
@@ -3140,7 +3140,7 @@ public class UseItemRequest
 			// You should give this one to somebody who will
 			// appreciate it more.
 
-			if ( responseText.indexOf( "You've already got one of those tattoos on" ) != -1 )
+			if ( responseText.contains( "You've already got one of those tattoos on" ) )
 			{
 				ResultProcessor.processResult( item );
 			}
@@ -3161,7 +3161,7 @@ public class UseItemRequest
 			// You strain some of the toxins out of your mojo, and
 			// discard the now-grodulated filter.
 
-			if ( responseText.indexOf( "now-grodulated" ) == -1 )
+			if ( !responseText.contains( "now-grodulated" ) )
 			{
 				ResultProcessor.processResult( item );
 				return;
@@ -3180,12 +3180,12 @@ public class UseItemRequest
 		case ItemPool.SPICE_MELANGE:
 
 			// You pop the spice melange into your mouth and chew it up.
-			if ( responseText.indexOf( "too scared to eat any more of that stuff today" ) != -1 )
+			if ( responseText.contains( "too scared to eat any more of that stuff today" ) )
 			{
 				Preferences.setBoolean( "spiceMelangeUsed", true );
 				ResultProcessor.processResult( item );
 			}
-			else if ( responseText.indexOf( "You pop the spice melange into your mouth and chew it up" ) != -1 )
+			else if ( responseText.contains( "You pop the spice melange into your mouth and chew it up" ) )
 			{
 				Preferences.setInteger( "currentFullness", Math.max( 0, Preferences.getInteger( "currentFullness" ) - 3 ) );
 				KoLCharacter.setInebriety( Math.max( 0, KoLCharacter.getInebriety() - 3 ) );
@@ -3198,12 +3198,12 @@ public class UseItemRequest
 		case ItemPool.SYNTHETIC_DOG_HAIR_PILL:
 
 			//Your liver feels better! And quivers a bit.
-			if ( responseText.indexOf( "liver can't take any more abuse" ) != -1 )
+			if ( responseText.contains( "liver can't take any more abuse" ) )
 			{
 				Preferences.setBoolean( "_syntheticDogHairPillUsed", true );
 				ResultProcessor.processResult( item );
 			}
-			else if ( responseText.indexOf( "quivers" ) != -1 )
+			else if ( responseText.contains( "quivers" ) )
 			{
 				KoLCharacter.setInebriety( Math.max( 0, KoLCharacter.getInebriety() - 1 ) );
 				Preferences.setBoolean( "_syntheticDogHairPillUsed", true );
@@ -3215,12 +3215,12 @@ public class UseItemRequest
 		case ItemPool.DISTENTION_PILL:
 
 			// Your stomach feels rather stretched out
-			if ( responseText.indexOf( "stomach can't take any more abuse" ) != -1 )
+			if ( responseText.contains( "stomach can't take any more abuse" ) )
 			{
 				Preferences.setBoolean( "_distentionPillUsed", true );
 				ResultProcessor.processResult( item );
 			}
-			else if ( responseText.indexOf( "stomach feels rather stretched" ) != -1 )
+			else if ( responseText.contains( "stomach feels rather stretched" ) )
 			{
 				Preferences.setBoolean( "_distentionPillUsed", true );
 				Preferences.setBoolean( "distentionPillActive", true );
@@ -3242,7 +3242,7 @@ public class UseItemRequest
 		case ItemPool.TWIG_HOUSE:
 		case ItemPool.HOBO_FORTRESS:
 
-			if ( responseText.indexOf( "You've already got" ) != -1 )
+			if ( responseText.contains( "You've already got" ) )
 			{
 				ResultProcessor.processResult( item );
 				return;
@@ -3267,7 +3267,7 @@ public class UseItemRequest
 		case ItemPool.BLACK_BLUE_LIGHT:
 		case ItemPool.LOUDMOUTH_LARRY:
 		case ItemPool.PLASMA_BALL:
-			if ( responseText.indexOf( "already" ) != -1 )
+			if ( responseText.contains( "already" ) )
 			{
 				ResultProcessor.processResult( item );
 				return;
@@ -3289,7 +3289,7 @@ public class UseItemRequest
 
 			for ( int i = 0; i < strings.length; ++i )
 			{
-				if ( responseText.indexOf( strings[i][2] ) != -1 )
+				if ( responseText.contains( strings[i][2] ) )
 				{
 					if ( ItemPool.eliminationProcessor( strings, i,
 						item.getItemId(),
@@ -3303,7 +3303,7 @@ public class UseItemRequest
 			}
 
 			// You don't consume inebriety potions in HCO or HCT
-			if ( responseText.indexOf( "You decide not to drink it" ) != -1 )
+			if ( responseText.contains( "You decide not to drink it" ) )
 			{
 				ResultProcessor.processResult( item );
 			}
@@ -3317,7 +3317,7 @@ public class UseItemRequest
 			strings = ItemPool.slimeVialStrings[0];
 			for ( int i = 0; i < strings.length; ++i )
 			{
-				if ( responseText.indexOf( strings[i][1] ) != -1 )
+				if ( responseText.contains( strings[i][1] ) )
 				{
 					if ( ItemPool.eliminationProcessor( strings, i,
 						item.getItemId(),
@@ -3338,7 +3338,7 @@ public class UseItemRequest
 			strings = ItemPool.slimeVialStrings[1];
 			for ( int i = 0; i < strings.length; ++i )
 			{
-				if ( responseText.indexOf( strings[i][1] ) != -1 )
+				if ( responseText.contains( strings[i][1] ) )
 				{
 					if ( ItemPool.eliminationProcessor( strings, i,
 						item.getItemId(),
@@ -3362,7 +3362,7 @@ public class UseItemRequest
 			strings = ItemPool.slimeVialStrings[2];
 			for ( int i = 0; i < strings.length; ++i )
 			{
-				if ( responseText.indexOf( strings[i][1] ) != -1 )
+				if ( responseText.contains( strings[i][1] ) )
 				{
 					if ( ItemPool.eliminationProcessor( strings, i,
 						item.getItemId(),
@@ -3426,7 +3426,7 @@ public class UseItemRequest
 			//  CHEER. PLEASE LOCATE A VITAL APPARATUS VENT AND
 			//  REQUISITION APPROPRIATE MATERIALS."
 
-			if ( responseText.indexOf( "INSUFFICIENT RESOURCES LOCATED" ) != -1 )
+			if ( responseText.contains( "INSUFFICIENT RESOURCES LOCATED" ) )
 			{
 				ResultProcessor.processResult( item );
 				return;
@@ -3438,7 +3438,7 @@ public class UseItemRequest
 			// Unobtainium straps that you acquired earlier from
 			// the Sinister Dodecahedron.
 
-			if ( responseText.indexOf( "carrying the  laser cannon" ) != -1 )
+			if ( responseText.contains( "carrying the  laser cannon" ) )
 			{
 				ResultProcessor.processResult( ItemPool.get( ItemPool.LASER_CANON, -1 ) );
 				ResultProcessor.processResult( ItemPool.get( ItemPool.TARGETING_CHOP, -1 ) );
@@ -3453,7 +3453,7 @@ public class UseItemRequest
 			// and the silicon-infused gluteal shield that you
 			// acquired earlier from the Sinister Dodecahedron.
 
-			if ( responseText.indexOf( "carrying the  polymorphic fastening apparatus" ) != -1 )
+			if ( responseText.contains( "carrying the  polymorphic fastening apparatus" ) )
 			{
 				ResultProcessor.processResult( ItemPool.get( ItemPool.FASTENING_APPARATUS, -1 ) );
 				ResultProcessor.processResult( ItemPool.get( ItemPool.LEG_ARMOR, -1 ) );
@@ -3468,7 +3468,7 @@ public class UseItemRequest
 			// helmet that you acquired earlier from the Sinister
 			// Dodecahedron.
 
-			if ( responseText.indexOf( "carrying the  carbonite visor" ) != -1 )
+			if ( responseText.contains( "carrying the  carbonite visor" ) )
 			{
 				ResultProcessor.processResult( ItemPool.get( ItemPool.CARBONITE_VISOR, -1 ) );
 				ResultProcessor.processResult( ItemPool.get( ItemPool.CHIN_STRAP, -1 ) );
@@ -3481,7 +3481,7 @@ public class UseItemRequest
 
 		case ItemPool.AUGMENTED_DRONE:
 
-			if ( responseText.indexOf( "You put an overcharged sphere in the cavity" ) != -1 )
+			if ( responseText.contains( "You put an overcharged sphere in the cavity" ) )
 			{
 				ResultProcessor.processResult( ItemPool.get( ItemPool.OVERCHARGED_POWER_SPHERE, -1 ) );
 			}
@@ -3502,7 +3502,7 @@ public class UseItemRequest
 		case ItemPool.PUNCHCARD_BUFF:
 		case ItemPool.PUNCHCARD_MODIFY:
 		case ItemPool.PUNCHCARD_BUILD:
-			if ( responseText.indexOf( "A voice emerges" ) != -1 )
+			if ( responseText.contains( "A voice emerges" ) )
 			{
 				// We should save the state of the Megadrone
 			}
@@ -3528,7 +3528,7 @@ public class UseItemRequest
 
 			// You briefly consider eating the plump juicy grub,
 			// but are filled with revulsion at the prospect.
-			if ( responseText.indexOf( "filled with revulsion" ) != -1 )
+			if ( responseText.contains( "filled with revulsion" ) )
 			{
 				ResultProcessor.processResult( item );
 			}
@@ -3539,7 +3539,7 @@ public class UseItemRequest
 
 			// You don't really need a massage right now, as your
 			// neck and back aren't feeling particularly kinky.
-			if ( responseText.indexOf( "don't really need a massage" ) != -1 )
+			if ( responseText.contains( "don't really need a massage" ) )
 			{
 				ResultProcessor.processResult( item );
 			}
@@ -3560,7 +3560,7 @@ public class UseItemRequest
 			// under your skin.  It's horrifying.  You can still
 			// feel them in there. Gah.
 
-			if ( responseText.indexOf( "It's horrifying." ) != -1 )
+			if ( responseText.contains( "It's horrifying." ) )
 			{
 				// You have three grub summons left today
 				Preferences.setInteger( "burrowgrubSummonsRemaining", 3 );
@@ -3616,7 +3616,7 @@ public class UseItemRequest
 			// trade it in for, but you don't know where any bars
 			// are.
 
-			if ( responseText.indexOf( "don't know where any bars are" ) != -1 )
+			if ( responseText.contains( "don't know where any bars are" ) )
 			{
 				ResultProcessor.processResult( item );
 			}
@@ -3660,7 +3660,7 @@ public class UseItemRequest
 			// more and you're afraid the corruption will be too
 			// much for you to bear.
 
-			if ( responseText.indexOf( "too many Infernal seals" ) != -1 )
+			if ( responseText.contains( "too many Infernal seals" ) )
 			{
 				int maxSummons = 5;
 				if ( KoLCharacter.hasEquipped( INFERNAL_SEAL_CLAW ) ||
@@ -3676,7 +3676,7 @@ public class UseItemRequest
 			// 1 seal-blubber candle. You can pick them up at the
 			// store in the Brotherhood of the Smackdown.
 
-			else if ( responseText.indexOf( "Brotherhood of the Smackdown" ) != -1 )
+			else if ( responseText.contains( "Brotherhood of the Smackdown" ) )
 			{
 				UseItemRequest.lastUpdate = "You need more seal-blubber candles.";
 			}
@@ -3684,21 +3684,21 @@ public class UseItemRequest
 			// In order to perform this summoning ritual, you need
 			// 1 imbued seal-blubber candle.
 
-			else if ( responseText.indexOf( "you need 1 imbued seal-blubber candle" ) != -1 )
+			else if ( responseText.contains( "you need 1 imbued seal-blubber candle" ) )
 			{
 				UseItemRequest.lastUpdate = "You need an imbued seal-blubber candle.";
 			}
 
 			// Only Seal Clubbers may use this item.
 
-			else if ( responseText.indexOf( "Only Seal Clubbers may use this item." ) != -1 )
+			else if ( responseText.contains( "Only Seal Clubbers may use this item." ) )
 			{
 				UseItemRequest.lastUpdate = "Only Seal Clubbers may use this item.";
 			}
 
 			// You need to be at least level 6 to use that item
 
-			else if ( responseText.indexOf( "need to be at least level" ) != -1 )
+			else if ( responseText.contains( "need to be at least level" ) )
 			{
 				UseItemRequest.lastUpdate = "You are not high enough level.";
 			}
@@ -3723,7 +3723,7 @@ public class UseItemRequest
 		case ItemPool.SEAL_IRON_INGOT:
 
 			// You beat the seal-iron into a formidable club.
-			if ( responseText.indexOf( "formidable club" ) == -1 )
+			if ( !responseText.contains( "formidable club" ) )
 			{
 				ResultProcessor.processResult( item );
 			}
@@ -3746,7 +3746,7 @@ public class UseItemRequest
 			return;
 
 		case ItemPool.EVIL_EYE:
-			if ( responseText.indexOf( "Evilometer emits three quick beeps" ) != -1 )
+			if ( responseText.contains( "Evilometer emits three quick beeps" ) )
 			{
 				int evilness = Math.min( Preferences.getInteger( "cyrptNookEvilness" ), 3 );
 				Preferences.increment( "cyrptNookEvilness", -evilness );
@@ -3762,7 +3762,7 @@ public class UseItemRequest
 			// You've already got a pen pal. There's no way you
 			// could handle the pressure of contantly forgetting to
 			// reply to two kids from Distant Lands...
-			if ( responseText.indexOf( "already got a pen pal" ) != -1 )
+			if ( responseText.contains( "already got a pen pal" ) )
 			{
 				ResultProcessor.processResult( item );
 			}
@@ -3788,13 +3788,13 @@ public class UseItemRequest
 			// Set the preference to true both when we fail and succeed.
 			Preferences.setBoolean( "_borrowedTimeUsed", true );
 
-			if ( responseText.indexOf( "already borrowed some time today" ) != -1 )
+			if ( responseText.contains( "already borrowed some time today" ) )
 			{
 				ResultProcessor.processResult( item );
 			}
 
 			// You dip into your future and borrow some time. Be sure to spend it wisely!
-			else if ( responseText.indexOf( "dip into your future" ) != -1 )
+			else if ( responseText.contains( "dip into your future" ) )
 			{
 				KoLCharacter.updateStatus();
 			}
@@ -3803,14 +3803,14 @@ public class UseItemRequest
 		case ItemPool.MOVEABLE_FEAST:
 			// The table is looking pretty bare -- you should wait
 			// until tomorrow, and let some of the food magically regenerate. 
-			if ( responseText.indexOf( "wait until tomorrow" ) != -1 )
+			if ( responseText.contains( "wait until tomorrow" ) )
 			{
 				Preferences.setInteger( "_feastUsed", 5 );
 			}
 
 			// <name> chows down on the moveable feast,
 			// then leans back, sighs, and loosens his belt a couple of notches. 
-			else if ( responseText.indexOf( "chows down" ) != -1 )
+			else if ( responseText.contains( "chows down" ) )
 			{
 				Preferences.increment( "_feastUsed", 1 );
 
@@ -3823,22 +3823,22 @@ public class UseItemRequest
 
 		case ItemPool.STAFF_GUIDE:
 
-			if ( responseText.indexOf( "You don't have time to screw around in a haunted house" ) != -1 )
+			if ( responseText.contains( "You don't have time to screw around in a haunted house" ) )
 			{
 				UseItemRequest.lastUpdate = "Insufficient adventures to use a staff guide.";
 				KoLmafia.updateDisplay( MafiaState.ERROR, UseItemRequest.lastUpdate );
 				ResultProcessor.processResult( item );
 			}
 
-			else if ( responseText.indexOf( "You aren't allowed to go to any Haunted Houses right now" ) != -1 )
+			else if ( responseText.contains( "You aren't allowed to go to any Haunted Houses right now" ) )
 			{
 				UseItemRequest.lastUpdate = "You aren't allowed to go to any Haunted Houses right now.";
 				KoLmafia.updateDisplay( MafiaState.ERROR, UseItemRequest.lastUpdate );
 				ResultProcessor.processResult( item );
 			}
 
-			else if ( responseText.indexOf( "You don't know where any haunted sorority houses are right now." ) != -1  ||
-			     responseText.indexOf( "No way. It's boring in there now that everybody is dead." ) != -1 )
+			else if ( responseText.contains( "You don't know where any haunted sorority houses are right now." ) ||
+                    responseText.contains( "No way. It's boring in there now that everybody is dead." ) )
 			{
 				UseItemRequest.lastUpdate = "The Haunted Sorority House is unavailable.";
 				KoLmafia.updateDisplay( MafiaState.ERROR, UseItemRequest.lastUpdate );
@@ -3853,7 +3853,7 @@ public class UseItemRequest
 		case ItemPool.WHISKER_PENCIL:
 		case ItemPool.PRESS_ON_RIBS:
 
-			if ( responseText.indexOf( "You've already got a sexy costume on" ) != -1 )
+			if ( responseText.contains( "You've already got a sexy costume on" ) )
 			{
 				UseItemRequest.lastUpdate = "You've already got a sexy costume on.";
 				KoLmafia.updateDisplay( MafiaState.ERROR, UseItemRequest.lastUpdate );
@@ -3864,7 +3864,7 @@ public class UseItemRequest
 		case ItemPool.BLACK_PAINT:
 
 			if ( KoLCharacter.inFistcore() &&
-			     responseText.indexOf( "Your teachings forbid the use of black paint." ) != -1 )
+                    responseText.contains( "Your teachings forbid the use of black paint." ) )
 			{
 				UseItemRequest.lastUpdate = "Your teachings forbid the use of black paint.";
 				KoLmafia.updateDisplay( MafiaState.ERROR, UseItemRequest.lastUpdate );
@@ -3899,7 +3899,7 @@ public class UseItemRequest
 			// Then you resolve to do it again and again and again.
 			// Then you resolve to do it again and again and again and again.
 
-			if ( responseText.indexOf( "already feeling adventurous enough" ) != -1 )
+			if ( responseText.contains( "already feeling adventurous enough" ) )
 			{
 				// player has already used 5 resolutions today
 				int extraAdv = 10 - Preferences.getInteger( "_resolutionAdv" );
@@ -3950,11 +3950,11 @@ public class UseItemRequest
 			return;
 
 		case ItemPool.CHOCOLATE_CIGAR:
-			if ( responseText.indexOf( "You light the end") != -1 )
+			if ( responseText.contains( "You light the end" ) )
 			{
 				Preferences.setInteger( "_chocolateCigarsUsed", 1 );
 			}
-			else if ( responseText.indexOf( "This one doesn't taste" ) != -1 )
+			else if ( responseText.contains( "This one doesn't taste" ) )
 			{
 				Preferences.setInteger( "_chocolateCigarsUsed", 2 );
 			}
@@ -3965,11 +3965,11 @@ public class UseItemRequest
 			return;
 
 		case ItemPool.VITACHOC_CAPSULE:
-			if ( responseText.indexOf( "As the nutritive nanobots" ) != -1 )
+			if ( responseText.contains( "As the nutritive nanobots" ) )
 			{
 				Preferences.setInteger( "_vitachocCapsulesUsed", 1 );
 			}
-			else if ( responseText.indexOf( "Your body is becoming acclimated" ) != -1 )
+			else if ( responseText.contains( "Your body is becoming acclimated" ) )
 			{
 				Preferences.setInteger( "_vitachocCapsulesUsed", 2 );
 			}
@@ -4388,11 +4388,11 @@ public class UseItemRequest
 		     !urlString.startsWith( "multiuse.php" ) &&
 		     !urlString.startsWith( "inv_familiar.php" ) &&
 		     !(urlString.startsWith( "inventory.php" ) &&
-		       urlString.indexOf( "action=ghost" ) == -1 &&
-		       urlString.indexOf( "action=hobo" ) == -1 &&
-		       urlString.indexOf( "action=slime" ) == -1 &&
-		       urlString.indexOf( "action=breakbricko" ) == -1 &&
-		       urlString.indexOf( "action=candy" ) == -1 ) )
+                     !urlString.contains( "action=ghost" ) &&
+                     !urlString.contains( "action=hobo" ) &&
+                     !urlString.contains( "action=slime" ) &&
+                     !urlString.contains( "action=breakbricko" ) &&
+                     !urlString.contains( "action=candy" )) )
 		{
 			return null;
 		}
@@ -4416,10 +4416,10 @@ public class UseItemRequest
 
 		int itemCount = 1;
 
-		if ( urlString.indexOf( "multiuse.php" ) != -1 ||
-		     urlString.indexOf( "inv_eat.php" ) != -1 ||
-		     urlString.indexOf( "inv_booze.php" ) != -1 ||
-		     urlString.indexOf( "inv_use.php" ) != -1)
+		if ( urlString.contains( "multiuse.php" ) ||
+                urlString.contains( "inv_eat.php" ) ||
+                urlString.contains( "inv_booze.php" ) ||
+                urlString.contains( "inv_use.php" ) )
 		{
 			Matcher quantityMatcher = UseItemRequest.QUANTITY_PATTERN.matcher( urlString );
 			if ( quantityMatcher.find() )
@@ -4547,8 +4547,8 @@ public class UseItemRequest
 		// If we are transferring to or from the closet from the
 		// inventory, we are not "using" the item
 
-		if ( urlString.indexOf( "action=closetpull" ) != -1 ||
-		     urlString.indexOf( "action=closetpush" ) != -1 )
+		if ( urlString.contains( "action=closetpull" ) ||
+                urlString.contains( "action=closetpush" ) )
 		{
 			return ClosetRequest.registerRequest( urlString );
 		}
@@ -4556,15 +4556,15 @@ public class UseItemRequest
 		AdventureResult item = UseItemRequest.extractItem( urlString );
 
 		// Special handing for twisting Boris's Helm when it is equipped
-		if ( item == null && urlString.indexOf( "action=twisthorns" ) != -1 )
+		if ( item == null && urlString.contains( "action=twisthorns" ) )
 		{
 			int slot = -1;
 
-			if ( urlString.indexOf( "slot=hat" ) != -1 )
+			if ( urlString.contains( "slot=hat" ) )
 			{
 				slot = EquipmentManager.HAT;
 			}
-			else if ( urlString.indexOf( "slot=familiarequip" ) != -1 )
+			else if ( urlString.contains( "slot=familiarequip" ) )
 			{
 				slot = EquipmentManager.FAMILIAR;
 			}
@@ -4611,7 +4611,7 @@ public class UseItemRequest
 		UseItemRequest.lastItemUsed = item;
 		UseItemRequest.currentItemId = itemId;
 		UseItemRequest.lastHelperUsed = UseItemRequest.extractHelper( urlString );
-		UseItemRequest.lastLook = urlString.indexOf( "action=look" ) != -1;
+		UseItemRequest.lastLook = urlString.contains( "action=look" );
 
 		if ( urlString.startsWith( "inv_booze.php" ) )
 		{
@@ -4782,7 +4782,7 @@ public class UseItemRequest
 		case ItemPool.DEPLETED_URANIUM_SEAL:
 			// You only actually use a seal figurine when you
 			// "Begin the Ritual"
-			if ( urlString.indexOf( "checked" ) != -1 )
+			if ( urlString.contains( "checked" ) )
 			{
 				return true;
 			}
@@ -4812,7 +4812,7 @@ public class UseItemRequest
 			// page where you can select the new form.
 			// inv_use.php?whichitem=xxx&pwd&switch=1&eq=0&fold=yyy
 			// You only lose the item when you switch form.
-			if ( urlString.indexOf( "fold" ) == -1 )
+			if ( !urlString.contains( "fold" ) )
 			{
 				return true;
 			}
@@ -4824,7 +4824,7 @@ public class UseItemRequest
 			// untinker something or switch forms.
 			// inv_use.php?whichitem=4926&pwd&action=screw&dowhichitem=xxx
 
-			if ( urlString.indexOf( "action=screw" ) != -1 )
+			if ( urlString.contains( "action=screw" ) )
 			{
 				Matcher matcher = UseItemRequest.DOWHICHITEM_PATTERN.matcher( urlString );
 				if ( !matcher.find() )
@@ -4837,7 +4837,7 @@ public class UseItemRequest
 				AdventureResult untinker = ItemPool.get( uid, 1 );
 				String countStr = "1";
 
-				if ( urlString.indexOf( "untinkerall=on" ) != -1 )
+				if ( urlString.contains( "untinkerall=on" ) )
 				{
 					untinker = ItemPool.get( uid, untinker.getCount( KoLConstants.inventory ) );
 					countStr = "*";
@@ -4848,7 +4848,7 @@ public class UseItemRequest
 				break;
 			}
 
-			if ( urlString.indexOf( "fold" ) == -1 )
+			if ( !urlString.contains( "fold" ) )
 			{
 				return true;
 			}
@@ -4858,9 +4858,9 @@ public class UseItemRequest
 		case ItemPool.LOATHING_LEGION_TATTOO_NEEDLE:
 			// You can either "use" the reusable tattoo needle or
 			// switch forms.
-			if ( urlString.indexOf( "switch" ) != -1 )
+			if ( urlString.contains( "switch" ) )
 			{
-				if ( urlString.indexOf( "fold" ) == -1 )
+				if ( !urlString.contains( "fold" ) )
 				{
 					return true;
 				}
@@ -4889,7 +4889,7 @@ public class UseItemRequest
 		case ItemPool.WHERE_CARD:
 			// Unless you are looking for the answer, using a card
 			// simply presents you with the question.
-			if ( urlString.indexOf( "answerplz=1" ) == -1 )
+			if ( !urlString.contains( "answerplz=1" ) )
 			{
 				return true;
 			}

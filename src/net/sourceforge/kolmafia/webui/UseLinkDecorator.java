@@ -94,7 +94,7 @@ public abstract class UseLinkDecorator
 		// Defer use links until later if this isn't the final combat/choice page
 		String macro = FightRequest.lastMacroUsed;
 		boolean usedNativeMacro = macro != null && !macro.equals( "" ) && !macro.equals( "0" );
-		boolean usedMafiaMacro = location.indexOf( "action=done" ) != -1;
+		boolean usedMafiaMacro = location.contains( "action=done" );
 		boolean usedMacro = inCombat && ( usedNativeMacro || usedMafiaMacro );
 		boolean duringCombat = inCombat && FightRequest.getCurrentRound() != 0;
 		boolean duringChoice = inChoice && buffer.indexOf( "action=choice.php" ) != -1;
@@ -191,7 +191,7 @@ public abstract class UseLinkDecorator
 			String itemName = useLinkMatcher.group( 3 );
 
 			int spaceIndex = itemName.indexOf( " " );
-			if ( spaceIndex != -1 && useLinkMatcher.group( 2 ).indexOf( ":" ) == -1 )
+			if ( spaceIndex != -1 && !useLinkMatcher.group( 2 ).contains( ":" ) )
 			{
 				itemCount = StringUtilities.parseInt( itemName.substring( 0, spaceIndex ) );
 				itemName = itemName.substring( spaceIndex + 1 );
@@ -207,7 +207,7 @@ public abstract class UseLinkDecorator
 			// amount of scrolling to find the item again.
 
 			if ( location.startsWith( "inventory.php" ) ||
-			     ( location.startsWith( "inv_use.php" ) && location.indexOf( "ajax=1" ) != -1 ) )
+			     ( location.startsWith( "inv_use.php" ) && location.contains( "ajax=1" )) )
 			{
 				switch ( itemId )
 				{
@@ -315,7 +315,7 @@ public abstract class UseLinkDecorator
 
 	private static final int shouldAddCreateLink( int itemId, String location )
 	{
-		if ( location == null || location.indexOf( "craft.php" ) != -1 || location.indexOf( "paster" ) != -1 || location.indexOf( "smith" ) != -1 )
+		if ( location == null || location.contains( "craft.php" ) || location.contains( "paster" ) || location.contains( "smith" ) )
 		{
 			return KoLConstants.NOCREATE;
 		}
@@ -424,7 +424,7 @@ public abstract class UseLinkDecorator
 	private static final boolean addEffectLink( String location, Matcher useLinkMatcher, StringBuffer buffer )
 	{
 		String message = useLinkMatcher.group(0);
-		if ( message.indexOf( "You acquire an effect" ) == -1 )
+		if ( !message.contains( "You acquire an effect" ) )
 		{
 			return false;
 		}
@@ -871,7 +871,7 @@ public abstract class UseLinkDecorator
 				// chilly it has suddenly become.
 
 				if ( consumeMethod == KoLConstants.EQUIP_PANTS &&
-				     text.indexOf( "steal the pants from your unsuspecting self" ) != -1 )
+                        text.contains( "steal the pants from your unsuspecting self" ) )
 				{
 					uses.add( new UseLink( itemId, "guild", "guild.php?place=challenge" ) );
 				}

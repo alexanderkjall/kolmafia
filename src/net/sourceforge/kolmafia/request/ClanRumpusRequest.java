@@ -417,8 +417,8 @@ public class ClanRumpusRequest
 		{
 			// You play in the ball pit. Wheeeeeee!
 			// (You've already played in the ball pit today.)
-			if ( responseText.indexOf( "play in the ball pit" ) != -1 ||
-			     responseText.indexOf( "already played in the ball pit" ) != -1 )
+			if ( responseText.contains( "play in the ball pit" ) ||
+                    responseText.contains( "already played in the ball pit" ) )
 			{
 				Preferences.setBoolean( "_ballpit", true );
 			}
@@ -428,14 +428,14 @@ public class ClanRumpusRequest
 		if ( action.equals( "buychips" ) )
 		{
 			// a bag of chips drops into the tray at the bottom
-			if ( responseText.indexOf( "a bag of chips drops" ) != -1 )
+			if ( responseText.contains( "a bag of chips drops" ) )
 			{
 				Preferences.increment( "_chipBags", 1 );
 			}
 			// You press the button and the big metal coil rotates,
 			// but not far enough to actually drop the
 			// chips. Dangit!
-			else if ( responseText.indexOf( "but not far enough" ) != -1 )
+			else if ( responseText.contains( "but not far enough" ) )
 			{
 				Preferences.setInteger( "_chipBags", 3 );
 			}
@@ -452,18 +452,18 @@ public class ClanRumpusRequest
 			return;
 		}
 
-		if ( urlString.indexOf( "spot=3" ) != -1 && urlString.indexOf( "furni=3" ) != -1 )
+		if ( urlString.contains( "spot=3" ) && urlString.contains( "furni=3" ) )
 		{
 			// You carefully guide the claw over the prize that
 			// looks the easiest to grab. You press the button and
 			// the claw slowly descends.
-			if ( responseText.indexOf( "slowly descends" ) != -1 )
+			if ( responseText.contains( "slowly descends" ) )
 			{
 				Preferences.increment( "_klawSummons", 1 );
 			}
 			// The machine makes a horrible clanking noise, and a
 			// wisp of smoke pours out of the prize chute.
-			else if ( responseText.indexOf( "seems to be broken down" ) != -1 )
+			else if ( responseText.contains( "seems to be broken down" ) )
 			{
 				Preferences.setInteger( "_klawSummons", 3 );
 			}
@@ -487,7 +487,7 @@ public class ClanRumpusRequest
 		// The Klaw can be accessed regardless of whether or not
 		// you are in hardcore, so handle it first.
 
-		if ( request.responseText.indexOf( "rump3_3.gif" ) != -1 )
+		if ( request.responseText.contains( "rump3_3.gif" ) )
 		{
 			request.visitEquipment( 3, 3 );
 
@@ -522,7 +522,7 @@ public class ClanRumpusRequest
 
 
 				// If the equipment is not present, skip it
-				if ( request.responseText.indexOf( "rump" + i + "_" + j + ".gif" ) == -1 )
+				if ( !request.responseText.contains( "rump" + i + "_" + j + ".gif" ) )
 				{
 					continue;
 				}
@@ -541,31 +541,31 @@ public class ClanRumpusRequest
 	{
 		String action = null;
 
-		if ( urlString.startsWith( "knoll.php" ) && urlString.indexOf( "action=gym" ) != -1 )
+		if ( urlString.startsWith( "knoll.php" ) && urlString.contains( "action=gym" ) )
 		{
 			action = "Pump Up Muscle";
 		}
-		else if ( urlString.startsWith( "canadia.php" ) && urlString.indexOf( "action=institute" ) != -1 )
+		else if ( urlString.startsWith( "canadia.php" ) && urlString.contains( "action=institute" ) )
 		{
 			action = "Pump Up Mysticality";
 		}
-		else if ( urlString.startsWith( "gnomes.php" ) && urlString.indexOf( "action=train" ) != -1 )
+		else if ( urlString.startsWith( "gnomes.php" ) && urlString.contains( "action=train" ) )
 		{
 			action = "Pump Up Moxie";
 		}
-		else if ( urlString.startsWith( "clan_rumpus.php" ) && urlString.indexOf( "whichgym=3" ) != -1 )
+		else if ( urlString.startsWith( "clan_rumpus.php" ) && urlString.contains( "whichgym=3" ) )
 		{
 			action = "Pump Up Muscle";
 		}
-		else if ( urlString.startsWith( "clan_rumpus.php" ) && urlString.indexOf( "whichgym=1" ) != -1 )
+		else if ( urlString.startsWith( "clan_rumpus.php" ) && urlString.contains( "whichgym=1" ) )
 		{
 			action = "Pump Up Mysticality";
 		}
-		else if ( urlString.startsWith( "clan_rumpus.php" ) && urlString.indexOf( "whichgym=2" ) != -1 )
+		else if ( urlString.startsWith( "clan_rumpus.php" ) && urlString.contains( "whichgym=2" ) )
 		{
 			action = "Pump Up Moxie";
 		}
-		else if ( urlString.startsWith( "clan_rumpus.php" ) && urlString.indexOf( "preaction=nap" ) != -1 )
+		else if ( urlString.startsWith( "clan_rumpus.php" ) && urlString.contains( "preaction=nap" ) )
 		{
 			action = "Rest in Clan Sofa";
 		}
@@ -601,7 +601,7 @@ public class ClanRumpusRequest
 			return false;
 		}
 
-		if ( urlString.indexOf( "action=buychips" ) != -1 )
+		if ( urlString.contains( "action=buychips" ) )
 		{
 			String message = "Buying chips from the Snack Machine in the clan rumpus room";
 			RequestLogger.printLine( message );
@@ -609,7 +609,7 @@ public class ClanRumpusRequest
 			return true;
 		}
 
-		if ( urlString.indexOf( "preaction=ballpit" ) != -1 )
+		if ( urlString.contains( "preaction=ballpit" ) )
 		{
 			String message = "Jumping into the Awesome Ball Pit in the clan rumpus room";
 			RequestLogger.printLine( message );
@@ -617,7 +617,7 @@ public class ClanRumpusRequest
 			return true;
 		}
 
-		if ( urlString.indexOf( "preaction=jukebox" ) != -1 )
+		if ( urlString.contains( "preaction=jukebox" ) )
 		{
 			String message = "Playing a song on the Jukebox in the clan rumpus room";
 			RequestLogger.printLine( message );
@@ -628,7 +628,7 @@ public class ClanRumpusRequest
 		// The only other actions we handle here are clicking on clan
 		// furniture
 
-		if ( urlString.indexOf( "action=click" ) == -1 )
+		if ( !urlString.contains( "action=click" ) )
 		{
 			return false;
 		}

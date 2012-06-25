@@ -278,7 +278,7 @@ public class GuildRequest
 			return;
 		}
 		
-		KoLCharacter.setGuildStoreOpen( responseText.indexOf( "\"store.php" ) != -1 );
+		KoLCharacter.setGuildStoreOpen( responseText.contains( "\"store.php" ) );
 
 		Matcher matcher = GenericRequest.PLACE_PATTERN.matcher( urlString );
 		String place = matcher.find() ? matcher.group( 1 ) : null;
@@ -322,9 +322,9 @@ public class GuildRequest
 			// <Moxie class> grins and takes Fernswarthy's key from
 			// you.
 
-			if ( responseText.indexOf( "hand over Fernswarthy's key" ) != -1 ||
-			     responseText.indexOf( "returned with Fernswarthy's key" ) != -1 ||
-			     responseText.indexOf( "takes Fernswarthy's key" ) != -1 )
+			if ( responseText.contains( "hand over Fernswarthy's key" ) ||
+                    responseText.contains( "returned with Fernswarthy's key" ) ||
+                    responseText.contains( "takes Fernswarthy's key" ) )
 			{
 				ResultProcessor.processItem( ItemPool.FERNSWARTHYS_KEY, -1 );
 			}
@@ -344,7 +344,7 @@ public class GuildRequest
 
 		if ( action.equals( "buyskill" ) )
 		{
-			if ( responseText.indexOf( "You learn a new skill" ) != -1 )
+			if ( responseText.contains( "You learn a new skill" ) )
 			{
 				int skillId = GuildRequest.findSkill( urlString );
 				int cost = SkillDatabase.getSkillPurchaseCost( skillId );

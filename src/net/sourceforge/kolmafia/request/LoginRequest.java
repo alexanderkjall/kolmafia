@@ -272,13 +272,13 @@ public class LoginRequest
 
 		LoginRequest.lastLoginAttempt = 0;
 
-		if ( this.responseText.indexOf( "Bad password" ) != -1 )
+		if ( this.responseText.contains( "Bad password" ) )
 		{
 			KoLmafia.updateDisplay( MafiaState.ABORT, "Bad password." );
 			return;
 		}
 
-		if ( this.responseText.indexOf( "wait fifteen minutes" ) != -1 )
+		if ( this.responseText.contains( "wait fifteen minutes" ) )
 		{
 			StaticEntity.executeCountdown( "Login reattempt in ", 15 * 60 );
 			this.run();
@@ -294,15 +294,15 @@ public class LoginRequest
 		// inconvenience, but you'll need to wait a couple of minutes
 		// before you can log in again.
 
-		if ( this.responseText.indexOf( "wait a minute" ) != -1 ||
-                     this.responseText.indexOf( "wait a couple of minutes" ) != -1 )
+		if ( this.responseText.contains( "wait a minute" ) ||
+                this.responseText.contains( "wait a couple of minutes" ) )
 		{
 			StaticEntity.executeCountdown( "Login reattempt in ", 75 );
 			this.run();
 			return;
 		}
 
-		if ( this.responseText.indexOf( "Too many" ) != -1 )
+		if ( this.responseText.contains( "Too many" ) )
 		{
 			// Too many bad logins in too short a time span.
 			int pos = this.responseText.indexOf("Too many");
@@ -311,7 +311,7 @@ public class LoginRequest
 			return;
 		}
 
-		if ( this.responseText.indexOf( "do not have the privileges" ) != -1 )
+		if ( this.responseText.contains( "do not have the privileges" ) )
 		{
 			// Can't use dev server without permission. Skip it.
 			Preferences.setBoolean( "useDevProxyServer", false );

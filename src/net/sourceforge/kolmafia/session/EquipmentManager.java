@@ -1581,7 +1581,7 @@ public class EquipmentManager
 		{
 			SpecialOutfit outfit = (SpecialOutfit) customOutfitList.get( i );
 	
-			if ( outfit.toString().toLowerCase().indexOf( lowercaseName ) != -1 )
+			if ( outfit.toString().toLowerCase().contains( lowercaseName ) )
 			{
 				return outfit;
 			}
@@ -1591,7 +1591,7 @@ public class EquipmentManager
 		{
 			SpecialOutfit outfit = EquipmentDatabase.getOutfit( i );
 	
-			if ( outfit != null && outfit.toString().toLowerCase().indexOf( lowercaseName ) != -1 )
+			if ( outfit != null && outfit.toString().toLowerCase().contains( lowercaseName ) )
 			{
 				return outfit;
 			}

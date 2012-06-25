@@ -118,7 +118,7 @@ public class StarChartRequest
 	{
                 // Your stars and lines combine to form a new item!
 
-		if ( responseText.indexOf( "Your stars and lines combine to form a new item!" ) == -1 )
+		if ( !responseText.contains( "Your stars and lines combine to form a new item!" ) )
 		{
 			return true;
 		}

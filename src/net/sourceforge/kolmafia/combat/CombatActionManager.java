@@ -361,7 +361,7 @@ public abstract class CombatActionManager
 			return action;
 		}
 
-		if ( action.indexOf( "pick" ) != -1 || ( action.indexOf( "steal" ) != -1 && action.indexOf( "stealth" ) == -1 && action.indexOf( "combo" ) == -1 ) )
+		if ( action.contains( "pick" ) || (action.contains( "steal" ) && !action.contains( "stealth" ) && !action.contains( "combo" )) )
 		{
 			return "try to steal an item";
 		}
@@ -403,7 +403,7 @@ public abstract class CombatActionManager
 
 		if ( action.startsWith( "abort" ) )
 		{
-			if ( action.indexOf( "after" ) != -1 )
+			if ( action.contains( "after" ) )
 			{
 				return "abort after this combat";
 			}
@@ -430,7 +430,7 @@ public abstract class CombatActionManager
 			return "twiddle your thumbs";
 		}
 
-		if ( action.indexOf( "run" ) != -1 && action.indexOf( "away" ) != -1 )
+		if ( action.contains( "run" ) && action.contains( "away" ) )
 		{
 			Matcher runAwayMatcher = CombatActionManager.TRY_TO_RUN_AWAY_PATTERN.matcher( action );
 
@@ -568,14 +568,14 @@ public abstract class CombatActionManager
 
 		if ( action.startsWith( "abort" ) )
 		{
-			if ( action.indexOf( "after" ) != -1 )
+			if ( action.contains( "after" ) )
 			{
 				return "abort after";
 			}
 			return "abort";
 		}
 
-		if ( action.indexOf( "pick" ) != -1 || ( action.indexOf( "steal" ) != -1 && action.indexOf( "stealth" ) == -1 && action.indexOf( "combo" ) == -1 ) )
+		if ( action.contains( "pick" ) || (action.contains( "steal" ) && !action.contains( "stealth" ) && !action.contains( "combo" )) )
 		{
 			return "steal";
 		}
@@ -620,7 +620,7 @@ public abstract class CombatActionManager
 			return "twiddle";
 		}
 
-		if ( action.indexOf( "run" ) != -1 && action.indexOf( "away" ) != -1 )
+		if ( action.contains( "run" ) && action.contains( "away" ) )
 		{
 			Matcher runAwayMatcher = CombatActionManager.TRY_TO_RUN_AWAY_PATTERN.matcher( action );
 			int runaway = runAwayMatcher.find() ? StringUtilities.parseInt( runAwayMatcher.group( 1 ) ) : 0;

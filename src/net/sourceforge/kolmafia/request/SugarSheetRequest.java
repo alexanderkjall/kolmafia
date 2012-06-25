@@ -94,7 +94,7 @@ public class SugarSheetRequest
 		// You moisten your sticker sheet, and quickly fold it into a
 		// new shape before it dries.
 
-		if ( responseText.indexOf( "quickly fold it into a new shape" ) == -1 )
+		if ( !responseText.contains( "quickly fold it into a new shape" ) )
 		{
 			return true;
 		}

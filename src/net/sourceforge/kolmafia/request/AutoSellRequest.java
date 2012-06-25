@@ -357,11 +357,11 @@ public class AutoSellRequest
 			quantity = StringUtilities.parseInt( quantityMatcher.group( 1 ) );
 		}
 
-		if ( urlString.indexOf( "type=allbutone" ) != -1 )
+		if ( urlString.contains( "type=allbutone" ) )
 		{
 			quantity = -1;
 		}
-		else if ( urlString.indexOf( "type=all" ) != -1 )
+		else if ( urlString.contains( "type=all" ) )
 		{
 			quantity = 0;
 		}
@@ -391,11 +391,11 @@ public class AutoSellRequest
 			quantity = StringUtilities.parseInt( quantityMatcher.group( 1 ) );
 		}
 
-		if ( urlString.indexOf( "mode=1" ) != -1 )
+		if ( urlString.contains( "mode=1" ) )
 		{
 			quantity = 0;
 		}
-		else if ( urlString.indexOf( "mode=2" ) != -1 )
+		else if ( urlString.contains( "mode=2" ) )
 		{
 			quantity = -1;
 		}
@@ -505,11 +505,11 @@ public class AutoSellRequest
 				quantity = StringUtilities.parseInt( quantityMatcher.group( 1 ) );
 			}
 
-			if ( urlString.indexOf( "type=allbutone" ) != -1 )
+			if ( urlString.contains( "type=allbutone" ) )
 			{
 				quantity = -1;
 			}
-			else if ( urlString.indexOf( "type=all" ) != -1 )
+			else if ( urlString.contains( "type=all" ) )
 			{
 				quantity = 0;
 			}
@@ -524,11 +524,11 @@ public class AutoSellRequest
 				quantity = StringUtilities.parseInt( quantityMatcher.group( 1 ) );
 			}
 
-			if ( urlString.indexOf( "mode=1" ) != -1 )
+			if ( urlString.contains( "mode=1" ) )
 			{
 				quantity = 0;
 			}
-			else if ( urlString.indexOf( "mode=2" ) != -1 )
+			else if ( urlString.contains( "mode=2" ) )
 			{
 				quantity = -1;
 			}

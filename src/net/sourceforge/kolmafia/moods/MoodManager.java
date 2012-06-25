@@ -159,7 +159,7 @@ public abstract class MoodManager
 			{
 				MoodManager.currentMood = mood;
 				
-				if ( newMoodName.indexOf( " extends " ) != -1 || newMoodName.indexOf( "," ) != -1 )
+				if ( newMoodName.contains( " extends " ) || newMoodName.contains( "," ) )
 				{
 					MoodManager.currentMood.setParentNames( newMood.getParentNames() );
 				}
@@ -929,10 +929,10 @@ public abstract class MoodManager
 	public static final boolean unstackableAction( final String action )
 	{
 		return
-			action.indexOf( "absinthe" ) != -1 ||
-			action.indexOf( "astral mushroom" ) != -1 ||
-			action.indexOf( "oasis" ) != -1 ||
-			action.indexOf( "turtle pheromones" ) != -1 ||
-			action.indexOf( "gong" ) != -1;
+                action.contains( "absinthe" ) ||
+                        action.contains( "astral mushroom" ) ||
+                        action.contains( "oasis" ) ||
+                        action.contains( "turtle pheromones" ) ||
+                        action.contains( "gong" );
 	}
 }

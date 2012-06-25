@@ -141,7 +141,7 @@ public class AfterLifeRequest
 		{
 			// afterlife.php?action=returnskill&classid=6&skillid=27&hc=1
 			// <td>Skill permanence returned.</td>
-			delta = urlString.indexOf( "hc=1" ) == -1 ? 100 : 200;
+			delta = !urlString.contains( "hc=1" ) ? 100 : 200;
 		}
 		else if ( action.equals( "buydeli" ) )
 		{
@@ -320,7 +320,7 @@ public class AfterLifeRequest
 		// afterlife.php?action=ascend&confirmascend=1&whichsign=2&gender=2&whichclass=4&whichpath=4&asctype=3
 		else if ( action.equals( "ascend" ) )
 		{
-			if ( urlString.indexOf( "confirmascend=1" ) == -1 )
+			if ( !urlString.contains( "confirmascend=1" ) )
 			{
 				return true;
 			}

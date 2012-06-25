@@ -133,10 +133,10 @@ public class ResultProcessor
 			// Marmot sign can give you a clover after a fight
 			formURLString.startsWith( "fight.php" ) ||
 			// Using a 31337 scroll
-			formURLString.indexOf( "whichitem=553" ) != -1 ||
+                formURLString.contains( "whichitem=553" ) ||
 			// ...without in-line loading can redirect to inventory
 			( formURLString.startsWith( "inventory.php" ) &&
-			  formURLString.indexOf( "action=message" ) != -1 );
+                    formURLString.contains( "action=message" ));
 	}
 
 	public static Pattern ITEM_TABLE_PATTERN = Pattern.compile( "<table class=\"item\".*?rel=\"(.*?)\".*?title=\"(.*?)\".*?descitem\\(([\\d]*)\\).*?</table>" );
@@ -236,14 +236,14 @@ public class ResultProcessor
 
 	public static boolean processFamiliarWeightGain( final String results )
 	{
-		if ( results.indexOf( "gains a pound" ) != -1 ||
+		if ( results.contains( "gains a pound" ) ||
 		     // The following are Haiku results
-		     results.indexOf( "gained a pound" ) != -1 ||
-		     results.indexOf( "puts on weight" ) != -1 ||
-		     results.indexOf( "gaining weight" ) != -1 ||
+                results.contains( "gained a pound" ) ||
+                results.contains( "puts on weight" ) ||
+                results.contains( "gaining weight" ) ||
 		     // The following are Anapest results
-		     results.indexOf( "just got heavier" ) != -1 ||
-		     results.indexOf( "put on some weight" ) != -1 )
+                results.contains( "just got heavier" ) ||
+                results.contains( "put on some weight" ) )
 		{
 			KoLCharacter.incrementFamilarWeight();
 
@@ -274,10 +274,10 @@ public class ResultProcessor
 		// Skip skill acquisition - it's followed by a boldface
 		// which makes the parser think it's found an item.
 
-		if ( lastToken.indexOf( "You acquire a skill" ) != -1 ||
-		     lastToken.indexOf( "You learn a skill" ) != -1 ||
-		     lastToken.indexOf( "You gain a skill" ) != -1 ||
-		     lastToken.indexOf( "You have learned a skill" ) != -1)
+		if ( lastToken.contains( "You acquire a skill" ) ||
+                lastToken.contains( "You learn a skill" ) ||
+                lastToken.contains( "You gain a skill" ) ||
+                lastToken.contains( "You have learned a skill" ) )
 		{
 			return false;
 		}
@@ -286,12 +286,12 @@ public class ResultProcessor
 
 		if ( acquisition.startsWith( "You acquire" ) )
 		{
-			if ( acquisition.indexOf( "clan trophy" ) != -1 )
+			if ( acquisition.contains( "clan trophy" ) )
 			{
 				return false;
 			}
 
-			if ( acquisition.indexOf( "effect" ) == -1 )
+			if ( !acquisition.contains( "effect" ) )
 			{
 				ResultProcessor.processItem( combatResults, parsedResults, acquisition, data );
 				return false;
@@ -322,7 +322,7 @@ public class ResultProcessor
 	{
 		String item = parsedResults.nextToken();
 
-		if ( acquisition.indexOf( "an item" ) != -1 )
+		if ( acquisition.contains( "an item" ) )
 		{
 			AdventureResult result = ItemPool.get( item, 1 );
 
@@ -448,7 +448,7 @@ public class ResultProcessor
 			return true;
 		}
 
-		if ( message.indexOf( "duration" ) != -1 )
+		if ( message.contains( "duration" ) )
 		{
 			Matcher m = INT_PATTERN.matcher( message );
 			if ( m.find() )
@@ -478,7 +478,7 @@ public class ResultProcessor
 
 		lastToken = lastToken.trim();
 
-		if ( lastToken.indexOf( "Meat" ) != -1 )
+		if ( lastToken.contains( "Meat" ) )
 		{
 			return ResultProcessor.processMeat( lastToken, data );
 		}
@@ -1634,7 +1634,7 @@ public class ResultProcessor
 		// The treasure includes some Meat, but you give it away to
 		// some moist orphans. They need it to buy dry clothes.
 
-		if ( responseText.indexOf( "give it away to moist orphans" ) != -1 )
+		if ( responseText.contains( "give it away to moist orphans" ) )
 		{
 			KoLCharacter.makeCharitableDonation( 150 );
 			return;
@@ -1645,7 +1645,7 @@ public class ResultProcessor
 		// The Cola Wars Veterans Administration is really gonna
 		// appreciate the huge donation you're about to make!
 
-		if ( responseText.indexOf( "Cola Wars Veterans Administration" ) != -1 )
+		if ( responseText.contains( "Cola Wars Veterans Administration" ) )
 		{
 			KoLCharacter.makeCharitableDonation( 3000 );
 			return;
@@ -1698,8 +1698,8 @@ public class ResultProcessor
 		//
 		// Thanks for the larva, Adventurer. We'll put this to good use.
 
-		if ( responseText.indexOf( "Thanks for the larva, Adventurer" ) != -1 &&
-		     responseText.indexOf( "You gain" ) == -1 )
+		if ( responseText.contains( "Thanks for the larva, Adventurer" ) &&
+                !responseText.contains( "You gain" ) )
 		{
 			KoLCharacter.makeCharitableDonation( 500 );
 			return;
@@ -1711,11 +1711,11 @@ public class ResultProcessor
 		// You take the Meat into town and drop it in the donation slot
 		// at the orphanage. You know, the one next to the library.
 
-		if ( responseText.indexOf( "the one next to the library" ) != -1 )
+		if ( responseText.contains( "the one next to the library" ) )
 		{
 			int donation =
-				urlString.indexOf( "place=ocg" ) != -1 ? 500 :
-				urlString.indexOf( "place=scg" ) != -1 ? 1000 :
+                    urlString.contains( "place=ocg" ) ? 500 :
+                            urlString.contains( "place=scg" ) ? 1000 :
 				0;
 			KoLCharacter.makeCharitableDonation( donation );
 			return;
@@ -1726,7 +1726,7 @@ public class ResultProcessor
 		// The furs you divide up between yourself and the Tr4pz0r, the
 		// Meat you divide up between the Tr4pz0r and the needy.
 
-		if ( responseText.indexOf( "you divide up between the Tr4pz0r and the needy" ) != -1 )
+		if ( responseText.contains( "you divide up between the Tr4pz0r and the needy" ) )
 		{
 			KoLCharacter.makeCharitableDonation( 5000 );
 			return;

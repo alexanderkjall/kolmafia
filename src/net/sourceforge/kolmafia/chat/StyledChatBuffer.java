@@ -151,7 +151,7 @@ public class StyledChatBuffer
 
 	private String applyHighlight( final String message, final String searchString, final String colorString )
 	{
-		if ( message.indexOf( "<html>" ) != -1 )
+		if ( message.contains( "<html>" ) )
 		{
 			return message;
 		}

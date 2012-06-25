@@ -438,7 +438,7 @@ public class TavernManager
 		String layout = TavernRequest.tavernLayout();
 
 		// See if any squares are unexplored
-		if ( layout.indexOf( "0" ) == -1 )
+		if ( !layout.contains( "0" ) )
 		{
 			return 0;
 		}
@@ -460,7 +460,7 @@ public class TavernManager
 
 	public static void handleTavernChange( String responseText )
 	{
-		if ( responseText.indexOf( "have a few drinks on the house" ) != -1 )
+		if ( responseText.contains( "have a few drinks on the house" ) )
 		{
 			QuestDatabase.setQuestProgress( Quest.RAT, QuestDatabase.FINISHED );
 		}

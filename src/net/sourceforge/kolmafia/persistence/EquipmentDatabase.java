@@ -445,7 +445,7 @@ public class EquipmentDatabase
 		boolean isWeapon = false, isShield = false;
 		String weaponType = "";
 
-		if ( type.indexOf( "weapon" ) != -1 )
+		if ( type.contains( "weapon" ) )
 		{
 			Matcher matcher = WEAPON_TYPE_PATTERN.matcher( type );
 			int hval;
@@ -466,7 +466,7 @@ public class EquipmentDatabase
 			EquipmentDatabase.itemTypes.set( itemId, tval );
 			isWeapon = true;
 		}
-		else if ( type.indexOf( "shield" ) != -1 )
+		else if ( type.contains( "shield" ) )
 		{
 			isShield = true;
 			weaponType = "shield";

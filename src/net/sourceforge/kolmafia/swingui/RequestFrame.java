@@ -338,7 +338,7 @@ public class RequestFrame
 		// problem is an "onClick" in the input field, if the
 		// Hagnk option is available.
 
-		if ( displayHTML.indexOf( "whichbet" ) != -1 )
+		if ( displayHTML.contains( "whichbet" ) )
 		{
 			// Since the introduction of MMG bots, bets are usually
 			// placed and taken instantaneously.  Therefore, the
@@ -384,7 +384,7 @@ public class RequestFrame
 		// which requires that the form for the table be
 		// on the outside of the table.
 
-		if ( displayHTML.indexOf( "action=account_manageoutfits.php" ) != -1 )
+		if ( displayHTML.contains( "action=account_manageoutfits.php" ) )
 		{
 			// turn:  <center><table><form>...</center></td></tr></form></table>
 			// into:  <form><center><table>...</td></tr></table></center></form>
@@ -398,7 +398,7 @@ public class RequestFrame
 		// totally mixed up -- in addition to basic modifications,
 		// also resort the combat item list.
 
-		if ( displayHTML.indexOf( "action=fight.php" ) != -1 )
+		if ( displayHTML.contains( "action=fight.php" ) )
 		{
 			displayHTML = displayHTML.replaceAll( "<form(.*?)<tr><td([^>]*)>", "<tr><td$2><form$1" );
 			displayHTML = displayHTML.replaceAll( "</td></tr></form>", "</form></td></tr>" );
@@ -414,7 +414,7 @@ public class RequestFrame
 		// Doc Galaktik's page is going to get completely
 		// killed, except for the main purchases.
 
-		if ( displayHTML.indexOf( "action=galaktik.php" ) != -1 )
+		if ( displayHTML.contains( "action=galaktik.php" ) )
 		{
 			displayHTML =
 				StringUtilities.globalStringReplace( displayHTML, "</tr><td valign=center>", "</tr><tr><td valign=center>" );
@@ -567,7 +567,7 @@ public class RequestFrame
 
 	public boolean containsText( final String search )
 	{
-		return this.mainDisplay.getText().indexOf( search ) != -1;
+		return this.mainDisplay.getText().contains( search );
 	}
 
 	@Override

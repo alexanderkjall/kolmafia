@@ -255,7 +255,7 @@ public class HermitRequest
 		// The Hermit looks at you expectantly, and when you don't respond, he points to a crudely-chalked
 		// sign on the wall reading "Hermit Permit required, pursuant to Seaside Town Ordinance #3769"
 
-		if ( this.responseText.indexOf( "Hermit Permit required" ) != -1 )
+		if ( this.responseText.contains( "Hermit Permit required" ) )
 		{
 			if ( InventoryManager.retrieveItem( HermitRequest.PERMIT ) )
 			{
@@ -267,7 +267,7 @@ public class HermitRequest
 
 		// If the item is unavailable, assume he was asking for clover
 
-		if ( this.responseText.indexOf( "doesn't have that item." ) != -1 )
+		if ( this.responseText.contains( "doesn't have that item." ) )
 		{
 			KoLmafia.updateDisplay( MafiaState.ERROR, "Today is not a clover day." );
 			return;
@@ -275,7 +275,7 @@ public class HermitRequest
 
 		// If you still didn't acquire items, what went wrong?
 
-		if ( this.responseText.indexOf( "You acquire" ) == -1 )
+		if ( !this.responseText.contains( "You acquire" ) )
 		{
 			KoLmafia.updateDisplay( MafiaState.ERROR, "The hermit kept his stuff." );
 			return;
@@ -290,14 +290,14 @@ public class HermitRequest
 		// There should be a form, or an indication of item receipt,
 		// for all valid hermit requests.
 
-		if ( responseText.indexOf( "hermit.php" ) == -1 && responseText.indexOf( "You acquire" ) == -1 )
+		if ( !responseText.contains( "hermit.php" ) && !responseText.contains( "You acquire" ) )
 		{
 			return false;
 		}
 
 		// If you don't have enough Hermit Permits, failure
 
-		if ( responseText.indexOf( "You don't have enough Hermit Permits" ) != -1 )
+		if ( responseText.contains( "You don't have enough Hermit Permits" ) )
 		{
 			HermitRequest.checkedForClovers = false;
 			return true;
@@ -306,8 +306,8 @@ public class HermitRequest
 		// If the item is unavailable, assume he was asking for clover
 		// If asked for too many, you get no items
 
-		if ( responseText.indexOf( "doesn't have that item." ) != -1 ||
-		     responseText.indexOf( "You acquire" ) == -1 )
+		if ( responseText.contains( "doesn't have that item." ) ||
+                !responseText.contains( "You acquire" ) )
 		{
 			HermitRequest.parseHermitStock( responseText );
 			return true;
@@ -342,7 +342,7 @@ public class HermitRequest
 			quantity -= used;
 		}
 
-		if ( responseText.indexOf( "he sends you packing" ) != -1 )
+		if ( responseText.contains( "he sends you packing" ) )
 		{
 			// No worthless items in inventory, so we can't tell if
 			// clovers remain in stock

@@ -128,18 +128,18 @@ public class PeeVPeeRequest
 
 	public static void parseResponse( final String location, final String responseText )
 	{
-		if ( location.indexOf( "place=shop" ) != -1 || location.indexOf( "action=buy" ) != -1 )
+		if ( location.contains( "place=shop" ) || location.contains( "action=buy" ) )
 		{
 			SwaggerShopRequest.parseResponse( location, responseText );
 			return;
 		}
 		
-		if ( location.indexOf( "place=fight" ) != -1 )
+		if ( location.contains( "place=fight" ) )
 		{
 			Matcher attacksMatcher = PeeVPeeRequest.ATTACKS_PATTERN.matcher( responseText );
 			KoLCharacter.setAttacksLeft( attacksMatcher.find() ? StringUtilities.parseInt( attacksMatcher.group( 1 ) ) : 0 );
 
-			if ( location.indexOf( "action=fight" ) != -1 )
+			if ( location.contains( "action=fight" ) )
 			{
 				Matcher challengeMatcher = PeeVPeeRequest.CHALLENGE_PATTERN.matcher( responseText );
 				Matcher winMatcher = PeeVPeeRequest.WIN_PATTERN.matcher( responseText );

@@ -133,7 +133,7 @@ public class BigBrotherRequest
 		String action = GenericRequest.getAction( location );
 		if ( action == null )
 		{
-			if ( location.indexOf( "who=2" ) != -1 )
+			if ( location.contains( "who=2" ) )
 			{
 				// Parse current coin balances
 				CoinMasterRequest.parseBalance( data, responseText );
@@ -232,7 +232,7 @@ public class BigBrotherRequest
 			return false;
 		}
 
-		if ( urlString.indexOf( "action" ) == -1 && urlString.indexOf( "who=2" ) == -1 )
+		if ( !urlString.contains( "action" ) && !urlString.contains( "who=2" ) )
 		{
 			return false;
 		}

@@ -146,7 +146,7 @@ public class Aliases
 			// aliasing scheme where only the first word can be considered a
 			// part of the alias.
 
-			if ( aliasCommand.indexOf( "%%" ) != -1 )
+			if ( aliasCommand.contains( "%%" ) )
 			{
 				if ( line.startsWith( aliasString ) )
 				{
@@ -196,8 +196,8 @@ public class Aliases
 
 			if ( !matches )
 			{
-				matches = ( aliasString.toLowerCase().indexOf( filter ) != -1 ||
-				            aliasCommand.toLowerCase().indexOf( filter ) != -1   );
+				matches = (aliasString.toLowerCase().contains( filter ) ||
+                        aliasCommand.toLowerCase().contains( filter ));
 			}
 
 			if ( !matches )

@@ -1231,13 +1231,13 @@ public class UseSkillRequest
 			return true;
 		}
 
-		if ( responseText.indexOf( "You don't have that skill" ) != -1 )
+		if ( responseText.contains( "You don't have that skill" ) )
 		{
 			UseSkillRequest.lastUpdate = "That skill is unavailable.";
 			return true;
 		}
 
-		if ( responseText.indexOf( "You may only use three Tome summonings each day" ) != -1 )
+		if ( responseText.contains( "You may only use three Tome summonings each day" ) )
 		{
 			UseSkillRequest.lastUpdate = "You've used your Tomes enough today.";
 			Preferences.setInteger( "tomeSummons", 3 );
@@ -1256,24 +1256,24 @@ public class UseSkillRequest
 		// For now, simply ignore any call on either URL that doesn't
 		// result in an item, since failures just redisplay the bookshelf
 
-		if ( skillId == SkillDatabase.CLIP_ART && responseText.indexOf( "You acquire" ) == -1 )
+		if ( skillId == SkillDatabase.CLIP_ART && !responseText.contains( "You acquire" ) )
 		{
 			return false;
 		}
 
-		if ( responseText.indexOf( "too many songs" ) != -1 )
+		if ( responseText.contains( "too many songs" ) )
 		{
 			UseSkillRequest.lastUpdate = "Selected target has the maximum number of AT buffs already.";
 			return false;
 		}
 
-		if ( responseText.indexOf( "casts left of the Smile of Mr. A" ) != -1 )
+		if ( responseText.contains( "casts left of the Smile of Mr. A" ) )
 		{
 			UseSkillRequest.lastUpdate = "You cannot cast that many smiles.";
 			return false;
 		}
 
-		if ( responseText.indexOf( "Invalid target player" ) != -1 )
+		if ( responseText.contains( "Invalid target player" ) )
 		{
 			UseSkillRequest.lastUpdate = "Selected target is not a valid target.";
 			return true;
@@ -1281,44 +1281,44 @@ public class UseSkillRequest
 
 		// You can't cast that spell on persons who are lower than
 		// level 15, like <name>, who is level 13.
-		if ( responseText.indexOf( "lower than level" ) != -1 )
+		if ( responseText.contains( "lower than level" ) )
 		{
 			UseSkillRequest.lastUpdate = "Selected target is too low level.";
 			return false;
 		}
 
-		if ( responseText.indexOf( "busy fighting" ) != -1 )
+		if ( responseText.contains( "busy fighting" ) )
 		{
 			UseSkillRequest.lastUpdate = "Selected target is busy fighting.";
 			return false;
 		}
 
-		if ( responseText.indexOf( "receive buffs" ) != -1 )
+		if ( responseText.contains( "receive buffs" ) )
 		{
 			UseSkillRequest.lastUpdate = "Selected target cannot receive buffs.";
 			return false;
 		}
 
-		if ( responseText.indexOf( "You need" ) != -1 )
+		if ( responseText.contains( "You need" ) )
 		{
 			UseSkillRequest.lastUpdate = "You need special equipment to cast that buff.";
 			return true;
 		}
 
-		if ( responseText.indexOf( "You can't remember how to use that skill" ) != -1 )
+		if ( responseText.contains( "You can't remember how to use that skill" ) )
 		{
 			UseSkillRequest.lastUpdate = "That skill is currently unavailable.";
 			return true;
 		}
 
-		if ( responseText.indexOf( "You can't cast this spell because you are not an Accordion Thief" ) != -1 )
+		if ( responseText.contains( "You can't cast this spell because you are not an Accordion Thief" ) )
 		{
 			UseSkillRequest.lastUpdate = "Only Accordion Thieves can use that skill.";
 			return true;
 		}
 
 		// You think your stomach has had enough for one day.
-		if ( responseText.indexOf( "enough for one day" ) != -1 )
+		if ( responseText.contains( "enough for one day" ) )
 		{
 			UseSkillRequest.lastUpdate = "You can only do that once a day.";
 			Preferences.setBoolean( "_carboLoaded", true );
@@ -1327,7 +1327,7 @@ public class UseSkillRequest
 
 		// You can't cast that many turns of that skill today. (You've used 5 casts today,
 		// and the limit of casts per day you have is 5.)
-		if ( responseText.indexOf( "You can't cast that many turns of that skill today" ) != -1 )
+		if ( responseText.contains( "You can't cast that many turns of that skill today" ) )
 		{
 			UseSkillRequest.lastUpdate = "You've reached your daily casting limit for that skill.";
 			switch ( skillId )
@@ -1409,7 +1409,7 @@ public class UseSkillRequest
 			}
 		}
 
-		if ( responseText.indexOf( "You don't have enough" ) != -1 )
+		if ( responseText.contains( "You don't have enough" ) )
 		{
 			String skillName = SkillDatabase.getSkillName( skillId );
 
@@ -1419,7 +1419,7 @@ public class UseSkillRequest
 		}
 
 		// The skill was successfully cast. Deal with its effects.
-		if ( responseText.indexOf( "tear the opera mask" ) != -1 )
+		if ( responseText.contains( "tear the opera mask" ) )
 		{
 			EquipmentManager.breakEquipment( ItemPool.OPERA_MASK,
 				"Your opera mask shattered." );
@@ -1427,9 +1427,9 @@ public class UseSkillRequest
 
 		int mpCost = SkillDatabase.getMPConsumptionById( skillId ) * count;
 
-		if ( responseText.indexOf( "You can only conjure" ) != -1 ||
-		     responseText.indexOf( "You can only scrounge up" ) != -1 ||
-		     responseText.indexOf( "You can only summon" ) != -1 )
+		if ( responseText.contains( "You can only conjure" ) ||
+                responseText.contains( "You can only scrounge up" ) ||
+                responseText.contains( "You can only summon" ) )
 		{
 			UseSkillRequest.lastUpdate = "Summon limit exceeded.";
 
@@ -1489,7 +1489,7 @@ public class UseSkillRequest
 			// and shout, "If it's not too much trouble, I'd really like a sandwich right now! Please!" 
 			// To your surprise, it works! Someone wanders by slowly and hands you a sandwich, grumbling, 
 			// "well, since you asked nicely . . ."
-			if ( responseText.indexOf( "well, since you asked nicely" ) != -1 )
+			if ( responseText.contains( "well, since you asked nicely" ) )
 			{
 				Preferences.setBoolean( "_requestSandwichSucceeded", true );
 			}
@@ -1541,7 +1541,7 @@ public class UseSkillRequest
 			break;
 
 		case SkillDatabase.BRICKOS:
-			if ( responseText.indexOf( "BRICKO eye brick" ) != -1 )
+			if ( responseText.contains( "BRICKO eye brick" ) )
 			{
 				Preferences.increment( "_brickoEyeSummons", 1 );
 			}
@@ -1596,7 +1596,7 @@ public class UseSkillRequest
 
 		if ( action.equals( "cliparts" ) )
 		{
-			if ( urlString.indexOf( "clip3=" ) == -1 )
+			if ( !urlString.contains( "clip3=" ) )
 			{
 				return -1;
 			}

@@ -288,7 +288,7 @@ public class EquipmentRequest
 	{
 		return	path.startsWith( "inv_equip.php" ) &&
 			// Saving a custom outfit is OK
-			path.indexOf( "action=customoutfit" ) == -1;
+                !path.contains( "action=customoutfit" );
 	}
 
 	@Override
@@ -835,14 +835,14 @@ public class EquipmentRequest
 			if ( resultMatcher.find() )
 			{
 				String result = resultMatcher.group( 1 ).replaceAll( "</?b>", "" );
-				if ( result.indexOf( "You are already wearing" ) != -1 )
+				if ( result.contains( "You are already wearing" ) )
 				{
 					// Not an error
 					KoLmafia.updateDisplay( result );
 					return;
 				}
 
-				if ( result.indexOf( "You put on part of" ) != -1 )
+				if ( result.contains( "You put on part of" ) )
 				{
 					KoLmafia.updateDisplay( MafiaState.ERROR, "You only put on part of that outfit." );
 					return;
@@ -853,18 +853,18 @@ public class EquipmentRequest
 				// possess or can wear.	 ... followed by a
 				// table of missing pieces
 
-				if ( result.indexOf( "which you possess or can wear" ) != -1 )
+				if ( result.contains( "which you possess or can wear" ) )
 				{
 					KoLmafia.updateDisplay( MafiaState.ERROR, "You're already wearing as much of that outfit as you can." );
 					return;
 				}
 
-				if ( result.indexOf( "You put" ) == -1 &&
-				     result.indexOf( "You equip" ) == -1 &&
-				     result.indexOf( "Item equipped" ) == -1 &&
-				     result.indexOf( "equips an item" ) == -1 &&
-				     result.indexOf( "You apply the shiny sticker" ) == -1 &&
-				     result.indexOf( "fold it into an impromptu sword" ) == -1 )
+				if ( !result.contains( "You put" ) &&
+                        !result.contains( "You equip" ) &&
+                        !result.contains( "Item equipped" ) &&
+                        !result.contains( "equips an item" ) &&
+                        !result.contains( "You apply the shiny sticker" ) &&
+                        !result.contains( "fold it into an impromptu sword" ) )
 				{
 					KoLmafia.updateDisplay( MafiaState.ERROR, result );
 					return;
@@ -875,7 +875,7 @@ public class EquipmentRequest
 		case EquipmentRequest.SAVE_OUTFIT:
 		case EquipmentRequest.REMOVE_ITEM:
 		case EquipmentRequest.UNEQUIP_ALL:
-			if ( this.getURLString().indexOf( "ajax=1" ) != -1 )
+			if ( this.getURLString().contains( "ajax=1" ) )
 			{
 				EquipmentRequest.parseEquipmentChange( urlString, responseText );
 			}
@@ -1013,7 +1013,7 @@ public class EquipmentRequest
 
 	public static final void parseEquipment( final String location, final String responseText )
 	{
-		if ( location.indexOf( "onlyitem=" ) != -1 )
+		if ( location.contains( "onlyitem=" ) )
 		{
 			return;
 		}
@@ -1114,7 +1114,7 @@ public class EquipmentRequest
 						  final String test, final Pattern pattern,
 						  final String tag, final int slot )
 	{
-		if ( responseText.indexOf( test ) == -1 )
+		if ( !responseText.contains( test ) )
 		{
 			return;
 		}
@@ -1269,7 +1269,7 @@ public class EquipmentRequest
 		if ( action.equals( "unequipall" ) )
 		{
 			// We unequipped everything
-			if ( responseText.indexOf( "All items unequipped" ) == -1 )
+			if ( !responseText.contains( "All items unequipped" ) )
 			{
 				return;
 			}
@@ -1686,9 +1686,9 @@ public class EquipmentRequest
 			return true;
 		}
 
-		if ( urlString.indexOf( "action=unequip" ) != -1 )
+		if ( urlString.contains( "action=unequip" ) )
 		{
-			if ( urlString.indexOf( "terrarium=1" ) != -1 )
+			if ( urlString.contains( "terrarium=1" ) )
 			{
 				FamiliarRequest.unequipCurrentFamiliar();
 				return true;
@@ -1715,27 +1715,27 @@ public class EquipmentRequest
 			return true;
 		}
 
-		if ( urlString.indexOf( "dualwield" ) != -1 )
+		if ( urlString.contains( "dualwield" ) )
 		{
 			RequestLogger.updateSessionLog();
 			RequestLogger.updateSessionLog( "equip off-hand " + itemName );
 		}
-		else if ( urlString.indexOf( "slot=1" ) != -1 )
+		else if ( urlString.contains( "slot=1" ) )
 		{
 			RequestLogger.updateSessionLog();
 			RequestLogger.updateSessionLog( "equip acc1 " + itemName );
 		}
-		else if ( urlString.indexOf( "slot=2" ) != -1 )
+		else if ( urlString.contains( "slot=2" ) )
 		{
 			RequestLogger.updateSessionLog();
 			RequestLogger.updateSessionLog( "equip acc2 " + itemName );
 		}
-		else if ( urlString.indexOf( "slot=3" ) != -1 )
+		else if ( urlString.contains( "slot=3" ) )
 		{
 			RequestLogger.updateSessionLog();
 			RequestLogger.updateSessionLog( "equip acc3 " + itemName );
 		}
-		else if ( urlString.indexOf( "terrarium=1" ) != -1 )
+		else if ( urlString.contains( "terrarium=1" ) )
 		{
 			FamiliarRequest.equipCurrentFamiliar( itemId );
 		}
@@ -1754,13 +1754,13 @@ public class EquipmentRequest
 
 	public static final void registerBedazzlement( final String urlString )
 	{
-		if ( urlString.indexOf( "action=fold" ) != -1 )
+		if ( urlString.contains( "action=fold" ) )
 		{
 			RequestLogger.updateSessionLog( "folded sticker weapon" );
 			return;
 		}
 
-		if ( urlString.indexOf( "action=peel" ) != -1 )
+		if ( urlString.contains( "action=peel" ) )
 		{
 			Matcher slotMatcher = EquipmentRequest.SLOT1_PATTERN.matcher( urlString );
 			if ( slotMatcher.find() )
@@ -1783,11 +1783,11 @@ public class EquipmentRequest
 			return;
 		}
 
-		if ( urlString.indexOf( "action=juststick" ) != -1 )
+		if ( urlString.contains( "action=juststick" ) )
 		{
 			RequestLogger.updateSessionLog( "stuck " + itemName + " in empty slot" );
 		}
-		else if ( urlString.indexOf( "action=stick" ) != -1 )
+		else if ( urlString.contains( "action=stick" ) )
 		{
 			int slot = EquipmentRequest.parseSlot( urlString );
 			if ( slot > 0 )

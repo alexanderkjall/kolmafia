@@ -71,7 +71,7 @@ public class Mood
 			
 			this.name = this.getName( this.name.substring( 0, extendsIndex ) );
 		}
-		else if ( this.name.indexOf( "," ) != -1 )
+		else if ( this.name.contains( "," ) )
 		{
 			this.name = "";
 			

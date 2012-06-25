@@ -117,7 +117,7 @@ public class VendingMachineRequest
 		String action = GenericRequest.getAction( location );
 		if ( action == null )
 		{
-			if ( location.indexOf( "place=vendo" ) != -1 )
+			if ( location.contains( "place=vendo" ) )
 			{
 				// Parse current coin balances
 				CoinMasterRequest.parseBalance( data, responseText );

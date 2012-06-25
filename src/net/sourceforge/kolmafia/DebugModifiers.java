@@ -54,7 +54,7 @@ public class DebugModifiers
 		for ( int i = 0; i < Modifiers.FLOAT_MODIFIERS; ++i )
 		{
 			String name = Modifiers.getModifierName( i );
-			if ( name.toLowerCase().indexOf( parameters ) != -1 )
+			if ( name.toLowerCase().contains( parameters ) )
 			{
 				DebugModifiers.wanted.put( IntegerPool.get( i ),
 					"<td colspan=2>" + name + "</td>" );

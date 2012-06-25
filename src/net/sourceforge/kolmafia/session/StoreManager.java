@@ -315,7 +315,7 @@ public abstract class StoreManager
 		Matcher logMatcher = StoreManager.LOGSPAN_PATTERN.matcher( logText );
 		if ( logMatcher.find() )
 		{
-			if ( logMatcher.group().indexOf( "<br>" ) == -1 )
+			if ( !logMatcher.group().contains( "<br>" ) )
 			{
 				return;
 			}

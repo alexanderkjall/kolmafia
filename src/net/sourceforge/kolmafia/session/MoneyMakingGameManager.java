@@ -368,7 +368,7 @@ public class MoneyMakingGameManager
 			}
 
 			int amount = bet.getAmount();
-			if ( responseText.indexOf( "Meat has been taken from Hagnk's" ) != -1 )
+			if ( responseText.contains( "Meat has been taken from Hagnk's" ) )
 			{
 				bet.setFromStorage( true );
 				KoLCharacter.addStorageMeat( -amount );
@@ -385,7 +385,7 @@ public class MoneyMakingGameManager
 		synchronized ( MoneyMakingGameManager.lock )
 		{
 			// See if we succeeded in retracting the bid
-			if ( responseText.indexOf( "You retract your bid" ) == -1 )
+			if ( !responseText.contains( "You retract your bid" ) )
 			{
 				return;
 			}
@@ -519,7 +519,7 @@ public class MoneyMakingGameManager
 			int amount = StringUtilities.parseInt( matcher.group( 3 ) );
 			boolean won = matcher.group( 4 ).equals( "won" );
 			int winnings = matcher.group( 5 ) != null ? StringUtilities.parseInt( matcher.group( 6 ) ) : 0;
-			boolean storage = eventText.indexOf( "Hagnk's" ) != -1;
+			boolean storage = eventText.contains( "Hagnk's" );
 
 			if ( won )
 			{

@@ -565,11 +565,11 @@ public class AscensionHistoryRequest
 			try
 			{
 				this.classId =
-					columns[ 3 ].indexOf( "club" ) != -1 ? AscensionSnapshot.SEAL_CLUBBER : columns[ 3 ].indexOf( "turtle" ) != -1 ? AscensionSnapshot.TURTLE_TAMER : columns[ 3 ].indexOf( "pasta" ) != -1 ? AscensionSnapshot.PASTAMANCER : columns[ 3 ].indexOf( "sauce" ) != -1 ? AscensionSnapshot.SAUCEROR : columns[ 3 ].indexOf( "disco" ) != -1 ? AscensionSnapshot.DISCO_BANDIT : AscensionSnapshot.ACCORDION_THIEF;
+                        columns[3].contains( "club" ) ? AscensionSnapshot.SEAL_CLUBBER : columns[3].contains( "turtle" ) ? AscensionSnapshot.TURTLE_TAMER : columns[3].contains( "pasta" ) ? AscensionSnapshot.PASTAMANCER : columns[3].contains( "sauce" ) ? AscensionSnapshot.SAUCEROR : columns[3].contains( "disco" ) ? AscensionSnapshot.DISCO_BANDIT : AscensionSnapshot.ACCORDION_THIEF;
 
-				this.isSoftcore = columns[ 8 ].indexOf( "hardcore" ) == -1;
+				this.isSoftcore = !columns[8].contains( "hardcore" );
 				this.pathId =
-					columns[ 8 ].indexOf( "bowl" ) != -1 ? AscensionSnapshot.TEETOTALER : columns[ 8 ].indexOf( "martini" ) != -1 ? AscensionSnapshot.BOOZETAFARIAN : columns[ 8 ].indexOf( "oxy" ) != -1 ? AscensionSnapshot.OXYGENARIAN : AscensionSnapshot.NOPATH;
+                        columns[8].contains( "bowl" ) ? AscensionSnapshot.TEETOTALER : columns[8].contains( "martini" ) ? AscensionSnapshot.BOOZETAFARIAN : columns[8].contains( "oxy" ) ? AscensionSnapshot.OXYGENARIAN : AscensionSnapshot.NOPATH;
 			}
 			catch ( Exception e )
 			{

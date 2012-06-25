@@ -498,7 +498,7 @@ public class ValhallaDecorator
 
 		GenericRequest trophyCheck = new GenericRequest( "trophy.php" );
 		trophyCheck.run();
-		if ( trophyCheck.responseText.indexOf( "You're not currently entitled to any trophies" ) == -1 )
+		if ( !trophyCheck.responseText.contains( "You're not currently entitled to any trophies" ) )
 		{			
 			buffer.append( "<nobr><a href=\"trophy.php\">buy trophies you're eligible for</a></nobr><br>" );
 		}
@@ -589,9 +589,9 @@ public class ValhallaDecorator
 		if ( CampgroundRequest.getCrop() != null )
 		{
 			AdventureResult crop = CampgroundRequest.getCrop();
-			String cropString = ( crop.getName().indexOf( "peppermint" ) != -1 
-				|| crop.getName().indexOf( "candy cane" ) != -1 ) ? "Peppermint"
-				: ( crop.getName().indexOf( "pumpkin" ) != -1 ) ? "Pumpkin" : "Unknown";
+			String cropString = (crop.getName().contains( "peppermint" )
+				|| crop.getName().contains( "candy cane" )) ? "Peppermint"
+				: (crop.getName().contains( "pumpkin" )) ? "Pumpkin" : "Unknown";
 			buffer.append( " (currently " + cropString + ")" );
 		}
 		buffer.append( "<br>" );

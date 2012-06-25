@@ -265,7 +265,7 @@ public class FaxRequestFrame
 			}
 
 			// FaxBot just delivered a fax to your clan, please try again in 1 minute.
-			if ( response.indexOf( "just delivered a fax" ) != -1 )
+			if ( response.contains( "just delivered a fax" ) )
 			{
 				FaxRequestFrame.statusMessage = botName + " recently delivered another fax. Retrying in one minute.";
 				KoLmafia.updateDisplay( FaxRequestFrame.statusMessage );
@@ -335,7 +335,7 @@ public class FaxRequestFrame
 		}
 
 		// Does your clan have a fax machine?
-		if ( request.responseText.indexOf( "You approach the fax machine" ) == -1 )
+		if ( !request.responseText.contains( "You approach the fax machine" ) )
 		{
 			FaxRequestFrame.statusMessage = "Your clan does not have a fax machine.";
 			return false;
@@ -346,18 +346,18 @@ public class FaxRequestFrame
 	private static boolean faxAvailable( final String botName, final String response )
 	{
 		// FaxBot has copied a Rockfish into your clan's Fax Machine.
-		if ( response.indexOf( "into your clan's Fax Machine" ) != -1 )
+		if ( response.contains( "into your clan's Fax Machine" ) )
 		{
 			return true;
 		}
 
-		if ( response.indexOf( "I do not understand your request" ) != -1 )
+		if ( response.contains( "I do not understand your request" ) )
 		{
 			FaxRequestFrame.statusMessage = "Configuration error: unknown command sent to " + botName;
 			return false;
 		}
 
-		if ( response.indexOf( "could not whitelist" ) != -1 )
+		if ( response.contains( "could not whitelist" ) )
 		{
 			FaxRequestFrame.statusMessage = botName + " is not on your clan's whitelist";
 			return false;

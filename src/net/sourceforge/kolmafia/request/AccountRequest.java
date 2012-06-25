@@ -192,7 +192,7 @@ public class AccountRequest
 
 	public static final void parseAccountData( final String location, final String responseText )
 	{
-		if ( location.indexOf( "action=" ) != -1 )
+		if ( location.contains( "action=" ) )
 		{
 			AccountRequest.parseAction( location, responseText );
 			return;
@@ -234,7 +234,7 @@ public class AccountRequest
 	private static boolean getCheckbox( final String flag, final String responseText )
 	{
 		String test = "checked=\"checked\"  name=\"" + flag + "\"";
-		return responseText.indexOf( test ) != -1;
+		return responseText.contains( test );
 	}
 
 	private static String fancyMenuStyle = "<input type=\"radio\" value=\"fancy\" checked=\"checked\"  name=\"menu\"/>Icons";
@@ -245,9 +245,9 @@ public class AccountRequest
 	{
 		// Top Menu Style
 		GenericRequest.topMenuStyle =
-			responseText.indexOf( fancyMenuStyle ) != -1 ?
+                responseText.contains( fancyMenuStyle ) ?
 			GenericRequest.MENU_FANCY :
-			responseText.indexOf( compactMenuStyle ) != -1 ?
+                        responseText.contains( compactMenuStyle ) ?
 			GenericRequest.MENU_COMPACT :
 			GenericRequest.MENU_NORMAL;
 
@@ -306,12 +306,12 @@ public class AccountRequest
 		// is also found here through the presence of buttons.
 
 		// <input class=button name="action" type=submit value="Drop Hardcore">
-		boolean isHardcore = responseText.indexOf( "<input class=button name=\"action\" type=submit value=\"Drop Hardcore\">" ) != -1;
+		boolean isHardcore = responseText.contains( "<input class=button name=\"action\" type=submit value=\"Drop Hardcore\">" );
 		KoLCharacter.setHardcore( isHardcore );
 
 		// <input class=button name="action" type=submit value="Drop Bad Moon">
 
-		if ( responseText.indexOf( "<input class=button name=\"action\" type=submit value=\"Drop Bad Moon\">" ) != -1 )
+		if ( responseText.contains( "<input class=button name=\"action\" type=submit value=\"Drop Bad Moon\">" ) )
 		{
 			KoLCharacter.setHardcore( true );
 			KoLCharacter.setSign( "Bad Moon" );
@@ -328,7 +328,7 @@ public class AccountRequest
 
 		boolean recalled =
 			KoLCharacter.kingLiberated() &&
-			responseText.indexOf( "<input class=button name=\"action\" type=\"submit\" value=\"Recall Skills\">") == -1;
+                    !responseText.contains( "<input class=button name=\"action\" type=\"submit\" value=\"Recall Skills\">" );
 		KoLCharacter.setSkillsRecalled( recalled );
 	}
 
@@ -448,7 +448,7 @@ public class AccountRequest
 
 		if ( action.equals( "Recall+Skills" ) )
 		{
-			if ( location.indexOf( "recallconfirm=1" ) != -1 )
+			if ( location.contains( "recallconfirm=1" ) )
 			{
 				// Recalling skills
 				RequestLogger.updateSessionLog();
@@ -461,7 +461,7 @@ public class AccountRequest
 		
 		// Check for failure to drop path before checking to see if a path was dropped
 		// For Boris, "You must abandon the Avatar of Boris before forsaking ronin."
-		if ( responseText.indexOf( "You must abandon" ) != -1 )
+		if ( responseText.contains( "You must abandon" ) )
 		{
 			return;
 		}
@@ -474,7 +474,7 @@ public class AccountRequest
 
 		if ( action.equals( "Forsake+Ronin" ) )
 		{
-			if ( location.indexOf( "unroninconfirm=1" ) != -1 )
+			if ( location.contains( "unroninconfirm=1" ) )
 			{
 				// Dropping from Softcore to Casual.
 				KoLCharacter.setRonin( false );
@@ -496,7 +496,7 @@ public class AccountRequest
 		     action.equals( "Drop+Boozetafarian" ) ||
 		     action.equals( "Drop+Oxygenarian" ) )
 		{
-			if ( location.indexOf( "unpathconfirm=1" ) != -1 )
+			if ( location.contains( "unpathconfirm=1" ) )
 			{
 				// Dropping consumption restrictions
 				KoLCharacter.setConsumptionRestriction( AscensionSnapshot.NOPATH );
@@ -518,7 +518,7 @@ public class AccountRequest
 		     action.equals( "Drop+Avatar+of+Boris" ) ||
 		     action.equals( "Drop+Bugbear+Invasion") )
 		{
-			if ( location.indexOf( "unpathconfirm=1" ) != -1 )
+			if ( location.contains( "unpathconfirm=1" ) )
 			{
 				// Dropping challenge path
 				String oldPath = KoLCharacter.getPath();
@@ -549,7 +549,7 @@ public class AccountRequest
 		// account.php?actions[]=unhardcore&action=Drop+Hardcore&unhardcoreconfirm=1&tab=account&pwd
 		if ( action.equals( "Drop+Hardcore" ) )
 		{
-			if ( location.indexOf( "unhardcoreconfirm=1" ) != -1 )
+			if ( location.contains( "unhardcoreconfirm=1" ) )
 			{
 				// Dropping Hardcore
 				KoLCharacter.setHardcore( false );
@@ -568,7 +568,7 @@ public class AccountRequest
 		// account.php?actions[]=unbadmoon&action=Drop+Bad+Moon&unbadmoonconfirm=1&tab=account&pwd
 		if ( action.equals( "Drop+Bad+Moon" ) )
 		{
-			if ( location.indexOf( "unbadmoonconfirm=1" ) != -1 )
+			if ( location.contains( "unbadmoonconfirm=1" ) )
 			{
 				// Dropping Bad Moon
 				KoLCharacter.setSign( "None" );
