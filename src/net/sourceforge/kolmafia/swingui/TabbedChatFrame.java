@@ -71,6 +71,11 @@ public class TabbedChatFrame
 		}
 
 		this.tabs.addChangeListener( new TabFocusingListener() );
+
+		ChatWindowStateListener cwsl = new ChatWindowStateListener( tabs );
+		addWindowListener( cwsl );
+		addWindowFocusListener( cwsl );
+		addWindowStateListener( cwsl );
 	}
 
 	@Override
