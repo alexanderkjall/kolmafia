@@ -269,7 +269,7 @@ public class ClanLogRequest
 		String currentMember;
 
 		StashLogEntry entry;
-		StringBuffer entryBuffer = new StringBuffer();
+		StringBuilder entryBuffer = new StringBuilder();
 		Matcher entryMatcher = Pattern.compile( regex, Pattern.DOTALL ).matcher( this.responseText );
 
 		while ( entryMatcher.find() )

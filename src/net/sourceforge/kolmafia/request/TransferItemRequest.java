@@ -693,7 +693,7 @@ public abstract class TransferItemRequest
 			return false;
 		}
 
-		StringBuffer itemListBuffer = new StringBuffer();
+		StringBuilder itemListBuffer = new StringBuilder();
 		itemListBuffer.append( command );
 
 		if ( recipients )

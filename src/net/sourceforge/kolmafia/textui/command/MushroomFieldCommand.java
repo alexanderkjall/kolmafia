@@ -109,7 +109,7 @@ public class MushroomFieldCommand
 
 		if ( KoLmafia.permitsContinue() )
 		{
-			StringBuffer plotDetails = new StringBuffer();
+			StringBuilder plotDetails = new StringBuilder();
 			plotDetails.append( "Current:" );
 			plotDetails.append( KoLConstants.LINE_BREAK );
 			plotDetails.append( plot );

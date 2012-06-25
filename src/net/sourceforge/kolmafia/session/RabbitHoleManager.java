@@ -516,7 +516,7 @@ public abstract class RabbitHoleManager
 		@Override
 		public String toString()
 		{
-			StringBuffer buffer = new StringBuffer();
+			StringBuilder buffer = new StringBuilder();
 			if ( this.piece == EMPTY )
 			{
 				buffer.append( "Empty" );
@@ -676,7 +676,7 @@ public abstract class RabbitHoleManager
 
 		public String config()
 		{
-			StringBuffer buffer = new StringBuffer();
+			StringBuilder buffer = new StringBuilder();
 			boolean first = true;
 			for ( int i = 0; i < 64; ++i )
 			{
@@ -1414,7 +1414,7 @@ public abstract class RabbitHoleManager
 
 		index += 7;
 
-		StringBuffer button = new StringBuffer();
+		StringBuilder button = new StringBuilder();
 
 		String url = "/KoLmafia/specialCommand?cmd=chess+solve&pwd=" + GenericRequest.passwordHash;
 		button.append( "<form name=solveform action='" + url + "' method=post>" );
@@ -1500,7 +1500,7 @@ public abstract class RabbitHoleManager
 				continue;
 			}
 			int len = RabbitHoleManager.HAT_CLEANER_PATTERN.matcher( hat.getName() ).replaceAll( "" ).length();
-			StringBuffer buf = new StringBuffer( "<option value=" );
+			StringBuilder buf = new StringBuilder( "<option value=" );
 			buf.append( hat.getItemId() );
 			if ( hat.equals( curHat ) )
 			{
@@ -1586,7 +1586,7 @@ public abstract class RabbitHoleManager
 			return;
 		}
 
-		StringBuffer output = new StringBuffer();
+		StringBuilder output = new StringBuilder();
 
 		output.append( "<table border=2 cols=3>" );
 		output.append( "<tr>" );

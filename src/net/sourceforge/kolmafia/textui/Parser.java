@@ -2774,7 +2774,7 @@ public class Parser
 		// Directly work with currentLine - ignore any "tokens" you meet until
 		// the string is closed
 
-		StringBuffer resultString = new StringBuffer();
+		StringBuilder resultString = new StringBuilder();
 		char stopCharacter, ch;
 		ArrayList<Value> list = null;
 		if ( type == null )
@@ -2916,7 +2916,7 @@ public class Parser
 
 		if ( type == null )
 		{
-			StringBuffer buf = new StringBuffer( this.currentLine );
+			StringBuilder buf = new StringBuilder( this.currentLine );
 			int length = name.length();
 
 			if ( name.endsWith( "es" ) )
@@ -2974,7 +2974,7 @@ public class Parser
 			throw this.parseException( "Can't enumerate all " + name );
 		}
 
-		StringBuffer resultString = new StringBuffer();
+		StringBuilder resultString = new StringBuilder();
 
 		for ( int i = 1;; ++i )
 		{

@@ -183,7 +183,7 @@ public class Aliases
 
 	public static void print( final String filter )
 	{
-		StringBuffer buffer = new StringBuffer();
+		StringBuilder buffer = new StringBuilder();
 		Iterator it = Aliases.aliasSet.iterator();
 		boolean first = true;
 		while ( it.hasNext() )

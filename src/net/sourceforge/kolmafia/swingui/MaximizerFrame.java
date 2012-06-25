@@ -296,7 +296,7 @@ public class MaximizerFrame
 		boolean failed = MaximizerFrame.eval.failed;
 		Object[] items = this.boostList.getSelectedValues();
 
-		StringBuffer buff = new StringBuffer( "Current score: " );
+		StringBuilder buff = new StringBuilder( "Current score: " );
 		buff.append( KoLConstants.FLOAT_FORMAT.format( current ) );
 		if ( failed )
 		{
@@ -3145,7 +3145,7 @@ public class MaximizerFrame
 
 		public static void showProgress()
 		{
-			StringBuffer msg = new StringBuffer();
+			StringBuilder msg = new StringBuilder();
 			msg.append( MaximizerFrame.bestChecked );
 			msg.append( " combinations checked, best score " );
 			msg.append( MaximizerFrame.best.getScore() );

@@ -2243,7 +2243,7 @@ public abstract class RuntimeLibrary
 		AggregateType type = new AggregateType( DataTypes.STRING_TYPE, files.length );
 		ArrayValue value = new ArrayValue( type );
 
-		StringBuffer contents = new StringBuffer();
+		StringBuilder contents = new StringBuilder();
 
 		for ( int i = 0; i < files.length; ++i )
 		{
@@ -4756,7 +4756,7 @@ public abstract class RuntimeLibrary
 		}
 		catch ( Exception e )
 		{
-			StringBuffer buffer = new StringBuffer( "Invalid line in data file" );
+			StringBuilder buffer = new StringBuilder( "Invalid line in data file" );
 			if ( data != null )
 			{
 				buffer.append( ": \"" );

@@ -313,7 +313,7 @@ public class HiddenCityRequest
 		HiddenCityRequest.validateHiddenCity();
 
 		String oldLayout =  Preferences.getString( "hiddenCityLayout" );
-		StringBuffer layout = new StringBuffer( oldLayout );
+		StringBuilder layout = new StringBuilder( oldLayout );
 
 		Matcher matcher = HiddenCityRequest.MAP_PATTERN.matcher( text );
 		while ( matcher.find() )
@@ -470,7 +470,7 @@ public class HiddenCityRequest
 		// A - Archaeologist
 		// 0 - unidentified
 
-		StringBuffer layout = new StringBuffer( HiddenCityRequest.hiddenCityLayout() );
+		StringBuilder layout = new StringBuilder( HiddenCityRequest.hiddenCityLayout() );
 		layout.setCharAt( square - 1, value );
 		Preferences.setString( "hiddenCityLayout", layout.toString() );
 	}

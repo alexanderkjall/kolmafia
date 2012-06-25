@@ -1353,7 +1353,7 @@ public class CoinmastersFrame
 				}
 			}
 
-			StringBuffer stringForm = new StringBuffer();
+			StringBuilder stringForm = new StringBuilder();
 			stringForm.append( "<html>" );
 			if ( !show )
 			{

@@ -1980,7 +1980,7 @@ public class ConcoctionDatabase
 			return "[cannot be created]";
 		}
 
-		StringBuffer result = new StringBuffer();
+		StringBuilder result = new StringBuilder();
 
 		String description = METHOD_DESCRIPTION[ base ];
 		if ( description == null )

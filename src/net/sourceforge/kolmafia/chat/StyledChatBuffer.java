@@ -156,7 +156,7 @@ public class StyledChatBuffer
 			return message;
 		}
 
-		StringBuffer highlightMessage = new StringBuffer();
+		StringBuilder highlightMessage = new StringBuilder();
 		String remaining = message;
 
 		int searchIndex;

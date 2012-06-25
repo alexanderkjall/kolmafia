@@ -229,7 +229,7 @@ public abstract class VolcanoMazeManager
 		index += 7;
 
 		// Build a "Solve!" button
-		StringBuffer button = new StringBuffer();
+		StringBuilder button = new StringBuilder();
 
 		String url = "/KoLmafia/redirectedCommand?cmd=volcano+solve&pwd=" + GenericRequest.passwordHash;
 		button.append( "<form name=solveform action='" + url + "' method=post>" );
@@ -336,7 +336,7 @@ public abstract class VolcanoMazeManager
 	private static final String parseHTMLCoords( final String responseText )
 	{
 		Matcher matcher = VolcanoMazeManager.SQUARE_PATTERN.matcher( responseText );
-		StringBuffer buffer = new StringBuffer();
+		StringBuilder buffer = new StringBuilder();
 		boolean first = true;
 		while ( matcher.find() )
 		{
@@ -386,7 +386,7 @@ public abstract class VolcanoMazeManager
 
 	private static final String parseJSONCoords( final String responseText )
 	{
-		StringBuffer buffer = new StringBuffer();
+		StringBuilder buffer = new StringBuilder();
 		JSONObject JSON;
 
 		// Parse the string into a JSON object
@@ -632,7 +632,7 @@ public abstract class VolcanoMazeManager
 		}
 
 		// Make an HTML table to display platform map
-		StringBuffer buffer = new StringBuffer();
+		StringBuilder buffer = new StringBuilder();
 
 		buffer.append( "<table border cols=14>" );
 		buffer.append( "<tr><td></td>" );
@@ -744,7 +744,7 @@ public abstract class VolcanoMazeManager
 
 	private static final void printStatistics( final Path solution )
 	{
-		StringBuffer buffer = new StringBuffer();
+		StringBuilder buffer = new StringBuilder();
 		buffer.append( "Paths examined/made " );
 		buffer.append( KoLConstants.COMMA_FORMAT.format( pathsExamined ) );
 		buffer.append( "/" );
@@ -983,7 +983,7 @@ public abstract class VolcanoMazeManager
 		{
 			int prow = row( player );
 			int pcol = col( player );
-			StringBuffer buffer = new StringBuffer();
+			StringBuilder buffer = new StringBuilder();
 			for ( int row = 0; row < NROWS; ++row )
 			{
 				if ( row < 9 )
@@ -1021,7 +1021,7 @@ public abstract class VolcanoMazeManager
 		{
 			int prow = row( player );
 			int pcol = col( player );
-			StringBuffer buffer = new StringBuffer();
+			StringBuilder buffer = new StringBuilder();
 
 			buffer.append( "<table cellpadding=0 cellspacing=0 cols=14>" );
 			buffer.append( "<tr><td></td>" );
@@ -1156,7 +1156,7 @@ public abstract class VolcanoMazeManager
 		@Override
 		public String toString()
 		{
-			StringBuffer buffer = new StringBuffer();
+			StringBuilder buffer = new StringBuilder();
 			int count = list.size();
 			boolean first = true;
 			buffer.append( "[" );

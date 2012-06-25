@@ -349,7 +349,7 @@ public class BuffBotDatabase
 				return;
 			}
 
-			StringBuffer responseText = new StringBuffer();
+			StringBuilder responseText = new StringBuilder();
 			BufferedReader reader = FileUtilities.getReader( this.location );
 
 			if ( reader == null )

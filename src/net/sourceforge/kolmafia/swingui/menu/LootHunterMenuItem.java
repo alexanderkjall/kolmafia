@@ -88,8 +88,8 @@ public class LootHunterMenuItem
 			GenericRequest hunterRequest = new BountyHunterHunterRequest();
 			RequestThread.postRequest( hunterRequest );
 
-			StringBuffer label = new StringBuffer();
-			StringBuffer description = new StringBuffer();
+			StringBuilder label = new StringBuilder();
+			StringBuilder description = new StringBuilder();
 			IntWrapper wrapper = new IntWrapper();
 
 			Matcher bountyMatcher = Pattern.compile( "name=whichitem value=(\\d+)" ).matcher( hunterRequest.responseText );

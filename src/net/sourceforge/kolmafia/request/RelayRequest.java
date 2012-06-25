@@ -849,7 +849,7 @@ public class RelayRequest
 			return false;
 		}
 
-		StringBuffer message = new StringBuffer();
+		StringBuilder message = new StringBuilder();
 		String side1 = ( camp == DimemasterRequest.HIPPY ? "hippy" : "fratboy" );
 		String side2 = ( camp == DimemasterRequest.HIPPY ? "fratboys" : "hippies" );
 
@@ -891,7 +891,7 @@ public class RelayRequest
 			return false;
 		}
 
-		StringBuffer warning = new StringBuffer();
+		StringBuilder warning = new StringBuilder();
 
 		warning.append( "<html><head><script language=Javascript src=\"/basics.js\"></script>" );
 
@@ -1007,7 +1007,7 @@ public class RelayRequest
 
 		int mcd0 = KoLCharacter.getMindControlLevel();
 
-		StringBuffer warning = new StringBuffer();
+		StringBuilder warning = new StringBuilder();
 
 		warning.append( "<html><head><script language=Javascript src=\"/basics.js\"></script>" );
 
@@ -1107,7 +1107,7 @@ public class RelayRequest
 			return false;
 		}
 
-		StringBuffer warning = new StringBuffer();
+		StringBuilder warning = new StringBuilder();
 		warning.append( "It's possible there is something very important you're forgetting to do.<br>You lack:" );
 
 		// You need the Antique hand mirror in Beecore
@@ -1218,7 +1218,7 @@ public class RelayRequest
 
 	public void sendGeneralWarning( final String image, final String message, final String confirm, final String extra )
 	{
-		StringBuffer warning = new StringBuffer();
+		StringBuilder warning = new StringBuilder();
 
 		warning.append( "<html><head><link rel=\"stylesheet\" type=\"text/css\" href=\"/images/styles.css\"><script language=\"Javascript\" src=\"/basics.js\"></script></head><body><center><table width=95%  cellspacing=0 cellpadding=0><tr><td style=\"color: white;\" align=center bgcolor=blue><b>Results:</b></td></tr><tr><td style=\"padding: 5px; border: 1px solid blue;\"><center><table><tr><td>" );
 
@@ -1280,7 +1280,7 @@ public class RelayRequest
 			return false;
 		}
 
-		StringBuffer warning = new StringBuffer();
+		StringBuilder warning = new StringBuilder();
 		boolean beeCore = KoLCharacter.inBeecore();
 
 		warning.append( "<html><head><script language=Javascript src=\"/basics.js\"></script>" );
@@ -1359,7 +1359,7 @@ public class RelayRequest
 			return;
 		}
 
-		StringBuffer buffer = new StringBuffer();
+		StringBuilder buffer = new StringBuilder();
 		buffer.append( "<table width=\"100%\"><tr><td align=left valign=top><font size=3>" );
 		buffer.append( RelayRequest.lastSafety.getAdventureName() );
 		buffer.append( "</font></td><td align=right valign=top><font size=2>" );
@@ -1442,7 +1442,7 @@ public class RelayRequest
 			{
 				String refreshURL = "/KoLmafia/specialCommand?cmd=wait&pwd=" + GenericRequest.passwordHash;
 
-				StringBuffer buffer = new StringBuffer();
+				StringBuilder buffer = new StringBuilder();
 				buffer.append( "<html><head>" );
 				buffer.append( "<meta http-equiv=\"refresh\" content=\"1; URL=" );
 				buffer.append( refreshURL );
@@ -1558,7 +1558,7 @@ public class RelayRequest
 
 		if ( this.getPath().startsWith( "newchatmessages.php" ) && !tabbedChat )
 		{
-			StringBuffer chatResponse = new StringBuffer();
+			StringBuilder chatResponse = new StringBuilder();
 
 			long lastSeen = StringUtilities.parseLong( this.getFormField( "lasttime" ) );
 

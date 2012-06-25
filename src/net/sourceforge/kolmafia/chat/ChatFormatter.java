@@ -142,7 +142,7 @@ public class ChatFormatter
 
 	public static final String formatChatMessage( final ChatMessage message, boolean includeTimestamp )
 	{
-		StringBuffer displayHTML = new StringBuffer();
+		StringBuilder displayHTML = new StringBuilder();
 
 		if ( includeTimestamp )
 		{
@@ -307,7 +307,7 @@ public class ChatFormatter
 
 		Color color = ChatFormatter.getRandomColor();
 
-		StringBuffer newSetting = new StringBuffer();
+		StringBuilder newSetting = new StringBuilder();
 
 		newSetting.append( Preferences.getString( "highlightList" ) );
 		newSetting.append( "\n" );
@@ -351,7 +351,7 @@ public class ChatFormatter
 				int startIndex = oldSetting.indexOf( settingString );
 				int endIndex = startIndex + settingString.length();
 
-				StringBuffer newSetting = new StringBuffer();
+				StringBuilder newSetting = new StringBuilder();
 
 				if ( startIndex != -1 )
 				{

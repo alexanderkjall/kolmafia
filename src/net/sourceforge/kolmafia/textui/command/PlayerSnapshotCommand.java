@@ -63,7 +63,7 @@ public class PlayerSnapshotCommand
 		RequestLogger.getDebugStream().println();
 		RequestLogger.getDebugStream().println( "=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=" );
 
-		StringBuffer title = new StringBuffer( "Player Snapshot" );
+		StringBuilder title = new StringBuilder( "Player Snapshot" );
 
 		int leftIndent = ( 46 - title.length() ) / 2;
 		for ( int i = 0; i < leftIndent; ++i )

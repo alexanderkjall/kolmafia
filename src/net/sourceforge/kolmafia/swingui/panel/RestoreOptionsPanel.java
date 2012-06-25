@@ -170,7 +170,7 @@ public class RestoreOptionsPanel
 
 	private String getSettingString( final JCheckBox[] restoreCheckbox )
 	{
-		StringBuffer restoreSetting = new StringBuffer();
+		StringBuilder restoreSetting = new StringBuilder();
 
 		for ( int i = 0; i < restoreCheckbox.length; ++i )
 		{

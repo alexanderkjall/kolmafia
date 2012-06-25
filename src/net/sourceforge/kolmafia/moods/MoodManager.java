@@ -217,7 +217,7 @@ public abstract class MoodManager
 	public static final void addTriggers( final Object[] nodes, final int duration )
 	{
 		MoodManager.removeTriggers( nodes );
-		StringBuffer newAction = new StringBuffer();
+		StringBuilder newAction = new StringBuilder();
 
 		for ( int i = 0; i < nodes.length; ++i )
 		{

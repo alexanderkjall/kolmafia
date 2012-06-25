@@ -517,7 +517,7 @@ public class ResultProcessor
 			int drop = ResultProcessor.parseResult( text ).getCount();
 			if ( !ResultProcessor.possibleMeatDrop( drop, 0 ) )
 			{
-				StringBuffer buf = new StringBuffer( "Alert - possible unknown meat bonus:" );
+				StringBuilder buf = new StringBuilder( "Alert - possible unknown meat bonus:" );
 				if ( KoLCharacter.currentNumericModifier( Modifiers.SPORADIC_MEATDROP ) != 0.0f )
 				{
 					buf.append( " (sporadic!)" );

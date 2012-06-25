@@ -319,7 +319,7 @@ public abstract class MushroomManager
 		// of the mushroom plot.  Shorthand and hypertext are
 		// the only two versions at the moment.
 
-		StringBuffer plotBuffer = new StringBuffer();
+		StringBuilder plotBuffer = new StringBuilder();
 
 		if ( !isDataOnly )
 		{
@@ -836,10 +836,10 @@ public abstract class MushroomManager
 			isTodayEmpty = true;
 			ArrayList commands = new ArrayList();
 
-			StringBuffer pickText = new StringBuffer();
-			StringBuffer pickHtml = new StringBuffer();
-			StringBuffer plantText = new StringBuffer();
-			StringBuffer plantHtml = new StringBuffer();
+			StringBuilder pickText = new StringBuilder();
+			StringBuilder pickHtml = new StringBuilder();
+			StringBuilder plantText = new StringBuilder();
+			StringBuilder plantHtml = new StringBuilder();
 
 			for ( int j = 0; j < 16; ++j )
 			{

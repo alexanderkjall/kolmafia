@@ -138,7 +138,7 @@ public class HyperlinkAdapter
 			String lastInput;
 			int patternIndex;
 			Matcher actionMatcher, nameMatcher, valueMatcher;
-			StringBuffer inputString = new StringBuffer();
+			StringBuilder inputString = new StringBuilder();
 
 			// Determine the action associated with the
 			// form -- this is used for the URL.

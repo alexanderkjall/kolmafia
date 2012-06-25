@@ -828,7 +828,7 @@ public abstract class GenericFrame
 
 	public static final void saveBookmarks()
 	{
-		StringBuffer bookmarkData = new StringBuffer();
+		StringBuilder bookmarkData = new StringBuilder();
 
 		for ( int i = 0; i < KoLConstants.bookmarks.getSize(); ++i )
 		{

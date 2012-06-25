@@ -480,7 +480,7 @@ public class AreaCombatData
 	private String getRateString( final float minPercent, final int minMargin, final float maxPercent,
 		final int maxMargin, final String statName, boolean fullString )
 	{
-		StringBuffer buffer = new StringBuffer();
+		StringBuilder buffer = new StringBuilder();
 
 		buffer.append( this.format( minPercent ) );
 		buffer.append( "%/" );

@@ -193,7 +193,7 @@ public class Mood
 			return "";
 		}
 		
-		StringBuffer buffer = new StringBuffer();
+		StringBuilder buffer = new StringBuilder();
 		buffer.append( "[ " );
 		buffer.append( this.toString() );
 		buffer.append( " ]" );
@@ -214,7 +214,7 @@ public class Mood
 	@Override
 	public String toString()
 	{
-		StringBuffer buffer = new StringBuffer();
+		StringBuilder buffer = new StringBuilder();
 
 		buffer.append( this.name );
 		

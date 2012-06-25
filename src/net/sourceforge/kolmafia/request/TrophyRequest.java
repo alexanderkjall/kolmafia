@@ -98,7 +98,7 @@ public class TrophyRequest
 		super.run();
 
 		// Multiple trophy moving only works via GET, not POST.
-		StringBuffer buf = new StringBuffer( "trophies.php?moveall=yes" );
+		StringBuilder buf = new StringBuilder( "trophies.php?moveall=yes" );
 		i = this.trophies.iterator();
 		int pos = 1;
 		while ( i.hasNext() )

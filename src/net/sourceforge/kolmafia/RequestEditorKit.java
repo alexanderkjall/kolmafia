@@ -364,7 +364,7 @@ public class RequestEditorKit
 		}
 		else if ( location.startsWith( "arcade.php" ) )
 		{
-			StringBuffer note = new StringBuffer( "Arcade (" );
+			StringBuilder note = new StringBuilder( "Arcade (" );
 			int count = InventoryManager.getCount( ItemPool.GG_TOKEN );
 			note.append( count );
 			note.append( " token" );
@@ -679,7 +679,7 @@ public class RequestEditorKit
 					eventTableInsertIndex = buffer.indexOf( "</div>" ) + 6;
 				}
 
-				StringBuffer eventsTable = new StringBuffer();
+				StringBuilder eventsTable = new StringBuilder();
 
 				eventsTable.append( "<center><table width=95% cellspacing=0 cellpadding=0>" );
 				eventsTable.append( "<tr><td style=\"color: white;\" align=center bgcolor=orange>" );
@@ -731,7 +731,7 @@ public class RequestEditorKit
 			return;
 		}
 
-		StringBuffer links = new StringBuffer();
+		StringBuilder links = new StringBuilder();
 		boolean haveLinks = false;
 		int newLevel = KoLCharacter.getLevel();
 
@@ -826,7 +826,7 @@ public class RequestEditorKit
 			StringUtilities.globalStringReplace( buffer, "combine.php", "knoll.php?place=paster" );
 		}
 
-		StringBuffer links = new StringBuffer();
+		StringBuilder links = new StringBuilder();
 		if ( KoLCharacter.hasSushiMat() )
 		{
 			links.append( "&nbsp;&nbsp;[<a href=\"sushi.php\">roll sushi</a>]" );
@@ -1267,7 +1267,7 @@ public class RequestEditorKit
 	private static final void add2ndFloorSpoilers( final StringBuffer buffer )
 	{
 		// Insert GMoB/Ballroom song spoilers
-		StringBuffer spoiler = new StringBuffer();
+		StringBuilder spoiler = new StringBuilder();
 		if ( Preferences.getBoolean( "guyMadeOfBeesDefeated" ) )
 		{
 			spoiler.append( "GMoB: dead<br>" );
@@ -1663,7 +1663,7 @@ public class RequestEditorKit
 			return;
 		}
 
-		StringBuffer link = new StringBuffer();
+		StringBuilder link = new StringBuilder();
 
 		int current = HiddenCityRequest.lastHiddenCitySquare();
 		if ( current > 0 )
@@ -1706,7 +1706,7 @@ public class RequestEditorKit
 			return;
 		}
 
-		StringBuffer link = new StringBuffer();
+		StringBuilder link = new StringBuilder();
 
 		link.append( "<a href=\"cellar.php?action=explore&whichspot=" );
 		link.append( String.valueOf( unexplored ) );
@@ -2080,7 +2080,7 @@ public class RequestEditorKit
 			return;
 		}
 
-		StringBuffer link = new StringBuffer();
+		StringBuilder link = new StringBuilder();
 
 		link.append( "<p><a href=\"" );
 		link.append( url );
@@ -2126,7 +2126,7 @@ public class RequestEditorKit
 		String alcoveColor = alcoveEvil > 25 ? "000000" : "FF0000";
 		String alcoveHint = alcoveEvil > 25 ? "Initiative" : "<b>BOSS</b>";
 
-		StringBuffer evilometer = new StringBuffer();
+		StringBuilder evilometer = new StringBuilder();
 
 		evilometer.append( "<table cellpadding=0 cellspacing=0><tr><td colspan=3>" );
 		evilometer.append( "<img src=\"http://images.kingdomofloathing.com/otherimages/cyrpt/eo_top.gif\">" );
@@ -2210,7 +2210,7 @@ public class RequestEditorKit
 			return;
 		}
 
-		StringBuffer disclaimer = new StringBuffer();
+		StringBuilder disclaimer = new StringBuilder();
 		disclaimer.append( "<p><span style=\"width: 95%; border: 3px solid red; color: red; padding: 5px; text-align: left; margin-bottom: 10px; background-color: rgb(254, 226, 226); display:block;\">" );
 		disclaimer.append( "You are currently running in the KoLmafia Relay Browser. It is possible that the bug you are experiencing is not in KoL itself, but is a result of KoLmafia, a Greasemonkey script, or another client-side modification. The KoL team requests that you verify that you can reproduce the bug in a vanilla browser with all add-ons and extensions disabled before submitting a bug report." );
 		disclaimer.append( "</span>" );
@@ -2405,7 +2405,7 @@ public class RequestEditorKit
 				// onto the URL.  This is the way browsers work,
 				// so it's the way KoL expects the data.
 
-				StringBuffer actionString = new StringBuffer();
+				StringBuilder actionString = new StringBuilder();
 				actionString.append( action );
 
 				for ( int i = 0; i < elements.length; ++i )

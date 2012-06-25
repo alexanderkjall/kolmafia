@@ -174,7 +174,7 @@ public abstract class PurchaseRequest
 	@Override
 	public String toString()
 	{
-		StringBuffer buffer = new StringBuffer();
+		StringBuilder buffer = new StringBuilder();
 
 		buffer.append( "<html><nobr>" );
 		if ( !this.canPurchase() )

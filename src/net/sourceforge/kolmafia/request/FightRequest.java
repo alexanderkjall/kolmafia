@@ -5474,7 +5474,7 @@ public class FightRequest
 		}
 
 		boolean shouldLogAction = Preferences.getBoolean( "logBattleAction" );
-		StringBuffer action = new StringBuffer();
+		StringBuilder action = new StringBuilder();
 
 		// Begin logging all the different combat actions and storing
 		// relevant data for post-processing.

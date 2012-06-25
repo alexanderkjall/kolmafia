@@ -242,7 +242,7 @@ public class ZapRequest
 		buffer.delete( selectIndex, endSelectIndex );
 
 		int itemId;
-		StringBuffer zappableOptions = new StringBuffer();
+		StringBuilder zappableOptions = new StringBuilder();
 		while ( optionMatcher.find() )
 		{
 			itemId = Integer.parseInt( optionMatcher.group( 1 ) );

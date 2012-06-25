@@ -280,7 +280,7 @@ public abstract class ChatManager
 				fileSuffix = "[" + fileSuffix.substring( 1 ) + "]";
 			}
 
-			StringBuffer fileName = new StringBuffer();
+			StringBuilder fileName = new StringBuilder();
 			fileName.append( KoLConstants.DAILY_FORMAT.format( new Date() ) );
 			fileName.append( "_" );
 			fileName.append( KoLCharacter.baseUserName() );
@@ -523,7 +523,7 @@ public abstract class ChatManager
 				return;
 			}
 
-			StringBuffer mailContent = new StringBuffer();
+			StringBuilder mailContent = new StringBuilder();
 
 			Iterator clanMessageIterator = ChatManager.clanMessages.iterator();
 

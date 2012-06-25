@@ -1814,7 +1814,7 @@ public abstract class KoLCharacter
 			end = 200;
 		}
 
-		StringBuffer beginType = new StringBuffer();
+		StringBuilder beginType = new StringBuilder();
 		beginType.append( "Semirare window begin" );
 
 		if ( KoLCharacter.canInteract() )

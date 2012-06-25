@@ -99,7 +99,7 @@ public class UseItemDecorator
 		// Give player a link to use another tomb ratchet
 		if ( UseItemDecorator.TOMB_RATCHET.getCount( KoLConstants.inventory ) > 0 )
 		{
-			StringBuffer link = new StringBuffer();
+			StringBuilder link = new StringBuilder();
 			link.append( "<tr align=center><td>" );
 			link.append( "<a href=\"javascript:singleUse('inv_use.php','which=3&whichitem=" );
 			link.append( String.valueOf( ItemPool.TOMB_RATCHET ) );

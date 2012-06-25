@@ -483,7 +483,7 @@ public class MonsterDatabase
 
 				else if ( option.startsWith( "\"" ) )
 				{
-					StringBuffer temp = new StringBuffer( option );
+					StringBuilder temp = new StringBuilder( option );
 					while ( !option.endsWith( "\"" ) && tokens.hasMoreTokens() )
 					{
 						option = tokens.nextToken();
@@ -534,7 +534,7 @@ public class MonsterDatabase
 		}
 		// Must paste the entire expression back together, since we're
 		// splitting the tokens on spaces.
-		StringBuffer temp = new StringBuffer( value );
+		StringBuilder temp = new StringBuilder( value );
 		while ( !value.endsWith( "]" ) && tokens.hasMoreTokens() )
 		{
 			value = tokens.nextToken();

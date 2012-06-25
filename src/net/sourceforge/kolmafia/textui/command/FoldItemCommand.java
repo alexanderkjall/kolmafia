@@ -177,7 +177,7 @@ public class FoldItemCommand
 		// they have one in inventory, since this is probably what the user wants.
 		if ( targetName.startsWith( "Boris's Helm" ) && slot != EquipmentManager.NONE )
 		{
-			StringBuffer buf = new StringBuffer();
+			StringBuilder buf = new StringBuilder();
 			buf.append( "inventory.php?action=twisthorns&slot=" );
 			buf.append( slot == EquipmentManager.HAT ? "hat" : "familiarequip" );
 			buf.append( "&pwd=" );
@@ -215,7 +215,7 @@ public class FoldItemCommand
 		
 		if ( targetName.startsWith( "Loathing Legion" ) )
 		{
-			StringBuffer buf = new StringBuffer();
+			StringBuilder buf = new StringBuilder();
 			buf.append( "inv_use.php?pwd=" );
 			buf.append( GenericRequest.passwordHash );
 			buf.append( "&switch=1" );

@@ -369,7 +369,7 @@ public class FamiliarDatabase
 
 	public static final String getFamiliarType( final int familiarId )
 	{
-		StringBuffer buffer = new StringBuffer();
+		StringBuilder buffer = new StringBuilder();
 		String sep = "";
 		if ( FamiliarDatabase.combatById.get( familiarId ) )
 		{

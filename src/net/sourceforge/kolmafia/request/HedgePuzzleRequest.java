@@ -691,7 +691,7 @@ public class HedgePuzzleRequest
 		index += 11;
 
 		// Build a "Solve!" button
-		StringBuffer button = new StringBuffer();
+		StringBuilder button = new StringBuilder();
 
 		button.append( "<form name=solveform action='" );
 		button.append( "/KoLmafia/specialCommand?cmd=hedge+solve&pwd=" );

@@ -321,7 +321,7 @@ public class ManaBurnManager
 		}
 		
 		int nextCast = Preferences.getInteger( "libramSummons" );
-		StringBuffer buf = new StringBuffer();
+		StringBuilder buf = new StringBuilder();
 		for ( int i = 0; i < skillCount; ++i )
 		{
 			int thisCast = (castCount + skillCount - 1 - i) / skillCount;

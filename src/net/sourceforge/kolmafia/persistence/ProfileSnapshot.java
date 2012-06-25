@@ -252,7 +252,7 @@ public class ProfileSnapshot
 		String[] members = new String[ ProfileSnapshot.profileMap.size() ];
 		ProfileSnapshot.profileMap.keySet().toArray( members );
 
-		StringBuffer strbuf = new StringBuffer();
+		StringBuilder strbuf = new StringBuilder();
 
 		strbuf.append( "<html><head>" );
 		strbuf.append( "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">" );
@@ -357,7 +357,7 @@ public class ProfileSnapshot
 	private static final String getOverviewDetail( final String memberName, final boolean localProfileLink )
 	{
 		ProfileRequest memberLookup = ProfileSnapshot.getProfile( memberName );
-		StringBuffer strbuf = new StringBuffer();
+		StringBuilder strbuf = new StringBuilder();
 
 		// No matter what happens, you need to make sure
 		// to print the player's name first.
@@ -444,7 +444,7 @@ public class ProfileSnapshot
 
 	private static final String getStatsSummary( final String[] members )
 	{
-		StringBuffer strbuf = new StringBuffer();
+		StringBuilder strbuf = new StringBuilder();
 
 		ArrayList classList = new ArrayList();
 		ArrayList powerList = new ArrayList();
@@ -547,7 +547,7 @@ public class ProfileSnapshot
 	private static final String getStatsDetail( final String memberName, final boolean localProfileLink )
 	{
 		ProfileRequest memberLookup = ProfileSnapshot.getProfile( memberName );
-		StringBuffer strbuf = new StringBuffer();
+		StringBuilder strbuf = new StringBuilder();
 
 		// No matter what happens, you need to make sure
 		// to print the player's name first.
@@ -629,7 +629,7 @@ public class ProfileSnapshot
 
 	private static final String getSocialSummary( final String[] members )
 	{
-		StringBuffer strbuf = new StringBuffer();
+		StringBuilder strbuf = new StringBuilder();
 
 		ArrayList foodList = new ArrayList();
 		ArrayList drinkList = new ArrayList();
@@ -664,7 +664,7 @@ public class ProfileSnapshot
 	private static final String getSocialDetail( final String memberName, final boolean localProfileLink )
 	{
 		ProfileRequest memberLookup = ProfileSnapshot.getProfile( memberName );
-		StringBuffer strbuf = new StringBuffer();
+		StringBuilder strbuf = new StringBuilder();
 
 		// No matter what happens, you need to make sure
 		// to print the player's name first.

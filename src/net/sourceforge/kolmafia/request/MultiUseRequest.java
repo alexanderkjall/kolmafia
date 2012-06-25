@@ -151,7 +151,7 @@ public class MultiUseRequest
 		}
 
 
-		StringBuffer text = new StringBuffer();
+		StringBuilder text = new StringBuilder();
 		text.append( "Use " );
 
 		for ( int i = 0; i < ingredients.length; ++i )

@@ -479,7 +479,7 @@ public class KoLmafiaCLI
 	{
 		line = line.trim();
 
-		StringBuffer block = new StringBuffer( line );
+		StringBuilder block = new StringBuilder( line );
 		boolean seenCmd = false, needAnotherCmd = false;
 		while ( true )
 		{
@@ -1013,7 +1013,7 @@ public class KoLmafiaCLI
 	public static String buildRelayScriptMenu()
 	{
 		boolean any = false;
-		StringBuffer buf = new StringBuffer();
+		StringBuilder buf = new StringBuilder();
 		buf.append( "<select onchange='if (this.selectedIndex>0) { top.mainpane.location=this.options[this.selectedIndex].value; this.options[0].selected=true;}'><option>-run script-</option>" );
 		File[] files = DataUtilities.listFiles( KoLConstants.RELAY_LOCATION );
 		for ( int i = 0; i < files.length; ++i )

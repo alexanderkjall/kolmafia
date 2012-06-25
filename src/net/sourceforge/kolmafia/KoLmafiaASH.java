@@ -258,7 +258,7 @@ public abstract class KoLmafiaASH
 				continue;
 			}
 
-			StringBuffer description = new StringBuffer();
+			StringBuilder description = new StringBuilder();
 
 			description.append( func.getType() );
 			description.append( " " );

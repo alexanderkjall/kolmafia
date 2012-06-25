@@ -72,7 +72,7 @@ public abstract class Function
 	{
 		if ( this.signature == null )
 		{
-			StringBuffer buf = new StringBuffer();
+			StringBuilder buf = new StringBuilder();
 			// Since you can't usefully have multiple overloads with the
 			// same parameter types but different return types, including
 			// the return type in the signature isn't very useful.
@@ -166,7 +166,7 @@ public abstract class Function
 	{
 		try
 		{
-			StringBuffer message = new StringBuffer( "Called disabled function: " );
+			StringBuilder message = new StringBuilder( "Called disabled function: " );
 			message.append( this.getName() );
 
 			message.append( "(" );

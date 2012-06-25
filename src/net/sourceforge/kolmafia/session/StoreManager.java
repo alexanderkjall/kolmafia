@@ -658,7 +658,7 @@ public abstract class StoreManager
 		@Override
 		public String toString()
 		{
-			StringBuffer buffer = new StringBuffer();
+			StringBuilder buffer = new StringBuilder();
 
 			buffer.append( ItemDatabase.getItemName( this.itemId ) );
 			buffer.append( " (" );

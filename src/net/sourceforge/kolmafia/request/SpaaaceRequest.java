@@ -195,7 +195,7 @@ public class SpaaaceRequest
 
 	public static final String parseGameBoard( final String responseText )
 	{
-		StringBuffer buffer = new StringBuffer();
+		StringBuilder buffer = new StringBuilder();
 		Matcher matcher = PEG_PATTERN.matcher( responseText );
 		while ( matcher.find() )
 		{
@@ -210,7 +210,7 @@ public class SpaaaceRequest
 
 	public static final String parseGamePayouts( final String responseText )
 	{
-		StringBuffer buffer = new StringBuffer();
+		StringBuilder buffer = new StringBuilder();
 		Matcher matcher = PAYOUT_PATTERN.matcher( responseText );
 		while ( matcher.find() )
 		{
@@ -306,7 +306,7 @@ public class SpaaaceRequest
 			}
 		}
 
-		StringBuffer buffer = new StringBuffer();
+		StringBuilder buffer = new StringBuilder();
 		buffer.append( "<div class=\"blank\" title=\"" );
 		if ( min == max )
 		{
@@ -349,7 +349,7 @@ public class SpaaaceRequest
 			return String.valueOf( min );
 		}
 
-		StringBuffer buffer = new StringBuffer();
+		StringBuilder buffer = new StringBuilder();
 		buffer.append( KoLConstants.FLOAT_FORMAT.format( expected ) );
 		buffer.append( " (" );
 		buffer.append( String.valueOf( min ) );
@@ -587,7 +587,7 @@ public class SpaaaceRequest
 		}
 
 		// Save the expected value for each slot in the top row
-		StringBuffer buffer = new StringBuffer();
+		StringBuilder buffer = new StringBuilder();
 		for ( int col = 0; col < 17; col += 2 )
 		{
 			int minVal = min[ col ];
@@ -693,7 +693,7 @@ public class SpaaaceRequest
 
 	private static final String decoratePorkoBoard( final String board )
 	{
-		StringBuffer buffer = new StringBuffer();
+		StringBuilder buffer = new StringBuilder();
 
 		// Calculate the best expected yield
 		float best = 0.0f;

@@ -302,7 +302,7 @@ public abstract class StaticEntity
 	{
 		PauseObject pauser = new PauseObject();
 
-		StringBuffer actualMessage = new StringBuffer( message );
+		StringBuilder actualMessage = new StringBuilder( message );
 
 		for ( int i = seconds; i > 0 && KoLmafia.permitsContinue(); --i )
 		{
@@ -525,7 +525,7 @@ public abstract class StaticEntity
 
 			String line;
 
-			StringBuffer sb = new StringBuffer();
+			StringBuilder sb = new StringBuilder();
 
 			while ( ( pid == null ) && ( line = reader.readLine() ) != null )
 			{
@@ -588,7 +588,7 @@ public abstract class StaticEntity
 
 		Runtime runtime = Runtime.getRuntime();
 
-		StringBuffer sb = new StringBuffer();
+		StringBuilder sb = new StringBuilder();
 
 		try
 		{
@@ -659,7 +659,7 @@ public abstract class StaticEntity
 
 		Runtime runtime = Runtime.getRuntime();
 
-		StringBuffer sb = new StringBuffer();
+		StringBuilder sb = new StringBuilder();
 
 		try
 		{

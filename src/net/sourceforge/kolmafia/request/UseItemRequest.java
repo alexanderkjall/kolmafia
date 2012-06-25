@@ -1342,7 +1342,7 @@ public class UseItemRequest
 
 	protected void runOneIteration( final int currentIteration, final int totalIterations, String useTypeAsString )
 	{
-		StringBuffer message = new StringBuffer();
+		StringBuilder message = new StringBuilder();
 
 		message.append( useTypeAsString );
 		message.append( " " );

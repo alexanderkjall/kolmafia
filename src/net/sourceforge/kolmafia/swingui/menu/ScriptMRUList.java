@@ -114,7 +114,7 @@ public class ScriptMRUList
 			}
 			// save the new list as a preference
 			Object mruArray [] = mruList.toArray();
-			StringBuffer pref = new StringBuffer();
+			StringBuilder pref = new StringBuilder();
 			pref.append( mruArray[0].toString() );
 			int count = mruList.size();
 			if ( count > 1 )

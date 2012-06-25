@@ -94,7 +94,7 @@ public class CakeArenaManager
 					RequestThread.postRequest( request );
 
 					victoryMatcher = victoryPattern.matcher( request.responseText );
-					StringBuffer text = new StringBuffer();
+					StringBuilder text = new StringBuilder();
 
 					if ( victoryMatcher.find() )
 					{

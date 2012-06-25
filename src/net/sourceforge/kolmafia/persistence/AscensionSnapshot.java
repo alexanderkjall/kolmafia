@@ -109,7 +109,7 @@ public class AscensionSnapshot
 		boolean localProfileLink )
 	{
 		AscensionSnapshot.initializeAscensionData();
-		StringBuffer strbuf = new StringBuffer();
+		StringBuilder strbuf = new StringBuilder();
 
 		strbuf.append( "<html><head>" );
 		strbuf.append( "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">" );
@@ -215,7 +215,7 @@ public class AscensionSnapshot
 		final int mainBoardSize, final int classBoardSize, final int maxAge, final boolean playerMoreThanOnce,
 		final boolean localProfileLink )
 	{
-		StringBuffer strbuf = new StringBuffer();
+		StringBuilder strbuf = new StringBuilder();
 
 		// First, print the table showing the top ascenders
 		// without a class-based filter.
@@ -288,7 +288,7 @@ public class AscensionSnapshot
 		final int mainBoardSize, final int classBoardSize, final int maxAge, final boolean playerMoreThanOnce,
 		boolean localProfileLink )
 	{
-		StringBuffer strbuf = new StringBuffer();
+		StringBuilder strbuf = new StringBuilder();
 
 		AscensionDataField[] fields;
 

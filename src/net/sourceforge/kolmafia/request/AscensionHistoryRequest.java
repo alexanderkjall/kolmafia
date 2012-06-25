@@ -96,7 +96,7 @@ public class AscensionHistoryRequest
 	@Override
 	public String toString()
 	{
-		StringBuffer stringForm = new StringBuffer();
+		StringBuilder stringForm = new StringBuilder();
 		stringForm.append( "<tr><td><a href=\"ascensions/" + ClanManager.getURLName( this.playerName ) + "\"><b>" );
 
 		String name = ContactManager.getPlayerName( this.playerId );
@@ -199,7 +199,7 @@ public class AscensionHistoryRequest
 		try
 		{
 			BufferedReader istream = FileUtilities.getReader( backupFile );
-			StringBuffer ascensionBuffer = new StringBuffer();
+			StringBuilder ascensionBuffer = new StringBuilder();
 			String currentLine;
 
 			while ( ( currentLine = istream.readLine() ) != null )

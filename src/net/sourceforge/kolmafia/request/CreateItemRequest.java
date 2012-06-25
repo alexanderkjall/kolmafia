@@ -1282,7 +1282,7 @@ public class CreateItemRequest
 		boolean usesTurns = false;
 		boolean isCreationURL = false;
 
-		StringBuffer command = new StringBuffer();
+		StringBuilder command = new StringBuilder();
 
 		if ( urlString.startsWith( "craft.php" ) )
 		{

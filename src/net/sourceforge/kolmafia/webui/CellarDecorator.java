@@ -204,7 +204,7 @@ public abstract class CellarDecorator
 			data >>= DUSTYSHIFT;
 		}
 
-		StringBuffer buffer = new StringBuffer( "<small>" );
+		StringBuilder buffer = new StringBuilder( "<small>" );
 		boolean first = true;
 		for ( int i = 0; i < 6; ++i )
 		{

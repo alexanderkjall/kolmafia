@@ -318,7 +318,7 @@ public class PyramidRequest
 
 	private static final String pyramidHTML( final boolean link )
 	{
-		StringBuffer buffer = new StringBuffer();
+		StringBuilder buffer = new StringBuilder();
 
 		// Start the table
 		buffer.append( "<table cellpadding=0 cellspacing=0>" );

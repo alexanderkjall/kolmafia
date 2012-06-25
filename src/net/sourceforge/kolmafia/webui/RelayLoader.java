@@ -59,7 +59,7 @@ public class RelayLoader
 
 		if ( isRelayLocation )
 		{
-			StringBuffer locationBuffer = new StringBuffer();
+			StringBuilder locationBuffer = new StringBuilder();
 
 			if ( !location.startsWith( "/" ) )
 			{

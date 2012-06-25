@@ -560,7 +560,7 @@ public class MallSearchRequest
 
 			String storeString = MallPurchaseRequest.getStoreString( itemId, price );
 
-			StringBuffer buyers = new StringBuffer();
+			StringBuilder buyers = new StringBuilder();
 			buyers.append( "<td valign=\"center\" class=\"buyers\">" );
 			buyers.append( "[<a href=\"mallstore.php?buying=1&quantity=1&whichitem=" );
 			buyers.append( storeString );

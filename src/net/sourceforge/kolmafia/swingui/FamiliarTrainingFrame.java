@@ -1174,7 +1174,7 @@ public class FamiliarTrainingFrame
 		// Derived skill rankings
 		int skills[] = new int[ 4 ];
 
-		StringBuffer text = new StringBuffer();
+		StringBuilder text = new StringBuilder();
 
 		text.append( "<br>Results for " + KoLCharacter.getFamiliar().getRace() + " after " + trial + " trials using " + status.turnsUsed() + " turns:<br><br>" );
 
@@ -1446,7 +1446,7 @@ public class FamiliarTrainingFrame
 
 	private static final void printWeights( final int[] weights )
 	{
-		StringBuffer text = new StringBuffer();
+		StringBuilder text = new StringBuilder();
 
 		text.append( "Possible familiar weights" );
 		text.append( ":" );
@@ -1469,7 +1469,7 @@ public class FamiliarTrainingFrame
 		int weight = tool.bestWeight();
 		int diff = tool.difference();
 
-		StringBuffer text = new StringBuffer();
+		StringBuilder text = new StringBuilder();
 		int round = status.turnsUsed() + 1;
 		text.append( "Round " + round + ": " );
 		text.append( familiar.getName() );
@@ -2852,7 +2852,7 @@ public class FamiliarTrainingFrame
 
 		public String printAvailableBuffs()
 		{
-			StringBuffer text = new StringBuffer();
+			StringBuilder text = new StringBuilder();
 
 			text.append( "Castable buffs:" );
 			if ( FamiliarTrainingFrame.empathyAvailable )
@@ -2874,7 +2874,7 @@ public class FamiliarTrainingFrame
 
 		public String printCurrentBuffs()
 		{
-			StringBuffer text = new StringBuffer();
+			StringBuilder text = new StringBuilder();
 
 			text.append( "Current buffs:" );
 			if ( FamiliarTrainingFrame.sympathyAvailable )
@@ -2930,7 +2930,7 @@ public class FamiliarTrainingFrame
 
 		public String printCurrentEquipment()
 		{
-			StringBuffer text = new StringBuffer();
+			StringBuilder text = new StringBuilder();
 
 			text.append( "Current equipment:" );
 
@@ -3008,7 +3008,7 @@ public class FamiliarTrainingFrame
 
 		public String printAvailableEquipment()
 		{
-			StringBuffer text = new StringBuffer();
+			StringBuilder text = new StringBuilder();
 
 			text.append( "Available equipment:" );
 
@@ -3185,7 +3185,7 @@ public class FamiliarTrainingFrame
 			@Override
 			public String toString()
 			{
-				StringBuffer text = new StringBuffer();
+				StringBuilder text = new StringBuilder();
 				text.append( "(" );
 				if ( this.weapon == null )
 				{

@@ -1919,7 +1919,7 @@ public class ItemDatabase
 		}
 
 		// Otherwise, iterate over bits
-		StringBuffer result = new StringBuffer();
+		StringBuilder result = new StringBuilder();
 		Iterator it = ItemDatabase.secondaryUsageEntrySet.iterator();
 
 		while ( it.hasNext() )

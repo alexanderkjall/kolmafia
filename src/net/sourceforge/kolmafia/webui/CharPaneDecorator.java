@@ -206,7 +206,7 @@ public class CharPaneDecorator
 				"red" : "black";
 
 			// Craft a replacement for the current value
-			StringBuffer rep = new StringBuffer();
+			StringBuilder rep = new StringBuilder();
 
 			rep.append( matcher.group( 1 ) );
 			rep.append( "<a style=\"color:" );
@@ -323,7 +323,7 @@ public class CharPaneDecorator
 
 		if ( CharPaneRequest.compactCharacterPane )
 		{
-			StringBuffer linkBuffer = new StringBuffer();
+			StringBuilder linkBuffer = new StringBuilder();
 
 			linkBuffer.append( "<td>" );
 
@@ -363,7 +363,7 @@ public class CharPaneDecorator
 		}
 		else
 		{
-			StringBuffer linkBuffer = new StringBuffer();
+			StringBuilder linkBuffer = new StringBuilder();
 
 			linkBuffer.append( "<font size=1>" );
 
@@ -772,7 +772,7 @@ public class CharPaneDecorator
 			return null;
 		}
 
-		StringBuffer buffer = new StringBuffer();
+		StringBuilder buffer = new StringBuilder();
 
 		buffer.append( "<font size=2 color=" );
 		buffer.append( fontColor );
@@ -802,7 +802,7 @@ public class CharPaneDecorator
 
 	private static final String dummyEffectTable()
 	{
-		StringBuffer effects = new StringBuffer();
+		StringBuilder effects = new StringBuilder();
 
 		if ( CharPaneRequest.compactCharacterPane )
 		{

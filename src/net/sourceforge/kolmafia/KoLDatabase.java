@@ -77,7 +77,7 @@ public class KoLDatabase
 			return KoLConstants.LINE_BREAK;
 		}
 
-		StringBuffer strbuf = new StringBuffer();
+		StringBuilder strbuf = new StringBuilder();
 		strbuf.append( KoLConstants.LINE_BREAK );
 
 		Object[] itemArray = new Object[ items.size() ];

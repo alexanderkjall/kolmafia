@@ -57,7 +57,7 @@ public abstract class DvorakDecorator
 		index += 6;
 
 		// Build a "Solve!" button
-		StringBuffer button = new StringBuffer();
+		StringBuilder button = new StringBuilder();
 
 		button.append( "<form name=solveform action='" );
 		button.append( "/KoLmafia/specialCommand?cmd=dvorak&pwd=" );

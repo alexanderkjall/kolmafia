@@ -329,7 +329,7 @@ public abstract class ClanManager
 			try
 			{
 				BufferedReader istream = FileUtilities.getReader( profile );
-				StringBuffer profileString = new StringBuffer();
+				StringBuilder profileString = new StringBuilder();
 				String currentLine;
 
 				while ( ( currentLine = istream.readLine() ) != null )
@@ -390,7 +390,7 @@ public abstract class ClanManager
 			try
 			{
 				BufferedReader istream = FileUtilities.getReader( ascension );
-				StringBuffer ascensionString = new StringBuffer();
+				StringBuilder ascensionString = new StringBuilder();
 				String currentLine;
 
 				while ( ( currentLine = istream.readLine() ) != null )

@@ -2461,7 +2461,7 @@ public class DailyDeedsPanel
 		@Override
 		public void update()
 		{
-			StringBuffer buffer = new StringBuffer();
+			StringBuilder buffer = new StringBuilder();
 			boolean shown = false;
 
 			buffer.append( "Drops: " );

@@ -104,7 +104,7 @@ public class DebugDatabase
 	private static final String readWikiData( final String name )
 	{
 		String line = null;
-		StringBuffer wikiRecord = new StringBuffer();
+		StringBuilder wikiRecord = new StringBuilder();
 
 		try
 		{
@@ -1240,7 +1240,7 @@ public class DebugDatabase
 			}
 
 			String currentLine;
-			StringBuffer currentHTML = new StringBuffer();
+			StringBuilder currentHTML = new StringBuilder();
 			BufferedReader reader = FileUtilities.getReader( saveData );
 
 			while ( !( currentLine = reader.readLine() ).equals( "" ) )

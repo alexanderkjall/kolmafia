@@ -183,7 +183,7 @@ public class StationaryButtonDecorator
 
 				// Build the CAB in a new StringBuffer
 
-				StringBuffer CAB = new StringBuffer();
+				StringBuilder CAB = new StringBuilder();
 				boolean choice = buffer.indexOf( "<input" ) != -1;
 
 				CAB.append( "<img src='http://images.kingdomofloathing.com/itemimages/blank.gif' id='dragged'>" );

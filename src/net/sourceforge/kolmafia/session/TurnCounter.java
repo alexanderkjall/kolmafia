@@ -211,7 +211,7 @@ public class TurnCounter
 
 	public static final void saveCounters()
 	{
-		StringBuffer counters = new StringBuffer();
+		StringBuilder counters = new StringBuilder();
 		Iterator it = TurnCounter.relayCounters.iterator();
 
 		while ( it.hasNext() )
@@ -300,7 +300,7 @@ public class TurnCounter
 	{
 		int currentTurns = KoLCharacter.getCurrentRun();
 
-		StringBuffer counters = new StringBuffer();
+		StringBuilder counters = new StringBuilder();
 		Iterator it = TurnCounter.relayCounters.iterator();
 
 		while ( it.hasNext() )
@@ -403,7 +403,7 @@ public class TurnCounter
 		boolean checkExempt = label.length() == 0;
 		minTurns += KoLCharacter.getCurrentRun();
 		maxTurns += KoLCharacter.getCurrentRun();
-		StringBuffer buf = new StringBuffer();
+		StringBuilder buf = new StringBuilder();
 		Iterator it = TurnCounter.relayCounters.iterator();
 
 		while ( it.hasNext() )

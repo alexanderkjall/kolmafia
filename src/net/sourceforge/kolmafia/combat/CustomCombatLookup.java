@@ -206,7 +206,7 @@ public class CustomCombatLookup
 	public void load( BufferedReader reader )
 		throws IOException
 	{
-		StringBuffer indent = new StringBuffer();
+		StringBuilder indent = new StringBuilder();
 		String line = null;
 
 		String encounterKey = "default";

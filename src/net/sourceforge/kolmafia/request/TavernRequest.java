@@ -140,7 +140,7 @@ public class TavernRequest
 	private static final void parseCellarMap( final String text )
 	{
 		String oldLayout = TavernRequest.tavernLayout();
-		StringBuffer layout = new StringBuffer( oldLayout );
+		StringBuilder layout = new StringBuilder( oldLayout );
 
 		Matcher matcher = TavernRequest.MAP_PATTERN.matcher( text );
 		while ( matcher.find() )
@@ -340,7 +340,7 @@ public class TavernRequest
 
 	private static final void addTavernLocation( final int square, final char value )
 	{
-		StringBuffer layout = new StringBuffer( TavernRequest.tavernLayout() );
+		StringBuilder layout = new StringBuilder( TavernRequest.tavernLayout() );
 		layout.setCharAt( square - 1, value );
 		Preferences.setString( "tavernLayout", layout.toString() );
 	}

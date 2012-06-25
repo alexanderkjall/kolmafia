@@ -222,7 +222,7 @@ public class GearChangeFrame
 			mods = newMods;
 		}
 
-		StringBuffer buff = new StringBuffer();
+		StringBuilder buff = new StringBuilder();
 		buff.append( "<html><table><tr><td width=" );
 		buff.append( GearChangeFrame.INSTANCE.modifiersWidth );
 		buff.append( ">" );

@@ -332,7 +332,7 @@ public class AfterLifeRequest
 			}
 			int type = StringUtilities.parseInt( m.group( 1 ) );
 
-			StringBuffer buffer = new StringBuffer();
+			StringBuilder buffer = new StringBuilder();
 			buffer.append( "Ascend as a " );
 
 			switch ( type )

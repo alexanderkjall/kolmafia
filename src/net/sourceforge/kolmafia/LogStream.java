@@ -85,7 +85,7 @@ public class LogStream
 			newStream.println();
 			newStream.println( "=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=" );
 
-			StringBuffer versionData = new StringBuffer();
+			StringBuilder versionData = new StringBuilder();
 			versionData.append( StaticEntity.getVersion( true ) );
 			versionData.append( ", " );
 			versionData.append( System.getProperty( "os.name" ) );

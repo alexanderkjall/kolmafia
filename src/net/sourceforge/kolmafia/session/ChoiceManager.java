@@ -3972,7 +3972,7 @@ public abstract class ChoiceManager
 				break;
 			}
 
-			StringBuffer buffer = new StringBuffer();
+			StringBuilder buffer = new StringBuilder();
 			buffer.append( "Now walking on the " );
 			buffer.append( newClass );
 			buffer.append( " road." );
@@ -5171,7 +5171,7 @@ public abstract class ChoiceManager
 		}
 
 		// Build a "Goal" button
-		StringBuffer button = new StringBuffer();
+		StringBuilder button = new StringBuilder();
 		String url = "/KoLmafia/specialCommand?cmd=choice-goal&pwd=" + GenericRequest.passwordHash;
 		button.append( "<form name=goalform action='" + url + "' method=post>" );
 		button.append( "<input class=button type=submit value=\"Go To Goal\">" );

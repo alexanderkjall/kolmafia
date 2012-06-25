@@ -71,7 +71,7 @@ public class GoalManager
 
 	public static final String getGoalString()
 	{
-		StringBuffer conditionString = new StringBuffer();
+		StringBuilder conditionString = new StringBuilder();
 
 		for ( int i = 0; i < GoalManager.goals.size(); ++i )
 		{

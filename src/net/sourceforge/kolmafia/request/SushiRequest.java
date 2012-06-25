@@ -455,7 +455,7 @@ public class SushiRequest
 			return false;
 		}
 
-		StringBuffer buf = new StringBuffer();
+		StringBuilder buf = new StringBuilder();
 		buf.append( "Roll and eat " );
 		buf.append( name );
 		buf.append( " from " );

@@ -139,7 +139,7 @@ public class PixelRequest
 			}
 		}
 
-		StringBuffer pixelString = new StringBuffer();
+		StringBuilder pixelString = new StringBuilder();
 		pixelString.append( "Trade " );
 
 		AdventureResult[] ingredients = ConcoctionDatabase.getIngredients( itemId );

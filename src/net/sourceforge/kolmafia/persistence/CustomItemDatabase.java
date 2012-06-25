@@ -153,7 +153,7 @@ public class CustomItemDatabase
 			BufferedReader reader = FileUtilities.getReader( "http://kol.upup.us/scripts/cust/fetch.php?pid=" + playerId );
 
 			String line;
-			StringBuffer data = new StringBuffer();
+			StringBuilder data = new StringBuilder();
 
 			while ( ( line = reader.readLine() ) != null )
 			{

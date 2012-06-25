@@ -165,7 +165,7 @@ public class MoodTrigger
 			return "";
 		}
 
-		StringBuffer buffer = new StringBuffer();
+		StringBuilder buffer = new StringBuilder();
 
 		Iterator actionIterator = existingActions.iterator();
 

@@ -1482,7 +1482,7 @@ public abstract class UseLinkDecorator
 		@Override
 		public String getItemHTML()
 		{
-			StringBuffer buf = new StringBuffer();
+			StringBuilder buf = new StringBuilder();
 			for ( int i = 0; i < this.links.length; ++i )
 			{
 				if ( i > 0 ) buf.append( "&nbsp;" );

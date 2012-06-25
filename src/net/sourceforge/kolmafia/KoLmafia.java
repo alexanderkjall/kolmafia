@@ -511,7 +511,7 @@ public abstract class KoLmafia
 		// on startup, and they associated KoLmafia with
 		// some non-ASH file extension. This will run it.
 
-		StringBuffer initialScript = new StringBuffer();
+		StringBuilder initialScript = new StringBuilder();
 
 		for ( int i = 0; i < args.length; ++i )
 		{
@@ -1506,7 +1506,7 @@ public abstract class KoLmafia
 	{
 		String utfString = StringUtilities.getURLEncode( password );
 
-		StringBuffer encodedString = new StringBuffer();
+		StringBuilder encodedString = new StringBuilder();
 		char currentCharacter;
 		for ( int i = 0; i < utfString.length(); ++i )
 		{
@@ -1572,7 +1572,7 @@ public abstract class KoLmafia
 		}
 
 		String hexString = ( new BigInteger( password, 10 ) ).toString( 36 );
-		StringBuffer utfString = new StringBuffer();
+		StringBuilder utfString = new StringBuilder();
 		for ( int i = 0; i < hexString.length(); ++i )
 		{
 			utfString.append( '%' );

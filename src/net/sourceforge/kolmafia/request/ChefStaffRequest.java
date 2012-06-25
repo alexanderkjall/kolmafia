@@ -150,7 +150,7 @@ public class ChefStaffRequest
 			return true;
 		}
 
-		StringBuffer chefstaffString = new StringBuffer();
+		StringBuilder chefstaffString = new StringBuilder();
 		chefstaffString.append( "Chefstaff " );
 
 		for ( int i = 0; i < ingredients.length; ++i )

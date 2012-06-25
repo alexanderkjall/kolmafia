@@ -72,7 +72,7 @@ public class BangPotionsCommand
 		{
 			String potion = ItemDatabase.getItemName( i );
 			potion = potion.substring( chopl, potion.length() - chopr );
-			StringBuffer buf = new StringBuffer( potion );
+			StringBuilder buf = new StringBuilder( potion );
 			buf.append( ": " );
 			buf.append( Preferences.getString( pref + i ) );
 			AdventureResult item = ItemPool.get( i, 1 );

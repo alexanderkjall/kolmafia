@@ -604,7 +604,7 @@ public class AdventureResult
 	{
 		StringTokenizer parsedItem = new StringTokenizer( s, "()" );
 
-		StringBuffer nameBuilder = new StringBuffer( parsedItem.nextToken().trim() );
+		StringBuilder nameBuilder = new StringBuilder( parsedItem.nextToken().trim() );
 		int count = 1;
 		while ( parsedItem.hasMoreTokens() )
 		{
@@ -1305,7 +1305,7 @@ public class AdventureResult
 		{
 			if ( this.name.equals( AdventureResult.SUBSTATS ) )
 			{
-				StringBuffer stats = new StringBuffer();
+				StringBuilder stats = new StringBuilder();
 	
 				if ( this.counts[ 0 ] > 0 )
 				{

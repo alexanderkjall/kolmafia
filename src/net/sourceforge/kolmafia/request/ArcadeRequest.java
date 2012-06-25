@@ -1415,7 +1415,7 @@ public class ArcadeRequest
 			return;
 		}
 
-		StringBuffer buffer = new StringBuffer();
+		StringBuilder buffer = new StringBuilder();
 		String challenge = matcher.group( 1 );
 		String score = matcher.group( 2 );
 		String pHP = matcher.group( 3 );
@@ -1456,7 +1456,7 @@ public class ArcadeRequest
 			return;
 		}
 
-		StringBuffer buffer = new StringBuffer();
+		StringBuilder buffer = new StringBuilder();
 		String result = matcher.group( 1 );
 		String score = matcher.group( 2 );
 		buffer.append( "Round " );

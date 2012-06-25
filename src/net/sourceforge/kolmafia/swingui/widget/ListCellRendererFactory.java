@@ -126,7 +126,7 @@ public class ListCellRendererFactory
 				return defaultComponent;
 			}
 
-			StringBuffer stringForm = new StringBuffer();
+			StringBuilder stringForm = new StringBuilder();
 
 			stringForm.append( "<html><nobr>" );
 
@@ -186,7 +186,7 @@ public class ListCellRendererFactory
 
 		public Component getRenderer( final Component defaultComponent, final CreateItemRequest icr, final boolean isSelected )
 		{
-			StringBuffer stringForm = new StringBuffer();
+			StringBuilder stringForm = new StringBuilder();
 			boolean isHTML = false;
 
 			String name = icr.getName();
@@ -535,7 +535,7 @@ public class ListCellRendererFactory
 				return defaultComponent;
 			}
 
-			StringBuffer stringForm = new StringBuffer();
+			StringBuilder stringForm = new StringBuilder();
 			String name = ar.getName();
 
 			stringForm.append( "<html><nobr>" );
@@ -587,7 +587,7 @@ public class ListCellRendererFactory
 		@Override
 		public Component getRenderer( final Component defaultComponent, final CreateItemRequest icr, final boolean isSelected )
 		{
-			StringBuffer stringForm = new StringBuffer();
+			StringBuilder stringForm = new StringBuilder();
 			boolean isHTML = false;
 
 			stringForm.append( icr.getName() );
@@ -958,7 +958,7 @@ public class ListCellRendererFactory
 				return defaultComponent;
 			}
 
-			StringBuffer stringForm = new StringBuffer();
+			StringBuilder stringForm = new StringBuilder();
 			stringForm.append( ar.getName() );
 			stringForm.append( " (" );
 			stringForm.append( KoLConstants.COMMA_FORMAT.format( ar.getCount() ) );
@@ -996,7 +996,7 @@ public class ListCellRendererFactory
 				return defaultComponent;
 			}
 
-			StringBuffer stringForm = new StringBuffer();
+			StringBuilder stringForm = new StringBuilder();
 			stringForm.append( ar.getName() );
 
 			int pulver = EquipmentDatabase.getPulverization( ar.getItemId() );
