@@ -1483,7 +1483,7 @@ public class ItemPool
 	public static final int FDKOL_COMMENDATION = 5707;
 	public static final int HJODOR_GUIDE = 5715;
 
-	public static final AdventureResult get( String itemName, int count )
+	public static AdventureResult get( String itemName, int count )
 	{
 		int itemId = ItemDatabase.getItemId( itemName, 1, false );
 
@@ -1495,7 +1495,7 @@ public class ItemPool
 		return AdventureResult.tallyItem( itemName, count, false );
 	}
 
-	public static final AdventureResult get( int itemId, int count )
+	public static AdventureResult get( int itemId, int count )
 	{
 		return new AdventureResult( itemId, count );
 	}
@@ -1583,7 +1583,7 @@ public class ItemPool
 		},
 	};
 	
-	public static final boolean eliminationProcessor( final String[][] strings, final int index,
+	public static boolean eliminationProcessor( final String[][] strings, final int index,
 		final int id, final int minId, final int maxId, final String baseName, final String joiner )
 	{
 		String effect = strings[index][0];
@@ -1653,7 +1653,7 @@ public class ItemPool
 	// If two items remain unidentified, only identify one, since
 	// eliminationProcessor will handle the other.
 	
-	public static final void suggestIdentify( final List<String> items,
+	public static void suggestIdentify( final List<String> items,
 		final int minId, final int maxId, final String baseName )
 	{
 		ArrayList<Integer> possible = new ArrayList<Integer>();

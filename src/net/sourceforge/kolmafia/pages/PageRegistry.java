@@ -45,7 +45,7 @@ public class PageRegistry
 	private static final Set seenLocations = new HashSet();
 	private static final Map pagesByLocation = new HashMap();
 
-	public static final boolean isGameAction( String path, String queryString )
+	public static boolean isGameAction( String path, String queryString )
 	{
 		if ( PageRegistry.isExternalLocation( path ) )
 		{
@@ -104,7 +104,7 @@ public class PageRegistry
 		return page;
 	}
 
-	private static final boolean isExternalLocation( String path )
+	private static boolean isExternalLocation( String path )
 	{
 		return path.length() == 0 || path.startsWith( "http:" ) || path.startsWith( "https:" ) || !path.endsWith( ".php" );
 	}

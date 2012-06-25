@@ -144,7 +144,7 @@ public class AWOLQuartermasterRequest
 		CoinMasterRequest.parseBalance( data, responseText );
 	}
 
-	public static final boolean registerRequest( final String urlString )
+	public static boolean registerRequest( final String urlString )
 	{
 		// inv_use.php?whichitem=5116&pwd&doit=69&tobuy=xxx&howmany=yyy
 		if ( !urlString.startsWith( "inv_use.php" ) || !urlString.contains( "whichitem=5116" ) )

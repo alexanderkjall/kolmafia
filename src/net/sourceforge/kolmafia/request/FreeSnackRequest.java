@@ -123,7 +123,7 @@ public class FreeSnackRequest
 		}
 	}
 
-	public static final boolean registerRequest( final String urlString )
+	public static boolean registerRequest( final String urlString )
 	{
 		// We only claim gamestore.php?action=buysnack
 		if ( !urlString.startsWith( "gamestore.php" ) )
@@ -135,7 +135,7 @@ public class FreeSnackRequest
 		return CoinMasterRequest.registerRequest( data, urlString );
 	}
 
-	public static final void  buy( final int itemId, final int count )
+	public static void  buy( final int itemId, final int count )
 	{
 		RequestThread.postRequest( new FreeSnackRequest( "buysnack", itemId, count ) );
 	}

@@ -137,7 +137,7 @@ public class SingleUseRequest
 		// Is there a general way to detect a failure?
 	}
 
-	public static final boolean registerRequest( final String urlString )
+	public static boolean registerRequest( final String urlString )
 	{
 		if ( !urlString.startsWith( "multiuse.php") && !urlString.startsWith( "inv_use.php")  )
 		{

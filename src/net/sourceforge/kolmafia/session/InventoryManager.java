@@ -145,32 +145,32 @@ public abstract class InventoryManager
 		}
 	}
 
-	public static final int getCount( final int itemId )
+	public static int getCount( final int itemId )
 	{
 		return InventoryManager.getCount( ItemPool.get( itemId, 1 ) );
 	}
 
-	public static final int getCount( final AdventureResult item )
+	public static int getCount( final AdventureResult item )
 	{
 		return item.getCount( KoLConstants.inventory );
 	}
 
-	public static final boolean hasItem( final int itemId )
+	public static boolean hasItem( final int itemId )
 	{
 		return InventoryManager.hasItem( itemId, false );
 	}
 
-	public static final boolean hasItem( final int itemId, final boolean shouldCreate )
+	public static boolean hasItem( final int itemId, final boolean shouldCreate )
 	{
 		return InventoryManager.hasItem( ItemPool.get( itemId, 1 ), shouldCreate );
 	}
 
-	public static final boolean hasItem( final AdventureResult item )
+	public static boolean hasItem( final AdventureResult item )
 	{
 		return InventoryManager.hasItem( item, false );
 	}
 
-	public static final boolean hasItem( final AdventureResult item, final boolean shouldCreate )
+	public static boolean hasItem( final AdventureResult item, final boolean shouldCreate )
 	{
 		int count = InventoryManager.getAccessibleCount( item );
 
@@ -186,12 +186,12 @@ public abstract class InventoryManager
 		return count > 0 && count >= item.getCount();
 	}
 
-	public static final int getAccessibleCount( final int itemId )
+	public static int getAccessibleCount( final int itemId )
 	{
 		return InventoryManager.getAccessibleCount( ItemPool.get( itemId, 1 ) );
 	}
 
-	public static final int getAccessibleCount( final AdventureResult item )
+	public static int getAccessibleCount( final AdventureResult item )
 	{
 		if ( item == null )
 		{
@@ -254,7 +254,7 @@ public abstract class InventoryManager
 		return count;
 	}
 
-	public static final int getEquippedCount( final AdventureResult item )
+	public static int getEquippedCount( final AdventureResult item )
 	{
 		int count = 0;
 		for ( int i = 0; i <= EquipmentManager.FAMILIAR; ++i )
@@ -268,52 +268,52 @@ public abstract class InventoryManager
 		return count;
 	}
 
-	public static final boolean retrieveItem( final int itemId )
+	public static boolean retrieveItem( final int itemId )
 	{
 		return InventoryManager.retrieveItem( ItemPool.get( itemId, 1 ), true );
 	}
 
-	public static final boolean retrieveItem( final int itemId, final boolean isAutomated )
+	public static boolean retrieveItem( final int itemId, final boolean isAutomated )
 	{
 		return InventoryManager.retrieveItem( ItemPool.get( itemId, 1 ), isAutomated );
 	}
 
-	public static final boolean retrieveItem( final int itemId, final int count )
+	public static boolean retrieveItem( final int itemId, final int count )
 	{
 		return InventoryManager.retrieveItem( ItemPool.get( itemId, count ), true );
 	}
 
-	public static final boolean retrieveItem( final int itemId, final int count, final boolean isAutomated )
+	public static boolean retrieveItem( final int itemId, final int count, final boolean isAutomated )
 	{
 		return InventoryManager.retrieveItem( ItemPool.get( itemId, count ), isAutomated );
 	}
 
-	public static final boolean retrieveItem( final String itemName )
+	public static boolean retrieveItem( final String itemName )
 	{
 		return InventoryManager.retrieveItem( ItemPool.get( itemName, 1 ), true );
 	}
 
-	public static final boolean retrieveItem( final String itemName, final boolean isAutomated )
+	public static boolean retrieveItem( final String itemName, final boolean isAutomated )
 	{
 		return InventoryManager.retrieveItem( ItemPool.get( itemName, 1 ), isAutomated );
 	}
 
-	public static final boolean retrieveItem( final String itemName, final int count )
+	public static boolean retrieveItem( final String itemName, final int count )
 	{
 		return InventoryManager.retrieveItem( ItemPool.get( itemName, count ), true );
 	}
 
-	public static final boolean retrieveItem( final String itemName, final int count, final boolean isAutomated )
+	public static boolean retrieveItem( final String itemName, final int count, final boolean isAutomated )
 	{
 		return InventoryManager.retrieveItem( ItemPool.get( itemName, count ), isAutomated );
 	}
 
-	public static final boolean retrieveItem( final AdventureResult item )
+	public static boolean retrieveItem( final AdventureResult item )
 	{
 		return InventoryManager.retrieveItem( item, true );
 	}
 
-	public static final boolean retrieveItem( final AdventureResult item, final boolean isAutomated )
+	public static boolean retrieveItem( final AdventureResult item, final boolean isAutomated )
 	{
 		String rv = InventoryManager.retrieveItem( item, isAutomated, false );
 		if ( rv == null )
@@ -332,32 +332,32 @@ public abstract class InventoryManager
 		return true;
 	}
 
-	public static final String simRetrieveItem( final int itemId )
+	public static String simRetrieveItem( final int itemId )
 	{
 		return InventoryManager.simRetrieveItem( ItemPool.get( itemId, 1 ), true );
 	}
 
-	public static final String simRetrieveItem( final int itemId, final boolean isAutomated )
+	public static String simRetrieveItem( final int itemId, final boolean isAutomated )
 	{
 		return InventoryManager.simRetrieveItem( ItemPool.get( itemId, 1 ), isAutomated );
 	}
 
-	public static final String simRetrieveItem( final String itemName )
+	public static String simRetrieveItem( final String itemName )
 	{
 		return InventoryManager.simRetrieveItem( ItemPool.get( itemName, 1 ), true );
 	}
 
-	public static final String simRetrieveItem( final String itemName, final boolean isAutomated )
+	public static String simRetrieveItem( final String itemName, final boolean isAutomated )
 	{
 		return InventoryManager.simRetrieveItem( ItemPool.get( itemName, 1 ), isAutomated );
 	}
 
-	public static final String simRetrieveItem( final AdventureResult item )
+	public static String simRetrieveItem( final AdventureResult item )
 	{
 		return InventoryManager.simRetrieveItem( item, true );
 	}
 
-	public static final String simRetrieveItem( final AdventureResult item, final boolean isAutomated )
+	public static String simRetrieveItem( final AdventureResult item, final boolean isAutomated )
 	{
 		String rv = InventoryManager.retrieveItem( item, isAutomated, true );
 		if ( rv == null || rv.equals( "" ) )
@@ -368,7 +368,7 @@ public abstract class InventoryManager
 		return rv;
 	}
 
-	private static final String retrieveItem( final AdventureResult item, final boolean isAutomated, final boolean sim )
+	private static String retrieveItem( final AdventureResult item, final boolean isAutomated, final boolean sim )
 	{
 		// Disable any preferences that might prevent us from acquiring the item
 
@@ -395,7 +395,7 @@ public abstract class InventoryManager
 	// When called with sim=false, it should return "" for success (equivalent
 	// to the previous return value of true), null for failure (previously false).
 
-	private static final String doRetrieveItem( final AdventureResult item, final boolean isAutomated, final boolean sim )
+	private static String doRetrieveItem( final AdventureResult item, final boolean isAutomated, final boolean sim )
 	{
 		int itemId = item.getItemId();
 		boolean trendy = !KoLCharacter.isTrendy() || TrendyRequest.isTrendy( "Items", item.getName() );
@@ -1545,12 +1545,12 @@ public abstract class InventoryManager
 		return missingCount;
 	}
 
-	private static final boolean hasAnyIngredient( final int itemId )
+	private static boolean hasAnyIngredient( final int itemId )
 	{
 		return InventoryManager.hasAnyIngredient( itemId, null );
 	}
 
-	private static final boolean hasAnyIngredient( final int itemId, HashSet seen )
+	private static boolean hasAnyIngredient( final int itemId, HashSet seen )
 	{
 		if ( itemId < 0 )
 		{
@@ -1669,7 +1669,7 @@ public abstract class InventoryManager
 		return true;
 	}
 
-	public static final void registerListener( final int itemId, final PreferenceListener listener )
+	public static void registerListener( final int itemId, final PreferenceListener listener )
 	{
 		if ( itemId < 1 )
 		{
@@ -1686,7 +1686,7 @@ public abstract class InventoryManager
 		list.add( new WeakReference( listener ) );
 	}
 
-	public static final void fireInventoryChanged( final int itemId )
+	public static void fireInventoryChanged( final int itemId )
 	{
 		ArrayList list = InventoryManager.listeners.get( itemId );
 		if ( list != null )
@@ -1748,7 +1748,7 @@ public abstract class InventoryManager
 		}
 	}
 
-	public static final void parseInventory( final JSONObject JSON )
+	public static void parseInventory( final JSONObject JSON )
 		throws JSONException
 	{
 		// {"1":"1","2":"1" ... }
@@ -1783,7 +1783,7 @@ public abstract class InventoryManager
 	private static Pattern COT_PATTERN = Pattern.compile( "Current Occupant:.*?<b>.* the (.*?)</b>" );
 	public static final AdventureResult CROWN_OF_THRONES = ItemPool.get( ItemPool.HATSEAT, 1 );
 
-	public static final void checkCrownOfThrones()
+	public static void checkCrownOfThrones()
 	{
 		// If we are wearing the Crown of Thrones, we've already seen
 		// which familiar is riding in it

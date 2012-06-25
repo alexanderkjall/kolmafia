@@ -215,7 +215,7 @@ public class SkateParkRequest
 		return dataSetting( actionToData( action ) );
 	}
 
-	private static final String actionToPlace( final String action )
+	private static String actionToPlace( final String action )
 	{
 		return dataPlace( actionToData( action ) );
 	}
@@ -257,7 +257,7 @@ public class SkateParkRequest
 		}
 	}
 
-	public static final boolean parseResponse( final String urlString, final String responseText )
+	public static boolean parseResponse( final String urlString, final String responseText )
 	{
 		if ( !urlString.startsWith( "sea_skatepark.php" ) )
 		{
@@ -308,7 +308,7 @@ public class SkateParkRequest
 		return error;
 	}
 
-	private static final void ensureUpdatedSkatePark()
+	private static void ensureUpdatedSkatePark()
 	{
 		int lastAscension = Preferences.getInteger( "lastSkateParkReset" );
 		if ( lastAscension < KoLCharacter.getAscensions() )
@@ -318,7 +318,7 @@ public class SkateParkRequest
 		}
 	}
 
-	public static final boolean registerRequest( final String urlString )
+	public static boolean registerRequest( final String urlString )
 	{
 		if ( !urlString.startsWith( "sea_skatepark.php" ) )
 		{

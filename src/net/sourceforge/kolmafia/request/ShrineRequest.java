@@ -132,7 +132,7 @@ public class ShrineRequest
 		return null;
 	}
 
-	private static final String actionToPlace( final String action )
+	private static String actionToPlace( final String action )
 	{
 		return dataPlace( actionToData( action ) );
 	}
@@ -193,7 +193,7 @@ public class ShrineRequest
 		KoLmafia.updateDisplay( "Donation complete." );
 	}
 
-	public static final String parseResponse( final String urlString, final String responseText )
+	public static String parseResponse( final String urlString, final String responseText )
 	{
 		if ( !urlString.startsWith( "da.php" ) )
 		{
@@ -235,7 +235,7 @@ public class ShrineRequest
 		return null;
 	}
 
-	public static final boolean registerRequest( final String urlString )
+	public static boolean registerRequest( final String urlString )
 	{
 		if ( !urlString.startsWith( "da.php" ) )
 		{

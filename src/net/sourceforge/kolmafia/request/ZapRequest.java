@@ -92,7 +92,7 @@ public class ZapRequest
 		this.addFormField( "whichitem", String.valueOf( item.getItemId() ) );
 	}
 
-	private static final void initializeList()
+	private static void initializeList()
 	{
 		if ( !ZapRequest.zappableItems.isEmpty() )
 		{
@@ -123,7 +123,7 @@ public class ZapRequest
 		}
 	}
 
-	public static final SortedListModel getZappableItems()
+	public static SortedListModel getZappableItems()
 	{
 		ZapRequest.initializeList();
 
@@ -134,7 +134,7 @@ public class ZapRequest
 		return matchingItems;
 	}
 
-	public static final String[] getZapGroup( int itemId )
+	public static String[] getZapGroup( int itemId )
 	{
 		ZapRequest.initializeList();
 
@@ -190,7 +190,7 @@ public class ZapRequest
 		KoLmafia.updateDisplay( this.item.getName() + " has been transformed." );
 	}
 
-	public static final void parseResponse( final String urlString, final String responseText )
+	public static void parseResponse( final String urlString, final String responseText )
 	{
 		if ( !urlString.startsWith( "wand.php" ) )
 		{
@@ -225,7 +225,7 @@ public class ZapRequest
 		Preferences.increment( "_zapCount" );
 	}
 
-	public static final void decorate( final StringBuffer buffer )
+	public static void decorate( StringBuffer buffer )
 	{
 		// Don't trim the list if user wants to see all items
 		if ( !Preferences.getBoolean( "relayTrimsZapList" ) )
@@ -257,7 +257,7 @@ public class ZapRequest
 		buffer.insert( pos, "KoLmafia trimmed this list to the items it knows to be zappable, which may not include recently discovered or modified items.  <a href=\"wand.php?whichwand=" + KoLCharacter.getZapper().getItemId() + "&notrim=1\">Click here</a> for the full list." );
 	}
 
-	public static final boolean registerRequest( final String urlString )
+	public static boolean registerRequest( final String urlString )
 	{
 		if ( !urlString.startsWith( "wand.php" ) )
 		{

@@ -89,7 +89,7 @@ public class SugarSheetRequest
 		}
 	}
 
-	public static final boolean parseCreation( final String urlString, final String responseText )
+	public static boolean parseCreation( final String urlString, final String responseText )
 	{
 		// You moisten your sticker sheet, and quickly fold it into a
 		// new shape before it dries.
@@ -111,7 +111,7 @@ public class SugarSheetRequest
 		return false;
 	}
 
-	public static final boolean registerRequest( final String urlString )
+	public static boolean registerRequest( final String urlString )
 	{
 		Matcher m = SugarSheetRequest.ITEM_PATTERN.matcher( urlString );
 

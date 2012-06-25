@@ -107,7 +107,7 @@ public class AltarOfBonesRequest
 		CoinMasterRequest.parseResponse( AltarOfBonesRequest.ALTAR_OF_BONES, urlString, responseText );
 	}
 
-	public static final boolean registerRequest( final String urlString )
+	public static boolean registerRequest( final String urlString )
 	{
 		// We only claim bone_altar.php?action=buy
 		if ( !urlString.startsWith( "bone_altar.php" ) )

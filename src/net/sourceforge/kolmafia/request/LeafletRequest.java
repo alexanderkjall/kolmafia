@@ -71,7 +71,7 @@ public class LeafletRequest
 		LeafletRequest.parseResponse( this.getURLString(), this.responseText );
 	}
 
-	public static final void parseResponse( final String urlString, final String responseText )
+	public static void parseResponse( final String urlString, final String responseText )
 	{
 		Matcher matcher = RESPONSE_PATTERN.matcher( responseText );
 		if ( !matcher.find() )
@@ -86,7 +86,7 @@ public class LeafletRequest
 		}
 	}
 
-	private static final String getCommand( final String urlString )
+	private static String getCommand( final String urlString )
 	{
 		Matcher matcher = COMMAND_PATTERN.matcher( urlString );
 		if ( !matcher.find() )
@@ -97,7 +97,7 @@ public class LeafletRequest
 		return GenericRequest.decodeField( matcher.group( 1 ) );
 	}
 
-	public static final boolean registerRequest( final String urlString )
+	public static boolean registerRequest( final String urlString )
 	{
 		if ( !urlString.startsWith( "leaflet.php" ) )
 		{

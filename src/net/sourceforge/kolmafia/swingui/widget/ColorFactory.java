@@ -162,7 +162,7 @@ public final class ColorFactory
 		return color;
 	}
 
-	public static final String getQualityColor( final String name )
+	public static String getQualityColor( final String name )
 	{
 		String pref;
 		String color = null;

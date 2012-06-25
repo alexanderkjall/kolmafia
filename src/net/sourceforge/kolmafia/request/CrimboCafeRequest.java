@@ -84,7 +84,7 @@ public class CrimboCafeRequest
 		},
 	};
 
-	private static final Object[] dataByName( final String name )
+	private static Object[] dataByName( final String name )
 	{
 		for ( int i = 0; i < CrimboCafeRequest.MENU_DATA.length; ++i )
 		{
@@ -97,7 +97,7 @@ public class CrimboCafeRequest
 		return null;
 	}
 
-	private static final Object[] dataByItemID( final int itemId )
+	private static Object[] dataByItemID( final int itemId )
 	{
 		for ( int i = 0; i < CrimboCafeRequest.MENU_DATA.length; ++i )
 		{
@@ -110,17 +110,17 @@ public class CrimboCafeRequest
 		return null;
 	}
 
-	public final static String dataName( Object [] data )
+	public static String dataName( Object [] data )
 	{
 		return (String)data[ 0 ];
 	}
 
-	public final static int dataItemID( Object [] data )
+	public static int dataItemID( Object [] data )
 	{
 		return (Integer) data[1];
 	}
 
-	public final static int dataPrice( Object [] data )
+	public static int dataPrice( Object [] data )
 	{
 		return (Integer) data[2];
 	}
@@ -142,12 +142,12 @@ public class CrimboCafeRequest
 		this.setItem( name, itemId, price );
 	}
 
-	public static final boolean onMenu( final String name )
+	public static boolean onMenu( final String name )
 	{
 		return KoLConstants.cafeItems.contains( name );
 	}
 
-	public static final void getMenu()
+	public static void getMenu()
 	{
 		if ( !CrimboCafeRequest.AVAILABLE )
 		{
@@ -166,12 +166,12 @@ public class CrimboCafeRequest
 		KoLmafia.updateDisplay( "Menu retrieved." );
 	}
 
-	public static final void reset()
+	public static void reset()
 	{
 		CafeRequest.reset( KoLConstants.cafeItems );
 	}
 
-	public static final boolean registerRequest( final String urlString )
+	public static boolean registerRequest( final String urlString )
 	{
 		Matcher matcher = CafeRequest.CAFE_PATTERN.matcher( urlString );
 		if ( !matcher.find() || !matcher.group( 1 ).equals( CrimboCafeRequest.CAFEID ) )

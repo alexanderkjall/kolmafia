@@ -221,7 +221,7 @@ public class RelayRequest
 		return this;
 	}
 
-	private static final boolean isJunkItem( final int itemId, final int price )
+	private static boolean isJunkItem( final int itemId, final int price )
 	{
 		if ( !Preferences.getBoolean( "relayHidesJunkMallItems" ) )
 		{
@@ -506,7 +506,7 @@ public class RelayRequest
 		"/images/adventureimages/hellion.gif\" width=60 height=100",
 	};
 
-	public static final void overrideImages( final StringBuffer buffer )
+	public static void overrideImages( final StringBuffer buffer )
 	{
 		if ( !Preferences.getBoolean( "relayOverridesImages" ) )
 		{
@@ -521,7 +521,7 @@ public class RelayRequest
 		}
 	}
 
-	public static final void flushOverrideImages()
+	public static void flushOverrideImages()
 	{
 		for ( int i = 0; i < IMAGES.length; i += 3 )
 		{

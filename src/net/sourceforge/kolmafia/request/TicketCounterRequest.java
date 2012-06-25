@@ -114,7 +114,7 @@ public class TicketCounterRequest
 		return false;
 	}
 
-	public static final boolean registerRequest( final String urlString )
+	public static boolean registerRequest( final String urlString )
 	{
 		// We only claim arcade.php?action=redeem
 		if ( !urlString.startsWith( "arcade.php" ) )
@@ -126,7 +126,7 @@ public class TicketCounterRequest
 		return CoinMasterRequest.registerRequest( data, urlString );
 	}
 
-	public static final void buy( final int itemId, final int count )
+	public static void buy( final int itemId, final int count )
 	{
 		RequestThread.postRequest( new TicketCounterRequest( "redeem", itemId, count ) );
 	}

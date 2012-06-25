@@ -216,7 +216,7 @@ public class ClanStashRequest
 	public static final Pattern ITEM_PATTERN1 = Pattern.compile( "You add (.*?) to the Goodies Hoard" );
 	public static final Pattern ITEM_PATTERN2 = Pattern.compile( "(\\d+) (.+?)(?:, (?=\\d)|, and| and (?=\\d)|$)" );
 
-	public static final boolean parseTransfer( final String urlString, final String responseText )
+	public static boolean parseTransfer( final String urlString, final String responseText )
 	{
 		if ( urlString.contains( "takegoodies" ) )
 		{
@@ -362,7 +362,7 @@ public class ClanStashRequest
 		return true;
 	}
 
-	public static final boolean registerRequest( final String urlString )
+	public static boolean registerRequest( final String urlString )
 	{
 		if ( !urlString.startsWith( "clan_stash.php" ) )
 		{

@@ -108,7 +108,7 @@ public abstract class NemesisManager
 		},
 	};
 
-	private static final void selectDoorItem( final int door, final StringBuffer buffer )
+	private static void selectDoorItem( final int door, final StringBuffer buffer )
 	{
 		String myClass = KoLCharacter.getClassType();
 		for ( int i = 0; i < DOOR_DATA.length; ++i )
@@ -131,7 +131,7 @@ public abstract class NemesisManager
 		}
 	}
 
-	public static final void ensureUpdatedNemesisStatus()
+	public static void ensureUpdatedNemesisStatus()
 	{
 		if ( Preferences.getInteger( "lastNemesisReset" ) == KoLCharacter.getAscensions() )
 		{
@@ -155,7 +155,7 @@ public abstract class NemesisManager
 		Preferences.setInteger( "lastNemesisReset", KoLCharacter.getAscensions() );
 	}
 
-	public static final void decorate( final String location, final StringBuffer buffer )
+	public static void decorate( final String location, final StringBuffer buffer )
 	{
 		if ( !location.startsWith( "cave.php" ) )
 		{
@@ -209,7 +209,7 @@ public abstract class NemesisManager
 		ItemPool.get( ItemPool.TORN_PAPER_STRIP, 1 ),
 	};
 
-	public static final void getPaperStrips()
+	public static void getPaperStrips()
 	{
 		int lastAscension = Preferences.getInteger( "lastPaperStripReset" );
 		int current = KoLCharacter.getAscensions();
@@ -236,7 +236,7 @@ public abstract class NemesisManager
 		}
 	}
 
-	public static final boolean identifyPaperStrips()
+	public static boolean identifyPaperStrips()
 	{
 		int lastAscension = Preferences.getInteger( "lastPaperStripReset" );
 		if ( lastAscension == KoLCharacter.getAscensions() )
@@ -271,7 +271,7 @@ public abstract class NemesisManager
 
 	private static final Pattern STRIP_PATTERN = Pattern.compile( "title=\"A (.*?) tear\".*title=\"A (.*?) tear\".*?<b>([A-Z]*)</b></font>", Pattern.DOTALL );
 
-	private static final boolean identifyPaperStrip( final int itemId )
+	private static boolean identifyPaperStrip( final int itemId )
 	{
 		String description = DebugDatabase.rawItemDescriptionText( itemId, true );
 		if ( description == null )
@@ -292,7 +292,7 @@ public abstract class NemesisManager
 		return true;
 	}
 
-	public static final String getPassword()
+	public static String getPassword()
 	{
 		if ( !NemesisManager.identifyPaperStrips() )
 		{

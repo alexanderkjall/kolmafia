@@ -60,7 +60,7 @@ public class StyledChatBuffer
 		this.linkColor = linkColor;
 	}
 
-	public static final boolean initializeHighlights()
+	public static boolean initializeHighlights()
 	{
 		String highlights = Preferences.getString( "highlightList" ).trim();
 
@@ -80,7 +80,7 @@ public class StyledChatBuffer
 		return true;
 	}
 
-	public static final String removeHighlight( final int index )
+	public static String removeHighlight( final int index )
 	{
 		--StyledChatBuffer.highlightCount;
 
@@ -90,7 +90,7 @@ public class StyledChatBuffer
 		return searchString + "\n" + colorString;
 	}
 
-	public static final String addHighlight( final String searchString, final Color color )
+	public static String addHighlight( final String searchString, final Color color )
 	{
 		++StyledChatBuffer.highlightCount;
 

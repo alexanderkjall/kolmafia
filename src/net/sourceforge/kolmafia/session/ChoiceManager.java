@@ -256,7 +256,7 @@ public abstract class ChoiceManager
 
 	private static boolean choicesOrderedByName = true;
 
-	public static final void setChoiceOrdering( final boolean choicesOrderedByName )
+	public static void setChoiceOrdering( final boolean choicesOrderedByName )
 	{
 		ChoiceManager.choicesOrderedByName = choicesOrderedByName;
 	}
@@ -2191,7 +2191,7 @@ public abstract class ChoiceManager
 		ChoiceManager.initializeAfterChoice = true;
 	}
 
-	private static final AdventureResult getCost( final int choice, final int decision )
+	private static AdventureResult getCost( final int choice, final int decision )
 	{
 		for ( int i = 0; i < ChoiceManager.CHOICE_COST.length; ++i )
 		{
@@ -2205,7 +2205,7 @@ public abstract class ChoiceManager
 		return null;
 	}
 
-	private static final void payCost( final int choice, final int decision )
+	private static void payCost( final int choice, int decision )
 	{
 		AdventureResult cost = ChoiceManager.getCost( choice, decision );
 
@@ -2264,7 +2264,7 @@ public abstract class ChoiceManager
 		ResultProcessor.processResult( cost );
 	}
 
-	public static final void decorateChoice( final int choice, final StringBuffer buffer )
+	public static void decorateChoice( final int choice, final StringBuffer buffer )
 	{
 		if ( choice >= 48 && choice <= 70 )
 		{
@@ -2325,7 +2325,7 @@ public abstract class ChoiceManager
 		}
 	}
 
-	public static final String[][] choiceSpoilers( final int choice )
+	public static String[][] choiceSpoilers( final int choice )
 	{
 		String[][] spoilers;
 
@@ -2386,7 +2386,7 @@ public abstract class ChoiceManager
 		return null;
 	}
 
-	private static final String[][] dynamicChoiceSpoilers( final int choice )
+	private static String[][] dynamicChoiceSpoilers( final int choice )
 	{
 		String[][] result;
 		switch ( choice )
@@ -2503,7 +2503,7 @@ public abstract class ChoiceManager
 		return null;
 	}
 
-	private static final String[][] dynamicChoiceSpoilers( final int count, final int choice, final String name )
+	private static String[][] dynamicChoiceSpoilers( final int count, final int choice, final String name )
 	{
 		String[][] result = new String[ count ][];
 
@@ -2537,7 +2537,7 @@ public abstract class ChoiceManager
 		return result;
 	}
 
-	private static final String[] dynamicChoiceOptions( final int choice )
+	private static String[] dynamicChoiceOptions( final int choice )
 	{
 		String[] result;
 		switch ( choice )
@@ -2844,7 +2844,7 @@ public abstract class ChoiceManager
 		return null;
 	}
 
-	public static final String[] dynamicChoiceOptions( final String option )
+	public static String[] dynamicChoiceOptions( final String option )
 	{
 		if ( !option.startsWith( "choiceAdventure" ) )
 		{
@@ -2854,7 +2854,7 @@ public abstract class ChoiceManager
 		return ChoiceManager.dynamicChoiceOptions( choice );
 	}
 
-	public static final String choiceSpoiler( final int choice, final int decision, final String[] spoilers )
+	public static String choiceSpoiler( final int choice, final int decision, final String[] spoilers )
 	{
 		switch ( choice )
 		{
@@ -2875,13 +2875,13 @@ public abstract class ChoiceManager
 		return spoilers[ decision ];
 	}
 
-	public static final boolean processChoiceAdventure()
+	public static boolean processChoiceAdventure()
 	{
 		ChoiceManager.processChoiceAdventure( ChoiceManager.CHOICE_HANDLER, null );
 		return ChoiceManager.CHOICE_HANDLER.containsUpdate;
 	}
 
-	public static final void processChoiceAdventure( int decision )
+	public static void processChoiceAdventure( int decision )
 	{
 		GenericRequest request = ChoiceManager.CHOICE_HANDLER;
 		request.constructURLString( "choice.php" );
@@ -2893,7 +2893,7 @@ public abstract class ChoiceManager
 		ChoiceManager.processChoiceAdventure( request, request.responseText );
 	}
 
-	public static final void processChoiceAdventure( final GenericRequest request, final String responseText )
+	public static void processChoiceAdventure( final GenericRequest request, final String responseText )
 	{
 		// You can no longer simply ignore a choice adventure.	One of
 		// the options may have that effect, but we must at least run
@@ -2990,7 +2990,7 @@ public abstract class ChoiceManager
 		}
 	}
 
-	public static final int getDecision( int choice, String responseText )
+	public static int getDecision( int choice, String responseText )
 	{
 		String option = "choiceAdventure" + choice;
 		String decision = Preferences.getString( option );
@@ -3012,17 +3012,17 @@ public abstract class ChoiceManager
 		return StringUtilities.parseInt( decision );
 	}
 
-	public static final int getLastChoice()
+	public static int getLastChoice()
 	{
 		return ChoiceManager.lastChoice;
 	}
 
-	public static final int getLastDecision()
+	public static int getLastDecision()
 	{
 		return ChoiceManager.lastDecision;
 	}
 
-	public static final void preChoice( final GenericRequest request )
+	public static void preChoice( final GenericRequest request )
 	{
 		String choice = request.getFormField( "whichchoice" );
 		String option = request.getFormField( "option" );
@@ -4410,7 +4410,7 @@ public abstract class ChoiceManager
 		KoLmafia.updateDisplay( state, message );
 	}
 
-	private static final boolean specialChoiceHandling( final int choice, final GenericRequest request )
+	private static boolean specialChoiceHandling( final int choice, final GenericRequest request )
 	{
 		String decision = null;
 		switch ( choice )
@@ -4436,7 +4436,7 @@ public abstract class ChoiceManager
 		return true;
 	}
 
-	private static final String specialChoiceDecision( final int choice, final String option, final String decision, final int stepCount, final String responseText )
+	private static String specialChoiceDecision( final int choice, final String option, final String decision, final int stepCount, final String responseText )
 	{
 		// A few choices have non-standard options: 0 is not Manual Control
 		switch ( choice )
@@ -5059,7 +5059,7 @@ public abstract class ChoiceManager
 		return decision;
 	}
 
-	private static final String pickOutfitChoice( final String option, final String decision )
+	private static String pickOutfitChoice( final String option, final String decision )
 	{
 		// Find the options for the choice we've encountered
 
@@ -5160,7 +5160,7 @@ public abstract class ChoiceManager
 		return "1";
 	}
 
-	public static final void addGoalButton( final StringBuffer buffer, final String goal )
+	public static void addGoalButton( final StringBuffer buffer, final String goal )
 	{
 		// Insert a "Goal" button in-line
 		String search = "<form name=choiceform1";
@@ -5185,7 +5185,7 @@ public abstract class ChoiceManager
 		buffer.insert( index, button );
 	}
 
-	public static final void gotoGoal()
+	public static void gotoGoal()
 	{
 		String responseText = ChoiceManager.lastResponseText;
 		GenericRequest request = ChoiceManager.CHOICE_HANDLER;
@@ -5197,7 +5197,7 @@ public abstract class ChoiceManager
 		RelayRequest.specialCommandIsAdventure = true;
 	}
 
-	public static final boolean registerRequest( final String urlString )
+	public static boolean registerRequest( final String urlString )
 	{
 		if ( !urlString.startsWith( "choice.php" ) )
 		{
@@ -5259,7 +5259,7 @@ public abstract class ChoiceManager
 		return true;
 	}
 
-	public static final String findChoiceDecisionIndex( final String text, final String responseText )
+	public static String findChoiceDecisionIndex( final String text, final String responseText )
 	{
 		Matcher matcher = ChoiceManager.DECISION_BUTTON_PATTERN.matcher( responseText );
 		while ( matcher.find() )
@@ -5275,7 +5275,7 @@ public abstract class ChoiceManager
 		return "0";
 	}
 
-	public static final String findChoiceDecisionText( final int index, final String responseText )
+	public static String findChoiceDecisionText( final int index, final String responseText )
 	{
 		Matcher matcher = ChoiceManager.DECISION_BUTTON_PATTERN.matcher( responseText );
 		while ( matcher.find() )

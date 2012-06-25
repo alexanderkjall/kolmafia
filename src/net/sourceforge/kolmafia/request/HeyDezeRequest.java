@@ -215,7 +215,7 @@ public class HeyDezeRequest
 		return null;
 	}
 
-	public static final boolean registerRequest( final String urlString )
+	public static boolean registerRequest( final String urlString )
 	{
 		if ( !urlString.startsWith( "heydeze.php" ) )
 		{

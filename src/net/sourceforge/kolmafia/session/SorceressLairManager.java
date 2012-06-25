@@ -573,7 +573,7 @@ public abstract class SorceressLairManager
 		{ "giant potato", "Barrrnacle" }
 	};
 
-	private static final boolean checkPrerequisites( final int min, final int max )
+	private static boolean checkPrerequisites( final int min, final int max )
 	{
 		KoLmafia.updateDisplay( "Checking prerequisites..." );
 
@@ -698,7 +698,7 @@ public abstract class SorceressLairManager
 		return true;
 	}
 
-	private static final AdventureResult pickOne( final AdventureResult[] itemOptions )
+	private static AdventureResult pickOne( final AdventureResult[] itemOptions )
 	{
 		if ( itemOptions.length == 1 )
 		{
@@ -724,26 +724,26 @@ public abstract class SorceressLairManager
 		return itemOptions[ 0 ];
 	}
 
-	private static final boolean isItemAvailable( final AdventureResult item )
+	private static boolean isItemAvailable( final AdventureResult item )
 	{
 		return InventoryManager.hasItem( item, true );
 	}
 
-	public static final void completeCloveredEntryway()
+	public static void completeCloveredEntryway()
 	{
 		SpecialOutfit.createImplicitCheckpoint();
 		SorceressLairManager.completeEntryway( true );
 		SpecialOutfit.restoreImplicitCheckpoint();
 	}
 
-	public static final void completeCloverlessEntryway()
+	public static void completeCloverlessEntryway()
 	{
 		SpecialOutfit.createImplicitCheckpoint();
 		SorceressLairManager.completeEntryway( false );
 		SpecialOutfit.restoreImplicitCheckpoint();
 	}
 
-	private static final void completeEntryway( final boolean useCloverForSkeleton )
+	private static void completeEntryway( final boolean useCloverForSkeleton )
 	{
 		if ( !SorceressLairManager.checkPrerequisites( 1, 2 ) )
 		{
@@ -845,7 +845,7 @@ public abstract class SorceressLairManager
 		KoLmafia.updateDisplay( "Sorceress entryway complete." );
 	}
 
-	private static final boolean completeGateway()
+	private static boolean completeGateway()
 	{
 		// Check to see if the person has crossed through the
 		// gates already.  If they haven't, then that's the
@@ -908,7 +908,7 @@ public abstract class SorceressLairManager
 		return true;
 	}
 
-	private static final boolean passThreeGatePuzzle()
+	private static boolean passThreeGatePuzzle()
 	{
 		// Visiting the gates with the correct effects opens them.
 		if ( SorceressLairManager.QUEST_HANDLER.responseText.contains( "gatesdone.gif" ) ||
@@ -1009,7 +1009,7 @@ public abstract class SorceressLairManager
 		return false;
 	}
 
-	private static final void addGateItem( final int gate, final Matcher gateMatcher, final List requirements )
+	private static void addGateItem( final int gate, final Matcher gateMatcher, final List requirements )
 	{
 		// Find the name of the gate from the responseText
 		if ( !gateMatcher.find() )
@@ -1028,7 +1028,7 @@ public abstract class SorceressLairManager
 		SorceressLairManager.addGateItem( gateName, requirements );
 	}
 
-	private static final void addGateItem( final String gateName, final List requirements )
+	private static void addGateItem( final String gateName, final List requirements )
 	{
 		// Find the gate in our data
 
@@ -1062,7 +1062,7 @@ public abstract class SorceressLairManager
 		requirements.add( item );
 	}
 
-	private static final List retrieveRhythm( final boolean useCloverForSkeleton )
+	private static List retrieveRhythm( boolean useCloverForSkeleton )
 	{
 		// Skeleton key and a clover unless you already have the
 		// Really Evil Rhythms
@@ -1145,7 +1145,7 @@ public abstract class SorceressLairManager
 		return requirements;
 	}
 
-	private static final List retrieveStrumming()
+	private static List retrieveStrumming()
 	{
 		// Decide on which star weapon should be available for
 		// this whole process.
@@ -1359,7 +1359,7 @@ public abstract class SorceressLairManager
 		return requirements;
 	}
 
-	private static final List retrieveSqueezings()
+	private static List retrieveSqueezings()
 	{
 		// Digital key unless you already have the Squeezings of Woe
 
@@ -1390,7 +1390,7 @@ public abstract class SorceressLairManager
 		return requirements;
 	}
 
-	private static final List retrieveScubaGear()
+	private static List retrieveScubaGear()
 	{
 		List requirements = new ArrayList();
 
@@ -1470,7 +1470,7 @@ public abstract class SorceressLairManager
 		return requirements;
 	}
 
-	public static final void completeHedgeMaze()
+	public static void completeHedgeMaze()
 	{
 		if ( !SorceressLairManager.checkPrerequisites( 3, 3 ) )
 		{
@@ -1496,7 +1496,7 @@ public abstract class SorceressLairManager
 		KoLmafia.updateDisplay( "Hedge maze quest complete." );
 	}
 
-	public static final int fightAllTowerGuardians()
+	public static int fightAllTowerGuardians()
 	{
 		FamiliarData oldFamiliar = KoLCharacter.getFamiliar();
 
@@ -1512,7 +1512,7 @@ public abstract class SorceressLairManager
 		return itemId;
 	}
 
-	public static final int fightMostTowerGuardians()
+	public static int fightMostTowerGuardians()
 	{
 		FamiliarData oldFamiliar = KoLCharacter.getFamiliar();
 
@@ -1528,7 +1528,7 @@ public abstract class SorceressLairManager
 		return itemId;
 	}
 
-	private static final int fightTowerGuardians( boolean fightFamiliarGuardians )
+	private static int fightTowerGuardians( boolean fightFamiliarGuardians )
 	{
 		if ( !SorceressLairManager.checkPrerequisites( 4, 6 ) )
 		{
@@ -1711,7 +1711,7 @@ public abstract class SorceressLairManager
 		return -1;
 	}
 
-	private static final int fightGuardian( final int towerLevel )
+	private static int fightGuardian( final int towerLevel )
 	{
 		if ( KoLCharacter.getAdventuresLeft() == 0 )
 		{
@@ -1765,7 +1765,7 @@ public abstract class SorceressLairManager
 		return guardianItem.getItemId();
 	}
 
-	private static final AdventureResult getGuardianItem()
+	private static AdventureResult getGuardianItem()
 	{
 		String[] guardian = SorceressLairManager.findGuardianByName( FightRequest.getCurrentKey() );
 		if ( guardian != null )
@@ -1779,7 +1779,7 @@ public abstract class SorceressLairManager
 		return ItemPool.get( ItemPool.STEAMING_EVIL, 1 );
 	}
 
-	private static final void ensureUpdatedDoorCode()
+	private static void ensureUpdatedDoorCode()
 	{
 		int lastAscension = Preferences.getInteger( "lastDoorCodeReset" );
 		if ( lastAscension < KoLCharacter.getAscensions() )
@@ -1789,7 +1789,7 @@ public abstract class SorceressLairManager
 		}
 	}
 
-	private static final String getDoorCode()
+	private static String getDoorCode()
 	{
 		SorceressLairManager.ensureUpdatedDoorCode();
 		String code = Preferences.getString( "doorCode" );
@@ -1803,7 +1803,7 @@ public abstract class SorceressLairManager
 		return SorceressLairManager.setDoorCode( request.responseText );
 	}
 
-	private static final String setDoorCode( final String responseText )
+	private static String setDoorCode( final String responseText )
 	{
 		SorceressLairManager.ensureUpdatedDoorCode();
 		String code = SorceressLairManager.deduceCode( responseText );
@@ -1814,7 +1814,7 @@ public abstract class SorceressLairManager
 		return code;
 	}
 
-	private static final void findDoorCode()
+	private static void findDoorCode()
 	{
 		KoLmafia.updateDisplay( "Cracking door code..." );
 
@@ -1838,7 +1838,7 @@ public abstract class SorceressLairManager
 		}
 	}
 
-	private static final String deduceCode( final String text )
+	private static String deduceCode( final String text )
 	{
 		int start = text.indexOf( "<p>The guard playing South" );
 		if ( start == -1 )
@@ -1920,7 +1920,7 @@ public abstract class SorceressLairManager
 		return digit1 + digit2 + digit3;
 	}
 
-	private static final void reflectEnergyBolt()
+	private static void reflectEnergyBolt()
 	{
 		boolean inFistcore = KoLCharacter.inFistcore();
 		boolean inAxecore = KoLCharacter.inAxecore();
@@ -1946,7 +1946,7 @@ public abstract class SorceressLairManager
 		}
 	}
 
-	private static final void fightShadow()
+	private static void fightShadow()
 	{
 		RecoveryManager.recoverHP( KoLCharacter.getMaximumHP() );
 		if ( !KoLmafia.permitsContinue() )
@@ -2031,7 +2031,7 @@ public abstract class SorceressLairManager
 		}
 	}
 
-	public static final void makeGuardianItems()
+	public static void makeGuardianItems()
 	{
 		if ( Preferences.getInteger( "lastTowerClimb" ) == KoLCharacter.getAscensions() )
 		{
@@ -2110,7 +2110,7 @@ public abstract class SorceressLairManager
 		Preferences.setInteger( "lastTowerClimb", KoLCharacter.getAscensions() );
 	}
 
-	private static final void acquireGuardianItem( final String[] desc )
+	private static void acquireGuardianItem( final String[] desc )
 	{
 		String name = SorceressLairManager.guardianItem( desc );
 		AdventureResult item = ItemPool.get( name, 1 );
@@ -2125,7 +2125,7 @@ public abstract class SorceressLairManager
 		}
 	}
 
-	private static final void familiarBattle( final int n )
+	private static void familiarBattle( final int n )
 	{
 		// If you are an Avatar of Boris, you don't need - and can't use - familiars
 		if ( KoLCharacter.inAxecore() )
@@ -2172,7 +2172,7 @@ public abstract class SorceressLairManager
 		SorceressLairManager.familiarBattle( n, true );
 	}
 
-	private static final void familiarBattle( final int n, final boolean init )
+	private static void familiarBattle( final int n, final boolean init )
 	{
 		// Take the current familiar in to face the Sorceress's pet
 		KoLmafia.updateDisplay( "Facing giant familiar..." );
@@ -2244,7 +2244,7 @@ public abstract class SorceressLairManager
 	 * Methods to inspect externally visited lair pages
 	 */
 
-	public static final void parseEntrywayResponse( final String urlString, final String responseText )
+	public static void parseEntrywayResponse( final String urlString, final String responseText )
 	{
 		// lair2.php?preaction=key&whichkey=xxx
 		if ( urlString.contains( "preaction=key" ) )
@@ -2261,7 +2261,7 @@ public abstract class SorceressLairManager
 		}
 	}
 
-	public static final void parseChamberResponse( final String urlString, final String responseText )
+	public static void parseChamberResponse( final String urlString, final String responseText )
 	{
 		// lair6.php
 		if ( urlString.contains( "preaction=lightdoor" ) )
@@ -2275,7 +2275,7 @@ public abstract class SorceressLairManager
 	 * Methods to decorate lair pages for the Relay Browser
 	 */
 
-	public static final void decorateGates( final StringBuffer buffer )
+	public static void decorateGates( final StringBuffer buffer )
 	{
 		Matcher gateMatcher = SorceressLairManager.GATE_PATTERN.matcher( buffer );
 		SorceressLairManager.decorateGate( buffer, gateMatcher );
@@ -2283,7 +2283,7 @@ public abstract class SorceressLairManager
 		SorceressLairManager.decorateGate( buffer, gateMatcher );
 	}
 
-	public static final void decorateGate( final StringBuffer buffer, final Matcher gateMatcher )
+	public static void decorateGate( final StringBuffer buffer, final Matcher gateMatcher )
 	{
 		if ( !gateMatcher.find() )
 		{
@@ -2344,7 +2344,7 @@ public abstract class SorceressLairManager
 		buffer.insert( index, spoiler );
 	}
 
-	public static final void decorateDigitalKey( final StringBuffer buffer )
+	public static void decorateDigitalKey( final StringBuffer buffer )
 	{
 		SorceressLairManager.decorateDigitalKey( buffer, "seq1", "up" );
 		SorceressLairManager.decorateDigitalKey( buffer, "seq2", "up" );
@@ -2358,7 +2358,7 @@ public abstract class SorceressLairManager
 		SorceressLairManager.decorateDigitalKey( buffer, "seq10", "a" );
 	}
 
-	private static final void decorateDigitalKey( final StringBuffer buffer, final String control, final String option )
+	private static void decorateDigitalKey( final StringBuffer buffer, final String control, final String option )
 	{
 		int index = buffer.indexOf( control );
 		if ( index == -1 )
@@ -2374,7 +2374,7 @@ public abstract class SorceressLairManager
 		buffer.insert( index + search.length(), " selected" );
 	}
 
-	public static final void decorateHeavyDoor( final StringBuffer buffer )
+	public static void decorateHeavyDoor( final StringBuffer buffer )
 	{
 		String code = SorceressLairManager.getDoorCode();
 		if ( code != null )
@@ -2387,7 +2387,7 @@ public abstract class SorceressLairManager
 		}
 	}
 
-	public static final void decorateFamiliars( final StringBuffer buffer )
+	public static void decorateFamiliars( final StringBuffer buffer )
 	{
 		StringUtilities.insertAfter( buffer, "manages to defeat you.", " <font color=#DD00FF>Angry Goat needed</font>" );
 		StringUtilities.insertAfter( buffer, "eyeing you menacingly.", " <font color=#DD00FF>Barrrnacle needed</font>" );

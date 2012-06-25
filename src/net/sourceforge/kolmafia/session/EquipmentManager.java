@@ -203,7 +203,7 @@ public class EquipmentManager
 		return array;
 	}
 
-	public static final void processResult( AdventureResult item )
+	public static void processResult( AdventureResult item )
 	{
 		int itemId = item.getItemId();
 
@@ -304,7 +304,7 @@ public class EquipmentManager
 		}
 	}
 
-	public static final void setEquipment( final int slot, AdventureResult item )
+	public static void setEquipment( final int slot, AdventureResult item )
 	{
 		// Variable slots do not include the fake hand
 		if ( slot >= EquipmentManager.equipmentLists.length )
@@ -451,7 +451,7 @@ public class EquipmentManager
 		}
 	}
 	
-	public static final void transformEquipment( AdventureResult before, AdventureResult after )
+	public static void transformEquipment( AdventureResult before, AdventureResult after )
 	{
 		SpecialOutfit.forgetEquipment( before );
 		for ( int slot = 0 ; slot <= EquipmentManager.FAMILIAR ; ++slot )
@@ -474,13 +474,13 @@ public class EquipmentManager
 		RequestLogger.printLine( "(unable to determine slot of transformed equipment)" );
 	}
 
-	public static final int discardEquipment( final int itemId )
+	public static int discardEquipment( final int itemId )
 	{
 		AdventureResult item = ItemPool.get( itemId, 1 );
 		return EquipmentManager.discardEquipment( item );
 	}
 
-	public static final int discardEquipment( final AdventureResult item )
+	public static int discardEquipment( final AdventureResult item )
 	{
 		SpecialOutfit.forgetEquipment( item );
 		for ( int slot = 0 ; slot <= EquipmentManager.FAMILIAR ; ++slot )
@@ -502,7 +502,7 @@ public class EquipmentManager
 		return -1;
 	}
 	
-	public static final void breakEquipment( int itemId, String msg )
+	public static void breakEquipment( int itemId, String msg )
 	{
 		// Breaking sugar equipment resets sugar counter
 		switch ( itemId )
@@ -575,7 +575,7 @@ public class EquipmentManager
 		KoLmafia.updateDisplay( msg + "  No previous item to equip." );
 	}
 
-	public static final void checkFamiliar( final int slot )
+	public static void checkFamiliar( final int slot )
 	{
 		switch ( KoLCharacter.getFamiliar().getId() )
 		{
@@ -626,7 +626,7 @@ public class EquipmentManager
 	 * index by the constants
 	 */
 
-	public static final void setEquipment( final AdventureResult[] equipment )
+	public static void setEquipment( final AdventureResult[] equipment )
 	{
 		// Sanity check: must set ALL equipment slots
 
@@ -649,7 +649,7 @@ public class EquipmentManager
 		}
 	}
 
-	public static final void setOutfits( final List newOutfits )
+	public static void setOutfits( final List newOutfits )
 	{
 		// Rebuild outfits if given a new list
 		if ( newOutfits != null )
@@ -668,32 +668,32 @@ public class EquipmentManager
 	 * <code>none</code> if no such item exists
 	 */
 
-	public static final AdventureResult getFamiliarItem()
+	public static AdventureResult getFamiliarItem()
 	{
 		return KoLCharacter.currentFamiliar == null ? EquipmentRequest.UNEQUIP : KoLCharacter.currentFamiliar.getItem();
 	}
 
-	public static final AdventureResult lockedFamiliarItem()
+	public static AdventureResult lockedFamiliarItem()
 	{
 		return EquipmentManager.lockedFamiliarItem;
 	}
 
-	public static final boolean familiarItemLockable()
+	public static boolean familiarItemLockable()
 	{
 		return FamiliarData.lockableItem( EquipmentManager.getFamiliarItem() );
 	}
 
-	public static final void lockFamiliarItem()
+	public static void lockFamiliarItem()
 	{
 		EquipmentManager.lockFamiliarItem( EquipmentManager.familiarItemLocked() );
 	}
 
-	public static final boolean familiarItemLocked()
+	public static boolean familiarItemLocked()
 	{
 		return EquipmentManager.lockedFamiliarItem != EquipmentRequest.UNEQUIP;
 	}
 
-	public static final void lockFamiliarItem( boolean lock )
+	public static void lockFamiliarItem( boolean lock )
 	{
 		EquipmentManager.lockedFamiliarItem =
 			lock ? EquipmentManager.getFamiliarItem() : EquipmentRequest.UNEQUIP;
@@ -701,24 +701,24 @@ public class EquipmentManager
 		PreferenceListenerRegistry.firePreferenceChanged( "(familiarLock)" );
 	}
 
-	public static final void lockFamiliarItem( FamiliarData familiar )
+	public static void lockFamiliarItem( FamiliarData familiar )
 	{
 		EquipmentManager.lockedFamiliarItem = familiar.getItem();
 		GearChangeFrame.updateFamiliarLock();
 		PreferenceListenerRegistry.firePreferenceChanged( "(familiarLock)" );
 	}
 
-	public static final int getFakeHands()
+	public static int getFakeHands()
 	{
 		return EquipmentManager.fakeHandCount;
 	}
 
-	public static final void setFakeHands( final int hands )
+	public static void setFakeHands( final int hands )
 	{
 		EquipmentManager.fakeHandCount = hands;
 	}
 
-	public static final int getStinkyCheeseLevel()
+	public static int getStinkyCheeseLevel()
 	{
 		return EquipmentManager.stinkyCheeseLevel;
 	}
@@ -730,7 +730,7 @@ public class EquipmentManager
 	 * @return The name of the equipment, <code>none</code> if no such item exists
 	 */
 
-	public static final AdventureResult getEquipment( final int type )
+	public static AdventureResult getEquipment( final int type )
 	{
 		if ( type == EquipmentManager.FAMILIAR )
 		{
@@ -745,12 +745,12 @@ public class EquipmentManager
 		return EquipmentRequest.UNEQUIP;
 	}
 	
-	public static final int getTurns( int slot )
+	public static int getTurns( int slot )
 	{
 		return EquipmentManager.turnsRemaining[ slot - EquipmentManager.STICKER1 ];
 	}
 	
-	public static final void setTurns( int slot, int minTurns, int maxTurns )
+	public static void setTurns( int slot, int minTurns, int maxTurns )
 	{
 		int curr = EquipmentManager.turnsRemaining[ slot - EquipmentManager.STICKER1 ];
 		if ( curr > maxTurns )
@@ -768,38 +768,38 @@ public class EquipmentManager
 			EquipmentManager.turnsRemaining[ 2 ] );
 	}
 	
-	public static final boolean isStickerWeapon( AdventureResult item )
+	public static boolean isStickerWeapon( AdventureResult item )
 	{
 		return item != null && isStickerWeapon( item.getItemId() );
 	}
 	
-	public static final boolean isStickerWeapon( int itemId )
+	public static boolean isStickerWeapon( int itemId )
 	{
 		return itemId == ItemPool.STICKER_SWORD || itemId == ItemPool.STICKER_CROSSBOW;
 	}
 	
-	public static final boolean usingStickerWeapon()
+	public static boolean usingStickerWeapon()
 	{
 		return isStickerWeapon( getEquipment( EquipmentManager.WEAPON ) ) ||
 			isStickerWeapon( getEquipment( EquipmentManager.OFFHAND ) ) ||
 			isStickerWeapon( getEquipment( EquipmentManager.FAMILIAR ) );
 	}
 
-	public static final boolean usingStickerWeapon( AdventureResult[] equipment )
+	public static boolean usingStickerWeapon( AdventureResult[] equipment )
 	{
 		return isStickerWeapon( equipment[ EquipmentManager.WEAPON ] ) ||
 			isStickerWeapon( equipment[ EquipmentManager.OFFHAND ] ) ||
 			isStickerWeapon( equipment[ EquipmentManager.FAMILIAR ] );
 	}
 
-	public static final boolean hasStickerWeapon()
+	public static boolean hasStickerWeapon()
 	{
 		return EquipmentManager.usingStickerWeapon() ||
 			InventoryManager.hasItem( ItemPool.STICKER_SWORD ) ||
 			InventoryManager.hasItem( ItemPool.STICKER_CROSSBOW );
 	}
 
-	public static final void incrementSugarCounters()
+	public static void incrementSugarCounters()
 	{
 		for ( int i = 0; i < EquipmentManager.SLOTS; ++i )
 		{
@@ -819,7 +819,7 @@ public class EquipmentManager
 		}
 	}
 	
-	public static final void decrementTurns()
+	public static void decrementTurns()
 	{
 		if ( usingStickerWeapon() )
 		{
@@ -832,7 +832,7 @@ public class EquipmentManager
 		EquipmentManager.incrementSugarCounters();
 	}
 	
-	public static final void stickersExpired( int count )
+	public static void stickersExpired( int count )
 	{
 		for ( int i = 0; i < 3; ++i )
 		{
@@ -854,12 +854,12 @@ public class EquipmentManager
 	 * items which the current familiar cannot equip.
 	 */
 
-	public static final LockableListModel[] getEquipmentLists()
+	public static LockableListModel[] getEquipmentLists()
 	{
 		return EquipmentManager.equipmentLists;
 	}
 
-	public static final void updateEquipmentList( final int listIndex )
+	public static void updateEquipmentList( final int listIndex )
 	{
 		int consumeFilter = EquipmentManager.equipmentTypeToConsumeFilter( listIndex );
 		if ( consumeFilter == -1 )
@@ -933,7 +933,7 @@ public class EquipmentManager
 		EquipmentManager.equipmentLists[ listIndex ].setSelectedItem( equippedItem );
 	}
 
-	private static final void updateEquipmentList( final int filterId, final List currentList )
+	private static void updateEquipmentList( final int filterId, final List currentList )
 	{
 		ArrayList temporary = new ArrayList();
 		temporary.add( EquipmentRequest.UNEQUIP );
@@ -1007,7 +1007,7 @@ public class EquipmentManager
 	 * @return A <code>LockableListModel</code> of the available outfits
 	 */
 
-	public static final LockableListModel getCustomOutfits()
+	public static LockableListModel getCustomOutfits()
 	{
 		return customOutfits;
 	}
@@ -1085,12 +1085,12 @@ public class EquipmentManager
 	 * @return A <code>LockableListModel</code> of the available outfits
 	 */
 
-	public static final LockableListModel getOutfits()
+	public static LockableListModel getOutfits()
 	{
 		return outfits;
 	}
 
-	public static final void updateEquipmentLists()
+	public static void updateEquipmentLists()
 	{
 		KoLCharacter.resetTriggers();
 		EquipmentManager.updateOutfits();
@@ -1100,7 +1100,7 @@ public class EquipmentManager
 		}
 	}
 
-	public static final int equipmentTypeToConsumeFilter( final int equipmentType )
+	public static int equipmentTypeToConsumeFilter( final int equipmentType )
 	{
 		switch ( equipmentType )
 		{
@@ -1131,7 +1131,7 @@ public class EquipmentManager
 		}
 	}
 
-	public static final int consumeFilterToEquipmentType( final int consumeFilter )
+	public static int consumeFilterToEquipmentType( final int consumeFilter )
 	{
 		switch ( consumeFilter )
 		{
@@ -1158,7 +1158,7 @@ public class EquipmentManager
 		}
 	}
 
-	public static final int itemIdToEquipmentType( final int itemId )
+	public static int itemIdToEquipmentType( final int itemId )
 	{
 		return EquipmentManager.consumeFilterToEquipmentType( ItemDatabase.getConsumptionType( itemId ) );
 	}
@@ -1169,7 +1169,7 @@ public class EquipmentManager
 	 * @return int number of hands needed
 	 */
 
-	public static final int getWeaponHandedness()
+	public static int getWeaponHandedness()
 	{
 		return EquipmentDatabase.getHands( EquipmentManager.getEquipment( EquipmentManager.WEAPON ).getName() );
 	}
@@ -1180,7 +1180,7 @@ public class EquipmentManager
 	 * @return boolean true if character has two weapons equipped
 	 */
 
-	public static final boolean usingTwoWeapons()
+	public static boolean usingTwoWeapons()
 	{
 		return EquipmentDatabase.getHands( EquipmentManager.getEquipment( EquipmentManager.OFFHAND ).getName() ) == 1;
 	}
@@ -1191,7 +1191,7 @@ public class EquipmentManager
 	 * @return boolean true if weapon is a chefstaff
 	 */
 
-	public static final boolean usingChefstaff()
+	public static boolean usingChefstaff()
 	{
 		return EquipmentDatabase.isChefStaff( EquipmentManager.getEquipment( EquipmentManager.WEAPON ) );
 	}
@@ -1202,7 +1202,7 @@ public class EquipmentManager
 	 * @return boolean true if weapon is a club
 	 */
 
-	public static final boolean wieldingClub()
+	public static boolean wieldingClub()
 	{
 		return EquipmentManager.wieldingClub( true );
 	}
@@ -1215,7 +1215,7 @@ public class EquipmentManager
 
 	public static final AdventureResult IRON_PALM = EffectPool.get( "Iron Palm" );
 
-	public static final boolean wieldingClub( final boolean includeEffect )
+	public static boolean wieldingClub( final boolean includeEffect )
 	{
 		String type = EquipmentDatabase.getItemType( EquipmentManager.getEquipment( EquipmentManager.WEAPON ).getItemId() );
 		return type.equals( "club" ) ||
@@ -1228,7 +1228,7 @@ public class EquipmentManager
 	 * @return boolean true if character has a shield equipped
 	 */
 
-	public static final boolean usingShield()
+	public static boolean usingShield()
 	{
 		return EquipmentDatabase.getItemType( EquipmentManager.getEquipment( OFFHAND ).getItemId() ).equals( "shield" );
 	}
@@ -1240,7 +1240,7 @@ public class EquipmentManager
 	 * @return int MELEE or RANGED
 	 */
 
-	public static final int getWeaponType()
+	public static int getWeaponType()
 	{
 		return EquipmentDatabase.getWeaponType( EquipmentManager.getEquipment( EquipmentManager.WEAPON ).getName() );
 	}
@@ -1252,7 +1252,7 @@ public class EquipmentManager
 	 * @return int MOXIE or MUSCLE
 	 */
 
-	public static final int getHitStatType()
+	public static int getHitStatType()
 	{
 		switch ( EquipmentManager.getWeaponType() )
 		{
@@ -1269,7 +1269,7 @@ public class EquipmentManager
 	 * @return int adjusted muscle, mysticality, or moxie
 	 */
 
-	public static final int getAdjustedHitStat()
+	public static int getAdjustedHitStat()
 	{
 		switch ( getHitStatType() )
 		{
@@ -1288,12 +1288,12 @@ public class EquipmentManager
 		}
 	}
 
-	public static final boolean hasOutfit( final int id )
+	public static boolean hasOutfit( final int id )
 	{
 		return getOutfits().contains( EquipmentDatabase.normalOutfits.get( id ) );
 	}
 
-	public static final void updateOutfits()
+	public static void updateOutfits()
 	{
 		ArrayList available = new ArrayList();
 
@@ -1342,7 +1342,7 @@ public class EquipmentManager
 	 * equipped.
 	 */
 
-	public static final boolean isWearingOutfit( final int outfitId )
+	public static boolean isWearingOutfit( final int outfitId )
 	{
 		if ( outfitId < 0 )
 		{
@@ -1362,12 +1362,12 @@ public class EquipmentManager
 	 * corresponding to the given outfit is already equipped.
 	 */
 
-	public static final boolean isWearingOutfit( final SpecialOutfit outfit )
+	public static boolean isWearingOutfit( final SpecialOutfit outfit )
 	{
 		return outfit != null && outfit.isWearing();
 	}
 
-	public static final boolean retrieveOutfit( final SpecialOutfit outfit )
+	public static boolean retrieveOutfit( final SpecialOutfit outfit )
 	{
 		AdventureResult[] pieces = outfit.getPieces();
 		for ( int i = 0; i < pieces.length; ++i )
@@ -1382,7 +1382,7 @@ public class EquipmentManager
 		return true;
 	}
 
-	public static final boolean addOutfitConditions( final KoLAdventure adventure )
+	public static boolean addOutfitConditions( final KoLAdventure adventure )
 	{
 		int outfitId = EquipmentDatabase.getOutfitId( adventure );
 		if ( outfitId <= 0 )
@@ -1394,7 +1394,7 @@ public class EquipmentManager
 		return true;
 	}
 
-	public static final void addOutfitConditions( final int outfitId )
+	public static void addOutfitConditions( final int outfitId )
 	{
 		// Ignore custom outfits, since there's
 		// no way to know what they are (yet).
@@ -1419,7 +1419,7 @@ public class EquipmentManager
 	 * currently wearing
 	 */
 
-	public static final SpecialOutfit currentOutfit()
+	public static SpecialOutfit currentOutfit()
 	{
 		for ( int id = 1; id < EquipmentDatabase.normalOutfits.size(); ++id )
 		{
@@ -1437,7 +1437,7 @@ public class EquipmentManager
 		return null;
 	}
 
-	public static final SpecialOutfit currentOutfit( AdventureResult[] equipment )
+	public static SpecialOutfit currentOutfit( AdventureResult[] equipment )
 	{
 		int hash = SpecialOutfit.equipmentHash( equipment );
 		
@@ -1458,17 +1458,17 @@ public class EquipmentManager
 		return null;
 	}
 
-	public static final boolean canEquip( final AdventureResult item )
+	public static boolean canEquip( final AdventureResult item )
 	{
 		return EquipmentManager.canEquip( item.getItemId() );
 	}
 
-	public static final boolean canEquip( final String itemName )
+	public static boolean canEquip( final String itemName )
 	{
 		return EquipmentManager.canEquip( ItemDatabase.getItemId( itemName ) );
 	}
 
-	public static final boolean canEquip( final int itemId )
+	public static boolean canEquip( final int itemId )
 	{
 		if ( itemId == -1 )
 		{
@@ -1535,7 +1535,7 @@ public class EquipmentManager
 		return true;
 	}
 
-	public static final SpecialOutfit getMatchingOutfit( final String name )
+	public static SpecialOutfit getMatchingOutfit( final String name )
 	{
 		String lowercaseName = name.toLowerCase().trim();
 	
@@ -1600,7 +1600,7 @@ public class EquipmentManager
 		return null;
 	}
 
-	public static final void parseStatus( final JSONObject JSON )
+	public static void parseStatus( final JSONObject JSON )
 		throws JSONException
 	{
 		// "equipment":{

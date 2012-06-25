@@ -196,7 +196,7 @@ public class KoLDesktop
 		KoLDesktop.isInitializing = false;
 	}
 
-	public static final boolean isInitializing()
+	public static boolean isInitializing()
 	{
 		return KoLDesktop.isInitializing;
 	}
@@ -233,12 +233,12 @@ public class KoLDesktop
 		super.dispose();
 	}
 
-	public static final boolean instanceExists()
+	public static boolean instanceExists()
 	{
 		return KoLDesktop.INSTANCE != null;
 	}
 
-	public static final KoLDesktop getInstance()
+	public static KoLDesktop getInstance()
 	{
 		if ( KoLDesktop.INSTANCE == null )
 		{
@@ -259,7 +259,7 @@ public class KoLDesktop
 		return KoLDesktop.INSTANCE;
 	}
 
-	public static final void addTab( final GenericFrame content )
+	public static void addTab( final GenericFrame content )
 	{
 		if ( KoLDesktop.INSTANCE == null )
 		{
@@ -283,7 +283,7 @@ public class KoLDesktop
 		}
 	}
 
-	public static final boolean isInversionExempt( final GenericFrame content )
+	public static boolean isInversionExempt( final GenericFrame content )
 	{
 		return content instanceof AdventureFrame || content instanceof SendMessageFrame;
 	}
@@ -294,7 +294,7 @@ public class KoLDesktop
 		super.pack();
 	}
 
-	public static final boolean showComponent( final GenericFrame content )
+	public static boolean showComponent( final GenericFrame content )
 	{
 		if ( KoLDesktop.INSTANCE == null )
 		{
@@ -321,7 +321,7 @@ public class KoLDesktop
 		return true;
 	}
 
-	public static final void setTitle( final GenericFrame content, final String newTitle )
+	public static void setTitle( final GenericFrame content, final String newTitle )
 	{
 		if ( KoLDesktop.INSTANCE == null )
 		{
@@ -335,7 +335,7 @@ public class KoLDesktop
 		}
 	}
 
-	public static final void updateTitle()
+	public static void updateTitle()
 	{
 		if ( KoLDesktop.INSTANCE != null )
 		{
@@ -413,7 +413,7 @@ public class KoLDesktop
 		return toolbarPanel;
 	}
 
-	public static final void removeExtraTabs()
+	public static void removeExtraTabs()
 	{
 		if ( KoLDesktop.INSTANCE == null )
 		{

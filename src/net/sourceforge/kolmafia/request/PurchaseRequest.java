@@ -302,7 +302,7 @@ public abstract class PurchaseRequest
 		return o == null || !( o instanceof PurchaseRequest ) ? 1 : this.compareTo( (PurchaseRequest) o );
 	}
 
-	public static final void setUsePriceComparison( final boolean usePriceComparison )
+	public static void setUsePriceComparison( final boolean usePriceComparison )
 	{
 		PurchaseRequest.usePriceComparison = usePriceComparison;
 	}

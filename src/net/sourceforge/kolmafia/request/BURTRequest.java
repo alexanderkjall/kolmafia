@@ -165,7 +165,7 @@ public class BURTRequest
 		CoinMasterRequest.parseBalance( data, responseText );
 	}
 
-	public static final boolean registerRequest( final String urlString )
+	public static boolean registerRequest( final String urlString )
 	{
 		// inv_use.php?whichitem=5683&pwd&itemquantity=xxx
 		if ( !urlString.startsWith( "inv_use.php" ) || !urlString.contains( "whichitem=5683" ) )

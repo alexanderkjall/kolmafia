@@ -259,7 +259,7 @@ public class MallSearchFrame
 		}
 	}
 
-	public static final void searchMall( final MallSearchRequest request )
+	public static void searchMall( final MallSearchRequest request )
 	{
 		if ( MallSearchFrame.INSTANCE == null )
 		{

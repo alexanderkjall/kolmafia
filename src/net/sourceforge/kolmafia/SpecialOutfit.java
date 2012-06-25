@@ -218,7 +218,7 @@ public class SpecialOutfit
 	 * Restores a checkpoint. This should be called whenever the player needs to revert to their checkpointed outfit.
 	 */
 
-	private static final void restoreCheckpoint( final AdventureResult[] checkpoint )
+	private static void restoreCheckpoint( final AdventureResult[] checkpoint )
 	{
 		AdventureResult equippedItem;
 		for ( int i = 0; i < checkpoint.length && !KoLmafia.refusesContinue(); ++i )
@@ -258,7 +258,7 @@ public class SpecialOutfit
 	 * Creates a checkpoint. This should be called whenever the player needs an outfit marked to revert to.
 	 */
 
-	public static final void createExplicitCheckpoint()
+	public static void createExplicitCheckpoint()
 	{
 		AdventureResult[] explicit = new AdventureResult[ EquipmentManager.SLOTS ];
 
@@ -274,7 +274,7 @@ public class SpecialOutfit
 	 * Restores a checkpoint. This should be called whenever the player needs to revert to their checkpointed outfit.
 	 */
 
-	public static final void restoreExplicitCheckpoint()
+	public static void restoreExplicitCheckpoint()
 	{
 		if ( SpecialOutfit.explicitPoints.isEmpty() )
 		{
@@ -288,7 +288,7 @@ public class SpecialOutfit
 	 * Creates a checkpoint. This should be called whenever the player needs an outfit marked to revert to.
 	 */
 
-	public static final void createImplicitCheckpoint()
+	public static void createImplicitCheckpoint()
 	{
 		synchronized ( SpecialOutfit.class )
 		{
@@ -308,7 +308,7 @@ public class SpecialOutfit
 	 * Restores a checkpoint. This should be called whenever the player needs to revert to their checkpointed outfit.
 	 */
 
-	public static final void restoreImplicitCheckpoint()
+	public static void restoreImplicitCheckpoint()
 	{
 		if ( SpecialOutfit.implicitPoints.isEmpty() )
 		{
@@ -328,7 +328,7 @@ public class SpecialOutfit
 		}
 	}
 
-	public static final boolean markImplicitCheckpoint()
+	public static boolean markImplicitCheckpoint()
 	{
 		if ( SpecialOutfit.markedCheckpoint != -1 || SpecialOutfit.implicitPoints.isEmpty() )
 		{
@@ -344,7 +344,7 @@ public class SpecialOutfit
 	 * based on the given HTML enclosed in <code><select></code> tags.
 	 */
 
-	public static final void checkOutfits( final String selectHTML )
+	public static void checkOutfits( final String selectHTML )
 	{
 		// Punt immediately if no outfits
 		if ( selectHTML == null )
@@ -381,12 +381,12 @@ public class SpecialOutfit
 		}
 	}
 
-	public static final void clearImplicitOutfit()
+	public static void clearImplicitOutfit()
 	{
 		SpecialOutfit.implicitOutfit = null;
 	}
 
-	public static final void checkImplicitOutfit( final SpecialOutfit outfit )
+	public static void checkImplicitOutfit( final SpecialOutfit outfit )
 	{
 		if ( outfit.getName().equals( "Backup" ) )
 		{
@@ -399,7 +399,7 @@ public class SpecialOutfit
 	 * after it has been transformed or consumed.
 	 */
 
-	public static final void forgetEquipment( AdventureResult item )
+	public static void forgetEquipment( AdventureResult item )
 	{
 		AdventureResult[] checkpoint;
 		for ( int i = SpecialOutfit.implicitPoints.size() - 1; i >= 0; --i )
@@ -431,7 +431,7 @@ public class SpecialOutfit
 	 * outfit is undesirable (currently, Fernswarthy's Basement).
 	 */
 
-	public static final void forgetCheckpoints()
+	public static void forgetCheckpoints()
 	{
 		SpecialOutfit.implicitPoints.clear();
 		SpecialOutfit.explicitPoints.clear();

@@ -248,7 +248,7 @@ public class ValhallaManager
 		PreferenceListenerRegistry.firePreferenceChanged( "dailyDeedsOptions" );
 	}
 
-	private static final void logNewAscension()
+	private static void logNewAscension()
 	{
 		PrintStream sessionStream = RequestLogger.getSessionStream();
 
@@ -325,7 +325,7 @@ public class ValhallaManager
 		sessionStream.println();
 	}
 
-	public static final void resetPerAscensionCounters()
+	public static void resetPerAscensionCounters()
 	{
 		Preferences.setString( "banishingShoutMonsters", "" );
 		Preferences.setFloat( "slimelingFullness", 0.0F );

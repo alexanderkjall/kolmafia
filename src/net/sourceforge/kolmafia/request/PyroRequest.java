@@ -61,7 +61,7 @@ public class PyroRequest
                 PyroRequest.parseResponse( this.getURLString(), this.responseText );
 	}
 
-	public static final void parseResponse( final String location, final String responseText )
+	public static void parseResponse( final String location, final String responseText )
 	{
 		if ( !location.startsWith( IslandDecorator.currentIsland() ) )
 		{
@@ -82,12 +82,12 @@ public class PyroRequest
 		}
 	}
 
-	public static final String pyroURL()
+	public static String pyroURL()
 	{
 		return IslandDecorator.currentIsland() + "?place=lighthouse&action=pyro";
 	}
 
-	public static final boolean registerRequest( final String urlString )
+	public static boolean registerRequest( final String urlString )
 	{
 		if ( !urlString.startsWith( IslandDecorator.currentIsland() ) )
 		{

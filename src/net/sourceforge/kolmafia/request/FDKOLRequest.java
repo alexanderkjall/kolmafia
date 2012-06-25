@@ -120,7 +120,7 @@ public class FDKOLRequest
 		CoinMasterRequest.parseResponse( data, location, responseText );
 	}
 
-	public static final boolean registerRequest( final String urlString, final boolean noMeat )
+	public static boolean registerRequest( final String urlString, final boolean noMeat )
 	{
 		if ( urlString.startsWith( "inv_use.php" ) && urlString.contains( "whichitem=5707" ) )
 		{

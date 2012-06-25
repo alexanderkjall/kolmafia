@@ -56,7 +56,7 @@ public class TrophyHutRequest
 		TrophyHutRequest.parseResponse( this.getURLString(), this.responseText );
 	}
 
-	public static final void parseResponse( final String urlString, final String responseText )
+	public static void parseResponse( final String urlString, final String responseText )
 	{
 		if ( !urlString.startsWith( "trophy.php" ) )
 		{
@@ -78,7 +78,7 @@ public class TrophyHutRequest
 		}
 	}
 
-	public static final boolean registerRequest( final String urlString )
+	public static boolean registerRequest( final String urlString )
 	{
 		if ( !urlString.startsWith( "trophy.php" ) )
 		{

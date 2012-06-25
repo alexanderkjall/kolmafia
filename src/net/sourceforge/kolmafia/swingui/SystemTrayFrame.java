@@ -65,7 +65,7 @@ public abstract class SystemTrayFrame
 {
 	private static WindowsTrayIcon icon = null;
 
-	public static final void addTrayIcon()
+	public static void addTrayIcon()
 	{
 		if ( SystemTrayFrame.icon != null )
 		{
@@ -107,7 +107,7 @@ public abstract class SystemTrayFrame
 		}
 	}
 
-	public static final void removeTrayIcon()
+	public static void removeTrayIcon()
 	{
 		if ( SystemTrayFrame.icon != null )
 		{
@@ -115,7 +115,7 @@ public abstract class SystemTrayFrame
 		}
 	}
 
-	public static final void updateToolTip()
+	public static void updateToolTip()
 	{
 		if ( KoLCharacter.getUserName().equals( "" ) )
 		{
@@ -127,7 +127,7 @@ public abstract class SystemTrayFrame
 		}
 	}
 
-	public static final void updateToolTip( final String message )
+	public static void updateToolTip( final String message )
 	{
 		if ( SystemTrayFrame.icon == null )
 		{
@@ -138,7 +138,7 @@ public abstract class SystemTrayFrame
 		SystemTrayFrame.icon.setToolTipText( message );
 	}
 
-	public static final void showBalloon( final String message )
+	public static void showBalloon( final String message )
 	{
 		if ( SystemTrayFrame.icon == null )
 		{
@@ -185,7 +185,7 @@ public abstract class SystemTrayFrame
 		}
 	}
 
-	public static final void showDisplay()
+	public static void showDisplay()
 	{
 		KoLmafiaGUI.checkFrameSettings();
 		KoLDesktop.getInstance().setVisible( true );

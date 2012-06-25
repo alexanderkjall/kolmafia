@@ -209,7 +209,7 @@ public abstract class AbstractCommand
 		};
 	}
 
-	protected static final AdventureResult itemParameter( final String parameter )
+	protected static AdventureResult itemParameter( final String parameter )
 	{
 		List potentialItems = ItemDatabase.getMatchingNames( parameter );
 		if ( potentialItems.isEmpty() )
@@ -220,7 +220,7 @@ public abstract class AbstractCommand
 		return new AdventureResult( (String) potentialItems.get( 0 ), 0, false );
 	}
 
-	protected static final AdventureResult effectParameter( final String parameter )
+	protected static AdventureResult effectParameter( final String parameter )
 	{
 		List potentialEffects = EffectDatabase.getMatchingNames( parameter );
 		if ( potentialEffects.isEmpty() )

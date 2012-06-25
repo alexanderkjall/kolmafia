@@ -378,7 +378,7 @@ public class StorageRequest
 		return StorageRequest.parseTransfer( this.getURLString(), this.responseText );
 	}
 
-	public static final boolean parseTransfer( final String urlString, final String responseText )
+	public static boolean parseTransfer( final String urlString, final String responseText )
 	{
 		if ( !urlString.contains( "action" ) )
 		{
@@ -476,7 +476,7 @@ public class StorageRequest
 	// <b>star hat (1)</b> moved from storage to inventory.
 	private static final Pattern PULL_ITEM_PATTERN = Pattern.compile( "<b>([^<]*) \\((\\d+)\\)</b> moved from storage to inventory" );
 
-	private static final void transferItems( final String responseText )
+	private static void transferItems( final String responseText )
 	{
 		// Transfer items from storage and/or freepulls
 
@@ -517,14 +517,14 @@ public class StorageRequest
 		}
 	}
 
-	private static final void transferMeat( final String urlString )
+	private static void transferMeat( final String urlString )
 	{
 		int meat = TransferItemRequest.transferredMeat( urlString, "amt" );
 		KoLCharacter.setStorageMeat( KoLCharacter.getStorageMeat() - meat );
 		ResultProcessor.processMeat( meat );
 	}
 
-	public static final boolean registerRequest( final String urlString )
+	public static boolean registerRequest( final String urlString )
 	{
 		if ( !urlString.startsWith( "storage.php" ) )
 		{

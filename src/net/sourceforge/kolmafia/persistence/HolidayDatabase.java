@@ -214,7 +214,7 @@ public class HolidayDatabase
 		}
 	}
 
-	public static final void guessPhaseStep()
+	public static void guessPhaseStep()
 	{
 		try
 		{
@@ -250,7 +250,7 @@ public class HolidayDatabase
 		}
 	}
 
-	public static final void logMoonStatus( final String label )
+	public static void logMoonStatus( final String label )
 	{
 		Date now = new Date();
 
@@ -273,7 +273,7 @@ public class HolidayDatabase
 		RequestLogger.printLine( message2 );
 	}
 
-	public static final void setMoonPhases( final int ronaldPhase, final int grimacePhase )
+	public static void setMoonPhases( final int ronaldPhase, final int grimacePhase )
 	{
 		HolidayDatabase.guessPhaseStep();
 		int oldStep = HolidayDatabase.getPhaseStep();
@@ -347,17 +347,17 @@ public class HolidayDatabase
 		HolidayDatabase.HAMBURGLAR_POSITION = HolidayDatabase.getHamburglarPosition( new Date() );
 	}
 
-	public static final int getRonaldPhase()
+	public static int getRonaldPhase()
 	{
 		return HolidayDatabase.RONALD_PHASE + 1;
 	}
 
-	public static final int getGrimacePhase()
+	public static int getGrimacePhase()
 	{
 		return HolidayDatabase.GRIMACE_PHASE + 1;
 	}
 
-	public static final int getHamburglarPosition( final Date time )
+	public static int getHamburglarPosition( final Date time )
 	{
 		long currentTime = time.getTime();
 		long timeDifference = currentTime - HolidayDatabase.COLLISION;
@@ -377,7 +377,7 @@ public class HolidayDatabase
 	 * @return The current phase of Ronald
 	 */
 
-	public static final String getRonaldPhaseAsString()
+	public static String getRonaldPhaseAsString()
 	{
 		return HolidayDatabase.getPhaseName( HolidayDatabase.RONALD_PHASE );
 	}
@@ -388,12 +388,12 @@ public class HolidayDatabase
 	 * @return The current phase of Ronald
 	 */
 
-	public static final String getGrimacePhaseAsString()
+	public static String getGrimacePhaseAsString()
 	{
 		return HolidayDatabase.getPhaseName( HolidayDatabase.GRIMACE_PHASE );
 	}
 
-	public static final String getPhaseName( final int phase )
+	public static String getPhaseName( final int phase )
 	{
 		switch ( phase )
 		{
@@ -418,12 +418,12 @@ public class HolidayDatabase
 		}
 	}
 
-	public static final String getHamburglarPositionAsString()
+	public static String getHamburglarPositionAsString()
 	{
 		return HolidayDatabase.getHamburglarPositionName( HolidayDatabase.HAMBURGLAR_POSITION );
 	}
 
-	public static final String getHamburglarPositionName( final int phase )
+	public static String getHamburglarPositionName( final int phase )
 	{
 		switch ( phase )
 		{
@@ -459,7 +459,7 @@ public class HolidayDatabase
 	 * today is not a moon effect day.
 	 */
 
-	public static final String getMoonEffect()
+	public static String getMoonEffect()
 	{
 		return HolidayDatabase.getMoonEffect( HolidayDatabase.RONALD_PHASE, HolidayDatabase.GRIMACE_PHASE );
 	}
@@ -469,18 +469,18 @@ public class HolidayDatabase
 	 * given the phase value.
 	 */
 
-	public static final String getMoonEffect( final int ronaldPhase, final int grimacePhase )
+	public static String getMoonEffect( final int ronaldPhase, final int grimacePhase )
 	{
 		int phaseStep = HolidayDatabase.getPhaseStep( ronaldPhase, grimacePhase );
 		return phaseStep == -1 ? "Could not determine moon phase." : HolidayDatabase.STAT_EFFECT[ phaseStep ];
 	}
 
-	public static final int getRonaldMoonlight( final int ronaldPhase )
+	public static int getRonaldMoonlight( final int ronaldPhase )
 	{
 		return ronaldPhase > 4 ? 8 - ronaldPhase : ronaldPhase;
 	}
 
-	public static final int getGrimaceMoonlight( final int grimacePhase )
+	public static int getGrimaceMoonlight( final int grimacePhase )
 	{
 		return grimacePhase > 4 ? 8 - grimacePhase : grimacePhase;
 	}
@@ -490,7 +490,7 @@ public class HolidayDatabase
 	 * lunar calendar, which has a cycle of 16 days.
 	 */
 
-	public static final int getPhaseStep()
+	public static int getPhaseStep()
 	{
 		return HolidayDatabase.getPhaseStep( HolidayDatabase.RONALD_PHASE, HolidayDatabase.GRIMACE_PHASE );
 	}
@@ -500,7 +500,7 @@ public class HolidayDatabase
 	 * corresponds to the day within the KoL lunar calendar, which has a cycle of 16 days.
 	 */
 
-	public static final int getPhaseStep( final int ronaldPhase, final int grimacePhase )
+	public static int getPhaseStep( final int ronaldPhase, final int grimacePhase )
 	{
 		return grimacePhase >= 4 ? 8 + ronaldPhase : ronaldPhase;
 	}
@@ -509,7 +509,7 @@ public class HolidayDatabase
 	 * Returns whether or not the grue will fight during the current moon phase.
 	 */
 
-	public static final boolean getGrueEffect()
+	public static boolean getGrueEffect()
 	{
 		return HolidayDatabase.getGrueEffect(
 			HolidayDatabase.RONALD_PHASE, HolidayDatabase.GRIMACE_PHASE, HolidayDatabase.HAMBURGLAR_POSITION );
@@ -519,7 +519,7 @@ public class HolidayDatabase
 	 * Returns whether or not the grue will fight during the given moon phases.
 	 */
 
-	public static final boolean getGrueEffect( final int ronaldPhase, final int grimacePhase,
+	public static boolean getGrueEffect( final int ronaldPhase, final int grimacePhase,
 		final int hamburglarPosition )
 	{
 		return HolidayDatabase.getMoonlight( ronaldPhase, grimacePhase, hamburglarPosition ) < 5;
@@ -529,7 +529,7 @@ public class HolidayDatabase
 	 * Returns the effect percentage (as a whole number integer) of Blood of the Wereseal for today.
 	 */
 
-	public static final int getBloodEffect()
+	public static int getBloodEffect()
 	{
 		return HolidayDatabase.getBloodEffect(
 			HolidayDatabase.RONALD_PHASE, HolidayDatabase.GRIMACE_PHASE, HolidayDatabase.HAMBURGLAR_POSITION );
@@ -539,7 +539,7 @@ public class HolidayDatabase
 	 * Returns the effect percentage (as a whole number integer) of Blood of the Wereseal for the given moon phase.
 	 */
 
-	public static final int getBloodEffect( final int ronaldPhase, final int grimacePhase, final int hamburglarPosition )
+	public static int getBloodEffect( final int ronaldPhase, final int grimacePhase, final int hamburglarPosition )
 	{
 		return (int) Math.round( 10.0f + 20.0f *
 			Math.sqrt( (float) HolidayDatabase.getMoonlight(
@@ -550,7 +550,7 @@ public class HolidayDatabase
 	 * Returns the effect percentage (as a whole number integer) of the Talisman of Baio for today.
 	 */
 
-	public static final int getBaioEffect()
+	public static int getBaioEffect()
 	{
 		return HolidayDatabase.getBaioEffect(
 			HolidayDatabase.RONALD_PHASE, HolidayDatabase.GRIMACE_PHASE, HolidayDatabase.HAMBURGLAR_POSITION );
@@ -560,18 +560,18 @@ public class HolidayDatabase
 	 * Returns the effect percentage (as a whole number integer) of the Talisman of Baio for the given moon phases.
 	 */
 
-	public static final int getBaioEffect( final int ronaldPhase, final int grimacePhase, final int hamburglarPosition )
+	public static int getBaioEffect( final int ronaldPhase, final int grimacePhase, final int hamburglarPosition )
 	{
 		return HolidayDatabase.getMoonlight( ronaldPhase, grimacePhase, hamburglarPosition ) * 10;
 	}
 
-	public static final int getGrimaciteEffect()
+	public static int getGrimaciteEffect()
 	{
 		return HolidayDatabase.getGrimaciteEffect(
 			HolidayDatabase.RONALD_PHASE, HolidayDatabase.GRIMACE_PHASE, HolidayDatabase.HAMBURGLAR_POSITION );
 	}
 
-	public static final int getGrimaciteEffect( final int ronaldPhase, final int grimacePhase,
+	public static int getGrimaciteEffect( final int ronaldPhase, final int grimacePhase,
 		final int hamburglarPosition )
 	{
 		int grimaceEffect = 4 - HolidayDatabase.getGrimaceMoonlight( grimacePhase )
@@ -584,7 +584,7 @@ public class HolidayDatabase
 	 * Returns the effect of the Jekyllin, based on the current moon phase information.
 	 */
 
-	public static final String getJekyllinEffect()
+	public static String getJekyllinEffect()
 	{
 		return HolidayDatabase.getJekyllinEffect(
 			HolidayDatabase.RONALD_PHASE, HolidayDatabase.GRIMACE_PHASE, HolidayDatabase.HAMBURGLAR_POSITION );
@@ -594,7 +594,7 @@ public class HolidayDatabase
 	 * Returns the effect of the Jekyllin for the given moon phases
 	 */
 
-	public static final String getJekyllinEffect( final int ronaldPhase, final int grimacePhase,
+	public static String getJekyllinEffect( final int ronaldPhase, final int grimacePhase,
 		final int hamburglarPosition )
 	{
 		int moonlight = HolidayDatabase.getMoonlight( ronaldPhase, grimacePhase, hamburglarPosition );
@@ -605,7 +605,7 @@ public class HolidayDatabase
 	 * Utility method which determines the moonlight available, given the current moon phases.
 	 */
 
-	public static final int getMoonlight()
+	public static int getMoonlight()
 	{
 		return HolidayDatabase.getMoonlight(
 			HolidayDatabase.RONALD_PHASE, HolidayDatabase.GRIMACE_PHASE, HolidayDatabase.HAMBURGLAR_POSITION );
@@ -615,7 +615,7 @@ public class HolidayDatabase
 	 * Utility method which determines the moonlight available, given the moon phases as stated.
 	 */
 
-	private static final int getMoonlight( final int ronaldPhase, final int grimacePhase, final int hamburglarPosition )
+	private static int getMoonlight( final int ronaldPhase, final int grimacePhase, final int hamburglarPosition )
 	{
 		int ronaldLight = HolidayDatabase.getRonaldMoonlight( ronaldPhase );
 		int grimaceLight = HolidayDatabase.getGrimaceMoonlight( grimacePhase );
@@ -623,7 +623,7 @@ public class HolidayDatabase
 		return ronaldLight + grimaceLight + hamburglarLight;
 	}
 
-	public static final int getHamburglarLight( final int ronaldPhase, final int grimacePhase,
+	public static int getHamburglarLight( final int ronaldPhase, final int grimacePhase,
 		final int hamburglarPosition )
 	{
 		//         6    5    4    3
@@ -711,7 +711,7 @@ public class HolidayDatabase
 		}
 	}
 
-	public static final int getHamburglarDarkness( final int ronaldPhase,
+	public static int getHamburglarDarkness( final int ronaldPhase,
 		final int grimacePhase, final int hamburglarPosition )
 	{
 		//         6    5    4    3
@@ -802,7 +802,7 @@ public class HolidayDatabase
 	 * Computes the difference in days based on the given millisecond counts since January 1, 1970.
 	 */
 
-	public static final long getDayDifference( final Date time )
+	public static long getDayDifference( final Date time )
 	{
 		long currentTime = time.getTime();
 		long timeDifference = currentTime - HolidayDatabase.NEWYEAR;
@@ -815,13 +815,13 @@ public class HolidayDatabase
 		return timeDifference;
 	}
 
-	public static final int getCalendarDay( final Date time )
+	public static int getCalendarDay( final Date time )
 	{
 		int dayDifference = (int) Math.floor( getDayDifference( time ) / MS_PER_DAY );
 		return ( dayDifference + 96 ) % 96;
 	}
 
-	public static final int getTimeDifference( final Date time )
+	public static int getTimeDifference( final Date time )
 	{
 		return (int) Math.floor( getDayDifference( time ) % MS_PER_DAY );
 	}
@@ -831,13 +831,13 @@ public class HolidayDatabase
 	 * milliseconds since January 1, 1970.
 	 */
 
-	public static final String getCalendarDayAsString( final int day )
+	public static String getCalendarDayAsString( final int day )
 	{
 		int[] calendarDayAsArray = HolidayDatabase.convertCalendarDayToArray( day );
 		return HolidayDatabase.MONTH_NAMES[ calendarDayAsArray[ 0 ] ] + " " + calendarDayAsArray[ 1 ];
 	}
 
-	public static final String getCalendarDayAsString( final Date time )
+	public static String getCalendarDayAsString( final Date time )
 	{
 		return HolidayDatabase.getCalendarDayAsString( HolidayDatabase.getCalendarDay( time ) );
 	}
@@ -846,7 +846,7 @@ public class HolidayDatabase
 	 * Utility method which decomposes a given calendar day into its actual calendar components.
 	 */
 
-	private static final int[] convertCalendarDayToArray( final int calendarDay )
+	private static int[] convertCalendarDayToArray( final int calendarDay )
 	{
 		return new int[] { calendarDay / 8 % 12 + 1, calendarDay % 8 + 1 };
 	}
@@ -856,7 +856,7 @@ public class HolidayDatabase
 	 * "x days".
 	 */
 
-	public static final String getDayCountAsString( final int dayCount )
+	public static String getDayCountAsString( final int dayCount )
 	{
 		return dayCount == 0 ? "today" : dayCount == 1 ? "tomorrow" : dayCount + " days";
 	}
@@ -865,7 +865,7 @@ public class HolidayDatabase
 	 * Returns the KoL calendar month associated with the given date in the real world.
 	 */
 
-	public static final int getCalendarMonth( final Date time )
+	public static int getCalendarMonth( final Date time )
 	{
 		return HolidayDatabase.convertCalendarDayToArray( HolidayDatabase.getCalendarDay( time ) )[ 0 ];
 	}
@@ -874,12 +874,12 @@ public class HolidayDatabase
 	 * Returns whether or not the given day's most important attribute is being a holiday.
 	 */
 
-	public static final boolean isHoliday( final Date time )
+	public static boolean isHoliday( final Date time )
 	{
 		return HolidayDatabase.SPECIAL[ HolidayDatabase.getCalendarDay( time ) ] == HolidayDatabase.SP_HOLIDAY;
 	}
 
-	public static final boolean isRealLifeHoliday( final Date time )
+	public static boolean isRealLifeHoliday( final Date time )
 	{
 		return HolidayDatabase.getRealLifeHoliday( KoLConstants.DAILY_FORMAT.format( time ) ) != null;
 	}
@@ -890,7 +890,7 @@ public class HolidayDatabase
 	 * not be recognized as "stat days" in this method.
 	 */
 
-	public static final boolean isMuscleDay( final Date time )
+	public static boolean isMuscleDay( final Date time )
 	{
 		return HolidayDatabase.SPECIAL[ HolidayDatabase.getCalendarDay( time ) ] == HolidayDatabase.SP_MUSDAY;
 	}
@@ -901,7 +901,7 @@ public class HolidayDatabase
 	 * not be recognized as "stat days" in this method.
 	 */
 
-	public static final boolean isMysticalityDay( final Date time )
+	public static boolean isMysticalityDay( final Date time )
 	{
 		return HolidayDatabase.SPECIAL[ HolidayDatabase.getCalendarDay( time ) ] == HolidayDatabase.SP_MYSDAY;
 	}
@@ -912,7 +912,7 @@ public class HolidayDatabase
 	 * recognized as "stat days" in this method.
 	 */
 
-	public static final boolean isMoxieDay( final Date time )
+	public static boolean isMoxieDay( final Date time )
 	{
 		return HolidayDatabase.SPECIAL[ HolidayDatabase.getCalendarDay( time ) ] == HolidayDatabase.SP_MOXDAY;
 	}
@@ -923,7 +923,7 @@ public class HolidayDatabase
 	 * recognized as "stat days" in this method.
 	 */
 
-	public static final int statDay( final Date time )
+	public static int statDay( final Date time )
 	{
 		switch ( HolidayDatabase.SPECIAL[ HolidayDatabase.getCalendarDay( time ) ] )
 		{
@@ -937,7 +937,7 @@ public class HolidayDatabase
 		return KoLConstants.NONE;
 	}
 
-	public static final String currentStatDay()
+	public static String currentStatDay()
 	{
 		int stat = HolidayDatabase.statDay( new Date() );
 		return	stat == KoLConstants.MUSCLE ? "Muscle Day" :
@@ -950,7 +950,7 @@ public class HolidayDatabase
 	 * Returns a complete list of all holiday predictions for the given day, as an array.
 	 */
 
-	public static final String[] getHolidayPredictions( final Date time )
+	public static String[] getHolidayPredictions( final Date time )
 	{
 		List holidayList = new ArrayList();
 		int currentCalendarDay = HolidayDatabase.getCalendarDay( time );
@@ -1062,17 +1062,17 @@ public class HolidayDatabase
 		}
 	}
 
-	public static final String getHoliday()
+	public static String getHoliday()
 	{
 		return HolidayDatabase.getHoliday( new Date(), false );
 	}
 
-	public static final String getHoliday( final boolean showPredictions)
+	public static String getHoliday( final boolean showPredictions)
 	{
 		return HolidayDatabase.getHoliday( new Date(), showPredictions );
 	}
 
-	public static final String getHoliday( final Date time )
+	public static String getHoliday( final Date time )
 	{
 		return HolidayDatabase.getHoliday( time, false );
 	}
@@ -1081,7 +1081,7 @@ public class HolidayDatabase
 	 * Returns the KoL holiday associated with the given date in the real world.
 	 */
 
-	public static final String getHoliday( final Date time, final boolean showPrediction )
+	public static String getHoliday( final Date time, final boolean showPrediction )
 	{
 		int calendarDay = HolidayDatabase.getCalendarDay( time );
 		int[] calendarDayAsArray = HolidayDatabase.convertCalendarDayToArray( calendarDay );
@@ -1147,7 +1147,7 @@ public class HolidayDatabase
 	private static String easter = "";
 	private static String thanksgiving = "";
 
-	public static final String getRealLifeHoliday( final String stringDate )
+	public static String getRealLifeHoliday( final String stringDate )
 	{
 		String currentYear = stringDate.substring( 0, 4 );
 		if ( !currentYear.equals( HolidayDatabase.cachedYear ) )
@@ -1245,7 +1245,7 @@ public class HolidayDatabase
 		return HolidayDatabase.getRealLifeOnlyHoliday( stringDate );
 	}
 
-	public static final String getRealLifeOnlyHoliday( final String stringDate )
+	public static String getRealLifeOnlyHoliday( final String stringDate )
 	{
 		if ( stringDate.endsWith( "0202" ) )
 		{
@@ -1280,12 +1280,12 @@ public class HolidayDatabase
 		return null;
 	}
 
-	public static final void addPredictionHTML( final StringBuffer displayHTML, final Date today, final int phaseStep )
+	public static void addPredictionHTML( final StringBuffer displayHTML, final Date today, final int phaseStep )
 	{
 		HolidayDatabase.addPredictionHTML( displayHTML, today, phaseStep, true );
 	}
 
-	public static final void addPredictionHTML( final StringBuffer displayHTML, final Date today, final int phaseStep,
+	public static void addPredictionHTML( final StringBuffer displayHTML, final Date today, final int phaseStep,
 		final boolean addStatDays )
 	{
 		// Next display the upcoming stat days.

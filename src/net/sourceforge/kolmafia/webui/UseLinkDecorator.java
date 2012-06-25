@@ -75,7 +75,7 @@ public abstract class UseLinkDecorator
 {
 	private static final StringBuffer deferred = new StringBuffer();
 
-	public static final void decorate( final String location, final StringBuffer buffer )
+	public static void decorate( final String location, final StringBuffer buffer )
 	{
 		// You ain't doin' nothin' in Valhalla
 		if ( location.startsWith( "afterlife.php" ) )
@@ -172,7 +172,7 @@ public abstract class UseLinkDecorator
 	private static final Pattern ACQUIRE_PATTERN =
 		Pattern.compile( "(You acquire|O hai, I made dis)([^<]*?)<b>(.*?)</b>(.*?)</td>", Pattern.DOTALL );
 	
-	private static final void addNormalUseLinks( String location, String text, StringBuffer buffer, boolean deferring, boolean usedMacro )
+	private static void addNormalUseLinks( String location, String text, StringBuffer buffer, boolean deferring, boolean usedMacro )
 	{
 		Matcher useLinkMatcher = ACQUIRE_PATTERN.matcher( text );
 
@@ -277,7 +277,7 @@ public abstract class UseLinkDecorator
 	private static final Pattern POETIC_ACQUIRE_PATTERN =
 		Pattern.compile( "<img[^>]*?descitem\\((\\d+)\\)'>", Pattern.DOTALL );
 
-	private static final void addPoeticUseLinks( String location, String text, StringBuffer buffer, boolean deferring )
+	private static void addPoeticUseLinks( String location, String text, StringBuffer buffer, boolean deferring )
 	{
 		Matcher useLinkMatcher = POETIC_ACQUIRE_PATTERN.matcher( text );
 
@@ -313,7 +313,7 @@ public abstract class UseLinkDecorator
 		buffer.append( text );
 	}
 
-	private static final int shouldAddCreateLink( int itemId, String location )
+	private static int shouldAddCreateLink( int itemId, String location )
 	{
 		if ( location == null || location.contains( "craft.php" ) || location.contains( "paster" ) || location.contains( "smith" ) )
 		{
@@ -421,7 +421,7 @@ public abstract class UseLinkDecorator
 		return KoLConstants.NOCREATE;
 	}
 
-	private static final boolean addEffectLink( String location, Matcher useLinkMatcher, StringBuffer buffer )
+	private static boolean addEffectLink( String location, Matcher useLinkMatcher, StringBuffer buffer )
 	{
 		String message = useLinkMatcher.group(0);
 		if ( !message.contains( "You acquire an effect" ) )
@@ -477,7 +477,7 @@ public abstract class UseLinkDecorator
 		return true;
 	}
 
-	private static final boolean addUseLink( int itemId, int itemCount, String location, Matcher useLinkMatcher, String text, StringBuffer buffer )
+	private static boolean addUseLink( int itemId, int itemCount, String location, Matcher useLinkMatcher, String text, StringBuffer buffer )
 	{
 		UseLink link = UseLinkDecorator.generateUseLink( itemId, itemCount, location, text );
 
@@ -492,7 +492,7 @@ public abstract class UseLinkDecorator
 		return true;
 	}
 
-	private static final UseLink generateUseLink( int itemId, int itemCount, String location, String text )
+	private static UseLink generateUseLink( int itemId, int itemCount, String location, String text )
 	{
 		int consumeMethod = ItemDatabase.getConsumptionType( itemId );
 		int mixingMethod = shouldAddCreateLink( itemId, location );
@@ -510,7 +510,7 @@ public abstract class UseLinkDecorator
 		return getUseLink( itemId, itemCount, location, consumeMethod, text );
 	}
 
-	private static final UseLink getCreateLink( final int itemId, final int itemCount, final int mixingMethod )
+	private static UseLink getCreateLink( final int itemId, final int itemCount, final int mixingMethod )
 	{
 		switch ( mixingMethod )
 		{
@@ -531,7 +531,7 @@ public abstract class UseLinkDecorator
 		return null;
 	}
 
-	private static final UseLink getUseLink( int itemId, int itemCount, String location, int consumeMethod, final String text )
+	private static UseLink getUseLink( int itemId, int itemCount, String location, int consumeMethod, final String text )
 	{
 		String use;
 		
@@ -943,7 +943,7 @@ public abstract class UseLinkDecorator
 	
 	private static int equipSequence = 0;
 	
-	private static final String getSpeculation( String label, Modifiers mods )
+	private static String getSpeculation( String label, Modifiers mods )
 	{
 		String id = "whatif" + UseLinkDecorator.equipSequence++;
 		String table = SpeculateCommand.getHTML( mods, "id='" + id + "' style='background-color: white; visibility: hidden; position: absolute; right: 0px; top: 1.2em;'" );
@@ -951,7 +951,7 @@ public abstract class UseLinkDecorator
 		return "<span style='position: relative;' onMouseOver=\"document.getElementById('" + id + "').style.visibility='visible';\" onMouseOut=\"document.getElementById('" + id + "').style.visibility='hidden';\">" + table + label + "</span>";
 	}
 
-	private static final String getEquipmentSpeculation( String label, int itemId, int consumpt, int slot )
+	private static String getEquipmentSpeculation( String label, int itemId, int consumpt, int slot )
 	{
 		if ( slot == -1 )
 		{
@@ -963,7 +963,7 @@ public abstract class UseLinkDecorator
 		return getSpeculation( label, mods );
 	}
 
-	private static final String getPotionSpeculation( String label, int itemId )
+	private static String getPotionSpeculation( String label, int itemId )
 	{
 		Modifiers mods = Modifiers.getModifiers( ItemDatabase.getItemName( itemId ) );
 		if ( mods == null ) return label;
@@ -981,7 +981,7 @@ public abstract class UseLinkDecorator
 		return getSpeculation( label, mods );
 	}
 
-	private static final UseLink getNavigationLink( int itemId, String location )
+	private static UseLink getNavigationLink( int itemId, String location )
 	{
 		String useType = null;
 		String useLocation = null;

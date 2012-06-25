@@ -331,7 +331,7 @@ public class NPCPurchaseRequest
 
 	private static final Pattern ITEM_PATTERN = Pattern.compile( "name=whichitem value=([\\d]+)[^>]*?>.*?descitem.([\\d]+)[^>]*>.*?<b>(.*?)</b>", Pattern.DOTALL );
 
-	public static final void parseResponse( final String urlString, final String responseText )
+	public static void parseResponse( final String urlString, final String responseText )
 	{
 		if ( !urlString.startsWith( "store.php" ) )
 		{
@@ -411,7 +411,7 @@ public class NPCPurchaseRequest
 		}
 	}
 
-	public static final boolean registerRequest( final String urlString )
+	public static boolean registerRequest( final String urlString )
 	{
 		if ( !urlString.startsWith( "store.php" ) && !urlString.startsWith( "galaktik.php" ) && !urlString.startsWith( "town_giftshop.php" ) )
 		{
@@ -445,7 +445,7 @@ public class NPCPurchaseRequest
 		return true;
 	}
 
-	public static final void parseShopResponse( final String urlString, final String responseText )
+	public static void parseShopResponse( final String urlString, final String responseText )
 	{
 		if ( !urlString.startsWith( "shop.php" ) )
 		{
@@ -465,7 +465,7 @@ public class NPCPurchaseRequest
 		}
 	}
 
-	public static final boolean registerShopRequest( final String urlString, boolean meatOnly )
+	public static boolean registerShopRequest( final String urlString, boolean meatOnly )
 	{
 		if ( !urlString.startsWith( "shop.php" ) )
 		{

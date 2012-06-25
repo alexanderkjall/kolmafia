@@ -90,7 +90,7 @@ public class SuburbanDisRequest
 
 	}
 
-	public static final void parseResponse( final String location, final String responseText )
+	public static void parseResponse( final String location, final String responseText )
 	{
 		if ( location.equals( "suburbandis.php" ) )
 		{
@@ -143,7 +143,7 @@ public class SuburbanDisRequest
 		}
 	}
 
-	public static final boolean registerRequest( final String urlString )
+	public static boolean registerRequest( final String urlString )
 	{
 		if ( !urlString.startsWith( "suburbandis.php" ) )
 		{

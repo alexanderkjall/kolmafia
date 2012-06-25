@@ -99,7 +99,7 @@ public class CombineMeatRequest
 		super.run();
 	}
 
-	public static final boolean registerRequest( final String urlString )
+	public static boolean registerRequest( final String urlString )
 	{
 		Matcher itemMatcher = CreateItemRequest.ITEMID_PATTERN.matcher( urlString );
 		if ( !itemMatcher.find() )

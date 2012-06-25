@@ -76,7 +76,7 @@ public class ArcadeRequest
 		this.addFormField( "action", action );
 	}
 
-	public static final int getTurnsUsed( GenericRequest request )
+	public static int getTurnsUsed( GenericRequest request )
 	{
 		String action = request.getFormField( "action" );
 		if ( action == null || !action.equals( "game" ) )
@@ -100,7 +100,7 @@ public class ArcadeRequest
 
 	private static final Pattern GAME_PATTERN = Pattern.compile( "whichgame=(\\d+)" );
 
-	private static final int getGame( final String urlString  )
+	private static int getGame( final String urlString  )
 	{
 		Matcher matcher = ArcadeRequest.GAME_PATTERN.matcher( urlString );
 		return matcher.find() ? StringUtilities.parseInt( matcher.group(1) ) : 0;
@@ -213,7 +213,7 @@ public class ArcadeRequest
 		}
 	}
 
-	public static final boolean registerRequest( final String urlString )
+	public static boolean registerRequest( final String urlString )
 	{
 		if ( !urlString.startsWith( "arcade.php" ) )
 		{
@@ -299,7 +299,7 @@ public class ArcadeRequest
 		return true;
 	}
 
-	public static final boolean arcadeChoice( final int choice )
+	public static boolean arcadeChoice( final int choice )
 	{
 		// Do not look for "Encounters" inside arcade choices
 		switch ( choice )
@@ -328,7 +328,7 @@ public class ArcadeRequest
 	 * Support for individual games
 	 */
 
-	private static final void logText( final String text )
+	private static void logText( final String text )
 	{
 		RequestLogger.printLine( text );
 		RequestLogger.updateSessionLog( text );
@@ -380,7 +380,7 @@ public class ArcadeRequest
 	private static int gas;
 	private static int time;
 
-	public static final void visitSpaceTripChoice( final String responseText )
+	public static void visitSpaceTripChoice( final String responseText )
 	{
 		// Called when we visit Space Trip
 
@@ -395,7 +395,7 @@ public class ArcadeRequest
 		ArcadeRequest.parseChoiceNames( responseText );
 	}
 
-	public static final void logSpaceTripAction( final String responseText )
+	public static void logSpaceTripAction( final String responseText )
 	{
 		// Called when we are about to take a choice in SpaceTrip
 		String action = ArcadeRequest.findChoiceName( ChoiceManager.lastDecision );
@@ -485,7 +485,7 @@ public class ArcadeRequest
 
 	private final static Pattern TOTAL_SCORE_PATTERN = Pattern.compile( "Total Score:.*?<b>([0123456789,]*)</b>", Pattern.DOTALL );
 
-	public static final void postChoiceSpaceTrip( final GenericRequest request )
+	public static void postChoiceSpaceTrip( final GenericRequest request )
 	{
 		// Called when we have taken a choice in SpaceTrip
 
@@ -687,7 +687,7 @@ public class ArcadeRequest
 	private static int blurstite;
 	private static int wounds;
 
-	public static final void visitDemonStarChoice( final String responseText )
+	public static void visitDemonStarChoice( final String responseText )
 	{
 		// Called when we visit DemonStar
 		// Parse out the choice names
@@ -698,7 +698,7 @@ public class ArcadeRequest
 
 	private final static Pattern DEMONSTAR_MOVE_PATTERN = Pattern.compile( "mv=([-01]+)(,|%2C)([-01]+)" );
 
-	private static final String parseDemonStarAction( final GenericRequest request )
+	private static String parseDemonStarAction( final GenericRequest request )
 	{
 		String action = ArcadeRequest.findChoiceName( ChoiceManager.lastDecision );
 		// Actions like "Mine" or "Fight"
@@ -753,7 +753,7 @@ public class ArcadeRequest
 		return null;
 	}
 
-	public static final void postChoiceDemonStar( final GenericRequest request )
+	public static void postChoiceDemonStar( final GenericRequest request )
 	{
 		// Called when we have taken a choice in DemonStar
 		String action = ArcadeRequest.parseDemonStarAction( request );
@@ -915,7 +915,7 @@ public class ArcadeRequest
 	  +----------+    +----------+    +----------+    +----------+
 	*/
 
-	public static final void visitDungeonFistChoice( final String responseText )
+	public static void visitDungeonFistChoice( final String responseText )
 	{
 		// Called when we visit Dungeon Fist!
 		// Parse out the choice names
@@ -924,7 +924,7 @@ public class ArcadeRequest
 
 	private final static Pattern FINAL_SCORE_PATTERN = Pattern.compile( "FINAL SCORE:? ([0123456789,]*)", Pattern.DOTALL );
 
-	public static final void postChoiceDungeonFist( final GenericRequest request )
+	public static void postChoiceDungeonFist( final GenericRequest request )
 	{
 		// Called when we have taken a choice in Dungeon Fist!
 		String action = ArcadeRequest.findChoiceName( ChoiceManager.lastDecision );
@@ -1081,7 +1081,7 @@ public class ArcadeRequest
 		ArcadeRequest.parseChoiceNames( responseText );
 	}
 
-	public static final void decorateDungeonFist( final StringBuffer buffer )
+	public static void decorateDungeonFist( final StringBuffer buffer )
 	{
 		if ( !Preferences.getBoolean( "arcadeGameHints" ) )
 		{
@@ -1100,7 +1100,7 @@ public class ArcadeRequest
 		"3111111111111111111111111111112112111111111111111111111111121" +
 		"1111111111111111211122211111121111111111111111122211133111113";
 		
-	public static final String autoDungeonFist( int stepCount )
+	public static String autoDungeonFist( int stepCount )
 	{
 		if ( stepCount < 0 || stepCount >= FistScript.length() )
 		{
@@ -1134,7 +1134,7 @@ public class ArcadeRequest
 		"Vaso De Agua",
 	};
 
-	private static final int findOpponent( final String name )
+	private static int findOpponent( final String name )
 	{
 		for ( int i = 0; i < OSTRING.length; ++i )
 		{
@@ -1174,7 +1174,7 @@ public class ArcadeRequest
 		"kp",
 	};
 
-	private static final int findPlayerMove( final GenericRequest request )
+	private static int findPlayerMove( final GenericRequest request )
 	{
 		String field = request.getFormField( "attack" );
 		if ( field != null )
@@ -1249,7 +1249,7 @@ public class ArcadeRequest
 		},
 	};
 
-	private static final int findThreat( final int opponent, final String challenge )
+	private static int findThreat( final int opponent, final String challenge )
 	{
 		if ( opponent < 0 )
 		{
@@ -1267,7 +1267,7 @@ public class ArcadeRequest
 		return -1;
 	}
 
-	private static final String findThreatName( final String name, final String challenge )
+	private static String findThreatName( final String name, final String challenge )
 	{
 		int threat = ArcadeRequest.findThreat( findOpponent( name ), challenge );
 		return threat < 0 ? null : MSTRING[ threat ];
@@ -1384,7 +1384,7 @@ public class ArcadeRequest
 	private final static Pattern MATCH_PATTERN = Pattern.compile( "&quot;(.*?) Vs. (.*?) FIGHT!&quot;", Pattern.DOTALL );
 
 	private static int round = 0;
-	public static final void visitFightersOfFightingChoice( final String responseText )
+	public static void visitFightersOfFightingChoice( final String responseText )
 	{
 		// Called when we first visit the Fighters of Fighting.
 		Matcher matcher = MATCH_PATTERN.matcher( responseText );
@@ -1402,12 +1402,12 @@ public class ArcadeRequest
 
 	private final static Pattern ROUND_PATTERN = Pattern.compile( "Results:.*?<td>(.*?)</td>.*?Score: ([0123456789,]*)</td>.*?title=\"(\\d+) HP\".*?title=\"(\\d+) HP\".*?<b>(.*?)</b>.*?>VS<.*?<b>(.*?)</b>", Pattern.DOTALL );
 
-	private static final void logRound( final String text )
+	private static void logRound( final String text )
 	{
 		ArcadeRequest.logRound( null, text );
 	}
 
-	private static final void logRound( final String move, final String text )
+	private static void logRound( final String move, String text )
 	{
 		Matcher matcher = ROUND_PATTERN.matcher( text );
 		if ( !matcher.find() )
@@ -1448,7 +1448,7 @@ public class ArcadeRequest
 
 	private final static Pattern FINAL_ROUND_PATTERN = Pattern.compile( "Game Over!<p>(?:<b>)?(.*?)(?:</b>)?<p>Score: ([0123456789,]*)", Pattern.DOTALL );
 
-	private static final void logFinalRound( final String move, final String text )
+	private static void logFinalRound( final String move, final String text )
 	{
 		Matcher matcher = FINAL_ROUND_PATTERN.matcher( text );
 		if ( !matcher.find() )
@@ -1470,7 +1470,7 @@ public class ArcadeRequest
 		ArcadeRequest.logText( buffer.toString() );
 	}
 
-	public static final void postChoiceFightersOfFighting( final GenericRequest request )
+	public static void postChoiceFightersOfFighting( final GenericRequest request )
 	{
 		String text = request.responseText;
 		// If this is the very first round of the match, parse and log
@@ -1498,7 +1498,7 @@ public class ArcadeRequest
 		}
 	}
 
-	public static final String autoChoiceFightersOfFighting( final GenericRequest request )
+	public static String autoChoiceFightersOfFighting( final GenericRequest request )
 	{
 		String text = request.responseText;
 
@@ -1546,7 +1546,7 @@ public class ArcadeRequest
 		return null;
 	}
 
-	public static final void decorateFightersOfFighting( final StringBuffer buffer )
+	public static void decorateFightersOfFighting( final StringBuffer buffer )
 	{
 		if ( !Preferences.getBoolean( "arcadeGameHints" ) )
 		{
@@ -1619,7 +1619,7 @@ public class ArcadeRequest
 	private static int missiles;
 	private static int crystals;
 
-	public static final void visitMeteoidChoice( final String responseText )
+	public static void visitMeteoidChoice( final String responseText )
 	{
 		// Called when we visit Meteoid
 
@@ -1632,7 +1632,7 @@ public class ArcadeRequest
 		ArcadeRequest.parseChoiceNames( responseText );
 	}
 
-	public static final void logMetoidAction( final String responseText )
+	public static void logMetoidAction( final String responseText )
 	{
 		// Called when we are about to take a choice in SpaceTrip
 		String action = ArcadeRequest.findChoiceName( ChoiceManager.lastDecision );
@@ -1675,7 +1675,7 @@ public class ArcadeRequest
 
 	private final static Pattern GUARD_PATTERN = Pattern.compile( "The room was guarded by a fierce (.*?)!", Pattern.DOTALL );
 
-	public static final void postChoiceMeteoid( final GenericRequest request )
+	public static void postChoiceMeteoid( final GenericRequest request )
 	{
 		// Called when we have taken a choice in Meteoid
 
@@ -1798,14 +1798,14 @@ public class ArcadeRequest
 	/* End Meteoid */
 	/* Jackass Plumber */
 
-	public static final void visitJackassPlumberChoice( final String responseText )
+	public static void visitJackassPlumberChoice( final String responseText )
 	{
 		// Called when we visit Jackass Plumber
 		// Parse out the choice names
 		ArcadeRequest.parseChoiceNames( responseText );
 	}
 
-	public static final void postChoiceJackassPlumber( final GenericRequest request )
+	public static void postChoiceJackassPlumber( final GenericRequest request )
 	{
 		// Called when we have taken a choice in Jackass Plumber
 

@@ -101,12 +101,12 @@ public class LunarLunchRequest
 		this( action, ar.getItemId(), ar.getCount() );
 	}
 
-	public static final void buy( final int itemId, final int count )
+	public static void buy( final int itemId, final int count )
 	{
 		RequestThread.postRequest( new LunarLunchRequest( "buy", itemId, count ) );
 	}
 
-	public static final boolean registerRequest( final String urlString )
+	public static boolean registerRequest( final String urlString )
 	{
 		if ( !urlString.startsWith( "spaaace.php" ) || !urlString.contains( "place=shop3" ) )
 		{

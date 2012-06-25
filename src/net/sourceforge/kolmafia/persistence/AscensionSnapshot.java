@@ -75,7 +75,7 @@ public class AscensionSnapshot
 
 	private static final Pattern LINK_PATTERN = Pattern.compile( "</?a[^>]+>" );
 
-	public static final void clearCache()
+	public static void clearCache()
 	{
 		// First, initialize all of the lists and
 		// arrays which are used by the request.
@@ -87,24 +87,24 @@ public class AscensionSnapshot
 		AscensionSnapshot.hardcoreAscensionList.clear();
 	}
 
-	public static final void registerMember( final String playerName )
+	public static void registerMember( final String playerName )
 	{
 		String lowerCaseName = playerName.toLowerCase();
 		AscensionSnapshot.ascensionMap.put( lowerCaseName, "" );
 	}
 
-	public static final void unregisterMember( final String playerId )
+	public static void unregisterMember( final String playerId )
 	{
 		String lowerCaseName = ContactManager.getPlayerName( playerId ).toLowerCase();
 		AscensionSnapshot.ascensionMap.remove( lowerCaseName );
 	}
 
-	public static final Map getAscensionMap()
+	public static Map getAscensionMap()
 	{
 		return AscensionSnapshot.ascensionMap;
 	}
 
-	public static final String getAscensionData( final boolean isSoftcore, final int mostAscensionsBoardSize,
+	public static String getAscensionData( final boolean isSoftcore, final int mostAscensionsBoardSize,
 		final int mainBoardSize, final int classBoardSize, final int maxAge, final boolean playerMoreThanOnce,
 		boolean localProfileLink )
 	{
@@ -211,7 +211,7 @@ public class AscensionSnapshot
 		return strbuf.toString();
 	}
 
-	public static final String getPathedAscensionData( final boolean isSoftcore, final int pathFilter,
+	public static String getPathedAscensionData( final boolean isSoftcore, final int pathFilter,
 		final int mainBoardSize, final int classBoardSize, final int maxAge, final boolean playerMoreThanOnce,
 		final boolean localProfileLink )
 	{
@@ -284,7 +284,7 @@ public class AscensionSnapshot
 		return strbuf.toString();
 	}
 
-	public static final String getAscensionData( final boolean isSoftcore, final int pathFilter, final int classFilter,
+	public static String getAscensionData( final boolean isSoftcore, final int pathFilter, final int classFilter,
 		final int mainBoardSize, final int classBoardSize, final int maxAge, final boolean playerMoreThanOnce,
 		boolean localProfileLink )
 	{
@@ -414,7 +414,7 @@ public class AscensionSnapshot
 		return strbuf.toString();
 	}
 
-	private static final void initializeAscensionData()
+	private static void initializeAscensionData()
 	{
 		// If the ascension lists have already been initialized,
 		// then return from this method call.

@@ -106,7 +106,7 @@ public class CouncilFrame
 			.replaceFirst( "table width=95%", "table width=100%" );
 	}
 
-	public static final void handleQuestChange( final String location, final String responseText )
+	public static void handleQuestChange( final String location, final String responseText )
 	{
 		if ( location.startsWith( "adventure" ) )
 		{
@@ -235,7 +235,7 @@ public class CouncilFrame
 		}
 	}
 
-	private static final void handleSneakyPeteChange( final String responseText )
+	private static void handleSneakyPeteChange( final String responseText )
 	{
 		if ( responseText.contains( "You hand him your button and take his glowstick" ) )
 		{
@@ -250,7 +250,7 @@ public class CouncilFrame
 		}
 	}
 
-	private static final void handleTrickOrTreatingChange( final String responseText )
+	private static void handleTrickOrTreatingChange( final String responseText )
 	{
 		if ( responseText.contains( "pull the pumpkin off of your head" ) )
 		{
@@ -269,7 +269,7 @@ public class CouncilFrame
 		}
 	}
 
-	private static final void handleCell37( final String responseText )
+	private static void handleCell37( final String responseText )
 	{
 		// You pass the folder through the little barred window, and hear Subject 37 flipping through the pages
 		if ( responseText.contains( "pass the folder through" ) )
@@ -293,7 +293,7 @@ public class CouncilFrame
 		}
 	}
 
-	private static final void handleFriarsChange( final String responseText )
+	private static void handleFriarsChange( final String responseText )
 	{
 		// "Thank you, Adventurer."
 
@@ -312,7 +312,7 @@ public class CouncilFrame
 		}
 	}
 
-	private static final void handleMountainsChange( final String responseText )
+	private static void handleMountainsChange( final String responseText )
 	{
 		// You approach the Orc Chasm, and whip out your trusty bridge.
 		// You place the bridge across the chasm, and the path to the
@@ -329,7 +329,7 @@ public class CouncilFrame
 		}
 	}
 
-	private static final void handlePlainsChange( final String responseText )
+	private static void handlePlainsChange( final String responseText )
 	{
 		// You stare at the pile of coffee grounds for a minute and it
 		// occurs to you that maybe your grandma wasn't so crazy after
@@ -347,7 +347,7 @@ public class CouncilFrame
 		}
 	}
 
-	private static final void handleTrapperChange( final String location, final String responseText )
+	private static void handleTrapperChange( final String location, final String responseText )
 	{
 		Matcher oreMatcher = CouncilFrame.ORE_PATTERN.matcher( responseText );
 		if ( oreMatcher.find() )
@@ -394,7 +394,7 @@ public class CouncilFrame
 		}
 	}
 
-	public static final void unlockGoatlet()
+	public static void unlockGoatlet()
 	{
 		AdventureRequest goatlet = new AdventureRequest( "Goatlet", "adventure.php", "60" );
 
@@ -451,7 +451,7 @@ public class CouncilFrame
 		SpecialOutfit.restoreImplicitCheckpoint();
 	}
 
-	private static final void handleCouncilChange( final String responseText )
+	private static void handleCouncilChange( final String responseText )
 	{
 		Preferences.setInteger( "lastCouncilVisit", KoLCharacter.getLevel() );
 

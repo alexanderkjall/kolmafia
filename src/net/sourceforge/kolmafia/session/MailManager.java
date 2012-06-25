@@ -57,7 +57,7 @@ public abstract class MailManager
 		MailManager.mailboxes.put( "Saved", new SortedListModel() );
 	}
 
-	public static final void clearMailboxes()
+	public static void clearMailboxes()
 	{
 		MailManager.getMessages( "Inbox" ).clear();
 		MailManager.getMessages( "PvP" ).clear();
@@ -66,7 +66,7 @@ public abstract class MailManager
 		MailManager.getMessages( "Saved" ).clear();
 	}
 
-	public static final boolean hasNewMessages()
+	public static boolean hasNewMessages()
 	{
 		String oldMessageId = Preferences.getString( "lastMessageId" );
 
@@ -87,7 +87,7 @@ public abstract class MailManager
 	 * Returns a list containing the messages within the specified mailbox.
 	 */
 
-	public static final SortedListModel getMessages( final String mailbox )
+	public static SortedListModel getMessages( final String mailbox )
 	{
 		return (SortedListModel) MailManager.mailboxes.get( mailbox );
 	}
@@ -115,7 +115,7 @@ public abstract class MailManager
 		return toadd;
 	}
 
-	public static final void deleteMessage( final String boxname, final KoLMailMessage message )
+	public static void deleteMessage( final String boxname, final KoLMailMessage message )
 	{
 		RequestThread.postRequest( new MailboxRequest( boxname, message, "delete" ) );
 
@@ -129,7 +129,7 @@ public abstract class MailManager
 		Preferences.setInteger( "lastMessageCount", MailManager.getMessages( "Inbox" ).size() );
 	}
 
-	public static final void deleteMessages( final String boxname, final Object[] messages )
+	public static void deleteMessages( final String boxname, final Object[] messages )
 	{
 		if ( messages.length == 0 )
 		{
@@ -152,7 +152,7 @@ public abstract class MailManager
 		Preferences.setInteger( "lastMessageCount", MailManager.getMessages( "Inbox" ).size() );
 	}
 
-	public static final void saveMessage( final String boxname, final KoLMailMessage message )
+	public static void saveMessage( final String boxname, final KoLMailMessage message )
 	{
 		RequestThread.postRequest( new MailboxRequest( boxname, message, "save" ) );
 
@@ -166,7 +166,7 @@ public abstract class MailManager
 		Preferences.setInteger( "lastMessageCount", MailManager.getMessages( "Inbox" ).size() );
 	}
 
-	public static final void saveMessages( final String boxname, final Object[] messages )
+	public static void saveMessages( final String boxname, final Object[] messages )
 	{
 		if ( messages.length == 0 )
 		{

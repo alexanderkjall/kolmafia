@@ -67,7 +67,7 @@ public class Crimbo09Request
 		Crimbo09Request.parseResponse( this.getURLString(), this.responseText );
 	}
 
-	public static final int getTurnsUsed( GenericRequest request )
+	public static int getTurnsUsed( GenericRequest request )
 	{
 		String action = request.getFormField( "action" );
 		if ( action != null )
@@ -89,13 +89,13 @@ public class Crimbo09Request
 		return 0;
 	}
 
-	private static final int getHowmany( final String urlString )
+	private static int getHowmany( final String urlString )
 	{
 		Matcher matcher = Crimbo09Request.HOWMANY_PATTERN.matcher( urlString );
 		return matcher.find() ? StringUtilities.parseInt( matcher.group(1) ) : 0;
 	}
 
-	public static final void parseResponse( final String location, final String responseText )
+	public static void parseResponse( final String location, final String responseText )
 	{
 		if ( !location.startsWith( "crimbo09.php" ) )
 		{
@@ -165,7 +165,7 @@ public class Crimbo09Request
 		return null;
 	}
 
-	public static final boolean registerRequest( final String urlString )
+	public static boolean registerRequest( final String urlString )
 	{
 		if ( !urlString.startsWith( "crimbo09.php" ) )
 		{

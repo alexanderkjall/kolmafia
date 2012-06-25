@@ -348,7 +348,7 @@ public class ChatParser
 		chatMessages.add( message );
 	}
 
-	public static final void parsePlayerIds( final String content )
+	public static void parsePlayerIds( final String content )
 	{
 		if ( content == null )
 		{

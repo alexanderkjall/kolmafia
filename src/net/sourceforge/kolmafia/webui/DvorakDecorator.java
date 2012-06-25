@@ -46,7 +46,7 @@ import net.sourceforge.kolmafia.request.RelayRequest;
 
 public abstract class DvorakDecorator
 {
-	public static final void decorate( final StringBuffer buffer )
+	public static void decorate( final StringBuffer buffer )
 	{
 		String search = "</div></center></td></tr>";
 		int index = buffer.indexOf( search );
@@ -72,7 +72,7 @@ public abstract class DvorakDecorator
 
 	private static String lastResponse = "";
 
-	public static final void saveResponse( final String responseText )
+	public static void saveResponse( final String responseText )
 	{
 		DvorakDecorator.lastResponse = responseText;
 	}
@@ -89,7 +89,7 @@ public abstract class DvorakDecorator
 
 	private static final Pattern TILE_PATTERN = Pattern.compile( "<td class='(cell|cell greyed)'.*?'Tile labeled \"(.)\"'>(</a>)?</td>" );
 
-	public static final void solve()
+	public static void solve()
 	{
 		if ( DvorakDecorator.lastResponse == null )
 		{

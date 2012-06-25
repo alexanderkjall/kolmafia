@@ -181,13 +181,13 @@ public class TurnCounter
 		return this.value - ( (TurnCounter) o ).value;
 	}
 
-	public static final void clearCounters()
+	public static void clearCounters()
 	{
 		TurnCounter.relayCounters.clear();
 		TurnCounter.saveCounters();
 	}
 
-	public static final void loadCounters()
+	public static void loadCounters()
 	{
 		TurnCounter.relayCounters.clear();
 
@@ -209,7 +209,7 @@ public class TurnCounter
 		}
 	}
 
-	public static final void saveCounters()
+	public static void saveCounters()
 	{
 		StringBuilder counters = new StringBuilder();
 		Iterator it = TurnCounter.relayCounters.iterator();
@@ -233,7 +233,7 @@ public class TurnCounter
 		Preferences.setString( "relayCounters", counters.toString() );
 	}
 
-	public static final TurnCounter getExpiredCounter( GenericRequest request, boolean informational )
+	public static TurnCounter getExpiredCounter( GenericRequest request, boolean informational )
 	{
 		String URL = request.getURLString();
 		KoLAdventure adventure = AdventureDatabase.getAdventureByURL( URL );
@@ -296,7 +296,7 @@ public class TurnCounter
 		return null;
 	}
 
-	public static final String getUnexpiredCounters()
+	public static String getUnexpiredCounters()
 	{
 		int currentTurns = KoLCharacter.getCurrentRun();
 
@@ -328,13 +328,13 @@ public class TurnCounter
 		return counters.toString();
 	}
 
-	public static final void startCounting( final int value, final String label, final String image )
+	public static void startCounting( final int value, final String label, final String image )
 	{
 		TurnCounter.startCountingInternal( value, label, image );
 		TurnCounter.saveCounters();
 	}
 
-	private static final void startCountingInternal( final int value, final String label, final String image )
+	private static void startCountingInternal( final int value, final String label, final String image )
 	{
 		if ( value >= 0 )
 		{
@@ -347,7 +347,7 @@ public class TurnCounter
 		}
 	}
 
-	public static final void stopCounting( final String label )
+	public static void stopCounting( final String label )
 	{
 		Iterator it = TurnCounter.relayCounters.iterator();
 
@@ -363,7 +363,7 @@ public class TurnCounter
 		TurnCounter.saveCounters();
 	}
 
-	public static final boolean isCounting( final String label, final int value )
+	public static boolean isCounting( final String label, final int value )
 	{
 		int searchValue = KoLCharacter.getCurrentRun() + value;
 
@@ -381,7 +381,7 @@ public class TurnCounter
 		return false;
 	}
 
-	public static final boolean isCounting( final String label )
+	public static boolean isCounting( final String label )
 	{
 		Iterator it = TurnCounter.relayCounters.iterator();
 
@@ -397,7 +397,7 @@ public class TurnCounter
 		return false;
 	}
 
-	public static final String getCounters( String label, int minTurns, int maxTurns )
+	public static String getCounters( String label, int minTurns, int maxTurns )
 	{
 		label = label.toLowerCase();
 		boolean checkExempt = label.length() == 0;
@@ -431,7 +431,7 @@ public class TurnCounter
 		return buf.toString();
 	}
 
-	private static final int getTurnsUsed( GenericRequest request )
+	private static int getTurnsUsed( GenericRequest request )
 	{
 		if ( !( request instanceof RelayRequest ) )
 		{
@@ -521,7 +521,7 @@ public class TurnCounter
 		return turnMultiplier * StringUtilities.parseInt( quantity );
 	}
 
-	public static final void deleteByHash( final int hash )
+	public static void deleteByHash( final int hash )
 	{
 		Iterator it = TurnCounter.relayCounters.iterator();
 
@@ -536,12 +536,12 @@ public class TurnCounter
 		TurnCounter.saveCounters();
 	}
 
-	public static final int count()
+	public static int count()
 	{
 		return TurnCounter.relayCounters.size();
 	}
 
-	public static final Iterator iterator()
+	public static Iterator iterator()
 	{
 		Collections.sort( TurnCounter.relayCounters );
 		return TurnCounter.relayCounters.iterator();

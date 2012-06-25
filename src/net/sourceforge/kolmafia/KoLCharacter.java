@@ -514,7 +514,7 @@ public abstract class KoLCharacter
 		},
 	};
 
-	public static final int findGuardianByImage( final String responseText )
+	public static int findGuardianByImage( final String responseText )
 	{
 		for ( int i = 0; i < KoLCharacter.PASTA_GUARDIANS.length; ++ i )
 		{
@@ -554,7 +554,7 @@ public abstract class KoLCharacter
 	 * @param newUsername The name of the character this <code>KoLCharacter</code> represents
 	 */
 
-	public static final void reset( final String newUserName )
+	public static void reset( final String newUserName )
 	{
 		if ( newUserName.equals( KoLCharacter.username ) )
 		{
@@ -566,7 +566,7 @@ public abstract class KoLCharacter
 		KoLCharacter.reset();
 	}
 
-	public static final void reset()
+	public static void reset()
 	{
 		KoLCharacter.classname = "";
 		KoLCharacter.classtype = null;
@@ -677,7 +677,7 @@ public abstract class KoLCharacter
 		Modifiers.overrideModifier( "_userMods", Preferences.getString( "_userMods" ) );
 	}
 
-	public static final void resetSkills()
+	public static void resetSkills()
 	{
 		KoLConstants.usableSkills.clear();
 		KoLConstants.summoningSkills.clear();
@@ -706,7 +706,7 @@ public abstract class KoLCharacter
 		KoLCharacter.battleSkillNames.setSelectedIndex( battleIndex == -1 ? 0 : battleIndex );
 	}
 
-	public static final void resetPerAscensionData()
+	public static void resetPerAscensionData()
 	{
 		// This is called after we have read the Charsheet and know how
 		// many ascensions the character has completed.
@@ -726,24 +726,24 @@ public abstract class KoLCharacter
 		KoLCharacter.ensureUpdatedCellar();
 	}
 
-	public static final void setHoliday( final String holiday )
+	public static void setHoliday( final String holiday )
 	{
 		KoLCharacter.isFullnessIncreased = holiday.equals( "Feast of Boris" ) || holiday.equals( "Drunksgiving" );
 		KoLCharacter.holidayManaCostReduction = holiday.equals( "Festival of Jarlsberg" ) ? 3 : 0;
 		KoLmafia.statDay = HolidayDatabase.currentStatDay();
 	}
 
-	public static final void setFullness( final int fullness )
+	public static void setFullness( final int fullness )
 	{
 		Preferences.setInteger( "currentFullness", fullness );
 	}
 
-	public static final int getFullness()
+	public static int getFullness()
 	{
 		return Preferences.getInteger( "currentFullness" );
 	}
 
-	public static final int getFullnessLimit()
+	public static int getFullnessLimit()
 	{
 		if ( !KoLCharacter.canEat() )
 		{
@@ -804,17 +804,17 @@ public abstract class KoLCharacter
 		return KoLCharacter.isFullnessIncreased ? baseFullness + 15 : baseFullness;
 	}
 
-	public static final void setInebriety( final int inebriety )
+	public static void setInebriety( final int inebriety )
 	{
 		KoLCharacter.inebriety = inebriety;
 	}
 
-	public static final int getInebriety()
+	public static int getInebriety()
 	{
 		return KoLCharacter.inebriety;
 	}
 
-	public static final int getInebrietyLimit()
+	public static int getInebrietyLimit()
 	{
 		return	KoLCharacter.inAxecore() ? 4 :
 			KoLCharacter.hasSkill( "Liver of Steel" ) ? 19 :
@@ -822,17 +822,17 @@ public abstract class KoLCharacter
 			0;
 	}
 
-	public static final boolean isFallingDown()
+	public static boolean isFallingDown()
 	{
 		return KoLCharacter.getInebriety() > KoLCharacter.getInebrietyLimit();
 	}
 
-	public static final int getSpleenUse()
+	public static int getSpleenUse()
 	{
 		return Preferences.getInteger( "currentSpleenUse" );
 	}
 
-	public static final int getSpleenLimit()
+	public static int getSpleenLimit()
 	{
 		return KoLCharacter.hasSkill( "Spleen of Steel" ) ? 20 : 15;
 	}
@@ -843,12 +843,12 @@ public abstract class KoLCharacter
 	 * @return The name of this character
 	 */
 
-	public static final String getUserName()
+	public static String getUserName()
 	{
 		return KoLCharacter.username;
 	}
 
-	public static final String baseUserName()
+	public static String baseUserName()
 	{
 		return Preferences.baseUserName( KoLCharacter.username );
 	}
@@ -859,7 +859,7 @@ public abstract class KoLCharacter
 	 * @param userId The user Id associated with this character
 	 */
 
-	public static final void setUserId( final int userId )
+	public static void setUserId( final int userId )
 	{
 		KoLCharacter.userId = userId;
 		KoLCharacter.playerId = String.valueOf( userId );
@@ -871,7 +871,7 @@ public abstract class KoLCharacter
 	 * @return The user Id associated with this character
 	 */
 
-	public static final String getPlayerId()
+	public static String getPlayerId()
 	{
 		return KoLCharacter.playerId;
 	}
@@ -882,7 +882,7 @@ public abstract class KoLCharacter
 	 * @return The user Id associated with this character
 	 */
 
-	public static final int getUserId()
+	public static int getUserId()
 	{
 		return KoLCharacter.userId;
 	}
@@ -893,7 +893,7 @@ public abstract class KoLCharacter
 	 * @param avatar The avatar for this character
 	 */
 
-	public static final void setAvatar( final String avatar )
+	public static void setAvatar( final String avatar )
 	{
 		KoLCharacter.avatar = avatar;
 		if ( !avatar.equals( "" ) )
@@ -916,17 +916,17 @@ public abstract class KoLCharacter
 	 * @return The avatar for this character
 	 */
 
-	public static final String getAvatar()
+	public static String getAvatar()
 	{
 		return KoLCharacter.avatar;
 	}
 
-	public static final void setGender( final int gender )
+	public static void setGender( final int gender )
 	{
 		KoLCharacter.gender = gender;
 	}
 
-	public static final int getGender()
+	public static int getGender()
 	{
 		// We can only ask for the gender if we are logged in
 		// Gender is meaningless if we are in Valhalla
@@ -952,12 +952,12 @@ public abstract class KoLCharacter
 	 * @return The index of the prime stat
 	 */
 
-	public static final int getPrimeIndex()
+	public static int getPrimeIndex()
 	{
 		return KoLCharacter.getPrimeIndex( KoLCharacter.classtype );
 	}
 
-	public static final int getPrimeIndex( String classType )
+	public static int getPrimeIndex( String classType )
 	{
 		if ( classType == null )
 		{
@@ -992,7 +992,7 @@ public abstract class KoLCharacter
 	 * @return The level of this character
 	 */
 
-	public static final int getLevel()
+	public static int getLevel()
 	{
 		long totalPrime = KoLCharacter.getTotalPrime();
 
@@ -1021,22 +1021,22 @@ public abstract class KoLCharacter
 		return KoLCharacter.currentLevel;
 	}
 
-	public static final int getPvpRank()
+	public static int getPvpRank()
 	{
 		return KoLCharacter.pvpRank;
 	}
 
-	public static final void setPvpRank( final int pvpRank )
+	public static void setPvpRank( final int pvpRank )
 	{
 		KoLCharacter.pvpRank = pvpRank;
 	}
 
-	public static final int getAttacksLeft()
+	public static int getAttacksLeft()
 	{
 		return KoLCharacter.attacksLeft;
 	}
 
-	public static final void setAttacksLeft( final int attacksLeft )
+	public static void setAttacksLeft( final int attacksLeft )
 	{
 		KoLCharacter.attacksLeft = attacksLeft;
 	}
@@ -1047,7 +1047,7 @@ public abstract class KoLCharacter
 	 * @param classtype The name of the character's class
 	 */
 
-	public static final void setClassType( final int classtype )
+	public static void setClassType( final int classtype )
 	{
 		String classname =
 			classtype == 1 ? KoLCharacter.SEAL_CLUBBER :
@@ -1063,7 +1063,7 @@ public abstract class KoLCharacter
 		KoLCharacter.setClassName( classname );
 	}
 
-	public static final void setClassName( final String classname )
+	public static void setClassName( final String classname )
 	{
 		KoLCharacter.classname = classname;
 		KoLCharacter.classtype = KoLCharacter.getClassType();
@@ -1082,7 +1082,7 @@ public abstract class KoLCharacter
 		FightRequest.initialize();
 	}
 
-	public static final int getReagentPotionDuration()
+	public static int getReagentPotionDuration()
 	{
 		return 5 +
 		       ( KoLCharacter.hasSkill( "Impetuous Sauciness" ) ? 5 : 0 ) +
@@ -1096,7 +1096,7 @@ public abstract class KoLCharacter
 	 * @return The name of the character's class
 	 */
 
-	public static final String getClassName()
+	public static String getClassName()
 	{
 		return KoLCharacter.classname;
 	}
@@ -1107,7 +1107,7 @@ public abstract class KoLCharacter
 	 * @return The type of the character's class
 	 */
 
-	public static final String getClassType()
+	public static String getClassType()
 	{
 		if ( KoLCharacter.classtype == null )
 		{
@@ -1123,7 +1123,7 @@ public abstract class KoLCharacter
 	 * @return The type of the character's class
 	 */
 
-	public static final String getClassType( final String classname )
+	public static String getClassType( final String classname )
 	{
 		return	classname.equals( KoLCharacter.AVATAR_OF_BORIS ) ? KoLCharacter.AVATAR_OF_BORIS :
 			KoLCharacter.SEAL_CLUBBER_RANKS.contains( classname ) ? KoLCharacter.SEAL_CLUBBER :
@@ -1135,31 +1135,31 @@ public abstract class KoLCharacter
 			KoLCharacter.ASTRAL_SPIRIT;
 	}
 
-	public static final boolean isMuscleClass()
+	public static boolean isMuscleClass()
 	{
 		return	KoLCharacter.classtype == KoLCharacter.SEAL_CLUBBER ||
 			KoLCharacter.classtype == KoLCharacter.TURTLE_TAMER ||
 			KoLCharacter.classtype == KoLCharacter.AVATAR_OF_BORIS;
 	}
 
-	public static final boolean isAvatarOfBoris()
+	public static boolean isAvatarOfBoris()
 	{
 		return KoLCharacter.classtype == KoLCharacter.AVATAR_OF_BORIS;
 	}
 
-	public static final boolean isMysticalityClass()
+	public static boolean isMysticalityClass()
 	{
 		return	KoLCharacter.classtype == KoLCharacter.PASTAMANCER ||
 			KoLCharacter.classtype == KoLCharacter.SAUCEROR;
 	}
 
-	public static final boolean isMoxieClass()
+	public static boolean isMoxieClass()
 	{
 		return	KoLCharacter.classtype == KoLCharacter.DISCO_BANDIT ||
 			KoLCharacter.classtype == KoLCharacter.ACCORDION_THIEF;
 	}
 
-	public static final int mainStat()
+	public static int mainStat()
 	{
 		return  KoLCharacter.isMuscleClass() ? KoLConstants.MUSCLE :
 			KoLCharacter.isMysticalityClass() ? KoLConstants.MYSTICALITY :
@@ -1175,7 +1175,7 @@ public abstract class KoLCharacter
 	 * @param baseMaxHP The base value for the character's maximum HP
 	 */
 
-	public static final void setHP( final int currentHP, final int maximumHP, final int baseMaxHP )
+	public static void setHP( final int currentHP, final int maximumHP, final int baseMaxHP )
 	{
 		KoLCharacter.currentHP = currentHP < 0 ? 0 : currentHP > maximumHP ? maximumHP : currentHP;
 		KoLCharacter.maximumHP = maximumHP;
@@ -1190,7 +1190,7 @@ public abstract class KoLCharacter
 	 * @return The character's current HP
 	 */
 
-	public static final int getCurrentHP()
+	public static int getCurrentHP()
 	{
 		return KoLCharacter.currentHP;
 	}
@@ -1201,7 +1201,7 @@ public abstract class KoLCharacter
 	 * @return The character's maximum HP
 	 */
 
-	public static final int getMaximumHP()
+	public static int getMaximumHP()
 	{
 		return KoLCharacter.maximumHP;
 	}
@@ -1212,7 +1212,7 @@ public abstract class KoLCharacter
 	 * @return The base value for the character's maximum HP
 	 */
 
-	public static final int getBaseMaxHP()
+	public static int getBaseMaxHP()
 	{
 		return KoLCharacter.baseMaxHP;
 	}
@@ -1225,7 +1225,7 @@ public abstract class KoLCharacter
 	 * @param baseMaxMP The base value for the character's maximum MP
 	 */
 
-	public static final void setMP( final int currentMP, final int maximumMP, final int baseMaxMP )
+	public static void setMP( final int currentMP, final int maximumMP, final int baseMaxMP )
 	{
 		KoLCharacter.currentMP = currentMP < 0 ? 0 : currentMP > maximumMP ? maximumMP : currentMP;
 		KoLCharacter.maximumMP = maximumMP;
@@ -1240,7 +1240,7 @@ public abstract class KoLCharacter
 	 * @return The character's current MP
 	 */
 
-	public static final int getCurrentMP()
+	public static int getCurrentMP()
 	{
 		return KoLCharacter.currentMP;
 	}
@@ -1251,7 +1251,7 @@ public abstract class KoLCharacter
 	 * @return The character's maximum MP
 	 */
 
-	public static final int getMaximumMP()
+	public static int getMaximumMP()
 	{
 		return KoLCharacter.maximumMP;
 	}
@@ -1262,7 +1262,7 @@ public abstract class KoLCharacter
 	 * @return The base value for the character's maximum MP
 	 */
 
-	public static final int getBaseMaxMP()
+	public static int getBaseMaxMP()
 	{
 		return KoLCharacter.baseMaxMP;
 	}
@@ -1273,17 +1273,17 @@ public abstract class KoLCharacter
 	 * @return The amount of meat in storage.
 	 */
 
-	public static final int getStorageMeat()
+	public static int getStorageMeat()
 	{
 		return KoLCharacter.storageMeat;
 	}
 
-	public static final void setStorageMeat( final int storageMeat )
+	public static void setStorageMeat( final int storageMeat )
 	{
 		KoLCharacter.storageMeat = storageMeat;
 	}
 
-	public static final void addStorageMeat( final int meat )
+	public static void addStorageMeat( final int meat )
 	{
 		KoLCharacter.storageMeat += meat;
 	}
@@ -1294,12 +1294,12 @@ public abstract class KoLCharacter
 	 * @return The amount of meat in the character's closet.
 	 */
 
-	public static final int getClosetMeat()
+	public static int getClosetMeat()
 	{
 		return KoLCharacter.closetMeat;
 	}
 
-	public static final void setClosetMeat( final int closetMeat )
+	public static void setClosetMeat( final int closetMeat )
 	{
 		KoLCharacter.closetMeat = closetMeat;
 	}
@@ -1311,7 +1311,7 @@ public abstract class KoLCharacter
 	 * @param availableMeat The character's available meat for spending
 	 */
 
-	public static final void setAvailableMeat( final int availableMeat )
+	public static void setAvailableMeat( final int availableMeat )
 	{
 		if ( KoLCharacter.availableMeat != availableMeat )
 		{
@@ -1326,7 +1326,7 @@ public abstract class KoLCharacter
 	 * @return The character's available meat for spending
 	 */
 
-	public static final int getAvailableMeat()
+	public static int getAvailableMeat()
 	{
 		return KoLCharacter.availableMeat;
 	}
@@ -1345,7 +1345,7 @@ public abstract class KoLCharacter
 	 * @param totalMoxie The total number of moxie subpoints acquired thus far
 	 */
 
-	public static final void setStatPoints( final int adjustedMuscle, final long totalMuscle,
+	public static void setStatPoints( final int adjustedMuscle, final long totalMuscle,
 		final int adjustedMysticality, final long totalMysticality, final int adjustedMoxie, final long totalMoxie )
 	{
 		KoLCharacter.adjustedStats[ 0 ] = adjustedMuscle;
@@ -1372,14 +1372,14 @@ public abstract class KoLCharacter
 		}
 	}
 
-	public static final void resetTriggers()
+	public static void resetTriggers()
 	{
 		KoLCharacter.triggerSubpoints[ 0 ] = Long.MAX_VALUE;
 		KoLCharacter.triggerSubpoints[ 1 ] = Long.MAX_VALUE;
 		KoLCharacter.triggerSubpoints[ 2 ] = Long.MAX_VALUE;
 	}
 
-	public static final void handleTrigger( int itemId )
+	public static void handleTrigger( int itemId )
 	{
 		KoLmafia.updateDisplay( "You can now equip a " + ItemDatabase.getItemName( itemId )
 			+ " (and possibly other things)." );
@@ -1387,12 +1387,12 @@ public abstract class KoLCharacter
 		PreferenceListenerRegistry.firePreferenceChanged( "(equippable)" );
 	}
 
-	public static final int getTriggerItem( int stat )
+	public static int getTriggerItem( int stat )
 	{
 		return KoLCharacter.triggerItem[ stat ];
 	}
 
-	public static final int getTriggerPoints( int stat )
+	public static int getTriggerPoints( int stat )
 	{
 		return KoLCharacter.calculateBasePoints(
 			KoLCharacter.triggerSubpoints[ stat ] );
@@ -1406,7 +1406,7 @@ public abstract class KoLCharacter
 	 * @return The calculated subpoints
 	 */
 
-	public static final long calculatePointSubpoints( final int basePoints )
+	public static long calculatePointSubpoints( final int basePoints )
 	{
 		return basePoints * (long) basePoints;
 	}
@@ -1419,7 +1419,7 @@ public abstract class KoLCharacter
 	 * @return The base points associated with the subpoint value
 	 */
 
-	public static final int calculateBasePoints( final long subpoints )
+	public static int calculateBasePoints( final long subpoints )
 	{
 		return Math.min( KoLCharacter.MAX_BASEPOINTS, (int) Math.sqrt( subpoints ) );
 	}
@@ -1432,7 +1432,7 @@ public abstract class KoLCharacter
 	 * @return The calculated points
 	 */
 
-	public static final int calculateLevelPoints( final int level )
+	public static int calculateLevelPoints( final int level )
 	{
 		return ( level == 1 ) ? 0 : ( level - 1 ) * ( level - 1 ) + 4;
 	}
@@ -1446,7 +1446,7 @@ public abstract class KoLCharacter
 	 * @return The calculated subpoints
 	 */
 
-	public static final long calculateLevelSubpoints( final int level )
+	public static long calculateLevelSubpoints( final int level )
 	{
 		return KoLCharacter.calculatePointSubpoints( KoLCharacter.calculateLevelPoints( level ) );
 	}
@@ -1459,7 +1459,7 @@ public abstract class KoLCharacter
 	 * @return The calculated level
 	 */
 
-	public static final int calculatePointLevels( final int points )
+	public static int calculatePointLevels( final int points )
 	{
 		return (int)Math.sqrt( Math.max( points - 4, 0 ) ) + 1;
 	}
@@ -1472,7 +1472,7 @@ public abstract class KoLCharacter
 	 * @return The calculated level
 	 */
 
-	public static final int calculateSubpointLevels( final long subpoints )
+	public static int calculateSubpointLevels( final long subpoints )
 	{
 		return KoLCharacter.calculatePointLevels( KoLCharacter.calculateBasePoints( subpoints ) );
 	}
@@ -1487,7 +1487,7 @@ public abstract class KoLCharacter
 	 * @return The total number of subpoints acquired since creation
 	 */
 
-	public static final long calculateSubpoints( final int baseValue, final int sinceLastBase )
+	public static long calculateSubpoints( final int baseValue, final int sinceLastBase )
 	{
 		return KoLCharacter.calculatePointSubpoints( baseValue ) + sinceLastBase;
 	}
@@ -1498,7 +1498,7 @@ public abstract class KoLCharacter
 	 * @return The total subpoints to the current level
 	 */
 
-	public static final long calculateLastLevel()
+	public static long calculateLastLevel()
 	{
 		return KoLCharacter.calculateLevelSubpoints( KoLCharacter.currentLevel );
 	}
@@ -1509,7 +1509,7 @@ public abstract class KoLCharacter
 	 * @return The total subpoints to the next level
 	 */
 
-	public static final long calculateNextLevel()
+	public static long calculateNextLevel()
 	{
 		return KoLCharacter.calculateLevelSubpoints( KoLCharacter.currentLevel + 1 );
 	}
@@ -1520,7 +1520,7 @@ public abstract class KoLCharacter
 	 * @return The total subpoints in the prime stat
 	 */
 
-	public static final long getTotalPrime()
+	public static long getTotalPrime()
 	{
 		return KoLCharacter.totalSubpoints[ KoLCharacter.getPrimeIndex() ];
 	}
@@ -1529,7 +1529,7 @@ public abstract class KoLCharacter
 	 * Utility method to calculate the "till next point" value, given the total number of subpoints accumulated.
 	 */
 
-	private static final int calculateTillNextPoint( final long subpoints )
+	private static int calculateTillNextPoint( final long subpoints )
 	{
 		return (int) (KoLCharacter.calculatePointSubpoints( KoLCharacter.calculateBasePoints( subpoints ) + 1 ) - subpoints);
 	}
@@ -1540,7 +1540,7 @@ public abstract class KoLCharacter
 	 * @return The character's base value for muscle
 	 */
 
-	public static final int getBaseMuscle()
+	public static int getBaseMuscle()
 	{
 		return KoLCharacter.calculateBasePoints( KoLCharacter.totalSubpoints[ 0 ] );
 	}
@@ -1551,12 +1551,12 @@ public abstract class KoLCharacter
 	 * @return The total muscle subpoints so far
 	 */
 
-	public static final long getTotalMuscle()
+	public static long getTotalMuscle()
 	{
 		return KoLCharacter.totalSubpoints[ 0 ];
 	}
 
-	public static final void incrementTotalMuscle( int increment )
+	public static void incrementTotalMuscle( int increment )
 	{
 		KoLCharacter.totalSubpoints[ 0 ] += increment;
 		if ( KoLCharacter.totalSubpoints[ 0 ] >= KoLCharacter.triggerSubpoints[ 0 ] )
@@ -1565,7 +1565,7 @@ public abstract class KoLCharacter
 		}
 	}
 
-	public static final boolean muscleTrigger( int basepoints, int itemId )
+	public static boolean muscleTrigger( int basepoints, int itemId )
 	{
 		long points = calculatePointSubpoints( basepoints );
 		if ( points < KoLCharacter.triggerSubpoints[ 0 ] )
@@ -1581,7 +1581,7 @@ public abstract class KoLCharacter
 	 * muscle.
 	 */
 
-	public static final int getMuscleTNP()
+	public static int getMuscleTNP()
 	{
 		return KoLCharacter.calculateTillNextPoint( KoLCharacter.totalSubpoints[ 0 ] );
 	}
@@ -1592,7 +1592,7 @@ public abstract class KoLCharacter
 	 * @return The character's adjusted value for muscle
 	 */
 
-	public static final int getAdjustedMuscle()
+	public static int getAdjustedMuscle()
 	{
 		return KoLCharacter.adjustedStats[ 0 ];
 	}
@@ -1603,7 +1603,7 @@ public abstract class KoLCharacter
 	 * @return The character's base value for muscle
 	 */
 
-	public static final int getBaseMysticality()
+	public static int getBaseMysticality()
 	{
 		return KoLCharacter.calculateBasePoints( KoLCharacter.totalSubpoints[ 1 ] );
 	}
@@ -1614,12 +1614,12 @@ public abstract class KoLCharacter
 	 * @return The total mysticality subpoints so far
 	 */
 
-	public static final long getTotalMysticality()
+	public static long getTotalMysticality()
 	{
 		return KoLCharacter.totalSubpoints[ 1 ];
 	}
 
-	public static final void incrementTotalMysticality( int increment )
+	public static void incrementTotalMysticality( int increment )
 	{
 		KoLCharacter.totalSubpoints[ 1 ] += increment;
 		if ( KoLCharacter.totalSubpoints[ 1 ] >= KoLCharacter.triggerSubpoints[ 1 ] )
@@ -1628,7 +1628,7 @@ public abstract class KoLCharacter
 		}
 	}
 
-	public static final boolean mysticalityTrigger( int basepoints, int itemId )
+	public static boolean mysticalityTrigger( int basepoints, int itemId )
 	{
 		long points = calculatePointSubpoints( basepoints );
 		if ( points < KoLCharacter.triggerSubpoints[ 1 ] )
@@ -1644,7 +1644,7 @@ public abstract class KoLCharacter
 	 * mysticality.
 	 */
 
-	public static final int getMysticalityTNP()
+	public static int getMysticalityTNP()
 	{
 		return KoLCharacter.calculateTillNextPoint( KoLCharacter.totalSubpoints[ 1 ] );
 	}
@@ -1655,7 +1655,7 @@ public abstract class KoLCharacter
 	 * @return The character's adjusted value for mysticality
 	 */
 
-	public static final int getAdjustedMysticality()
+	public static int getAdjustedMysticality()
 	{
 		return KoLCharacter.adjustedStats[ 1 ];
 	}
@@ -1666,7 +1666,7 @@ public abstract class KoLCharacter
 	 * @return The character's base value for moxie
 	 */
 
-	public static final int getBaseMoxie()
+	public static int getBaseMoxie()
 	{
 		return KoLCharacter.calculateBasePoints( KoLCharacter.totalSubpoints[ 2 ] );
 	}
@@ -1677,12 +1677,12 @@ public abstract class KoLCharacter
 	 * @return The total moxie subpoints so far
 	 */
 
-	public static final long getTotalMoxie()
+	public static long getTotalMoxie()
 	{
 		return KoLCharacter.totalSubpoints[ 2 ];
 	}
 
-	public static final void incrementTotalMoxie( int increment )
+	public static void incrementTotalMoxie( int increment )
 	{
 		KoLCharacter.totalSubpoints[ 2 ] += increment;
 		if ( KoLCharacter.totalSubpoints[ 2 ] >= KoLCharacter.triggerSubpoints[ 2 ] )
@@ -1691,7 +1691,7 @@ public abstract class KoLCharacter
 		}
 	}
 
-	public static final boolean moxieTrigger( int basepoints, int itemId )
+	public static boolean moxieTrigger( int basepoints, int itemId )
 	{
 		long points = calculatePointSubpoints( basepoints );
 		if ( points < KoLCharacter.triggerSubpoints[ 2 ] )
@@ -1707,7 +1707,7 @@ public abstract class KoLCharacter
 	 * moxie.
 	 */
 
-	public static final int getMoxieTNP()
+	public static int getMoxieTNP()
 	{
 		return KoLCharacter.calculateTillNextPoint( KoLCharacter.totalSubpoints[ 2 ] );
 	}
@@ -1718,7 +1718,7 @@ public abstract class KoLCharacter
 	 * @return The character's adjusted value for moxie
 	 */
 
-	public static final int getAdjustedMoxie()
+	public static int getAdjustedMoxie()
 	{
 		return KoLCharacter.adjustedStats[ 2 ];
 	}
@@ -1729,7 +1729,7 @@ public abstract class KoLCharacter
 	 * @param adventuresLeft The number of adventures the character has left
 	 */
 
-	public static final void setAdventuresLeft( final int adventuresLeft )
+	public static void setAdventuresLeft( final int adventuresLeft )
 	{
 		if ( adventuresLeft != KoLCharacter.adventuresLeft )
 		{
@@ -1753,7 +1753,7 @@ public abstract class KoLCharacter
 	 * @return The number of adventures the character has left
 	 */
 
-	public static final int getAdventuresLeft()
+	public static int getAdventuresLeft()
 	{
 		return KoLCharacter.adventuresLeft;
 	}
@@ -1763,12 +1763,12 @@ public abstract class KoLCharacter
 	 * has used this run.
 	 */
 
-	public static final int getCurrentRun()
+	public static int getCurrentRun()
 	{
 		return KoLCharacter.currentRun;
 	}
 
-	public static final void setCurrentRun( final int currentRun )
+	public static void setCurrentRun( final int currentRun )
 	{
 		KoLCharacter.currentRun = currentRun;
 	}
@@ -1777,12 +1777,12 @@ public abstract class KoLCharacter
 	 * Accessor method to retrieve the current daycount for this run
 	 */
 
-	public static final int getCurrentDays()
+	public static int getCurrentDays()
 	{
 		return KoLCharacter.daycount;
 	}
 
-	public static final void setCurrentDays( final int daycount )
+	public static void setCurrentDays( final int daycount )
 	{
 		KoLCharacter.daycount = daycount;
 	}
@@ -1791,7 +1791,7 @@ public abstract class KoLCharacter
 	 * Accessor method to record the turn count when a semirare was found.
 	 */
 
-	public static final void registerSemirare()
+	public static void registerSemirare()
 	{
 		KoLCharacter.ensureUpdatedAscensionCounters();
 
@@ -1831,14 +1831,14 @@ public abstract class KoLCharacter
 	 * semirare was found.
 	 */
 
-	public static final int turnsSinceLastSemirare()
+	public static int turnsSinceLastSemirare()
 	{
 		KoLCharacter.ensureUpdatedAscensionCounters();
 		int last = Preferences.getInteger( "semirareCounter" );
 		return KoLCharacter.currentRun - last;
 	}
 
-	public static final int lastSemirareTurn()
+	public static int lastSemirareTurn()
 	{
 		KoLCharacter.ensureUpdatedAscensionCounters();
 		return Preferences.getInteger( "semirareCounter" );
@@ -1848,57 +1848,57 @@ public abstract class KoLCharacter
 	 * Accessor method to retrieve the current value of a named modifier
 	 */
 
-	public static final Modifiers getCurrentModifiers()
+	public static Modifiers getCurrentModifiers()
 	{
 		return KoLCharacter.currentModifiers;
 	}
 
-	public static final float currentNumericModifier( final String name )
+	public static float currentNumericModifier( final String name )
 	{
 		return KoLCharacter.currentModifiers.get( name );
 	}
 
-	public static final float currentNumericModifier( final int index )
+	public static float currentNumericModifier( final int index )
 	{
 		return KoLCharacter.currentModifiers.get( index );
 	}
 
-	public static final int currentRawBitmapModifier( final String name )
+	public static int currentRawBitmapModifier( final String name )
 	{
 		return KoLCharacter.currentModifiers.getRawBitmap( name );
 	}
 
-	public static final int currentRawBitmapModifier( final int index )
+	public static int currentRawBitmapModifier( final int index )
 	{
 		return KoLCharacter.currentModifiers.getRawBitmap( index );
 	}
 
-	public static final int currentBitmapModifier( final String name )
+	public static int currentBitmapModifier( final String name )
 	{
 		return KoLCharacter.currentModifiers.getBitmap( name );
 	}
 
-	public static final int currentBitmapModifier( final int index )
+	public static int currentBitmapModifier( final int index )
 	{
 		return KoLCharacter.currentModifiers.getBitmap( index );
 	}
 
-	public static final boolean currentBooleanModifier( final String name )
+	public static boolean currentBooleanModifier( final String name )
 	{
 		return KoLCharacter.currentModifiers.getBoolean( name );
 	}
 
-	public static final boolean currentBooleanModifier( final int index )
+	public static boolean currentBooleanModifier( final int index )
 	{
 		return KoLCharacter.currentModifiers.getBoolean( index );
 	}
 
-	public static final String currentStringModifier( final String name )
+	public static String currentStringModifier( final String name )
 	{
 		return KoLCharacter.currentModifiers.getString( name );
 	}
 
-	public static final String currentStringModifier( final int index )
+	public static String currentStringModifier( final int index )
 	{
 		return KoLCharacter.currentModifiers.getString( index );
 	}
@@ -1907,7 +1907,7 @@ public abstract class KoLCharacter
 	 * Accessor method to retrieve the total current monster level adjustment
 	 */
 
-	public static final int getMonsterLevelAdjustment()
+	public static int getMonsterLevelAdjustment()
 	{
 		return (int) KoLCharacter.currentModifiers.get( Modifiers.MONSTER_LEVEL );
 	}
@@ -1916,23 +1916,23 @@ public abstract class KoLCharacter
 	 * Accessor method to retrieve the total current familiar weight adjustment
 	 */
 
-	public static final int getFamiliarWeightAdjustment()
+	public static int getFamiliarWeightAdjustment()
 	{
 		return (int) (KoLCharacter.currentModifiers.get( Modifiers.FAMILIAR_WEIGHT ) +
 			KoLCharacter.currentModifiers.get( Modifiers.HIDDEN_FAMILIAR_WEIGHT ));
 	}
 
-	public static final int getFamiliarWeightPercentAdjustment()
+	public static int getFamiliarWeightPercentAdjustment()
 	{
 		return (int) KoLCharacter.currentModifiers.get( Modifiers.FAMILIAR_WEIGHT_PCT );
 	}
 
-	public static final int getManaCostAdjustment()
+	public static int getManaCostAdjustment()
 	{
 		return KoLCharacter.getManaCostAdjustment( false );
 	}
 
-	public static final int getManaCostAdjustment( final boolean combat )
+	public static int getManaCostAdjustment( final boolean combat )
 	{
 		return (int) KoLCharacter.currentModifiers.get( Modifiers.MANA_COST ) +
 			(int) KoLCharacter.currentModifiers.get( Modifiers.STACKABLE_MANA_COST ) +
@@ -1944,7 +1944,7 @@ public abstract class KoLCharacter
 	 * Accessor method to retrieve the total current combat percent adjustment
 	 */
 
-	public static final float getCombatRateAdjustment()
+	public static float getCombatRateAdjustment()
 	{
 		float rate = KoLCharacter.currentModifiers.get( Modifiers.COMBAT_RATE );
 		if ( Modifiers.currentZone.contains( "the sea" ) )
@@ -1958,7 +1958,7 @@ public abstract class KoLCharacter
 	 * Accessor method to retrieve the total current initiative adjustment
 	 */
 
-	public static final float getInitiativeAdjustment()
+	public static float getInitiativeAdjustment()
 	{
 		// Penalty is constrained to be non-positive
 		return KoLCharacter.currentModifiers.get( Modifiers.INITIATIVE ) +
@@ -1969,7 +1969,7 @@ public abstract class KoLCharacter
 	 * Accessor method to retrieve the total current fixed experience adjustment
 	 */
 
-	public static final float getExperienceAdjustment()
+	public static float getExperienceAdjustment()
 	{
 		return KoLCharacter.currentModifiers.get(
 			Modifiers.MUS_EXPERIENCE + KoLCharacter.getPrimeIndex() );
@@ -1981,7 +1981,7 @@ public abstract class KoLCharacter
 	 * @return Total Current Meat Drop Percent Adjustment
 	 */
 
-	public static final float getMeatDropPercentAdjustment()
+	public static float getMeatDropPercentAdjustment()
 	{
 		// Penalty is constrained to be non-positive
 		return KoLCharacter.currentModifiers.get( Modifiers.MEATDROP ) +
@@ -1994,7 +1994,7 @@ public abstract class KoLCharacter
 	 * @return Total Current Item Drop Percent Adjustment
 	 */
 
-	public static final float getItemDropPercentAdjustment()
+	public static float getItemDropPercentAdjustment()
 	{
 		return KoLCharacter.currentModifiers.get( Modifiers.ITEMDROP ) +
 			Math.min( KoLCharacter.currentModifiers.get( Modifiers.ITEMDROP_PENALTY ), 0.0f );
@@ -2006,7 +2006,7 @@ public abstract class KoLCharacter
 	 * @return Total Current Damage Absorption
 	 */
 
-	public static final int getDamageAbsorption()
+	public static int getDamageAbsorption()
 	{
 		return (int) KoLCharacter.currentModifiers.get( Modifiers.DAMAGE_ABSORPTION );
 	}
@@ -2017,7 +2017,7 @@ public abstract class KoLCharacter
 	 * @return Total Current Damage Reduction
 	 */
 
-	public static final int getDamageReduction()
+	public static int getDamageReduction()
 	{
 		return (int) KoLCharacter.currentModifiers.get( Modifiers.DAMAGE_REDUCTION );
 	}
@@ -2028,7 +2028,7 @@ public abstract class KoLCharacter
 	 * @return Total Hobo Power
 	 */
 
-	public static final int getHoboPower()
+	public static int getHoboPower()
 	{
 		return (int) KoLCharacter.currentModifiers.get( Modifiers.HOBO_POWER );
 	}
@@ -2039,7 +2039,7 @@ public abstract class KoLCharacter
 	 * @return Clownosity
 	 */
 
-	public static final int getClownosity()
+	public static int getClownosity()
 	{
 		return KoLCharacter.currentModifiers.getBitmap( Modifiers.CLOWNOSITY );
 	}
@@ -2050,12 +2050,12 @@ public abstract class KoLCharacter
 	 * @return Bee-osity
 	 */
 
-	public static final int getBeeosity()
+	public static int getBeeosity()
 	{
 		return KoLCharacter.getBeeosity( EquipmentManager.currentEquipment() );
 	}
 
-	public static final int getBeeosity( AdventureResult[] equipment )
+	public static int getBeeosity( AdventureResult[] equipment )
 	{
 		int bees = 0;
 
@@ -2069,7 +2069,7 @@ public abstract class KoLCharacter
 		return bees;
 	}
 
-	public static final int getBeeosity( String name )
+	public static int getBeeosity( String name )
 	{
 		int bees = 0;
 
@@ -2082,13 +2082,13 @@ public abstract class KoLCharacter
 		return bees;
 	}
 
-	public static final boolean hasBeeosity( String name )
+	public static boolean hasBeeosity( String name )
 	{
 		// Less resource intensive than a matcher for short-enough names
 		return name.contains( "b" ) || name.contains( "B" );
 	}
 
-	public static final int getRestingHP()
+	public static int getRestingHP()
 	{
 		int rv = (int) KoLCharacter.currentModifiers.get( Modifiers.BASE_RESTING_HP );
 		float factor = KoLCharacter.currentModifiers.get( Modifiers.RESTING_HP_PCT );
@@ -2099,7 +2099,7 @@ public abstract class KoLCharacter
 		return rv + (int) KoLCharacter.currentModifiers.get( Modifiers.BONUS_RESTING_HP );
 	}
 
-	public static final int getRestingMP()
+	public static int getRestingMP()
 	{
 		int rv = (int) KoLCharacter.currentModifiers.get( Modifiers.BASE_RESTING_MP );
 		float factor = KoLCharacter.currentModifiers.get( Modifiers.RESTING_MP_PCT );
@@ -2116,7 +2116,7 @@ public abstract class KoLCharacter
 	 * @return Total Current Resistance to specified element
 	 */
 
-	public static final int getElementalResistanceLevels( final int element )
+	public static int getElementalResistanceLevels( final int element )
 	{
 		switch ( element )
 		{
@@ -2138,12 +2138,12 @@ public abstract class KoLCharacter
 	}
 
 
-	public static final float elementalResistanceByLevel( final int levels )
+	public static float elementalResistanceByLevel( final int levels )
 	{
 		return KoLCharacter.elementalResistanceByLevel( levels, true );
 	}
 
-	public static final float elementalResistanceByLevel( final int levels, final boolean mystBonus )
+	public static float elementalResistanceByLevel( final int levels, final boolean mystBonus )
 	{
 		// salien has a formula which matches my data very nicely:
 		// http://jick-nerfed.us/forums/viewtopic.php?t=4526
@@ -2174,7 +2174,7 @@ public abstract class KoLCharacter
 	 * @return Total Current Resistance to specified element
 	 */
 
-	public static final float getElementalResistance( final int element )
+	public static float getElementalResistance( final int element )
 	{
 		if ( element == MonsterDatabase.NONE )
 		{
@@ -2190,7 +2190,7 @@ public abstract class KoLCharacter
 	 * @return <code>true</code> if the beanstalk has been armed
 	 */
 
-	public static final boolean beanstalkArmed()
+	public static boolean beanstalkArmed()
 	{
 		return KoLCharacter.beanstalkArmed;
 	}
@@ -2199,7 +2199,7 @@ public abstract class KoLCharacter
 	 * Accessor method to indicate a change in state of the beanstalk
 	 */
 
-	public static final void armBeanstalk()
+	public static void armBeanstalk()
 	{
 		KoLCharacter.beanstalkArmed = true;
 	}
@@ -2210,7 +2210,7 @@ public abstract class KoLCharacter
 	 * @return <code>true</code> if the character has a store
 	 */
 
-	public static final boolean hasStore()
+	public static boolean hasStore()
 	{
 		return KoLCharacter.hasStore;
 	}
@@ -2221,7 +2221,7 @@ public abstract class KoLCharacter
 	 * @param hasStore Whether or not the character currently has a store
 	 */
 
-	public static final void setStore( final boolean hasStore )
+	public static void setStore( final boolean hasStore )
 	{
 		KoLCharacter.hasStore = hasStore;
 	}
@@ -2232,7 +2232,7 @@ public abstract class KoLCharacter
 	 * @return <code>true</code> if the character has a display case
 	 */
 
-	public static final boolean hasDisplayCase()
+	public static boolean hasDisplayCase()
 	{
 		return KoLCharacter.hasDisplayCase;
 	}
@@ -2243,7 +2243,7 @@ public abstract class KoLCharacter
 	 * @param hasDisplayCase Whether or not the character currently has display case
 	 */
 
-	public static final void setDisplayCase( final boolean hasDisplayCase )
+	public static void setDisplayCase( final boolean hasDisplayCase )
 	{
 		KoLCharacter.hasDisplayCase = hasDisplayCase;
 	}
@@ -2254,7 +2254,7 @@ public abstract class KoLCharacter
 	 * @return <code>true</code> if the character is in a clan
 	 */
 
-	public static final boolean hasClan()
+	public static boolean hasClan()
 	{
 		return KoLCharacter.hasClan;
 	}
@@ -2265,7 +2265,7 @@ public abstract class KoLCharacter
 	 * @param hasClan Whether or not the character currently is in a clan
 	 */
 
-	public static final void setClan( final boolean hasClan )
+	public static void setClan( final boolean hasClan )
 	{
 		KoLCharacter.hasClan = hasClan;
 	}
@@ -2276,7 +2276,7 @@ public abstract class KoLCharacter
 	 * @return <code>true</code> if the character has a shaker
 	 */
 
-	public static final boolean hasShaker()
+	public static boolean hasShaker()
 	{
 		return KoLCharacter.hasShaker;
 	}
@@ -2287,7 +2287,7 @@ public abstract class KoLCharacter
 	 * @param hasShaker Whether or not the character currently has a shaker
 	 */
 
-	public static final void setShaker( final boolean hasShaker )
+	public static void setShaker( final boolean hasShaker )
 	{
 		if ( KoLCharacter.hasShaker != hasShaker )
 		{
@@ -2302,7 +2302,7 @@ public abstract class KoLCharacter
 	 * @return <code>true</code> if the character has a cocktail crafting kit
 	 */
 
-	public static final boolean hasCocktailKit()
+	public static boolean hasCocktailKit()
 	{
 		return KoLCharacter.hasCocktailKit;
 	}
@@ -2313,7 +2313,7 @@ public abstract class KoLCharacter
 	 * @param hasCocktailKit Whether or not the character currently has a cocktail crafting kit
 	 */
 
-	public static final void setCocktailKit( final boolean hasCocktailKit )
+	public static void setCocktailKit( final boolean hasCocktailKit )
 	{
 		if ( KoLCharacter.hasCocktailKit != hasCocktailKit )
 		{
@@ -2328,7 +2328,7 @@ public abstract class KoLCharacter
 	 * @return <code>true</code> if the character has a bartender-in-the-box
 	 */
 
-	public static final boolean hasBartender()
+	public static boolean hasBartender()
 	{
 		return KoLCharacter.hasBartender;
 	}
@@ -2339,7 +2339,7 @@ public abstract class KoLCharacter
 	 * @param hasBartender Whether or not the character currently has a bartender
 	 */
 
-	public static final void setBartender( final boolean hasBartender )
+	public static void setBartender( final boolean hasBartender )
 	{
 		if ( KoLCharacter.hasBartender != hasBartender )
 		{
@@ -2354,7 +2354,7 @@ public abstract class KoLCharacter
 	 * @return <code>true</code> if the character has an oven
 	 */
 
-	public static final boolean hasOven()
+	public static boolean hasOven()
 	{
 		return KoLCharacter.hasOven;
 	}
@@ -2365,7 +2365,7 @@ public abstract class KoLCharacter
 	 * @param hasOven Whether or not the character currently has an oven
 	 */
 
-	public static final void setOven( final boolean hasOven )
+	public static void setOven( final boolean hasOven )
 	{
 		if ( KoLCharacter.hasOven != hasOven )
 		{
@@ -2381,7 +2381,7 @@ public abstract class KoLCharacter
 	 * @return <code>true</code> if the character has a range
 	 */
 
-	public static final boolean hasRange()
+	public static boolean hasRange()
 	{
 		return KoLCharacter.hasRange;
 	}
@@ -2392,7 +2392,7 @@ public abstract class KoLCharacter
 	 * @param hasRange Whether or not the character currently has a range
 	 */
 
-	public static final void setRange( final boolean hasRange )
+	public static void setRange( final boolean hasRange )
 	{
 		if ( KoLCharacter.hasRange != hasRange )
 		{
@@ -2407,7 +2407,7 @@ public abstract class KoLCharacter
 	 * @return <code>true</code> if the character has a chef-in-the-box
 	 */
 
-	public static final boolean hasChef()
+	public static boolean hasChef()
 	{
 		return KoLCharacter.hasChef;
 	}
@@ -2418,7 +2418,7 @@ public abstract class KoLCharacter
 	 * @param hasChef Whether or not the character currently has a chef
 	 */
 
-	public static final void setChef( final boolean hasChef )
+	public static void setChef( final boolean hasChef )
 	{
 		if ( KoLCharacter.hasChef != hasChef )
 		{
@@ -2433,7 +2433,7 @@ public abstract class KoLCharacter
 	 * @return <code>true</code> if the character has a sushi rolling mat
 	 */
 
-	public static final boolean hasSushiMat()
+	public static boolean hasSushiMat()
 	{
 		return KoLCharacter.hasSushiMat;
 	}
@@ -2444,7 +2444,7 @@ public abstract class KoLCharacter
 	 * @param hasSushiMat Whether or not the character currently has a sushi rolling mat
 	 */
 
-	public static final void setSushiMat( final boolean hasSushiMat )
+	public static void setSushiMat( final boolean hasSushiMat )
 	{
 		if ( KoLCharacter.hasSushiMat != hasSushiMat )
 		{
@@ -2459,7 +2459,7 @@ public abstract class KoLCharacter
 	 * @return <code>true</code> if the character has a mystical bookshelf
 	 */
 
-	public static final boolean hasBookshelf()
+	public static boolean hasBookshelf()
 	{
 		return KoLCharacter.hasBookshelf;
 	}
@@ -2470,7 +2470,7 @@ public abstract class KoLCharacter
 	 * @param hasBookshelf Whether or not the character currently has a bookshelf
 	 */
 
-	public static final void setBookshelf( final boolean hasBookshelf )
+	public static void setBookshelf( final boolean hasBookshelf )
 	{
 		boolean refresh = hasBookshelf && KoLCharacter.hasBookshelf != hasBookshelf;
 		KoLCharacter.hasBookshelf = hasBookshelf;
@@ -2486,7 +2486,7 @@ public abstract class KoLCharacter
 	 * @return <code>int/code> power of telescope
 	 */
 
-	public static final int getTelescopeUpgrades()
+	public static int getTelescopeUpgrades()
 	{
 		return KoLCharacter.telescopeUpgrades;
 	}
@@ -2495,7 +2495,7 @@ public abstract class KoLCharacter
 	 * Accessor method to indicate a change in state of the telescope
 	 */
 
-	public static final void setTelescopeUpgrades( final int upgrades )
+	public static void setTelescopeUpgrades( final int upgrades )
 	{
 		KoLCharacter.telescopeUpgrades = upgrades;
 	}
@@ -2504,7 +2504,7 @@ public abstract class KoLCharacter
 	 * Accessor method to indicate a change in state of the telescope
 	 */
 
-	public static final void setTelescope( final boolean present )
+	public static void setTelescope( final boolean present )
 	{
 		KoLCharacter.telescopeUpgrades = Preferences.getInteger( "telescopeUpgrades" );
 		// Assume newly detected telescope is basic. We'll look through
@@ -2519,7 +2519,7 @@ public abstract class KoLCharacter
 	 * Method to look through the telescope if it hasn't been done yet
 	 */
 
-	public static final void checkTelescope()
+	public static void checkTelescope()
 	{
 		if ( KoLCharacter.telescopeUpgrades == 0 )
 		{
@@ -2538,12 +2538,12 @@ public abstract class KoLCharacter
 		}
 	}
 	
-	public static final boolean getHippyStoneBroken()
+	public static boolean getHippyStoneBroken()
 	{
 		return KoLCharacter.hippyStoneBroken;
 	}
 	
-	public static final void setHippyStoneBroken( boolean broken )
+	public static void setHippyStoneBroken( boolean broken )
 	{
 		KoLCharacter.hippyStoneBroken = broken;
 	}
@@ -2554,7 +2554,7 @@ public abstract class KoLCharacter
 	 * @return <code>true</code> if the character has freed King Ralph
 	 */
 
-	public static final boolean kingLiberated()
+	public static boolean kingLiberated()
 	{
 		int lastAscension = Preferences.getInteger( "lastKingLiberation" );
 		if ( lastAscension < KoLCharacter.ascensions )
@@ -2569,7 +2569,7 @@ public abstract class KoLCharacter
 	// Mark whether api.php says we've liberated King Ralph. This is done
 	// very early during character initialization, so simply set the
 	// preference and let later processing use that.
-	public static final void setKingLiberated( boolean liberated )
+	public static void setKingLiberated( boolean liberated )
 	{
 		// Call kingLiberated to deal with lastKingLiberation
 		if ( KoLCharacter.kingLiberated() != liberated )
@@ -2578,7 +2578,7 @@ public abstract class KoLCharacter
 		}
 	}
 
-	public static final void liberateKing()
+	public static void liberateKing()
 	{
 		if ( !KoLCharacter.kingLiberated() )
 		{
@@ -2640,7 +2640,7 @@ public abstract class KoLCharacter
 	 * cannot).
 	 */
 
-	public static final boolean canInteract()
+	public static boolean canInteract()
 	{
 		return CharPaneRequest.canInteract();
 	}
@@ -2649,7 +2649,7 @@ public abstract class KoLCharacter
 	 * Returns whether or not the character is currently in hardcore.
 	 */
 
-	public static final boolean isHardcore()
+	public static boolean isHardcore()
 	{
 		return KoLCharacter.isHardcore;
 	}
@@ -2658,7 +2658,7 @@ public abstract class KoLCharacter
 	 * Accessor method which sets whether or not the player is currently in hardcore.
 	 */
 
-	public static final void setHardcore( final boolean isHardcore )
+	public static void setHardcore( final boolean isHardcore )
 	{
 		KoLCharacter.isHardcore = isHardcore;
 	}
@@ -2667,18 +2667,18 @@ public abstract class KoLCharacter
 	 * Returns whether or not the character is currently in roin.
 	 */
 
-	public static final boolean inRonin()
+	public static boolean inRonin()
 	{
 		return KoLCharacter.inRonin;
 	}
 
-	public static final void setSkillsRecalled( final boolean skillsRecalled )
+	public static void setSkillsRecalled( final boolean skillsRecalled )
 	{
 		KoLCharacter.skillsRecalled = skillsRecalled;
 		ConcoctionDatabase.setRefreshNeeded( true );
 	}
 
-	public static final boolean skillsRecalled()
+	public static boolean skillsRecalled()
 	{
 		return KoLCharacter.skillsRecalled;
 	}
@@ -2687,7 +2687,7 @@ public abstract class KoLCharacter
 	 * Accessor method which sets whether or not the player is currently in ronin.
 	 */
 
-	public static final void setRonin( final boolean inRonin )
+	public static void setRonin( final boolean inRonin )
 	{
 		KoLCharacter.inRonin = inRonin;
 	}
@@ -2698,7 +2698,7 @@ public abstract class KoLCharacter
 	 * @return String
 	 */
 
-	public static final int getAscensions()
+	public static int getAscensions()
 	{
 		return KoLCharacter.ascensions;
 	}
@@ -2709,7 +2709,7 @@ public abstract class KoLCharacter
 	 * @return String
 	 */
 
-	public static final String getSign()
+	public static String getSign()
 	{
 		return KoLCharacter.ascensionSign;
 	}
@@ -2720,7 +2720,7 @@ public abstract class KoLCharacter
 	 * @return int
 	 */
 
-	public static final int getSignStat()
+	public static int getSignStat()
 	{
 		return KoLCharacter.ascensionSignType;
 	}
@@ -2731,7 +2731,7 @@ public abstract class KoLCharacter
 	 * @return int
 	 */
 
-	public static final int getSignZone()
+	public static int getSignZone()
 	{
 		return KoLCharacter.ascensionSignZone;
 	}
@@ -2742,7 +2742,7 @@ public abstract class KoLCharacter
 	 * @param ascensions the new ascension count
 	 */
 
-	public static final void setAscensions( final int ascensions )
+	public static void setAscensions( final int ascensions )
 	{
 		KoLCharacter.ascensions = ascensions;
 	}
@@ -2753,7 +2753,7 @@ public abstract class KoLCharacter
 	 * @param ascensionSign the new sign
 	 */
 
-	public static final void setSign( String ascensionSign )
+	public static void setSign( String ascensionSign )
 	{
 		if ( ascensionSign.startsWith( "The " ) )
 		{
@@ -2828,52 +2828,52 @@ public abstract class KoLCharacter
 	 * @return String
 	 */
 
-	public static final String getPath()
+	public static String getPath()
 	{
 		return KoLCharacter.ascensionPath;
 	}
 
-	public static final boolean inBeecore()
+	public static boolean inBeecore()
 	{
 		// All Beecore restrictions are lifted once you free the King
 		return !KoLCharacter.kingLiberated() &&
 			KoLCharacter.ascensionPath.equals( "Bees Hate You" );
 	}
 
-	public static final boolean inFistcore()
+	public static boolean inFistcore()
 	{
 		// All Fistcore restrictions are lifted once you free the King
 		return !KoLCharacter.kingLiberated() &&
 			KoLCharacter.ascensionPath.equals( "Way of the Surprising Fist" );
 	}
 
-	public static final boolean isTrendy()
+	public static boolean isTrendy()
 	{
 		// All Trendy restrictions are lifted once you free the King
 		return !KoLCharacter.kingLiberated() &&
 			KoLCharacter.ascensionPath.equals( "Trendy" );
 	}
 
-	public static final boolean inAxecore()
+	public static boolean inAxecore()
 	{
 		// Which, if any, Axecore restrictions are lifted when you free the king?
 		return KoLCharacter.ascensionPath.equals( AVATAR_OF_BORIS );
 	}
 
-	public static final boolean inBugcore()
+	public static boolean inBugcore()
 	{
 		// Which, if any, Bugbear Invasion restrictions are lifted when you free the king?
 		return KoLCharacter.ascensionPath.equals( "Bugbear Invasion" );
 	}
 
-	public static final boolean isUnarmed()
+	public static boolean isUnarmed()
 	{
 		AdventureResult weapon = EquipmentManager.getEquipment( EquipmentManager.WEAPON );
 		AdventureResult offhand = EquipmentManager.getEquipment( EquipmentManager.OFFHAND );
 		return weapon == EquipmentRequest.UNEQUIP && offhand == EquipmentRequest.UNEQUIP;
 	}
 
-	public static final void makeCharitableDonation( final int amount )
+	public static void makeCharitableDonation( final int amount )
 	{
 		if ( amount > 0 )
 		{
@@ -2885,7 +2885,7 @@ public abstract class KoLCharacter
 		}
 	}
 
-	public static final void setPath( final String path )
+	public static void setPath( final String path )
 	{
 		KoLCharacter.ascensionPath = path;
 		int restriction =
@@ -2905,22 +2905,22 @@ public abstract class KoLCharacter
 	 * @return String
 	 */
 
-	public static final int getConsumptionRestriction()
+	public static int getConsumptionRestriction()
 	{
 		return KoLCharacter.consumptionRestriction;
 	}
 
-	public static final void setConsumptionRestriction( final int consumptionRestriction )
+	public static void setConsumptionRestriction( final int consumptionRestriction )
 	{
 		KoLCharacter.consumptionRestriction = consumptionRestriction;
 	}
 
-	public static final boolean canEat()
+	public static boolean canEat()
 	{
 		return KoLCharacter.consumptionRestriction == AscensionSnapshot.NOPATH || KoLCharacter.consumptionRestriction == AscensionSnapshot.TEETOTALER;
 	}
 
-	public static final boolean canDrink()
+	public static boolean canDrink()
 	{
 		return KoLCharacter.consumptionRestriction == AscensionSnapshot.NOPATH || KoLCharacter.consumptionRestriction == AscensionSnapshot.BOOZETAFARIAN;
 	}
@@ -2931,7 +2931,7 @@ public abstract class KoLCharacter
 	 * @return int
 	 */
 
-	public static final int getMindControlLevel()
+	public static int getMindControlLevel()
 	{
 		return KoLCharacter.mindControlLevel;
 	}
@@ -2942,7 +2942,7 @@ public abstract class KoLCharacter
 	 * @param level the new level
 	 */
 
-	public static final void setMindControlLevel( final int level )
+	public static void setMindControlLevel( final int level )
 	{
 		if ( KoLCharacter.mindControlLevel != level )
 		{
@@ -2959,7 +2959,7 @@ public abstract class KoLCharacter
 	 * @return String
 	 */
 
-	public static final int getAutoAttackAction()
+	public static int getAutoAttackAction()
 	{
 		return KoLCharacter.autoAttackAction;
 	}
@@ -2970,7 +2970,7 @@ public abstract class KoLCharacter
 	 * @param autoAttackAction the current auto attack action
 	 */
 
-	public static final void setAutoAttackAction( final int autoAttackAction )
+	public static void setAutoAttackAction( final int autoAttackAction )
 	{
 		KoLCharacter.autoAttackAction = autoAttackAction;
 	}
@@ -2981,7 +2981,7 @@ public abstract class KoLCharacter
 	 * @return String
 	 */
 
-	public static final String getAutosellMode()
+	public static String getAutosellMode()
 	{
 		return KoLCharacter.autosellMode;
 	}
@@ -2992,7 +2992,7 @@ public abstract class KoLCharacter
 	 * @param mode the new mode
 	 */
 
-	public static final void setAutosellMode( final String mode )
+	public static void setAutosellMode( final String mode )
 	{
 		KoLCharacter.autosellMode = mode;
 	}
@@ -3003,7 +3003,7 @@ public abstract class KoLCharacter
 	 * @return boolean
 	 */
 
-	public static final boolean getLazyInventory()
+	public static boolean getLazyInventory()
 	{
 		return KoLCharacter.lazyInventory;
 	}
@@ -3014,7 +3014,7 @@ public abstract class KoLCharacter
 	 * @param mode the new mode
 	 */
 
-	public static final void setLazyInventory( final boolean mode )
+	public static void setLazyInventory( final boolean mode )
 	{
 		KoLCharacter.lazyInventory = mode;
 	}
@@ -3025,7 +3025,7 @@ public abstract class KoLCharacter
 	 * @return boolean
 	 */
 
-	public static final boolean getUnequipFamiliar()
+	public static boolean getUnequipFamiliar()
 	{
 		return KoLCharacter.unequipFamiliar;
 	}
@@ -3036,7 +3036,7 @@ public abstract class KoLCharacter
 	 * @param mode the new mode
 	 */
 
-	public static final void setUnequipFamiliar( final boolean mode )
+	public static void setUnequipFamiliar( final boolean mode )
 	{
 		KoLCharacter.unequipFamiliar = mode;
 	}
@@ -3050,7 +3050,7 @@ public abstract class KoLCharacter
 	 * @return <code>true</code> if the character is in a Muscle sign
 	 */
 
-	public static final boolean inMuscleSign()
+	public static boolean inMuscleSign()
 	{
 		return KoLCharacter.ascensionSignType == KoLConstants.MUSCLE;
 	}
@@ -3063,7 +3063,7 @@ public abstract class KoLCharacter
 	 * @return <code>true</code> if the character is in a Mysticality sign
 	 */
 
-	public static final boolean inMysticalitySign()
+	public static boolean inMysticalitySign()
 	{
 		return KoLCharacter.ascensionSignType == KoLConstants.MYSTICALITY;
 	}
@@ -3075,7 +3075,7 @@ public abstract class KoLCharacter
 	 * @return <code>true</code> if the character is in a Moxie sign
 	 */
 
-	public static final boolean inMoxieSign()
+	public static boolean inMoxieSign()
 	{
 		return KoLCharacter.ascensionSignType == KoLConstants.MOXIE;
 	}
@@ -3087,7 +3087,7 @@ public abstract class KoLCharacter
 	 * @return <code>true</code> if the character is in Bad Moon
 	 */
 
-	public static final boolean inBadMoon()
+	public static boolean inBadMoon()
 	{
 		return KoLCharacter.ascensionSignType == KoLConstants.BAD_MOON;
 	}
@@ -3103,7 +3103,7 @@ public abstract class KoLCharacter
 	 * @return <code>true</code> if the character Can go inside Degrassi Knoll
 	 */
 
-	public static final boolean knollAvailable()
+	public static boolean knollAvailable()
 	{
 		return KoLCharacter.ascensionSignZone == KoLConstants.KNOLL;
 	}
@@ -3118,7 +3118,7 @@ public abstract class KoLCharacter
 	 * @return <code>true</code> if the character can go to Little Canadia
 	 */
 
-	public static final boolean canadiaAvailable()
+	public static boolean canadiaAvailable()
 	{
 		return KoLCharacter.ascensionSignZone == KoLConstants.CANADIA;
 	}
@@ -3132,7 +3132,7 @@ public abstract class KoLCharacter
 	 * @return <code>true</code> if the character can go to the Gnomish Gnomads Camp
 	 */
 
-	public static final boolean gnomadsAvailable()
+	public static boolean gnomadsAvailable()
 	{
 		return KoLCharacter.ascensionSignZone == KoLConstants.GNOMADS;
 	}
@@ -3145,7 +3145,7 @@ public abstract class KoLCharacter
 	 * monster level
 	 */
 
-	public static final boolean mcdAvailable()
+	public static boolean mcdAvailable()
 	{
 		switch ( KoLCharacter.ascensionSignType )
 		{
@@ -3166,7 +3166,7 @@ public abstract class KoLCharacter
 	 * @param newSkillSet The list of the names of available skills
 	 */
 
-	public static final void setAvailableSkills( final List newSkillSet )
+	public static void setAvailableSkills( final List newSkillSet )
 	{
 		if ( KoLCharacter.isMoxieClass() )
 		{
@@ -3196,7 +3196,7 @@ public abstract class KoLCharacter
 		DiscoCombatHelper.initialize();
 	}
 
-	public static final void setPermedSkills( final List newSkillSet )
+	public static void setPermedSkills( final List newSkillSet )
 	{
 		KoLConstants.permedSkills.clear();
 
@@ -3211,22 +3211,22 @@ public abstract class KoLCharacter
 	 * Adds a single skill to the list of known skills possessed by this character.
 	 */
 
-	public static final void addAvailableSkill( final String name )
+	public static void addAvailableSkill( final String name )
 	{
 		KoLCharacter.addAvailableSkill( name, false );
 	}
 
-	public static final void addAvailableSkill( final String name, final boolean checkTrendy )
+	public static void addAvailableSkill( final String name, final boolean checkTrendy )
 	{
 		KoLCharacter.addAvailableSkill( UseSkillRequest.getInstance( name ), checkTrendy );
 	}
 
-	public static final void addAvailableSkill( final UseSkillRequest skill )
+	public static void addAvailableSkill( final UseSkillRequest skill )
 	{
 		KoLCharacter.addAvailableSkill( skill, false );
 	}
 
-	private static final void addAvailableSkill( final UseSkillRequest skill, final boolean checkTrendy )
+	private static void addAvailableSkill( final UseSkillRequest skill, final boolean checkTrendy )
 	{
 		if ( skill == null )
 		{
@@ -3326,7 +3326,7 @@ public abstract class KoLCharacter
 	 * Adds a single skill to the list of skills temporarily possessed by this character.
 	 */
 
-	public static final void addAvailableConditionalSkill( final UseSkillRequest skill )
+	public static void addAvailableConditionalSkill( final UseSkillRequest skill )
 	{
 		if ( skill == null )
 		{
@@ -3342,7 +3342,7 @@ public abstract class KoLCharacter
 		KoLConstants.availableConditionalSkillsMap.put( skill, null );
 	}
 
-	public static final void addAvailableConditionalSkill( final String name )
+	public static void addAvailableConditionalSkill( final String name )
 	{
 		KoLCharacter.addAvailableConditionalSkill( UseSkillRequest.getInstance( name ) );
 	}
@@ -3351,7 +3351,7 @@ public abstract class KoLCharacter
 	 * Adds derived skills to appropriate lists
 	 */
 
-	public static final void addDerivedSkills()
+	public static void addDerivedSkills()
 	{
 		if ( KoLCharacter.classtype.startsWith( "Tu" ) )
 		{
@@ -3378,7 +3378,7 @@ public abstract class KoLCharacter
 		}
 	}
 
-	private static final void addCombatSkill( final String name )
+	private static void addCombatSkill( final String name )
 	{
 		String skillname = "skill " + name.toLowerCase();
 		if ( !KoLCharacter.battleSkillNames.contains( skillname ) )
@@ -3392,7 +3392,7 @@ public abstract class KoLCharacter
 	 * selected index in the battle skills list.
 	 */
 
-	public static final LockableListModel getBattleSkillNames()
+	public static LockableListModel getBattleSkillNames()
 	{
 		return KoLCharacter.battleSkillNames;
 	}
@@ -3403,7 +3403,7 @@ public abstract class KoLCharacter
 	 * @return <code>true</code> if noodles can be summoned by this character
 	 */
 
-	public static final boolean canSummonNoodles()
+	public static boolean canSummonNoodles()
 	{
 		return KoLCharacter.hasSkill( "Pastamastery" );
 	}
@@ -3414,7 +3414,7 @@ public abstract class KoLCharacter
 	 * @return <code>true</code> if reagent can be summoned by this character
 	 */
 
-	public static final boolean canSummonReagent()
+	public static boolean canSummonReagent()
 	{
 		return KoLCharacter.hasSkill( "Advanced Saucecrafting" );
 	}
@@ -3425,7 +3425,7 @@ public abstract class KoLCharacter
 	 * @return <code>true</code> if shore-based items can be summoned by this character
 	 */
 
-	public static final boolean canSummonShore()
+	public static boolean canSummonShore()
 	{
 		return KoLCharacter.hasSkill( "Advanced Cocktailcrafting" );
 	}
@@ -3436,7 +3436,7 @@ public abstract class KoLCharacter
 	 * @return <code>true</code> if snowcones can be summoned by this character
 	 */
 
-	public static final boolean canSummonSnowcones()
+	public static boolean canSummonSnowcones()
 	{
 		return KoLCharacter.hasSkill( "Summon Snowcones" );
 	}
@@ -3447,7 +3447,7 @@ public abstract class KoLCharacter
 	 * @return <code>true</code> if stickers can be summoned by this character
 	 */
 
-	public static final boolean canSummonStickers()
+	public static boolean canSummonStickers()
 	{
 		return KoLCharacter.hasSkill( "Summon Stickers" );
 	}
@@ -3458,7 +3458,7 @@ public abstract class KoLCharacter
 	 * @return <code>true</code> if clip art can be summoned by this character
 	 */
 
-	public static final boolean canSummonClipArt()
+	public static boolean canSummonClipArt()
 	{
 		return KoLCharacter.hasSkill( "Summon Clip Art" );
 	}
@@ -3469,7 +3469,7 @@ public abstract class KoLCharacter
 	 * @return <code>true</code> if this character can smith advanced weapons
 	 */
 
-	public static final boolean canSmithWeapons()
+	public static boolean canSmithWeapons()
 	{
 		return KoLCharacter.hasSkill( "Super-Advanced Meatsmithing" );
 	}
@@ -3480,7 +3480,7 @@ public abstract class KoLCharacter
 	 * @return <code>true</code> if this character can smith advanced armor
 	 */
 
-	public static final boolean canSmithArmor()
+	public static boolean canSmithArmor()
 	{
 		return KoLCharacter.hasSkill( "Armorcraftiness" );
 	}
@@ -3491,7 +3491,7 @@ public abstract class KoLCharacter
 	 * @return <code>true</code> if this character can smith advanced weapons
 	 */
 
-	public static final boolean canCraftExpensiveJewelry()
+	public static boolean canCraftExpensiveJewelry()
 	{
 		return KoLCharacter.hasSkill( "Really Expensive Jewelrycrafting" );
 	}
@@ -3502,7 +3502,7 @@ public abstract class KoLCharacter
 	 * @return <code>true</code> if this character has Amphibian Sympathy
 	 */
 
-	public static final boolean hasAmphibianSympathy()
+	public static boolean hasAmphibianSympathy()
 	{
 		return KoLCharacter.hasSkill( "Amphibian Sympathy" );
 	}
@@ -3511,28 +3511,28 @@ public abstract class KoLCharacter
 	 * Utility method which looks up whether or not the character has a skill of the given name.
 	 */
 
-	public static final boolean hasSkill( final int skillId )
+	public static boolean hasSkill( final int skillId )
 	{
 		return KoLCharacter.hasSkill( SkillDatabase.getSkillName( skillId ) );
 	}
 
-	public static final boolean hasSkill( final String skillName )
+	public static boolean hasSkill( final String skillName )
 	{
 		return KoLCharacter.hasSkill( skillName, KoLConstants.availableSkills );
 	}
 
-	public static final boolean hasSkill( final UseSkillRequest skill )
+	public static boolean hasSkill( final UseSkillRequest skill )
 	{
 		return KoLCharacter.hasSkill( skill, KoLConstants.availableSkills );
 	}
 
-	public static final boolean hasSkill( final String skillName, final LockableListModel list )
+	public static boolean hasSkill( final String skillName, final LockableListModel list )
 	{
 		UseSkillRequest skill = UseSkillRequest.getUnmodifiedInstance( skillName );
 		return KoLCharacter.hasSkill( skill, list );
 	}
 
-	public static final boolean hasSkill( final UseSkillRequest skill, final LockableListModel list )
+	public static boolean hasSkill( final UseSkillRequest skill, final LockableListModel list )
 	{
 		if ( list == KoLConstants.availableSkills )
 		{
@@ -3547,38 +3547,38 @@ public abstract class KoLCharacter
 	 * @return familiar The current familiar
 	 */
 
-	public static final FamiliarData getFamiliar()
+	public static FamiliarData getFamiliar()
 	{
 		return KoLCharacter.currentFamiliar == null ? FamiliarData.NO_FAMILIAR : KoLCharacter.currentFamiliar;
 	}
 
-	public static final FamiliarData getEffectiveFamiliar()
+	public static FamiliarData getEffectiveFamiliar()
 	{
 		return KoLCharacter.effectiveFamiliar == null ? FamiliarData.NO_FAMILIAR : KoLCharacter.effectiveFamiliar;
 	}
 
-	public static final String getFamiliarImage()
+	public static String getFamiliarImage()
 	{
 		return KoLCharacter.currentFamiliarImage == null ? "debug.gif" : KoLCharacter.currentFamiliarImage;
 	}
 
-	public static final void setFamiliarImage()
+	public static void setFamiliarImage()
 	{
 		KoLCharacter.setFamiliarImage( FamiliarDatabase.getFamiliarImageLocation( KoLCharacter.currentFamiliar.getId() ) );
 	}
 
-	public static final void setFamiliarImage( final String image )
+	public static void setFamiliarImage( final String image )
 	{
 		KoLCharacter.currentFamiliarImage = image;
 		FamiliarDatabase.setFamiliarImageLocation( KoLCharacter.getFamiliar().getId(), image );
 	}
 
-	public static final FamiliarData getEnthroned()
+	public static FamiliarData getEnthroned()
 	{
 		return KoLCharacter.currentEnthroned == null ? FamiliarData.NO_FAMILIAR : KoLCharacter.currentEnthroned;
 	}
 
-	public static final boolean isUsingStabBat()
+	public static boolean isUsingStabBat()
 	{
 		return KoLCharacter.isUsingStabBat;
 	}
@@ -3589,36 +3589,36 @@ public abstract class KoLCharacter
 	 * @return AdventureResult The current instrument
 	 */
 
-	public static final AdventureResult getCurrentInstrument()
+	public static AdventureResult getCurrentInstrument()
 	{
 		return KoLCharacter.currentInstrument;
 	}
 
-	public static final void setCurrentInstrument(	AdventureResult instrument )
+	public static void setCurrentInstrument(	AdventureResult instrument )
 	{
 		KoLCharacter.currentInstrument = instrument;
 		KoLCharacter.recalculateAdjustments();
 		KoLCharacter.updateStatus();
 	}
 
-	public static final int getMinstrelLevel()
+	public static int getMinstrelLevel()
 	{
 		return KoLCharacter.minstrelLevel;
 	}
 
-	public static final void setMinstrelLevel( int minstrelLevel )
+	public static void setMinstrelLevel( int minstrelLevel )
 	{
 		KoLCharacter.minstrelLevel = minstrelLevel;
 		KoLCharacter.recalculateAdjustments();
 		KoLCharacter.updateStatus();
 	}
 
-	public static final int getMinstrelLevelAdjustment()
+	public static int getMinstrelLevelAdjustment()
 	{
 		return (int) KoLCharacter.currentModifiers.get( Modifiers.MINSTREL_LEVEL );
 	}
 
-	public static final void setClancy( final int level, final AdventureResult instrument, final boolean attention )
+	public static void setClancy( final int level, final AdventureResult instrument, final boolean attention )
 	{
 		KoLCharacter.minstrelLevel = level;
 		KoLCharacter.currentInstrument = instrument;
@@ -3633,7 +3633,7 @@ public abstract class KoLCharacter
 	 * @return The number of arena wins
 	 */
 
-	public static final int getArenaWins()
+	public static int getArenaWins()
 	{
 		// Ensure that the arena opponent list is
 		// initialized.
@@ -3642,7 +3642,7 @@ public abstract class KoLCharacter
 		return KoLCharacter.arenaWins;
 	}
 
-	public static final int getStillsAvailable()
+	public static int getStillsAvailable()
 	{
 		if ( !KoLCharacter.hasSkill( "Superhuman Cocktailcrafting" ) || !KoLCharacter.isMoxieClass() )
 		{
@@ -3666,12 +3666,12 @@ public abstract class KoLCharacter
 		return KoLCharacter.stillsAvailable;
 	}
 
-	public static final boolean tripleReagent()
+	public static boolean tripleReagent()
 	{
 		return KoLCharacter.tripleReagent;
 	}
 
-	public static final void setStillsAvailable( final int stillsAvailable )
+	public static void setStillsAvailable( final int stillsAvailable )
 	{
 		if ( KoLCharacter.stillsAvailable != stillsAvailable )
 		{
@@ -3682,28 +3682,28 @@ public abstract class KoLCharacter
 		}
 	}
 
-	public static final void decrementStillsAvailable( final int decrementAmount )
+	public static void decrementStillsAvailable( final int decrementAmount )
 	{
 		KoLCharacter.setStillsAvailable( KoLCharacter.stillsAvailable - decrementAmount );
 	}
 
-	public static final boolean getDispensaryOpen()
+	public static boolean getDispensaryOpen()
 	{
 		return KoLCharacter.getAscensions() == Preferences.getInteger( "lastDispensaryOpen" ) &&
 		       InventoryManager.hasItem( ItemPool.LAB_KEY );
 	}
 
-	public static final boolean getTempleUnlocked()
+	public static boolean getTempleUnlocked()
 	{
 		return KoLCharacter.getAscensions() == Preferences.getInteger( "lastTempleUnlock" );
 	}
 
-	public static final boolean getTr4pz0rQuestCompleted()
+	public static boolean getTr4pz0rQuestCompleted()
 	{
 		return KoLCharacter.getAscensions() == Preferences.getInteger( "lastTr4pz0rQuest" );
 	}
 
-	public static final boolean getGuildStoreOpen()
+	public static boolean getGuildStoreOpen()
 	{
 		if ( KoLCharacter.getAscensions() == Preferences.getInteger( "lastGuildStoreOpen" ) )
 		{
@@ -3726,12 +3726,12 @@ public abstract class KoLCharacter
 		KoLCharacter.guildStoreStateKnown = true;
 	}
 
-	public static final boolean canUseWok()
+	public static boolean canUseWok()
 	{
 		return KoLCharacter.hasSkill( "Transcendental Noodlecraft" ) && KoLCharacter.isMysticalityClass();
 	}
 
-	public static final boolean canUseMalus()
+	public static boolean canUseMalus()
 	{
 		return KoLCharacter.hasSkill( "Pulverize" ) && KoLCharacter.isMuscleClass() && !KoLCharacter.isAvatarOfBoris();
 	}
@@ -3742,7 +3742,7 @@ public abstract class KoLCharacter
 	 * @param wins The number of arena wins
 	 */
 
-	public static final void setArenaWins( final int wins )
+	public static void setArenaWins( final int wins )
 	{
 		KoLCharacter.arenaWins = wins;
 	}
@@ -3754,7 +3754,7 @@ public abstract class KoLCharacter
 	 * @return familiar The first familiar matching this race
 	 */
 
-	public static final FamiliarData findFamiliar( final String race )
+	public static FamiliarData findFamiliar( final String race )
 	{
 		if ( FamiliarData.NO_FAMILIAR.getRace().equals( race ) )
 		{
@@ -3782,7 +3782,7 @@ public abstract class KoLCharacter
 		return null;
 	}
 
-	public static final FamiliarData findFamiliar( final int familiarId )
+	public static FamiliarData findFamiliar( final int familiarId )
 	{
 		if ( familiarId == -1 )
 		{
@@ -3816,7 +3816,7 @@ public abstract class KoLCharacter
 	 * @param familiar The new current familiar
 	 */
 
-	public static final void setFamiliar( final FamiliarData familiar )
+	public static void setFamiliar( final FamiliarData familiar )
 	{
 		KoLCharacter.currentFamiliar = KoLCharacter.addFamiliar( familiar );
 		if ( KoLCharacter.currentFamiliar.equals( KoLCharacter.currentEnthroned ) )
@@ -3840,19 +3840,19 @@ public abstract class KoLCharacter
 		KoLCharacter.resetEffectiveFamiliar();
 	}
 
-	public static final void resetEffectiveFamiliar()
+	public static void resetEffectiveFamiliar()
 	{
 		KoLCharacter.setEffectiveFamiliar( KoLCharacter.currentFamiliar );
 	}
 
-	public static final void setEffectiveFamiliar( final FamiliarData familiar )
+	public static void setEffectiveFamiliar( final FamiliarData familiar )
 	{
 		KoLCharacter.effectiveFamiliar = familiar;
 		KoLCharacter.recalculateAdjustments();
 		KoLCharacter.updateStatus();
 	}
 
-	public static final void setEnthroned( final FamiliarData familiar )
+	public static void setEnthroned( final FamiliarData familiar )
 	{
 		KoLCharacter.currentEnthroned = KoLCharacter.addFamiliar( familiar );
 		KoLCharacter.recalculateAdjustments();
@@ -3863,7 +3863,7 @@ public abstract class KoLCharacter
 	 * Accessor method to increment the weight of the current familiar by one.
 	 */
 
-	public static final void incrementFamilarWeight()
+	public static void incrementFamilarWeight()
 	{
 		if ( KoLCharacter.currentFamiliar != null )
 		{
@@ -3877,7 +3877,7 @@ public abstract class KoLCharacter
 	 * @param familiar The Id of the familiar to be added
 	 */
 
-	public static final FamiliarData addFamiliar( final FamiliarData familiar )
+	public static FamiliarData addFamiliar( final FamiliarData familiar )
 	{
 		if ( familiar == null )
 		{
@@ -3907,7 +3907,7 @@ public abstract class KoLCharacter
 	 * @param familiar The Id of the familiar to be removed
 	 */
 
-	public static final void removeFamiliar( final FamiliarData familiar )
+	public static void removeFamiliar( final FamiliarData familiar )
 	{
 		if ( familiar == null )
 		{
@@ -3936,7 +3936,7 @@ public abstract class KoLCharacter
 	 * @return The list of familiars available to the character
 	 */
 
-	public static final LockableListModel getFamiliarList()
+	public static LockableListModel getFamiliarList()
 	{
 		return KoLCharacter.familiars;
 	}
@@ -3948,7 +3948,7 @@ public abstract class KoLCharacter
 	 * @return The string indicating the TNP advancement
 	 */
 
-	public static final String getAdvancement()
+	public static String getAdvancement()
 	{
 		int level = KoLCharacter.getLevel();
 		return KoLConstants.COMMA_FORMAT.format( level * level + 4 - KoLCharacter.calculateBasePoints( KoLCharacter.getTotalPrime() ) ) + " " + AdventureResult.STAT_NAMES[ KoLCharacter.getPrimeIndex() ] + " until level " + ( level + 1 );
@@ -3961,7 +3961,7 @@ public abstract class KoLCharacter
 	 * @param listener The listener to be added to the listener list
 	 */
 
-	public static final void addCharacterListener( final KoLCharacterListener listener )
+	public static void addCharacterListener( final KoLCharacterListener listener )
 	{
 		if ( listener != null && !KoLCharacter.listenerList.contains( listener ) )
 		{
@@ -3976,7 +3976,7 @@ public abstract class KoLCharacter
 	 * @param listener The listener to be removed from the listener list
 	 */
 
-	public static final void removeCharacterListener( final KoLCharacterListener listener )
+	public static void removeCharacterListener( final KoLCharacterListener listener )
 	{
 		if ( listener != null )
 		{
@@ -3988,7 +3988,7 @@ public abstract class KoLCharacter
 	 * Returns the character's zapping wand, if any
 	 */
 
-	public static final AdventureResult getZapper()
+	public static AdventureResult getZapper()
 	{
 		// Look for wand
 
@@ -4023,7 +4023,7 @@ public abstract class KoLCharacter
 		return KoLCharacter.findWand();
 	}
 
-	public static final AdventureResult findWand()
+	public static AdventureResult findWand()
 	{
 		for ( int i = 0; i < KoLCharacter.WANDS.length; ++i )
 		{
@@ -4037,28 +4037,28 @@ public abstract class KoLCharacter
 		return null;
 	}
 
-	public static final boolean hasEquipped( final AdventureResult item, final int equipmentSlot )
+	public static boolean hasEquipped( final AdventureResult item, final int equipmentSlot )
 	{
 		return EquipmentManager.getEquipment( equipmentSlot ).getItemId() == item.getItemId();
 	}
 
-	public static final boolean hasEquipped( final int itemId, final int equipmentSlot )
+	public static boolean hasEquipped( final int itemId, final int equipmentSlot )
 	{
 		return EquipmentManager.getEquipment( equipmentSlot ).getItemId() == itemId;
 	}
 
-	public static final boolean hasEquipped( final AdventureResult item )
+	public static boolean hasEquipped( final AdventureResult item )
 	{
 		return KoLCharacter.equipmentSlot( item ) != EquipmentManager.NONE;
 	}
 
-	public static final boolean hasEquipped( AdventureResult[] equipment, final AdventureResult item, final int equipmentSlot )
+	public static boolean hasEquipped( AdventureResult[] equipment, final AdventureResult item, final int equipmentSlot )
 	{
 		AdventureResult current = equipment[ equipmentSlot ];
 		return ( current == null ) ? false : ( current.getItemId() == item.getItemId() );
 	}
 
-	public static final boolean hasEquipped( AdventureResult[] equipment, final AdventureResult item )
+	public static boolean hasEquipped( AdventureResult[] equipment, final AdventureResult item )
 	{
 		switch ( ItemDatabase.getConsumptionType( item.getItemId() ) )
 		{
@@ -4097,7 +4097,7 @@ public abstract class KoLCharacter
 		return false;
 	}
 
-	public static final int equipmentSlot( final AdventureResult item )
+	public static int equipmentSlot( final AdventureResult item )
 	{
 		switch ( ItemDatabase.getConsumptionType( item.getItemId() ) )
 		{
@@ -4154,7 +4154,7 @@ public abstract class KoLCharacter
 		return EquipmentManager.NONE;
 	}
 
-	public static final void updateStatus()
+	public static void updateStatus()
 	{
 		KoLCharacterListener[] listenerArray = new KoLCharacterListener[ KoLCharacter.listenerList.size() ];
 		KoLCharacter.listenerList.toArray( listenerArray );
@@ -4168,7 +4168,7 @@ public abstract class KoLCharacter
 		PreferenceListenerRegistry.firePreferenceChanged( "(character)" );
 	}
 
-	public static final void updateSelectedLocation( KoLAdventure location )
+	public static void updateSelectedLocation( KoLAdventure location )
 	{
 		KoLCharacter.selectedLocation = location;
 		Modifiers.setLocation( location );
@@ -4177,17 +4177,17 @@ public abstract class KoLCharacter
 		PreferenceListenerRegistry.firePreferenceChanged( "(location)" );
 	}
 
-	public static final KoLAdventure getSelectedLocation()
+	public static KoLAdventure getSelectedLocation()
 	{
 		return KoLCharacter.selectedLocation;
 	}
 
-	public static final boolean recalculateAdjustments()
+	public static boolean recalculateAdjustments()
 	{
 		return KoLCharacter.recalculateAdjustments( false );
 	}
 
-	public static final boolean recalculateAdjustments( boolean debug )
+	public static boolean recalculateAdjustments( boolean debug )
 	{
 		return KoLCharacter.currentModifiers.set(
 			KoLCharacter.recalculateAdjustments(
@@ -4200,7 +4200,7 @@ public abstract class KoLCharacter
 				false ) );
 	}
 
-	public static final Modifiers recalculateAdjustments( boolean debug, int MCD, AdventureResult[] equipment, List effects, FamiliarData familiar, FamiliarData enthroned,  boolean applyIntrinsics )
+	public static Modifiers recalculateAdjustments( boolean debug, int MCD, AdventureResult[] equipment, List effects, FamiliarData familiar, FamiliarData enthroned,  boolean applyIntrinsics )
 	{
 		int taoFactor = KoLCharacter.hasSkill( "Tao of the Terrapin" ) ? 2 : 1;
 
@@ -4549,7 +4549,7 @@ public abstract class KoLCharacter
 
 	// Per-character settings that change each ascension
 
-	public static final void ensureUpdatedDwarfFactory()
+	public static void ensureUpdatedDwarfFactory()
 	{
 		int lastAscension = Preferences.getInteger( "lastDwarfFactoryReset" );
 		if ( lastAscension < KoLCharacter.getAscensions() )
@@ -4585,7 +4585,7 @@ public abstract class KoLCharacter
 		}
 	}
 
-	public static final void ensureUpdatedGuyMadeOfBees()
+	public static void ensureUpdatedGuyMadeOfBees()
 	{
 		int lastAscension = Preferences.getInteger( "lastGuyMadeOfBeesReset" );
 		if ( lastAscension < KoLCharacter.getAscensions() )
@@ -4596,7 +4596,7 @@ public abstract class KoLCharacter
 		}
 	}
 
-	public static final void ensureUpdatedAscensionCounters()
+	public static void ensureUpdatedAscensionCounters()
 	{
 		int lastAscension = Preferences.getInteger( "lastSemirareReset" );
 		if ( lastAscension < KoLCharacter.getAscensions() )
@@ -4607,7 +4607,7 @@ public abstract class KoLCharacter
 		}
 	}
 
-	public static final void ensureUpdatedPotionEffects()
+	public static void ensureUpdatedPotionEffects()
 	{
 		int lastAscension = Preferences.getInteger( "lastBangPotionReset" );
 		if ( lastAscension < KoLCharacter.getAscensions() )
@@ -4652,7 +4652,7 @@ public abstract class KoLCharacter
 		}
 	}
 
-	private static final void ensureUpdatedSkatePark()
+	private static void ensureUpdatedSkatePark()
 	{
 		int lastAscension = Preferences.getInteger( "lastSkateParkReset" );
 		if ( lastAscension < KoLCharacter.getAscensions() )
@@ -4662,7 +4662,7 @@ public abstract class KoLCharacter
 		}
 	}
 
-	public static final void ensureUpdatedSphereEffects()
+	public static void ensureUpdatedSphereEffects()
 	{
 		int lastAscension = Preferences.getInteger( "lastStoneSphereReset" );
 		if ( lastAscension < KoLCharacter.getAscensions() )
@@ -4685,7 +4685,7 @@ public abstract class KoLCharacter
 		}
 	}
 
-	public static final void ensureUpdatedPastaGuardians()
+	public static void ensureUpdatedPastaGuardians()
 	{
 		int lastAscension = Preferences.getInteger( "lastPastamancerGhostReset" );
 		if ( lastAscension < KoLCharacter.getAscensions() )
@@ -4700,7 +4700,7 @@ public abstract class KoLCharacter
 		}
 	}
 
-	public static final void ensureUpdatedPirateInsults()
+	public static void ensureUpdatedPirateInsults()
 	{
 		int lastAscension = Preferences.getInteger( "lastPirateInsultReset" );
 		if ( lastAscension < KoLCharacter.getAscensions() )
@@ -4717,7 +4717,7 @@ public abstract class KoLCharacter
 		}
 	}
 
-	public static final void ensureUpdatedCellar()
+	public static void ensureUpdatedCellar()
 	{
 		int lastAscension = Preferences.getInteger( "lastCellarReset" );
 		if ( lastAscension < KoLCharacter.getAscensions() )

@@ -64,7 +64,7 @@ public class ClanBuffRequest
 	 * @return A complete <code>ListModel</code>
 	 */
 
-	public static final LockableListModel getRequestList()
+	public static LockableListModel getRequestList()
 	{
 		LockableListModel requestList = new LockableListModel();
 		for ( int i = 1; i < 9; ++i )

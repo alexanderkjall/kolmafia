@@ -210,7 +210,7 @@ public class IslandDecorator
 	 * Methods to decorate the Fight page
 	 */
 
-	public static final void addNunneryMeat( final AdventureResult result )
+	public static void addNunneryMeat( final AdventureResult result )
 	{
 		int delta = result.getCount();
 		IslandDecorator.lastNunneryMeat = IslandDecorator.currentNunneryMeat;
@@ -224,7 +224,7 @@ public class IslandDecorator
 		RequestLogger.printLine( message );
 	}
 
-	public static final void decorateThemtharFight( final StringBuffer buffer )
+	public static void decorateThemtharFight( final StringBuffer buffer )
 	{
 		int index = buffer.indexOf( "<!--WINWINWIN-->" );
 		if ( index == -1 )
@@ -240,7 +240,7 @@ public class IslandDecorator
 		}
 	}
 
-	private static final String meatMessage()
+	private static String meatMessage()
 	{
 		int current = IslandDecorator.currentNunneryMeat;
 		if ( current >= 100000 )
@@ -265,7 +265,7 @@ public class IslandDecorator
 		return KoLConstants.COMMA_FORMAT.format( current ) + " meat recovered, " + KoLConstants.COMMA_FORMAT.format( left ) + " left (" + turns + " turns).";
 	}
 
-	public static final int minimumBrigandMeat()
+	public static int minimumBrigandMeat()
 	{
 		// Return the minimum without additional meat drop modifiers
 		int remaining = 100000 - Preferences.getInteger( "currentNunneryMeat" );
@@ -303,7 +303,7 @@ public class IslandDecorator
 		}
 	};
 
-	public static final void decorateGremlinFight( final StringBuffer buffer )
+	public static void decorateGremlinFight( final StringBuffer buffer )
 	{
 		// Color the tool in the monster spoiler text
 		int loc = KoLAdventure.lastAdventureId();
@@ -358,7 +358,7 @@ public class IslandDecorator
 		}
 	}
 
-	public static final void appendMissingGremlinTool( final StringBuffer buffer )
+	public static void appendMissingGremlinTool( final StringBuffer buffer )
 	{
 		if ( IslandDecorator.missingGremlinTool != null )
 		{
@@ -366,12 +366,12 @@ public class IslandDecorator
 		}
 	}
 
-	public static final void startJunkyardQuest()
+	public static void startJunkyardQuest()
 	{
 		resetGremlinTool();
 	}
 
-	public static final void resetGremlinTool()
+	public static void resetGremlinTool()
 	{
 		IslandDecorator.missingGremlinTool = null;
 		IslandDecorator.currentJunkyardTool = "";
@@ -401,7 +401,7 @@ public class IslandDecorator
 		"Farm"
 	};
 
-	private static final String areaMessage( final int last, final int current )
+	private static String areaMessage( final int last, final int current )
 	{
 		final String[] areas = IslandDecorator.fratboy ? IslandDecorator.HIPPY_AREA_UNLOCK : IslandDecorator.FRATBOY_AREA_UNLOCK;
 
@@ -417,7 +417,7 @@ public class IslandDecorator
 		return null;
 	}
 
-	private static final String areaMessageHTML( final int last, final int current )
+	private static String areaMessageHTML( int last, final int current )
 	{
 		String message = areaMessage( last, current );
 		return message == null ? "" : "<b>" + message + "</b><br>";
@@ -450,7 +450,7 @@ public class IslandDecorator
 		"the War Frat Streaker",
 	};
 
-	private static final String heroMessage( final int last, final int current )
+	private static String heroMessage( final int last, final int current )
 	{
 		final String[] heroes = IslandDecorator.fratboy ? IslandDecorator.FRATBOY_HERO : IslandDecorator.HIPPY_HERO;
 
@@ -466,13 +466,13 @@ public class IslandDecorator
 		return null;
 	}
 
-	private static final String heroMessageHTML( final int last, final int current )
+	private static String heroMessageHTML( int last, final int current )
 	{
 		String message = heroMessage( last, current );
 		return message == null ? "" : "<b>" + message + "</b><br>";
 	}
 
-	public static final void decorateBattlefieldFight( final StringBuffer buffer )
+	public static void decorateBattlefieldFight( final StringBuffer buffer )
 	{
 		int index = buffer.indexOf( "<!--WINWINWIN-->" );
 		if ( index == -1 )
@@ -512,7 +512,7 @@ public class IslandDecorator
 		buffer.insert( index, message );
 	}
 
-	public static final String victoryMessage( int last, int current )
+	public static String victoryMessage( int last, int current )
 	{
 		int delta = current - last;
 		String side;
@@ -534,7 +534,7 @@ public class IslandDecorator
 	 */
 
 	// Decorate the HTML with custom goodies
-	public static final void decorateBigIsland( final String url, final StringBuffer buffer )
+	public static void decorateBigIsland( String url, final StringBuffer buffer )
 	{
 		// Quest-specific page decorations
 		IslandDecorator.decorateJunkyard( buffer );
@@ -568,7 +568,7 @@ public class IslandDecorator
 		IslandDecorator.sidequestImage( buffer, "sidequestOrchardCompleted", IslandDecorator.ORCHARD );
 	}
 
-	private static final String sideSummary( final String side, final int kills, final int image, int min, final int max )
+	private static String sideSummary( final String side, final int kills, final int image, int min, final int max )
 	{
 		if ( kills > min )
 		{
@@ -581,7 +581,7 @@ public class IslandDecorator
 		return kills + " " + side + " defeated; " + range + " left (image " + image + ").";
 	}
 
-	private static final void sidequestImage( final StringBuffer buffer, final String setting, final int quest )
+	private static void sidequestImage( final StringBuffer buffer, final String setting, final int quest )
 	{
 		String status = Preferences.getString( setting );
 		String image;
@@ -602,7 +602,7 @@ public class IslandDecorator
 		StringUtilities.singleStringReplace( buffer, old, image );
 	}
 
-	public static final void decorateJunkyard( final StringBuffer buffer )
+	public static void decorateJunkyard( final StringBuffer buffer )
 	{
 		if ( IslandDecorator.currentJunkyardLocation.equals( "" ) )
 		{
@@ -643,7 +643,7 @@ public class IslandDecorator
 		buffer.insert( tableIndex, row );
 	}
 
-	public static final void decorateArena( final String urlString, final StringBuffer buffer )
+	public static void decorateArena( final String urlString, final StringBuffer buffer )
 	{
 		// If he's not visiting the arena, punt
 		if ( !urlString.contains( "place=concert" ) )
@@ -705,7 +705,7 @@ public class IslandDecorator
 		buffer.append( text.substring( index1 ) );
 	}
 
-	public static final void decorateNunnery( final String urlString, final StringBuffer buffer )
+	public static void decorateNunnery( final String urlString, final StringBuffer buffer )
 	{
 		// If he's not visiting the nunnery, punt
 		if ( !urlString.contains( "place=nunnery" ) )
@@ -733,7 +733,7 @@ public class IslandDecorator
 		buffer.insert( tableIndex, row );
 	}
 
-	public static final void startFight()
+	public static void startFight()
 	{
 		IslandDecorator.missingGremlinTool = null;
 	}
@@ -1186,7 +1186,7 @@ public class IslandDecorator
 			"mobile homes", },
 	};
 
-	private static final boolean findBattlefieldMessage( final String responseText, final String[] table )
+	private static boolean findBattlefieldMessage( final String responseText, final String[] table )
 	{
 		for ( int i = 0; i < table.length; ++i )
 		{
@@ -1198,7 +1198,7 @@ public class IslandDecorator
 		return false;
 	}
 
-	public static final void handleBattlefield( final String responseText )
+	public static void handleBattlefield( final String responseText )
 	{
 		// Nothing to do until battle is done
 		if ( !responseText.contains( "WINWINWIN" ) )
@@ -1317,7 +1317,7 @@ public class IslandDecorator
 		}
 	}
 
-	private static final void handleEndOfWar( final String loser )
+	private static void handleEndOfWar( final String loser )
 	{
 		String message;
 
@@ -1396,7 +1396,7 @@ public class IslandDecorator
 		1000	// Image 32
 	};
 
-	public static final void parseBigIsland( final String location, final String responseText )
+	public static void parseBigIsland( final String location, final String responseText )
 	{
 		if ( !location.startsWith( "bigisland.php" ) )
 		{
@@ -1440,7 +1440,7 @@ public class IslandDecorator
 		}
 	}
 
-	private static final int parseQuest( final String location )
+	private static int parseQuest( final String location )
 	{
 		if ( location.contains( "place=concert" ) ||
                 location.contains( "action=concert" ) )
@@ -1481,7 +1481,7 @@ public class IslandDecorator
 		return IslandDecorator.NONE;
 	}
 
-	private static final void parseBattlefield( final String responseText )
+	private static void parseBattlefield( final String responseText )
 	{
 		Matcher matcher = IslandDecorator.MAP_PATTERN.matcher( responseText );
 		if ( !matcher.find() )
@@ -1542,7 +1542,7 @@ public class IslandDecorator
 		}
 	}
 
-	private static final void parseArena( final String responseText )
+	private static void parseArena( final String responseText )
 	{
 		// You roll up to the amphitheater and see that the Goat Cheese
 		// Occurence is well into the first song of their four-hour,
@@ -1620,7 +1620,7 @@ public class IslandDecorator
                 },
 	};
 
-	private static final void parseJunkyard( final String responseText )
+	private static void parseJunkyard( final String responseText )
 	{
 		String tool = IslandDecorator.currentJunkyardTool;
 		String location = IslandDecorator.currentJunkyardLocation;
@@ -1702,7 +1702,7 @@ public class IslandDecorator
 		}
 	}
 
-	private static final void parseOrchard( final String responseText )
+	private static void parseOrchard( final String responseText )
 	{
 		// "Is that... it is! The heart of the filthworm queen! You've
 		// done it! You've freed our orchard from the tyranny of
@@ -1726,7 +1726,7 @@ public class IslandDecorator
 		ConcoctionDatabase.setRefreshNeeded( true );
 	}
 
-	private static final void parseFarm( final String responseText )
+	private static void parseFarm( final String responseText )
 	{
 		// "Well... How about dedicating a portion of your farm to
 		// growing soybeans, to help feed the hippy army?"
@@ -1742,7 +1742,7 @@ public class IslandDecorator
 		}
 	}
 
-	private static final void parseNunnery( final String responseText )
+	private static void parseNunnery( final String responseText )
 	{
 		// "Hello, weary Adventurer! Please, allow us to tend to your
 		// wounds."
@@ -1770,7 +1770,7 @@ public class IslandDecorator
 		}
 	}
 
-	private static final void parseLighthouse( final String responseText )
+	private static void parseLighthouse( final String responseText )
 	{
 		// He gazes at you thoughtfully for a few seconds, then a smile
 		// lights up his face and he says "My life... er... my bombs
@@ -1825,7 +1825,7 @@ public class IslandDecorator
 		CoinMasterRequest.parseResponse( data, location, responseText );
 	}
 
-	public static final void ensureUpdatedBigIsland()
+	public static void ensureUpdatedBigIsland()
 	{
 		int lastAscension = Preferences.getInteger( "lastBattlefieldReset" );
 		if ( lastAscension < KoLCharacter.getAscensions() )
@@ -1862,29 +1862,29 @@ public class IslandDecorator
 		IslandDecorator.lastNunneryMeat = IslandDecorator.currentNunneryMeat;
 	}
 
-	public static final int fratboysDefeated()
+	public static int fratboysDefeated()
 	{
 		IslandDecorator.ensureUpdatedBigIsland();
 		return IslandDecorator.fratboysDefeated;
 	}
 
-	public static final int hippiesDefeated()
+	public static int hippiesDefeated()
 	{
 		IslandDecorator.ensureUpdatedBigIsland();
 		return IslandDecorator.hippiesDefeated;
 	}
 
-	public static final int fratboysDefeatedPerBattle()
+	public static int fratboysDefeatedPerBattle()
 	{
 		return IslandDecorator.sidequestFactor( "hippy" );
 	}
 
-	public static final int hippiesDefeatedPerBattle()
+	public static int hippiesDefeatedPerBattle()
 	{
 		return IslandDecorator.sidequestFactor( "fratboy" );
 	}
 
-	private static final int sidequestFactor( final String completer )
+	private static int sidequestFactor( final String completer )
 	{
 		int factor = 1;
 		for ( int i = 0; i < SIDEQUEST_PREFERENCES.length; ++i )
@@ -1898,7 +1898,7 @@ public class IslandDecorator
 		return factor;
 	}
 
-	public static final void parsePostwarIsland( final String location, final String responseText )
+	public static void parsePostwarIsland( final String location, final String responseText )
 	{
 		if ( !location.startsWith( "postwarisland.php" ) )
 		{
@@ -1926,7 +1926,7 @@ public class IslandDecorator
 		}
 	}
 
-	public static final void ensureUpdatedPostwarIsland()
+	public static void ensureUpdatedPostwarIsland()
 	{
 		int lastAscension = Preferences.getInteger( "lastBattlefieldReset" );
 		if ( lastAscension < KoLCharacter.getAscensions() )
@@ -1939,7 +1939,7 @@ public class IslandDecorator
 		}
 	}
 
-	private static final void deduceWinner( final String responseText )
+	private static void deduceWinner( final String responseText )
 	{
 		boolean hippiesLost = responseText.contains( "snarfblat=149" );
 		boolean fratboysLost = responseText.contains( "snarfblat=150" );
@@ -1949,7 +1949,7 @@ public class IslandDecorator
 		CoinmastersFrame.externalUpdate();
 	}
 
-	public static final void decoratePostwarIsland( final String url, final StringBuffer buffer )
+	public static void decoratePostwarIsland( final String url, final StringBuffer buffer )
 	{
 		// Quest-specific page decorations
 		IslandDecorator.decorateArena( url, buffer );
@@ -1980,7 +1980,7 @@ public class IslandDecorator
 		return "none";
 	}
 
-	public static final String warWinner()
+	public static String warWinner()
 	{
 		String loser = Preferences.getString( "sideDefeated" );
 		if ( loser.equals( "hippies" ) )
@@ -1994,7 +1994,7 @@ public class IslandDecorator
 		return "neither";
 	}
 
-	public static final String currentIsland()
+	public static String currentIsland()
 	{
 		IslandDecorator.ensureUpdatedBigIsland();
 
@@ -2010,7 +2010,7 @@ public class IslandDecorator
 		return "bogus.php";
 	}
 
-	public static final boolean registerIslandRequest( final String urlString )
+	public static boolean registerIslandRequest( final String urlString )
 	{
 		if ( !urlString.startsWith( "bigisland.php" ) )
 		{

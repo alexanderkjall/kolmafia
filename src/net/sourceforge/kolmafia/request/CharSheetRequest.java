@@ -105,7 +105,7 @@ public class CharSheetRequest
 		CharSheetRequest.parseStatus( this.responseText );
 	}
 
-	public static final void parseStatus( final String responseText )
+	public static void parseStatus( final String responseText )
 	{
 		// Set the character's avatar.
 		Matcher avatarMatcher = CharSheetRequest.AVATAR_PATTERN.matcher( responseText );
@@ -431,7 +431,7 @@ public class CharSheetRequest
 	 * @return The 2-element array containing the parsed statistics
 	 */
 
-	private static final long[] findStatPoints( final StringTokenizer tokenizer, String token, final String searchString )
+	private static long[] findStatPoints( final StringTokenizer tokenizer, String token, final String searchString )
 	{
 		long[] stats = new long[ 2 ];
 
@@ -463,13 +463,13 @@ public class CharSheetRequest
 	 * @return The parsed base value, or the default value if no base value is found
 	 */
 
-	private static final int retrieveBase( final String token, final int defaultBase )
+	private static int retrieveBase( final String token, final int defaultBase )
 	{
 		Matcher baseMatcher = CharSheetRequest.BASE_PATTERN.matcher( token );
 		return baseMatcher.find() ? StringUtilities.parseInt( baseMatcher.group( 1 ) ) : defaultBase;
 	}
 
-	public static final void parseStatus( final JSONObject JSON )
+	public static void parseStatus( final JSONObject JSON )
 		throws JSONException
 	{
 		int muscle = JSON.getInt( "muscle" );

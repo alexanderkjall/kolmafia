@@ -249,7 +249,7 @@ public class Crimbo11Request
 	}
 
 	public static final Pattern TOWHO_PATTERN = Pattern.compile( "towho=([^&]*)" );
-	private static final boolean registerDonation( final String urlString )
+	private static boolean registerDonation( final String urlString )
 	{
 		CoinmasterData data = Crimbo11Request.CRIMBO11;
 
@@ -287,7 +287,7 @@ public class Crimbo11Request
 		return true;
 	}
 
-	public static final boolean registerRequest( final String urlString )
+	public static boolean registerRequest( final String urlString )
 	{
 		if ( !urlString.startsWith( "crimbo11.php" ) )
 		{

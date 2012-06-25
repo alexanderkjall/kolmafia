@@ -195,7 +195,7 @@ public class UneffectRequest
 		return true;
 	}
 
-	public static final boolean isRemovable( final int effectId )
+	public static boolean isRemovable( final int effectId )
 	{
 		switch ( effectId )
 		{
@@ -211,7 +211,7 @@ public class UneffectRequest
 		}
 	}
 
-	public static final boolean isShruggable( final String effectName )
+	public static boolean isShruggable( final String effectName )
 	{
 		if ( effectName.startsWith( "Timer " ) )
 		{
@@ -234,7 +234,7 @@ public class UneffectRequest
 	 * @return skill The name of the skill
 	 */
 
-	public static final String effectToSkill( final String effectName )
+	public static String effectToSkill( final String effectName )
 	{
 		for ( int i = 0; i < UneffectRequest.EFFECT_SKILL.length; ++i )
 		{
@@ -248,7 +248,7 @@ public class UneffectRequest
 		return effectName;
 	}
 
-	public static final String skillToEffect( final String skillName )
+	public static String skillToEffect( final String skillName )
 	{
 		for ( int i = 0; i < UneffectRequest.EFFECT_SKILL.length; ++i )
 		{
@@ -565,7 +565,7 @@ public class UneffectRequest
 		RequestFrame.refreshStatus();
 	}
 
-	public static final boolean registerRequest( final String location )
+	public static boolean registerRequest( final String location )
 	{
 		if ( !location.startsWith( "uneffect.php" ) && !location.startsWith( "charsheet.php" ) )
 		{

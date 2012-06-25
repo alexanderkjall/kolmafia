@@ -128,7 +128,7 @@ public class DimemasterRequest
 		// CoinMasterRequest.parseResponse( this.data, this.getURLString(), this.responseText );
 	}
 
-	public static final boolean registerRequest( final String urlString )
+	public static boolean registerRequest( final String urlString )
 	{
 		if ( !urlString.startsWith( "bigisland.php" ) || !urlString.contains( "whichcamp=1" ) )
 		{

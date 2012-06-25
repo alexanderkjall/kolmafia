@@ -47,12 +47,12 @@ public abstract class DungeonDecorator
 
 	private static final Pattern ROOM_PATTERN = Pattern.compile( "<b>Room ([\\d]+): (.*?)</b>" );
 
-	public static final void decorate( final StringBuffer buffer )
+	public static void decorate( final StringBuffer buffer )
 	{
 		DungeonDecorator.checkDungeon( buffer.toString() );
 	}
 
-	public static final void checkDungeon( final String responseText )
+	public static void checkDungeon( final String responseText )
 	{
 		Matcher roomMatcher = DungeonDecorator.ROOM_PATTERN.matcher( responseText );
 		if ( roomMatcher.find() )
@@ -68,17 +68,17 @@ public abstract class DungeonDecorator
 		}
 	}
 
-	public static final int getDungeonRoom()
+	public static int getDungeonRoom()
 	{
 		return DungeonDecorator.dungeonRoom;
 	}
 
-	public static final String getDungeonRoomString()
+	public static String getDungeonRoomString()
 	{
 		return "Daily Dungeon (Room " + DungeonDecorator.getDungeonRoom() + ")";
 	}
 
-	public static final String getDungeonEncounter()
+	public static String getDungeonEncounter()
 	{
 		// We determined the room number earlier when we visited
 		// dungeon.php. We only log the encounter and complete the

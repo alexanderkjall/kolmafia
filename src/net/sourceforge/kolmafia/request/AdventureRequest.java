@@ -405,7 +405,7 @@ public class AdventureRequest
 		}
 	}
 
-	public static final void handleShoreVisit( final String location, final String responseText )
+	public static void handleShoreVisit( final String location, final String responseText )
 	{
 		if ( !location.contains( "whichtrip" ) )
 		{
@@ -453,7 +453,7 @@ public class AdventureRequest
 		TurnCounter.startCounting( 35 + adv, "The Shore loc=* shore.php", "dinghy.gif" );
 	}
 
-	public static final String registerEncounter( final GenericRequest request )
+	public static String registerEncounter( final GenericRequest request )
 	{
 		String urlString = request.getURLString();
 		String responseText = request.responseText;
@@ -523,13 +523,13 @@ public class AdventureRequest
 	private static String fromName = null;
 	private static String toName = null;
 
-	public static final void setNameOverride( final String from, final String to )
+	public static void setNameOverride( final String from, final String to )
 	{
 		fromName = from;
 		toName = to;
 	}
 
-	private static final String parseCombatEncounter( final String responseText )
+	private static String parseCombatEncounter( final String responseText )
 	{
 		String name;
 		Matcher matcher = MONSTER_NAME.matcher( responseText );
@@ -557,7 +557,7 @@ public class AdventureRequest
 		return name;
 	}
 
-	private static final String translateGenericType( final String encounter, final String responseText )
+	private static String translateGenericType( final String encounter, final String responseText )
 	{
 		if ( KoLAdventure.lastLocationName != null &&
 		     KoLAdventure.lastLocationName.startsWith( "Fernswarthy's Basement" ) )
@@ -654,7 +654,7 @@ public class AdventureRequest
 		return encounter;
 	}
 
-	private static final String parseChoiceEncounter( final String urlString, final int choice, final String responseText )
+	private static String parseChoiceEncounter( final String urlString, final int choice, final String responseText )
 	{
 		if ( LouvreManager.louvreChoice( choice ) )
 		{
@@ -688,7 +688,7 @@ public class AdventureRequest
 		return parseEncounter( responseText );
 	}
 
-	private static final String choiceType( final int choice )
+	private static String choiceType( final int choice )
 	{
 		if ( LouvreManager.louvreChoice( choice ) )
 		{
@@ -726,7 +726,7 @@ public class AdventureRequest
 		{ "Thud", "hobo glyphs" },
 	};
 
-	private static final String parseNoncombatEncounter( final String urlString, final String responseText )
+	private static String parseNoncombatEncounter( final String urlString, final String responseText )
 	{
 		// Fernswarthy's Basement
 		if ( urlString.startsWith( "basement.php" ) )
@@ -866,7 +866,7 @@ public class AdventureRequest
 		return null;
 	}
 
-	private static final String parseEncounter( final String responseText )
+	private static String parseEncounter( final String responseText )
 	{
 		// Look only in HTML body; the header can have scripts with
 		// bold text.
@@ -897,7 +897,7 @@ public class AdventureRequest
 		return responseText.substring( boldIndex, endBoldIndex );
 	}
 
-	private static final int parseArea( final String urlString )
+	private static int parseArea( final String urlString )
 	{
 		Matcher matcher = AREA_PATTERN.matcher( urlString );
 		if ( matcher.find() )
@@ -988,7 +988,7 @@ public class AdventureRequest
 
 	private static final Pattern NAME_PATTERN = Pattern.compile( "<b>&quot;(.*?)&quot;</b>" );
 
-	public static final boolean registerDemonName( final String encounter, final String responseText )
+	public static boolean registerDemonName( final String encounter, final String responseText )
 	{
 		String place = null;
 		String demon = null;
@@ -1068,7 +1068,7 @@ public class AdventureRequest
 		return true;
 	}
 
-	private static final boolean containsEncounter( final String formSource, final String responseText )
+	private static boolean containsEncounter( final String formSource, final String responseText )
 	{
 		// The first round is unique in that there is no
 		// data fields.	 Therefore, it will equal fight.php
@@ -1168,7 +1168,7 @@ public class AdventureRequest
 		return this.adventureName;
 	}
 
-	public static final void handleServerRedirect( final String redirectLocation )
+	public static void handleServerRedirect( final String redirectLocation )
 	{
 		if ( redirectLocation.contains( "main.php" ) )
 		{
@@ -1195,7 +1195,7 @@ public class AdventureRequest
 		KoLmafia.updateDisplay( MafiaState.ABORT, "Unknown adventure type encountered." );
 	}
 
-	public static final void handleDvoraksRevenge( final GenericRequest request )
+	public static void handleDvoraksRevenge( final GenericRequest request )
 	{
 		StaticEntity.getClient().registerEncounter( "Dvorak's Revenge", "Noncombat", null );
 		RequestLogger.printLine( "Encounter: Dvorak's Revenge" );

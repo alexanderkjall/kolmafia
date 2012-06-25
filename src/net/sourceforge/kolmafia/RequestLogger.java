@@ -182,7 +182,7 @@ public class RequestLogger
 		RequestLogger.printLine( line );
 	}
 
-	public static final void printList( final List printing, final PrintStream ostream )
+	public static void printList( final List printing, final PrintStream ostream )
 	{
 		if ( printing == null || ostream == null )
 		{
@@ -225,32 +225,32 @@ public class RequestLogger
 		KoLConstants.commandBuffer.append( buffer.toString() );
 	}
 
-	public static final void printList( final List printing )
+	public static void printList( final List printing )
 	{
 		RequestLogger.printList( printing, INSTANCE );
 	}
 
-	public static final void printLine()
+	public static void printLine()
 	{
 		RequestLogger.printLine( MafiaState.CONTINUE, "", true );
 	}
 
-	public static final void printLine( final String message )
+	public static void printLine( final String message )
 	{
 		RequestLogger.printLine( MafiaState.CONTINUE, message, true );
 	}
 
-	public static final void printLine( final String message, final boolean addToBuffer )
+	public static void printLine( final String message, final boolean addToBuffer )
 	{
 		RequestLogger.printLine( MafiaState.CONTINUE, message, addToBuffer );
 	}
 
-	public static final void printLine( final MafiaState state, final String message )
+	public static void printLine( final MafiaState state, final String message )
 	{
 		RequestLogger.printLine( state, message, true );
 	}
 
-	public static final void printLine( final MafiaState state, String message, boolean addToBuffer )
+	public static void printLine( final MafiaState state, String message, boolean addToBuffer )
 	{
 		if ( message == null )
 		{
@@ -337,7 +337,7 @@ public class RequestLogger
 		RelayServer.addStatusMessage( colorBuffer.toString() );
 	}
 
-	public static final PrintStream openStream( final String filename, final PrintStream originalStream,
+	public static PrintStream openStream( final String filename, final PrintStream originalStream,
 		boolean hasLocation )
 	{
 		if ( !hasLocation && KoLCharacter.getUserName().equals( "" ) )
@@ -361,28 +361,28 @@ public class RequestLogger
 		return LogStream.openStream( filename, false );
 	}
 
-	public static final void openStandard()
+	public static void openStandard()
 	{
 		RequestLogger.outputStream = System.out;
 	}
 
-	public static final void openMirror( final String location )
+	public static void openMirror( final String location )
 	{
 		RequestLogger.mirrorStream = RequestLogger.openStream( location, RequestLogger.mirrorStream, true );
 	}
 
-	public static final void closeMirror()
+	public static void closeMirror()
 	{
 		RequestLogger.mirrorStream.close();
 		RequestLogger.mirrorStream = NullStream.INSTANCE;
 	}
 
-	public static final PrintStream getSessionStream()
+	public static PrintStream getSessionStream()
 	{
 		return RequestLogger.sessionStream;
 	}
 
-	public static final void openSessionLog()
+	public static void openSessionLog()
 	{
 		RequestLogger.sessionStream =
 			RequestLogger.openStream(
@@ -391,18 +391,18 @@ public class RequestLogger
 				RequestLogger.sessionStream, false );
 	}
 
-	public static final void closeSessionLog()
+	public static void closeSessionLog()
 	{
 		RequestLogger.sessionStream.close();
 		RequestLogger.sessionStream = NullStream.INSTANCE;
 	}
 
-	public static final void updateSessionLog()
+	public static void updateSessionLog()
 	{
 		RequestLogger.sessionStream.println();
 	}
 
-	public static final void updateSessionLog( final String line )
+	public static void updateSessionLog( final String line )
 	{
 		if ( StaticEntity.backtraceTrigger != null &&
                 line.contains( StaticEntity.backtraceTrigger ) )
@@ -413,24 +413,24 @@ public class RequestLogger
 		RequestLogger.sessionStream.println( line );
 	}
 
-	public static final boolean isDebugging()
+	public static boolean isDebugging()
 	{
 		return RequestLogger.debugStream != NullStream.INSTANCE;
 	}
 
-	public static final PrintStream getDebugStream()
+	public static PrintStream getDebugStream()
 	{
 		return RequestLogger.debugStream;
 	}
 
-	public static final void openDebugLog()
+	public static void openDebugLog()
 	{
 		RequestLogger.debugStream =
 			RequestLogger.openStream(
 				"DEBUG_" + KoLConstants.DAILY_FORMAT.format( new Date() ) + ".txt", RequestLogger.debugStream, true );
 	}
 
-	public static final void closeDebugLog()
+	public static void closeDebugLog()
 	{
 		try
 		{
@@ -442,12 +442,12 @@ public class RequestLogger
 		}
 	}
 
-	public static final void updateDebugLog()
+	public static void updateDebugLog()
 	{
 		RequestLogger.debugStream.println();
 	}
 
-	public static final void updateDebugLog( final String line )
+	public static void updateDebugLog( final String line )
 	{
 		if ( StaticEntity.backtraceTrigger != null &&
                 line.contains( StaticEntity.backtraceTrigger ) )
@@ -458,17 +458,17 @@ public class RequestLogger
 		RequestLogger.debugStream.println( line );
 	}
 
-	public static final void updateDebugLog( final Throwable t )
+	public static void updateDebugLog( final Throwable t )
 	{
 		t.printStackTrace( RequestLogger.debugStream );
 	}
 
-	public static final void updateDebugLog( final Object o )
+	public static void updateDebugLog( final Object o )
 	{
 		RequestLogger.debugStream.println( o.toString() );
 	}
 
-	public static final void registerRequest( final GenericRequest request, final String urlString )
+	public static void registerRequest( final GenericRequest request, final String urlString )
 	{
 		try
 		{
@@ -480,7 +480,7 @@ public class RequestLogger
 		}
 	}
 
-	private static final void doRegister( final GenericRequest request, final String urlString )
+	private static void doRegister( final GenericRequest request, final String urlString )
 	{
 		RequestLogger.lastURLString = urlString;
 

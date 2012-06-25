@@ -92,7 +92,7 @@ public class AutoSellRequest
 		return "sendmeat";
 	}
 
-	private static final String getSellPage()
+	private static String getSellPage()
 	{
 		// Get the autosell mode the first time we need it
 		if ( KoLCharacter.getAutosellMode().equals( "" ) )
@@ -334,7 +334,7 @@ public class AutoSellRequest
 		return AutoSellRequest.parseTransfer( this.getURLString(), this.responseText );
 	}
 
-	public static final boolean parseTransfer( final String urlString, final String responseText )
+	public static boolean parseTransfer( final String urlString, final String responseText )
 	{
 		if ( urlString.startsWith( "sellstuff.php" ) )
 		{
@@ -347,7 +347,7 @@ public class AutoSellRequest
 		return false;
 	}
 
-	public static final boolean parseCompactAutoSell( final String urlString, final String responseText )
+	public static boolean parseCompactAutoSell( final String urlString, final String responseText )
 	{
 		int quantity = 1;
 
@@ -381,7 +381,7 @@ public class AutoSellRequest
 		return true;
 	}
 
-	public static final boolean parseDetailedAutoSell( final String urlString, final String responseText )
+	public static boolean parseDetailedAutoSell( final String urlString, final String responseText )
 	{
 		int quantity = 1;
 
@@ -491,7 +491,7 @@ public class AutoSellRequest
 		return "Autoselling items to NPCs";
 	}
 
-	public static final boolean registerRequest( final String urlString )
+	public static boolean registerRequest( final String urlString )
 	{
 		Pattern itemPattern = null;
 		Pattern quantityPattern = null;

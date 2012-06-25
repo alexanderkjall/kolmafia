@@ -83,7 +83,7 @@ public class ContactListRequest
 		ContactListRequest.parseResponse( this.getURLString(), this.responseText );
 	}
 
-	public static final void parseResponse( final String urlString, final String responseText )
+	public static void parseResponse( final String urlString, final String responseText )
 	{
 		ContactManager.addMailContact( KoLCharacter.getUserName(), KoLCharacter.getPlayerId() );
 

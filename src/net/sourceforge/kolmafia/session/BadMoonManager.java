@@ -590,7 +590,7 @@ public abstract class BadMoonManager
 		return null;
 	}
 
-	public static final void validateBadMoon()
+	public static void validateBadMoon()
 	{
 		int lastAscension = Preferences.getInteger( "lastBadMoonReset" );
 		if ( lastAscension < KoLCharacter.getAscensions() )
@@ -608,7 +608,7 @@ public abstract class BadMoonManager
 		}
 	}
 
-	public static final boolean specialAdventure( final String encounterName )
+	public static boolean specialAdventure( final String encounterName )
 	{
 		if ( !KoLCharacter.inBadMoon() )
 		{
@@ -619,7 +619,7 @@ public abstract class BadMoonManager
 		return data != null;
 	}
 
-	public static final void registerAdventure( final String encounterName )
+	public static void registerAdventure( final String encounterName )
 	{
 
 		Object [] data = BadMoonManager.encounterToData( encounterName );
@@ -630,7 +630,7 @@ public abstract class BadMoonManager
 		}
 	}
 
-	public static final void report()
+	public static void report()
 	{
 		BadMoonManager.validateBadMoon();
 		StringBuffer output = new StringBuffer();
@@ -649,17 +649,17 @@ public abstract class BadMoonManager
 		RequestLogger.printLine();
 	}
 
-	private static final void startReport( final StringBuffer output )
+	private static void startReport( final StringBuffer output )
 	{
 		output.append( "<table border=2 cols=2>" );
 	}
 
-	private static final void endReport( final StringBuffer output )
+	private static void endReport( final StringBuffer output )
 	{
 		output.append( "</table>" );
 	}
 
-	private static final void reportType( final String type, final StringBuffer output )
+	private static void reportType( final String type, final StringBuffer output )
 	{
 		// The "type" is a descriptive string
 		output.append( "<tr><th colspan=2>" );

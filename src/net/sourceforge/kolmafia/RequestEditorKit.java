@@ -217,12 +217,12 @@ public class RequestEditorKit
 		}
 	}
 
-	public static final String getFeatureRichHTML( final String location, final String text )
+	public static String getFeatureRichHTML( final String location, final String text )
 	{
 		return RequestEditorKit.getFeatureRichHTML( location, text, true );
 	}
 
-	public static final void getFeatureRichHTML( final String location, final StringBuffer buffer )
+	public static void getFeatureRichHTML( final String location, final StringBuffer buffer )
 	{
 		RequestEditorKit.getFeatureRichHTML( location, buffer, true );
 	}
@@ -275,7 +275,7 @@ public class RequestEditorKit
 		RequestEditorKit.maps.add( "dwarffactory.php" );
 	}
 
-	public static final String getFeatureRichHTML( final String location, final String text, final boolean addComplexFeatures )
+	public static String getFeatureRichHTML( final String location, final String text, final boolean addComplexFeatures )
 	{
 		if ( text == null || text.length() == 0 )
 		{
@@ -287,7 +287,7 @@ public class RequestEditorKit
 		return buffer.toString();
 	}
 
-	public static final void getFeatureRichHTML( final String location, final StringBuffer buffer, final boolean addComplexFeatures )
+	public static void getFeatureRichHTML( final String location, final StringBuffer buffer, final boolean addComplexFeatures )
 	{
 		if ( buffer.length() == 0 )
 		{
@@ -721,7 +721,7 @@ public class RequestEditorKit
 		}
 	}
 
-	private static final void decorateLevelGain( final StringBuffer buffer )
+	private static void decorateLevelGain( final StringBuffer buffer )
 	{
 		String test = "<b>You gain a Level!</b>";
 		int index = buffer.indexOf( test );
@@ -766,7 +766,7 @@ public class RequestEditorKit
 		}
 	}
 
-	private static final void addTransponderLink( final StringBuffer buffer )
+	private static void addTransponderLink( final StringBuffer buffer )
 	{
 		// You can't get there anymore, because you don't know the
 		// transporter frequency. You consider beating up Kenneth to
@@ -795,7 +795,7 @@ public class RequestEditorKit
 		buffer.insert( index + test.length(), link.getItemHTML() );
 	}
 
-	private static final void addFolioLink( final StringBuffer buffer )
+	private static void addFolioLink( final StringBuffer buffer )
 	{
 		// Remember that devilish folio you read?
 		// No, you don't! You don't have it all still in your head!
@@ -819,7 +819,7 @@ public class RequestEditorKit
 		buffer.insert( index + test.length(), link.getItemHTML() );
 	}
 
-	private static final void decorateInventory( final StringBuffer buffer, final boolean addComplexFeatures )
+	private static void decorateInventory( final StringBuffer buffer, final boolean addComplexFeatures )
 	{
 		if ( KoLCharacter.knollAvailable() )
 		{
@@ -901,7 +901,7 @@ public class RequestEditorKit
 		buffer.replace( fmatcher.start(), fmatcher.end(), obuffer.toString() );
 	}
 
-	private static final void addOutfitGroup( final StringBuffer buffer, final String formName, final String label, final String type, final String options )
+	private static void addOutfitGroup( final StringBuffer buffer, final String formName, final String label, final String type, final String options )
 	{
 		if ( options.length() == 0 )
 		{
@@ -919,7 +919,7 @@ public class RequestEditorKit
 		buffer.append( "</select></td><td> <input class=button type=submit value=\"Dress Up!\"><br></form></td></tr>" );
 	}
 
-	public static final void addChatFeatures( final StringBuffer buffer )
+	public static void addChatFeatures( final StringBuffer buffer )
 	{
 		StringUtilities.insertBefore(
 			buffer, "</html>",
@@ -928,7 +928,7 @@ public class RequestEditorKit
 		StringUtilities.insertBefore( buffer, "</body>", "<div id='menu' class='rcm'></div>" );
 	}
 
-	private static final void addFightModifiers( final String location, final StringBuffer buffer )
+	private static void addFightModifiers( final String location, final StringBuffer buffer )
 	{
 		// Change bang potion names in item dropdown
 		RequestEditorKit.changePotionNames( buffer );
@@ -1075,7 +1075,7 @@ public class RequestEditorKit
 		}
 	}
 
-	public static final String advertisingMessage()
+	public static String advertisingMessage()
 	{
 		int ML = Preferences.getInteger( "flyeredML" );
 		float percent = Math.min( 100.0f * (float)ML/10000.0f, 100.0f );
@@ -1084,7 +1084,7 @@ public class RequestEditorKit
 			"% of the necessary advertising.";
 	}
 
-	private static final void annotateMonster( final StringBuffer buffer )
+	private static void annotateMonster( final StringBuffer buffer )
 	{
 		MonsterData monster = MonsterStatusTracker.getLastMonster();
 
@@ -1258,13 +1258,13 @@ public class RequestEditorKit
 		}
 	}
 
-	private static final void addMultiuseModifiers( final StringBuffer buffer )
+	private static void addMultiuseModifiers( final StringBuffer buffer )
 	{
 		// Change bang potion names in item dropdown
 		RequestEditorKit.changePotionNames( buffer );
 	}
 
-	private static final void add2ndFloorSpoilers( final StringBuffer buffer )
+	private static void add2ndFloorSpoilers( final StringBuffer buffer )
 	{
 		// Insert GMoB/Ballroom song spoilers
 		StringBuilder spoiler = new StringBuilder();
@@ -1309,14 +1309,14 @@ public class RequestEditorKit
 		}
 	}
 
-	private static final void addWineCellarSpoilers( final StringBuffer buffer )
+	private static void addWineCellarSpoilers( final StringBuffer buffer )
 	{
 		// Change dusty bottle names in item dropdown
 		RequestEditorKit.changeDustyBottleNames( buffer );
 		CellarDecorator.decorate( buffer );
 	}
 
-	private static final void identifyDustyBottles( final StringBuffer buffer )
+	private static void identifyDustyBottles( final StringBuffer buffer )
 	{
 		if ( buffer.indexOf( "wine2.gif" ) == -1 )
 		{
@@ -1340,7 +1340,7 @@ public class RequestEditorKit
 		}
 	}
 
-	private static final void changePotionImages( final StringBuffer buffer )
+	private static void changePotionImages( final StringBuffer buffer )
 	{
 		if ( buffer.indexOf( "exclam.gif" ) == -1 &&
 		     buffer.indexOf( "vial.gif" ) == -1)
@@ -1402,7 +1402,7 @@ public class RequestEditorKit
 		}
 	}
 
-	private static final void changePotionNames( final StringBuffer buffer )
+	private static void changePotionNames( final StringBuffer buffer )
 	{
 		for ( int i = 819; i <= 827; ++i )
 		{
@@ -1502,7 +1502,7 @@ public class RequestEditorKit
 		},
 	};
 
-	private static final void changePunchcardNames( final StringBuffer buffer )
+	private static void changePunchcardNames( final StringBuffer buffer )
 	{
 		if ( buffer.indexOf( "El Vibrato punchcard" ) == -1 )
 		{
@@ -1522,7 +1522,7 @@ public class RequestEditorKit
 	private static final Pattern GLYPH_PATTERN = Pattern.compile( "title=\"Arcane Glyph #(\\d)\"" );
 	private static final String[] ORDINALS = { "1st ", "2nd ", "3rd " };
 
-	private static final void changeDustyBottleNames( final StringBuffer buffer )
+	private static void changeDustyBottleNames( final StringBuffer buffer )
 	{
 		ItemDatabase.getDustyBottles();
 
@@ -1618,7 +1618,7 @@ public class RequestEditorKit
 		}
 	}
 
-	private static final void changeSphereImages( final StringBuffer buffer )
+	private static void changeSphereImages( final StringBuffer buffer )
 	{
 		RequestEditorKit.changeSphereImage( buffer, "spheremoss.gif", 2174 );
 		RequestEditorKit.changeSphereImage( buffer, "spheresmooth.gif", 2175 );
@@ -1626,7 +1626,7 @@ public class RequestEditorKit
 		RequestEditorKit.changeSphereImage( buffer, "sphererough.gif", 2177 );
 	}
 
-	private static final void changeSphereImage( final StringBuffer buffer, final String image, final int itemId )
+	private static void changeSphereImage( final StringBuffer buffer, final String image, final int itemId )
 	{
 		if ( buffer.indexOf( image ) == -1 )
 		{
@@ -1648,7 +1648,7 @@ public class RequestEditorKit
 		StringUtilities.globalStringReplace( buffer, name, name + " of " + effect );
 	}
 
-	private static final void fixHiddenCity( final StringBuffer buffer )
+	private static void fixHiddenCity( final StringBuffer buffer )
 	{
 		// When you adventure in the Hidden City, the Adventure Again
 		// link takes you to the map. Fix that link as follows:
@@ -1686,7 +1686,7 @@ public class RequestEditorKit
 		}
 	}
 
-	private static final void fixTavernCellar( final StringBuffer buffer )
+	private static void fixTavernCellar( final StringBuffer buffer )
 	{
 		// When you adventure in the Tavern Cellar, the Adventure Again
 		// link takes you to the map. Fix that link as follows:
@@ -1714,7 +1714,7 @@ public class RequestEditorKit
 		buffer.insert( index, link.toString() );
 	}
 
-	private static final void addHiddenCityModifiers( final StringBuffer buffer )
+	private static void addHiddenCityModifiers( final StringBuffer buffer )
 	{
 		// Change stone sphere names in item dropdown
 		RequestEditorKit.changeSphereNames( buffer );
@@ -1754,7 +1754,7 @@ public class RequestEditorKit
 		}
 	}
 
-	private static final String altarToBilliardBall( final String domain )
+	private static String altarToBilliardBall( final String domain )
 	{
 		if ( domain.equals( "lightning" ) )
 		{
@@ -1776,7 +1776,7 @@ public class RequestEditorKit
 		return null;
 	}
 
-	private static final String altarToEffect( final String domain )
+	private static String altarToEffect( final String domain )
 	{
 		if ( domain.equals( "lightning" ) )
 		{
@@ -1798,7 +1798,7 @@ public class RequestEditorKit
 		return null;
 	}
 
-	private static final String altarToModifiers( final String domain )
+	private static String altarToModifiers( final String domain )
 	{
 		if ( domain.equals( "lightning" ) )
 		{
@@ -1820,7 +1820,7 @@ public class RequestEditorKit
 		return null;
 	}
 
-	private static final void changeSphereNames( final StringBuffer buffer )
+	private static void changeSphereNames( final StringBuffer buffer )
 	{
 		for ( int i = 2174; i <= 2177; ++i )
 		{
@@ -1834,7 +1834,7 @@ public class RequestEditorKit
 		}
 	}
 
-	private static final void insertRoundNumbers( final StringBuffer buffer )
+	private static void insertRoundNumbers( final StringBuffer buffer )
 	{
 		Matcher m = FightRequest.ONTURN_PATTERN.matcher( buffer );
 		if ( !m.find() )
@@ -1862,7 +1862,7 @@ public class RequestEditorKit
 		m.appendTail( buffer );
 	}
 
-	private static final void addChoiceSpoilers( final String location, final StringBuffer buffer )
+	private static void addChoiceSpoilers( final String location, final StringBuffer buffer )
 	{
 		// Make sure that it's an actual choice adventure
 		String text = buffer.toString();
@@ -1991,7 +1991,7 @@ public class RequestEditorKit
 		buffer.append( text.substring( index1 ) );
 	}
 
-	private static final void decorateChoiceResponse( final String location, final StringBuffer buffer )
+	private static void decorateChoiceResponse( final String location, final StringBuffer buffer )
 	{
 		Matcher matcher = RequestEditorKit.CHOICE2_PATTERN.matcher( location );
 		if ( !matcher.find() )
@@ -2066,7 +2066,7 @@ public class RequestEditorKit
 		}
 	}
 
-	private static final void addMinstrelNavigationLink( final StringBuffer buffer, final String tag, final String url )
+	private static void addMinstrelNavigationLink( final StringBuffer buffer, final String tag, final String url )
 	{
 		int index = buffer.lastIndexOf( "<table>" );
 		if ( index == -1 )
@@ -2091,7 +2091,7 @@ public class RequestEditorKit
 		buffer.insert( index, link.toString()  );
 	}
 
-	private static final void decorateCouncil( final StringBuffer buffer )
+	private static void decorateCouncil( final StringBuffer buffer )
 	{
 		if ( !KoLCharacter.inAxecore() )
 		{
@@ -2105,7 +2105,7 @@ public class RequestEditorKit
 		}
 	}
 
-	private static final void decorateCrypt( final StringBuffer buffer )
+	private static void decorateCrypt( final StringBuffer buffer )
 	{
 		if ( Preferences.getInteger( "cyrptTotalEvilness") == 0 )
 		{
@@ -2189,7 +2189,7 @@ public class RequestEditorKit
 		buffer.insert( index + 5, evilometer.toString() );
 	}
 
-	private static final void addBugReportWarning( final StringBuffer buffer )
+	private static void addBugReportWarning( final StringBuffer buffer )
 	{
 		// <div id="type_1">
 		// <table><tr><td><b>IMPORTANT:</b> If you can see this notice,
@@ -2218,7 +2218,7 @@ public class RequestEditorKit
 		buffer.insert( index, disclaimer.toString() );
 	}
 
-	private static final void fixDucks( final StringBuffer buffer )
+	private static void fixDucks( final StringBuffer buffer )
 	{
 		// KoL does not currently provide a link back to the farm after
 		// you defeat the last duck.
@@ -2268,7 +2268,7 @@ public class RequestEditorKit
 
 	private static final AdventureResult DANCE_CARD = ItemPool.get( ItemPool.DANCE_CARD, 1);
 
-	private static final void fixRottingMatilda( final StringBuffer buffer )
+	private static void fixRottingMatilda( final StringBuffer buffer )
 	{
 		// Give player a link to use another dance card
 
@@ -2478,7 +2478,7 @@ public class RequestEditorKit
 	 * Utility method used to determine the GenericRequest that should be sent, given the appropriate location.
 	 */
 
-	public static final GenericRequest extractRequest( String location )
+	public static GenericRequest extractRequest( String location )
 	{
 		if ( location.contains( "pics.communityofloathing.com" ) )
 		{
@@ -2499,7 +2499,7 @@ public class RequestEditorKit
 	 * one
 	 */
 
-	public static final void selectOption( final StringBuffer buffer, final String select, final String option )
+	public static void selectOption( final StringBuffer buffer, final String select, final String option )
 	{
 		// Find the correct select within the html
 		int start = buffer.indexOf( "<select name=" + select + ">" );

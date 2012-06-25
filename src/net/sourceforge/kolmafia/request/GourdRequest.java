@@ -73,7 +73,7 @@ public class GourdRequest
 	private static final Pattern GOURD2_PATTERN = Pattern.compile( "The (\\d*) <i>urp</i>", Pattern.DOTALL );
 	private static final Pattern GOURD3_PATTERN = Pattern.compile( "value=\"Give him (\\d*)", Pattern.DOTALL );
 
-	public static final void parseResponse( final String location, final String responseText )
+	public static void parseResponse( final String location, final String responseText )
 	{
 		// Either place=gourd or action=gourd.
 		// Only the former has current expected gourd count
@@ -141,7 +141,7 @@ public class GourdRequest
 		Preferences.setInteger( "gourdItemCount", count );
 	}
 
-	public static final AdventureResult gourdItem( final int count )
+	public static AdventureResult gourdItem( final int count )
 	{
 		switch ( KoLCharacter.getPrimeIndex() )
 		{
@@ -154,7 +154,7 @@ public class GourdRequest
 		}
 	}
 
-	public static final boolean registerRequest( final String urlString )
+	public static boolean registerRequest( final String urlString )
 	{
 		if ( !urlString.startsWith( "town_right.php" ) )
 		{

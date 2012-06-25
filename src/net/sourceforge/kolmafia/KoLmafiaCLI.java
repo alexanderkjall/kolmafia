@@ -89,7 +89,7 @@ public class KoLmafiaCLI
 	public static int FULL_LINE_CMD = 1;
 	public static int FLOW_CONTROL_CMD = 2;
 
-	public static final void initialize()
+	public static void initialize()
 	{
 		System.out.println();
 		System.out.println( StaticEntity.getVersion() );
@@ -915,7 +915,7 @@ public class KoLmafiaCLI
 		RequestLogger.printLine( displayText.trim() );
 	}
 
-	public static final File findScriptFile( final String filename )
+	public static File findScriptFile( final String filename )
 	{
 		File scriptFile = new File( filename );
 		if ( scriptFile.exists() )
@@ -959,12 +959,12 @@ public class KoLmafiaCLI
 		return null;
 	}
 
-	public static final File findScriptFile( final File directory, final String filename )
+	public static File findScriptFile( final File directory, final String filename )
 	{
 		return KoLmafiaCLI.findScriptFile( directory, filename, false );
 	}
 
-	private static final File findScriptFile( final File directory, final String filename, final boolean isFallback )
+	private static File findScriptFile( final File directory, final String filename, final boolean isFallback )
 	{
 		File scriptFile = new File( directory, filename );
 

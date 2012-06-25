@@ -233,7 +233,7 @@ public class Interpreter
 	}
 
 	private static final String indentation = " " + " " + " ";
-	public static final void indentLine( final PrintStream stream, final int indent )
+	public static void indentLine( final PrintStream stream, final int indent )
 	{
 		if ( stream != null )
 		{
@@ -497,7 +497,7 @@ public class Interpreter
 		this.traceStream = RequestLogger.getDebugStream();
 	}
 
-	private final void indentLine( final int indent )
+	private void indentLine( final int indent )
 	{
 		Interpreter.indentLine( this.traceStream, indent );
 	}
@@ -542,7 +542,7 @@ public class Interpreter
 		return Interpreter.runtimeException( message, this.fileName, this.lineNumber );
 	}
 
-	public static final ScriptException runtimeException( final String message, final String fileName, final int lineNumber )
+	public static ScriptException runtimeException( final String message, final String fileName, final int lineNumber )
 	{
 		return new ScriptException( message + " " + Parser.getLineAndFile( fileName, lineNumber ) );
 	}

@@ -158,7 +158,7 @@ public abstract class MPRestoreItemList
 		new MPRestoreItem( "unrefined Mountain Stream syrup", 55, true )
 	};
 
-	public static final void setPurchaseBasedSort( final boolean purchaseBasedSort )
+	public static void setPurchaseBasedSort( final boolean purchaseBasedSort )
 	{
 		MPRestoreItemList.purchaseBasedSort = purchaseBasedSort;
 	}
@@ -178,12 +178,12 @@ public abstract class MPRestoreItemList
 		MPRestoreItemList.GALAKTIK.purchaseCost = QuestLogRequest.galaktikCuresAvailable() ? 12 : 17;
 	}
 
-	public static final boolean contains( final AdventureResult item )
+	public static boolean contains( final AdventureResult item )
 	{
 		return restoreByName.containsKey( item.getName() );
 	}
 
-	public static final JCheckBox[] getCheckboxes()
+	public static JCheckBox[] getCheckboxes()
 	{
 		String mpRestoreSetting = Preferences.getString( "mpAutoRecoveryItems" );
 		JCheckBox[] restoreCheckbox = new JCheckBox[ MPRestoreItemList.CONFIGURES.length ];
@@ -197,7 +197,7 @@ public abstract class MPRestoreItemList
 		return restoreCheckbox;
 	}
 
-	public static final void updateCheckboxes( final JCheckBox[] restoreCheckbox )
+	public static void updateCheckboxes( final JCheckBox[] restoreCheckbox )
 	{
 		String mpRestoreSetting = Preferences.getString( "mpAutoRecoveryItems" );
 

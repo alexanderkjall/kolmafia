@@ -234,7 +234,7 @@ public class ShowDescriptionList
 		}
 	}
 
-	public static final void showGameDescription( Object item )
+	public static void showGameDescription( Object item )
 	{
 		if ( item instanceof MaximizerFrame.Boost )
 		{
@@ -279,7 +279,7 @@ public class ShowDescriptionList
 		}
 	}
 
-	public static final String getWikiLocation( Object item )
+	public static String getWikiLocation( Object item )
 	{
 		if ( item == null )
 		{
@@ -377,7 +377,7 @@ public class ShowDescriptionList
 			StringUtilities.getURLEncode( name );
 	}
 
-	public static final void showWikiDescription( final Object item )
+	public static void showWikiDescription( final Object item )
 	{
 		String location = ShowDescriptionList.getWikiLocation( item );
 

@@ -115,7 +115,7 @@ public class RaffleRequest
 		}
 	}
 
-	public static final boolean parseResponse( final String urlString, final String responseText )
+	public static boolean parseResponse( final String urlString, final String responseText )
 	{
 		if ( !urlString.startsWith( "raffle.php" ) )
 		{
@@ -159,7 +159,7 @@ public class RaffleRequest
 		return true;
 	}
 
-	public static final boolean registerRequest( final String location )
+	public static boolean registerRequest( final String location )
 	{
 		if ( !location.startsWith( "raffle.php" ) )
 		{

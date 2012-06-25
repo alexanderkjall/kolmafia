@@ -198,7 +198,7 @@ public class AutoFilterTextField
 			StringUtilities.fuzzyMatches( elementName, this.text );
 	}
 
-	public static final String getResultName( final Object element )
+	public static String getResultName( final Object element )
 	{
 		if ( element == null )
 		{
@@ -237,7 +237,7 @@ public class AutoFilterTextField
 		return element.toString();
 	}
 
-	public static final int getResultPrice( final Object element )
+	public static int getResultPrice( final Object element )
 	{
 		if ( element == null )
 		{
@@ -253,7 +253,7 @@ public class AutoFilterTextField
 	}
 
 
-	public static final int getResultQuantity( final Object element )
+	public static int getResultQuantity( final Object element )
 	{
 		if ( element == null )
 		{

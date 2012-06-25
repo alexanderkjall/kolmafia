@@ -334,7 +334,7 @@ public class Parser
 		reservedWords.add( "typedef" );
 	}
 
-	private static final boolean isReservedWord( final String name )
+	private static boolean isReservedWord( final String name )
 	{
 		return Parser.reservedWords.contains( name.toLowerCase() );
 	}
@@ -2222,7 +2222,7 @@ public class Parser
                 "to_url",
         };
 
-	private final Function findFunction( final BasicScope scope, final String name, final ValueList params )
+	private Function findFunction( final BasicScope scope, final String name, final ValueList params )
 	{
 		Function result = this.findFunction( scope, scope.getFunctionList(), name, params, true );
 		if ( result != null )
@@ -2263,7 +2263,7 @@ public class Parser
 		return null;
 	}
 
-	private final Function findFunction( BasicScope scope, final FunctionList source,
+	private Function findFunction( BasicScope scope, final FunctionList source,
 					     final String name, final ValueList params,
 					     boolean isExactMatch )
 	{
@@ -3280,7 +3280,7 @@ public class Parser
 		return this.parseDirective( "import" );
 	}
 
-	public static final boolean validCoercion( Type lhs, Type rhs, final Operator oper )
+	public static boolean validCoercion( Type lhs, Type rhs, final Operator oper )
 	{
 		int ltype = lhs.getBaseType().getType();
 		int rtype = rhs.getBaseType().getType();
@@ -3296,7 +3296,7 @@ public class Parser
 		return Parser.validCoercion( lhs, rhs, oper.toString() );
 	}
 
-	public static final boolean validCoercion( Type lhs, Type rhs, final String oper )
+	public static boolean validCoercion( Type lhs, Type rhs, final String oper )
 	{
 		// Resolve aliases
 
@@ -3629,22 +3629,22 @@ public class Parser
 
 	// **************** Parse errors *****************
 
-	private final ScriptException parseException( final String expected, final String actual )
+	private ScriptException parseException( final String expected, final String actual )
 	{
 		return this.parseException( "Expected " + expected + ", found " + actual );
 	}
 
-	private final ScriptException parseException( final String message )
+	private ScriptException parseException( final String message )
 	{
 		return new ScriptException( message + " " + this.getLineAndFile() );
 	}
 
-	private final ScriptException undefinedFunctionException( final String name, final ValueList params )
+	private ScriptException undefinedFunctionException( final String name, final ValueList params )
 	{
 		return this.parseException( this.undefinedFunctionMessage( name, params ) );
 	}
 
-	private final ScriptException multiplyDefinedFunctionException( final String name, final VariableReferenceList params )
+	private ScriptException multiplyDefinedFunctionException( final String name, final VariableReferenceList params )
 	{
 		StringBuffer buffer = new StringBuffer();
 		buffer.append( "Function '" );
@@ -3653,7 +3653,7 @@ public class Parser
 		return this.parseException( buffer.toString() );
 	}
 
-	public static final String undefinedFunctionMessage( final String name, final ValueList params )
+	public static String undefinedFunctionMessage( final String name, final ValueList params )
 	{
 		StringBuffer buffer = new StringBuffer();
 		buffer.append( "Function '" );
@@ -3667,7 +3667,7 @@ public class Parser
 		RequestLogger.printLine( "WARNING: " + msg + " " + this.getLineAndFile() );
 	}
 
-	private static final void appendFunction(  final StringBuffer buffer, final String name, final ParseTreeNodeList params )
+	private static void appendFunction(  final StringBuffer buffer, final String name, final ParseTreeNodeList params )
 	{
 		buffer.append( name );
 		buffer.append( "(" );
@@ -3693,12 +3693,12 @@ public class Parser
 		buffer.append( " )" );
 	}
 
-	private final String getLineAndFile()
+	private String getLineAndFile()
 	{
 		return Parser.getLineAndFile( this.shortFileName, this.lineNumber );
 	}
 
-	public static final String getLineAndFile( final String fileName, final int lineNumber )
+	public static String getLineAndFile( final String fileName, final int lineNumber )
 	{
 		if ( fileName == null )
 		{

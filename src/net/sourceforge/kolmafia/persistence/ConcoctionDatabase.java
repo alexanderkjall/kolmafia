@@ -307,7 +307,7 @@ public class ConcoctionDatabase
 	private static final HashMap<String,Concoction> noodles = new HashMap<String,Concoction>();
 	private static final HashMap<String,Concoction> meatStack = new HashMap<String,Concoction>();
 
-	public static final void resetQueue()
+	public static void resetQueue()
 	{
 		Stack queuedChanges = ConcoctionDatabase.queuedFoodChanges;
 		while ( !queuedChanges.empty() )
@@ -366,7 +366,7 @@ public class ConcoctionDatabase
 		ConcoctionDatabase.usableList.sort();
 	}
 
-	private static final void addConcoction( final String[] data )
+	private static void addConcoction( final String[] data )
 	{
 		// Need at least concoction name and mixing method
 		if ( data.length <= 2 )
@@ -518,7 +518,7 @@ public class ConcoctionDatabase
 		return (mixingMethod & KoLConstants.CT_MASK) == KoLConstants.SUSHI;
 	}
 
-	public static final boolean isKnownCombination( final AdventureResult[] ingredients )
+	public static boolean isKnownCombination( final AdventureResult[] ingredients )
 	{
 		// Known combinations which could not be added because
 		// there are limitations in the item manager.
@@ -606,18 +606,18 @@ public class ConcoctionDatabase
 		return false;
 	}
 
-	public static final SortedListModel getKnownUses( final int itemId )
+	public static SortedListModel getKnownUses( final int itemId )
 	{
 		SortedListModel uses = ConcoctionDatabase.knownUses.get( itemId );
 		return uses == null ? ConcoctionDatabase.EMPTY_LIST : uses;
 	}
 
-	public static final SortedListModel getKnownUses( final AdventureResult item )
+	public static SortedListModel getKnownUses( final AdventureResult item )
 	{
 		return ConcoctionDatabase.getKnownUses( item.getItemId() );
 	}
 
-	public static final boolean isPermittedMethod( final int method )
+	public static boolean isPermittedMethod( final int method )
 	{
 		int base = method & KoLConstants.CT_MASK;
 
@@ -637,7 +637,7 @@ public class ConcoctionDatabase
 		return true;
 	}
 
-	public static final boolean checkPermittedMethod( int method )
+	public static boolean checkPermittedMethod( int method )
 	{
 		// Same as isPermittedMethod(), but sets excuse.
 		ConcoctionDatabase.excuse = null;
@@ -675,7 +675,7 @@ public class ConcoctionDatabase
 		return true;
 	}
 
-	private static final AdventureResult parseIngredient( final String data )
+	private static AdventureResult parseIngredient( final String data )
 	{
 		// If the ingredient is specified inside of brackets,
 		// then a specific item Id is being designated.
@@ -697,14 +697,14 @@ public class ConcoctionDatabase
 		return AdventureResult.parseResult( data );
 	}
 
-	public static final SortedListModel getQueuedIngredients( boolean food, boolean booze, boolean spleen )
+	public static SortedListModel getQueuedIngredients( boolean food, boolean booze, boolean spleen )
 	{
 		return food ? ConcoctionDatabase.queuedFoodIngredients :
 			booze ? ConcoctionDatabase.queuedBoozeIngredients :
 			ConcoctionDatabase.queuedSpleenIngredients;
 	}
 
-	public static final void push( final Concoction c, final int quantity )
+	public static void push( final Concoction c, final int quantity )
 	{
 		Stack queuedChanges;
 		LockableListModel queuedIngredients;
@@ -795,7 +795,7 @@ public class ConcoctionDatabase
 		queuedChanges.push( c );
 	}
 
-	public static final Object [] pop( boolean food, boolean booze, boolean spleen )
+	public static Object [] pop( boolean food, boolean booze, boolean spleen )
 	{
 		Stack queuedChanges;
 		LockableListModel queuedIngredients;
@@ -895,17 +895,17 @@ public class ConcoctionDatabase
 		return new Object [] { c, quantity };
 	}
 
-	public static final LockableListModel getUsables()
+	public static LockableListModel getUsables()
 	{
 		return ConcoctionDatabase.usableList;
 	}
 
-	public static final SortedListModel getCreatables()
+	public static SortedListModel getCreatables()
 	{
 		return ConcoctionDatabase.creatableList;
 	}
 
-	public static final void handleQueue( boolean food, boolean booze, boolean spleen, int consumptionType )
+	public static void handleQueue( boolean food, boolean booze, boolean spleen, int consumptionType )
 	{
 		Object [] currentItem;
 		Stack toProcess = new Stack();
@@ -959,7 +959,7 @@ public class ConcoctionDatabase
 		SpecialOutfit.restoreImplicitCheckpoint();
 	}
 
-	private static final void consumeItem( Concoction c, int quantity )
+	private static void consumeItem( Concoction c, int quantity )
 	{
 		AdventureResult item = c.getItem();
 
@@ -1033,22 +1033,22 @@ public class ConcoctionDatabase
 		}
 	}
 
-	public static final int getQueuedFullness()
+	public static int getQueuedFullness()
 	{
 		return ConcoctionDatabase.queuedFullness;
 	}
 
-	public static final int getQueuedInebriety()
+	public static int getQueuedInebriety()
 	{
 		return ConcoctionDatabase.queuedInebriety;
 	}
 
-	public static final int getQueuedSpleenHit()
+	public static int getQueuedSpleenHit()
 	{
 		return ConcoctionDatabase.queuedSpleenHit;
 	}
 
-	private static final List getAvailableIngredients()
+	private static List getAvailableIngredients()
 	{
 		boolean includeCloset =
 			!KoLConstants.closet.isEmpty() &&
@@ -1145,7 +1145,7 @@ public class ConcoctionDatabase
 		return availableIngredients;
 	}
 
-	public static final void deferRefresh( boolean flag )
+	public static void deferRefresh( boolean flag )
 	{
 		if ( flag )
 		{
@@ -1160,7 +1160,7 @@ public class ConcoctionDatabase
 		}
 	}
 
-	public static final void setRefreshNeeded( int itemId )
+	public static void setRefreshNeeded( int itemId )
 	{
 		switch ( ItemDatabase.getConsumptionType( itemId ) )
 		{
@@ -1222,7 +1222,7 @@ public class ConcoctionDatabase
 		}
 	}
 
-	public static final void setRefreshNeeded( boolean recalculateAdventureRange )
+	public static void setRefreshNeeded( boolean recalculateAdventureRange )
 	{
 		ConcoctionDatabase.refreshNeeded = true;
 
@@ -1237,7 +1237,7 @@ public class ConcoctionDatabase
 	 * requests for item creation.
 	 */
 
-	public static final synchronized void refreshConcoctions( boolean force )
+	public static synchronized void refreshConcoctions( boolean force )
 	{
 		if ( !force && !ConcoctionDatabase.refreshNeeded )
 		{
@@ -1437,7 +1437,7 @@ public class ConcoctionDatabase
 	 * character.
 	 */
 
-	public static final void resetConcoctionStatGains()
+	public static void resetConcoctionStatGains()
 	{
 		Iterator it = ConcoctionPool.iterator();
 
@@ -1450,7 +1450,7 @@ public class ConcoctionDatabase
 		ConcoctionDatabase.usableList.sort();
 	}
 
-	private static final void calculateBasicItems( final List availableIngredients )
+	private static void calculateBasicItems( final List availableIngredients )
 	{
 		// Meat paste and meat stacks can be created directly
 		// and are dependent upon the amount of meat available.
@@ -1463,7 +1463,7 @@ public class ConcoctionDatabase
 			availableIngredients, ItemPool.DENSE_STACK, 1000 );
 	}
 
-	private static final void setBuyableItem( final List availableIngredients, final int itemId, final int price )
+	private static void setBuyableItem( final List availableIngredients, final int itemId, final int price )
 	{
 		Concoction creation = ConcoctionPool.get( itemId );
 		if ( creation == null )
@@ -1482,7 +1482,7 @@ public class ConcoctionDatabase
 	 * Utility method used to cache the current permissions on item creation.
 	 */
 
-	private static final void cachePermitted( final List availableIngredients )
+	private static void cachePermitted( final List availableIngredients )
 	{
 		int toolCost = KoLCharacter.inBadMoon() ? 500 : 1000;
 		boolean willBuyTool =
@@ -1933,7 +1933,7 @@ public class ConcoctionDatabase
 		return ConcoctionDatabase.INIGO.getCount( KoLConstants.activeEffects ) / 5;
 	}
 
-	private static final boolean isAvailable( final int servantId, final int clockworkId )
+	private static boolean isAvailable( final int servantId, final int clockworkId )
 	{
 		// Otherwise, return whether or not the quantity possible for
 		// the given box servants is non-zero.	This works because
@@ -1948,19 +1948,19 @@ public class ConcoctionDatabase
 	 * Returns the mixing method for the item with the given Id.
 	 */
 
-	public static final int getMixingMethod( final int itemId )
+	public static int getMixingMethod( final int itemId )
 	{
 		Concoction item = ConcoctionPool.get( itemId );
 		return item == null ? KoLConstants.NOCREATE : item.getMixingMethod();
 	}
 
-	public static final int getMixingMethod( final String name )
+	public static int getMixingMethod( final String name )
 	{
 		Concoction item = ConcoctionPool.get( name );
 		return item == null ? KoLConstants.NOCREATE : item.getMixingMethod();
 	}
 
-	public static final int getMixingMethod( final AdventureResult ar )
+	public static int getMixingMethod( final AdventureResult ar )
 	{
 		Concoction item = ConcoctionPool.get( ar );
 		return item == null ? KoLConstants.NOCREATE : item.getMixingMethod();
@@ -2060,23 +2060,23 @@ public class ConcoctionDatabase
 	 * returned instead.
 	 */
 
-	public static final AdventureResult[] getIngredients( final int itemId )
+	public static AdventureResult[] getIngredients( final int itemId )
 	{
 		return ConcoctionDatabase.getIngredients( ConcoctionDatabase.getStandardIngredients( itemId ) );
 	}
 
-	public static final AdventureResult[] getIngredients( final String name )
+	public static AdventureResult[] getIngredients( final String name )
 	{
 		return ConcoctionDatabase.getIngredients( ConcoctionDatabase.getStandardIngredients( name ) );
 	}
 
-	public static final AdventureResult[] getIngredients( AdventureResult[] ingredients )
+	public static AdventureResult[] getIngredients( AdventureResult[] ingredients )
 	{
 		List availableIngredients = ConcoctionDatabase.getAvailableIngredients();
 		return ConcoctionDatabase.getIngredients( ingredients, availableIngredients );
 	}
 
-	private static final AdventureResult[] getIngredients( AdventureResult[] ingredients, List availableIngredients )
+	private static AdventureResult[] getIngredients( AdventureResult[] ingredients, List availableIngredients )
 	{
 		// Ensure that you're retrieving the same ingredients that
 		// were used in the calculations.  Usually this is the case,
@@ -2121,28 +2121,28 @@ public class ConcoctionDatabase
 		return ingredients;
 	}
 
-	public static final int getYield( final int itemId )
+	public static int getYield( final int itemId )
 	{
 		Concoction item = ConcoctionPool.get( itemId );
 		return item == null ? 1 : item.getYield();
 	}
 
-	public static final AdventureResult[] getStandardIngredients( final int itemId )
+	public static AdventureResult[] getStandardIngredients( final int itemId )
 	{
 		return ConcoctionDatabase.getStandardIngredients( ConcoctionPool.get( itemId ) );
 	}
 
-	public static final AdventureResult[] getStandardIngredients( final String name )
+	public static AdventureResult[] getStandardIngredients( final String name )
 	{
 		return ConcoctionDatabase.getStandardIngredients( ConcoctionPool.get( name ) );
 	}
 
-	public static final AdventureResult[] getStandardIngredients( final Concoction item )
+	public static AdventureResult[] getStandardIngredients( final Concoction item )
 	{
 		return item == null ? ConcoctionDatabase.NO_INGREDIENTS : item.getIngredients();
 	}
 
-	private static final AdventureResult getBetterIngredient( final int itemId1,
+	private static AdventureResult getBetterIngredient( final int itemId1,
 		final int itemId2, final List availableIngredients )
 	{
 		AdventureResult ingredient1 = ItemPool.get( itemId1, 1 );
@@ -2157,19 +2157,19 @@ public class ConcoctionDatabase
 		return diff > 0 ? ingredient1 : ingredient2;
 	}
 
-	public static final int getPullsBudgeted()
+	public static int getPullsBudgeted()
 	{
 		return ConcoctionDatabase.pullsBudgeted;
 	}
 
 	public static int pullsBudgeted = 0;
 	public static int pullsRemaining = 0;
-	public static final int getPullsRemaining()
+	public static int getPullsRemaining()
 	{
 		return pullsRemaining;
 	}
 
-	public static final void setPullsRemaining( final int pullsRemaining )
+	public static void setPullsRemaining( final int pullsRemaining )
 	{
 		ConcoctionDatabase.pullsRemaining = pullsRemaining;
 
@@ -2185,7 +2185,7 @@ public class ConcoctionDatabase
 		}
 	}
 
-	public static final void setPullsBudgeted( int pullsBudgeted )
+	public static void setPullsBudgeted( int pullsBudgeted )
 	{
 		if ( pullsBudgeted < queuedPullsUsed )
 		{

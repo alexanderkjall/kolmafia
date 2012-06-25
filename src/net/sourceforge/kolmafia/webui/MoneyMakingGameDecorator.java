@@ -43,7 +43,7 @@ public abstract class MoneyMakingGameDecorator
 {
 	private static final Pattern SEARCH_PATTERN = Pattern.compile( "mine=(\\d+)" );
 
-	public static final void decorate( final String location, final StringBuffer buffer )
+	public static void decorate( final String location, final StringBuffer buffer )
 	{
 		// <input type=checkbox name=confirm>
 		if ( Preferences.getBoolean( "mmgAutoConfirmBets" ) )
@@ -73,7 +73,7 @@ public abstract class MoneyMakingGameDecorator
 		}
 	}
 
-	public static final void setLimits( final String minimum, final String maximum )
+	public static void setLimits( final String minimum, final String maximum )
 	{
 		Preferences.setString( "mmgSearchMinimum", minimum );
 		Preferences.setString( "mmgSearchMaximum", maximum );

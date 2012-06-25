@@ -90,18 +90,18 @@ public class EatItemRequest
 		return 0;
 	}
 
-	public static final void ignoreMilkPrompt()
+	public static void ignoreMilkPrompt()
 	{
 		EatItemRequest.ignoreMilkPrompt = KoLCharacter.getUserId();
 	}
 
-	public static final void clearFoodHelper()
+	public static void clearFoodHelper()
 	{
 		EatItemRequest.queuedFoodHelper = null;
 		EatItemRequest.queuedFoodHelperCount = 0;
 	}
 
-	public static final int maximumUses( final int itemId, final String itemName, final int fullness )
+	public static int maximumUses( final int itemId, final String itemName, final int fullness )
 	{
 		int limit = KoLCharacter.getFullnessLimit();
 		int fullnessLeft = limit - KoLCharacter.getFullness();
@@ -241,7 +241,7 @@ public class EatItemRequest
 		super.runOneIteration( currentIteration, totalIterations, useTypeAsString );
 	}
 
-	private static final boolean singleConsume( final int itemId )
+	private static boolean singleConsume( final int itemId )
 	{
 		// Consume one at a time when a helper is involved.
 		// Multi-consume with a helper actually DOES work, even though
@@ -263,7 +263,7 @@ public class EatItemRequest
 		return false;
 	}
 
-	private static final boolean sequentialConsume( final int itemId )
+	private static boolean sequentialConsume( final int itemId )
 	{
 		switch (itemId )
 		{
@@ -276,7 +276,7 @@ public class EatItemRequest
 		return false;
 	}
 
-	private final boolean allowFoodConsumption()
+	private boolean allowFoodConsumption()
 	{
 		if ( !GenericFrame.instanceExists() )
 		{
@@ -322,7 +322,7 @@ public class EatItemRequest
 		return true;
 	}
 
-	private final boolean askAboutMilk( String advGain )
+	private boolean askAboutMilk( String advGain )
 	{
 		// If user specifically said not to worry about milk, don't nag
 		int myUserId = KoLCharacter.getUserId();
@@ -415,7 +415,7 @@ public class EatItemRequest
 		return true;
 	}
 
-	public static final void parseConsumption( final AdventureResult item, final AdventureResult helper, final String responseText )
+	public static void parseConsumption( final AdventureResult item, final AdventureResult helper, final String responseText )
 	{
 		// Special handling for fortune cookies, since you can smash
 		// them, as well as eat them
@@ -657,7 +657,7 @@ public class EatItemRequest
 		}
 	}
 
-	private static final void handleFortuneCookie( final Matcher matcher )
+	private static void handleFortuneCookie( final Matcher matcher )
 	{
 		String message = matcher.group( 1 );
 
@@ -760,7 +760,7 @@ public class EatItemRequest
 		TurnCounter.stopCounting( "Semirare window end" );
 	}
 
-	public static final String lastSemirareMessage()
+	public static String lastSemirareMessage()
 	{
 		KoLCharacter.ensureUpdatedAscensionCounters();
 
@@ -776,7 +776,7 @@ public class EatItemRequest
 		return "Last semirare found " + ( current - turns ) + " turns ago (on turn " + turns + ")" + loc;
 	}
 
-	public static final boolean registerRequest()
+	public static boolean registerRequest()
 	{
 		AdventureResult item = UseItemRequest.lastItemUsed;
 		int count = item.getCount();

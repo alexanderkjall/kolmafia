@@ -297,7 +297,7 @@ public class AdventureResult
 		}
 	}
 
-	public static final AdventureResult pseudoItem( final String name )
+	public static AdventureResult pseudoItem( final String name )
 	{
 		AdventureResult item = ItemFinder.getFirstMatchingItem( name, false );
 		if ( item != null )
@@ -309,12 +309,12 @@ public class AdventureResult
 		return AdventureResult.tallyItem( name, false );
 	}
 
-	public static final AdventureResult tallyItem( final String name )
+	public static AdventureResult tallyItem( final String name )
 	{
 		return AdventureResult.tallyItem( name, true );
 	}
 
-	public static final AdventureResult tallyItem( final String name, final boolean setItemId )
+	public static AdventureResult tallyItem( final String name, final boolean setItemId )
 	{
 		AdventureResult item = new AdventureResult( AdventureResult.NO_PRIORITY, name );
 		item.priority = AdventureResult.ITEM_PRIORITY;
@@ -322,7 +322,7 @@ public class AdventureResult
 		return item;
 	}
 
-	public static final AdventureResult tallyItem( final String name, final int itemId )
+	public static AdventureResult tallyItem( final String name, final int itemId )
 	{
 		AdventureResult item = new AdventureResult( AdventureResult.NO_PRIORITY, name );
 		item.priority = AdventureResult.ITEM_PRIORITY;
@@ -330,7 +330,7 @@ public class AdventureResult
 		return item;
 	}
 
-	public static final AdventureResult tallyItem( final String name, final int count, final boolean setItemId )
+	public static AdventureResult tallyItem( final String name, final int count, final boolean setItemId )
 	{
 		AdventureResult item = AdventureResult.tallyItem( name, setItemId );
 		item.count = count;
@@ -526,7 +526,7 @@ public class AdventureResult
 	 * @throws ParseException The value enclosed within parentheses was not a number.
 	 */
 
-	public static final AdventureResult parseResult( final String s )
+	public static AdventureResult parseResult( final String s )
 	{
 		if ( s.startsWith( "You gain" ) || s.startsWith( "You lose" ) || s.startsWith( "You spent" ) )
 		{
@@ -600,7 +600,7 @@ public class AdventureResult
 		return AdventureResult.parseItem( s, false );
 	}
 
-	public static final AdventureResult parseItem( final String s, final boolean pseudoAllowed )
+	public static AdventureResult parseItem( final String s, final boolean pseudoAllowed )
 	{
 		StringTokenizer parsedItem = new StringTokenizer( s, "()" );
 
@@ -896,7 +896,7 @@ public class AdventureResult
 	 * @param result The result to add to the tally
 	 */
 
-	public static final void addResultToList( final List<AdventureResult> sourceList, final AdventureResult result )
+	public static void addResultToList( final List<AdventureResult> sourceList, final AdventureResult result )
 	{
 		int index = sourceList.indexOf( result );
 
@@ -996,7 +996,7 @@ public class AdventureResult
 		sourceList.set( index, sumResult );
 	}
 
-	public static final void addOrRemoveResultToList( final List sourceList, final AdventureResult result )
+	public static void addOrRemoveResultToList( final List sourceList, final AdventureResult result )
 	{
 		int index = sourceList.indexOf( result );
 
@@ -1019,7 +1019,7 @@ public class AdventureResult
 		sourceList.set( index, sumResult );
 	}
 
-	public static final void removeResultFromList( final List sourceList, final AdventureResult result )
+	public static void removeResultFromList( final List sourceList, final AdventureResult result )
 	{
 		int index = sourceList.indexOf( result );
 		if ( index != -1 )
@@ -1097,7 +1097,7 @@ public class AdventureResult
 		return null;
 	}
 
-	public static final String bangPotionName( final int itemId )
+	public static String bangPotionName( final int itemId )
 	{
 		String itemName = ItemDatabase.getItemDataName( itemId );
 
@@ -1110,7 +1110,7 @@ public class AdventureResult
 		return itemName + " of " + effect;
 	}
 
-	public static final String dustyBottleName( final int itemId )
+	public static String dustyBottleName( final int itemId )
 	{
 		String itemName = ItemDatabase.getItemDataName( itemId );
 
@@ -1123,7 +1123,7 @@ public class AdventureResult
 		return StringUtilities.globalStringReplace( itemName, " of", " of " + ItemDatabase.glyphType( glyph ) );
 	}
 
-	public static final String slimeVialName( final int itemId )
+	public static String slimeVialName( final int itemId )
 	{
 		String itemName = ItemDatabase.getItemDataName( itemId );
 
@@ -1162,7 +1162,7 @@ public class AdventureResult
 		return this.name;
 	}
 
-	public static final String stoneSphereName( final int itemId )
+	public static String stoneSphereName( final int itemId )
 	{
 		String itemName = ItemDatabase.getItemDataName( itemId );
 
@@ -1175,7 +1175,7 @@ public class AdventureResult
 		return itemName + " of " + effect;
 	}
 
-	public static final String punchCardName( final int itemId )
+	public static String punchCardName( final int itemId )
 	{
 		for ( int i = 0; i < RequestEditorKit.PUNCHCARDS.length; ++i )
 		{

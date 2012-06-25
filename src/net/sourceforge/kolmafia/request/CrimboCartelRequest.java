@@ -126,7 +126,7 @@ public class CrimboCartelRequest
 		CoinMasterRequest.parseResponse( data, location, responseText );
 	}
 
-	public static final boolean registerRequest( final String urlString )
+	public static boolean registerRequest( final String urlString )
 	{
 		// We only claim crimbo09.php?action=buygift
 		if ( !urlString.startsWith( "crimbo09.php" ) )

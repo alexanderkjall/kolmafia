@@ -188,7 +188,7 @@ public class BountyHunterHunterRequest
 		CoinMasterRequest.parseResponse( data, location, responseText );
 	}
 
-	private static final void abandonBounty()
+	private static void abandonBounty()
 	{
 		int itemId = Preferences.getInteger( "currentBountyItem" );
 		if ( itemId == 0 )
@@ -201,7 +201,7 @@ public class BountyHunterHunterRequest
 		Preferences.setInteger( "currentBountyItem", 0 );
 	}
 
-	public static final boolean registerRequest( final String urlString )
+	public static boolean registerRequest( final String urlString )
 	{
 		if ( !urlString.startsWith( "bhh.php" ) )
 		{

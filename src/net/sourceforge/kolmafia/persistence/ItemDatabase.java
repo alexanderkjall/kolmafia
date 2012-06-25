@@ -172,7 +172,7 @@ public class ItemDatabase
 		"all",
 	};
 
-	private final static String parseAccess( final String data )
+	private static String parseAccess( final String data )
 	{
 		for ( int i = 0; i < ItemDatabase.ACCESS.length; ++i )
 		{
@@ -636,7 +636,7 @@ public class ItemDatabase
 		}
 	}
 
-	private static final void setConsumptionData( final String name, final int size, final String adventures,
+	private static void setConsumptionData( final String name, final int size, final String adventures,
 		final String muscle, final String mysticality, final String moxie, final String note )
 	{
 		ItemDatabase.saveAdventureRange( name, size, adventures );
@@ -720,7 +720,7 @@ public class ItemDatabase
 		}
 	}
 
-	private static final void addPseudoItems()
+	private static void addPseudoItems()
 	{
 		Integer id = IntegerPool.get( 13 );
 
@@ -757,14 +757,14 @@ public class ItemDatabase
 		}
 	}
 
-	private static final void saveCanonicalNames()
+	private static void saveCanonicalNames()
 	{
 		ItemDatabase.canonicalNames = new String[ ItemDatabase.itemIdByName.size() ];
 		ItemDatabase.itemIdByName.keySet().toArray( ItemDatabase.canonicalNames );
 		Arrays.sort( ItemDatabase.canonicalNames );
 	}
 
-	private static final void saveConsumptionValues( String[] data, Map<String, Integer> map )
+	private static void saveConsumptionValues( String[] data, Map<String, Integer> map )
 	{
 		if ( data.length < 2 )
 			return;
@@ -792,7 +792,7 @@ public class ItemDatabase
 		}
 	}
 
-	public static final String qualityValue( String value )
+	public static String qualityValue( String value )
 	{
 		// Reduce string allocations...
 		return value.equals( "crappy" ) ? ItemDatabase.CRAPPY :
@@ -803,7 +803,7 @@ public class ItemDatabase
 			ItemDatabase.NONE;
 	}
 
-	private static final void saveAdventureRange( final String name, final int unitCost, String range )
+	private static void saveAdventureRange( final String name, final int unitCost, String range )
 	{
 		range = range.trim();
 
@@ -817,7 +817,7 @@ public class ItemDatabase
 		ItemDatabase.advNames = null;
 	}
 
-	public static final String getAdvRangeByName( final String name )
+	public static String getAdvRangeByName( final String name )
 	{
 		if ( name == null )
 		{
@@ -828,7 +828,7 @@ public class ItemDatabase
 		return range == null ? "" : range;
 	}
 
-	public static final void calculateAdventureRanges()
+	public static void calculateAdventureRanges()
 	{
 		if ( ItemDatabase.advNames == null )
 		{
@@ -844,12 +844,12 @@ public class ItemDatabase
 		}
 	}
 
-	private static final void calculateAdventureRange( final String name )
+	private static void calculateAdventureRange( final String name )
 	{
 		ItemDatabase.calculateAdventureRange( name, ItemDatabase.getRawFullness( name ) != null );
 	}
 
-	private static final void calculateAdventureRange( final String name, final boolean isFood )
+	private static void calculateAdventureRange( final String name, final boolean isFood )
 	{
 		Concoction c = ConcoctionPool.get( name );
 		int advs = ( c == null ) ? 0 : c.getAdventuresNeeded( 1, true );
@@ -924,21 +924,21 @@ public class ItemDatabase
 		ItemDatabase.addAdventureRange( name, unitCost, true, true, true, true, gain3a );
 	}
 
-	private static final void addAdventureRange( final String name, int unitCost, final boolean gainEffect1, final boolean gainEffect2, final boolean gainEffect3, final boolean gainEffect4, final float result )
+	private static void addAdventureRange( final String name, int unitCost, final boolean gainEffect1, final boolean gainEffect2, final boolean gainEffect3, final boolean gainEffect4, final float result )
 	{
 		// Remove adventure gains from zodiac signs
 		ItemDatabase.getAdventureMap( false, gainEffect1, gainEffect2, gainEffect3, gainEffect4 ).put( name, result );
 		ItemDatabase.getAdventureMap( true, gainEffect1, gainEffect2, gainEffect3, gainEffect4 ).put( name, result / (unitCost == 0 ? 1 : unitCost) );
 	}
 
-	private static final Map<String, Float> getAdventureMap( final boolean perUnit,
+	private static Map<String, Float> getAdventureMap( final boolean perUnit,
 						  final boolean gainEffect1, final boolean gainEffect2,
 						  final boolean gainEffect3, final boolean gainEffect4)
 	{
 		return ItemDatabase.advsByName[ perUnit ? 1 : 0 ][ gainEffect1 ? 1 : 0 ][ gainEffect2 ? 1 : 0 ][ gainEffect3 ? 1 : 0 ][ gainEffect4 ? 1 : 0 ];
 	}
 
-	private static final String extractStatRange( String range, float statFactor )
+	private static String extractStatRange( String range, float statFactor )
 	{
 		if ( range == null )
 		{
@@ -994,7 +994,7 @@ public class ItemDatabase
 	//	 the word "use" in links, like the PYEC or scratch 'n'
 	//	 sniff stickers.
 
-	public static final AdventureResult itemFromRelString( final String relString )
+	public static AdventureResult itemFromRelString( final String relString )
 	{
 		int itemId = -1;
 		int count = 1;
@@ -1017,7 +1017,7 @@ public class ItemDatabase
 		return ItemPool.get( itemId, count );
 	}
 
-	public static final String relStringValue( final String relString, final String search )
+	public static String relStringValue( final String relString, final String search )
 	{
 		Matcher matcher = RELSTRING_PATTERN.matcher( relString );
 		while ( matcher.find() )
@@ -1033,29 +1033,29 @@ public class ItemDatabase
 		return null;
 	}
 
-	public static final int relStringNumericValue( final String relString, final String search )
+	public static int relStringNumericValue( final String relString, final String search )
 	{
 		String value = ItemDatabase.relStringValue( relString, search );
 		return value != null ? StringUtilities.parseInt( value ) : -1;
 	}
 
-	public static final int relStringItemId( final String relString )
+	public static int relStringItemId( final String relString )
 	{
 		return ItemDatabase.relStringNumericValue( relString, "id" );
 	}
 
-	public static final int relStringCount( final String relString )
+	public static int relStringCount( final String relString )
 	{
 		return ItemDatabase.relStringNumericValue( relString, "n" );
 	}
 
-	public static final boolean relStringMultiusable( final String relString )
+	public static boolean relStringMultiusable( final String relString )
 	{
 		String value = ItemDatabase.relStringValue( relString, "m" );
 		return value != null && value.equals( "1" );
 	}
 
-	public static final void registerItem( final int itemId )
+	public static void registerItem( final int itemId )
 	{
 		// This only works for items you own.
 		ApiRequest request = new ApiRequest( "item", itemId );
@@ -1101,7 +1101,7 @@ public class ItemDatabase
 		}
 	}
 
-	public static final void registerItem( final String itemName, final String descId, final String relString, final String items )
+	public static void registerItem( final String itemName, final String descId, final String relString, final String items )
 	{
 		int itemId = -1;
 		int count = 1;
@@ -1147,7 +1147,7 @@ public class ItemDatabase
 		ItemDatabase.registerItem( itemId, itemName, descId, plural );
 	}
 
-	public static final void registerItem( final String itemName, final String descId, final String relString )
+	public static void registerItem( final String itemName, final String descId, final String relString )
 	{
 		int itemId = ItemDatabase.relStringItemId( relString );
 		if ( itemId > 0 )
@@ -1156,17 +1156,17 @@ public class ItemDatabase
 		}
 	}
 
-	public static final void registerItem( final int itemId, String itemName, String descId )
+	public static void registerItem( final int itemId, String itemName, String descId )
 	{
 		ItemDatabase.registerItem( itemId, itemName, descId, null );
 	}
 
-	public static final void registerItem( final int itemId, String itemName, String descId, final String plural )
+	public static void registerItem( final int itemId, String itemName, String descId, final String plural )
 	{
 		ItemDatabase.registerItem( itemId, itemName, descId, plural, 0 );
 	}
 
-	public static final void registerItem( final int itemId, String itemName, String descId, final String plural, final int power )
+	public static void registerItem( final int itemId, String itemName, String descId, final String plural, final int power )
 	{
 		if ( itemName == null )
 		{
@@ -1310,7 +1310,7 @@ public class ItemDatabase
 	 * @return The Id number of the corresponding item
 	 */
 
-	public static final int getItemId( final String itemName )
+	public static int getItemId( final String itemName )
 	{
 		return ItemDatabase.getItemId( itemName, 1 );
 	}
@@ -1323,7 +1323,7 @@ public class ItemDatabase
 	 * @return The Id number of the corresponding item
 	 */
 
-	public static final int getItemId( final String itemName, final int count )
+	public static int getItemId( final String itemName, final int count )
 	{
 		return getItemId( itemName, count, true );
 	}
@@ -1337,7 +1337,7 @@ public class ItemDatabase
 	 * @return The Id number of the corresponding item
 	 */
 
-	public static final int getItemId( final String itemName, final int count, final boolean substringMatch )
+	public static int getItemId( final String itemName, final int count, final boolean substringMatch )
 	{
 		String name = ItemDatabase.getCanonicalName( itemName, count, substringMatch );
 		if ( name == null )
@@ -1364,17 +1364,17 @@ public class ItemDatabase
 		return StringUtilities.getCanonicalName( ItemDatabase.nameById.get( itemId ) );
 	}
 
-	public static final String getCanonicalName( final String itemName )
+	public static String getCanonicalName( final String itemName )
 	{
 		return ItemDatabase.getCanonicalName( itemName, 1 );
 	}
 
-	public static final String getCanonicalName( final String itemName, final int count )
+	public static String getCanonicalName( final String itemName, final int count )
 	{
 		return ItemDatabase.getCanonicalName( itemName, count, true );
 	}
 
-	public static final String getCanonicalName( final String itemName, final int count, final boolean substringMatch )
+	public static String getCanonicalName( final String itemName, final int count, final boolean substringMatch )
 	{
 		if ( itemName == null || itemName.length() == 0 )
 		{
@@ -1611,7 +1611,7 @@ public class ItemDatabase
 		return null;
 	}
 
-	public static final int getNameLength( final int itemId )
+	public static int getNameLength( final int itemId )
 	{
 		return ItemDatabase.nameLength.get( itemId );
 	}
@@ -1623,52 +1623,52 @@ public class ItemDatabase
 	 * @return The plural name of the corresponding item
 	 */
 
-	public static final String getPluralName( final String name )
+	public static String getPluralName( final String name )
 	{
 		int itemId = ItemDatabase.getItemId( name );
 		String plural = pluralById.get( itemId );
 		return plural == null || plural.equals( "" ) ? name + "s" : plural;
 	}
 
-	public static final String getPluralName( final int itemId )
+	public static String getPluralName( final int itemId )
 	{
 		String plural = pluralById.get( itemId );
 		return plural == null || plural.equals( "" ) ? ItemDatabase.getItemName( itemId ) + "s" : plural;
 	}
 
-	public static final String getPluralById( final int itemId )
+	public static String getPluralById( final int itemId )
 	{
 		return pluralById.get( itemId );
 	}
 
-	public static final String getImage( final int itemId )
+	public static String getImage( final int itemId )
 	{
 		return imageById.get( itemId );
 	}
 
-	public static final void setImage( final int itemId, final String image )
+	public static void setImage( final int itemId, final String image )
 	{
 		imageById.set( itemId, image );
 	}
 
-	public static final String getItemImageLocation( final int itemId )
+	public static String getItemImageLocation( final int itemId )
 	{
 		String location = ItemDatabase.getImage( itemId );
 		return ( location != null ) ? location : "debug.gif";
 	}
 
-	private static final void downloadItemImage( final int itemId )
+	private static void downloadItemImage( final int itemId )
 	{
 		FileUtilities.downloadImage( "http://images.kingdomofloathing.com/itemimages/" + ItemDatabase.getItemImageLocation( itemId ) );
 	}
 
-	public static final ImageIcon getItemImage( final int itemId )
+	public static ImageIcon getItemImage( final int itemId )
 	{
 		ItemDatabase.downloadItemImage( itemId );
 		return JComponentUtilities.getImage( "itemimages/" + ItemDatabase.getItemImageLocation( itemId ) );
 	}
 
-	public static final Integer getLevelReqByName( final String name )
+	public static Integer getLevelReqByName( final String name )
 	{
 		if ( name == null )
 		{
@@ -1678,7 +1678,7 @@ public class ItemDatabase
 		return ItemDatabase.levelReqByName.get( StringUtilities.getCanonicalName( name ) );
 	}
 
-	public static final boolean meetsLevelRequirement( final String name )
+	public static boolean meetsLevelRequirement( final String name )
 	{
 		if ( name == null )
 		{
@@ -1689,7 +1689,7 @@ public class ItemDatabase
 		return requirement == null ? true : KoLCharacter.getLevel() >= requirement;
 	}
 
-	public static final Integer getRawFullness( final String name )
+	public static Integer getRawFullness( final String name )
 	{
 		if ( name == null )
 		{
@@ -1698,13 +1698,13 @@ public class ItemDatabase
 		return ItemDatabase.fullnessByName.get( StringUtilities.getCanonicalName( name ) );
 	}
 
-	public static final int getFullness( final String name )
+	public static int getFullness( final String name )
 	{
 		Integer fullness = ItemDatabase.getRawFullness( name );
 		return fullness == null ? 0 : fullness;
 	}
 
-	public static final Integer getRawInebriety( final String name )
+	public static Integer getRawInebriety( final String name )
 	{
 		if ( name == null )
 		{
@@ -1713,13 +1713,13 @@ public class ItemDatabase
 		return ItemDatabase.inebrietyByName.get( StringUtilities.getCanonicalName( name ) );
 	}
 
-	public static final int getInebriety( final String name )
+	public static int getInebriety( final String name )
 	{
 		Integer inebriety = ItemDatabase.getRawInebriety( name );
 		return inebriety == null ? 0 : inebriety;
 	}
 
-	public static final Integer getRawSpleenHit( final String name )
+	public static Integer getRawSpleenHit( final String name )
 	{
 		if ( name == null )
 		{
@@ -1728,13 +1728,13 @@ public class ItemDatabase
 		return ItemDatabase.spleenHitByName.get( StringUtilities.getCanonicalName( name ) );
 	}
 
-	public static final int getSpleenHit( final String name )
+	public static int getSpleenHit( final String name )
 	{
 		Integer spleenhit = ItemDatabase.getRawSpleenHit( name );
 		return spleenhit == null ? 0 : spleenhit;
 	}
 
-	public static final String getQuality( final String name )
+	public static String getQuality( final String name )
 	{
 		if ( name == null )
 		{
@@ -1744,7 +1744,7 @@ public class ItemDatabase
 		return ItemDatabase.qualityByName.get( StringUtilities.getCanonicalName( name ) );
 	}
 
-	public static final String getNotes( final String name )
+	public static String getNotes( final String name )
 	{
 		if ( name == null )
 		{
@@ -1754,7 +1754,7 @@ public class ItemDatabase
 		return ItemDatabase.notesByName.get( StringUtilities.getCanonicalName( name ) );
 	}
 
-	public static final ArrayList getFoldGroup( final String name )
+	public static ArrayList getFoldGroup( final String name )
 	{
 		if ( name == null )
 		{
@@ -1764,7 +1764,7 @@ public class ItemDatabase
 		return ItemDatabase.foldGroupsByName.get( StringUtilities.getCanonicalName( name ) );
 	}
 
-	public static final float getAdventureRange( final String name )
+	public static float getAdventureRange( final String name )
 	{
 		if ( name == null )
 		{
@@ -1808,7 +1808,7 @@ public class ItemDatabase
 		return range;
 	}
 
-	public static final String getMuscleByName( final String name )
+	public static String getMuscleByName( final String name )
 	{
 		if ( name == null )
 		{
@@ -1819,7 +1819,7 @@ public class ItemDatabase
 		return range == null ? "" : range;
 	}
 
-	public static final String getMuscleRange( final String name )
+	public static String getMuscleRange( final String name )
 	{
 		if ( name == null )
 		{
@@ -1832,7 +1832,7 @@ public class ItemDatabase
 		return range == null ? "+0.0" : range;
 	}
 
-	public static final String getMysticalityByName( final String name )
+	public static String getMysticalityByName( final String name )
 	{
 		if ( name == null )
 		{
@@ -1843,7 +1843,7 @@ public class ItemDatabase
 		return range == null ? "" : range;
 	}
 
-	public static final String getMysticalityRange( final String name )
+	public static String getMysticalityRange( final String name )
 	{
 		if ( name == null )
 		{
@@ -1856,7 +1856,7 @@ public class ItemDatabase
 		return range == null ? "+0.0" : range;
 	}
 
-	public static final String getMoxieByName( final String name )
+	public static String getMoxieByName( final String name )
 	{
 		if ( name == null )
 		{
@@ -1867,7 +1867,7 @@ public class ItemDatabase
 		return range == null ? "" : range;
 	}
 
-	public static final String getMoxieRange( final String name )
+	public static String getMoxieRange( final String name )
 	{
 		if ( name == null )
 		{
@@ -1886,7 +1886,7 @@ public class ItemDatabase
 	 * @return The price associated with the item
 	 */
 
-	public static final int getPriceById( final int itemId )
+	public static int getPriceById( final int itemId )
 	{
 		return ItemDatabase.priceById.get( itemId );
 	}
@@ -1897,17 +1897,17 @@ public class ItemDatabase
 	 * @return The access associated with the item
 	 */
 
-	public static final String getAccessById( final Integer itemId )
+	public static String getAccessById( final Integer itemId )
 	{
 		return ItemDatabase.accessById.get( itemId );
 	}
 	
-	public static final int getAttributes( int itemId )
+	public static int getAttributes( int itemId )
 	{
 		return ItemDatabase.attributesById.get( itemId );
 	}
 
-	public static final String attrsToSecondaryUsage( int attrs )
+	public static String attrsToSecondaryUsage( int attrs )
 	{
 		// Mask out attributes which are part of access
 		attrs &= ~( ATTR_TRADEABLE|ATTR_GIFTABLE|ATTR_DISPLAYABLE );
@@ -1937,7 +1937,7 @@ public class ItemDatabase
 		return result.toString();
 	}
 
-	public static final boolean getAttribute( int itemId, int mask )
+	public static boolean getAttribute( int itemId, int mask )
 	{
 		return (ItemDatabase.attributesById.get( itemId ) & mask) != 0;
 	}
@@ -1948,7 +1948,7 @@ public class ItemDatabase
 	 * @return true if item is tradeable
 	 */
 
-	public static final boolean isTradeable( final int itemId )
+	public static boolean isTradeable( final int itemId )
 	{
 		return ItemDatabase.getAttribute( itemId, ItemDatabase.ATTR_TRADEABLE );
 	}
@@ -1959,7 +1959,7 @@ public class ItemDatabase
 	 * @return true if item is giftable
 	 */
 
-	public static final boolean isGiftable( final int itemId )
+	public static boolean isGiftable( final int itemId )
 	{
 		return ItemDatabase.getAttribute( itemId, ItemDatabase.ATTR_GIFTABLE );
 	}
@@ -1970,7 +1970,7 @@ public class ItemDatabase
 	 * @return true if item is displayable
 	 */
 
-	public static final boolean isDisplayable( final int itemId )
+	public static boolean isDisplayable( final int itemId )
 	{
 		return ItemDatabase.getAttribute( itemId, ItemDatabase.ATTR_DISPLAYABLE );
 	}
@@ -1981,7 +1981,7 @@ public class ItemDatabase
 	 * @return true if item is a bounty
 	 */
 
-	public static final boolean isBountyItem( final int itemId )
+	public static boolean isBountyItem( final int itemId )
 	{
 		return ItemDatabase.getAttribute( itemId, ItemDatabase.ATTR_BOUNTY );
 	}
@@ -1992,7 +1992,7 @@ public class ItemDatabase
 	 * @return true if item is a fancy ingredient
 	 */
 
-	public static final boolean isFancyItem( final int itemId )
+	public static boolean isFancyItem( final int itemId )
 	{
 		return ItemDatabase.getAttribute( itemId, ItemDatabase.ATTR_FANCY );
 	}
@@ -2003,7 +2003,7 @@ public class ItemDatabase
 	 * @return true if item is a candy
 	 */
 
-	public static final boolean isCandyItem( final int itemId )
+	public static boolean isCandyItem( final int itemId )
 	{
 		return ItemDatabase.getAttribute( itemId, ItemDatabase.ATTR_CANDY );
 	}
@@ -2015,22 +2015,22 @@ public class ItemDatabase
 	 * @return The name of the corresponding item
 	 */
 
-	public static final String getItemName( final int itemId )
+	public static String getItemName( final int itemId )
 	{
 		return ItemDatabase.nameById.get( IntegerPool.get( itemId ) );
 	}
 
-	public static final String getItemDataName( final int itemId )
+	public static String getItemDataName( final int itemId )
 	{
 		return ItemDatabase.dataNameById.get( IntegerPool.get( itemId ) );
 	}
 
-	public static final String getItemDataName( final Integer itemId )
+	public static String getItemDataName( final Integer itemId )
 	{
 		return ItemDatabase.dataNameById.get( itemId );
 	}
 
-	public static final Set dataNameEntrySet()
+	public static Set dataNameEntrySet()
 	{
 		return ItemDatabase.dataNameById.entrySet();
 	}
@@ -2042,7 +2042,7 @@ public class ItemDatabase
 	 * @return The name of the corresponding item
 	 */
 
-	public static final String getItemName( final String descriptionId )
+	public static String getItemName( final String descriptionId )
 	{
 		Integer itemId = ItemDatabase.itemIdByDescription.get( descriptionId );
 		return itemId == null ? null : ItemDatabase.getItemName( itemId );
@@ -2055,7 +2055,7 @@ public class ItemDatabase
 	 * @return The item id of the corresponding item
 	 */
 
-	public static final int getItemIdFromDescription( final String descriptionId )
+	public static int getItemIdFromDescription( final String descriptionId )
 	{
 		Integer itemId = ItemDatabase.itemIdByDescription.get( descriptionId );
 		return itemId == null ? -1 : itemId;
@@ -2066,7 +2066,7 @@ public class ItemDatabase
 	 * items.
 	 */
 
-	public static final List getMatchingNames( final String substring )
+	public static List getMatchingNames( final String substring )
 	{
 		return StringUtilities.getMatchingNames( ItemDatabase.canonicalNames, substring );
 	}
@@ -2078,7 +2078,7 @@ public class ItemDatabase
 	 * @return <code>true</code> if the item is in the database
 	 */
 
-	public static final boolean contains( final String itemName )
+	public static boolean contains( final String itemName )
 	{
 		return ItemDatabase.getItemId( itemName ) != -1;
 	}
@@ -2089,7 +2089,7 @@ public class ItemDatabase
 	 * @return <code>true</code> if the item is usable
 	 */
 
-	public static final boolean isUsable( final String itemName )
+	public static boolean isUsable( final String itemName )
 	{
 		int itemId = ItemDatabase.getItemId( itemName );
 		if ( itemId <= 0 )
@@ -2100,7 +2100,7 @@ public class ItemDatabase
 		return ItemDatabase.isUsable( itemId );
 	}
 
-	public static final boolean isUsable( final int itemId )
+	public static boolean isUsable( final int itemId )
 	{
 		switch ( ItemDatabase.useTypeById.get( itemId ) )
 		{
@@ -2128,7 +2128,7 @@ public class ItemDatabase
 	 * @return <code>true</code> if the item is grimacite
 	 */
 
-	public static final boolean isGrimacite( int itemId )
+	public static boolean isGrimacite( int itemId )
 	{
 		switch ( itemId )
 		{
@@ -2163,7 +2163,7 @@ public class ItemDatabase
 		return false;
 	}
 
-	public static final boolean isSealFigurine( final int itemId )
+	public static boolean isSealFigurine( final int itemId )
 	{
 		switch (itemId )
 		{
@@ -2183,7 +2183,7 @@ public class ItemDatabase
 		return false;
 	}
 
-	public static final boolean isBRICKOMonster( final int itemId )
+	public static boolean isBRICKOMonster( final int itemId )
 	{
 		switch (itemId )
 		{
@@ -2203,7 +2203,7 @@ public class ItemDatabase
 		return false;
 	}
 
-	public static final boolean isStinkyCheeseItem( final int itemId )
+	public static boolean isStinkyCheeseItem( final int itemId )
 	{
 		switch ( itemId )
 		{
@@ -2223,17 +2223,17 @@ public class ItemDatabase
 	 * @return The consumption associated with the item
 	 */
 
-	public static final int getConsumptionType( final int itemId )
+	public static int getConsumptionType( final int itemId )
 	{
 		return itemId <= 0 ? KoLConstants.NO_CONSUME : ItemDatabase.useTypeById.get( itemId );
 	}
 
-	public static final String typeToPrimaryUsage( final int type )
+	public static String typeToPrimaryUsage( final int type )
 	{
 		return ItemDatabase.INVERSE_PRIMARY_USE.get( IntegerPool.get( type ) );
 	}
 
-	public static final int getConsumptionType( final String itemName )
+	public static int getConsumptionType( final String itemName )
 	{
 		return ItemDatabase.getConsumptionType( ItemDatabase.getItemId( itemName ) );
 	}
@@ -2244,33 +2244,33 @@ public class ItemDatabase
 	 * @return The description Id associated with the item
 	 */
 
-	public static final String getDescriptionId( final String itemName )
+	public static String getDescriptionId( final String itemName )
 	{
 		int itemId = ItemDatabase.getItemId( itemName, 1, false );
 		return ItemDatabase.getDescriptionId( itemId );
 	}
 
-	public static final String getDescriptionId( final int itemId )
+	public static String getDescriptionId( final int itemId )
 	{
 		return ItemDatabase.getDescriptionId( IntegerPool.get( itemId ) );
 	}
 
-	public static final String getDescriptionId( final Integer itemId )
+	public static String getDescriptionId( final Integer itemId )
 	{
 		return ItemDatabase.descriptionById.get( itemId );
 	}
 
-	public static final Set<Integer> nameByIdKeySet()
+	public static Set<Integer> nameByIdKeySet()
 	{
 		return ItemDatabase.nameById.keySet();
 	}
 
-	public static final Set<Integer> descriptionIdKeySet()
+	public static Set<Integer> descriptionIdKeySet()
 	{
 		return ItemDatabase.descriptionById.keySet();
 	}
 
-	public static final Set descriptionIdEntrySet()
+	public static Set descriptionIdEntrySet()
 	{
 		return ItemDatabase.descriptionById.entrySet();
 	}
@@ -2281,7 +2281,7 @@ public class ItemDatabase
 	 * @return The set of item names keyed by id
 	 */
 
-	public static final Set entrySet()
+	public static Set entrySet()
 	{
 		return ItemDatabase.nameById.entrySet();
 	}
@@ -2292,14 +2292,14 @@ public class ItemDatabase
 	 * @return The largest item ID
 	 */
 
-	public static final int maxItemId()
+	public static int maxItemId()
 	{
 		return ItemDatabase.maxItemId;
 	}
 
 	// Support for astral consumables
 
-	public static final void setAstralConsumables()
+	public static void setAstralConsumables()
 	{
 		int level = Math.min( 11, Math.max( 3, KoLCharacter.getLevel() ) );
 
@@ -2373,7 +2373,7 @@ public class ItemDatabase
 
 	// Support for dusty bottles of wine
 
-	public static final void identifyDustyBottles()
+	public static void identifyDustyBottles()
 	{
 		int lastAscension = Preferences.getInteger( "lastDustyBottleReset" );
 		if ( lastAscension == KoLCharacter.getAscensions() )
@@ -2403,7 +2403,7 @@ public class ItemDatabase
 
 	private static final Pattern GLYPH_PATTERN = Pattern.compile( "Arcane Glyph #(\\d)" );
 
-	private static final boolean identifyDustyBottle( final int itemId )
+	private static boolean identifyDustyBottle( final int itemId )
 	{
 		String glyph = "";
 
@@ -2423,7 +2423,7 @@ public class ItemDatabase
 		return true;
 	}
 
-	public static final void getDustyBottles()
+	public static void getDustyBottles()
 	{
 		int lastAscension = Preferences.getInteger( "lastDustyBottleReset" );
 		int current = KoLCharacter.getAscensions();
@@ -2446,7 +2446,7 @@ public class ItemDatabase
 		ItemDatabase.setDustyBottles();
 	}
 
-	private static final void setDustyBottles()
+	private static void setDustyBottles()
 	{
 		ItemDatabase.setDustyBottle( 2271 );
 		ItemDatabase.setDustyBottle( 2272 );
@@ -2456,7 +2456,7 @@ public class ItemDatabase
 		ItemDatabase.setDustyBottle( 2276 );
 	}
 
-	private static final void setDustyBottle( final int itemId )
+	private static void setDustyBottle( final int itemId )
 	{
 		int glyph = Preferences.getInteger( "lastDustyBottle" + itemId );
 		String type = "dusty";
@@ -2521,7 +2521,7 @@ public class ItemDatabase
 		}
 	}
 
-	private static final void setDustyBottle( final int itemId, final int inebriety, final String adventures,
+	private static void setDustyBottle( final int itemId, final int inebriety, final String adventures,
 		final String muscle, final String mysticality, final String moxie, final String note )
 	{
 		String name = StringUtilities.getCanonicalName( ItemDatabase.dataNameById.get( IntegerPool.get( itemId ) ) );
@@ -2529,7 +2529,7 @@ public class ItemDatabase
 		ItemDatabase.setConsumptionData( name, inebriety, adventures, muscle, mysticality, moxie, note );
 	}
 
-	public static final String dustyBottleType( final int itemId )
+	public static String dustyBottleType( final int itemId )
 	{
 		int glyph = Preferences.getInteger( "lastDustyBottle" + itemId );
 		switch ( glyph )
@@ -2550,7 +2550,7 @@ public class ItemDatabase
 		return "";
 	}
 
-	public static final String glyphType( final int glyph )
+	public static String glyphType( final int glyph )
 	{
 		switch ( glyph )
 		{
@@ -2570,12 +2570,12 @@ public class ItemDatabase
 		return "dusty";
 	}
 
-	public static final String shortDustyBottleType( final int itemId )
+	public static String shortDustyBottleType( final int itemId )
 	{
 		return ItemDatabase.glyphType( Preferences.getInteger( "lastDustyBottle" + itemId ) );
 	}
 
-	public static final String dustyBottleName( final int itemId )
+	public static String dustyBottleName( final int itemId )
 	{
 		String type = ItemDatabase.shortDustyBottleType( itemId );
 		String name = ItemDatabase.getItemName( itemId );

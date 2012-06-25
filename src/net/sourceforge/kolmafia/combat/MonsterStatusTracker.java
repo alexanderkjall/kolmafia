@@ -55,24 +55,24 @@ public class MonsterStatusTracker
 	private static int attackModifier = 0;
 	private static int defenseModifier = 0;
 
-	public static final void reset()
+	public static void reset()
 	{
 		MonsterStatusTracker.healthModifier = 0;
 		MonsterStatusTracker.attackModifier = 0;
 		MonsterStatusTracker.defenseModifier = 0;
 	}
 
-	public static final MonsterData getLastMonster()
+	public static MonsterData getLastMonster()
 	{
 		return MonsterStatusTracker.monsterData;
 	}
 
-	public static final String getLastMonsterName()
+	public static String getLastMonsterName()
 	{
 		return MonsterStatusTracker.lastMonsterName;
 	}
 
-	public static final void setNextMonsterName( String monsterName )
+	public static void setNextMonsterName( String monsterName )
 	{
 		MonsterStatusTracker.reset();
 
@@ -94,7 +94,7 @@ public class MonsterStatusTracker
 		MonsterStatusTracker.lastMonsterName = monsterName;
 	}
 
-	public static final boolean dropsItem( int itemId )
+	public static boolean dropsItem( int itemId )
 	{
 		if ( itemId == 0 || MonsterStatusTracker.monsterData == null )
 		{
@@ -106,7 +106,7 @@ public class MonsterStatusTracker
 		return MonsterStatusTracker.monsterData.getItems().contains( item );
 	}
 
-	public static final boolean dropsItems( List items )
+	public static boolean dropsItems( List items )
 	{
 		if ( items.isEmpty() || MonsterStatusTracker.monsterData == null )
 		{
@@ -116,7 +116,7 @@ public class MonsterStatusTracker
 		return MonsterStatusTracker.monsterData.getItems().containsAll( items );
 	}
 
-	public static final boolean shouldSteal()
+	public static boolean shouldSteal()
 	{
 		if ( MonsterStatusTracker.monsterData == null )
 		{
@@ -126,7 +126,7 @@ public class MonsterStatusTracker
 		return MonsterStatusTracker.monsterData.shouldSteal();
 	}
 
-	public static final int getMonsterHealth()
+	public static int getMonsterHealth()
 	{
 		if ( MonsterStatusTracker.monsterData == null )
 		{
@@ -136,7 +136,7 @@ public class MonsterStatusTracker
 		return MonsterStatusTracker.monsterData.getHP() - MonsterStatusTracker.healthModifier;
 	}
 
-	public static final void healMonster( int amount )
+	public static void healMonster( int amount )
 	{
 		MonsterStatusTracker.healthModifier -= amount;
 
@@ -146,18 +146,18 @@ public class MonsterStatusTracker
 		}
 	}
 
-	public static final void damageMonster( int amount )
+	public static void damageMonster( int amount )
 	{
 		MonsterStatusTracker.healthModifier += amount;
 	}
 
-	public static final void resetAttackAndDefense()
+	public static void resetAttackAndDefense()
 	{
 		MonsterStatusTracker.attackModifier = 0;
 		MonsterStatusTracker.defenseModifier = 0;
 	}
 
-	public static final int getMonsterBaseAttack()
+	public static int getMonsterBaseAttack()
 	{
 		if ( MonsterStatusTracker.monsterData == null )
 		{
@@ -167,7 +167,7 @@ public class MonsterStatusTracker
 		return MonsterStatusTracker.monsterData.getAttack();
 	}
 
-	public static final int getMonsterAttack()
+	public static int getMonsterAttack()
 	{
 		if ( MonsterStatusTracker.monsterData == null )
 		{
@@ -179,7 +179,7 @@ public class MonsterStatusTracker
 		return baseAttack == 0 ? adjustedAttack: Math.max( adjustedAttack, 1 );
 	}
 
-	public static final int getMonsterAttackElement()
+	public static int getMonsterAttackElement()
 	{
 		if ( MonsterStatusTracker.monsterData == null )
 		{
@@ -189,17 +189,17 @@ public class MonsterStatusTracker
 		return MonsterStatusTracker.monsterData.getAttackElement();
 	}
 
-	public static final void raiseMonsterAttack( int amount )
+	public static void raiseMonsterAttack( int amount )
 	{
 		MonsterStatusTracker.attackModifier += amount;
 	}
 
-	public static final void lowerMonsterAttack( int amount )
+	public static void lowerMonsterAttack( int amount )
 	{
 		MonsterStatusTracker.attackModifier -= amount;
 	}
 
-	public static final int getMonsterAttackModifier()
+	public static int getMonsterAttackModifier()
 	{
 		if ( MonsterStatusTracker.monsterData == null )
 		{
@@ -209,12 +209,12 @@ public class MonsterStatusTracker
 		return MonsterStatusTracker.attackModifier;
 	}
 
-	public static final boolean willUsuallyDodge()
+	public static boolean willUsuallyDodge()
 	{
 		return MonsterStatusTracker.willUsuallyDodge( 0 );
 	}
 
-	public static final boolean willUsuallyDodge( final int attackModifier )
+	public static boolean willUsuallyDodge( final int attackModifier )
 	{
 		if ( MonsterStatusTracker.monsterData == null )
 		{
@@ -224,7 +224,7 @@ public class MonsterStatusTracker
 		return MonsterStatusTracker.monsterData.willUsuallyDodge( MonsterStatusTracker.attackModifier + attackModifier );
 	}
 
-	public static final int getMonsterDefense()
+	public static int getMonsterDefense()
 	{
 		if ( MonsterStatusTracker.monsterData == null )
 		{
@@ -236,7 +236,7 @@ public class MonsterStatusTracker
 		return baseDefense == 0 ? adjustedDefense : Math.max( adjustedDefense, 1 );
 	}
 
-	public static final int getMonsterDefenseElement()
+	public static int getMonsterDefenseElement()
 	{
 		if ( MonsterStatusTracker.monsterData == null )
 		{
@@ -246,7 +246,7 @@ public class MonsterStatusTracker
 		return MonsterStatusTracker.monsterData.getDefenseElement();
 	}
 
-	public static final int getMonsterPhylum()
+	public static int getMonsterPhylum()
 	{
 		if ( MonsterStatusTracker.monsterData == null )
 		{
@@ -256,17 +256,17 @@ public class MonsterStatusTracker
 		return MonsterStatusTracker.monsterData.getPhylum();
 	}
 
-	public static final void raiseMonsterDefense( int amount )
+	public static void raiseMonsterDefense( int amount )
 	{
 		MonsterStatusTracker.defenseModifier += amount;
 	}
 
-	public static final void lowerMonsterDefense( int amount )
+	public static void lowerMonsterDefense( int amount )
 	{
 		MonsterStatusTracker.defenseModifier -= amount;
 	}
 
-	public static final int getMonsterDefenseModifier()
+	public static int getMonsterDefenseModifier()
 	{
 		if ( MonsterStatusTracker.monsterData == null )
 		{
@@ -276,12 +276,12 @@ public class MonsterStatusTracker
 		return MonsterStatusTracker.defenseModifier;
 	}
 
-	public static final boolean willUsuallyMiss()
+	public static boolean willUsuallyMiss()
 	{
 		return MonsterStatusTracker.willUsuallyMiss( 0 );
 	}
 
-	public static final boolean willUsuallyMiss( final int defenseModifier )
+	public static boolean willUsuallyMiss( final int defenseModifier )
 	{
 		if ( MonsterStatusTracker.monsterData == null )
 		{

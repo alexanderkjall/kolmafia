@@ -75,12 +75,12 @@ public abstract class CombatActionManager
 	private static final LockableListModel availableLookups = new LockableListModel();
 	private static final CustomCombatLookup strategyLookup = new CustomCombatLookup();
 
-	public static final void updateFromPreferences()
+	public static void updateFromPreferences()
 	{
 		CombatActionManager.loadStrategyLookup( CombatActionManager.getStrategyLookupName() );
 	}
 
-	public static final LockableListModel getAvailableLookups()
+	public static LockableListModel getAvailableLookups()
 	{
 		String[] list = DataUtilities.list( KoLConstants.CCS_LOCATION );
 
@@ -105,12 +105,12 @@ public abstract class CombatActionManager
 		return CombatActionManager.availableLookups;
 	}
 
-	public static final File getStrategyLookupFile()
+	public static File getStrategyLookupFile()
 	{
 		return CombatActionManager.getStrategyLookupFile( CombatActionManager.getStrategyLookupName() );
 	}
 
-	public static final File getStrategyLookupFile( String name )
+	public static File getStrategyLookupFile( String name )
 	{
 		if ( !name.endsWith( ".ccs" ) )
 		{
@@ -172,7 +172,7 @@ public abstract class CombatActionManager
 		CombatActionManager.availableLookups.setSelectedItem( name );
 	}
 
-	public static final String getStrategyLookupName()
+	public static String getStrategyLookupName()
 	{
 		String script = Preferences.getString( "customCombatScript" );
 
@@ -184,7 +184,7 @@ public abstract class CombatActionManager
 		return script;
 	}
 
-	public static final void saveStrategyLookup( String name )
+	public static void saveStrategyLookup( String name )
 	{
 		PrintStream writer = LogStream.openStream( getStrategyLookupFile( name ), true );
 
@@ -193,12 +193,12 @@ public abstract class CombatActionManager
 		writer.close();
 	}
 
-	public static final CustomCombatLookup getStrategyLookup()
+	public static CustomCombatLookup getStrategyLookup()
 	{
 		return CombatActionManager.strategyLookup;
 	}
 
-	public static final void copyStrategyLookup( String name )
+	public static void copyStrategyLookup( String name )
 	{
 		if ( name == null || name.equals( "" ) )
 		{
@@ -211,12 +211,12 @@ public abstract class CombatActionManager
 		FileUtilities.copyFile( source, destination );
 	}
 
-	public static final String encounterKey( final String line )
+	public static String encounterKey( final String line )
 	{
 		return CombatActionManager.encounterKey( line, true );
 	}
 
-	public static final String encounterKey( String line, final boolean changeCase )
+	public static String encounterKey( String line, final boolean changeCase )
 	{
 		line = StringUtilities.globalStringReplace( line.trim(), "  ", " " );
 		String key = StringUtilities.getCanonicalName( line );
@@ -244,7 +244,7 @@ public abstract class CombatActionManager
 		return changeCase ? key : line;
 	}
 
-	public static final void setDefaultAction( final String actionList )
+	public static void setDefaultAction( final String actionList )
 	{
 		CombatActionManager.strategyLookup.clearEncounterKey( "default" );
 
@@ -256,24 +256,24 @@ public abstract class CombatActionManager
 		}
 	}
 
-	public static final boolean hasGlobalPrefix()
+	public static boolean hasGlobalPrefix()
 	{
 		return CombatActionManager.strategyLookup.getStrategy( "global prefix" ) != null;
 	}
 
-	public static final String getEncounterKey( final String encounter )
+	public static String getEncounterKey( final String encounter )
 	{
 		return CombatActionManager.strategyLookup.getBestEncounterKey( encounter );
 	}
 
 	private static boolean atEndOfStrategy;
 
-	public static final boolean atEndOfStrategy()
+	public static boolean atEndOfStrategy()
 	{
 		return CombatActionManager.atEndOfStrategy;
 	}
 
-	public static final String getCombatAction( final String encounter, final int roundIndex, boolean allowMacro )
+	public static String getCombatAction( final String encounter, final int roundIndex, boolean allowMacro )
 	{
 		CombatActionManager.atEndOfStrategy = false;
 
@@ -325,7 +325,7 @@ public abstract class CombatActionManager
 		return strategy.getAction( CombatActionManager.strategyLookup, roundIndex, allowMacro );
 	}
 
-	public static final boolean isMacroAction( String action )
+	public static boolean isMacroAction( String action )
 	{
 		return
 			action.startsWith( "scrollwhendone" ) ||
@@ -342,7 +342,7 @@ public abstract class CombatActionManager
 			action.startsWith( "\"" );
 	}
 
-	public static final String getLongCombatOptionName( String action )
+	public static String getLongCombatOptionName( String action )
 	{
 		if ( action == null )
 		{
@@ -491,7 +491,7 @@ public abstract class CombatActionManager
 		return item.startsWith( "attack" ) ? item : "item " + item;
 	}
 
-	private static final String getLongItemAction( final String action )
+	private static String getLongItemAction( final String action )
 	{
 		int commaIndex = action.indexOf( "," );
 		if ( commaIndex != -1 )
@@ -526,7 +526,7 @@ public abstract class CombatActionManager
 		return ItemDatabase.getItemName( itemId );
 	}
 
-	public static final String getShortCombatOptionName( String action )
+	public static String getShortCombatOptionName( String action )
 	{
 		if ( action == null )
 		{
@@ -660,7 +660,7 @@ public abstract class CombatActionManager
 		return CombatActionManager.getShortItemAction( action );
 	}
 
-	private static final String getShortItemAction( final String action )
+	private static String getShortItemAction( final String action )
 	{
 		int commaIndex = action.indexOf( "," );
 		if ( commaIndex != -1 )
@@ -705,7 +705,7 @@ public abstract class CombatActionManager
 		return String.valueOf( itemId );
 	}
 
-	public static final int getCombatItem( String action )
+	public static int getCombatItem( String action )
 	{
 		List matchingNames = ItemDatabase.getMatchingNames( action );
 		int count = matchingNames.size();

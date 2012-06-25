@@ -108,12 +108,12 @@ public class ClanWarRequest
 		super.run();
 	}
 
-	public static final String getNextAttack()
+	public static String getNextAttack()
 	{
 		return ClanWarRequest.nextAttack == null ? "You may attack right now." : ClanWarRequest.nextAttack;
 	}
 
-	public static final SortedListModel getEnemyClans()
+	public static SortedListModel getEnemyClans()
 	{
 		return ClanWarRequest.enemyClans;
 	}

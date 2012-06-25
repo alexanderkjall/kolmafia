@@ -133,7 +133,7 @@ public class RelayLoader
 		}
 	}
 
-	public static final synchronized void startRelayServer()
+	public static synchronized void startRelayServer()
 	{
 		if ( RelayServer.isRunning() )
 		{
@@ -143,13 +143,13 @@ public class RelayLoader
 		RelayServer.startThread();
 	}
 
-	public static final void openRelayBrowser()
+	public static void openRelayBrowser()
 	{
 		KoLmafia.forceContinue();
 		openSystemBrowser( "game.php", true );
 	}
 
-	public static final void openSystemBrowser( final File file )
+	public static void openSystemBrowser( final File file )
 	{
 		try
 		{
@@ -162,14 +162,14 @@ public class RelayLoader
 		}
 	}
 
-	public static final void openSystemBrowser( final String location )
+	public static void openSystemBrowser( final String location )
 	{
 		boolean isRelayLocation = !location.startsWith( "http://" ) && !location.startsWith( "https://" );
 
 		RelayLoader.openSystemBrowser( location, isRelayLocation );
 	}
 
-	public static final void openSystemBrowser( final String location, boolean isRelayLocation )
+	public static void openSystemBrowser( final String location, boolean isRelayLocation )
 	{
 		new RelayLoader( location, isRelayLocation ).start();
 	}

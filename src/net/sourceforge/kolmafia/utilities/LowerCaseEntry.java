@@ -105,7 +105,7 @@ public class LowerCaseEntry
 		return this.lowercase;
 	}
 
-	public static final LockableListModel createListModel( final Set entries )
+	public static LockableListModel createListModel( final Set entries )
 	{
 		LockableListModel model = new LockableListModel();
 

@@ -70,12 +70,12 @@ public class StringUtilities
 	 * Returns the encoded-encoded version of the provided UTF-8 string.
 	 */
 
-	public static final String getEntityEncode( final String utf8String )
+	public static String getEntityEncode( final String utf8String )
 	{
 		return StringUtilities.getEntityEncode( utf8String, true );
 	}
 
-	public static final String getEntityEncode( String utf8String, final boolean cache )
+	public static String getEntityEncode( String utf8String, final boolean cache )
 	{
 		if ( utf8String == null )
 		{
@@ -121,12 +121,12 @@ public class StringUtilities
 	 * Returns the UTF-8 version of the provided character entity string.
 	 */
 
-	public static final String getEntityDecode( final String entityString )
+	public static String getEntityDecode( final String entityString )
 	{
 		return StringUtilities.getEntityDecode( entityString, true );
 	}
 
-	public static final String getEntityDecode( String entityString, final boolean cache )
+	public static String getEntityDecode( String entityString, final boolean cache )
 	{
 		if ( entityString == null )
 		{
@@ -161,7 +161,7 @@ public class StringUtilities
 	 * Returns the URL-encoded version of the provided URL string.
 	 */
 
-	public static final String getURLEncode( final String url )
+	public static String getURLEncode( final String url )
 	{
 		if ( url == null )
 		{
@@ -191,7 +191,7 @@ public class StringUtilities
 	 * Returns the URL-decoded version of the provided URL string.
 	 */
 
-	public static final String getURLDecode( final String url )
+	public static String getURLDecode( final String url )
 	{
 		if ( url == null )
 		{
@@ -221,7 +221,7 @@ public class StringUtilities
 	 * Returns the display name for the provided canonical name.
 	 */
 
-	public static final String getDisplayName( String name )
+	public static String getDisplayName( String name )
 	{
 		if ( name == null )
 		{
@@ -247,7 +247,7 @@ public class StringUtilities
 	 * Returns the canonicalized name for the provided display name.
 	 */
 
-	public static final String getCanonicalName( String name )
+	public static String getCanonicalName( String name )
 	{
 		if ( name == null )
 		{
@@ -279,7 +279,7 @@ public class StringUtilities
 	 * @param substring The substring for which to search
 	 */
 
-	public static final List getMatchingNames( final String[] names, String searchString )
+	public static List getMatchingNames( final String[] names, String searchString )
 	{
 		if ( searchString == null )
 		{
@@ -379,7 +379,7 @@ public class StringUtilities
 		return matchList;
 	}
 
-	private static final int stringHash( final String s )
+	private static int stringHash( final String s )
 	{
 		int hash = 0;
 		for ( int i = s.length() - 1; i >= 0; --i )
@@ -389,7 +389,7 @@ public class StringUtilities
 		return hash;
 	}
 
-	public static final boolean substringMatches( final String source, final String substring,
+	public static boolean substringMatches( final String source, final String substring,
 		final boolean checkBoundaries )
 	{
 		if ( source == null )
@@ -416,7 +416,7 @@ public class StringUtilities
 		return !Character.isLetterOrDigit( source.charAt( index - 1 ) );
 	}
 
-	public static final boolean fuzzyMatches( final String sourceString, final String searchString )
+	public static boolean fuzzyMatches( final String sourceString, final String searchString )
 	{
 		if ( sourceString == null )
 		{
@@ -431,7 +431,7 @@ public class StringUtilities
 		return StringUtilities.fuzzyMatches( sourceString, searchString, -1, -1 );
 	}
 
-	private static final boolean fuzzyMatches( final String sourceString, final String searchString,
+	private static boolean fuzzyMatches( final String sourceString, final String searchString,
 		final int lastSourceIndex, final int lastSearchIndex )
 	{
 		int maxSearchIndex = searchString.length() - 1;
@@ -480,12 +480,12 @@ public class StringUtilities
 		return false;
 	}
 	
-	private static final boolean isWordBoundary( char ch )
+	private static boolean isWordBoundary( char ch )
 	{
 		return ch != '#' && !Character.isLetterOrDigit( ch );
 	}
 
-	public static final void insertBefore( final StringBuffer buffer, final String searchString,
+	public static void insertBefore( final StringBuffer buffer, final String searchString,
 		final String insertString )
 	{
 		int searchIndex = buffer.indexOf( searchString );
@@ -497,7 +497,7 @@ public class StringUtilities
 		buffer.insert( searchIndex, insertString );
 	}
 
-	public static final void insertAfter( final StringBuffer buffer, final String searchString,
+	public static void insertAfter( final StringBuffer buffer, final String searchString,
 		final String insertString )
 	{
 		int searchIndex = buffer.indexOf( searchString );
@@ -509,12 +509,12 @@ public class StringUtilities
 		buffer.insert( searchIndex + searchString.length(), insertString );
 	}
 
-	public static final String singleStringDelete( final String originalString, final String searchString )
+	public static String singleStringDelete( final String originalString, final String searchString )
 	{
 		return StringUtilities.singleStringReplace( originalString, searchString, "" );
 	}
 
-	public static final String singleStringReplace( final String originalString, final String searchString,
+	public static String singleStringReplace( final String originalString, final String searchString,
 		final String replaceString )
 	{
 		if ( originalString == null )
@@ -539,12 +539,12 @@ public class StringUtilities
 		return buffer.toString();
 	}
 
-	public static final void singleStringDelete( final StringBuffer buffer, final String searchString )
+	public static void singleStringDelete( final StringBuffer buffer, final String searchString )
 	{
 		StringUtilities.singleStringReplace( buffer, searchString, "" );
 	}
 
-	public static final void singleStringReplace( final StringBuffer buffer, final String searchString,
+	public static void singleStringReplace( final StringBuffer buffer, final String searchString,
 		final String replaceString )
 	{
 		int index = buffer.indexOf( searchString );
@@ -554,12 +554,12 @@ public class StringUtilities
 		}
 	}
 
-	public static final String globalStringDelete( final String originalString, final String searchString )
+	public static String globalStringDelete( final String originalString, final String searchString )
 	{
 		return StringUtilities.globalStringReplace( originalString, searchString, "" );
 	}
 
-	public static final String globalStringReplace( final String originalString, final String searchString,
+	public static String globalStringReplace( final String originalString, final String searchString,
 		final String replaceString )
 	{
 		if ( originalString == null )
@@ -592,17 +592,17 @@ public class StringUtilities
 		return buffer.toString();
 	}
 
-	public static final void globalStringReplace( final StringBuffer buffer, final String tag, final int replaceWith )
+	public static void globalStringReplace( final StringBuffer buffer, final String tag, final int replaceWith )
 	{
 		StringUtilities.globalStringReplace( buffer, tag, String.valueOf( replaceWith ) );
 	}
 
-	public static final void globalStringDelete( final StringBuffer buffer, final String tag )
+	public static void globalStringDelete( final StringBuffer buffer, final String tag )
 	{
 		StringUtilities.globalStringReplace( buffer, tag, "" );
 	}
 
-	public static final void globalStringReplace( final StringBuffer buffer, final String tag, String replaceWith )
+	public static void globalStringReplace( final StringBuffer buffer, final String tag, String replaceWith )
 	{
 		if ( buffer == null )
 		{
@@ -631,7 +631,7 @@ public class StringUtilities
 		}
 	}
 	
-	public static final boolean isNumeric( String string )
+	public static boolean isNumeric( String string )
 	{
 		if ( string == null || string.length() == 0 )
 		{
@@ -658,7 +658,7 @@ public class StringUtilities
 		return true;
 	}
 	
-	public static final boolean isFloat( String string )
+	public static boolean isFloat( String string )
 	{
 		if ( string == null || string.length() == 0 )
 		{
@@ -700,12 +700,12 @@ public class StringUtilities
 		return true;
 	}
 
-	public static final int parseInt( String string )
+	public static int parseInt( String string )
 	{
 		return StringUtilities.parseIntInternal1( string, false );
 	}
 
-	public static final int parseIntInternal1( String string, boolean throwException )
+	public static int parseIntInternal1( String string, boolean throwException )
 		throws NumberFormatException
 	{
 		if ( string == null )
@@ -765,7 +765,7 @@ public class StringUtilities
 		return StringUtilities.parseIntInternal2( string );
 	}
 
-	public static final int parseIntInternal2( String string )
+	public static int parseIntInternal2( String string )
 		throws NumberFormatException
 	{
 		string = NONINTEGER_PATTERN.matcher( string ).replaceAll( "" );
@@ -778,7 +778,7 @@ public class StringUtilities
 		return Integer.parseInt( string );
 	}
 
-	public static final long parseLong( String string )
+	public static long parseLong( String string )
 	{
 		if ( string == null )
 		{
@@ -800,7 +800,7 @@ public class StringUtilities
 		return Long.parseLong( string );
 	}
 
-	public static final float parseFloat( String string )
+	public static float parseFloat( String string )
 	{
 		if ( string == null )
 		{
@@ -828,7 +828,7 @@ public class StringUtilities
 		return Float.parseFloat( string );
 	}
 
-	public static final double parseDouble( String string )
+	public static double parseDouble( String string )
 	{
 		if ( string == null )
 		{
@@ -856,7 +856,7 @@ public class StringUtilities
 		return Double.parseDouble( string );
 	}
 
-	public static final String basicTextWrap( String text )
+	public static String basicTextWrap( String text )
 	{
 
 		if ( text.length() < 80 || text.startsWith( "<html>" ) )
@@ -896,7 +896,7 @@ public class StringUtilities
 		return result.toString();
 	}
 
-	public static final void registerPrepositions( final String text )
+	public static void registerPrepositions( final String text )
 	{
 		Matcher m = StringUtilities.PREPOSITIONS_PATTERN.matcher( text );
 		if ( !m.find() )
@@ -906,7 +906,7 @@ public class StringUtilities
 		StringUtilities.prepositionsMap.put( m.replaceAll( "@" ), text );
 	}
 
-	public static final String lookupPrepositions( final String text )
+	public static String lookupPrepositions( final String text )
 	{
 		Matcher m = StringUtilities.PREPOSITIONS_PATTERN.matcher( text );
 		if ( !m.find() )

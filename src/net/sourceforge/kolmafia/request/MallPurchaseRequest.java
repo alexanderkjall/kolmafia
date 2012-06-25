@@ -117,7 +117,7 @@ public class MallPurchaseRequest
 		this.timestamp = System.currentTimeMillis();
 	}
 
-	public static final String getStoreString( final int itemId, final int price )
+	public static String getStoreString( final int itemId, final int price )
 	{
 		// whichitem=2272000000246
 
@@ -269,7 +269,7 @@ public class MallPurchaseRequest
 		}
 	}
 
-	public static final void parseResponse( final String urlString, final String responseText )
+	public static void parseResponse( final String urlString, final String responseText )
 	{
 		if ( !urlString.startsWith( "mallstore.php" ) )
 		{
@@ -288,7 +288,7 @@ public class MallPurchaseRequest
 		KoLCharacter.updateStatus();
 	}
 
-	public static final boolean registerRequest( final String urlString )
+	public static boolean registerRequest( final String urlString )
 	{
 		// mallstore.php?whichstore=294980&buying=1&ajax=1&whichitem=2272000000246&quantity=9
 

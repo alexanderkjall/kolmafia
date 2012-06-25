@@ -47,7 +47,7 @@ public class HobopolisDecorator
 	private static final Pattern HOBOPOLIS_IMG_PATTERN = Pattern.compile(
 		"otherimages/hobopolis/[a-z]+(\\d+)" );
 
-	public static final void handleTownSquare( final String responseText )
+	public static void handleTownSquare( final String responseText )
 	{
 		// Nothing to do until battle is done
 		if ( !responseText.contains( "WINWINWIN" ) )
@@ -111,7 +111,7 @@ public class HobopolisDecorator
 		}
 	}
 	
-	public static final void decorate( String location, StringBuffer buffer )
+	public static void decorate( String location, StringBuffer buffer )
 	{
 		if ( !location.contains( "place=1" ) )
 		{

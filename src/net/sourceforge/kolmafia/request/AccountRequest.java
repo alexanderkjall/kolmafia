@@ -82,7 +82,7 @@ public class AccountRequest
 		}
 	}
 
-	private static final String getTabField( final int tab )
+	private static String getTabField( final int tab )
 	{
 		switch ( tab )
 		{
@@ -109,7 +109,7 @@ public class AccountRequest
 	private static final Pattern LOADTAB_PATTERN =
 		Pattern.compile( "action=loadtab&value=([^&]*)" );
 
-	private static final int getTab( final String urlString )
+	private static int getTab( final String urlString )
 	{
 		if ( urlString.equals( "account.php" ) )
 		{
@@ -190,7 +190,7 @@ public class AccountRequest
 		AccountRequest.parseAccountData( this.getURLString(), this.responseText );
 	}
 
-	public static final void parseAccountData( final String location, final String responseText )
+	public static void parseAccountData( final String location, final String responseText )
 	{
 		if ( location.contains( "action=" ) )
 		{
@@ -203,7 +203,7 @@ public class AccountRequest
 		AccountRequest.parseOptionTab( location, responseText );
 	}
 
-	private static final void parseOptionTab( final String location, final String responseText )
+	private static void parseOptionTab( final String location, final String responseText )
 	{
 		switch ( AccountRequest.getTab( location ) )
 		{
@@ -241,7 +241,7 @@ public class AccountRequest
 	private static String compactMenuStyle = "<input type=\"radio\" value=\"compact\" checked=\"checked\"  name=\"menu\"/>Drop-Downs";
 	private static String normalMenuStyle = "<input type=\"radio\" value=\"normal\" checked=\"checked\"  name=\"menu\"/>Links";
 
-	private static final void parseInterfaceOptions( final String responseText )
+	private static void parseInterfaceOptions( final String responseText )
 	{
 		// Top Menu Style
 		GenericRequest.topMenuStyle =
@@ -258,7 +258,7 @@ public class AccountRequest
 		CharPaneRequest.familiarBelowEffects = checked;
 	}
 
-	private static final void parseInventoryOptions( final String responseText )
+	private static void parseInventoryOptions( final String responseText )
 	{
 		boolean checked;
 		checked = AccountRequest.getCheckbox( "flag_sellstuffugly", responseText );
@@ -269,14 +269,14 @@ public class AccountRequest
 		KoLCharacter.setUnequipFamiliar( checked );
 	}
 
-	private static final void parseChatOptions( final String responseText )
+	private static void parseChatOptions( final String responseText )
 	{
 	}
 
 	private static final Pattern AUTOATTACK_PATTERN =
 		Pattern.compile( "<select name=\"autoattack\">.*?</select>", Pattern.DOTALL );
 
-	private static final void parseCombatOptions( final String responseText )
+	private static void parseCombatOptions( final String responseText )
 	{
 		// Disable stationary buttons to avoid conflicts when
 		// the action bar is enabled.
@@ -300,7 +300,7 @@ public class AccountRequest
 		KoLCharacter.setAutoAttackAction( autoAttackAction );
 	}
 
-	private static final void parseAccountOptions( final String responseText )
+	private static void parseAccountOptions( final String responseText )
 	{
 		// Whether or not a player is currently in Bad Moon or hardcore
 		// is also found here through the presence of buttons.
@@ -332,11 +332,11 @@ public class AccountRequest
 		KoLCharacter.setSkillsRecalled( recalled );
 	}
 
-	private static final void parseProfileOptions( final String responseText )
+	private static void parseProfileOptions( final String responseText )
 	{
 	}
 
-	private static final void parsePrivacyOptions( final String responseText )
+	private static void parsePrivacyOptions( final String responseText )
 	{
 	}
 
@@ -345,7 +345,7 @@ public class AccountRequest
 	private static final Pattern VALUE_PATTERN =
 		Pattern.compile( "value=([^&]*)");
 
-	private static final void parseAction( final String location, final String responseText )
+	private static void parseAction( final String location, final String responseText )
 	{
 		Matcher actionMatcher = AccountRequest.ACTION_PATTERN.matcher( location );
 		if ( !actionMatcher.find() )
@@ -580,7 +580,7 @@ public class AccountRequest
 		}
 	}
 
-	public static final void parseStatus( final JSONObject JSON )
+	public static void parseStatus( final JSONObject JSON )
 		throws JSONException
 	{
 		JSONObject flags = JSON.getJSONObject( "flag_config" );

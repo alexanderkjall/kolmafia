@@ -66,7 +66,7 @@ public abstract class CellarDecorator
 	private static final int C = MARS | MUSC | MERL;
 	private static final int D = PORT | ZINF | MUSC;
 
-	private static final int PAT( final int a, final int b, final int c, final int d )
+	private static int PAT( final int a, final int b, final int c, final int d )
 	{
 		return a | (b << 1) | (c << 2) | (d << 3);
 	}
@@ -108,7 +108,7 @@ public abstract class CellarDecorator
 		ItemPool.get( ItemPool.DUSTY_BOTTLE_OF_MUSCAT, 1 )
 	};
 
-	private static final int[] compute()
+	private static int[] compute()
 	{
 		int layout = Preferences.getInteger( "cellarLayout" );
 		int nMatches = 0;
@@ -143,7 +143,7 @@ public abstract class CellarDecorator
 		return wines;
 	}
 
-	public static final void decorate( final StringBuffer buffer )
+	public static void decorate( final StringBuffer buffer )
 	{
 		int[] wines = compute();
 
@@ -193,7 +193,7 @@ public abstract class CellarDecorator
 		row.appendTail( buffer );
 	}
 
-	private static final String getCornerData( int data, int total, String[] names )
+	private static String getCornerData( int data, int total, String[] names )
 	{
 		// data contains the number of matching patterns that include each wine,
 		// in six DUSTYSHIFT-wide bitfields.  Unpack it:
@@ -239,7 +239,7 @@ public abstract class CellarDecorator
 
 	// Recommend one of the corners, based on the current conditions.
 	// Return a random corner if there are no relevant conditions.
-	public static final int recommendCorner()
+	public static int recommendCorner()
 	{
 		int[] data = compute();
 		int[] matches = new int[] { 0, 0, 0, 0 };
@@ -271,7 +271,7 @@ public abstract class CellarDecorator
 		}
 	}
 
-	public static final void gainItem( int adv, AdventureResult item )
+	public static void gainItem( int adv, AdventureResult item )
 	{
 		int id = item.getItemId();
 		if ( adv < 178 || adv > 181 || id < 2271 || id > 2276 )

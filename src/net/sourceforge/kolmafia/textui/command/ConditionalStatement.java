@@ -67,7 +67,7 @@ public abstract class ConditionalStatement
 	 * items, meat and status effects.
 	 */
 
-	public static final boolean test( final String parameters )
+	public static boolean test( final String parameters )
 	{
 		if ( !KoLmafia.permitsContinue() )
 		{
@@ -172,7 +172,7 @@ public abstract class ConditionalStatement
 		       false;
 	}
 
-	static final int lvalue( final String left )
+	static int lvalue( final String left )
 	{
 		if ( StringUtilities.isNumeric( left ) )
 		{
@@ -292,7 +292,7 @@ public abstract class ConditionalStatement
 		return 0;
 	}
 
-	static final int rvalue( final String left, String right )
+	static int rvalue( final String left, String right )
 	{
 		if ( right.endsWith( "%" ) )
 		{

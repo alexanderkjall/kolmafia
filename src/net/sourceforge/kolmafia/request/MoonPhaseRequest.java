@@ -102,7 +102,7 @@ public class MoonPhaseRequest
 		KoLCharacter.setClan( this.responseText.contains( "clan_hall.php" ) );
 	}
 
-	public static final void decorate( final StringBuffer buffer )
+	public static void decorate( final StringBuffer buffer )
 	{
 		if ( GenericRequest.topMenuStyle == GenericRequest.MENU_COMPACT )
 		{
@@ -115,7 +115,7 @@ public class MoonPhaseRequest
 		}
 	}
 
-	public static final void adjustCompactMenu( final StringBuffer buffer )
+	public static void adjustCompactMenu( final StringBuffer buffer )
 	{
 		MoonPhaseRequest.mafiatizeFunctionMenu( buffer );
 		MoonPhaseRequest.mafiatizeGotoMenu( buffer );
@@ -162,7 +162,7 @@ public class MoonPhaseRequest
 		}
 	}
 
-	private static final void mafiatizeFunctionMenu( final StringBuffer buffer )
+	private static void mafiatizeFunctionMenu( final StringBuffer buffer )
 	{
 		Matcher menuMatcher = MoonPhaseRequest.MENU1_PATTERN.matcher( buffer.toString() );
 		if ( !menuMatcher.find() )
@@ -181,7 +181,7 @@ public class MoonPhaseRequest
 		StringUtilities.singleStringReplace( buffer, menuMatcher.group(), functionMenu.toString() );
 	}
 
-	private static final void mafiatizeGotoMenu( final StringBuffer buffer )
+	private static void mafiatizeGotoMenu( final StringBuffer buffer )
 	{
 		Matcher menuMatcher = MoonPhaseRequest.MENU2_PATTERN.matcher( buffer.toString() );
 		if ( !menuMatcher.find() )

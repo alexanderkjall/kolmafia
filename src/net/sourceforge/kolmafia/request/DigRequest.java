@@ -54,7 +54,7 @@ public class DigRequest
 		super( "dig.php" );
 	}
 
-	public static final int getTurnsUsed( GenericRequest request )
+	public static int getTurnsUsed( GenericRequest request )
 	{
 		String action = request.getFormField( "action" );
 		return action != null && action.equals( "dig" ) ? 1 : 0;
@@ -74,7 +74,7 @@ public class DigRequest
 		}
 	}
 
-	public static final boolean registerRequest( final String urlString )
+	public static boolean registerRequest( final String urlString )
 	{
 		if ( !urlString.startsWith( "dig.php" ) )
 		{

@@ -115,7 +115,7 @@ public class StoreManageFrame
 		StoreManageFrame.updateEarnings( StoreManager.getPotentialEarnings() );
 	}
 
-	public static final void cancelTableEditing()
+	public static void cancelTableEditing()
 	{
 		if ( StoreManageFrame.INSTANCE != null )
 		{
@@ -123,7 +123,7 @@ public class StoreManageFrame
 		}
 	}
 
-	public static final void updateEarnings( final long potentialEarnings )
+	public static void updateEarnings( final long potentialEarnings )
 	{
 		if ( StoreManageFrame.INSTANCE == null || GenericFrame.appearsInTab( "StoreManageFrame" ) )
 		{

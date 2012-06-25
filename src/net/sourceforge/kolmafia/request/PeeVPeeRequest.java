@@ -203,7 +203,7 @@ public class PeeVPeeRequest
 	
 	private static final String STAT_STRING = KoLCharacter.getUserName().toLowerCase() + " lost ";
 	
-	private static final void parseStatLoss( final String responseText )
+	private static void parseStatLoss( final String responseText )
 	{
 		String[] blocks = responseText.split( "<td>" );
 		for ( int i = 0; i < blocks.length; ++i )
@@ -228,13 +228,13 @@ public class PeeVPeeRequest
 		}
 	}
 
-	private static final String getField( final Pattern pattern, final String urlString )
+	private static String getField( final Pattern pattern, final String urlString )
 	{
 		Matcher matcher = pattern.matcher( urlString );
 		return matcher.find() ? matcher.group(1) : null;
 	}
 
-	private static final String getOpponent( final String who, final String ranked )
+	private static String getOpponent( final String who, final String ranked )
 	{
 		if ( who != null && !who.equals( "" ) )
 		{
@@ -254,7 +254,7 @@ public class PeeVPeeRequest
 		return "an unknown opponent";
 	}
 
-	private static final String getMission( final String mission )
+	private static String getMission( final String mission )
 	{
 		return ( mission == null ) ?
 			"an unknown mission" :
@@ -263,7 +263,7 @@ public class PeeVPeeRequest
 			mission;
 	}
 
-	private static final String getStance( final String stance )
+	private static String getStance( String stance )
 	{
 		if ( stance != null )
 		{
@@ -287,7 +287,7 @@ public class PeeVPeeRequest
 		return "an unknown stance";
 	}
 
-	public static final boolean registerRequest( final String urlString )
+	public static boolean registerRequest( final String urlString )
 	{
 		if ( !urlString.startsWith( "peevpee.php" ) )
 		{

@@ -59,12 +59,12 @@ public class OceanManager
 	private static final GenericRequest OCEAN_HANDLER = new GenericRequest( "ocean.php" );
 	private static final Pattern OCEAN_PATTERN = Pattern.compile( "(\\d+),(\\d+)" );
 
-	public static final void processOceanAdventure()
+	public static void processOceanAdventure()
 	{
 		OceanManager.processOceanAdventure( OceanManager.OCEAN_HANDLER );
 	}
 
-	public static final void processOceanAdventure( final GenericRequest request )
+	public static void processOceanAdventure( final GenericRequest request )
 	{
 		String dest = Preferences.getString( "oceanDestination" );
 		if ( dest.equals( "manual" ) )

@@ -386,7 +386,7 @@ public class CoinMasterRequest
 		CoinmastersFrame.externalUpdate();
 	}
 
-	public static final void buyStuff( final CoinmasterData data, final String urlString )
+	public static void buyStuff( final CoinmasterData data, final String urlString )
 	{
 		if ( data == null )
 		{
@@ -417,7 +417,7 @@ public class CoinMasterRequest
 		CoinMasterRequest.buyStuff( data, itemId, count, storage );
 	}
 
-	public static final void buyStuff( final CoinmasterData data, final int itemId, final int count, final boolean storage )
+	public static void buyStuff( final CoinmasterData data, final int itemId, final int count, final boolean storage )
 	{
 		LockableListModel items = data.getBuyItems();
 		AdventureResult item = AdventureResult.findItem( itemId, items );
@@ -433,7 +433,7 @@ public class CoinMasterRequest
 		RequestLogger.updateSessionLog( "trading " + cost + " " + tokenName + " for " + count + " " + itemName + ( storage ? " from storage" : "" ) );
 	}
 
-	public static final void completePurchase( final CoinmasterData data, final String urlString )
+	public static void completePurchase( final CoinmasterData data, final String urlString )
 	{
 		if ( data == null )
 		{
@@ -484,7 +484,7 @@ public class CoinMasterRequest
 		CoinMasterRequest.completePurchase( data, itemId, count, storage );
 	}
 
-	public static final void completePurchase( final CoinmasterData data, final int itemId, final int count, final boolean storage )
+	public static void completePurchase( final CoinmasterData data, final int itemId, final int count, final boolean storage )
 	{
 		AdventureResult tokenItem = data.getItem();
 		String property = data.getProperty();
@@ -515,7 +515,7 @@ public class CoinMasterRequest
 		}
 	}
 
-	public static final void sellStuff( final CoinmasterData data, final String urlString )
+	public static void sellStuff( final CoinmasterData data, final String urlString )
 	{
 		if ( data == null )
 		{
@@ -546,7 +546,7 @@ public class CoinMasterRequest
 		CoinMasterRequest.sellStuff( data, itemId, count );
 	}
 
-	public static final void sellStuff( final CoinmasterData data, final int itemId, final int count )
+	public static void sellStuff( final CoinmasterData data, final int itemId, final int count )
 	{
 		String name = ItemDatabase.getItemName( itemId );
 		Map prices = data.getSellPrices();
@@ -560,7 +560,7 @@ public class CoinMasterRequest
 		RequestLogger.updateSessionLog( "trading " + count + " " + itemName + " for " + cost + " " + tokenName );
 	}
 
-	public static final void completeSale( final CoinmasterData data, final String urlString )
+	public static void completeSale( final CoinmasterData data, final String urlString )
 	{
 		if ( data == null )
 		{
@@ -590,7 +590,7 @@ public class CoinMasterRequest
 		CoinMasterRequest.completeSale( data, itemId, count );
 	}
 
-	public static final void completeSale( final CoinmasterData data, final int itemId, final int count )
+	public static void completeSale( final CoinmasterData data, final int itemId, final int count )
 	{
 		String name = ItemDatabase.getItemName( itemId );
 		Map prices = data.getSellPrices();
@@ -622,12 +622,12 @@ public class CoinMasterRequest
 		}
 	}
 
-	public static final boolean registerRequest( final CoinmasterData data, final String urlString )
+	public static boolean registerRequest( final CoinmasterData data, final String urlString )
 	{
 		return CoinMasterRequest.registerRequest( data, urlString, false );
 	}
 
-	public static final boolean registerRequest( final CoinmasterData data, final String urlString, final boolean logVisits )
+	public static boolean registerRequest( final CoinmasterData data, final String urlString, final boolean logVisits )
 	{
 		String action = GenericRequest.getAction( urlString );
 

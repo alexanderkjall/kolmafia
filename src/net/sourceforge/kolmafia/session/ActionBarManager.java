@@ -43,7 +43,7 @@ public class ActionBarManager
 	private static String initialJSONString = "";
 	private static String currentJSONString = "";
 
-	public static final void updateJSONString( RelayRequest request )
+	public static void updateJSONString( RelayRequest request )
 	{
 		String action = request.getFormField( "action" );
 
@@ -70,7 +70,7 @@ public class ActionBarManager
 		return;
 	}
 
-	public static final void loadJSONString()
+	public static void loadJSONString()
 	{
 		GenericRequest request = new GenericRequest( "actionbar.php?action=fetch" );
 		RequestThread.postRequest( request );

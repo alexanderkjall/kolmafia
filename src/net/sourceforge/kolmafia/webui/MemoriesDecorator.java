@@ -46,7 +46,7 @@ public class MemoriesDecorator
 {
 	private static final Pattern ELEMENT_PATTERN = Pattern.compile( "<select name=\"slot[12345]\">.*?</select>", Pattern.DOTALL );
 
-	public static final void decorateElements( final int choice, final StringBuffer buffer )
+	public static void decorateElements( final int choice, final StringBuffer buffer )
 	{
 		// Handle only Elements choice adventure
 		if ( choice != 392 )
@@ -63,7 +63,7 @@ public class MemoriesDecorator
                 MemoriesDecorator.selectElement( matcher, buffer, "hot" );
         }
 
-	private static final void selectElement( final Matcher matcher, final StringBuffer buffer, final String element )
+	private static void selectElement( final Matcher matcher, final StringBuffer buffer, final String element )
 	{
 		if ( !matcher.find() )
 		{
@@ -81,7 +81,7 @@ public class MemoriesDecorator
         private static final String JERKS = "absolute jerks. </p>";
         private static final String SECRET = "<center><table class=\"item\" style=\"float: none\" rel=\"id=4114&s=0&q=0&d=0&g=0&t=0&n=1\"><tr><td><img src=\"http://images.kingdomofloathing.com/itemimages/futurebox.gif\" alt=\"secret from the future\" title=\"secret from the future\" class=hand onClick='descitem(502821529)'></td><td valign=center class=effect>You acquire an item: <b>secret from the future</b></td></tr></table></center>";
 
-	public static final void decorateElementsResponse( final StringBuffer buffer )
+	public static void decorateElementsResponse( final StringBuffer buffer )
 	{
 		int index = buffer.indexOf( MemoriesDecorator.JERKS );
 		if ( index != -1 )
@@ -103,7 +103,7 @@ public class MemoriesDecorator
 		{ "freaky alien thing", "gray" },
 	};
 
-	public static final void decorateMegalopolisFight( final StringBuffer buffer )
+	public static void decorateMegalopolisFight( final StringBuffer buffer )
 	{
 		if ( !KoLCharacter.hasEquipped( ItemPool.get( ItemPool.RUBY_ROD, 1 ) ) )
 		{

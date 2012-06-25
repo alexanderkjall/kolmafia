@@ -222,7 +222,7 @@ public class DailyDeedsPanel
 		}
 	};
 
-	private static final int getVersion( String deed )
+	private static int getVersion( String deed )
 	{
 		// Add a method to return the proper version for the deed given.
 		// i.e. if( deed.equals( "Breakfast" ) ) return 1;

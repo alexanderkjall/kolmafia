@@ -70,7 +70,7 @@ public class KoLDatabase
 		}
 	}
 
-	public static final String getBreakdown( final List items )
+	public static String getBreakdown( final List items )
 	{
 		if ( items.isEmpty() )
 		{
@@ -128,7 +128,7 @@ public class KoLDatabase
 	 * objects.
 	 */
 
-	public static final long calculateTotal( final List values )
+	public static long calculateTotal( final List values )
 	{
 		long total = 0;
 		for ( int i = 0; i < values.size(); ++i )
@@ -147,7 +147,7 @@ public class KoLDatabase
 	 * objects.
 	 */
 
-	public static final float calculateAverage( final List values )
+	public static float calculateAverage( final List values )
 	{
 		return (float) KoLDatabase.calculateTotal( values ) / (float) values.size();
 	}

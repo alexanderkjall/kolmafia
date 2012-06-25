@@ -126,7 +126,7 @@ public class EffectDatabase
 		EffectDatabase.effectByName.keySet().toArray( EffectDatabase.canonicalNames );
 	}
 
-	private static final void addToDatabase( final Integer effectId, final String name, final String image,
+	private static void addToDatabase( final Integer effectId, final String name, final String image,
 		final String descriptionId, final String defaultAction )
 	{
 		String canonicalName = StringUtilities.getCanonicalName( name );
@@ -148,7 +148,7 @@ public class EffectDatabase
 		}
 	}
 
-	public static final String getDefaultAction( final String effectName )
+	public static String getDefaultAction( final String effectName )
 	{
 		String rv = StringUtilities.getDisplayName( EffectDatabase.defaultActions.get( StringUtilities.getCanonicalName( effectName ) ) );
 		if ( rv == null )
@@ -162,7 +162,7 @@ public class EffectDatabase
 		return rv.split( "\\|" )[0];
 	}
 
-	public static final Iterator<String> getAllActions( final String effectName )
+	public static Iterator<String> getAllActions( final String effectName )
 	{
 		String actions = StringUtilities.getDisplayName( EffectDatabase.defaultActions.get( StringUtilities.getCanonicalName( effectName ) ) );
 		if ( actions == null )
@@ -193,7 +193,7 @@ public class EffectDatabase
 		return rv.iterator();
 	}
 
-	public static final String getActionNote( final String effectName )
+	public static String getActionNote( final String effectName )
 	{
 		String rv = StringUtilities.getDisplayName( EffectDatabase.defaultActions.get( StringUtilities.getCanonicalName( effectName ) ) );
 		if ( rv != null && rv.startsWith( "#" ) )
@@ -210,38 +210,38 @@ public class EffectDatabase
 	 * @return The name of the corresponding effect
 	 */
 
-	public static final String getEffectName( final int effectId )
+	public static String getEffectName( final int effectId )
 	{
 		return effectId == -1 ?
 			"Unknown effect" :
 			StringUtilities.getDisplayName( EffectDatabase.nameById.get( IntegerPool.get( effectId ) ) );
 	}
 
-	public static final String getEffectDataName( final int effectId )
+	public static String getEffectDataName( final int effectId )
 	{
 		return effectId == -1 ?
 			null:
 			EffectDatabase.dataNameById.get( IntegerPool.get( effectId ) );
 	}
 
-	public static final String getEffectName( final String descriptionId )
+	public static String getEffectName( final String descriptionId )
 	{
 		Object effectId = EffectDatabase.effectByDescription.get( descriptionId );
 		return effectId == null ? null : EffectDatabase.getEffectName( (Integer) effectId );
 	}
 
-	public static final int getEffect( final String descriptionId )
+	public static int getEffect( final String descriptionId )
 	{
 		Object effectId = EffectDatabase.effectByDescription.get( descriptionId );
 		return effectId == null ? -1 : (Integer) effectId;
 	}
 
-	public static final String getDescriptionId( final int effectId )
+	public static String getDescriptionId( final int effectId )
 	{
 		return EffectDatabase.descriptionById.get( IntegerPool.get( effectId ) );
 	}
 
-	public static final Set<Integer> descriptionIdKeySet()
+	public static Set<Integer> descriptionIdKeySet()
 	{
 		return EffectDatabase.descriptionById.keySet();
 	}
@@ -253,7 +253,7 @@ public class EffectDatabase
 	 * @return The Id number of the corresponding effect
 	 */
 
-	public static final int getEffectId( final String effectName )
+	public static int getEffectId( final String effectName )
 	{
 		Object effectId = EffectDatabase.effectByName.get( StringUtilities.getCanonicalName( effectName ) );
 		if ( effectId != null )
@@ -277,7 +277,7 @@ public class EffectDatabase
 	 * @return The name of the corresponding effect
 	 */
 
-	public static final String getImage( final int effectId )
+	public static String getImage( final int effectId )
 	{
 		Object imageName = effectId == -1 ? null : EffectDatabase.imageById.get( IntegerPool.get( effectId ) );
 		return imageName == null ? "/images/debug.gif" : "http://images.kingdomofloathing.com/itemimages/" + imageName;
@@ -289,17 +289,17 @@ public class EffectDatabase
 	 * @return The set of status effects keyed by Id
 	 */
 
-	public static final Set entrySet()
+	public static Set entrySet()
 	{
 		return EffectDatabase.nameById.entrySet();
 	}
 
-	public static final Set dataNameEntrySet()
+	public static Set dataNameEntrySet()
 	{
 		return EffectDatabase.dataNameById.entrySet();
 	}
 
-	public static final Collection<String> values()
+	public static Collection<String> values()
 	{
 		return EffectDatabase.nameById.values();
 	}
@@ -311,7 +311,7 @@ public class EffectDatabase
 	 * @return <code>true</code> if the effect is in the database
 	 */
 
-	public static final boolean contains( final String effectName )
+	public static boolean contains( final String effectName )
 	{
 		return Arrays.binarySearch( EffectDatabase.canonicalNames, StringUtilities.getCanonicalName( effectName ) ) >= 0;
 	}
@@ -321,17 +321,17 @@ public class EffectDatabase
 	 * items.
 	 */
 
-	public static final List getMatchingNames( final String substring )
+	public static List getMatchingNames( final String substring )
 	{
 		return StringUtilities.getMatchingNames( EffectDatabase.canonicalNames, substring );
 	}
 
-	public static final int learnEffectId( String name, String descId )
+	public static int learnEffectId( String name, String descId )
 	{
 		return EffectDatabase.registerEffect( name, descId, null );
 	}
 
-	public static final int registerEffect( String name, String descId, String defaultAction )
+	public static int registerEffect( String name, String descId, String defaultAction )
 	{
 		// Load the description text for this effect
 		String text = DebugDatabase.readEffectDescriptionText( descId );
@@ -387,7 +387,7 @@ public class EffectDatabase
 		return effectId;
 	}
 
-	public static final void writeEffects( final File output )
+	public static void writeEffects( final File output )
 	{
 		RequestLogger.printLine( "Writing data override: " + output );
 		PrintStream writer = LogStream.openStream( output, true );
@@ -466,12 +466,12 @@ public class EffectDatabase
 	 * may also specify an effect duration before the string.
 	 */
 
-	public static final AdventureResult getFirstMatchingEffect( final String parameters )
+	public static AdventureResult getFirstMatchingEffect( final String parameters )
 	{
 		return EffectDatabase.getFirstMatchingEffect( parameters, true );
 	}
 
-	public static final AdventureResult getFirstMatchingEffect( final String parameters, final boolean errorIfNone )
+	public static AdventureResult getFirstMatchingEffect( final String parameters, final boolean errorIfNone )
 	{
 		String effectName = null;
 		int duration = 0;

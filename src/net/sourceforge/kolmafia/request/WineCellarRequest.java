@@ -76,7 +76,7 @@ public class WineCellarRequest
 		WineCellarRequest.parseResponse( this.getURLString(), this.responseText );
 	}
 
-	public static final void parseResponse( final String location, final String responseText )
+	public static void parseResponse( final String location, final String responseText )
 	{
 		if ( !location.startsWith( "manor3.php" ) )
 		{
@@ -181,7 +181,7 @@ public class WineCellarRequest
 		}
 	}
 
-	public static final boolean registerRequest( final String urlString )
+	public static boolean registerRequest( final String urlString )
 	{
 		if ( !urlString.startsWith( "manor3.php" ) )
 		{

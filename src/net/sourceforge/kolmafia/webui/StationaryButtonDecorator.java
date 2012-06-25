@@ -57,7 +57,7 @@ public class StationaryButtonDecorator
 {
 	private static final ArrayList combatHotkeys = new ArrayList();
 
-	private static final boolean builtInSkill( final String skillId )
+	private static boolean builtInSkill( final String skillId )
 	{
 		// Entangling Noodles
 		if ( skillId.equals( "3004" ) )
@@ -74,7 +74,7 @@ public class StationaryButtonDecorator
 		return false;
 	}
 
-	public static final void addButton( final String skillId )
+	public static void addButton( final String skillId )
 	{
 		if ( skillId == null || skillId.equals( "none" ) )
 		{
@@ -131,7 +131,7 @@ public class StationaryButtonDecorator
 		Preferences.setString( "stationaryButton" + insertIndex, skillId );
 	}
 
-	private static final void removeButton( final int index, int buttons )
+	private static void removeButton( final int index, int buttons )
 	{
 		for ( int i = index + 1; i <= buttons; ++i )
 		{
@@ -140,7 +140,7 @@ public class StationaryButtonDecorator
 		}
 	}
 
-	public static final void decorate( final String urlString, final StringBuffer buffer )
+	public static void decorate( final String urlString, final StringBuffer buffer )
 	{
 		if ( Preferences.getBoolean( "hideServerDebugText" ) )
 		{
@@ -443,7 +443,7 @@ public class StationaryButtonDecorator
 		}
 	}
 
-	private static final void addFightButton( final String urlString, final StringBuffer response,
+	private static void addFightButton( final String urlString, final StringBuffer response,
 		final StringBuffer buffer, final String action, boolean isEnabled )
 	{
 		boolean forceFocus = action.equals( "attack" );
@@ -527,7 +527,7 @@ public class StationaryButtonDecorator
 		buffer.append( ">&nbsp;" );
 	}
 
-	private static final String getAdventureAgainLocation( StringBuffer response )
+	private static String getAdventureAgainLocation( StringBuffer response )
 	{
 		// Get the "adventure again" link from the page
 		int startIndex = response.indexOf( "<a href=\"", response.indexOf( "<body" ) + 1 );
@@ -561,7 +561,7 @@ public class StationaryButtonDecorator
 		return "main.php";
 	}
 
-	private static final String getActionName( final String action )
+	private static String getActionName( final String action )
 	{
 		if ( action.equals( "attack" ) )
 		{
@@ -667,7 +667,7 @@ public class StationaryButtonDecorator
 		return name;
 	}
 
-	public static final void reloadCombatHotkeyMap()
+	public static void reloadCombatHotkeyMap()
 	{
 		StationaryButtonDecorator.combatHotkeys.clear();
 

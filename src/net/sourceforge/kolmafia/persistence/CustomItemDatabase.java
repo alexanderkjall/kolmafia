@@ -81,7 +81,7 @@ public class CustomItemDatabase
 	private static final int[] CUSTOM_TYPES =
 		new int[] { -1, EquipmentManager.HAT, -1, EquipmentManager.SHIRT, EquipmentManager.WEAPON, EquipmentManager.OFFHAND, EquipmentManager.PANTS, EquipmentManager.ACCESSORY1, EquipmentManager.ACCESSORY2, EquipmentManager.ACCESSORY3, -1 };
 
-	private static final void initialize()
+	private static void initialize()
 	{
 		// Initialize the data if the file does not yet exist or
 		// the file hasn't been updated for a week.
@@ -114,7 +114,7 @@ public class CustomItemDatabase
 		}
 	}
 
-	private static final void updateParticipantList()
+	private static void updateParticipantList()
 	{
 		// Clear out all existing data when downloading an update.
 		// It will get refreshed the next time the profile is seen.
@@ -138,7 +138,7 @@ public class CustomItemDatabase
 		}
 	}
 
-	private static final void updateItem( final String playerId )
+	private static void updateItem( final String playerId )
 	{
 		// Clear out all existing data when downloading an update.
 		// It will get refreshed the next time the profile is seen.
@@ -182,7 +182,7 @@ public class CustomItemDatabase
 		}
 	}
 
-	public static final void linkCustomItem( final RelayRequest request )
+	public static void linkCustomItem( final RelayRequest request )
 	{
 		// First, some preliminary checks to see if custom data
 		// should be added to this request.
@@ -263,7 +263,7 @@ public class CustomItemDatabase
 		}
 	}
 
-	public static final String retrieveCustomItem( final String playerId )
+	public static String retrieveCustomItem( final String playerId )
 	{
 		if ( playerId == null || !CustomItemDatabase.INSTANCE.containsKey( playerId + ".0" ) || CustomItemDatabase.INSTANCE.get(
 			playerId + ".0" ).equals( "" ) )
@@ -459,7 +459,7 @@ public class CustomItemDatabase
 		return content.toString();
 	}
 
-	private static final void appendIntrinsicEffect( final StringBuffer content, final String playerId, final String id )
+	private static void appendIntrinsicEffect( final StringBuffer content, final String playerId, final String id )
 	{
 		if ( CustomItemDatabase.INSTANCE.getProperty( playerId + "." + id ).equals( "" ) )
 		{
@@ -471,19 +471,19 @@ public class CustomItemDatabase
 		content.append( "</font></b><br>" );
 	}
 
-	private static final void appendItemFlag( final StringBuffer content, final String playerId, final String name,
+	private static void appendItemFlag( final StringBuffer content, final String playerId, final String name,
 		final String id )
 	{
 		CustomItemDatabase.appendItemFlag( content, playerId, name, id, false );
 	}
 
-	private static final void appendItemFlag( final StringBuffer content, final String playerId, final String name,
+	private static void appendItemFlag( final StringBuffer content, final String playerId, final String name,
 		final String id, final boolean isBold )
 	{
 		CustomItemDatabase.appendItemFlag( content, playerId, name, id, isBold, false );
 	}
 
-	private static final void appendItemFlag( final StringBuffer content, final String playerId, final String name,
+	private static void appendItemFlag( final StringBuffer content, final String playerId, final String name,
 		final String id, final boolean isBold, final boolean isBlue )
 	{
 		if ( StringUtilities.parseInt( CustomItemDatabase.INSTANCE.getProperty( playerId + "." + id ) ) == 0 )
@@ -516,13 +516,13 @@ public class CustomItemDatabase
 		content.append( "<br>" );
 	}
 
-	private static final void appendItemData( final StringBuffer content, final String playerId, final String prefix,
+	private static void appendItemData( final StringBuffer content, final String playerId, final String prefix,
 		final String id )
 	{
 		CustomItemDatabase.appendItemData( content, playerId, prefix, "", id );
 	}
 
-	private static final void appendItemData( final StringBuffer content, final String playerId, final String prefix,
+	private static void appendItemData( final StringBuffer content, final String playerId, final String prefix,
 		final String suffix, final String id )
 	{
 		if ( StringUtilities.parseInt( CustomItemDatabase.INSTANCE.getProperty( playerId + "." + id ) ) == 0 )
@@ -539,7 +539,7 @@ public class CustomItemDatabase
 		content.append( "</b><br>" );
 	}
 
-	public static final void saveItemData()
+	public static void saveItemData()
 	{
 		if ( CustomItemDatabase.INSTANCE.isEmpty() )
 		{

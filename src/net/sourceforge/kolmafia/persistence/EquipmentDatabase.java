@@ -426,13 +426,13 @@ public class EquipmentDatabase
 
 	private static final Pattern WEAPON_TYPE_PATTERN = Pattern.compile( "\\(((\\d)-handed (.*?))\\)" );
 
-	public static final void registerItem( final int itemId, final String itemName, final String text )
+	public static void registerItem( final int itemId, final String itemName, final String text )
 	{
 		int power = DebugDatabase.parsePower( text );
 		EquipmentDatabase.registerItem( itemId, itemName, text, power );
 	}
 
-	public static final void registerItem( final int itemId, final String itemName, final String text, final int power )
+	public static void registerItem( final int itemId, final String itemName, final String text, final int power )
 	{
 		// A new item has been detected. Examine the item description
 		// and decide what it is.
@@ -476,7 +476,7 @@ public class EquipmentDatabase
 		RequestLogger.printLine( EquipmentDatabase.equipmentString( itemName, power, req, weaponType, isWeapon, isShield ) );
 	}
 
-	public static final int nextEquipmentItemId( int prevId )
+	public static int nextEquipmentItemId( int prevId )
 	{
 		int limit = ItemDatabase.maxItemId();
 		while ( ++prevId <= limit )
@@ -491,7 +491,7 @@ public class EquipmentDatabase
 		return -1;
 	}
 
-	public static final int getOutfitWithItem( final int itemId )
+	public static int getOutfitWithItem( final int itemId )
 	{
 		if ( itemId < 0 )
 		{
@@ -508,28 +508,28 @@ public class EquipmentDatabase
 		return result == null ? -1 : result;
 	}
 
-	public static final int getOutfitCount()
+	public static int getOutfitCount()
 	{
 		return EquipmentDatabase.normalOutfits.size();
 	}
 
-	public static final boolean contains( final String itemName )
+	public static boolean contains( final String itemName )
 	{
 		int itemId = ItemDatabase.getItemId( itemName );
 		return itemId > 0 && EquipmentDatabase.statRequirements.get( itemId ) != null;
 	}
 
-	public static final int getPower( final int itemId )
+	public static int getPower( final int itemId )
 	{
 		return EquipmentDatabase.power.get( itemId );
 	}
 
-	public static final void setPower( final int itemId, final int power )
+	public static void setPower( final int itemId, final int power )
 	{
 		EquipmentDatabase.power.set( itemId, power );
 	}
 
-	public static final int getPower( final String itemName )
+	public static int getPower( final String itemName )
 	{
 		if ( itemName == null )
 		{
@@ -546,12 +546,12 @@ public class EquipmentDatabase
 		return EquipmentDatabase.getPower( itemId );
 	}
 
-	public static final int getHands( final int itemId )
+	public static int getHands( final int itemId )
 	{
 		return EquipmentDatabase.hands.get( itemId );
 	}
 
-	public static final int getHands( final String itemName )
+	public static int getHands( final String itemName )
 	{
 		if ( itemName == null )
 		{
@@ -568,7 +568,7 @@ public class EquipmentDatabase
 		return EquipmentDatabase.getHands( itemId );
 	}
 
-	public static final String getEquipRequirement( final int itemId )
+	public static String getEquipRequirement( final int itemId )
 	{
 		String req = EquipmentDatabase.statRequirements.get( itemId );
 
@@ -580,7 +580,7 @@ public class EquipmentDatabase
 		return "none";
 	}
 
-	public static final String getEquipRequirement( final String itemName )
+	public static String getEquipRequirement( final String itemName )
 	{
 		if ( itemName == null )
 		{
@@ -597,7 +597,7 @@ public class EquipmentDatabase
 		return EquipmentDatabase.getEquipRequirement( itemId );
 	}
 
-	public static final String getItemType( final int itemId )
+	public static String getItemType( final int itemId )
 	{
 		switch ( ItemDatabase.getConsumptionType( itemId ) )
 		{
@@ -645,7 +645,7 @@ public class EquipmentDatabase
 		}
 	}
 
-	public static final int getWeaponStat( final int itemId )
+	public static int getWeaponStat( final int itemId )
 	{
 		int consumptionType = ItemDatabase.getConsumptionType( itemId );
 
@@ -669,7 +669,7 @@ public class EquipmentDatabase
 		return KoLConstants.MUSCLE;
 	}
 
-	public static final int getWeaponStat( final String itemName )
+	public static int getWeaponStat( final String itemName )
 	{
 		if ( itemName == null )
 		{
@@ -686,7 +686,7 @@ public class EquipmentDatabase
 		return EquipmentDatabase.getWeaponStat( itemId );
 	}
 
-	public static final int getWeaponType( final int itemId )
+	public static int getWeaponType( final int itemId )
 	{
 		switch ( EquipmentDatabase.getWeaponStat( itemId ) )
 		{
@@ -699,7 +699,7 @@ public class EquipmentDatabase
 		}
 	}
 
-	public static final int getWeaponType( final String itemName )
+	public static int getWeaponType( final String itemName )
 	{
 		if ( itemName == null )
 		{
@@ -716,27 +716,27 @@ public class EquipmentDatabase
 		return EquipmentDatabase.getWeaponType( itemId );
 	}
 
-	public static final boolean isChefStaff( final AdventureResult item )
+	public static boolean isChefStaff( final AdventureResult item )
 	{
 		return EquipmentDatabase.getItemType( item.getItemId() ).equals( "chefstaff" );
 	}
 	
-	public static final boolean isHat( final AdventureResult item)
+	public static boolean isHat( final AdventureResult item)
 	{
 		return EquipmentDatabase.getItemType( item.getItemId() ).equals( "hat" );
 	}
 
-	public static final boolean isShirt( final AdventureResult item )
+	public static boolean isShirt( final AdventureResult item )
 	{
 		return ItemDatabase.getConsumptionType( item.getItemId() ) == KoLConstants.EQUIP_SHIRT;
 	}
 
-	public static final boolean isContainer( final AdventureResult item )
+	public static boolean isContainer( final AdventureResult item )
 	{
 		return ItemDatabase.getConsumptionType( item.getItemId() ) == KoLConstants.EQUIP_CONTAINER;
 	}
 
-	public static final int getPulverization( final String itemName )
+	public static int getPulverization( final String itemName )
 	{
 		if ( itemName == null )
 		{
@@ -753,7 +753,7 @@ public class EquipmentDatabase
 		return EquipmentDatabase.getPulverization( itemId );
 	}
 
-	public static final int getPulverization( final int id )
+	public static int getPulverization( final int id )
 	{
 		if ( id < 0 )
 		{
@@ -768,7 +768,7 @@ public class EquipmentDatabase
 		return pulver;
 	}
 
-	private static final int derivePulverization( final int id )
+	private static int derivePulverization( final int id )
 	{
 		switch ( ItemDatabase.getConsumptionType( id ) )
 		{
@@ -883,7 +883,7 @@ public class EquipmentDatabase
 		return pulver;
 	}
 
-	private static final int deriveUpgrade( final String name )
+	private static int deriveUpgrade( final String name )
 	{
 		int pulver = PULVERIZE_BITS | MALUS_UPGRADE | YIELD_4N_1W;
 		if ( name.endsWith( "powder" ) )
@@ -922,18 +922,18 @@ public class EquipmentDatabase
 		return pulver;
 	}
 
-	public static final SpecialOutfit getOutfit( final int id )
+	public static SpecialOutfit getOutfit( final int id )
 	{
 		return EquipmentDatabase.normalOutfits.get( id );
 	}
 
-	public static final SpecialOutfit getAvailableOutfit( final int id )
+	public static SpecialOutfit getAvailableOutfit( final int id )
 	{
 		SpecialOutfit outfit = EquipmentDatabase.normalOutfits.get( id );
 		return EquipmentManager.getOutfits().contains( outfit ) ? outfit : null;
 	}
 
-	public static final int getOutfitId( final KoLAdventure adventure )
+	public static int getOutfitId( final KoLAdventure adventure )
 	{
 		String adventureId = adventure.getAdventureId();
 

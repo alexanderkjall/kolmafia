@@ -395,7 +395,7 @@ public class CharacterEntities
 		}
 	}
 
-	public static final String escape( final String unicodeVersion )
+	public static String escape( String unicodeVersion )
 	{
 		// Iterate over all the characters in the string looking for unicode
 
@@ -459,7 +459,7 @@ public class CharacterEntities
 		return entityVersion.toString();
 	}
 
-	public static final String unescape( final String entityVersion )
+	public static String unescape( final String entityVersion )
 	{
 		int index = entityVersion.indexOf( "&" );
 

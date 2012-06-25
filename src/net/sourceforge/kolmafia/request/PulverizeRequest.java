@@ -204,7 +204,7 @@ public class PulverizeRequest
 		KoLmafia.updateDisplay( this.item + " smashed." );
 	}
 
-	public static final int parseResponse( final String urlString, final String responseText )
+	public static int parseResponse( final String urlString, final String responseText )
 	{
 		// That's too important to pulverize.
 		// That's not something you can pulverize.
@@ -241,7 +241,7 @@ public class PulverizeRequest
 		return quantity;
 	}
 
-	public static final boolean registerRequest( final String urlString )
+	public static boolean registerRequest( final String urlString )
 	{
 		if ( !urlString.startsWith( "craft.php" ) || !urlString.contains( "action=pulverize" ) )
 		{

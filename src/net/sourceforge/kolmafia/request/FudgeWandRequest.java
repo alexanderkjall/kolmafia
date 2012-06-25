@@ -187,7 +187,7 @@ public class FudgeWandRequest
 		ConcoctionDatabase.setRefreshNeeded( true );
 	}
 
-	public static final boolean registerRequest( final String urlString )
+	public static boolean registerRequest( final String urlString )
 	{
 		CoinmasterData data = FudgeWandRequest.FUDGEWAND;
 

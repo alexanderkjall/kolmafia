@@ -54,22 +54,22 @@ public class IntegerPool
 		}
 	}
 
-	public static final int getCacheHits()
+	public static int getCacheHits()
 	{
 		return IntegerPool.cacheHits;
 	}
 
-	public static final int getCacheMissLows()
+	public static int getCacheMissLows()
 	{
 		return IntegerPool.cacheMissLows;
 	}
 
-	public static final int getCacheMissHighs()
+	public static int getCacheMissHighs()
 	{
 		return IntegerPool.cacheMissHighs;
 	}
 
-	public static final Integer get( int i )
+	public static Integer get( int i )
 	{
 		if ( i < IntegerPool.MIN_VALUE )
 		{

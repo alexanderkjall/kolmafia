@@ -1094,7 +1094,7 @@ public class KoLAdventure
 		RequestThread.postRequest( this.request );
 	}
 
-	public static final void setNextLocation( final KoLAdventure location, final String name )
+	public static void setNextLocation( final KoLAdventure location, final String name )
 	{
 		KoLAdventure.lastVisitedLocation = location;
 		Preferences.setString( "lastAdventure", name );
@@ -1104,12 +1104,12 @@ public class KoLAdventure
 		}
 	}
 
-	public static final KoLAdventure lastVisitedLocation()
+	public static KoLAdventure lastVisitedLocation()
 	{
 		return KoLAdventure.lastVisitedLocation;
 	}
 
-	public static final int lastAdventureId()
+	public static int lastAdventureId()
 	{
 		KoLAdventure location = KoLAdventure.lastVisitedLocation;
 
@@ -1121,13 +1121,13 @@ public class KoLAdventure
 		return StringUtilities.parseInt( location.adventureId );
 	}
 
-	public static final String lastAdventureIdString()
+	public static String lastAdventureIdString()
 	{
 		KoLAdventure location = KoLAdventure.lastVisitedLocation;
 		return location == null ? "" : location.adventureId;
 	}
 
-	public static final boolean recordToSession( final String urlString )
+	public static boolean recordToSession( final String urlString )
 	{
 		// This is the first half of logging an adventure location
 		// given only the URL. We try to deduce where the player is
@@ -1171,7 +1171,7 @@ public class KoLAdventure
 		return AdventureDatabase.getAdventureByURL( urlString );
 	}
 
-	private static final KoLAdventure findAdventureAgain( final String responseText )
+	private static KoLAdventure findAdventureAgain( final String responseText )
 	{
 		// Look for an "Adventure Again" link and return the
 		// KoLAdventure that it matches.
@@ -1747,7 +1747,7 @@ public class KoLAdventure
 		},
 	};
 
-	public static final int findAdventureFailure( String responseText )
+	public static int findAdventureFailure( String responseText )
 	{
 		// KoL is known to sometimes simply return a blank page as a
 		// failure to adventure.
@@ -1767,7 +1767,7 @@ public class KoLAdventure
 		return -1;
 	}
 
-	public static final String adventureFailureMessage( int index )
+	public static String adventureFailureMessage( int index )
 	{
 		if ( index >= 0 && index < ADVENTURE_FAILURES.length )
 		{
@@ -1777,7 +1777,7 @@ public class KoLAdventure
 		return null;
 	}
 
-	public static final MafiaState adventureFailureSeverity( int index )
+	public static MafiaState adventureFailureSeverity( int index )
 	{
 		if ( index >= 0 && index < ADVENTURE_FAILURES.length && ADVENTURE_FAILURES[ index ].length > 2 )
 		{
@@ -1788,7 +1788,7 @@ public class KoLAdventure
 		return MafiaState.ERROR;
 	}
 
-	public static final boolean recordToSession( final String urlString, final String responseText )
+	public static boolean recordToSession( final String urlString, final String responseText )
 	{
 		// This is the second half of logging an adventure location
 		// after we've submitted the URL and gotten a response, after,
@@ -1903,7 +1903,7 @@ public class KoLAdventure
 		return true;
 	}
 
-	public static final int getAdventureCount()
+	public static int getAdventureCount()
 	{
 		return Preferences.getBoolean( "logReverseOrder" ) ? KoLCharacter.getAdventuresLeft() : KoLCharacter.getCurrentRun() + 1;
 	}

@@ -1270,7 +1270,7 @@ public class CoinmastersFrame
 		}
 	}
 
-	public static final DefaultListCellRenderer getCoinmasterRenderer( CoinmasterData data, Map prices, final boolean usesTokens, String side )
+	public static DefaultListCellRenderer getCoinmasterRenderer( CoinmasterData data, Map prices, final boolean usesTokens, String side )
 	{
 		return new CoinmasterRenderer( data, prices, usesTokens, side );
 	}

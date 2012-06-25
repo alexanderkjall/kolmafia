@@ -146,7 +146,7 @@ public class DisplayCaseRequest
 		return DisplayCaseRequest.parseTransfer( this.getURLString(), this.responseText );
 	}
 
-	public static final boolean parseTransfer( final String urlString, final String responseText )
+	public static boolean parseTransfer( final String urlString, final String responseText )
 	{
 		if ( urlString.startsWith( "managecollection.php" ) )
 		{
@@ -164,7 +164,7 @@ public class DisplayCaseRequest
 	public static final Pattern ITEM_PATTERN1 = Pattern.compile( "<b>(([^<]*((?!</b>)<))*[^<]*)</b> moved from inventory to case" );
 	public static final Pattern ITEM_PATTERN2 = Pattern.compile( "<b>(([^<]*((?!</b>)<))*[^<]*)</b> moved from case to inventory" );
 
-	public static final boolean parseDisplayTransfer( final String urlString, final String responseText )
+	public static boolean parseDisplayTransfer( final String urlString, final String responseText )
 	{
 		if ( urlString.contains( "put" ) )
 		{
@@ -216,7 +216,7 @@ public class DisplayCaseRequest
 		return false;
 	}
 
-	public static final boolean parseDisplayArrangement( final String urlString, final String responseText )
+	public static boolean parseDisplayArrangement( final String urlString, final String responseText )
 	{
 		if ( !urlString.contains( "action=arrange" ) )
 		{
@@ -250,7 +250,7 @@ public class DisplayCaseRequest
 		return this.isDeposit ? "Placing items in display case" : this.isWithdrawal ? "Removing items from display case" : "Updating display case";
 	}
 
-	public static final boolean registerRequest( final String urlString )
+	public static boolean registerRequest( final String urlString )
 	{
 		if ( !urlString.startsWith( "managecollection.php" ) )
 		{

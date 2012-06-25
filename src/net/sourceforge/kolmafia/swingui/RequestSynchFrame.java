@@ -48,12 +48,12 @@ public class RequestSynchFrame
 		RequestSynchFrame.INSTANCE = this;
 	}
 
-	public static final void showLocation( final String location )
+	public static void showLocation( final String location )
 	{
 		RequestSynchFrame.showRequest( RequestEditorKit.extractRequest( location ) );
 	}
 
-	public static final void showRequest( final GenericRequest request )
+	public static void showRequest( final GenericRequest request )
 	{
 		if ( RequestSynchFrame.INSTANCE == null )
 		{

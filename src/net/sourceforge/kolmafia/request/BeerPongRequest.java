@@ -129,7 +129,7 @@ public class BeerPongRequest
 	private static final Pattern ROUND2_PATTERN = Pattern.compile( "&quot;However -- (.*?)&quot;" );
 	private static final Pattern ROUND3_PATTERN = Pattern.compile( "and growls &quot;(.*?)&quot;" );
 
-	public static final String findRicketsInsult( final String text )
+	public static String findRicketsInsult( final String text )
 	{
 		Matcher matcher = BeerPongRequest.ROUND1_PATTERN.matcher( text );
 		if ( matcher.find() )
@@ -152,7 +152,7 @@ public class BeerPongRequest
 		return null;
 	}
 
-	public static final int findPirateInsult( String insult )
+	public static int findPirateInsult( String insult )
 	{
 		if ( EquipmentManager.getEquipment( EquipmentManager.WEAPON ).getItemId() ==
 			ItemPool.SWORD_PREPOSITIONS )
@@ -170,7 +170,7 @@ public class BeerPongRequest
 		return 0;
 	}
 
-	public static final int findPirateRetort( String insult )
+	public static int findPirateRetort( String insult )
 	{
 		if ( EquipmentManager.getEquipment( EquipmentManager.WEAPON ).getItemId() ==
 			ItemPool.SWORD_PREPOSITIONS )
@@ -188,7 +188,7 @@ public class BeerPongRequest
 		return 0;
 	}
 
-	public static final String pirateRetort( final int insult )
+	public static String pirateRetort( final int insult )
 	{
 		if ( insult > 0 && insult <= BeerPongRequest.PIRATE_INSULTS.length )
 		{
@@ -197,7 +197,7 @@ public class BeerPongRequest
 		return null;
 	}
 
-	public static final String knownPirateRetort( final int insult )
+	public static String knownPirateRetort( final int insult )
 	{
 		KoLCharacter.ensureUpdatedPirateInsults();
 		if ( Preferences.getBoolean( "lastPirateInsult" + insult ) )
@@ -207,7 +207,7 @@ public class BeerPongRequest
 		return null;
 	}
 
-	public static final int countPirateInsults()
+	public static int countPirateInsults()
 	{
 		KoLCharacter.ensureUpdatedPirateInsults();
 
@@ -223,12 +223,12 @@ public class BeerPongRequest
 		return count;
 	}
 
-	public static final float pirateInsultOdds()
+	public static float pirateInsultOdds()
 	{
 		return BeerPongRequest.pirateInsultOdds( BeerPongRequest.countPirateInsults() );
 	}
 
-	public static final float pirateInsultOdds( int count )
+	public static float pirateInsultOdds( int count )
 	{
 		// If you know less than three insults, you can't possibly win.
 		if ( count < 3 )
@@ -271,7 +271,7 @@ public class BeerPongRequest
 	private static final Pattern RETORT_FORM_PATTERN = Pattern.compile( "<form action=beerpong.php.*?</form>" );
 	private static final Pattern OPTION_PATTERN = Pattern.compile( "<option value=(\\d+)>" );
 
-	public static final void parseResponse( final String urlString, final String responseText )
+	public static void parseResponse( final String urlString, final String responseText )
 	{
 		if ( !urlString.startsWith( "beerpong.php" ) )
 		{
@@ -320,7 +320,7 @@ public class BeerPongRequest
 		}
 	}
 
-	public static final boolean registerRequest( final String urlString )
+	public static boolean registerRequest( final String urlString )
 	{
 		if ( !urlString.startsWith( "beerpong.php" ) )
 		{

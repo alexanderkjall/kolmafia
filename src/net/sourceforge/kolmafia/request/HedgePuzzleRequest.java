@@ -140,7 +140,7 @@ public class HedgePuzzleRequest
 		}
 	}
 
-	public static final void parseResponse( final String location, final String responseText )
+	public static void parseResponse( final String location, final String responseText )
 	{
 		HedgePuzzleRequest.lastResponseText = responseText;
 
@@ -170,7 +170,7 @@ public class HedgePuzzleRequest
 		HedgePuzzleRequest.generateMazeConfigurations();
 	}
 
-	private static final void parseConfiguration( final String responseText )
+	private static void parseConfiguration( final String responseText )
 	{
 		for ( int x = 0; x < 3; ++x )
 		{
@@ -221,7 +221,7 @@ public class HedgePuzzleRequest
 	static String uparrow = "itemimages/uparrow.gif' width=30 height=30";
 	static String blank = "adventureimages/blank.gif width=1 height=1";
 
-	private static final void appendArrow( StringBuffer buffer, int col, int goal )
+	private static void appendArrow( StringBuffer buffer, int col, int goal )
 	{
 		String image = ( col == goal ) ? uparrow: blank;
 		buffer.append( "<td>" );
@@ -231,7 +231,7 @@ public class HedgePuzzleRequest
 		buffer.append( "</td>" );
 	}
 
-	private static final void appendImage( StringBuffer buffer, String file )
+	private static void appendImage( StringBuffer buffer, String file )
 	{
 		buffer.append( "<td>" );
 		buffer.append( "<img src=\"http://images.kingdomofloathing.com/otherimages/lair/hedge/" );
@@ -240,7 +240,7 @@ public class HedgePuzzleRequest
 		buffer.append( "</td>" );
 	}
 
-	private static final void printPuzzle()
+	private static void printPuzzle()
 	{
 		int entrance = interest[ 0 ][ 0 ];
 		int exit = interest[ 2 ][ 0 ];
@@ -277,7 +277,7 @@ public class HedgePuzzleRequest
 		RequestLogger.printLine();
 	}
 
-	private static final void generateMazeConfigurations()
+	private static void generateMazeConfigurations()
 	{
 		for ( int x = 0; x < 3; ++x )
 		{
@@ -314,7 +314,7 @@ public class HedgePuzzleRequest
 		}
 	}
 
-	private static final boolean isExitPermitted( final int direction, final int x, final int y )
+	private static boolean isExitPermitted( final int direction, final int x, final int y )
 	{
 		switch ( direction )
 		{
@@ -331,7 +331,7 @@ public class HedgePuzzleRequest
 		}
 	}
 
-	public static final void completeHedgeMaze( boolean visit )
+	public static void completeHedgeMaze( boolean visit )
 	{
 		// Check state relative to the hedge maze, and begin!
 
@@ -347,7 +347,7 @@ public class HedgePuzzleRequest
 		HedgePuzzleRequest.lastResponseText = null;
 	}
 
-	private static final void completeHedgeMaze()
+	private static void completeHedgeMaze()
 	{
 		// If we couldn't look at a puzzle, we canceled.
 
@@ -388,13 +388,13 @@ public class HedgePuzzleRequest
 		// or adventures, we canceled.
 	}
 
-	private static final void initializeMaze()
+	private static void initializeMaze()
 	{
 		KoLmafia.updateDisplay( "Retrieving maze status..." );
 		RequestThread.postRequest( HedgePuzzleRequest.PUZZLE_REQUEST );
 	}
 
-	private static final void retrieveHedgeKey()
+	private static void retrieveHedgeKey()
 	{
 		// Check to see if the hedge maze has already been solved for
 		// the key.
@@ -416,7 +416,7 @@ public class HedgePuzzleRequest
 		HedgePuzzleRequest.executeSolution( "Retrieving hedge key...", solution );
 	}
 
-	private static final void finalizeHedgeMaze()
+	private static void finalizeHedgeMaze()
 	{
 		int[][] solution = HedgePuzzleRequest.computeSolution( interest[ 0 ], interest[ 2 ] );
 
@@ -429,7 +429,7 @@ public class HedgePuzzleRequest
 		HedgePuzzleRequest.executeSolution( "Executing final rotations...", solution );
 	}
 
-	private static final int[][] computeSolution( final int[] start, final int[] destination )
+	private static int[][] computeSolution( final int[] start, final int[] destination )
 	{
 		KoLmafia.updateDisplay( "Computing maze solution..." );
 
@@ -465,7 +465,7 @@ public class HedgePuzzleRequest
 		return optimalSolution;
 	}
 
-	private static final void computeSolution( final boolean[][] visited, final int[][] currentSolution,
+	private static void computeSolution( final boolean[][] visited, final int[][] currentSolution,
 		final int[][] optimalSolution, final boolean[][][][] exits, final int currentX, final int currentY,
 		final int destinationX, final int destinationY, final int incomingDirection )
 	{
@@ -588,7 +588,7 @@ public class HedgePuzzleRequest
 		visited[ currentX ][ currentY ] = false;
 	}
 
-	private static final void printSolution( int [][] solution )
+	private static void printSolution( int [][] solution )
 	{
 		int rotations = 0;
 
@@ -608,14 +608,14 @@ public class HedgePuzzleRequest
 		}
 	}
 
-	public static final void computeSolution( final String responseText )
+	public static void computeSolution( final String responseText )
 	{
 		// Given the HTML of a puzzle, load it, print the puzzle, compute the solution, print the solution
 		HedgePuzzleRequest.parseResponse( "hedgepuzzle.php", responseText );
 		HedgePuzzleRequest.computeSolution();
 	}
 
-	public static final void computeSolution()
+	public static void computeSolution()
 	{
 		HedgePuzzleRequest.printPuzzle();
 		int[] source = interest[ 0 ];
@@ -626,7 +626,7 @@ public class HedgePuzzleRequest
 		HedgePuzzleRequest.printSolution( solution );
 	}
 
-	private static final void executeSolution( final String message, int [][] solution )
+	private static void executeSolution( final String message, int [][] solution )
 	{
 		KoLmafia.updateDisplay( message );
 
@@ -655,7 +655,7 @@ public class HedgePuzzleRequest
 
 	}
 
-	private static final void rotateHedgePiece( final int x, final int y, final int rotations )
+	private static void rotateHedgePiece( int x, final int y, final int rotations )
 	{
 		String action = String.valueOf( 1 + y * 3 + x );
 		HedgePuzzleRequest.ROTATE_REQUEST.addFormField( "action", action );
@@ -675,7 +675,7 @@ public class HedgePuzzleRequest
 		}
 	}
 
-	public static final void decorate( final StringBuffer buffer )
+	public static void decorate( final StringBuffer buffer )
 	{
 		if ( buffer.indexOf( "You don't have a hedge puzzle" ) != -1 )
 		{
@@ -717,7 +717,7 @@ public class HedgePuzzleRequest
 		return	( tile < 1 || tile > 9 ) ? null : TILES[ tile - 1 ];
 	}
 
-	public static final boolean registerRequest( final String urlString )
+	public static boolean registerRequest( final String urlString )
 	{
 		if ( !urlString.startsWith( "hedgepuzzle.php" ) )
 		{

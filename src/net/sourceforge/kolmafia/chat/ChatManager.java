@@ -105,7 +105,7 @@ public abstract class ChatManager
 	private static LockableListModel triviaGameContacts = new LockableListModel();
 	private static ContactListFrame triviaGameContactListFrame = null;
 
-	public static final void reset()
+	public static void reset()
 	{
 		ChatManager.dispose();
 		ChatPoller.reset();
@@ -123,28 +123,28 @@ public abstract class ChatManager
 		ChatManager.triviaGameContacts.clear();
 	}
 
-	public static final void resetChatLiteracy()
+	public static void resetChatLiteracy()
 	{
 		ChatManager.checkedLiteracy = false;
 	}
 
-	public static final boolean checkedChatLiteracy()
+	public static boolean checkedChatLiteracy()
 	{
 		return ChatManager.checkedLiteracy;
 	}
 
-	public static final boolean getChatLiteracy()
+	public static boolean getChatLiteracy()
 	{
 		return ChatManager.chatLiterate;
 	}
 
-	public static final void setChatLiteracy( final boolean on )
+	public static void setChatLiteracy( final boolean on )
 	{
 		ChatManager.checkedLiteracy = true;
 		ChatManager.chatLiterate = on;
 	}
 
-	public static final boolean chatLiterate()
+	public static boolean chatLiterate()
 	{
 		// If login is incomplete because we are stuck in a fight or
 		// choice, don't bother checking the Altar of Literacy
@@ -176,7 +176,7 @@ public abstract class ChatManager
 	 * to stop the chat refresher, call the <code>dispose()</code> method.
 	 */
 
-	public static final void initialize()
+	public static void initialize()
 	{
 		if ( ChatManager.isRunning || !LoginRequest.completedLogin() )
 		{
@@ -211,7 +211,7 @@ public abstract class ChatManager
 		RequestThread.postRequest( new ChannelColorsRequest() );
 	}
 
-	public static final String getLastFaxBotMessage()
+	public static String getLastFaxBotMessage()
 	{
 		if ( ChatManager.faxbotMessage != null )
 		{
@@ -222,7 +222,7 @@ public abstract class ChatManager
 		return null;
 	}
 
-	public static final boolean isValidChatReplyRecipient( String playerName )
+	public static boolean isValidChatReplyRecipient( String playerName )
 	{
 		if ( validChatReplyRecipients.contains( playerName ) )
 		{
@@ -236,7 +236,7 @@ public abstract class ChatManager
 	 * Disposes the messenger's frames.
 	 */
 
-	public static final void dispose()
+	public static void dispose()
 	{
 		if ( ChatManager.isRunning )
 		{
@@ -250,17 +250,17 @@ public abstract class ChatManager
 		ChatManager.tabbedFrame = null;
 	}
 
-	public static final boolean isRunning()
+	public static boolean isRunning()
 	{
 		return ChatManager.isRunning;
 	}
 
-	public static final String getCurrentChannel()
+	public static String getCurrentChannel()
 	{
 		return ChatManager.currentChannel;
 	}
 
-	public static final StyledChatBuffer getBuffer( final String bufferKey )
+	public static StyledChatBuffer getBuffer( final String bufferKey )
 	{
 		StyledChatBuffer buffer = (StyledChatBuffer) ChatManager.instantMessageBuffers.get( bufferKey );
 
@@ -303,7 +303,7 @@ public abstract class ChatManager
 		return buffer;
 	}
 
-	public static final void startTriviaGame()
+	public static void startTriviaGame()
 	{
 		ChatManager.triviaGameContacts.clear();
 		ChatManager.triviaGameId = "[trivia" + (++ChatManager.triviaGameIndex) + "]";
@@ -318,7 +318,7 @@ public abstract class ChatManager
 		ChatManager.triviaGameContactListFrame.setVisible( true );
 	}
 
-	public static final void stopTriviaGame()
+	public static void stopTriviaGame()
 	{
 		ChatManager.triviaGameActive = false;
 	}
@@ -395,7 +395,7 @@ public abstract class ChatManager
 		buffer.append( displayHTML );
 	}
 
-	public static final String getBufferKey( String destination )
+	public static String getBufferKey( String destination )
 	{
 		String bufferKey = destination.toLowerCase();
 
@@ -415,7 +415,7 @@ public abstract class ChatManager
 		return bufferKey;
 	}
 
-	public static final void processEvent( final EventMessage message )
+	public static void processEvent( final EventMessage message )
 	{
 		if ( Preferences.getBoolean( "greenScreenProtection" ) || BuffBotHome.isBuffBotActive() || message.isHidden() )
 		{
@@ -439,7 +439,7 @@ public abstract class ChatManager
 		ChatManager.broadcastEvent( message );
 	}
 
-	public static final void processChannelEnable( final EnableMessage message )
+	public static void processChannelEnable( final EnableMessage message )
 	{
 		String sender = message.getSender();
 
@@ -458,7 +458,7 @@ public abstract class ChatManager
 		}
 	}
 
-	public static final void processChannelDisable( final DisableMessage message )
+	public static void processChannelDisable( final DisableMessage message )
 	{
 		String sender = message.getSender();
 
@@ -472,7 +472,7 @@ public abstract class ChatManager
 		}
 	}
 
-	public static final void processCommand( final String sender, final String content, final String channel )
+	public static void processCommand( final String sender, final String content, final String channel )
 	{
 		if ( sender == null || content == null )
 		{
@@ -585,7 +585,7 @@ public abstract class ChatManager
 		return;
 	}
 
-	public static final void broadcastEvent( final EventMessage message )
+	public static void broadcastEvent( final EventMessage message )
 	{
 		if ( !ChatManager.isRunning() )
 		{
@@ -624,7 +624,7 @@ public abstract class ChatManager
 		}
 	}
 
-	public static final void openWindow( final String bufferKey, boolean highlightOnOpen )
+	public static void openWindow( final String bufferKey, boolean highlightOnOpen )
 	{
 		if ( StaticEntity.isHeadless() || !ChatManager.isRunning || bufferKey == null )
 		{
@@ -667,7 +667,7 @@ public abstract class ChatManager
 		frame.setVisible( true );
 	}
 
-	public static final void closeWindow( String closedWindow )
+	public static void closeWindow( String closedWindow )
 	{
 		if ( closedWindow == null )
 		{
@@ -714,7 +714,7 @@ public abstract class ChatManager
 		}
 	}
 
-	public static final void checkFriends()
+	public static void checkFriends()
 	{
 		ChatSender.sendMessage( null, "/friends", false );
 	}

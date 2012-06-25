@@ -83,17 +83,17 @@ public class SafetyShelterManager
 		"12221",	// E.M.U. Helmet
 	};
 
-	public static final String autoRonald( final String decision, final int stepCount, final String responseText )
+	public static String autoRonald( final String decision, final int stepCount, final String responseText )
 	{
 		return SafetyShelterManager.autoShelter( decision, stepCount, responseText, RonaldScript );
 	}
 
-	public static final String autoGrimace( final String decision, final int stepCount, final String responseText )
+	public static String autoGrimace( final String decision, final int stepCount, final String responseText )
 	{
 		return SafetyShelterManager.autoShelter( decision, stepCount, responseText, GrimaceScript );
 	}
 
-	public static final String autoShelter( String decision, final int stepCount, final String responseText, final String [] script )
+	public static String autoShelter( String decision, final int stepCount, final String responseText, final String [] script )
 	{
 		int goal = StringUtilities.parseInt( decision ) - 1;
 
@@ -113,13 +113,13 @@ public class SafetyShelterManager
 		return decision;
 	}
 
-	private static final void logText( final String text )
+	private static void logText( final String text )
 	{
 		RequestLogger.printLine( text );
 		RequestLogger.updateSessionLog( text );
 	}
 
-	public static final void addGoalButton( final int choice, final StringBuffer buffer )
+	public static void addGoalButton( final int choice, final StringBuffer buffer )
 	{
 		if ( choice == 535 )
 		{
@@ -131,7 +131,7 @@ public class SafetyShelterManager
 		}
 	}
 
-	private static final String currentRonaldGoalString()
+	private static String currentRonaldGoalString()
 	{
 		int goal = Preferences.getInteger( "choiceAdventure535" );
 
@@ -143,7 +143,7 @@ public class SafetyShelterManager
 		return RonaldGoals[ goal - 1 ];
 	}
 
-	public static final void addRonaldGoalButton( final StringBuffer buffer )
+	public static void addRonaldGoalButton( final StringBuffer buffer )
 	{
 		// Only add the goal button to the first choice
 		if ( buffer.indexOf( "Take a Look Around" ) != -1 )
@@ -156,7 +156,7 @@ public class SafetyShelterManager
 		}
 	}
 
-	private static final String currentGrimaceGoalString()
+	private static String currentGrimaceGoalString()
 	{
 		int goal = Preferences.getInteger( "choiceAdventure536" );
 
@@ -168,7 +168,7 @@ public class SafetyShelterManager
 		return GrimaceGoals[ goal - 1 ];
 	}
 
-	public static final void addGrimaceGoalButton( final StringBuffer buffer )
+	public static void addGrimaceGoalButton( final StringBuffer buffer )
 	{
 		// Only add the goal button to the first choice
 		if ( buffer.indexOf( "Down the Hatch!" ) != -1 )

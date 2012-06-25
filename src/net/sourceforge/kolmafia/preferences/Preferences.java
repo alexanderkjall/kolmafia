@@ -103,7 +103,7 @@ public class Preferences
 	 * settings are modified.
 	 */
 
-	public static final void reset( final String username )
+	public static void reset( final String username )
 	{
 		Preferences.saveToFile( Preferences.globalPropertiesFile, Preferences.globalValues );
 
@@ -135,7 +135,7 @@ public class Preferences
 		PreferenceListenerRegistry.fireAllPreferencesChanged();
 	}
 
-	public static final String baseUserName( final String name )
+	public static String baseUserName( final String name )
 	{
 		return name == null || name.equals( "" ) ? "GLOBAL" : StringUtilities.globalStringReplace( name.trim(), " ", "_" ).toLowerCase();
 	}
@@ -177,7 +177,7 @@ public class Preferences
 		}
 	}
 
-	private static final String encodeProperty( String name, String value )
+	private static String encodeProperty( String name, String value )
 	{
 		StringBuffer buffer = new StringBuffer();
 
@@ -192,7 +192,7 @@ public class Preferences
 		return buffer.toString();
 	}
 
-	private static final void encodeString( StringBuffer buffer, String string )
+	private static void encodeString( StringBuffer buffer, String string )
 	{
 		int length = string.length();
 
@@ -204,7 +204,7 @@ public class Preferences
 		}
 	}
 
-	private static final void encodeCharacter( char ch )
+	private static void encodeCharacter( char ch )
 	{
 		if ( characterMap[ ch ] != null )
 		{
@@ -261,7 +261,7 @@ public class Preferences
 		characterMap[ ch ] = "\\u" + Integer.toHexString( ch );
 	}
 
-	public static final String getCaseSensitiveName( final String name )
+	public static String getCaseSensitiveName( final String name )
 	{
 		String lowercase = name.toLowerCase();
 		String actualName = (String) Preferences.propertyNames.get( lowercase );
@@ -275,67 +275,67 @@ public class Preferences
 		return name;
 	}
 
-	private static final boolean isGlobalProperty( final String name )
+	private static boolean isGlobalProperty( final String name )
 	{
 		return Preferences.globalNames.containsKey( name );
 	}
 
-	public static final boolean isUserEditable( final String property )
+	public static boolean isUserEditable( final String property )
 	{
 		return !property.startsWith( "saveState" ) && !property.equals( "externalEditor" );
 	}
 
-	public static final void setString( final String name, final String value )
+	public static void setString( final String name, final String value )
 	{
 		setString( null, name, value );
 	}
 
-	public static final String getString( final String name )
+	public static String getString( final String name )
 	{
 		return getString( null, name );
 	}
 
-	public static final void setBoolean( final String name, final boolean value )
+	public static void setBoolean( final String name, final boolean value )
 	{
 		setBoolean( null, name, value );
 	}
 
-	public static final boolean getBoolean( final String name )
+	public static boolean getBoolean( final String name )
 	{
 		return getBoolean( null, name );
 	}
 
-	public static final void setInteger( final String name, final int value )
+	public static void setInteger( final String name, final int value )
 	{
 		setInteger( null, name, value );
 	}
 
-	public static final int getInteger( final String name )
+	public static int getInteger( final String name )
 	{
 		return getInteger( null, name );
 	}
 
-	public static final void setFloat( final String name, final float value )
+	public static void setFloat( final String name, final float value )
 	{
 		setFloat( null, name, value );
 	}
 
-	public static final float getFloat( final String name )
+	public static float getFloat( final String name )
 	{
 		return getFloat( null, name );
 	}
 
-	public static final int increment( final String name )
+	public static int increment( final String name )
 	{
 		return Preferences.increment( name, 1 );
 	}
 
-	public static final int increment( final String name, final int delta )
+	public static int increment( final String name, final int delta )
 	{
 		return Preferences.increment( name, delta, 0, false );
 	}
 
-	public static final int increment( final String name, final int delta, final int max, final boolean mod )
+	public static int increment( final String name, final int delta, final int max, final boolean mod )
 	{
 		int current = Preferences.getInteger( name );
 		if ( delta != 0 )
@@ -357,17 +357,17 @@ public class Preferences
 		return current;
 	}
 
-	public static final int decrement( final String name )
+	public static int decrement( final String name )
 	{
 		return Preferences.decrement( name, 1 );
 	}
 
-	public static final int decrement( final String name, final int delta )
+	public static int decrement( final String name, final int delta )
 	{
 		return Preferences.decrement( name, delta, 0 );
 	}
 
-	public static final int decrement( final String name, final int delta, final int min )
+	public static int decrement( final String name, final int delta, final int min )
 	{
 		int current = Preferences.getInteger( name );
 		if ( delta != 0 )
@@ -387,7 +387,7 @@ public class Preferences
 	// Per-user global properties are stored in the global settings with
 	// key "<name>.<user>"
 
-	public static final String getString( final String user, final String name )
+	public static String getString( final String user, final String name )
 	{
 		Object value = Preferences.getObject( user, name );
 
@@ -399,7 +399,7 @@ public class Preferences
 		return value.toString();
 	}
 
-	public static final boolean getBoolean( final String user, final String name )
+	public static boolean getBoolean( final String user, final String name )
 	{
 		TreeMap map = Preferences.getMap( name );
 		Object value = Preferences.getObject( map, user, name );
@@ -418,7 +418,7 @@ public class Preferences
 		return (Boolean) value;
 	}
 
-	public static final int getInteger( final String user, final String name )
+	public static int getInteger( final String user, final String name )
 	{
 		TreeMap map = Preferences.getMap( name );
 		Object value = Preferences.getObject( map, user, name );
@@ -437,7 +437,7 @@ public class Preferences
 		return (Integer) value;
 	}
 
-	public static final float getFloat( final String user, final String name )
+	public static float getFloat( final String user, final String name )
 	{
 		TreeMap map = Preferences.getMap( name );
 		Object value = Preferences.getObject( map, user, name );
@@ -456,23 +456,23 @@ public class Preferences
 		return (Float) value;
 	}
 
-	private static final TreeMap getMap( final String name )
+	private static TreeMap getMap( final String name )
 	{
 		return Preferences.isGlobalProperty( name ) ? Preferences.globalValues : Preferences.userValues;
 	}
 
-	private static final Object getObject( final String user, final String name )
+	private static Object getObject( final String user, final String name )
 	{
 		return Preferences.getObject( Preferences.getMap( name ), user, name );
 	}
 
-	private static final Object getObject( final TreeMap map, final String user, final String name )
+	private static Object getObject( final TreeMap map, final String user, final String name )
 	{
 		String key = Preferences.propertyName( user, name );
 		return map.get( key );
 	}
 
-	public static final void setString( final String user, final String name, final String value )
+	public static void setString( final String user, final String name, final String value )
 	{
 		String old = Preferences.getString( user, name );
 		if ( !old.equals( value ) )
@@ -481,7 +481,7 @@ public class Preferences
 		}
 	}
 
-	public static final void setBoolean( final String user, final String name, final boolean value )
+	public static void setBoolean( final String user, final String name, final boolean value )
 	{
 		boolean old = Preferences.getBoolean( user, name );
 		if ( old != value )
@@ -490,7 +490,7 @@ public class Preferences
 		}
 	}
 
-	public static final void setInteger( final String user, final String name, final int value )
+	public static void setInteger( final String user, final String name, final int value )
 	{
 		int old = Preferences.getInteger( user, name );
 		if ( old != value )
@@ -499,7 +499,7 @@ public class Preferences
 		}
 	}
 
-	public static final void setFloat( final String user, final String name, final float value )
+	public static void setFloat( final String user, final String name, final float value )
 	{
 		float old = Preferences.getFloat( user, name );
 		if ( old != value )
@@ -508,7 +508,7 @@ public class Preferences
 		}
 	}
 
-	private static synchronized final void setObject( final String user, final String name, final String value, final Object object )
+	private static synchronized void setObject( final String user, final String name, final String value, final Object object )
 	{
 		if ( Preferences.isGlobalProperty( name ) )
 		{
@@ -537,12 +537,12 @@ public class Preferences
 		}
 	}
 
-	private static final String propertyName( final String user, final String name )
+	private static String propertyName( final String user, final String name )
 	{
 		return user == null ? name : name + "." + Preferences.baseUserName( user );
 	}
 
-	private static final void saveToFile( File file, TreeMap data )
+	private static void saveToFile( File file, TreeMap data )
 	{
 		// Determine the contents of the file by
 		// actually printing them.
@@ -586,7 +586,7 @@ public class Preferences
 		}
 	}
 
-	private static final void initializeMaps()
+	private static void initializeMaps()
 	{
 		String[] current;
 		HashMap desiredMap;
@@ -624,7 +624,7 @@ public class Preferences
 		}
 	}
 
-	public static final void printDefaults()
+	public static void printDefaults()
 	{
 		PrintStream ostream = LogStream.openStream( "choices.txt", true );
 
@@ -651,7 +651,7 @@ public class Preferences
 		ostream.close();
 	}
 
-	private static final void printDefaults( final ChoiceAdventure[] choices, final PrintStream ostream )
+	private static void printDefaults( final ChoiceAdventure[] choices, final PrintStream ostream )
 	{
 		for ( int i = 0; i < choices.length; ++i )
 		{

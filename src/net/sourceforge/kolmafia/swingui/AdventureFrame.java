@@ -128,7 +128,7 @@ public class AdventureFrame
 		}
 	}
 
-	public static final void updateRequestMeter( final int value, final int maximum )
+	public static void updateRequestMeter( final int value, final int maximum )
 	{
 		if ( AdventureFrame.requestMeter == null )
 		{
@@ -147,7 +147,7 @@ public class AdventureFrame
 		}
 	}
 
-	public static final void updateSelectedAdventure( final KoLAdventure location )
+	public static void updateSelectedAdventure( final KoLAdventure location )
 	{
 		if ( AdventureFrame.adventureSelector == null )
 		{
@@ -157,7 +157,7 @@ public class AdventureFrame
 		AdventureFrame.adventureSelector.updateSelectedAdventure( location );
 	}
 
-	public static final void updateSafetyDetails()
+	public static void updateSafetyDetails()
 	{
 		if ( AdventureFrame.adventureSelector == null )
 		{
@@ -167,7 +167,7 @@ public class AdventureFrame
 		AdventureFrame.adventureSelector.updateSafetyDetails();
 	}
 
-	public static final void updateFromPreferences()
+	public static void updateFromPreferences()
 	{
 		if ( AdventureFrame.adventureSelector != null )
 		{

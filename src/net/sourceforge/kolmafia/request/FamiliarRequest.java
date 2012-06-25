@@ -334,7 +334,7 @@ public class FamiliarRequest
 		}
 	}
 
-	public static final boolean registerRequest( final String urlString )
+	public static boolean registerRequest( final String urlString )
 	{
 		if ( !urlString.startsWith( "familiar.php?" ) )
 		{
@@ -500,7 +500,7 @@ public class FamiliarRequest
 		return true;
 	}
 
-	private static final void equipFamiliar( final int familiarId, final int itemId )
+	private static void equipFamiliar( final int familiarId, final int itemId )
 	{
 		FamiliarData familiar = KoLCharacter.findFamiliar( familiarId );
 
@@ -510,7 +510,7 @@ public class FamiliarRequest
 		}
 	}
 
-	private static final void equipFamiliar( FamiliarData familiar, final int itemId )
+	private static void equipFamiliar( FamiliarData familiar, final int itemId )
 	{
 		AdventureResult item = ItemPool.get( itemId, 1 );
 
@@ -520,12 +520,12 @@ public class FamiliarRequest
 		familiar.setItem( item );
 	}
 
-	public static final void equipCurrentFamiliar( final int itemId )
+	public static void equipCurrentFamiliar( final int itemId )
 	{
 		FamiliarRequest.equipFamiliar( KoLCharacter.getFamiliar(), itemId );
 	}
 
-	private static final void unequipFamiliar( final int familiarId )
+	private static void unequipFamiliar( final int familiarId )
 	{
 		FamiliarData familiar = KoLCharacter.findFamiliar( familiarId );
 		if ( familiar != null )
@@ -534,14 +534,14 @@ public class FamiliarRequest
 		}
 	}
 
-	private static final void unequipFamiliar( FamiliarData familiar )
+	private static void unequipFamiliar( FamiliarData familiar )
 	{
 		RequestLogger.updateSessionLog();
 		RequestLogger.updateSessionLog( "Unequip " + familiar.getRace() );
 		familiar.setItem( EquipmentRequest.UNEQUIP );
 	}
 
-	public static final void unequipCurrentFamiliar()
+	public static void unequipCurrentFamiliar()
 	{
 		FamiliarRequest.unequipFamiliar( KoLCharacter.getFamiliar() );
 	}

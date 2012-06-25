@@ -538,7 +538,7 @@ public class RequestFrame
 		this.mainDisplay.setText( responseText );
 	}
 
-	public static final void refreshStatus()
+	public static void refreshStatus()
 	{
 		String displayHTML = RequestFrame.getDisplayHTML( "charpane.php", CharPaneRequest.getLastResponse(), false );
 

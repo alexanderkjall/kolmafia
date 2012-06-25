@@ -381,7 +381,7 @@ public class ProfileRequest
 	 * instance of a profile request based on the data already known.
 	 */
 
-	public static final ProfileRequest getInstance( final String playerName, final String playerId,
+	public static ProfileRequest getInstance( final String playerName, final String playerId,
 		final String playerLevel, final String responseText, final String rosterRow )
 	{
 		ProfileRequest instance = new ProfileRequest( playerName );
@@ -481,7 +481,7 @@ public class ProfileRequest
 	 * instance of a profile request based on the data already known.
 	 */
 
-	public static final ProfileRequest getInstance( final String playerName, final String playerId,
+	public static ProfileRequest getInstance( final String playerName, final String playerId,
 		final String clanName, final Integer playerLevel, final String classType, final Integer pvpRank )
 	{
 		ProfileRequest instance = new ProfileRequest( playerName );

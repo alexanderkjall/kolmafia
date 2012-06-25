@@ -47,7 +47,7 @@ public class PreferenceListenerRegistry
 {
 	private static final HashMap listenerMap = new HashMap();
 
-	public static final void registerListener( final String name, final PreferenceListener listener )
+	public static void registerListener( final String name, final PreferenceListener listener )
 	{
 		ArrayList listenerList = null;
 
@@ -70,7 +70,7 @@ public class PreferenceListenerRegistry
 		}
 	}
 
-	public static final void firePreferenceChanged( final String name )
+	public static void firePreferenceChanged( final String name )
 	{
 		ArrayList listenerList = null;
 
@@ -82,7 +82,7 @@ public class PreferenceListenerRegistry
 		fireListeners( listenerList, null );
 	}
 
-	public static final void fireAllPreferencesChanged()
+	public static void fireAllPreferencesChanged()
 	{
 		HashSet notified = new HashSet();
 		HashSet listeners = new HashSet();
@@ -100,7 +100,7 @@ public class PreferenceListenerRegistry
 		}
 	}
 
-	private static final void fireListeners( final ArrayList listenerList, final HashSet notified )
+	private static void fireListeners( final ArrayList listenerList, final HashSet notified )
 	{
 		if ( listenerList == null )
 		{

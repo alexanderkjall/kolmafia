@@ -188,7 +188,7 @@ public class SkillDatabase
 		SkillDatabase.skillByName.keySet().toArray( SkillDatabase.canonicalNames );
 	}
 
-	private static final void addSkill( final Integer skillId, final String name, final Integer skillType, final Integer mpConsumption, final Integer duration, final Integer level )
+	private static void addSkill( final Integer skillId, final String name, final Integer skillType, final Integer mpConsumption, final Integer duration, final Integer level )
 	{
 		String canonicalName = StringUtilities.getCanonicalName( name );
 		String displayName = StringUtilities.getDisplayName( name );
@@ -262,7 +262,7 @@ public class SkillDatabase
 		SkillDatabase.castsById.put( skillId, IntegerPool.get(0) );
 	}
 
-	public static final List getSkillsByCategory( String category )
+	public static List getSkillsByCategory( String category )
 	{
 		if ( category == null )
 		{
@@ -293,7 +293,7 @@ public class SkillDatabase
 	 * on skills.
 	 */
 
-	public static final List getMatchingNames( final String substring )
+	public static List getMatchingNames( final String substring )
 	{
 		return StringUtilities.getMatchingNames( SkillDatabase.canonicalNames, substring );
 	}
@@ -305,12 +305,12 @@ public class SkillDatabase
 	 * @return The name of the corresponding skill
 	 */
 
-	public static final String getSkillName( final int skillId )
+	public static String getSkillName( final int skillId )
 	{
 		return (String) SkillDatabase.skillById.get( IntegerPool.get( skillId ) );
 	}
 
-	public static final String getSkillDataName( final int skillId )
+	public static String getSkillDataName( final int skillId )
 	{
 		return skillId == -1 ?
 			null:
@@ -324,13 +324,13 @@ public class SkillDatabase
 	 * @return The level of the corresponding skill
 	 */
 
-	public static final int getSkillLevel( final int skillId )
+	public static int getSkillLevel( final int skillId )
 	{
 		Object level = SkillDatabase.levelById.get( IntegerPool.get( skillId ) );
 		return level == null ? -1 : (Integer) level;
 	}
 
-	public static final int getSkillPurchaseCost( final int skillId )
+	public static int getSkillPurchaseCost( final int skillId )
 	{
 		if ( skillId / 1000 == 11 )
 		{
@@ -374,7 +374,7 @@ public class SkillDatabase
 		}
 	}
 
-	public static final int classSkillsBase()
+	public static int classSkillsBase()
 	{
 		String name = KoLCharacter.getClassType();
 
@@ -417,13 +417,13 @@ public class SkillDatabase
 	 * @return The type of the corresponding skill
 	 */
 
-	public static final int getSkillType( final int skillId )
+	public static int getSkillType( final int skillId )
 	{
 		Object skillType = SkillDatabase.skillTypeById.get( IntegerPool.get( skillId ) );
 		return skillType == null ? -1 : (Integer) skillType;
 	}
 
-	public static final String getSkillCategory( final int skillId )
+	public static String getSkillCategory( final int skillId )
 	{
 		Object cat = SkillDatabase.skillCategoryById.get( IntegerPool.get( skillId ) );
 		return cat == null ? "" : (String) cat;
@@ -436,7 +436,7 @@ public class SkillDatabase
 	 * @return The Id number of the corresponding skill
 	 */
 
-	public static final int getSkillId( final String skillName )
+	public static int getSkillId( final String skillName )
 	{
 		Object skillId = SkillDatabase.skillByName.get( StringUtilities.getCanonicalName( skillName ) );
 		return skillId == null ? -1 : (Integer) skillId;
@@ -449,7 +449,7 @@ public class SkillDatabase
 	 * @return The MP consumed by the skill, or 0 if unknown
 	 */
 
-	public static final int getMPConsumptionById( final int skillId )
+	public static int getMPConsumptionById( final int skillId )
 	{
 		if ( isLibramSkill( skillId ) )
 		{
@@ -521,7 +521,7 @@ public class SkillDatabase
 	 * @return true if it comes from a Libram
 	 */
 
-	public static final boolean isLibramSkill( final int skillId )
+	public static boolean isLibramSkill( final int skillId )
 	{
 		return	skillId == CANDY_HEART ||
 			skillId == PARTY_FAVOR ||
@@ -537,13 +537,13 @@ public class SkillDatabase
 	 * @return the MP cost to cast it
 	 */
 
-	public static final int libramSkillMPConsumption()
+	public static int libramSkillMPConsumption()
 	{
 		int cast = Preferences.getInteger( "libramSummons" );
 		return libramSkillMPConsumption( cast + 1 );
 	}
 
-	public static final void setLibramSkillCasts( int cost )
+	public static void setLibramSkillCasts( int cost )
 	{
 		// With sufficient mana cost reduction, the first, second, and
 		// third libram summons all cost 1 MP. Therefore, we can't
@@ -595,7 +595,7 @@ public class SkillDatabase
 	 * @return the MP cost to cast it
 	 */
 
-	public static final int libramSkillMPConsumption( final int cast )
+	public static int libramSkillMPConsumption( final int cast )
 	{
 		// Old formula: n * (n+1) / 2
 		// return Math.max( (cast * ( cast + 1 ) / 2 + KoLCharacter.getManaCostAdjustment(), 1 );
@@ -612,7 +612,7 @@ public class SkillDatabase
 	 * @return the MP cost to cast it
 	 */
 
-	public static final int libramSkillMPConsumption( int cast, int count )
+	public static int libramSkillMPConsumption( int cast, int count )
 	{
 		int total = 0;
 		while ( count-- > 0 )
@@ -630,7 +630,7 @@ public class SkillDatabase
 	 * @return the number of casts
 	 */
 
-	public static final int libramSkillCasts( int availableMP )
+	public static int libramSkillCasts( int availableMP )
 	{
 		int cast = Preferences.getInteger( "libramSummons" );
 		return libramSkillCasts( cast + 1, availableMP );
@@ -645,7 +645,7 @@ public class SkillDatabase
 	 * @return the number of casts
 	 */
 
-	public static final int libramSkillCasts( int cast, int availableMP )
+	public static int libramSkillCasts( int cast, int availableMP )
 	{
 		int mpCost = SkillDatabase.libramSkillMPConsumption( cast );
 		int count = 0;
@@ -667,7 +667,7 @@ public class SkillDatabase
 	 * @return The duration of effect the cast gives
 	 */
 
-	public static final int getEffectDuration( final int skillId )
+	public static int getEffectDuration( final int skillId )
 	{
 		Object duration = SkillDatabase.durationById.get( IntegerPool.get( skillId ) );
 		if ( duration == null )
@@ -746,7 +746,7 @@ public class SkillDatabase
 	 * @return <code>true</code> if the skill is a normal skill
 	 */
 
-	public static final boolean isNormal( final int skillId )
+	public static boolean isNormal( final int skillId )
 	{
 		Object skillType = SkillDatabase.skillTypeById.get( IntegerPool.get( skillId ) );
 		if ( skillType == null )
@@ -761,7 +761,7 @@ public class SkillDatabase
 	 * @return <code>true</code> if the skill is passive
 	 */
 
-	public static final boolean isPassive( final int skillId )
+	public static boolean isPassive( final int skillId )
 	{
 		return SkillDatabase.isType( skillId, SkillDatabase.PASSIVE );
 	}
@@ -772,7 +772,7 @@ public class SkillDatabase
 	 * @return <code>true</code> if the skill can target other players
 	 */
 
-	public static final boolean isBuff( final int skillId )
+	public static boolean isBuff( final int skillId )
 	{
 		return SkillDatabase.isType( skillId, SkillDatabase.BUFF );
 	}
@@ -783,7 +783,7 @@ public class SkillDatabase
 	 * @return <code>true</code> if the skill can be used in combat
 	 */
 
-	public static final boolean isCombat( final int skillId )
+	public static boolean isCombat( final int skillId )
 	{
 		return SkillDatabase.isType( skillId, SkillDatabase.COMBAT );
 	}
@@ -794,7 +794,7 @@ public class SkillDatabase
 	 * @return <code>true</code> if the skill is a song
 	 */
 
-	public static final boolean isSong( final int skillId )
+	public static boolean isSong( final int skillId )
 	{
 		return SkillDatabase.isType( skillId, SkillDatabase.SONG );
 	}
@@ -803,7 +803,7 @@ public class SkillDatabase
 	 * Utility method used to determine if the given skill is of the appropriate type.
 	 */
 
-	private static final boolean isType( final int skillId, final int type )
+	private static boolean isType( final int skillId, final int type )
 	{
 		Object skillType = SkillDatabase.skillTypeById.get( IntegerPool.get( skillId ) );
 		return skillType == null ? false : (Integer) skillType == type;
@@ -813,7 +813,7 @@ public class SkillDatabase
 	 * Utility method used to determine if the given skill can be made permanent
 	 */
 
-	public static final boolean isPermable( final int skillId )
+	public static boolean isPermable( final int skillId )
 	{
 		switch ( skillId )
 		{
@@ -908,7 +908,7 @@ public class SkillDatabase
 		return true;
 	}
 
-	public static final boolean isBookshelfSkill( final String skillName )
+	public static boolean isBookshelfSkill( final String skillName )
 	{
 		switch ( SkillDatabase.getSkillId( skillName ) )
 		{
@@ -931,7 +931,7 @@ public class SkillDatabase
 		return false;
 	}
 
-	public static final int skillToBook( final String skillName )
+	public static int skillToBook( final String skillName )
 	{
 		switch ( SkillDatabase.getSkillId( skillName ) )
 		{
@@ -970,12 +970,12 @@ public class SkillDatabase
 	 * Returns all skills in the database of the given type.
 	 */
 
-	public static final List getSkillsByType( final int type )
+	public static List getSkillsByType( final int type )
 	{
 		return SkillDatabase.getSkillsByType( type, false );
 	}
 
-	public static final List getSkillsByType( final int type, final boolean onlyKnown )
+	public static List getSkillsByType( final int type, final boolean onlyKnown )
 	{
 		ArrayList list = new ArrayList();
 
@@ -1021,7 +1021,7 @@ public class SkillDatabase
 		return list;
 	}
 
-	public static final String toTitleCase( final String s )
+	public static String toTitleCase( final String s )
 	{
 		boolean found = false;
 		char[] chars = s.toLowerCase().toCharArray();
@@ -1049,7 +1049,7 @@ public class SkillDatabase
 	 * @return <code>true</code> if the item is in the database
 	 */
 
-	public static final boolean contains( final String skillName )
+	public static boolean contains( final String skillName )
 	{
 		return Arrays.binarySearch( SkillDatabase.canonicalNames, StringUtilities.getCanonicalName( skillName ) ) >= 0;
 	}
@@ -1060,14 +1060,14 @@ public class SkillDatabase
 	 * @return The set of skills keyed by name
 	 */
 
-	public static final Set entrySet()
+	public static Set entrySet()
 	{
 		return SkillDatabase.skillById.entrySet();
 	}
 
 	private static final ArrayList skillNames = new ArrayList();
 
-	public static final void generateSkillList( final StringBuffer buffer, final boolean appendHTML )
+	public static void generateSkillList( final StringBuffer buffer, final boolean appendHTML )
 	{
 		ArrayList uncategorized = new ArrayList();
 		ArrayList[] categories = new ArrayList[ SkillDatabase.CATEGORIES.length ];
@@ -1119,7 +1119,7 @@ public class SkillDatabase
 		}
 	}
 
-	private static final void appendSkillList( final StringBuffer buffer, final boolean appendHTML,
+	private static void appendSkillList( final StringBuffer buffer, final boolean appendHTML,
 		final String listName, final ArrayList list )
 	{
 		if ( list.isEmpty() )
@@ -1179,7 +1179,7 @@ public class SkillDatabase
 	 * Utility method used to retrieve the full name of a skill, given a substring representing it.
 	 */
 	
-	public static final String getSkillName( final String substring, final List list )
+	public static String getSkillName( final String substring, final List list )
 	{
 		UseSkillRequest[] skills = new UseSkillRequest[ list.size() ];
 		list.toArray( skills );
@@ -1230,7 +1230,7 @@ public class SkillDatabase
 	 * Utility method used to retrieve the full name of a skill, given a substring representing it.
 	 */
 	
-	public static final String getSkillName( final String substring )
+	public static String getSkillName( final String substring )
 	{
 		return getSkillName( substring, getSkillsByType( ALL ) );
 	}
@@ -1240,7 +1240,7 @@ public class SkillDatabase
 	 * given a substring representing it.
 	 */
 	
-	public static final String getUsableSkillName( final String substring )
+	public static String getUsableSkillName( final String substring )
 	{
 		return getSkillName( substring, getSkillsByType( CASTABLE ) );
 	}
@@ -1250,7 +1250,7 @@ public class SkillDatabase
 	 * skill, given a substring representing it.
 	 */
 	
-	public static final String getUsableKnownSkillName( final String substring )
+	public static String getUsableKnownSkillName( final String substring )
 	{
 		return getSkillName( substring, getSkillsByType( CASTABLE, true ) );
 	}
@@ -1259,7 +1259,7 @@ public class SkillDatabase
 	 * Utility method used to retrieve the full name of a combat skill, given a substring representing it.
 	 */
 	
-	public static final String getCombatSkillName( final String substring )
+	public static String getCombatSkillName( final String substring )
 	{
 		return getSkillName( substring, getSkillsByType( COMBAT ) );
 	}

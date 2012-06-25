@@ -773,23 +773,23 @@ public abstract class GenericFrame
 		}
 	}
 
-	public static final void createDisplay( final Class frameClass )
+	public static void createDisplay( final Class frameClass )
 	{
 		KoLmafiaGUI.constructFrame( frameClass );
 	}
 
-	public static final void createDisplay( final Class frameClass, final Object[] parameters )
+	public static void createDisplay( final Class frameClass, final Object[] parameters )
 	{
 		CreateFrameRunnable creator = new CreateFrameRunnable( frameClass, parameters );
 		creator.run();
 	}
 
-	public static final void compileScripts()
+	public static void compileScripts()
 	{
 		GenericFrame.compileScripts( Preferences.getInteger( "scriptMRULength" ) > 0 );
 	}
 
-	public static final void compileScripts( final boolean useMRUlist )
+	public static void compileScripts( final boolean useMRUlist )
 	{
 		KoLConstants.scripts.clear();
 
@@ -826,7 +826,7 @@ public abstract class GenericFrame
 	 * update.
 	 */
 
-	public static final void saveBookmarks()
+	public static void saveBookmarks()
 	{
 		StringBuilder bookmarkData = new StringBuilder();
 
@@ -846,7 +846,7 @@ public abstract class GenericFrame
 	 * Utility method to compile the list of bookmarks based on the current settings.
 	 */
 
-	public static final void compileBookmarks()
+	public static void compileBookmarks()
 	{
 		KoLConstants.bookmarks.clear();
 		String[] bookmarkData = Preferences.getString( "browserBookmarks" ).split( "\\|" );

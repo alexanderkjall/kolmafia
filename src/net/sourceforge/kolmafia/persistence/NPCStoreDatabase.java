@@ -104,12 +104,12 @@ public class NPCStoreDatabase
 		}
 	}
 
-	public static final String getStoreName( final String storeId )
+	public static String getStoreName( final String storeId )
 	{
 		return (String) NPCStoreDatabase.storeNameById.get( storeId );
 	}
 
-	public static final PurchaseRequest getPurchaseRequest( final String itemName )
+	public static PurchaseRequest getPurchaseRequest( final String itemName )
 	{
 		int itemId = ItemDatabase.getItemId( itemName, 1, false );
 
@@ -143,7 +143,7 @@ public class NPCStoreDatabase
 		return foundItem;
 	}
 
-	private static final boolean canPurchase( final String storeId, final String shopName,
+	private static boolean canPurchase( final String storeId, final String shopName,
 		final String itemName )
 	{
 		if ( storeId == null )
@@ -330,18 +330,18 @@ public class NPCStoreDatabase
 		return true;
 	}
 
-	public static final boolean contains( final String itemName )
+	public static boolean contains( final String itemName )
 	{
 		return NPCStoreDatabase.contains( itemName, true );
 	}
 
-	public static final int price( final String itemName )
+	public static int price( final String itemName )
 	{
 		PurchaseRequest request = NPCStoreDatabase.getPurchaseRequest( itemName );
 		return request == null ? 0 : request.getPrice();
 	}
 
-	public static final boolean contains( final String itemName, boolean validate )
+	public static boolean contains( final String itemName, boolean validate )
 	{
 		PurchaseRequest item = NPCStoreDatabase.getPurchaseRequest( itemName );
 		return item != null && ( !validate || item.canPurchaseIgnoringMeat() );

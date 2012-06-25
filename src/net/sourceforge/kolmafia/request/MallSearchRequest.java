@@ -140,7 +140,7 @@ public class MallSearchRequest
 		return true;
 	}
 
-	public static final String getSearchString( String itemName )
+	public static String getSearchString( String itemName )
 	{
 		int itemId = ItemDatabase.getItemId( itemName );
 

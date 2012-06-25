@@ -306,7 +306,7 @@ public abstract class KoLmafia
 		{ "Thud", GLYPH },
 	};
 
-	private static final boolean acquireFileLock( final String suffix )
+	private static boolean acquireFileLock( final String suffix )
 	{
 		try
 		{
@@ -337,7 +337,7 @@ public abstract class KoLmafia
 	 * The main method. Currently, it instantiates a single instance of the <code>KoLmafiaGUI</code>.
 	 */
 
-	public static final void main( final String[] args )
+	public static void main( final String[] args )
 	{
 		boolean useGUI = true;
 
@@ -553,7 +553,7 @@ public abstract class KoLmafia
 		}
 	}
 
-	private static final void checkDataOverrides()
+	private static void checkDataOverrides()
 	{
 		String lastVersion = Preferences.getString( "previousUpdateVersion" );
 		String currentVersion = StaticEntity.getVersion();
@@ -604,12 +604,12 @@ public abstract class KoLmafia
 	{
 	}
 
-	public static final boolean isSessionEnding()
+	public static boolean isSessionEnding()
 	{
 		return KoLmafia.SESSION_ENDING;
 	}
 
-	public static final String getLastMessage()
+	public static String getLastMessage()
 	{
 		return KoLmafia.lastMessage;
 	}
@@ -618,7 +618,7 @@ public abstract class KoLmafia
 	 * Updates the currently active display in the <code>KoLmafia</code> session.
 	 */
 
-	public static final void updateDisplay( final String message )
+	public static void updateDisplay( final String message )
 	{
 		KoLmafia.updateDisplay( MafiaState.CONTINUE, message );
 	}
@@ -627,7 +627,7 @@ public abstract class KoLmafia
 	 * Updates the currently active display in the <code>KoLmafia</code> session.
 	 */
 
-	public static final void updateDisplay( final MafiaState state, final String message )
+	public static void updateDisplay( final MafiaState state, final String message )
 	{
 		if ( KoLmafia.continuationState == MafiaState.ABORT && state != MafiaState.ABORT )
 		{
@@ -654,7 +654,7 @@ public abstract class KoLmafia
 		}
 	}
 
-	private static final void updateDisplayState( final MafiaState state, final String message )
+	private static void updateDisplayState( final MafiaState state, final String message )
 	{
 		// Update all panels and frames with the message.
 
@@ -694,7 +694,7 @@ public abstract class KoLmafia
 		KoLmafia.displayState = state;
 	}
 
-	public static final void enableDisplay()
+	public static void enableDisplay()
 	{
 		if ( KoLmafia.continuationState == MafiaState.ABORT || KoLmafia.continuationState == MafiaState.ERROR )
 		{
@@ -735,7 +735,7 @@ public abstract class KoLmafia
 		KoLCharacter.setHoliday( HolidayDatabase.getHoliday() );
 	}
 
-	public static final void resetCounters()
+	public static void resetCounters()
 	{
 		Preferences.setInteger( "lastCounterDay", HolidayDatabase.getPhaseStep() );
 
@@ -952,17 +952,17 @@ public abstract class KoLmafia
 		ClanLoungeRequest.visitLounge();
 	}
 
-	public static final boolean isRefreshing()
+	public static boolean isRefreshing()
 	{
 		return KoLmafia.isRefreshing;
 	}
 
-	public static final void setIsRefreshing( final boolean isRefreshing )
+	public static void setIsRefreshing( final boolean isRefreshing )
 	{
 		KoLmafia.isRefreshing = isRefreshing;
 	}
 
-	public static final void resetAfterAvatar()
+	public static void resetAfterAvatar()
 	{
 		KoLmafia.isRefreshing = true;
 
@@ -1042,7 +1042,7 @@ public abstract class KoLmafia
 		KoLConstants.tally.add( AdventureResult.SESSION_FULLSTATS_RESULT );
 	}
 
-	public static final void saveDataOverride()
+	public static void saveDataOverride()
 	{
 		if ( ItemDatabase.newItems )
 		{
@@ -1076,7 +1076,7 @@ public abstract class KoLmafia
 	 * effects were decremented, if adventuring took place.
 	 */
 
-	public static final void applyEffects()
+	public static void applyEffects()
 	{
 		boolean concoctionRefreshNeeded = false;
 
@@ -1469,7 +1469,7 @@ public abstract class KoLmafia
 	 * @return <code>true</code> if requests are allowed to continue
 	 */
 
-	public static final boolean permitsContinue()
+	public static boolean permitsContinue()
 	{
 		return KoLmafia.continuationState == MafiaState.CONTINUE;
 	}
@@ -1481,7 +1481,7 @@ public abstract class KoLmafia
 	 * @return <code>true</code> if requests are allowed to continue
 	 */
 
-	public static final boolean refusesContinue()
+	public static boolean refusesContinue()
 	{
 		return KoLmafia.continuationState == MafiaState.ABORT;
 	}
@@ -1492,7 +1492,7 @@ public abstract class KoLmafia
 	 * @return <code>true</code> if requests are allowed to continue
 	 */
 
-	public static final void forceContinue()
+	public static void forceContinue()
 	{
 		KoLmafia.continuationState = MafiaState.CONTINUE;
 	}
@@ -1502,7 +1502,7 @@ public abstract class KoLmafia
 	 * stored in the global file.
 	 */
 
-	public static final void addSaveState( final String username, final String password )
+	public static void addSaveState( final String username, final String password )
 	{
 		String utfString = StringUtilities.getURLEncode( password );
 
@@ -1547,7 +1547,7 @@ public abstract class KoLmafia
 		}
 	}
 
-	public static final void removeSaveState( final String loginname )
+	public static void removeSaveState( final String loginname )
 	{
 		if ( loginname == null )
 		{
@@ -1563,7 +1563,7 @@ public abstract class KoLmafia
 	 * stored in the global file.
 	 */
 
-	public static final String getSaveState( final String loginname )
+	public static String getSaveState( final String loginname )
 	{
 		String password = Preferences.getString( loginname, "saveState" );
 		if ( password == null || password.length() == 0 || password.contains( "/" ) )
@@ -1583,12 +1583,12 @@ public abstract class KoLmafia
 		return StringUtilities.getURLDecode( utfString.toString() );
 	}
 
-	public static final boolean checkRequirements( final List<AdventureResult> requirements )
+	public static boolean checkRequirements( final List<AdventureResult> requirements )
 	{
 		return KoLmafia.checkRequirements( requirements, true );
 	}
 
-	public static final boolean checkRequirements( final List<AdventureResult> requirements, final boolean retrieveItem )
+	public static boolean checkRequirements( final List<AdventureResult> requirements, final boolean retrieveItem )
 	{
 		AdventureResult[] requirementsArray = new AdventureResult[ requirements.size() ];
 		requirements.toArray( requirementsArray );
@@ -1803,7 +1803,7 @@ public abstract class KoLmafia
 		}
 	}
 
-	public static final String encounterType( final String encounterName )
+	public static String encounterType( final String encounterName )
 	{
 		for ( int i = 0; i < KoLmafia.SPECIAL_ENCOUNTERS.length; ++i )
 		{
@@ -1821,7 +1821,7 @@ public abstract class KoLmafia
 		return KoLmafia.NONE;
 	}
 
-	public static final boolean isAutoStop( final String encounterName )
+	public static boolean isAutoStop( final String encounterName )
 	{
 		if ( encounterName.equals( "Under the Knife" ) && Preferences.getString( "choiceAdventure21" ).equals( "2" ) )
 		{
@@ -2125,7 +2125,7 @@ public abstract class KoLmafia
 		RequestLogger.printLine( "Reclaimed " + ( mem2 - mem1 ) + " KB of memory" );
 	}
 
-	public static final boolean isAdventuring()
+	public static boolean isAdventuring()
 	{
 		return KoLmafia.isAdventuring;
 	}

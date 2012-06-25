@@ -118,7 +118,7 @@ public class Tr4pz0rRequest
 		CoinMasterRequest.parseResponse( Tr4pz0rRequest.L33T_TR4PZ0R, urlString, responseText );
 	}
 
-	public static final boolean registerRequest( final String urlString )
+	public static boolean registerRequest( final String urlString )
 	{
 		// We only claim trapper.php?action=Yep.
 		if ( !urlString.startsWith( "trapper.php" ) )

@@ -180,7 +180,7 @@ public abstract class LouvreManager
 		  { 0 }, { 5 }, { 0 } },
 	};
 
-	private static final int[] routingTuple( final int source, final int goal )
+	private static int[] routingTuple( final int source, final int goal )
 	{
 		if ( source < LouvreManager.FIRST_CHOICE || source > LouvreManager.LAST_CHOICE || goal < 1 || goal > 6 )
 		{
@@ -200,7 +200,7 @@ public abstract class LouvreManager
 
 	private static final int LouvreChoiceTable[][] = new int[ LouvreManager.LAST_CHOICE - LouvreManager.FIRST_CHOICE + 1 ][ 3 ];
 
-	private static final int[] choiceTuple( final int source )
+	private static int[] choiceTuple( final int source )
 	{
 		if ( source < LouvreManager.FIRST_CHOICE || source > LouvreManager.LAST_CHOICE )
 		{
@@ -209,7 +209,7 @@ public abstract class LouvreManager
 		return LouvreManager.LouvreChoiceTable[ source - LouvreManager.FIRST_CHOICE ];
 	}
 
-	public static final void reset()
+	public static void reset()
 	{
 		// Reset what we've "learned" about the LouvreManager choices
 		for ( int i = 0; i < LouvreManager.LouvreChoiceTable.length; ++i )
@@ -243,7 +243,7 @@ public abstract class LouvreManager
 		}
 	}
 
-	public static final void saveMap()
+	public static void saveMap()
 	{
 		StringBuilder map = new StringBuilder();
 
@@ -263,12 +263,12 @@ public abstract class LouvreManager
 		Preferences.setString( "louvreLayout", map.toString() );
 	}
 
-	public static final boolean louvreChoice( final int choice )
+	public static boolean louvreChoice( final int choice )
 	{
 		return choice >= LouvreManager.FIRST_CHOICE && choice <= LouvreManager.LAST_CHOICE;
 	}
 
-	public static final void resetDecisions()
+	public static void resetDecisions()
 	{
 		for ( int i = 0; i < LouvreManager.LouvreGoalItems.length; ++i )
 		{
@@ -325,7 +325,7 @@ public abstract class LouvreManager
 		}
 	}
 
-	private static final String currentGoalString()
+	private static String currentGoalString()
 	{
 		LouvreManager.resetDecisions();
 		int goal = Preferences.getInteger( "louvreGoal" );
@@ -336,7 +336,7 @@ public abstract class LouvreManager
 		return LouvreManager.LouvreGoals[ goal - 1 ];
 	}
 
-	public static final String handleChoice( final int source, final int stepCount )
+	public static String handleChoice( final int source, final int stepCount )
 	{
 		// We only handle LouvreManager choices
 		if ( !LouvreManager.louvreChoice( source ) )
@@ -376,7 +376,7 @@ public abstract class LouvreManager
 	// Node marking to prevent loops
 	private static final boolean NodeMarks[] = new boolean[ LouvreManager.LAST_CHOICE - LouvreManager.FIRST_CHOICE + 1 ];
 
-	private static final String pickNewExit( final int source, final int goal )
+	private static String pickNewExit( final int source, final int goal )
 	{
 		// Examine destinations and take shortest known path to goal
 		int[] choices = LouvreManager.choiceTuple( source );
@@ -404,7 +404,7 @@ public abstract class LouvreManager
 		return String.valueOf( choice + 1 );
 	}
 
-	private static final int hopsTo( int hops, final int source, final int which, int destination, final int goal )
+	private static int hopsTo( int hops, final int source, final int which, int destination, final int goal )
 	{
 		// If destination is unknown, assume it is the most likely possibility.
 		// Add 10 hops so that routes with fewer or no guesses are preferred.
@@ -468,7 +468,7 @@ public abstract class LouvreManager
 		return nextHops;
 	}
 
-	public static final boolean mapChoice( final int lastChoice, final int lastDecision, final String text )
+	public static boolean mapChoice( final int lastChoice, final int lastDecision, final String text )
 	{
 		if ( !LouvreManager.louvreChoice( lastChoice ) )
 		{
@@ -517,7 +517,7 @@ public abstract class LouvreManager
 		return false;
 	}
 
-	private static final void mapChoice( final int choice, final int decision, final int destination )
+	private static void mapChoice( final int choice, final int decision, final int destination )
 	{
 		int choices[] = LouvreManager.choiceTuple( choice );
 		choices[ decision - 1 ] = destination;
@@ -575,7 +575,7 @@ public abstract class LouvreManager
 		}
 	}
 
-	public static final String[][] choiceSpoilers( final int choice )
+	public static String[][] choiceSpoilers( final int choice )
 	{
 		// We only handle LouvreManager choices
 		if ( !LouvreManager.louvreChoice( choice ) )
@@ -605,7 +605,7 @@ public abstract class LouvreManager
 		return result;
 	}
 
-	public static final String encounterName( final int choice )
+	public static String encounterName( final int choice )
 	{
 		if ( !louvreChoice( choice ) )
 		{
@@ -616,7 +616,7 @@ public abstract class LouvreManager
 		return "Louvre It or Leave It (" + name + ")";
 	}
 
-	private static final String choiceName( final int choice, final int destination, final int which )
+	private static String choiceName( final int choice, final int destination, final int which )
 	{
 		switch ( destination )
 		{
@@ -661,7 +661,7 @@ public abstract class LouvreManager
 		}
 	}
 
-	public static final boolean freeAdventure( final String choice, final String decision )
+	public static boolean freeAdventure( final String choice, final String decision )
 	{
 		// "choiceAdventureX"
 		int source = StringUtilities.parseInt( choice.substring( 15 ) );
@@ -682,7 +682,7 @@ public abstract class LouvreManager
 	// has two entries, because there are two distinct RNG states that can produce it, and
 	// it's sometimes possible to determine that only one of those two states is possible.
 	// Values are in the range 0-1, and should always total to 1.
-	private static final float[] derive( int location )
+	private static float[] derive( int location )
 	{
 		float probs[] = new float[] { 36/81f, 12/81f, 9/81f, 12/81f, 6/81f, 4/81f, 2/81f };
 		if ( !LouvreManager.louvreChoice( location ) )
@@ -819,7 +819,7 @@ public abstract class LouvreManager
 		return probs;
 	}
 	
-	private static final int which( int[] perm, int dest )
+	private static int which( int[] perm, int dest )
 	{
 		dest = (dest == 0) ? -1 :
 			(dest >= 92 && dest <= 95) ? 0 : dest;
@@ -829,13 +829,13 @@ public abstract class LouvreManager
 		return 0x0;
 	}
 	
-	private static final boolean any( int[] choices, int dest )
+	private static boolean any( int[] choices, int dest )
 	{
 		return choices[ 0 ] == dest || choices[ 1 ] == dest ||
 			choices[ 2 ] == dest;
 	}
 	
-	private static final boolean definitive( float val )
+	private static boolean definitive( float val )
 	{
 		return val == 0.0f || val == 1.0f;
 	}
@@ -844,7 +844,7 @@ public abstract class LouvreManager
 	// the adjacent locations.  We know that the locations are in pairs with identical
 	// permutations; we just need to find out whether it's the pairs starting with an even
 	// location number that are identical, or pairs starting with an odd number.
-	private static final float[] predict( int location )
+	private static float[] predict( int location )
 	{
 		boolean[] seenChange = new boolean[2];
 		for ( int loc = LouvreManager.FIRST_CHOICE; loc < LouvreManager.LAST_CHOICE; ++loc )
@@ -931,7 +931,7 @@ public abstract class LouvreManager
 	
 	// Calculate probabilities, indexed by <direction>, <base permutation index>
 	// for possible exits.
-	private static final float[][] probabilities( int location )
+	private static float[][] probabilities( int location )
 	{
 		float[][] rv = new float[ 3 ][ 3 ];
 		
@@ -1028,7 +1028,7 @@ public abstract class LouvreManager
 		3,		// 18
 	};
 
-	private static final int mafiaCode( final int wikiCode )
+	private static int mafiaCode( final int wikiCode )
 	{
 		if ( wikiCode == LouvreManager.RANDOM )
 		{
@@ -1064,7 +1064,7 @@ public abstract class LouvreManager
 		15,		// 6
 	};
 
-	private static final int wikiCode( final int mafiaCode )
+	private static int wikiCode( final int mafiaCode )
 	{
 		// Map goals through one table
 		if ( mafiaCode >= 1 && mafiaCode <= 6 )
@@ -1089,7 +1089,7 @@ public abstract class LouvreManager
 		LouvreManager.buildWikiExits();
 	}
 
-	private static final void buildWikiExits()
+	private static void buildWikiExits()
 	{
 		// Get a zeroed array to start things off.
 		LouvreManager.WikiLouvreLocationExits = new int[ LouvreManager.LAST_CHOICE - LouvreManager.FIRST_CHOICE + 1 ][ 3 ];
@@ -1145,7 +1145,7 @@ public abstract class LouvreManager
 	// * the randomized paths from locations 5 and 11 connect to location 2
 	// * the randomized path from location 7 connects to location 3
 
-	public static final String gemelliCode()
+	public static String gemelliCode()
 	{
 		int code[] = new int[ 48 ];
 		int codeIndex = 0;
@@ -1241,12 +1241,12 @@ public abstract class LouvreManager
 		return String.valueOf( data );
 	}
 
-	public static final void showGemelliMap()
+	public static void showGemelliMap()
 	{
 		RelayLoader.openSystemBrowser( "http://louvre.bewarethefgc.com/index.php?mapstring=" + LouvreManager.gemelliCode() );
 	}
 
-	public static final void addGoalButton( final StringBuffer buffer )
+	public static void addGoalButton( final StringBuffer buffer )
 	{
 		String goal = LouvreManager.currentGoalString();
 		ChoiceManager.addGoalButton( buffer, goal );

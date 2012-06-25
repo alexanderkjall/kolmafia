@@ -77,18 +77,18 @@ public class DrinkItemRequest
 		return 0;
 	}
 
-	public static final void permitOverdrink()
+	public static void permitOverdrink()
 	{
 		DrinkItemRequest.permittedOverdrink = KoLCharacter.getUserId();
 	}
 
-	public static final void clearDrinkHelper()
+	public static void clearDrinkHelper()
 	{
 		DrinkItemRequest.queuedDrinkHelper = null;
 		DrinkItemRequest.queuedDrinkHelperCount = 0;
 	}
 
-	public static final int maximumUses( final int itemId, final String itemName, final int inebriety, final boolean allowOverDrink )
+	public static int maximumUses( final int itemId, final String itemName, final int inebriety, final boolean allowOverDrink )
 	{
 		UseItemRequest.limiter = "inebriety";
 		int limit = KoLCharacter.getInebrietyLimit();
@@ -264,7 +264,7 @@ public class DrinkItemRequest
 		super.runOneIteration( currentIteration, totalIterations, useTypeAsString );
 	}
 
-	private static final boolean singleConsume( final int itemId )
+	private static boolean singleConsume( final int itemId )
 	{
 		// Consume one at a time when a helper is involved.
 		// Multi-consume with a helper actually DOES work, even though
@@ -273,7 +273,7 @@ public class DrinkItemRequest
 		return ( DrinkItemRequest.queuedDrinkHelper != null && DrinkItemRequest.queuedDrinkHelperCount > 0 );
 	}
 
-	private static final boolean sequentialConsume( final int itemId )
+	private static boolean sequentialConsume( final int itemId )
 	{
 		switch (itemId )
 		{
@@ -290,7 +290,7 @@ public class DrinkItemRequest
 		return false;
 	}
 
-	private final boolean allowBoozeConsumption()
+	private boolean allowBoozeConsumption()
 	{
 		// Always allow the steel margarita
 		int itemId = this.itemUsed.getItemId();
@@ -307,7 +307,7 @@ public class DrinkItemRequest
 		return DrinkItemRequest.allowBoozeConsumption( inebriety, count, advGain );
 	}
 
-	public static final boolean allowBoozeConsumption( final int inebriety, final int count, String advGain )
+	public static boolean allowBoozeConsumption( final int inebriety, final int count, String advGain )
 	{
 		int inebrietyBonus = inebriety * count;
 		if ( inebrietyBonus < 1 )
@@ -345,7 +345,7 @@ public class DrinkItemRequest
 		return true;
 	}
 
-	private static final boolean askAboutOde( final int inebriety, final int count, String advGain )
+	private static boolean askAboutOde( final int inebriety, final int count, String advGain )
 	{
 		// If we've already asked about ode, don't nag
 		if ( DrinkItemRequest.askedAboutOde == KoLCharacter.getUserId() )
@@ -421,7 +421,7 @@ public class DrinkItemRequest
 		return true;
 	}
 
-	public static final void parseConsumption( final AdventureResult item, final AdventureResult helper, final String responseText )
+	public static void parseConsumption( final AdventureResult item, final AdventureResult helper, final String responseText )
 	{
 		if ( responseText.contains( "too drunk" ) )
 		{
@@ -522,7 +522,7 @@ public class DrinkItemRequest
 		}
 	}
 
-	public static final boolean registerRequest()
+	public static boolean registerRequest()
 	{
 		AdventureResult item = UseItemRequest.lastItemUsed;
 		int count = item.getCount();

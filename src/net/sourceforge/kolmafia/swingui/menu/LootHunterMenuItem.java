@@ -179,7 +179,7 @@ public class LootHunterMenuItem
 	 * @param choices	a list of possible choices
 	 * @return	<code>true<code> if a choice was made, <code>false</code> otherwise.
 	 */
-	private static final boolean getSelectedValueFromList( final String title, final String message, final String yesLabel, final String noLabel, final List choices )
+	private static boolean getSelectedValueFromList( final String title, final String message, final String yesLabel, final String noLabel, final List choices )
 	{
 		JPanel choicePanel = new JPanel();
 		choicePanel.setLayout( new BoxLayout( choicePanel, BoxLayout.Y_AXIS ) );

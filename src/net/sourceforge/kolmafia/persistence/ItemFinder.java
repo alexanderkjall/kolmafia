@@ -69,22 +69,22 @@ public class ItemFinder
 
 	private static int matchType = ANY_MATCH;
 
-	public static final void setMatchType( int matchType )
+	public static void setMatchType( int matchType )
 	{
 		ItemFinder.matchType = matchType;
 	}
 
-	public static final List getMatchingNames( String searchString )
+	public static List getMatchingNames( String searchString )
 	{
 		return ItemDatabase.getMatchingNames( searchString );
 	}
 
-	public static final String getFirstMatchingItemName( List nameList, String searchString )
+	public static String getFirstMatchingItemName( List nameList, String searchString )
 	{
 		return ItemFinder.getFirstMatchingItemName( nameList, searchString, ItemFinder.matchType );
 	}
 
-	public static final String getFirstMatchingItemName( List nameList, String searchString, int filterType )
+	public static String getFirstMatchingItemName( List nameList, String searchString, int filterType )
 	{
 		if ( nameList == null || nameList.isEmpty() )
 		{
@@ -215,7 +215,7 @@ public class ItemFinder
 		return "";
 	}
 
-	private static final void filterNameList( List nameList, int filterType )
+	private static void filterNameList( List nameList, int filterType )
 	{
 		String itemName;
 		int itemId, useType;
@@ -347,7 +347,7 @@ public class ItemFinder
 		}
 	}
 
-	private static final void conditionalRemove( Iterator iterator, boolean condition )
+	private static void conditionalRemove( Iterator iterator, boolean condition )
 	{
 		if ( condition )
 		{
@@ -355,7 +355,7 @@ public class ItemFinder
 		}
 	}
 
-	public static final AdventureResult getFirstMatchingItem( String parameters )
+	public static AdventureResult getFirstMatchingItem( String parameters )
 	{
 		return ItemFinder.getFirstMatchingItem( parameters, ItemFinder.matchType );
 	}
@@ -365,22 +365,22 @@ public class ItemFinder
 	 * also specify an item quantity before the string.
 	 */
 
-	public static final AdventureResult getFirstMatchingItem( String parameters, int filterType )
+	public static AdventureResult getFirstMatchingItem( String parameters, int filterType )
 	{
 		return ItemFinder.getFirstMatchingItem( KoLConstants.inventory, parameters, filterType, true );
 	}
 
-	public static final AdventureResult getFirstMatchingItem( String parameters, boolean errorOnFailure )
+	public static AdventureResult getFirstMatchingItem( String parameters, boolean errorOnFailure )
 	{
 		return ItemFinder.getFirstMatchingItem( KoLConstants.inventory, parameters, ItemFinder.matchType, errorOnFailure );
 	}
 
-	public static final AdventureResult getFirstMatchingItem( String parameters, int filterType, boolean errorOnFailure )
+	public static AdventureResult getFirstMatchingItem( String parameters, int filterType, boolean errorOnFailure )
 	{
 		return getFirstMatchingItem( KoLConstants.inventory, parameters, filterType, errorOnFailure );
 	}
 
-	public static final AdventureResult getFirstMatchingItem( List sourceList, String parameters, int filterType, boolean errorOnFailure )
+	public static AdventureResult getFirstMatchingItem( List sourceList, String parameters, int filterType, boolean errorOnFailure )
 	{
 		// Ignore spaces and tabs in front of the parameter string
 

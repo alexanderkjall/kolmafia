@@ -303,7 +303,7 @@ public class EquipmentRequest
 		return true;
 	}
 
-	public static final void savePreviousOutfit()
+	public static void savePreviousOutfit()
 	{
 		EquipmentRequest.shouldSavePreviousOutfit = true;
 	}
@@ -488,7 +488,7 @@ public class EquipmentRequest
 		return null;
 	}
 
-	public static final int chooseEquipmentSlot( final int equipmentType )
+	public static int chooseEquipmentSlot( final int equipmentType )
 	{
 		switch ( equipmentType )
 		{
@@ -524,7 +524,7 @@ public class EquipmentRequest
 		}
 	}
 
-	private static final int availableAccessory()
+	private static int availableAccessory()
 	{
 		AdventureResult test = EquipmentManager.getEquipment( EquipmentManager.ACCESSORY1 );
 		if ( test == null || test.equals( EquipmentRequest.UNEQUIP ) )
@@ -548,7 +548,7 @@ public class EquipmentRequest
 		return EquipmentManager.ACCESSORY1;
 	}
 
-	private static final int availableSticker()
+	private static int availableSticker()
 	{
 		AdventureResult test = EquipmentManager.getEquipment( EquipmentManager.STICKER1 );
 		if ( test == null || test.equals( EquipmentRequest.UNEQUIP ) )
@@ -883,7 +883,7 @@ public class EquipmentRequest
 		}
 	}
 
-	private static final boolean switchItem( final AdventureResult oldItem, final AdventureResult newItem )
+	private static boolean switchItem( final AdventureResult oldItem, final AdventureResult newItem )
 	{
 		// If the items are not equivalent, make sure
 		// the items should get switched out.
@@ -909,7 +909,7 @@ public class EquipmentRequest
 		return !ConcoctionDatabase.getKnownUses( oldItem ).isEmpty() || !ConcoctionDatabase.getKnownUses( newItem ).isEmpty();
 	}
 
-	private static final void parseQuestItems( final String text )
+	private static void parseQuestItems( final String text )
 	{
 		Matcher matcher = EquipmentRequest.ITEMTABLE_PATTERN.matcher( text );
 		while ( matcher.find() )
@@ -954,7 +954,7 @@ public class EquipmentRequest
 		}
 	}
 
-	public static final void parseBedazzlements( final String responseText )
+	public static void parseBedazzlements( final String responseText )
 	{
 		Matcher matcher = EquipmentRequest.STICKER_PATTERN.matcher( responseText );
 		for ( int slot = EquipmentManager.STICKER1; slot <= EquipmentManager.STICKER3; ++slot )
@@ -1011,7 +1011,7 @@ public class EquipmentRequest
 		}
 	}
 
-	public static final void parseEquipment( final String location, final String responseText )
+	public static void parseEquipment( final String location, final String responseText )
 	{
 		if ( location.contains( "onlyitem=" ) )
 		{
@@ -1110,7 +1110,7 @@ public class EquipmentRequest
 		}
 	}
 
-	private static final void parseEquipment( final String responseText, AdventureResult[] equipment,
+	private static void parseEquipment( final String responseText, AdventureResult[] equipment,
 						  final String test, final Pattern pattern,
 						  final String tag, final int slot )
 	{
@@ -1152,7 +1152,7 @@ public class EquipmentRequest
 		}
 	}
 
-	private static final boolean switchEquipment( final AdventureResult [] oldEquipment, final AdventureResult [] newEquipment )
+	private static boolean switchEquipment( final AdventureResult [] oldEquipment, final AdventureResult [] newEquipment )
 	{
 		boolean refresh = false;
 
@@ -1182,7 +1182,7 @@ public class EquipmentRequest
 		return refresh;
 	}
 
-	private static final boolean switchItem( final int type, final AdventureResult newItem )
+	private static boolean switchItem( final int type, AdventureResult newItem )
 	{
 		boolean refresh = false;
 
@@ -1214,7 +1214,7 @@ public class EquipmentRequest
 		return refresh;
 	}
 
-	public static final void parseEquipmentChange( final String location, final String responseText )
+	public static void parseEquipmentChange( final String location, final String responseText )
 	{
 		Matcher matcher = GenericRequest.ACTION_PATTERN.matcher( location );
 
@@ -1537,7 +1537,7 @@ public class EquipmentRequest
 		}
 	}
 
-	private static final void wearCustomOutfit( final String urlString )
+	private static void wearCustomOutfit( final String urlString )
 	{
 		int outfitId = EquipmentRequest.customOutfitId;
 		EquipmentRequest.customOutfitId = 0;
@@ -1595,7 +1595,7 @@ public class EquipmentRequest
 		return matcher.find() ? matcher.group( 1 ) : null;
 	}
 
-	public static final int slotNumber( final String name )
+	public static int slotNumber( final String name )
 	{
 		for ( int i = 0; i < EquipmentRequest.slotNames.length; ++i )
 		{
@@ -1608,7 +1608,7 @@ public class EquipmentRequest
 		return EquipmentRequest.phpSlotNumber( name );
 	}
 
-	public static final int phpSlotNumber( final String name )
+	public static int phpSlotNumber( final String name )
 	{
 		for ( int i = 0; i < EquipmentRequest.phpSlotNames.length; ++i )
 		{
@@ -1646,7 +1646,7 @@ public class EquipmentRequest
 		return EquipmentRequest.availableAccessory();
 	}
 
-	public static final boolean registerRequest( final String urlString )
+	public static boolean registerRequest( final String urlString )
 	{
 		if ( urlString.startsWith( "bedazzle.php" ) )
 		{
@@ -1752,7 +1752,7 @@ public class EquipmentRequest
 		return true;
 	}
 
-	public static final void registerBedazzlement( final String urlString )
+	public static void registerBedazzlement( final String urlString )
 	{
 		if ( urlString.contains( "action=fold" ) )
 		{

@@ -134,12 +134,12 @@ public class EffectPool
 	public static final int FORM_OF_BIRD_ID = 511;
 	public static final int COVERED_IN_SLIME_ID = 633;
 
-	public static final AdventureResult get( final String effectName )
+	public static AdventureResult get( final String effectName )
 	{
 		return new AdventureResult( effectName, 1, true );
 	}
 
-	public static final AdventureResult get( final String effectName, final int turns )
+	public static AdventureResult get( final String effectName, final int turns )
 	{
 		return new AdventureResult( effectName, turns, true );
 	}

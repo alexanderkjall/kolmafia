@@ -96,7 +96,7 @@ public abstract class ClanManager
 	private static final LockableListModel rankList = new LockableListModel();
 	private static final SortedListModel stashContents = new SortedListModel();
 
-	public static final void clearCache()
+	public static void clearCache()
 	{
 		ProfileSnapshot.clearCache();
 		AscensionSnapshot.clearCache();
@@ -114,34 +114,34 @@ public abstract class ClanManager
 		ClanManager.clanName = null;
 	}
 
-	public static final void setStashRetrieved()
+	public static void setStashRetrieved()
 	{
 		ClanManager.stashRetrieved = true;
 	}
 
-	public static final boolean isStashRetrieved()
+	public static boolean isStashRetrieved()
 	{
 		return ClanManager.stashRetrieved;
 	}
 
-	public static final String getClanId()
+	public static String getClanId()
 	{
 		ClanManager.retrieveClanId();
 		return ClanManager.clanId;
 	}
 
-	public static final String getClanName()
+	public static String getClanName()
 	{
 		ClanManager.retrieveClanId();
 		return ClanManager.clanName;
 	}
 
-	public static final SortedListModel getStash()
+	public static SortedListModel getStash()
 	{
 		return ClanManager.stashContents;
 	}
 
-	public static final LockableListModel getRankList()
+	public static LockableListModel getRankList()
 	{
 		if ( !ClanManager.ranksRetrieved )
 		{
@@ -152,7 +152,7 @@ public abstract class ClanManager
 		return ClanManager.rankList;
 	}
 
-	private static final void retrieveClanData()
+	private static void retrieveClanData()
 	{
 		if ( KoLmafia.isAdventuring() )
 		{
@@ -196,13 +196,13 @@ public abstract class ClanManager
 		}
 	}
 
-	public static final void resetClanId()
+	public static void resetClanId()
 	{
 		ClanManager.clanId = null;
 		ClanManager.clanName = null;
 	}
 
-	private static final void retrieveClanId()
+	private static void retrieveClanId()
 	{
 		if ( ClanManager.clanId != null )
 		{
@@ -216,7 +216,7 @@ public abstract class ClanManager
 		ClanManager.clanName = cmr.getClanName();
 	}
 
-	private static final boolean retrieveMemberData( final boolean retrieveProfileData,
+	private static boolean retrieveMemberData( final boolean retrieveProfileData,
 		final boolean retrieveAscensionData )
 	{
 		// First, determine how many member profiles need to be retrieved
@@ -307,17 +307,17 @@ public abstract class ClanManager
 		return true;
 	}
 
-	public static final String getURLName( final String name )
+	public static String getURLName( final String name )
 	{
 		return Preferences.baseUserName( name ) + "_(%23" + ContactManager.getPlayerId( name ) + ")" + ".htm";
 	}
 
-	public static final String getFileName( final String name )
+	public static String getFileName( final String name )
 	{
 		return Preferences.baseUserName( name ) + "_(#" + ContactManager.getPlayerId( name ) + ")" + ".htm";
 	}
 
-	private static final void initializeProfile( final String name )
+	private static void initializeProfile( final String name )
 	{
 		File profile =
 			new File(
@@ -378,7 +378,7 @@ public abstract class ClanManager
 		}
 	}
 
-	private static final void initializeAscensionData( final String name )
+	private static void initializeAscensionData( final String name )
 	{
 		File ascension =
 			new File(
@@ -442,7 +442,7 @@ public abstract class ClanManager
 		return (String) ClanManager.titleMap.get( name.toLowerCase() );
 	}
 
-	public static final void registerMember( final String name, final String level, final String title )
+	public static void registerMember( final String name, final String level, final String title )
 	{
 		String lowercase = name.toLowerCase();
 
@@ -461,7 +461,7 @@ public abstract class ClanManager
 		ClanManager.titleMap.put( lowercase, title );
 	}
 
-	public static final void unregisterMember( final String playerId )
+	public static void unregisterMember( final String playerId )
 	{
 		String lowercase = ContactManager.getPlayerName( playerId ).toLowerCase();
 
@@ -479,7 +479,7 @@ public abstract class ClanManager
 	 * that list.
 	 */
 
-	public static final void takeSnapshot( final int mostAscensionsBoardSize, final int mainBoardSize,
+	public static void takeSnapshot( int mostAscensionsBoardSize, final int mainBoardSize,
 		final int classBoardSize, final int maxAge, final boolean playerMoreThanOnce, final boolean localProfileLink )
 	{
 		ClanManager.retrieveClanData();
@@ -555,7 +555,7 @@ public abstract class ClanManager
 	 * just what is being done with the stash.
 	 */
 
-	public static final void saveStashLog()
+	public static void saveStashLog()
 	{
 		ClanManager.retrieveClanData();
 		RequestThread.postRequest( new ClanLogRequest() );
@@ -565,19 +565,19 @@ public abstract class ClanManager
 	 * Retrieves the clan membership in the form of a list object.
 	 */
 
-	public static final List getWhiteList()
+	public static List getWhiteList()
 	{
 		ClanManager.retrieveClanData();
 		return ClanManager.whiteListMembers;
 	}
 
-	public static final boolean isMember( final String memberName )
+	public static boolean isMember( String memberName )
 	{
 		ClanManager.retrieveClanData();
 		return Collections.binarySearch( ClanManager.whiteListMembers, memberName.toLowerCase() ) > -1;
 	}
 
-	public static final void applyFilter( final int matchType, final int filterType, final String filter )
+	public static void applyFilter( int matchType, final int filterType, final String filter )
 	{
 		ClanManager.retrieveClanData();
 

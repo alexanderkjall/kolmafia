@@ -55,7 +55,7 @@ public class MicroBreweryRequest
 	private static final Pattern SPECIAL_PATTERN =
 		Pattern.compile( "Today's Special:.*?<input type=radio name=whichitem value=(\\d+)>", Pattern.DOTALL );
 
-	public static final AdventureResult getDailySpecial()
+	public static AdventureResult getDailySpecial()
 	{
 		if ( KoLConstants.microbreweryItems.isEmpty() )
 		{
@@ -134,12 +134,12 @@ public class MicroBreweryRequest
 		}
 	}
 
-	public static final boolean onMenu( final String name )
+	public static boolean onMenu( final String name )
 	{
 		return KoLConstants.microbreweryItems.contains( name );
 	}
 
-	public static final void getMenu()
+	public static void getMenu()
 	{
 		if ( !KoLCharacter.gnomadsAvailable() )
 		{
@@ -166,12 +166,12 @@ public class MicroBreweryRequest
 		KoLmafia.updateDisplay( "Menu retrieved." );
 	}
 
-	public static final void reset()
+	public static void reset()
 	{
 		CafeRequest.reset( KoLConstants.microbreweryItems );
 	}
 
-	public static final boolean registerRequest( final String urlString )
+	public static boolean registerRequest( final String urlString )
 	{
 		Matcher matcher = CafeRequest.CAFE_PATTERN.matcher( urlString );
 		if ( !matcher.find() || !matcher.group( 1 ).equals( "2" ) )

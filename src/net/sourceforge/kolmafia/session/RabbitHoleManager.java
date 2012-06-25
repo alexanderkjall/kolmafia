@@ -1038,7 +1038,7 @@ public abstract class RabbitHoleManager
 	private static Board board;
 	private static int moves;
 
-	public static final void parseChessPuzzle( final String responseText )
+	public static void parseChessPuzzle( final String responseText )
 	{
 		RabbitHoleManager.parseChessPuzzle( responseText, true );
 		if ( RabbitHoleManager.board != null )
@@ -1048,7 +1048,7 @@ public abstract class RabbitHoleManager
 		}
 	}
 
-	private static final void parseChessPuzzle( final String responseText, final boolean initialVisit )
+	private static void parseChessPuzzle( final String responseText, final boolean initialVisit )
 	{
 		if ( responseText == null )
 		{
@@ -1092,7 +1092,7 @@ public abstract class RabbitHoleManager
 
 	private static final Pattern MOVE_PATTERN = Pattern.compile("xy=((\\d+)(?:%2C|,)(\\d+))");
 
-	public static final void parseChessMove( final String urlString, final String responseText )
+	public static void parseChessMove( final String urlString, final String responseText )
 	{
 		// Parse the destination square out of the URL
 		Matcher matcher = MOVE_PATTERN.matcher( urlString );
@@ -1147,13 +1147,13 @@ public abstract class RabbitHoleManager
 	}
 
 	// CLI command support
-	public static final void reset()
+	public static void reset()
 	{
 		RabbitHoleManager.board = null;
 		RabbitHoleManager.moves = 0;
 	}
 
-	public static final void load()
+	public static void load()
 	{
 		if ( RabbitHoleManager.board == null )
 		{
@@ -1172,7 +1172,7 @@ public abstract class RabbitHoleManager
 		}
 	}
 
-	public static final void load( final String config, final boolean save )
+	public static void load( String config, final boolean save )
 	{
 		if ( config.trim().equals( "" ) )
 		{
@@ -1186,13 +1186,13 @@ public abstract class RabbitHoleManager
 		}
 	}
 
-	public static final void board()
+	public static void board()
 	{
 		RabbitHoleManager.load();
 		RabbitHoleManager.board( RabbitHoleManager.board );
 	}
 
-	private static final void board( final Board board )
+	private static void board( Board board )
 	{
 		if ( board == null )
 		{
@@ -1205,13 +1205,13 @@ public abstract class RabbitHoleManager
 		RequestLogger.printLine();
 	}
 
-	public static final void test()
+	public static void test()
 	{
 		RabbitHoleManager.load();
 		RabbitHoleManager.test( RabbitHoleManager.board );
 	}
 
-	private static final void test( final Board board )
+	private static void test( Board board )
 	{
 		if ( board == null )
 		{
@@ -1259,7 +1259,7 @@ public abstract class RabbitHoleManager
 					 ")" );
 	}
 
-	public static final void solve()
+	public static void solve()
 	{
 		RelayRequest.specialCommandResponse = ChoiceManager.lastResponseText;
 		RelayRequest.specialCommandStatus = "Solving...";
@@ -1297,13 +1297,13 @@ public abstract class RabbitHoleManager
 		RelayRequest.specialCommandIsAdventure = true;
 	}
 
-	private static final Path solve( final Board board )
+	private static Path solve( Board board )
 	{
 		// Attempt to solve by moving the current piece
 		return RabbitHoleManager.solve( (Board)board.clone(), new Path() );
 	}
 
-	private static final Path solve( final Board board, final Path path )
+	private static Path solve( final Board board, final Path path )
 	{
 		int current = board.getCurrent();
 
@@ -1402,7 +1402,7 @@ public abstract class RabbitHoleManager
 		}
 	}
 
-	public static final void decorateChessPuzzle( final StringBuffer buffer )
+	public static void decorateChessPuzzle( final StringBuffer buffer )
 	{
 		// Add a "Solve!" button to the Chess Board
 		String search = "</form>";
@@ -1425,7 +1425,7 @@ public abstract class RabbitHoleManager
 		buffer.insert( index, button );
 	}
 
-	public static final String decorateChessPuzzleResponse( final String response )
+	public static String decorateChessPuzzleResponse( final String response )
 	{
 		StringBuffer buffer = new StringBuffer( response );
 		RequestEditorKit.getFeatureRichHTML( "choice.php", buffer );
@@ -1436,7 +1436,7 @@ public abstract class RabbitHoleManager
 	private static final AdventureResult REFLECTION_OF_MAP = ItemPool.get( ItemPool.REFLECTION_OF_MAP, 1);
 	private static final String ADVENTURE_AGAIN = "<b>Adventure Again:</b></td></tr><tr><td style=\"padding: 5px; border: 1px solid blue;\"><center><table><tr><td><center>";
 
-	public static final void decorateChessPuzzleResponse( final StringBuffer buffer )
+	public static void decorateChessPuzzleResponse( final StringBuffer buffer )
 	{
 		// Give player a link to use another reflection of a map
 		if ( REFLECTION_OF_MAP.getCount( KoLConstants.inventory ) <= 0 )
@@ -1455,7 +1455,7 @@ public abstract class RabbitHoleManager
 		buffer.insert( index, link );
 	}
 	
-	public static final Object[] getHatData( int length )
+	public static Object[] getHatData( int length )
 	{
 		Object[][] hat_data = RabbitHoleManager.HAT_DATA;
 		for ( int i = hat_data.length - 1; i >= 0; --i )
@@ -1469,7 +1469,7 @@ public abstract class RabbitHoleManager
 		return null;
 	}
 
-	public static final String getHatDescription( int length )
+	public static String getHatDescription( int length )
 	{
 		Object [] data = RabbitHoleManager.getHatData( length );
 		if ( data != null )
@@ -1479,7 +1479,7 @@ public abstract class RabbitHoleManager
 		return "unknown (" + length + " characters)";
 	}
 	
-	public static final void decorateRabbitHole( final StringBuffer buffer )
+	public static void decorateRabbitHole( final StringBuffer buffer )
 	{
 		int index = buffer.lastIndexOf( "</table>" );
 		if ( index == -1 )
@@ -1576,7 +1576,7 @@ public abstract class RabbitHoleManager
 		return lengths;
 	}
 	
-	public static final void hatCommand()
+	public static void hatCommand()
 	{
 		TreeMap lengths = getHatMap();
 
@@ -1723,7 +1723,7 @@ public abstract class RabbitHoleManager
 		return RabbitHoleManager.HAT_CLEANER_PATTERN.matcher( name ).replaceAll( "" ).length();
 	}
 
-	public static final boolean registerChessboardRequest( final String urlString )
+	public static boolean registerChessboardRequest( final String urlString )
 	{
 		// Don't log anything here. We will log it when we get the
 		// response and see the board.

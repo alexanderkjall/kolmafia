@@ -129,7 +129,7 @@ public class ApiRequest
 	private static final Pattern WHAT_PATTERN =
 		Pattern.compile( "what=([^&]*)");
 
-	public static final void parseResponse( final String location, final String responseText )
+	public static void parseResponse( final String location, final String responseText )
 	{
 		Matcher whatMatcher = ApiRequest.WHAT_PATTERN.matcher( location );
 		if ( !whatMatcher.find() )
@@ -261,12 +261,12 @@ public class ApiRequest
 	  }
 	*/
 
-	public static final void parseStatus( final String responseText )
+	public static void parseStatus( final String responseText )
 	{
 		ApiRequest.parseStatus( ApiRequest.getJSON( responseText, "status" ) );
 	}
 
-	public static final void parseStatus( final JSONObject JSON )
+	public static void parseStatus( final JSONObject JSON )
 	{
 		if ( JSON == null )
 		{
@@ -315,12 +315,12 @@ public class ApiRequest
 		}
 	}
 
-	public static final void parseInventory( final String responseText )
+	public static void parseInventory( final String responseText )
 	{
 		ApiRequest.parseInventory( ApiRequest.getJSON( responseText, "inventory" ) );
 	}
 
-	private static final void parseInventory( final JSONObject JSON )
+	private static void parseInventory( final JSONObject JSON )
 	{
 		if ( JSON == null )
 		{
@@ -337,7 +337,7 @@ public class ApiRequest
 		}
 	}
 
-	public static final JSONObject getJSON( final String text, final String what )
+	public static JSONObject getJSON( final String text, final String what )
 	{
 		// Parse the string into a JSON object
 		try
@@ -353,7 +353,7 @@ public class ApiRequest
 		return null;
 	}
 
-	private static final String getJSONString( String responseText )
+	private static String getJSONString( String responseText )
 	{
 		if ( responseText == null )
 		{
@@ -366,7 +366,7 @@ public class ApiRequest
 			responseText.substring( pos );
 	}
 
-	private static final void reportParseError( final String what, final String responseText, final JSONException e )
+	private static void reportParseError( final String what, final String responseText, final JSONException e )
 	{
 		KoLmafia.updateDisplay( "api.php?what=" + what + " parse error: " + e.getMessage() );
 		StaticEntity.printStackTrace( e, responseText );

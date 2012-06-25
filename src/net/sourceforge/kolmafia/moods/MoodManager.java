@@ -97,17 +97,17 @@ public abstract class MoodManager
 	
 	static boolean isExecuting = false;
 
-	public static final File getFile()
+	public static File getFile()
 	{
 		return new File( UtilityConstants.SETTINGS_LOCATION, KoLCharacter.baseUserName() + "_moods.txt" );
 	}
 
-	public static final boolean isExecuting()
+	public static boolean isExecuting()
 	{
 		return MoodManager.isExecuting;
 	}
 
-	public static final void updateFromPreferences()
+	public static void updateFromPreferences()
 	{
 		MoodTrigger.clearKnownSources();
 		MoodManager.availableMoods.clear();
@@ -122,7 +122,7 @@ public abstract class MoodManager
 		MoodManager.saveSettings();
 	}
 
-	public static final SortedListModel getAvailableMoods()
+	public static SortedListModel getAvailableMoods()
 	{
 		return MoodManager.availableMoods;
 	}
@@ -132,7 +132,7 @@ public abstract class MoodManager
 	 * mood if no data exists.
 	 */
 
-	public static final void setMood( String newMoodName )
+	public static void setMood( String newMoodName )
 	{
 		if ( newMoodName == null || newMoodName.trim().equals( "" ) )
 		{
@@ -185,12 +185,12 @@ public abstract class MoodManager
 	 * Retrieves the model associated with the given mood.
 	 */
 
-	public static final SortedListModel getTriggers()
+	public static SortedListModel getTriggers()
 	{
 		return MoodManager.displayList;
 	}
 	
-	public static final List getTriggers( String moodName )
+	public static List getTriggers( String moodName )
 	{
 		if ( moodName == null || moodName.length() == 0 )
 		{
@@ -214,7 +214,7 @@ public abstract class MoodManager
 		return Collections.EMPTY_LIST;
 	}
 
-	public static final void addTriggers( final Object[] nodes, final int duration )
+	public static void addTriggers( final Object[] nodes, final int duration )
 	{
 		MoodManager.removeTriggers( nodes );
 		StringBuilder newAction = new StringBuilder();
@@ -261,7 +261,7 @@ public abstract class MoodManager
 	 * Adds a trigger to the temporary mood settings.
 	 */
 
-	public static final MoodTrigger addTrigger( final String type, final String name, final String action )
+	public static MoodTrigger addTrigger( final String type, final String name, final String action )
 	{
 		MoodTrigger trigger = MoodTrigger.constructNode( type + " " + name + " => " + action );
 
@@ -278,7 +278,7 @@ public abstract class MoodManager
 	 * Removes all the current displayList.
 	 */
 
-	public static final void removeTriggers( final Object[] triggers )
+	public static void removeTriggers( final Object[] triggers )
 	{
 		for ( int i = 0; i < triggers.length; ++i )
 		{
@@ -291,7 +291,7 @@ public abstract class MoodManager
 		}
 	}
 
-	public static final void removeTriggers( final Collection triggers )
+	public static void removeTriggers( final Collection triggers )
 	{
 		Iterator it = triggers.iterator();
 		while ( it.hasNext() )
@@ -304,7 +304,7 @@ public abstract class MoodManager
 		}
 	}
 
-	public static final void minimalSet()
+	public static void minimalSet()
 	{
 		String currentMood = Preferences.getString( "currentMood" );
 		if ( currentMood.equals( "apathetic" ) )
@@ -363,7 +363,7 @@ public abstract class MoodManager
 		"Song of Cockiness",
 	};
 
-	public static final void maximalSet()
+	public static void maximalSet()
 	{
 		String currentMood = Preferences.getString( "currentMood" );
 		if ( currentMood.equals( "apathetic" ) )
@@ -454,7 +454,7 @@ public abstract class MoodManager
 		MoodManager.minimalSet();
 	}
 
-	private static final void pickSkills( final List skills, final int limit, final String [] rankedBuffs )
+	private static void pickSkills( final List skills, final int limit, final String [] rankedBuffs )
 	{
 		if ( skills.isEmpty() )
 		{
@@ -497,7 +497,7 @@ public abstract class MoodManager
 	 * Deletes the current mood and sets the current mood to apathetic.
 	 */
 
-	public static final void deleteCurrentMood()
+	public static void deleteCurrentMood()
 	{
 		MoodManager.displayList.clear();
 
@@ -516,7 +516,7 @@ public abstract class MoodManager
 	 * Duplicates the current trigger list into a new list
 	 */
 
-	public static final void copyTriggers( final String newMoodName )
+	public static void copyTriggers( final String newMoodName )
 	{
 		// Copy displayList from current list, then
 		// create and switch to new list
@@ -532,17 +532,17 @@ public abstract class MoodManager
 	 * Executes all the mood displayList for the current mood.
 	 */
 
-	public static final void execute()
+	public static void execute()
 	{
 		MoodManager.execute( -1 );
 	}
 
-	public static final boolean effectInMood( final AdventureResult effect )
+	public static boolean effectInMood( final AdventureResult effect )
 	{
 		return MoodManager.currentMood.isTrigger( effect );
 	}
 
-	public static final void execute( final int multiplicity )
+	public static void execute( final int multiplicity )
 	{
 		if ( KoLmafia.refusesContinue() )
 		{
@@ -651,7 +651,7 @@ public abstract class MoodManager
 		MoodManager.isExecuting = false;
 	}
 
-	public static final boolean willExecute( final int multiplicity )
+	public static boolean willExecute( final int multiplicity )
 	{
 		if ( !MoodManager.currentMood.isExecutable() )
 		{
@@ -672,7 +672,7 @@ public abstract class MoodManager
 		return willExecute;
 	}
 
-	public static final List getMissingEffects()
+	public static List getMissingEffects()
 	{
 		List triggers = MoodManager.currentMood.getTriggers();
 
@@ -704,7 +704,7 @@ public abstract class MoodManager
 		return missing;
 	}
 
-	public static final void removeMalignantEffects()
+	public static void removeMalignantEffects()
 	{
 		for ( int i = 0; i < MoodManager.AUTO_CLEAR.length && KoLmafia.permitsContinue(); ++i )
 		{
@@ -717,7 +717,7 @@ public abstract class MoodManager
 		}
 	}
 
-	public static final int getMaintenanceCost()
+	public static int getMaintenanceCost()
 	{
 		List triggers = MoodManager.currentMood.getTriggers();
 
@@ -782,7 +782,7 @@ public abstract class MoodManager
 	 * Stores the settings maintained in this <code>MoodManager</code> object to disk for later retrieval.
 	 */
 
-	public static final void saveSettings()
+	public static void saveSettings()
 	{
 		PrintStream writer = LogStream.openStream( getFile(), true );
 		Iterator moodIterator = MoodManager.availableMoods.iterator();
@@ -801,7 +801,7 @@ public abstract class MoodManager
 	 * given file does not exist, the current global settings will also be rewritten into the appropriate file.
 	 */
 
-	public static final void loadSettings()
+	public static void loadSettings()
 	{
 		MoodManager.availableMoods.clear();
 
@@ -863,7 +863,7 @@ public abstract class MoodManager
 		}
 	}
 
-	public static final String getDefaultAction( final String type, final String name )
+	public static String getDefaultAction( final String type, final String name )
 	{
 		if ( type == null || name == null )
 		{
@@ -918,7 +918,7 @@ public abstract class MoodManager
 		}
 	}
 
-	public static final boolean currentlyExecutable( final AdventureResult effect, final String action )
+	public static boolean currentlyExecutable( final AdventureResult effect, final String action )
 	{
 		// It's always OK to boost a stackable effect.
 		// Otherwise, it's only OK if it's not active.
@@ -926,7 +926,7 @@ public abstract class MoodManager
 		return !MoodManager.unstackableAction( action ) || !KoLConstants.activeEffects.contains( effect );
 	}
 
-	public static final boolean unstackableAction( final String action )
+	public static boolean unstackableAction( final String action )
 	{
 		return
                 action.contains( "absinthe" ) ||

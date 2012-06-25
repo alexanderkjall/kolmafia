@@ -74,7 +74,7 @@ public class InputFieldUtilities
 		InputFieldUtilities.activeWindow = activeWindow;
 	}
 
-	public static final void alert( final String message )
+	public static void alert( final String message )
 	{
 		if ( StaticEntity.isHeadless() )
 		{
@@ -87,7 +87,7 @@ public class InputFieldUtilities
 		JOptionPane.showMessageDialog( InputFieldUtilities.activeWindow, StringUtilities.basicTextWrap( message ) );
 	}
 
-	public static final boolean confirm( final String message )
+	public static boolean confirm( final String message )
 	{
 		if ( StaticEntity.isHeadless() )
 		{
@@ -104,7 +104,7 @@ public class InputFieldUtilities
 			JOptionPane.YES_NO_OPTION);
 	}
 
-	public static final String input( final String message )
+	public static String input( final String message )
 	{
 		if ( StaticEntity.isHeadless() )
 		{
@@ -118,7 +118,7 @@ public class InputFieldUtilities
 		return JOptionPane.showInputDialog( InputFieldUtilities.activeWindow, StringUtilities.basicTextWrap( message ) );
 	}
 
-	public static final String input( final String message, final String initial )
+	public static String input( final String message, final String initial )
 	{
 		if ( StaticEntity.isHeadless() )
 		{
@@ -139,7 +139,7 @@ public class InputFieldUtilities
 			InputFieldUtilities.activeWindow, StringUtilities.basicTextWrap( message ), initial );
 	}
 
-	public static final Object input( final String message, final LockableListModel inputs, final Object initial )
+	public static Object input( final String message, final LockableListModel inputs, final Object initial )
 	{
 		if ( StaticEntity.isHeadless() )
 		{
@@ -192,12 +192,12 @@ public class InputFieldUtilities
 			? null : selector.getSelectedValue();
 	}
 
-	public static final Object input( final String message, final LockableListModel inputs )
+	public static Object input( final String message, final LockableListModel inputs )
 	{
 		return InputFieldUtilities.input( message, inputs, null );
 	}
 
-	public static final Object input(final String message, final Object[] inputs )
+	public static Object input(final String message, final Object[] inputs )
 	{
 		if ( inputs == null || inputs.length == 0 )
 		{
@@ -207,7 +207,7 @@ public class InputFieldUtilities
 		return InputFieldUtilities.input( message, inputs, null );
 	}
 
-	public static final Object input( final String message, final Object[] inputs, final Object initial )
+	public static Object input( final String message, final Object[] inputs, final Object initial )
 	{
 		if ( inputs == null || inputs.length == 0 )
 		{
@@ -231,13 +231,13 @@ public class InputFieldUtilities
 		return InputFieldUtilities.input( message, new LockableListModel( Arrays.asList( inputs ) ), initial );
 	}
 
-	public static final Object[] multiple( final String message, final LockableListModel inputs )
+	public static Object[] multiple( final String message, final LockableListModel inputs )
 	{
 		return InputFieldUtilities.multiple( message, inputs, null );
 	}
 
 
-	public static final Object[] multiple( final String message, final LockableListModel inputs, final ListElementFilter filter )
+	public static Object[] multiple( final String message, final LockableListModel inputs, final ListElementFilter filter )
 	{
 		if ( StaticEntity.isHeadless() )
 		{
@@ -307,12 +307,12 @@ public class InputFieldUtilities
 	 * "0" is returned instead.
 	 */
 
-	public static final int getValue( final JTextField field )
+	public static int getValue( final JTextField field )
 	{
 		return InputFieldUtilities.getValue( field, 0 );
 	}
 
-	public static final int getValue( final JSpinner field )
+	public static int getValue( final JSpinner field )
 	{
 		return InputFieldUtilities.getValue( field, 0 );
 	}
@@ -323,7 +323,7 @@ public class InputFieldUtilities
 	 * value provided will be returned instead.
 	 */
 
-	public static final int getValue( final JTextField field, final int defaultValue)
+	public static int getValue( final JTextField field, final int defaultValue)
 	{
 		String currentValue = field.getText();
 
@@ -336,7 +336,7 @@ public class InputFieldUtilities
 		return result == 0 ? defaultValue : result;
 	}
 
-	public static final int getValue( final JSpinner field, final int defaultValue)
+	public static int getValue( final JSpinner field, final int defaultValue)
 	{
 		if ( field.getValue() instanceof Integer )
 		{
@@ -346,12 +346,12 @@ public class InputFieldUtilities
 		return defaultValue;
 	}
 
-	public static final Integer getQuantity( final String title, final int maximumValue)
+	public static Integer getQuantity( final String title, final int maximumValue)
 	{
 		return InputFieldUtilities.getQuantity(title, maximumValue, maximumValue);
 	}
 
-	public static final Integer getQuantity( final String message, final int maximumValue, int defaultValue)
+	public static Integer getQuantity( final String message, final int maximumValue, int defaultValue)
 	{
 		// Check parameters; avoid programmer error.
 		if ( defaultValue > maximumValue )

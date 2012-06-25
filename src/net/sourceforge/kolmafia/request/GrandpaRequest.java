@@ -73,7 +73,7 @@ public class GrandpaRequest
 		}
 	}
 
-	public static final String findNPC( final int npc )
+	public static String findNPC( final int npc )
 	{
 		switch ( npc )
 		{
@@ -90,7 +90,7 @@ public class GrandpaRequest
 		return "Unknown Sea Monkey";
 	}
 
-	public static final boolean registerRequest( final String urlString )
+	public static boolean registerRequest( final String urlString )
 	{
 		if ( !urlString.startsWith( "monkeycastle.php" ) )
 		{

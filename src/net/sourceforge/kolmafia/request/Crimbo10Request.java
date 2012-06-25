@@ -49,7 +49,7 @@ public class Crimbo10Request
 		Crimbo10Request.parseResponse( this.getURLString(), this.responseText );
 	}
 
-	public static final void parseResponse( final String location, final String responseText )
+	public static void parseResponse( final String location, final String responseText )
 	{
 		if ( !location.startsWith( "crimbo10.php" ) )
 		{
@@ -87,7 +87,7 @@ public class Crimbo10Request
 		return null;
 	}
 
-	public static final boolean registerRequest( final String urlString )
+	public static boolean registerRequest( final String urlString )
 	{
 		if ( !urlString.startsWith( "crimbo10.php" ) )
 		{

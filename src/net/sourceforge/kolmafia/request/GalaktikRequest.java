@@ -201,7 +201,7 @@ public class GalaktikRequest
 		}
 	}
 
-	public static final void parseResponse( final String location, final String responseText )
+	public static void parseResponse( final String location, final String responseText )
 	{
 		if ( !location.startsWith( "galaktik.php" ) )
 		{
@@ -257,7 +257,7 @@ public class GalaktikRequest
 		}
 	}
 
-	public static final LockableListModel retrieveCures()
+	public static LockableListModel retrieveCures()
 	{
 		LockableListModel cures = new LockableListModel();
 
@@ -274,7 +274,7 @@ public class GalaktikRequest
 		return cures;
 	}
 
-	public static final boolean registerRequest( final String urlString )
+	public static boolean registerRequest( final String urlString )
 	{
 		if ( !urlString.startsWith( "galaktik.php" ) )
 		{

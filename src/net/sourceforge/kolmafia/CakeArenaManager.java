@@ -52,7 +52,7 @@ public class CakeArenaManager
 	 * the arena.
 	 */
 
-	public static final void registerOpponent( final int opponentId, final String name, final String race,
+	public static void registerOpponent( final int opponentId, final String name, final String race,
 		final int weight )
 	{
 		ArenaOpponent ao = new ArenaOpponent( opponentId, name, race, weight );
@@ -75,7 +75,7 @@ public class CakeArenaManager
 	 * Retrieves the opponents Id based on the string description for the opponent.
 	 */
 
-	public static final void fightOpponent( final String opponent, final int eventId, final int repeatCount )
+	public static void fightOpponent( final String opponent, final int eventId, final int repeatCount )
 	{
 		for ( int i = 0; i < CakeArenaManager.opponentList.size(); ++i )
 		{
@@ -125,7 +125,7 @@ public class CakeArenaManager
 		}
 	}
 
-	public static final int earnedXP( final String response )
+	public static int earnedXP( final String response )
 	{
 		Matcher matcher = CakeArenaManager.WIN_PATTERN.matcher( response );
 		return matcher.find() ? Integer.valueOf( matcher.group( 1 ) ) : 0;
@@ -135,7 +135,7 @@ public class CakeArenaManager
 	 * Returns a list of opponents are available today at the cake-shaped arena.
 	 */
 
-	public static final LockableListModel getOpponentList()
+	public static LockableListModel getOpponentList()
 	{
 		if ( CakeArenaManager.opponentList.isEmpty() )
 		{
@@ -145,7 +145,7 @@ public class CakeArenaManager
 		return CakeArenaManager.opponentList;
 	}
 
-	public static final ArenaOpponent getOpponent( final int opponentId )
+	public static ArenaOpponent getOpponent( final int opponentId )
 	{
 		int count = CakeArenaManager.opponentList.size();
 
@@ -161,7 +161,7 @@ public class CakeArenaManager
 		return null;
 	}
 
-	public static final String getEvent( final int eventId )
+	public static String getEvent( final int eventId )
 	{
 		switch ( eventId )
 		{

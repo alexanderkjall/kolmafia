@@ -256,7 +256,7 @@ public class FlaggedItems
 		"club necklace",
 	};
 
-	private static final void initializeList( final LockableListModel model, final String[] defaults )
+	private static void initializeList( final LockableListModel model, final String[] defaults )
 	{
 		model.clear();
 		AdventureResult item;
@@ -276,7 +276,7 @@ public class FlaggedItems
 		}
 	}
 
-	public static final void initializeLists()
+	public static void initializeLists()
 	{
 		if ( !FlaggedItems.itemFlagsFile.exists() )
 		{
@@ -360,7 +360,7 @@ public class FlaggedItems
 		}
 	}
 
-	public static final void saveFlaggedItemList()
+	public static void saveFlaggedItemList()
 	{
 		AdventureResult item;
 

@@ -51,17 +51,17 @@ public class LogStream
 {
 	private File proxy;
 
-	public static final PrintStream openStream( final String filename, final boolean forceNewFile )
+	public static PrintStream openStream( final String filename, final boolean forceNewFile )
 	{
 		return LogStream.openStream( new File( UtilityConstants.ROOT_LOCATION, filename ), forceNewFile );
 	}
 
-	public static final PrintStream openStream( final File file, final boolean forceNewFile )
+	public static PrintStream openStream( final File file, final boolean forceNewFile )
 	{
 		return LogStream.openStream( file, forceNewFile, "UTF-8" );
 	}
 
-	public static final PrintStream openStream( final File file, final boolean forceNewFile, final String encoding )
+	public static PrintStream openStream( final File file, final boolean forceNewFile, final String encoding )
 	{
 		OutputStream ostream = DataUtilities.getOutputStream( file, !forceNewFile );
 		PrintStream pstream = openStream( ostream, encoding );
@@ -115,7 +115,7 @@ public class LogStream
 		return newStream;
 	}
 	
-	public static final PrintStream openStream( final OutputStream ostream, final String encoding )
+	public static PrintStream openStream( final OutputStream ostream, final String encoding )
 	{
 		try
 		{

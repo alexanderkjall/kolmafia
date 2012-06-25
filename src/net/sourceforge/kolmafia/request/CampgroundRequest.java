@@ -326,7 +326,7 @@ public class CampgroundRequest
 		CampgroundRequest.parseResponse( this.getURLString(), this.responseText );
 	}
 
-	public static final void parseResponse( final String urlString, final String responseText )
+	public static void parseResponse( final String urlString, final String responseText )
 	{
 		if ( !urlString.startsWith( "campground.php" ) )
 		{
@@ -454,7 +454,7 @@ public class CampgroundRequest
 		}
 	}
 
-	private static final void parseCampground( final String responseText )
+	private static void parseCampground( final String responseText )
 	{
 		KoLCharacter.setTelescope( responseText.contains( "action=telescope" ) );
 		KoLCharacter.setBookshelf( responseText.contains( "action=bookshelf" ) );
@@ -481,7 +481,7 @@ public class CampgroundRequest
 		findImage( responseText, "pepperpatch_huge.gif", ItemPool.GIANT_CANDY_CANE, 1 );
 	}
 
-	private static final void parseDwelling( final String responseText )
+	private static void parseDwelling( final String responseText )
 	{
 		Matcher m = HOUSING_PATTERN.matcher( responseText );
 		if ( !m.find() )
@@ -579,7 +579,7 @@ public class CampgroundRequest
 		}
 	}
 
-	private static final void parseKitchen( final String responseText )
+	private static void parseKitchen( final String responseText )
 	{
 		boolean hasOven = findImage( responseText, "ezcook.gif", ItemPool.OVEN );
 		KoLCharacter.setOven( hasOven );
@@ -820,7 +820,7 @@ public class CampgroundRequest
 		}
 	}
 
-	public static final boolean registerRequest( final String urlString )
+	public static boolean registerRequest( final String urlString )
 	{
 		if ( !urlString.startsWith( "campground.php" ) )
 		{

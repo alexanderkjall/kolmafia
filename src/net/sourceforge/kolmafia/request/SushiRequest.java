@@ -311,7 +311,7 @@ public class SushiRequest
 		return name;
 	}
 
-	private static final String sushiName( final String urlString )
+	private static String sushiName( final String urlString )
 	{
 		Matcher matcher = SushiRequest.SUSHI_PATTERN.matcher( urlString );
 		if ( !matcher.find() )
@@ -442,7 +442,7 @@ public class SushiRequest
 		}
 	}
 
-	public static final boolean registerRequest( final String urlString )
+	public static boolean registerRequest( final String urlString )
 	{
 		if ( !urlString.startsWith( "sushi.php" ) )
 		{

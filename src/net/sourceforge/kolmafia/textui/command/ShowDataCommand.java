@@ -440,7 +440,7 @@ public class ShowDataCommand
 		RequestLogger.printList( resultList, desiredStream );
 	}
 
-	private static final String getStatString( final int base, final int adjusted, final int tnp )
+	private static String getStatString( final int base, final int adjusted, final int tnp )
 	{
 		StringBuilder statString = new StringBuilder();
 		statString.append( KoLConstants.COMMA_FORMAT.format( adjusted ) );
@@ -456,7 +456,7 @@ public class ShowDataCommand
 		return statString.toString();
 	}
 
-	private static final String getStickerText( AdventureResult item, final int turns )
+	private static String getStickerText( AdventureResult item, final int turns )
 	{
 		if ( !item.equals( EquipmentRequest.UNEQUIP ) )
 		{

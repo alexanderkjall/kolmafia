@@ -76,12 +76,12 @@ public abstract class StaticEntity
 
 	public static String backtraceTrigger = null;
 
-	public static final String getVersion()
+	public static String getVersion()
 	{
 		return StaticEntity.getVersion( false );
 	}
 
-	public static final String getVersion( final boolean forceRevision )
+	public static String getVersion( final boolean forceRevision )
 	{
 		String version = KoLConstants.VERSION_NAME;
 		if ( !KoLConstants.RELEASED || forceRevision )
@@ -95,7 +95,7 @@ public abstract class StaticEntity
 		return version;
 	}
 
-	public static final int getRevision()
+	public static int getRevision()
 	{
 		if ( KoLConstants.REVISION == null )
 		{
@@ -116,7 +116,7 @@ public abstract class StaticEntity
 		return StringUtilities.isNumeric( revision ) ? StringUtilities.parseInt( revision ) : 0;
 	}
 
-	public static final int parseRevision( String version )
+	public static int parseRevision( String version )
 	{
 		if ( version == null )
 		{
@@ -129,17 +129,17 @@ public abstract class StaticEntity
 		return StringUtilities.isNumeric( version ) ? StringUtilities.parseInt( version ) : 0;
 	}
 
-	public static final void setClient( final KoLmafia client )
+	public static void setClient( final KoLmafia client )
 	{
 		StaticEntity.client = client;
 	}
 
-	public static final KoLmafia getClient()
+	public static KoLmafia getClient()
 	{
 		return StaticEntity.client;
 	}
 
-	public static final void registerPanel( final ActionPanel panel )
+	public static void registerPanel( final ActionPanel panel )
 	{
 		synchronized ( StaticEntity.existingPanels )
 		{
@@ -148,7 +148,7 @@ public abstract class StaticEntity
 		}
 	}
 
-	public static final void unregisterPanel( final ActionPanel panel )
+	public static void unregisterPanel( final ActionPanel panel )
 	{
 		synchronized ( StaticEntity.existingPanels )
 		{
@@ -157,7 +157,7 @@ public abstract class StaticEntity
 		}
 	}
 
-	public static final void unregisterPanels( final Container container )
+	public static void unregisterPanels( final Container container )
 	{
 		boolean removedPanel = false;
 
@@ -184,7 +184,7 @@ public abstract class StaticEntity
 		}
 	}
 
-	public static final ActionPanel[] getExistingPanels()
+	public static ActionPanel[] getExistingPanels()
 	{
 		synchronized ( StaticEntity.existingPanels )
 		{
@@ -208,12 +208,12 @@ public abstract class StaticEntity
 		}
 	}
 
-	public static final boolean isHeadless()
+	public static boolean isHeadless()
 	{
 		return StaticEntity.isHeadless;
 	}
 
-	public static final boolean usesSystemTray()
+	public static boolean usesSystemTray()
 	{
 		if ( StaticEntity.usesSystemTray == 0 )
 		{
@@ -249,7 +249,7 @@ public abstract class StaticEntity
 		return StaticEntity.usesSystemTray == 1;
 	}
 
-	public static final boolean usesRelayWindows()
+	public static boolean usesRelayWindows()
 	{
 		if ( StaticEntity.usesRelayWindows == 0 )
 		{
@@ -265,7 +265,7 @@ public abstract class StaticEntity
 	 * in order to keep code modular.
 	 */
 
-	public static final void openRequestFrame( final String location )
+	public static void openRequestFrame( final String location )
 	{
 		GenericRequest request = RequestEditorKit.extractRequest( location );
 
@@ -298,7 +298,7 @@ public abstract class StaticEntity
 		}
 	}
 
-	public static final boolean executeCountdown( final String message, final int seconds )
+	public static boolean executeCountdown( final String message, final int seconds )
 	{
 		PauseObject pauser = new PauseObject();
 
@@ -379,27 +379,27 @@ public abstract class StaticEntity
 		return KoLmafia.permitsContinue();
 	}
 
-	public static final void printStackTrace()
+	public static void printStackTrace()
 	{
 		StaticEntity.printStackTrace( "Forced stack trace" );
 	}
 
-	public static final void printStackTrace( final String message )
+	public static void printStackTrace( final String message )
 	{
 		StaticEntity.printStackTrace( new Exception( message ), message );
 	}
 
-	public static final void printStackTrace( final Throwable t )
+	public static void printStackTrace( final Throwable t )
 	{
 		StaticEntity.printStackTrace( t, "" );
 	}
 
-	public static final void printStackTrace( final Throwable t, final String message )
+	public static void printStackTrace( final Throwable t, final String message )
 	{
 		StaticEntity.printStackTrace( t, message, false );
 	}
 
-	public static final void printStackTrace( final Throwable t, final String message, final boolean printOnlyCause )
+	public static void printStackTrace( final Throwable t, final String message, final boolean printOnlyCause )
 	{
 		// Next, print all the information to the debug log so that
 		// it can be sent.
@@ -442,7 +442,7 @@ public abstract class StaticEntity
 		}
 	}
 
-	private static final void printStackTrace( final Throwable t, final String message, final PrintStream ostream )
+	private static void printStackTrace( final Throwable t, final String message, final PrintStream ostream )
 	{
 		ostream.println( t.getClass() + ": " + t.getMessage() );
 		t.printStackTrace( ostream );
@@ -490,7 +490,7 @@ public abstract class StaticEntity
 		}
 	}
 
-	public static final String getProcessId()
+	public static String getProcessId()
 	{
 		File javaHome = StaticEntity.getJDKWorkingDirectory();
 
@@ -567,7 +567,7 @@ public abstract class StaticEntity
 		return null;
 	}
 
-	public static final void printThreadDump()
+	public static void printThreadDump()
 	{
 		File javaHome = StaticEntity.getJDKWorkingDirectory();
 
@@ -638,7 +638,7 @@ public abstract class StaticEntity
 		}
 	}
 
-	public static final void generateHeapDump()
+	public static void generateHeapDump()
 	{
 		File javaHome = StaticEntity.getJDKWorkingDirectory();
 
@@ -733,7 +733,7 @@ public abstract class StaticEntity
 		}
 	}
 
-	public static final void printRequestData( final GenericRequest request )
+	public static void printRequestData( final GenericRequest request )
 	{
 		if ( request == null )
 		{
@@ -757,7 +757,7 @@ public abstract class StaticEntity
 		}
 	}
 
-	public static final String[] getPastUserList()
+	public static String[] getPastUserList()
 	{
 		ArrayList pastUserList = new ArrayList();
 
@@ -784,7 +784,7 @@ public abstract class StaticEntity
 		return pastUsers;
 	}
 
-	public static final void disable( final String name )
+	public static void disable( final String name )
 	{
 		String functionName;
 		StringTokenizer tokens = new StringTokenizer( name, ", " );
@@ -799,7 +799,7 @@ public abstract class StaticEntity
 		}
 	}
 
-	public static final void enable( final String name )
+	public static void enable( final String name )
 	{
 		if ( name.equals( "all" ) )
 		{
@@ -814,7 +814,7 @@ public abstract class StaticEntity
 		}
 	}
 
-	public static final boolean isDisabled( final String name )
+	public static boolean isDisabled( final String name )
 	{
 		if ( name.equals( "enable" ) || name.equals( "disable" ) )
 		{

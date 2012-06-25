@@ -577,14 +577,14 @@ public class UseSkillRequest
 		return this.lastStringForm;
 	}
 
-	private static final boolean canSwitchToItem( final AdventureResult item )
+	private static boolean canSwitchToItem( final AdventureResult item )
 	{
 		return !KoLCharacter.hasEquipped( item ) &&
 			EquipmentManager.canEquip( item.getName() ) &&
 			InventoryManager.hasItem( item, false );
 	}
 
-	public static final void optimizeEquipment( final int skillId )
+	public static void optimizeEquipment( final int skillId )
 	{
 		boolean isBuff = SkillDatabase.isBuff( skillId );
 
@@ -612,7 +612,7 @@ public class UseSkillRequest
 		}
 	}
 
-	private static final boolean isValidSwitch( final int slotId )
+	private static boolean isValidSwitch( final int slotId )
 	{
 		AdventureResult item = EquipmentManager.getEquipment( slotId );
 		if ( item.equals( EquipmentRequest.UNEQUIP ) ) return true;
@@ -640,7 +640,7 @@ public class UseSkillRequest
 		return true;
 	}
 
-	private static final int attemptSwitch( final int skillId, final AdventureResult item, final boolean slot1Allowed,
+	private static int attemptSwitch( final int skillId, final AdventureResult item, final boolean slot1Allowed,
 		final boolean slot2Allowed, final boolean slot3Allowed )
 	{
 		if ( slot3Allowed )
@@ -664,7 +664,7 @@ public class UseSkillRequest
 		return -1;
 	}
 
-	private static final void reduceManaConsumption( final int skillId, final boolean isBuff )
+	private static void reduceManaConsumption( final int skillId, final boolean isBuff )
 	{
 		// Never bother trying to reduce mana consumption when casting
 		// ode to booze or a libram skill
@@ -716,7 +716,7 @@ public class UseSkillRequest
 		}
 	}
 
-	public static final int songLimit()
+	public static int songLimit()
 	{
 		int rv = 3;
 		if ( KoLCharacter.currentBooleanModifier( Modifiers.FOUR_SONGS ) )
@@ -929,7 +929,7 @@ public class UseSkillRequest
 		return currentCast;
 	}
 
-	public static final boolean hasAccordion()
+	public static boolean hasAccordion()
 	{
 		if ( KoLCharacter.canInteract() )
 		{
@@ -947,7 +947,7 @@ public class UseSkillRequest
 		return false;
 	}
 
-	public static final boolean hasTotem()
+	public static boolean hasTotem()
 	{
 		if ( KoLCharacter.canInteract() )
 		{
@@ -965,7 +965,7 @@ public class UseSkillRequest
 		return false;
 	}
 
-	public static final boolean hasSaucepan()
+	public static boolean hasSaucepan()
 	{
 		if ( KoLCharacter.canInteract() )
 		{
@@ -983,7 +983,7 @@ public class UseSkillRequest
 		return false;
 	}
 
-	public static final void prepareWeapon( final AdventureResult[] options, int skillId )
+	public static void prepareWeapon( final AdventureResult[] options, int skillId )
 	{
 		if ( KoLCharacter.canInteract() )
 		{
@@ -1118,27 +1118,27 @@ public class UseSkillRequest
 			( (UseSkillRequest) o ).getSkillName() );
 	}
 
-	public static final UseSkillRequest getInstance( final int skillId )
+	public static UseSkillRequest getInstance( final int skillId )
 	{
 		return UseSkillRequest.getInstance( SkillDatabase.getSkillName( skillId ) );
 	}
 
-	public static final UseSkillRequest getInstance( final String skillName, final Concoction conc )
+	public static UseSkillRequest getInstance( final String skillName, final Concoction conc )
 	{
 		return UseSkillRequest.getInstance( skillName, KoLCharacter.getUserName(), 1, conc );
 	}
 
-	public static final UseSkillRequest getInstance( final String skillName, final int buffCount )
+	public static UseSkillRequest getInstance( final String skillName, final int buffCount )
 	{
 		return UseSkillRequest.getInstance( skillName, KoLCharacter.getUserName(), buffCount, null );
 	}
 
-	public static final UseSkillRequest getInstance( final String skillName, final String target, final int buffCount )
+	public static UseSkillRequest getInstance( final String skillName, final String target, final int buffCount )
 	{
 		return UseSkillRequest.getInstance( skillName, target, buffCount, null );
 	}
 
-	public static final UseSkillRequest getInstance( final String skillName, final String target, final int buffCount, final Concoction conc )
+	public static UseSkillRequest getInstance( final String skillName, final String target, final int buffCount, final Concoction conc )
 	{
 		UseSkillRequest instance = UseSkillRequest.getInstance( skillName );
 		if ( instance == null )
@@ -1164,7 +1164,7 @@ public class UseSkillRequest
 		return instance;
 	}
 
-	public static final UseSkillRequest getUnmodifiedInstance( String skillName )
+	public static UseSkillRequest getUnmodifiedInstance( String skillName )
 	{
 		if ( skillName == null || !SkillDatabase.contains( skillName ) )
 		{
@@ -1182,7 +1182,7 @@ public class UseSkillRequest
 		return request;
 	}
 
-	public static final UseSkillRequest getInstance( String skillName )
+	public static UseSkillRequest getInstance( String skillName )
 	{
 		if ( skillName == null || !SkillDatabase.contains( skillName ) )
 		{
@@ -1202,7 +1202,7 @@ public class UseSkillRequest
 		return request;
 	}
 
-	public static final boolean parseResponse( final String urlString, final String responseText )
+	public static boolean parseResponse( final String urlString, final String responseText )
 	{
 		int skillId = UseSkillRequest.lastSkillUsed;
 		int count = UseSkillRequest.lastSkillCount;
@@ -1652,7 +1652,7 @@ public class UseSkillRequest
 		return -1;
 	}
 
-	private static final int getCount( final String urlString, int skillId )
+	private static int getCount( final String urlString, int skillId )
 	{
 		Matcher countMatcher = UseSkillRequest.COUNT1_PATTERN.matcher( urlString );
 
@@ -1685,7 +1685,7 @@ public class UseSkillRequest
 		return Math.min( maxcasts, StringUtilities.parseInt( countMatcher.group( 1 ) ) );
 	}
 
-	public static final boolean registerRequest( final String urlString )
+	public static boolean registerRequest( final String urlString )
 	{
 		if ( !urlString.startsWith( "campground.php" ) && !urlString.startsWith( "skills.php" ) )
 		{

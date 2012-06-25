@@ -90,7 +90,7 @@ public class CharPaneRequest
 		super( "charpane.php" );
 	}
 
-	public static final void reset()
+	public static void reset()
 	{
 		CharPaneRequest.lastResponseTimestamp = 0;
 		CharPaneRequest.lastResponse = "";
@@ -112,27 +112,27 @@ public class CharPaneRequest
 		return null;
 	}
 
-	public static final boolean canInteract()
+	public static boolean canInteract()
 	{
 		return CharPaneRequest.canInteract;
 	}
 
-	public static final boolean inValhalla()
+	public static boolean inValhalla()
 	{
 		return CharPaneRequest.inValhalla;
 	}
 
-	public static final void setInteraction()
+	public static void setInteraction()
 	{
 		CharPaneRequest.setInteraction( CharPaneRequest.checkInteraction( "" ) );
 	}
 
-	public static final void setInteraction( final boolean interaction )
+	public static void setInteraction( final boolean interaction )
 	{
 		CharPaneRequest.canInteract = interaction;
 	}
 
-	public static final void setCheckNewLocation( final boolean check )
+	public static void setCheckNewLocation( final boolean check )
 	{
 		CharPaneRequest.checkNewLocation = check;
 	}
@@ -227,7 +227,7 @@ public class CharPaneRequest
 		return true;
 	}
 
-	public static final String getLastResponse()
+	public static String getLastResponse()
 	{
 		return CharPaneRequest.lastResponse;
 	}
@@ -237,7 +237,7 @@ public class CharPaneRequest
 	// <td align=right>Karma:</td><td align=left><b>122</b></td>
 	public static final Pattern KARMA_PATTERN_COMPACT = Pattern.compile( "Karma:.*?<b>([^<]*)</b>" );
 
-	private static final void processValhallaCharacterPane( final String responseText )
+	private static void processValhallaCharacterPane( final String responseText )
 	{
 		// We are in Valhalla
 		CharPaneRequest.inValhalla = true;
@@ -272,7 +272,7 @@ public class CharPaneRequest
 
 	public static final Pattern TURNS_PATTERN = Pattern.compile( "var turnsthisrun = (\\d*);" );
 
-	private static final int parseTurnsThisRun( final String responseText )
+	private static int parseTurnsThisRun( final String responseText )
 	{
 		Matcher matcher = CharPaneRequest.TURNS_PATTERN.matcher( responseText );
 		if ( matcher.find() )
@@ -283,7 +283,7 @@ public class CharPaneRequest
 		return -1;
 	}
 
-	private static final boolean checkInteraction( final String responseText )
+	private static boolean checkInteraction( final String responseText )
 	{
 		// If he's freed the king, that's good enough
 		if ( KoLCharacter.kingLiberated() )
@@ -323,7 +323,7 @@ public class CharPaneRequest
 		return false;
 	}
 
-	private static final void handleCompactMode( final String responseText )
+	private static void handleCompactMode( String responseText )
 	{
 		try
 		{
@@ -363,7 +363,7 @@ public class CharPaneRequest
 		// we have to track it manually, anyway
 	}
 
-	private static final void handleExpandedMode( final String responseText )
+	private static void handleExpandedMode( final String responseText )
 	{
 		try
 		{
@@ -402,7 +402,7 @@ public class CharPaneRequest
 		// we have to track it manually, anyway
 	}
 
-	private static final Pattern makeStatPattern( final String musString, final String mysString, final String moxString )
+	private static Pattern makeStatPattern( final String musString, final String mysString, final String moxString )
 	{
 		return Pattern.compile( musString + ".*?<b>(.*?)</b>.*?" + mysString + ".*?<b>(.*?)</b>.*?" + moxString + ".*?<b>(.*?)</b>" );
 	}
@@ -415,7 +415,7 @@ public class CharPaneRequest
 	private static Pattern modifiedPattern =
 		Pattern.compile( "<font color=blue>(\\d+)</font>&nbsp;\\((\\d+)\\)" );
 
-	private static final void handleStatPoints( final String responseText, final Pattern pattern )
+	private static void handleStatPoints( final String responseText, final Pattern pattern )
 		throws Exception
 	{
 		Matcher statMatcher = pattern.matcher( responseText );
@@ -449,7 +449,7 @@ public class CharPaneRequest
 					    KoLCharacter.getTotalMoxie() );
 	}
 
-	private static final Pattern makeMiscPattern( final String hpString, final String mpString,
+	private static Pattern makeMiscPattern( final String hpString, String mpString,
 						      final String meatString, final String advString,
 						      final String spacer, final String openTag, final String closeTag )
 	{
@@ -461,7 +461,7 @@ public class CharPaneRequest
 	private static Pattern expandedMiscPattern =
 		CharPaneRequest.makeMiscPattern( "hp\\.gif", "mp\\.gif", "meat\\.gif", "hourglass\\.gif", "&nbsp;", "<span.*?>", "</span>" );
 
-	private static final void handleMiscPoints( final String responseText, final Pattern pattern )
+	private static void handleMiscPoints( final String responseText, final Pattern pattern )
 		throws Exception
 	{
 		// On the other hand, health and all that good stuff is
@@ -497,7 +497,7 @@ public class CharPaneRequest
 		ResultProcessor.processAdventuresLeft( newAdventures - oldAdventures );
 	}
 
-	private static final void handleMindControl( final String text, final Pattern [] patterns )
+	private static void handleMindControl( final String text, final Pattern [] patterns )
 	{
 		for ( int i = 0; i < patterns.length; ++i )
 		{
@@ -512,7 +512,7 @@ public class CharPaneRequest
 		KoLCharacter.setMindControlLevel( 0 );
 	}
 
-	private static final Pattern makeMCPattern( final String mcString )
+	private static Pattern makeMCPattern( final String mcString )
 	{
 		return Pattern.compile( mcString + "</a>: ?(?:</td><td>)?<b>(\\d+)</b>" );
 	}
@@ -533,13 +533,13 @@ public class CharPaneRequest
 		CharPaneRequest.makeMCPattern( "Heartbreaker's" ),
 	};
 
-	private static final int handleMindControl( final String responseText, final Pattern pattern )
+	private static int handleMindControl( final String responseText, final Pattern pattern )
 	{
 		Matcher matcher = pattern.matcher( responseText );
 		return matcher.find() ? StringUtilities.parseInt( matcher.group( 1 ) ) : 0;
 	}
 
-	private static final Pattern makeConsumptionPattern( final String consumptionString )
+	private static Pattern makeConsumptionPattern( final String consumptionString )
 	{
 		return Pattern.compile( consumptionString + ": ?</td><td(?: align=left)?><b>(\\d+)</b>" );
 	}
@@ -557,13 +557,13 @@ public class CharPaneRequest
 		CharPaneRequest.makeConsumptionPattern( "Tipsiness" ),
 	};
 
-	private static final int handleConsumption( final String responseText, final Pattern pattern )
+	private static int handleConsumption( final String responseText, final Pattern pattern )
 	{
 		Matcher matcher = pattern.matcher( responseText );
 		return matcher.find() ? StringUtilities.parseInt( matcher.group( 1 ) ) : 0;
 	}
 
-	private static final void handleInebriety( final String text, final Pattern [] patterns )
+	private static void handleInebriety( final String text, final Pattern [] patterns )
 	{
 		for ( int i = 0; i < patterns.length; ++i )
 		{
@@ -578,7 +578,7 @@ public class CharPaneRequest
 		KoLCharacter.setInebriety( 0 );
 	}
 
-	public static final AdventureResult extractEffect( final String responseText, int searchIndex )
+	public static AdventureResult extractEffect( final String responseText, int searchIndex )
 	{
 		String effectName = null;
 		int durationIndex = -1;
@@ -620,7 +620,7 @@ public class CharPaneRequest
 		return CharPaneRequest.extractEffect( descId, effectName, duration );
 	}
 
-	public static final AdventureResult extractEffect( final String descId, String effectName, int duration )
+	public static AdventureResult extractEffect( final String descId, String effectName, int duration )
 	{
 		int effectId = EffectDatabase.getEffect( descId );
 
@@ -646,7 +646,7 @@ public class CharPaneRequest
 		return new AdventureResult( effectName, duration, true );
 	}
 
-	private static final void refreshEffects( final String responseText )
+	private static void refreshEffects( final String responseText )
 	{
 		int searchIndex = 0;
 		int onClickIndex = 0;
@@ -692,7 +692,7 @@ public class CharPaneRequest
 		CharPaneRequest.startCounters();
 	}
 
-	private static final void startCounters()
+	private static void startCounters()
 	{
 		int absintheCount = CharPaneRequest.ABSINTHE.getCount( KoLConstants.activeEffects );
 
@@ -715,7 +715,7 @@ public class CharPaneRequest
 	private static Pattern expandedLastAdventurePattern =
 		Pattern.compile( ">Last Adventure.*?<a.*? href=\"adventure.php\\?snarfblat=([^\"]+)\">(.*?)</a>.*?</table>" );
 
-	private static final void checkNewLocation( final String responseText )
+	private static void checkNewLocation( final String responseText )
 	{
 		if ( !CharPaneRequest.checkNewLocation )
 		{
@@ -757,7 +757,7 @@ public class CharPaneRequest
 	private static Pattern familiarImagePattern =
 		Pattern.compile( "<a.*?class=\"familiarpick\"><img.*?itemimages/(.*?\\.gif)" );
 
-	private static final void checkFamiliar( final String responseText )
+	private static void checkFamiliar( final String responseText )
 	{
 		Pattern pattern = CharPaneRequest.compactCharacterPane ?
 			CharPaneRequest.compactFamiliarWeightPattern :
@@ -788,7 +788,7 @@ public class CharPaneRequest
 	public static AdventureResult CRUMHORN = ItemPool.get( ItemPool.CLANCY_CRUMHORN, 1 );
 	public static AdventureResult LUTE = ItemPool.get( ItemPool.CLANCY_LUTE, 1 );
 
-	private static final void checkClancy( final String responseText )
+	private static void checkClancy( final String responseText )
 	{
 		Pattern pattern = CharPaneRequest.compactCharacterPane ?
 			CharPaneRequest.compactClancyPattern :
@@ -808,7 +808,7 @@ public class CharPaneRequest
 		}
 	}
 	
-	private static final void checkMedium( final String responseText )
+	private static void checkMedium( final String responseText )
 	{
 		Pattern pattern = CharPaneRequest.mediumPattern;
 		Matcher mediumMatcher = pattern.matcher( responseText );
@@ -820,7 +820,7 @@ public class CharPaneRequest
 		}
 	}
 
-	public static final void parseStatus( final JSONObject JSON )
+	public static void parseStatus( final JSONObject JSON )
 		throws JSONException
 	{
 		int turnsThisRun = JSON.getInt( "turnsthisrun" );
@@ -906,7 +906,7 @@ public class CharPaneRequest
 		}
 	}
 
-	private static final void refreshEffects( final JSONObject JSON )
+	private static void refreshEffects( final JSONObject JSON )
 		throws JSONException
 	{
 		ArrayList visibleEffects = new ArrayList();

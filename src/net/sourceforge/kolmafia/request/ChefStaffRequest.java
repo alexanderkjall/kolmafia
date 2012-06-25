@@ -98,7 +98,7 @@ public class ChefStaffRequest
                 }
 	}
 
-	public static final boolean parseCreation( final String urlString, final String responseText )
+	public static boolean parseCreation( final String urlString, final String responseText )
 	{
 		if ( responseText.contains( "You don't have all of the items I'll need to make that Chefstaff." ) )
 		{
@@ -120,7 +120,7 @@ public class ChefStaffRequest
 		return false;
 	}
 
-	private static final AdventureResult[] staffIngredients( final String urlString )
+	private static AdventureResult[] staffIngredients( final String urlString )
 	{
 		Matcher itemMatcher = ChefStaffRequest.WHICH_PATTERN.matcher( urlString );
 		if ( !itemMatcher.find() )
@@ -137,7 +137,7 @@ public class ChefStaffRequest
 		return concoction == null ? null : concoction.getIngredients();
 	}
 
-	public static final boolean registerRequest( final String urlString )
+	public static boolean registerRequest( final String urlString )
 	{
 		if ( !urlString.startsWith( "guild.php" ) || !urlString.contains( "action=makestaff" ) )
 		{

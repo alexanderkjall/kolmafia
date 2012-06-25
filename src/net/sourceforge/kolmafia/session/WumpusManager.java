@@ -737,7 +737,7 @@ public abstract class WumpusManager
 		WumpusManager.deductions.append( text ); 
 	}
 
-	public static final void decorate( final StringBuffer buffer )
+	public static void decorate( final StringBuffer buffer )
 	{
 		if ( WumpusManager.current != null )
 		{
@@ -766,14 +766,14 @@ public abstract class WumpusManager
 		WumpusManager.deductions.setLength( 0 );
 	}
 
-	public static final void invokeWumpinator()
+	public static void invokeWumpinator()
 	{
 		String code = WumpusManager.getWumpinatorCode();
 		String current = WumpusManager.getCurrentField();
 		RelayLoader.openSystemBrowser( "http://www.feesher.com/wumpus/wump_map.php?mapstring=" + code + current );
 	}
 
-	private static final Room currentRoom()
+	private static Room currentRoom()
 	{
 		if ( WumpusManager.current != null )
 		{
@@ -786,12 +786,12 @@ public abstract class WumpusManager
 		return null;
 	}
 
-	private static final String getCurrentField()
+	private static String getCurrentField()
 	{
 		return WumpusManager.getCurrentField( WumpusManager.currentRoom() );
 	}
 
-	private static final String getCurrentField( final Room room )
+	private static String getCurrentField( final Room room )
 	{
 		if ( room == null )
 		{
@@ -800,14 +800,14 @@ public abstract class WumpusManager
 		return "&current=" + room.getCode();
 	}
 
-	private static final String getWumpinatorLink()
+	private static String getWumpinatorLink()
 	{
 		String current = WumpusManager.getCurrentField();
 		String map = WumpusManager.getWumpinatorCode();
 		return "<a href=http://www.feesher.com/wumpus/wump_map.php?mapstring=" + map + current + " target=_blank>View in Wumpinator</a>";
 	}
 
-	private static final String getWumpinatorMap()
+	private static String getWumpinatorMap()
 	{
 		String layout = WumpusManager.getLayout();
 		// If we can't generate a map, give a link to Wumpinator
@@ -821,7 +821,7 @@ public abstract class WumpusManager
 		return "<tr><td><center><img border=0 src=http://www.feesher.com/wumpus/wump_graphic3.php?" + litstring + map + current + "></center></td></tr>";
 	}
 
-	public static final void printStatus()
+	public static void printStatus()
 	{
 		// Since we use a TreeMap, rooms are in alphabetical order
 		Iterator it = WumpusManager.rooms.values().iterator();
@@ -884,7 +884,7 @@ public abstract class WumpusManager
 	// 00000000000000000000 00000000000000000000 00000000000000A00199
 	// ::P:BCW:CEF::B:CEF
 
-	public static final String getWumpinatorCode()
+	public static String getWumpinatorCode()
 	{
 		StringBuilder buffer = new StringBuilder();
 
@@ -1031,7 +1031,7 @@ public abstract class WumpusManager
 	private static Room [] layout = new Room[20];
 	private final static String emptyLayout = "00000000000000000000";
 
-	private static final String getLayout()
+	private static String getLayout()
 	{
 		Room current = WumpusManager.currentRoom();
 		String layout = WumpusManager.getLayout( current );
@@ -1062,7 +1062,7 @@ public abstract class WumpusManager
 		return null;
 	}
 
-	private static final String getLayout( final Room room )
+	private static String getLayout( final Room room )
 	{
 		// Initialize layout
 		for ( int i = 0; i < layout.length; ++i )
@@ -1085,7 +1085,7 @@ public abstract class WumpusManager
 		return string;
 	}
 
-	private static final boolean addRoom( final int node, final Room room )
+	private static boolean addRoom( final int node, final Room room )
 	{
 		// Attempt to add a room at a particular node
 		if ( layout[ node ] != null )

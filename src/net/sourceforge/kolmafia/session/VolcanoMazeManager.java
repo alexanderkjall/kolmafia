@@ -124,7 +124,7 @@ public abstract class VolcanoMazeManager
 		}
 	}
 
-	public static final void reset()
+	public static void reset()
 	{
 		VolcanoMazeManager.loaded = false;
 		VolcanoMazeManager.currentMap = 0;
@@ -138,7 +138,7 @@ public abstract class VolcanoMazeManager
 		VolcanoMazeManager.found = 1;
 	}
 
-	public static final void clear()
+	public static void clear()
 	{
 		VolcanoMazeManager.reset();
 		for ( int map = 0; map < maps.length; ++map )
@@ -147,7 +147,7 @@ public abstract class VolcanoMazeManager
 		}
 	}
 
-	private static final void loadCurrentMaps()
+	private static void loadCurrentMaps()
 	{
 		if ( !VolcanoMazeManager.loaded )
 		{
@@ -163,7 +163,7 @@ public abstract class VolcanoMazeManager
 		}
 	}
 
-	private static final void loadCurrentMap( final int map )
+	private static void loadCurrentMap( final int map )
 	{
 		String setting = "volcanoMaze" + String.valueOf( map + 1 );
 		String coords = Preferences.getString( setting );
@@ -180,13 +180,13 @@ public abstract class VolcanoMazeManager
 		
 	}
 
-	private static final void clearCurrentMap( final int map )
+	private static void clearCurrentMap( final int map )
 	{
 		String setting = "volcanoMaze" + String.valueOf( map + 1 );
 		Preferences.setString( setting, "" );
 	}
 
-	private static final boolean validMap( final String coordinates )
+	private static boolean validMap( String coordinates )
 	{
 		if ( coordinates == null || coordinates.equals( "" ) )
 		{
@@ -210,7 +210,7 @@ public abstract class VolcanoMazeManager
 		return true;
 	}
 
-	public static final void decorate( final String location, final StringBuffer buffer )
+	public static void decorate( final String location, final StringBuffer buffer )
 	{
 		if ( !location.startsWith( "volcanomaze.php" ) )
 		{
@@ -240,7 +240,7 @@ public abstract class VolcanoMazeManager
 		buffer.insert( index, button );
 	}
 
-	public static final void parseResult( final String responseText )
+	public static void parseResult( final String responseText )
 	{
 		// Load current maps, if necessary
 		VolcanoMazeManager.loadCurrentMaps();
@@ -288,7 +288,7 @@ public abstract class VolcanoMazeManager
 		RequestLogger.printLine( VolcanoMazeManager.found + " total platforms seen." );
 	}
 
-	private static final void addSquares( final int index )
+	private static void addSquares( final int index )
 	{
 		VolcanoMap map = VolcanoMazeManager.maps[ index ];
 		int seq = index + 1;
@@ -314,7 +314,7 @@ public abstract class VolcanoMazeManager
 		}
 	}
 
-	private static final String parseCoords( final String responseText )
+	private static String parseCoords( final String responseText )
 	{
 		// move=x,y returns simply "false" if can't move there
 		if ( responseText.equals( "false" ) )
@@ -333,7 +333,7 @@ public abstract class VolcanoMazeManager
 
 	private static final Pattern SQUARE_PATTERN = Pattern.compile("<div id=\"sq(\\d+)\" class=\"sq (no|yes)\\s+(you|goal|)\\s*lv(\\d+)\" rel=\"(\\d+),(\\d+)\">");
 
-	private static final String parseHTMLCoords( final String responseText )
+	private static String parseHTMLCoords( String responseText )
 	{
 		Matcher matcher = VolcanoMazeManager.SQUARE_PATTERN.matcher( responseText );
 		StringBuilder buffer = new StringBuilder();
@@ -384,7 +384,7 @@ public abstract class VolcanoMazeManager
 
 	private static final Pattern POS_PATTERN = Pattern.compile("(\\d+),(\\d+)");
 
-	private static final String parseJSONCoords( final String responseText )
+	private static String parseJSONCoords( final String responseText )
 	{
 		StringBuilder buffer = new StringBuilder();
 		JSONObject JSON;
@@ -455,22 +455,22 @@ public abstract class VolcanoMazeManager
 		return buffer.toString();
 	}
 
-	private static final int row( final int pos )
+	private static int row( final int pos )
 	{
 		return ( pos / NCOLS );
 	}
 
-	private static final int col( final int pos )
+	private static int col( final int pos )
 	{
 		return ( pos % NCOLS );
 	}
 
-	private static final int pos( final int row, final int col )
+	private static int pos( final int row, final int col )
 	{
 		return ( row * NCOLS + col );
 	}
 
-	public static final String coordinateString( final int pos )
+	public static String coordinateString( final int pos )
 	{
 		if ( pos == -1 )
 		{
@@ -484,19 +484,19 @@ public abstract class VolcanoMazeManager
 		return String.valueOf( col ) + "," + String.valueOf( row );
 	}
 
-	public static final String coordinateString( final int pos, final int map )
+	public static String coordinateString( final int pos, final int map )
 	{
 		String cstr = VolcanoMazeManager.coordinateString( pos );
 		String mstr = ( map >= 0 ) ? ( "map " + String.valueOf( map + 1 ) ) : "(unknown map )";
 		return cstr + " on " + mstr;
 	}
 
-	public static final String currentCoordinates()
+	public static String currentCoordinates()
 	{
 		return VolcanoMazeManager.coordinateString( currentLocation );
 	}
 
-	public static final void printCurrentCoordinates()
+	public static void printCurrentCoordinates()
 	{
 		if ( VolcanoMazeManager.currentLocation == -1 )
 		{
@@ -506,7 +506,7 @@ public abstract class VolcanoMazeManager
 		RequestLogger.printLine( "Current position: " + VolcanoMazeManager.coordinateString( currentLocation, currentMap ) );
 	}
 
-	private static final void discoverMaps()
+	private static void discoverMaps()
 	{
 		VolcanoMazeManager.loadCurrentMaps();
 		if ( VolcanoMazeManager.found == CELLS )
@@ -557,13 +557,13 @@ public abstract class VolcanoMazeManager
 	}
 
 	// CLI command support
-	public static final void visit()
+	public static void visit()
 	{
 		VolcanoMazeManager.internalVisit();
 		VolcanoMazeManager.printCurrentCoordinates();
 	}
 
-	private static final void internalVisit()
+	private static void internalVisit()
 	{
 		// Must make a new VolcanoMazeRequest every time since that
 		// class follows redirects.
@@ -571,7 +571,7 @@ public abstract class VolcanoMazeManager
 		RequestThread.postRequest( VISITOR );
 	}
 
-	public static final void jump()
+	public static void jump()
 	{
 		// Must make a new VolcanoMazeRequest every time since that
 		// class follows redirects.
@@ -580,7 +580,7 @@ public abstract class VolcanoMazeManager
 		VolcanoMazeManager.printCurrentCoordinates();
 	}
 
-	public static final void move( final int x, final int y, final boolean print )
+	public static void move( final int x, final int y, final boolean print )
 	{
 		VolcanoMazeRequest req = new VolcanoMazeRequest( x, y );
 		RequestThread.postRequest( req );
@@ -591,7 +591,7 @@ public abstract class VolcanoMazeManager
 		VolcanoMazeManager.printCurrentCoordinates();
 	}
 
-	public static final void displayMap()
+	public static void displayMap()
 	{
 		VolcanoMazeManager.loadCurrentMaps();
 		VolcanoMap map = VolcanoMazeManager.maps[ VolcanoMazeManager.currentMap ];
@@ -604,7 +604,7 @@ public abstract class VolcanoMazeManager
 		map.displayHTMLMap( currentLocation );
 	}
 
-	public static final void displayMap( final int num )
+	public static void displayMap( final int num )
 	{
 		if ( num < 1 || num > MAPS )
 		{
@@ -623,7 +623,7 @@ public abstract class VolcanoMazeManager
 		map.displayHTMLMap( -1 );
 	}
 
-	public static final void platforms()
+	public static void platforms()
 	{
 		VolcanoMazeManager.discoverMaps();
 		if ( !KoLmafia.permitsContinue() )
@@ -666,7 +666,7 @@ public abstract class VolcanoMazeManager
 	private static int pathsMade = 0;
 	private static int pathsExamined = 0;
 
-	public static final void solve()
+	public static void solve()
 	{
 		// Save URL to give back to the user's browser
 		RelayRequest.redirectedCommandURL = "/volcanomaze.php?start=1";
@@ -711,7 +711,7 @@ public abstract class VolcanoMazeManager
 		}
 	}
 
-	public static final void test( final int map, final int x, final int y )
+	public static void test( final int map, final int x, final int y )
 	{
 		VolcanoMazeManager.loadCurrentMaps();
 
@@ -742,7 +742,7 @@ public abstract class VolcanoMazeManager
 		}
 	}
 
-	private static final void printStatistics( final Path solution )
+	private static void printStatistics( final Path solution )
 	{
 		StringBuilder buffer = new StringBuilder();
 		buffer.append( "Paths examined/made " );
@@ -793,7 +793,7 @@ public abstract class VolcanoMazeManager
 	// pathsMade - paths generated
 	// pathsExamined - paths examined
 
-	private static final Path solve( final int location, final int map )
+	private static Path solve( int location, final int map )
 	{
 		// Generate neighbors for every cell
 		VolcanoMazeManager.generateNeighbors();
@@ -865,7 +865,7 @@ public abstract class VolcanoMazeManager
 		return null;
 	}
 
-	private static final void generateNeighbors()
+	private static void generateNeighbors()
 	{
 		for ( int square = 0; square < CELLS; ++square )
 		{

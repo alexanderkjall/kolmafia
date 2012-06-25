@@ -231,27 +231,27 @@ public class CreateItemRequest
 		}
 	}
 
-	public static final CreateItemRequest getInstance( final int itemId )
+	public static CreateItemRequest getInstance( final int itemId )
 	{
 		return CreateItemRequest.getInstance( ConcoctionPool.get( itemId ), true );
 	}
 
-	public static final CreateItemRequest getInstance( final String name )
+	public static CreateItemRequest getInstance( final String name )
 	{
 		return CreateItemRequest.getInstance( ConcoctionPool.get( name ), true );
 	}
 
-	public static final CreateItemRequest getInstance( final AdventureResult item )
+	public static CreateItemRequest getInstance( final AdventureResult item )
 	{
 		return CreateItemRequest.getInstance( ConcoctionPool.get( item ), true );
 	}
 
-	public static final CreateItemRequest getInstance( final AdventureResult item, final boolean rNINP )
+	public static CreateItemRequest getInstance( final AdventureResult item, final boolean rNINP )
 	{
 		return CreateItemRequest.getInstance( ConcoctionPool.get( item ), rNINP );
 	}
 
-	public static final CreateItemRequest getInstance( final Concoction conc, final boolean returnNullIfNotPermitted )
+	public static CreateItemRequest getInstance( final Concoction conc, final boolean returnNullIfNotPermitted )
 	{
 		if ( conc == null )
 		{
@@ -301,7 +301,7 @@ public class CreateItemRequest
 
 	// This API should only be called by Concoction.getRequest(), which
 	// is responsible for caching the instances.
-	public static final CreateItemRequest constructInstance( final Concoction conc )
+	public static CreateItemRequest constructInstance( final Concoction conc )
 	{
 		if ( conc == null )
 		{
@@ -1173,7 +1173,7 @@ public class CreateItemRequest
 		return 0;
 	}
 
-	public static final boolean registerRequest( final boolean isExternal, final String urlString )
+	public static boolean registerRequest( final boolean isExternal, final String urlString )
 	{
 		// First, delegate subclasses, if it's a subclass request.
 
@@ -1412,7 +1412,7 @@ public class CreateItemRequest
 		return true;
 	}
 
-	private static final AdventureResult [] findIngredients( final String urlString )
+	private static AdventureResult [] findIngredients( final String urlString )
 	{
 		if ( urlString.startsWith( "craft.php" ) && urlString.contains( "target" ) )
 		{
@@ -1461,12 +1461,12 @@ public class CreateItemRequest
 		return ingredientArray;
 	}
 
-	private static final AdventureResult getIngredient( final String itemId )
+	private static AdventureResult getIngredient( final String itemId )
 	{
 		return ItemPool.get( StringUtilities.parseInt( itemId ), 1 );
 	}
 
-	private static final int getQuantity( final String urlString, final AdventureResult [] ingredients, int multiplier )
+	private static int getQuantity( final String urlString, final AdventureResult [] ingredients, int multiplier )
 	{
 		if ( !urlString.contains( "max=on" ) &&
                 !urlString.contains( "smashall=1" ) )
@@ -1488,7 +1488,7 @@ public class CreateItemRequest
 		return quantity * multiplier;
 	}
 
-	private static final void useIngredients( final String urlString, AdventureResult [] ingredients, int quantity )
+	private static void useIngredients( final String urlString, AdventureResult [] ingredients, int quantity )
 	{
 		// Let crafting tell us which ingredients it used and remove
 		// them from inventory after the fact.

@@ -148,7 +148,7 @@ public abstract class HPRestoreItemList
 		new HPRestoreItem( "dueling turtle", 15 )
 	};
 
-	public static final void setPurchaseBasedSort( final boolean purchaseBasedSort )
+	public static void setPurchaseBasedSort( final boolean purchaseBasedSort )
 	{
 		HPRestoreItemList.purchaseBasedSort = purchaseBasedSort;
 	}
@@ -167,12 +167,12 @@ public abstract class HPRestoreItemList
 		HPRestoreItemList.GALAKTIK.purchaseCost = QuestLogRequest.galaktikCuresAvailable() ? 6 : 10;
 	}
 
-	public static final boolean contains( final AdventureResult item )
+	public static boolean contains( final AdventureResult item )
 	{
 		return getHealthRestored( item.getName() ) != Integer.MIN_VALUE;
 	}
 
-	public static final JCheckBox[] getCheckboxes()
+	public static JCheckBox[] getCheckboxes()
 	{
 		String hpRestoreSetting = Preferences.getString( "hpAutoRecoveryItems" );
 		JCheckBox[] restoreCheckbox = new JCheckBox[ HPRestoreItemList.CONFIGURES.length ];
@@ -186,7 +186,7 @@ public abstract class HPRestoreItemList
 		return restoreCheckbox;
 	}
 
-	public static final void updateCheckboxes( final JCheckBox[] restoreCheckbox )
+	public static void updateCheckboxes( final JCheckBox[] restoreCheckbox )
 	{
 		String hpRestoreSetting = Preferences.getString( "hpAutoRecoveryItems" );
 

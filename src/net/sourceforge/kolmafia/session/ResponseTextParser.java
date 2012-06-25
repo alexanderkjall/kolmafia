@@ -231,7 +231,7 @@ public class ResponseTextParser
 		return true;
 	}
 
-	public static final void externalUpdate( final String location, final String responseText )
+	public static void externalUpdate( final String location, final String responseText )
 	{
 		if ( responseText == null || responseText.length() == 0 )
 		{
@@ -869,7 +869,7 @@ public class ResponseTextParser
 		}
 	}
 
-	public static final void learnSkill( final String skillName )
+	public static void learnSkill( final String skillName )
 	{
 		// The following skills are found in battle and result in
 		// losing an item from inventory.

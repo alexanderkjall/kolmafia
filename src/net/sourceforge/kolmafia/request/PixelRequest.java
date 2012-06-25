@@ -110,7 +110,7 @@ public class PixelRequest
 		}
 	}
 
-	public static final boolean registerRequest( final String urlString )
+	public static boolean registerRequest( final String urlString )
 	{
 		Matcher itemMatcher = PixelRequest.WHICH_PATTERN.matcher( urlString );
 		if ( !itemMatcher.find() )

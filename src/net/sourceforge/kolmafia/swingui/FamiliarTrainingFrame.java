@@ -242,7 +242,7 @@ public class FamiliarTrainingFrame
 		super.dispose();
 	}
 
-	public static final ChatBuffer getResults()
+	public static ChatBuffer getResults()
 	{
 		return FamiliarTrainingFrame.results;
 	}
@@ -826,7 +826,7 @@ public class FamiliarTrainingFrame
 		return null;
 	}
 
-	private static final boolean levelFamiliar( final int goal, final int type )
+	private static boolean levelFamiliar( final int goal, final int type )
 	{
 		return FamiliarTrainingFrame.levelFamiliar( goal, type, Preferences.getBoolean( "debugFamiliarTraining" ) );
 	}
@@ -840,7 +840,7 @@ public class FamiliarTrainingFrame
 	 * @param debug true if we are debugging
 	 */
 
-	public static final boolean levelFamiliar( final int goal, final int type, final boolean debug )
+	public static boolean levelFamiliar( final int goal, final int type, final boolean debug )
 	{
 		// Clear the output
 		FamiliarTrainingFrame.results.clear();
@@ -993,7 +993,7 @@ public class FamiliarTrainingFrame
 	 * @param trials How many trials per event
 	 */
 
-	private static final int[] learnFamiliarParameters( final int trials )
+	private static int[] learnFamiliarParameters( final int trials )
 	{
 		// Clear the output
 		FamiliarTrainingFrame.results.clear();
@@ -1080,7 +1080,7 @@ public class FamiliarTrainingFrame
 		return skills;
 	}
 
-	private static final int[] learnFamiliarParameters( final int trial, final FamiliarStatus status,
+	private static int[] learnFamiliarParameters( final int trial, final FamiliarStatus status,
 		final FamiliarTool tool, final int[][] xp, final int[] test, final boolean[] suckage )
 	{
 		// Iterate through the contests
@@ -1230,7 +1230,7 @@ public class FamiliarTrainingFrame
 	 * @param weight Weight goal for the familiar
 	 */
 
-	public static final boolean buffFamiliar( final int weight )
+	public static boolean buffFamiliar( final int weight )
 	{
 		// Get current familiar. If none, punt.
 
@@ -1353,12 +1353,12 @@ public class FamiliarTrainingFrame
 		return false;
 	}
 
-	private static final void statusMessage( final MafiaState state, final String message )
+	private static void statusMessage( final MafiaState state, final String message )
 	{
 		FamiliarTrainingFrame.statusMessage( state, message, false );
 	}
 
-	private static final void statusMessage( final MafiaState state, final String message, boolean restoreOutfit )
+	private static void statusMessage( final MafiaState state, final String message, boolean restoreOutfit )
 	{
 		if ( restoreOutfit )
 		{
@@ -1385,7 +1385,7 @@ public class FamiliarTrainingFrame
 		KoLmafia.updateDisplay( state, message );
 	}
 
-	private static final void printFamiliar( final FamiliarStatus status, final int goal, final int type )
+	private static void printFamiliar( final FamiliarStatus status, final int goal, final int type )
 	{
 		FamiliarData familiar = status.getFamiliar();
 		String name = familiar.getName();
@@ -1413,7 +1413,7 @@ public class FamiliarTrainingFrame
 		FamiliarTrainingFrame.results.append( "Training " + name + " the " + weight + " lb. " + race + hope + ".<br>" );
 	}
 
-	private static final void printOpponents( final LockableListModel opponents )
+	private static void printOpponents( final LockableListModel opponents )
 	{
 		FamiliarTrainingFrame.results.append( "Opponents:<br>" );
 		int opponentCount = opponents.size();
@@ -1427,7 +1427,7 @@ public class FamiliarTrainingFrame
 		}
 	}
 
-	private static final boolean goalMet( final FamiliarStatus status, final int goal, final int type )
+	private static boolean goalMet( final FamiliarStatus status, final int goal, final int type )
 	{
 		switch ( type )
 		{
@@ -1444,7 +1444,7 @@ public class FamiliarTrainingFrame
 		return false;
 	}
 
-	private static final void printWeights( final int[] weights )
+	private static void printWeights( final int[] weights )
 	{
 		StringBuilder text = new StringBuilder();
 
@@ -1462,7 +1462,7 @@ public class FamiliarTrainingFrame
 		FamiliarTrainingFrame.results.append( text.toString() );
 	}
 
-	private static final void printMatch( final FamiliarStatus status, final ArenaOpponent opponent,
+	private static void printMatch( final FamiliarStatus status, final ArenaOpponent opponent,
 		final FamiliarTool tool, final int match )
 	{
 		FamiliarData familiar = status.getFamiliar();
@@ -1489,13 +1489,13 @@ public class FamiliarTrainingFrame
 		KoLmafia.updateDisplay( "Round " + round + ": " + familiar.getName() + " vs. " + opponent.getName() + "..." );
 	}
 
-	private static final int fightMatch( final FamiliarStatus status, final FamiliarTool tool,
+	private static int fightMatch( final FamiliarStatus status, final FamiliarTool tool,
 		final ArenaOpponent opponent )
 	{
 		return FamiliarTrainingFrame.fightMatch( status, tool, opponent, tool.bestMatch() );
 	}
 
-	private static final int fightMatch( final FamiliarStatus status, final FamiliarTool tool,
+	private static int fightMatch( final FamiliarStatus status, final FamiliarTool tool,
 		final ArenaOpponent opponent, final int match )
 	{
 		// If user aborted, bail now
@@ -1520,7 +1520,7 @@ public class FamiliarTrainingFrame
 		return FamiliarTrainingFrame.badContest( request.responseText, match ) ? -1 : xp;
 	}
 
-	private static final boolean badContest( final String response, final int match )
+	private static boolean badContest( final String response, final int match )
 	{
 		// Look for special "this familiar sucks" message. Note the
 		// familiar can still win, even if such a message is present; a

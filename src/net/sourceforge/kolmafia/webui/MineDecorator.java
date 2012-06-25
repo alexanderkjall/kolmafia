@@ -50,7 +50,7 @@ public abstract class MineDecorator
 	private static final Pattern TD_PATTERN = Pattern.compile(
 		"<td.*?src=['\"](.*?)['\"].*?alt=['\"](.*?) \\(([\\d+]),([\\d+])\\)['\"].*?</td>" );
 
-	public static final void decorate( final String location, final StringBuffer buffer )
+	public static void decorate( final String location, final StringBuffer buffer )
 	{
 		// Replace difficult to see sparkles with more obvious images
 		StringUtilities.globalStringReplace( buffer,
@@ -107,7 +107,7 @@ public abstract class MineDecorator
 		m.appendTail( buffer );
 	}
 	
-	public static final void parseResponse( final String location, final String responseText )
+	public static void parseResponse( final String location, final String responseText )
 	{
 		if ( Preferences.getInteger( "lastMiningReset" ) != KoLCharacter.getAscensions() )
 		{

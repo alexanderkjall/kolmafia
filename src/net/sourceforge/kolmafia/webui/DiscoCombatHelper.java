@@ -245,7 +245,7 @@ public class DiscoCombatHelper
 	private static int counter = 0;
 	private static final int [] sequence = new int[3];
 
-	public static final void initialize()
+	public static void initialize()
 	{
 		DiscoCombatHelper.canCombo = KoLCharacter.getClassType().equals( KoLCharacter.DISCO_BANDIT );
 
@@ -352,7 +352,7 @@ public class DiscoCombatHelper
 		return rv;
 	}
 
-	private static final void checkCombo( final int combo )
+	private static void checkCombo( final int combo )
 	{
 		int [][] data = COMBO_SKILLS[ combo ];
 
@@ -478,7 +478,7 @@ public class DiscoCombatHelper
 		knownCombo[ combo ] = true;
 	}
 
-	public static final void learnSkill( final String name )
+	public static void learnSkill( final String name )
 	{
 		if ( !DiscoCombatHelper.canCombo )
 		{
@@ -508,7 +508,7 @@ public class DiscoCombatHelper
 		}
 	}
 
-	public static final void parseFightRound( final String action, final String responseText )
+	public static void parseFightRound( final String action, final String responseText )
 	{
 		if ( !DiscoCombatHelper.canCombo )
 		{
@@ -631,7 +631,7 @@ public class DiscoCombatHelper
 		}
 	}
 
-	private static final void learnRaveCombo( int combo )
+	private static void learnRaveCombo( int combo )
 	{
 		// Sanity check: we used three skills in a row
 		if ( DiscoCombatHelper.counter !=  3 )
@@ -673,7 +673,7 @@ public class DiscoCombatHelper
 		DiscoCombatHelper.checkCombo( RANDOM_RAVE );
 	}
 
-	private static final void learnRaveCombo( int combo, int skill1, int skill2, int skill3 )
+	private static void learnRaveCombo( int combo, int skill1, int skill2, int skill3 )
 	{
 		knownCombo[ combo ] = true;
 
@@ -689,7 +689,7 @@ public class DiscoCombatHelper
 		data[2][0] = skill3;
 	}
 
-	private static final boolean checkSequence( final int[][] data, final int offset )
+	private static boolean checkSequence( final int[][] data, final int offset )
 	{
 		// Compare the skill sequence (starting at offset) to a given
 		// combo.
@@ -715,7 +715,7 @@ public class DiscoCombatHelper
 		return true;
 	}
 	
-	private static final StringBuffer generateTable()
+	private static StringBuffer generateTable()
 	{
 		StringBuffer buffer = new StringBuffer();
 		int combos = 0;
@@ -805,7 +805,7 @@ public class DiscoCombatHelper
 		return buffer;
 	}
 
-	private static final void addComboButton( final StringBuffer buffer, final String name, int[] combo )
+	private static void addComboButton( final StringBuffer buffer, String name, int[] combo )
 	{
 		buffer.append( "<form method=POST action=\"fight.php\"><td>" );
 		buffer.append( "<input type=hidden name=\"action\" value=\"macro\">" );
@@ -832,7 +832,7 @@ public class DiscoCombatHelper
 		buffer.append( ">&nbsp;</td></form>" );
 	}
 
-	private static final void addDiscoButton( final StringBuffer buffer, final int skill, boolean isEnabled )
+	private static void addDiscoButton( final StringBuffer buffer, final int skill, boolean isEnabled )
 	{
 		String skillName = SKILLS[ skill ];
 		int skillId = SKILL_ID[ skill ];
@@ -866,7 +866,7 @@ public class DiscoCombatHelper
 		buffer.append( ">&nbsp;</td></form>" );
 	}
 
-	public static final void decorate( final StringBuffer buffer )
+	public static void decorate( final StringBuffer buffer )
 	{
 		// If you're not a Disco Bandit, nothing to do.
 		if ( !DiscoCombatHelper.canCombo )

@@ -161,22 +161,22 @@ public class UseItemRequest
 	protected static AdventureResult lastHelperUsed = null;
 	private static int currentItemId = -1;
 
-	public static final UseItemRequest getInstance( final int itemId )
+	public static UseItemRequest getInstance( final int itemId )
 	{
 		return UseItemRequest.getInstance( itemId, 1 );
 	}
 
-	public static final UseItemRequest getInstance( final int itemId, int itemCount )
+	public static UseItemRequest getInstance( final int itemId, int itemCount )
 	{
 		return UseItemRequest.getInstance( ItemPool.get( itemId, itemCount ) );
 	}
 
-	public static final UseItemRequest getInstance( final AdventureResult item )
+	public static UseItemRequest getInstance( final AdventureResult item )
 	{
 		return UseItemRequest.getInstance( UseItemRequest.getConsumptionType( item ), item );
 	}
 
-	public static final UseItemRequest getInstance( final int consumptionType, final AdventureResult item )
+	public static UseItemRequest getInstance( final int consumptionType, final AdventureResult item )
 	{
 		switch ( consumptionType )
 		{
@@ -212,7 +212,7 @@ public class UseItemRequest
 		this.addFormField( "whichitem", String.valueOf( item.getItemId() ) );
 	}
 
-	public static final int getConsumptionType( final AdventureResult item )
+	public static int getConsumptionType( final AdventureResult item )
 	{
 		int itemId = item.getItemId();
 		int attrs = ItemDatabase.getAttributes( itemId );
@@ -239,7 +239,7 @@ public class UseItemRequest
 		return ItemDatabase.getConsumptionType( itemId );
 	}
 
-	private static final String getConsumptionLocation( final int consumptionType, final AdventureResult item )
+	private static String getConsumptionLocation( final int consumptionType, final AdventureResult item )
 	{
 		switch ( consumptionType )
 		{
@@ -281,12 +281,12 @@ public class UseItemRequest
 		UseItemRequest.currentItemId = item.getItemId();
 	}
 
-	public static final int currentItemId()
+	public static int currentItemId()
 	{
 		return UseItemRequest.currentItemId;
 	}
 
-	private final boolean isBingeRequest()
+	private boolean isBingeRequest()
 	{
 		switch ( this.consumptionType )
 		{
@@ -351,25 +351,25 @@ public class UseItemRequest
 		return this.itemUsed;
 	}
 
-	public static final int maximumUses( final int itemId )
+	public static int maximumUses( final int itemId )
 	{
 		String itemName = ItemDatabase.getItemName( itemId );
 		return UseItemRequest.maximumUses( itemId, itemName, KoLConstants.NO_CONSUME, true );
 	}
 
-	public static final int maximumUses( final int itemId, final int consumptionType )
+	public static int maximumUses( final int itemId, final int consumptionType )
 	{
 		String itemName = ItemDatabase.getItemName( itemId );
 		return UseItemRequest.maximumUses( itemId, itemName, consumptionType, true );
 	}
 
-	public static final int maximumUses( final String itemName )
+	public static int maximumUses( final String itemName )
 	{
 		int itemId = ItemDatabase.getItemId( itemName );
 		return UseItemRequest.maximumUses( itemId, itemName, KoLConstants.NO_CONSUME, false );
 	}
 
-	private static final int maximumUses( final int itemId, final String itemName, final int consumptionType, final boolean allowOverDrink )
+	private static int maximumUses( final int itemId, final String itemName, final int consumptionType, final boolean allowOverDrink )
 	{
 		if ( FightRequest.inMultiFight() )
 		{
@@ -1218,17 +1218,17 @@ public class UseItemRequest
 		}
 	}
 
-	private static final boolean singleConsume( final int itemId, int consumptionType )
+	private static boolean singleConsume( final int itemId, int consumptionType )
 	{
 		return false;
 	}
 
-	private static final boolean sequentialConsume( final int itemId )
+	private static boolean sequentialConsume( final int itemId )
 	{
 		return false;
 	}
 
-	public static final boolean confirmReplacement( final String name )
+	public static boolean confirmReplacement( final String name )
 	{
 		if ( !GenericFrame.instanceExists() )
 		{
@@ -1431,7 +1431,7 @@ public class UseItemRequest
 		ResponseTextParser.learnRecipe( this.getURLString(), this.responseText );
 	}
 
-	public static final boolean parseBinge( final String urlString, final String responseText )
+	public static boolean parseBinge( final String urlString, final String responseText )
 	{
 		AdventureResult item = UseItemRequest.extractBingedItem( urlString );
 		if ( item == null )
@@ -1509,7 +1509,7 @@ public class UseItemRequest
 		UseItemRequest.parseConsumption( "", true );
 	}
 
-	public static final void parseConsumption( final String responseText, final boolean showHTML )
+	public static void parseConsumption( final String responseText, final boolean showHTML )
 	{
 		if ( UseItemRequest.lastItemUsed == null )
 		{
@@ -4082,7 +4082,7 @@ public class UseItemRequest
 		}
 	}
 
-	private static final String itemToSkill( final int itemId )
+	private static String itemToSkill( final int itemId )
 	{
 		switch ( itemId )
 		{
@@ -4255,7 +4255,7 @@ public class UseItemRequest
 		return null;
 	}
 
-	private static final String itemToClass( final int itemId )
+	private static String itemToClass( final int itemId )
 	{
 		switch ( itemId )
 		{
@@ -4282,7 +4282,7 @@ public class UseItemRequest
 		return null;
 	}
 
-	private static final void getEvilLevels( final String responseText )
+	private static void getEvilLevels( final String responseText )
 	{
 		int total = 0;
 		int alcove = 0;
@@ -4307,7 +4307,7 @@ public class UseItemRequest
 		Preferences.setInteger( "cyrptNookEvilness", nook );
 	}
 	
-	private static final void getBugbearBiodataLevels( String responseText )
+	private static void getBugbearBiodataLevels( String responseText )
 	{
 		int medbay = 0;
 		int wasteProcessing = 0;
@@ -4352,7 +4352,7 @@ public class UseItemRequest
 		return;
 	}
 
-	private static final void showItemUsage( final boolean showHTML, final String text )
+	private static void showItemUsage( final boolean showHTML, final String text )
 	{
 		if ( showHTML )
 		{
@@ -4361,7 +4361,7 @@ public class UseItemRequest
 		}
 	}
 
-	private static final String trimInventoryText( String text )
+	private static String trimInventoryText( String text )
 	{
 		// Get rid of first row of first table: the "Results" line
 		Matcher matcher = UseItemRequest.ROW_PATTERN.matcher( text );
@@ -4380,7 +4380,7 @@ public class UseItemRequest
 		return text;
 	}
 
-	public static final AdventureResult extractItem( final String urlString )
+	public static AdventureResult extractItem( final String urlString )
 	{
 		if ( !urlString.startsWith( "inv_use.php" ) &&
 		     !urlString.startsWith( "inv_eat.php" ) &&
@@ -4400,7 +4400,7 @@ public class UseItemRequest
 		return UseItemRequest.extractItem( urlString, true );
 	}
 
-	public static final AdventureResult extractItem( final String urlString, final boolean force )
+	public static AdventureResult extractItem( final String urlString, final boolean force )
 	{
 		Matcher itemMatcher = UseItemRequest.ITEMID_PATTERN.matcher( urlString );
 		if ( !itemMatcher.find() )
@@ -4431,7 +4431,7 @@ public class UseItemRequest
 		return new AdventureResult( itemId, itemCount );
 	}
 
-	public static final AdventureResult extractBingedItem( final String urlString )
+	public static AdventureResult extractBingedItem( final String urlString )
 	{
 		if ( !urlString.startsWith( "inventory.php" ) &&
 		     !urlString.startsWith( "familiarbinger.php" ) )
@@ -4457,7 +4457,7 @@ public class UseItemRequest
 		return new AdventureResult( itemId, itemCount );
 	}
 
-	private static final AdventureResult extractHelper( final String urlString )
+	private static AdventureResult extractHelper( final String urlString )
 	{
 		if ( !urlString.startsWith( "inv_eat.php" ) &&
 		     !urlString.startsWith( "inv_booze.php" ) &&	 
@@ -4469,7 +4469,7 @@ public class UseItemRequest
 		return UseItemRequest.extractHelper( urlString, true );
 	}
 
-	public static final AdventureResult extractHelper( final String urlString, final boolean force )
+	public static AdventureResult extractHelper( final String urlString, final boolean force )
 	{
 		Matcher helperMatcher = UseItemRequest.HELPER_PATTERN.matcher( urlString );
 		if ( !helperMatcher.find() )
@@ -4486,7 +4486,7 @@ public class UseItemRequest
 		return new AdventureResult( itemId, 1 );
 	}
 
-	public static final boolean registerBingeRequest( final String urlString )
+	public static boolean registerBingeRequest( final String urlString )
 	{
 		AdventureResult item = UseItemRequest.extractBingedItem( urlString );
 		if ( item == null )

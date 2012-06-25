@@ -195,7 +195,7 @@ public class IslandArenaRequest
 		RequestFrame.refreshStatus();
 	}
 
-	public static final void parseResponse( final String location, final String responseText )
+	public static void parseResponse( final String location, final String responseText )
 	{
 		if ( location.contains( "action=concert" ) )
 		{
@@ -203,7 +203,7 @@ public class IslandArenaRequest
 		}
 	}
 
-	public static final boolean registerRequest( final String location )
+	public static boolean registerRequest( final String location )
 	{
 		Matcher matcher = IslandArenaRequest.ID_PATTERN.matcher( location );
 

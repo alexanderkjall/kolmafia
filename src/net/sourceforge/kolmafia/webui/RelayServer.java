@@ -80,12 +80,12 @@ public class RelayServer
 		Preferences.setString( "lastRelayUpdate", StaticEntity.getVersion() );
 	}
 
-	public static final void updateStatus()
+	public static void updateStatus()
 	{
 		RelayServer.updateStatus = true;
 	}
 
-	public static final void startThread()
+	public static void startThread()
 	{
 		if ( RelayServer.relayThread != null )
 		{
@@ -97,17 +97,17 @@ public class RelayServer
 		RelayServer.relayThread.start();
 	}
 
-	public static final int getPort()
+	public static int getPort()
 	{
 		return RelayServer.port;
 	}
 
-	public static final boolean isRunning()
+	public static boolean isRunning()
 	{
 		return RelayServer.listening;
 	}
 
-	public static final void stop()
+	public static void stop()
 	{
 		RelayServer.listening = false;
 	}
@@ -222,7 +222,7 @@ public class RelayServer
 		agent.start();
 	}
 
-	public static final void addStatusMessage( final String message )
+	public static void addStatusMessage( final String message )
 	{
 		if ( System.currentTimeMillis() - RelayServer.lastStatusMessage < 4000 )
 		{
@@ -230,7 +230,7 @@ public class RelayServer
 		}
 	}
 
-	public static final String getNewStatusMessages()
+	public static String getNewStatusMessages()
 	{
 		if ( RelayServer.updateStatus )
 		{

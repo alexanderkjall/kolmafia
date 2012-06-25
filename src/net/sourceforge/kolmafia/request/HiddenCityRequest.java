@@ -175,7 +175,7 @@ public class HiddenCityRequest
 		super.run();
 	}
 
-	public static final void validateHiddenCity()
+	public static void validateHiddenCity()
 	{
 		int lastAscension = Preferences.getInteger( "lastHiddenCityAscension" );
 		if ( lastAscension < KoLCharacter.getAscensions() )
@@ -186,7 +186,7 @@ public class HiddenCityRequest
 		}
 	}
 
-	public static final String hiddenCityLayout()
+	public static String hiddenCityLayout()
 	{
 		HiddenCityRequest.validateHiddenCity();
 		String layout = Preferences.getString( "hiddenCityLayout" );
@@ -203,32 +203,32 @@ public class HiddenCityRequest
 		return square >= 1 && square <= 25;
 	}
 
-	public static final int lastHiddenCitySquare()
+	public static int lastHiddenCitySquare()
 	{
 		return HiddenCityRequest.lastSquare;
 	}
 
-	public static final int firstUnexploredRuins()
+	public static int firstUnexploredRuins()
 	{
 		String layout = HiddenCityRequest.hiddenCityLayout();
 		return HiddenCityRequest.firstUnexploredRuins( layout );
 	}
 
-	private static final int firstUnexploredRuins( final String layout )
+	private static int firstUnexploredRuins( final String layout )
 	{
 		int square = layout.indexOf( "0" );
 		// If there is no unexplored square, indexOf returns -1, we return 0
 		return square + 1;
 	}
 
-	private static final int firstNormalEncounter( final String layout )
+	private static int firstNormalEncounter( final String layout )
 	{
 		int square = layout.indexOf( "E" );
 		// If there is no normal encounter square, indexOf returns -1, we return 0
 		return square + 1;
 	}
 
-	private static final int firstProtectorSpirit( final String layout )
+	private static int firstProtectorSpirit( final String layout )
 	{
 		int square = layout.indexOf( "P" );
 		// If there is no undefeated protector spirit, indexOf returns -1, we return 0
@@ -254,7 +254,7 @@ public class HiddenCityRequest
 		}
 	}
 
-	public static final boolean parseResponse( final String location, final String responseText )
+	public static boolean parseResponse( final String location, final String responseText )
 	{
 		if ( location.equals( "hiddencity.php" ) )
 		{
@@ -308,7 +308,7 @@ public class HiddenCityRequest
 
 	private static final Pattern MAP_PATTERN = Pattern.compile( "<a href='hiddencity.php\\?which=(\\d+)'[^>]*><img.*?hiddencity/map_([^.]+).gif[^>]*></a>" );
 
-	private static final void parseCityMap( final String text )
+	private static void parseCityMap( final String text )
 	{
 		HiddenCityRequest.validateHiddenCity();
 
@@ -372,7 +372,7 @@ public class HiddenCityRequest
 		}
 	}
 
-	private static final void identifySquare( final String location, final String responseText )
+	private static void identifySquare( final String location, final String responseText )
 	{
 		int square = HiddenCityRequest.getSquare( location );
 		if ( !HiddenCityRequest.validSquare( square ) )
@@ -410,7 +410,7 @@ public class HiddenCityRequest
 		}
 	}
 
-	private static final int getSquare( final String urlString )
+	private static int getSquare( final String urlString )
 	{
 		Matcher matcher = HiddenCityRequest.WHICH_PATTERN.matcher( urlString );
 		if ( !matcher.find() )
@@ -421,12 +421,12 @@ public class HiddenCityRequest
 		return 1 + StringUtilities.parseInt( matcher.group( 1 ) );
 	}
 
-	private static final String currentAltar()
+	private static String currentAltar()
 	{
 		return HiddenCityRequest.currentAltar( HiddenCityRequest.lastSquare );
 	}
 
-	private static final String currentAltar( final int square )
+	private static String currentAltar( final int square )
 	{
 		if ( HiddenCityRequest.validSquare( square ) )
 		{
@@ -446,12 +446,12 @@ public class HiddenCityRequest
 		return "Altar";
 	}
 
-	public static final void addHiddenCityLocation( final char value )
+	public static void addHiddenCityLocation( final char value )
 	{
 		HiddenCityRequest.addHiddenCityLocation( HiddenCityRequest.lastSquare, value );
 	}
 
-	private static final void addHiddenCityLocation( final int square, final char value )
+	private static void addHiddenCityLocation( final int square, final char value )
 	{
 		if ( !HiddenCityRequest.validSquare( square ) )
 		{
@@ -475,12 +475,12 @@ public class HiddenCityRequest
 		Preferences.setString( "hiddenCityLayout", layout.toString() );
 	}
 
-	private static final char getHiddenCityLocation()
+	private static char getHiddenCityLocation()
 	{
 		return HiddenCityRequest.getHiddenCityLocation( HiddenCityRequest.lastSquare );
 	}
 
-	private static final char getHiddenCityLocation( final int square )
+	private static char getHiddenCityLocation( final int square )
 	{
 		if ( !HiddenCityRequest.validSquare( square ) )
 		{
@@ -491,7 +491,7 @@ public class HiddenCityRequest
 		return layout.charAt( square - 1 );
 	}
 
-	public static final String getHiddenCityLocationString( final String urlString )
+	public static String getHiddenCityLocationString( final String urlString )
 	{
 		if ( !urlString.startsWith( "hiddencity.php" ) )
 		{
@@ -508,7 +508,7 @@ public class HiddenCityRequest
 		return "Hidden City (Square " + square + ")";
 	}
 
-	public static final boolean recordToSession( final String urlString, final String redirect )
+	public static boolean recordToSession( final String urlString, final String redirect )
 	{
 		// If this wasn't a Hidden City request, nothing to do.
 		if ( !urlString.startsWith( "hiddencity.php" ) )
@@ -552,7 +552,7 @@ public class HiddenCityRequest
 	// encounter, they get logged as "[123] Hidden City (Square 16)"
 	// followed by an Encounter
 
-	public static final boolean registerRequest( final String urlString )
+	public static boolean registerRequest( final String urlString )
 	{
 		if ( !urlString.startsWith( "hiddencity.php" ) )
 		{

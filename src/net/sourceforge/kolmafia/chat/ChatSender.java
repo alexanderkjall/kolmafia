@@ -73,7 +73,7 @@ public class ChatSender
 		ChatSender.CHANNEL_COMMANDS.add( "/ann" );
 	}
 
-	public static final void executeMacro( String macro )
+	public static void executeMacro( String macro )
 	{
 		if ( !ChatSender.scriptedMessagesEnabled || !ChatManager.chatLiterate() )
 		{
@@ -100,7 +100,7 @@ public class ChatSender
 		}
 	}
 
-	public static final void sendMessage( String contact, String message, boolean channelRestricted )
+	public static void sendMessage( String contact, String message, boolean channelRestricted )
 	{
 		if ( !ChatManager.chatLiterate() )
 		{
@@ -128,7 +128,7 @@ public class ChatSender
 		}
 	}
 
-	public static final String sendMessage( List accumulatedMessages, String graf, boolean isRelayRequest, boolean channelRestricted )
+	public static String sendMessage( List accumulatedMessages, String graf, boolean isRelayRequest, boolean channelRestricted )
 	{
 		if ( !ChatManager.chatLiterate() )
 		{
@@ -185,7 +185,7 @@ public class ChatSender
 		return request.responseText;
 	}
 
-	public static final List sendRequest( ChatRequest request )
+	public static List sendRequest( ChatRequest request )
 	{
 		if ( !ChatManager.chatLiterate() )
 		{
@@ -233,7 +233,7 @@ public class ChatSender
 		return newMessages;
 	}
 
-	private static final List getGrafs( String contact, String message )
+	private static List getGrafs( String contact, String message )
 	{
 		List grafs = new LinkedList();
 
@@ -320,7 +320,7 @@ public class ChatSender
 		return grafs;
 	}
 
-	private static final String getGraf( String contact, String message )
+	private static String getGraf( String contact, String message )
 	{
 		String contactId = "[none]";
 
@@ -422,7 +422,7 @@ public class ChatSender
 		return graf;
 	}
 
-	private static final boolean executeCommand( String graf )
+	private static boolean executeCommand( String graf )
 	{
 		if ( graf == null )
 		{

@@ -188,7 +188,7 @@ public class ClanLoungeRequest
 		},
 	};
 
-	public static final int findPoolGame( String tag )
+	public static int findPoolGame( String tag )
 	{
 		if ( StringUtilities.isNumeric( tag ) )
 		{
@@ -224,7 +224,7 @@ public class ClanLoungeRequest
 		return 0;
 	}
 
-	public static final int findFaxOption( String tag )
+	public static int findFaxOption( String tag )
 	{
 		tag = tag.toLowerCase();
 		for ( int i = 0; i < FAX_OPTIONS.length; ++i )
@@ -246,7 +246,7 @@ public class ClanLoungeRequest
 		return 0;
 	}
 
-	public static final int findShowerOption( String tag )
+	public static int findShowerOption( String tag )
 	{
 		tag = tag.toLowerCase();
 		for ( int i = 0; i < SHOWER_OPTIONS.length; ++i )
@@ -268,7 +268,7 @@ public class ClanLoungeRequest
 		return 0;
 	}
 
-	public static final int findSwimmingOption( String tag )
+	public static int findSwimmingOption( String tag )
 	{
 		tag = tag.toLowerCase();
 		for ( int i = 0; i < SWIMMING_OPTIONS.length; ++i )
@@ -290,7 +290,7 @@ public class ClanLoungeRequest
 		return 0;
 	}
 
-	public static final String prettyStanceName( final int stance )
+	public static String prettyStanceName( final int stance )
 	{
 		switch ( stance )
 		{
@@ -304,7 +304,7 @@ public class ClanLoungeRequest
 		return "an unknown stance";
 	}
 
-	public static final String prettyFaxCommand( final int faxCommand )
+	public static String prettyFaxCommand( final int faxCommand )
 	{
 		switch ( faxCommand )
 		{
@@ -316,7 +316,7 @@ public class ClanLoungeRequest
 		return "Unknown fax command.";
 	}
 
-	public static final String prettyTemperatureName( final int temp )
+	public static String prettyTemperatureName( final int temp )
 	{
 		switch ( temp )
 		{
@@ -334,7 +334,7 @@ public class ClanLoungeRequest
 		return "an unknown";
 	}
 
-	public static final String prettySwimmingName( final int action )
+	public static String prettySwimmingName( final int action )
 	{
 		switch ( action )
 		{

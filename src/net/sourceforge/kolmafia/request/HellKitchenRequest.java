@@ -61,12 +61,12 @@ public class HellKitchenRequest
 		}
 	}
 
-	public static final boolean onMenu( final String name )
+	public static boolean onMenu( final String name )
 	{
 		return KoLConstants.kitchenItems.contains( name );
 	}
 
-	public static final void getMenu()
+	public static void getMenu()
 	{
 		KoLmafia.updateDisplay( "Visiting Hell's Kitchen..." );
 		KoLConstants.kitchenItems.clear();
@@ -79,7 +79,7 @@ public class HellKitchenRequest
 		KoLmafia.updateDisplay( "Menu retrieved." );
 	}
 
-	public static final void reset()
+	public static void reset()
 	{
 		CafeRequest.reset( KoLConstants.kitchenItems );
 	}

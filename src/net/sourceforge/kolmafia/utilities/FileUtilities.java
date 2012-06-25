@@ -63,22 +63,22 @@ public class FileUtilities
 {
 	private static final Pattern FILEID_PATTERN = Pattern.compile( "(\\d+)\\." );
 
-	public static final BufferedReader getReader( final String filename )
+	public static BufferedReader getReader( final String filename )
 	{
 		return FileUtilities.getReader( DataUtilities.getReader( UtilityConstants.DATA_DIRECTORY, filename ) );
 	}
 
-	public static final BufferedReader getReader( final File file )
+	public static BufferedReader getReader( final File file )
 	{
 		return FileUtilities.getReader( DataUtilities.getReader( file ) );
 	}
 
-	public static final BufferedReader getReader( final InputStream istream )
+	public static BufferedReader getReader( final InputStream istream )
 	{
 		return FileUtilities.getReader( DataUtilities.getReader( istream ) );
 	}
 
-	private static final BufferedReader getReader( final BufferedReader reader )
+	private static BufferedReader getReader( final BufferedReader reader )
 	{
 		String lastMessage = DataUtilities.getLastMessage();
 		if ( lastMessage != null )
@@ -88,7 +88,7 @@ public class FileUtilities
 		return reader;
 	}
 
-	public static final BufferedReader getVersionedReader( final String filename, final int version )
+	public static BufferedReader getVersionedReader( final String filename, final int version )
 	{
 		BufferedReader reader = FileUtilities.getReader( DataUtilities.getReader( UtilityConstants.DATA_DIRECTORY, filename, true ) );
 
@@ -138,7 +138,7 @@ public class FileUtilities
 		return reader;
 	}
 
-	public static final String readLine( final BufferedReader reader )
+	public static String readLine( final BufferedReader reader )
 	{
 		if ( reader == null )
 		{
@@ -170,7 +170,7 @@ public class FileUtilities
 		}
 	}
 
-	public static final String[] readData( final BufferedReader reader )
+	public static String[] readData( final BufferedReader reader )
 	{
 		if ( reader == null )
 		{
@@ -181,7 +181,7 @@ public class FileUtilities
 		return line == null ? null : line.split( "\t", -1 );
 	}
 
-	public static final boolean loadLibrary( final File parent, final String directory, final String filename )
+	public static boolean loadLibrary( final File parent, final String directory, final String filename )
 	{
 		// Next, load the icon which will be used by KoLmafia
 		// in the system tray.  For now, this will be the old
@@ -228,7 +228,7 @@ public class FileUtilities
 		return true;
 	}
 
-	public static final void downloadFile( final String remote, final File local )
+	public static void downloadFile( final String remote, final File local )
 	{
 		// Assume that a file with content is good
 		if ( local.exists() && local.length() > 0 )
@@ -306,7 +306,7 @@ public class FileUtilities
 	 * Downloads the given file from the KoL images server and stores it locally.
 	 */
 
-	public static final File downloadImage( final String filename )
+	public static File downloadImage( final String filename )
 	{
 		if ( filename == null || filename.equals( "" ) )
 		{

@@ -46,7 +46,7 @@ public class ProfileFrame
 		ProfileFrame.INSTANCE = this;
 	}
 
-	public static final void showRequest( final GenericRequest request )
+	public static void showRequest( final GenericRequest request )
 	{
 		if ( !GenericFrame.instanceExists() )
 		{

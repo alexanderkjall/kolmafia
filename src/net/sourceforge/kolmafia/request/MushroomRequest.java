@@ -76,7 +76,7 @@ public class MushroomRequest
 		MushroomRequest.parseResponse( this.getURLString(), this.responseText );
 	}
 
-	public static final void parseResponse( final String urlString, final String responseText )
+	public static void parseResponse( final String urlString, final String responseText )
 	{
 		if ( !urlString.startsWith( "knoll_mushrooms.php" ) )
 		{
@@ -114,7 +114,7 @@ public class MushroomRequest
 		return square >= 1 && square <= 16;
 	}
 
-	private static final int getSquare( final String urlString )
+	private static int getSquare( final String urlString )
 	{
 		Matcher matcher = MushroomRequest.SQUARE_PATTERN.matcher( urlString );
 		if ( !matcher.find() )
@@ -125,7 +125,7 @@ public class MushroomRequest
 		return 1 + StringUtilities.parseInt( matcher.group( 1 ) );
 	}
 
-	private static final int getSpore( final String urlString )
+	private static int getSpore( String urlString )
 	{
 		Matcher matcher = MushroomRequest.SPORE_PATTERN.matcher( urlString );
 		if ( !matcher.find() )
@@ -136,7 +136,7 @@ public class MushroomRequest
 		return StringUtilities.parseInt( matcher.group( 1 ) );
 	}
 
-	public static final boolean registerRequest( final String urlString )
+	public static boolean registerRequest( final String urlString )
 	{
 		if ( !urlString.startsWith( "knoll_mushrooms.php" ) )
 		{

@@ -77,7 +77,7 @@ public class UntinkerRequest
 	private int iterationsNeeded;
 	private AdventureResult item;
 
-	public static final void reset()
+	public static void reset()
 	{
 		UntinkerRequest.canUntinker = false;
 		UntinkerRequest.lastUserId = -1;
@@ -178,7 +178,7 @@ public class UntinkerRequest
 		UntinkerRequest.parseResponse( this.getURLString(), this.responseText );
 	}
 
-	public static final void parseResponse( final String location, final String responseText )
+	public static void parseResponse( final String location, final String responseText )
 	{
 		// Either place=untinker or action=untinker
 
@@ -224,7 +224,7 @@ public class UntinkerRequest
 		}
 	}
 
-	public static final boolean canUntinker()
+	public static boolean canUntinker()
 	{
 		if ( UntinkerRequest.lastUserId == KoLCharacter.getUserId() )
 		{
@@ -247,7 +247,7 @@ public class UntinkerRequest
 		return UntinkerRequest.canUntinker;
 	}
 
-	public static final boolean completeQuest()
+	public static boolean completeQuest()
 	{
 		// If the are in a muscle sign, this is a trivial task;
 		// just have them visit Innabox.
@@ -310,7 +310,7 @@ public class UntinkerRequest
 		return !UntinkerRequest.AVAILABLE_CHECKER.responseText.contains( "Degrassi Knoll" );
 	}
 
-	public static final void decorate( final String urlString, final StringBuffer buffer )
+	public static void decorate( final String urlString, final StringBuffer buffer )
 	{
 		// We decorate simple visits to the untinker and also
 		// accepting his quest
@@ -364,7 +364,7 @@ public class UntinkerRequest
 		buffer.insert( index + test.length(), link );
 	}
 
-	public static final boolean registerRequest( final String urlString )
+	public static boolean registerRequest( final String urlString )
 	{
 		// Either place=untinker or action=untinker
 

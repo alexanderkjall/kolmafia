@@ -65,7 +65,7 @@ import net.sourceforge.kolmafia.swingui.GearChangeFrame;
 
 public class ListCellRendererFactory
 {
-	public static final DefaultListCellRenderer getDefaultRenderer()
+	public static DefaultListCellRenderer getDefaultRenderer()
 	{
 		return new DefaultRenderer();
 	}
@@ -508,7 +508,7 @@ public class ListCellRendererFactory
 		}
 	}
 
-	public static final DefaultListCellRenderer getEquipmentPowerRenderer()
+	public static DefaultListCellRenderer getEquipmentPowerRenderer()
 	{
 		return new EquipmentPowerRenderer();
 	}
@@ -639,7 +639,7 @@ public class ListCellRendererFactory
 		}
 	}
 
-	public static final DefaultListCellRenderer getCreationQueueRenderer()
+	public static DefaultListCellRenderer getCreationQueueRenderer()
 	{
 		return new CreationQueueRenderer();
 	}
@@ -666,7 +666,7 @@ public class ListCellRendererFactory
 		}
 	}
 
-	public static final DefaultListCellRenderer getNameOnlyRenderer()
+	public static DefaultListCellRenderer getNameOnlyRenderer()
 	{
 		return new NameOnlyRenderer();
 	}
@@ -684,7 +684,7 @@ public class ListCellRendererFactory
 		}
 	}
 
-	public static final DefaultListCellRenderer getUsableEquipmentRenderer()
+	public static DefaultListCellRenderer getUsableEquipmentRenderer()
 	{
 		return new UsableEquipmentRenderer();
 	}
@@ -776,7 +776,7 @@ public class ListCellRendererFactory
 		}
 	}
 
-	public static final DefaultListCellRenderer getFamiliarEquipmentRenderer()
+	public static DefaultListCellRenderer getFamiliarEquipmentRenderer()
 	{
 		return new FamiliarEquipmentRenderer();
 	}
@@ -819,7 +819,7 @@ public class ListCellRendererFactory
 		}
 	}
 
-	public static final DefaultListCellRenderer getStorageRenderer()
+	public static DefaultListCellRenderer getStorageRenderer()
 	{
 		return new StorageRenderer();
 	}
@@ -931,7 +931,7 @@ public class ListCellRendererFactory
 		}
 	}
 
-	public static final DefaultListCellRenderer getFreePullsRenderer()
+	public static DefaultListCellRenderer getFreePullsRenderer()
 	{
 		return new FreePullsRenderer();
 	}
@@ -969,7 +969,7 @@ public class ListCellRendererFactory
 		}
 	}
 
-	public static final DefaultListCellRenderer getPulverizationRenderer()
+	public static DefaultListCellRenderer getPulverizationRenderer()
 	{
 		return new PulverizationRenderer();
 	}

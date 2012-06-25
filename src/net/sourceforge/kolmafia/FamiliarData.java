@@ -234,7 +234,7 @@ public class FamiliarData
 		return singleFamiliarRun > 0 && this.id != singleFamiliarRun;
 	}
 
-	public static final int getSingleFamiliarRun()
+	public static int getSingleFamiliarRun()
 	{
 		int singleFamiliarRun = Preferences.getInteger( "singleFamiliarRun" );
 
@@ -264,7 +264,7 @@ public class FamiliarData
 		return singleFamiliarRun;
 	}
 
-	private final void setWeight()
+	private void setWeight()
 	{
 		int max = this.id == FamiliarPool.STOCKING_MIMIC ? 100 : 20;
 		this.weight = Math.max( Math.min( max, (int) Math.sqrt( this.experience ) ), 1 );
@@ -295,7 +295,7 @@ public class FamiliarData
 		this.name = name;
 	}
 
-	private static final AdventureResult parseFamiliarItem( final int id, final String text )
+	private static AdventureResult parseFamiliarItem( final int id, final String text )
 	{
 		if ( !text.contains( "<img" ) )
 		{
@@ -317,7 +317,7 @@ public class FamiliarData
 		return ItemPool.get( itemName, 1 );
 	}
 
-	public static final void registerFamiliarData( final String responseText )
+	public static void registerFamiliarData( final String responseText )
 	{
 		// Assume he has no familiar
 		FamiliarData first = FamiliarData.NO_FAMILIAR;
@@ -369,7 +369,7 @@ public class FamiliarData
 		KoLCharacter.setEnthroned( hatseat );
 	}
 
-	public static final FamiliarData registerFamiliar( final int id, final int experience )
+	public static FamiliarData registerFamiliar( final int id, final int experience )
 	{
 		if ( id == 0 )
 		{
@@ -388,7 +388,7 @@ public class FamiliarData
 		return familiar;
 	}
 
-	public static final void checkLockedItem( final String responseText )
+	public static void checkLockedItem( final String responseText )
 	{
 		Matcher lockMatcher = FamiliarData.LOCK_PATTERN.matcher( responseText );
 		boolean locked = false;
@@ -552,7 +552,7 @@ public class FamiliarData
 		return Math.max( 1, cappedWeight );
 	}
 
-	public static final int itemWeightModifier( final int itemId )
+	public static int itemWeightModifier( final int itemId )
 	{
 		Modifiers mods = Modifiers.getModifiers( ItemDatabase.getItemName( itemId ) );
 		return mods == null ? 0 : (int) mods.get( Modifiers.FAMILIAR_WEIGHT );
@@ -821,7 +821,7 @@ public class FamiliarData
 		return null;
 	}
 
-	private static final boolean availableItem( AdventureResult item, boolean steal )
+	private static boolean availableItem( AdventureResult item, boolean steal )
 	{
 		if ( item.getCount( KoLConstants.inventory ) > 0 )
 		{
@@ -863,7 +863,7 @@ public class FamiliarData
 		return n * ( n + 1 ) / 2;
 	}
 
-	public static final DefaultListCellRenderer getRenderer()
+	public static DefaultListCellRenderer getRenderer()
 	{
 		return new FamiliarRenderer();
 	}

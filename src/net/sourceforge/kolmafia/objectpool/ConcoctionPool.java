@@ -115,7 +115,7 @@ public class ConcoctionPool
 	 * specified ingredient
 	 */
 
-	public static final Concoction findConcoction( final int mixingMethod, final int itemId, final int used )
+	public static Concoction findConcoction( final int mixingMethod, final int itemId, final int used )
 	{
 		int count = ConcoctionPool.cache.size();
 

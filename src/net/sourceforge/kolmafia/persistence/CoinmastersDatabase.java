@@ -79,37 +79,37 @@ public class CoinmastersDatabase
 	// Map from String -> Map from String -> Integer
 	public static final TreeMap sellPrices = new TreeMap();
 
-	public static final LockableListModel getItems( final String key )
+	public static LockableListModel getItems( final String key )
 	{
 		return (LockableListModel)CoinmastersDatabase.items.get( key );
 	}
 
-	public static final LockableListModel getBuyItems( final String key )
+	public static LockableListModel getBuyItems( final String key )
 	{
 		return (LockableListModel)CoinmastersDatabase.buyItems.get( key );
 	}
 
-	public static final Map getBuyPrices( final String key )
+	public static Map getBuyPrices( final String key )
 	{
 		return (Map)CoinmastersDatabase.buyPrices.get( key );
 	}
 
-	public static final Map getSellPrices( final String key )
+	public static Map getSellPrices( final String key )
 	{
 		return (Map)CoinmastersDatabase.sellPrices.get( key );
 	}
 
-	public static final LockableListModel getNewList()
+	public static LockableListModel getNewList()
 	{
 		return new LockableListModel();
 	}
 
-	public static final Map getNewMap()
+	public static Map getNewMap()
 	{
 		return new TreeMap();
 	}
 
-	private static final LockableListModel getOrMakeList( final String key, final Map map )
+	private static LockableListModel getOrMakeList( final String key, final Map map )
 	{
 		LockableListModel retval = (LockableListModel) map.get( key );
 		if ( retval == null )
@@ -120,7 +120,7 @@ public class CoinmastersDatabase
 		return retval;
 	}
 
-	private static final Map getOrMakeMap( final String key, final Map map )
+	private static Map getOrMakeMap( final String key, final Map map )
 	{
 		Map retval = (Map) map.get( key );
 		if ( retval == null )
@@ -131,7 +131,7 @@ public class CoinmastersDatabase
 		return retval;
 	}
 
-	public static final Map invert( final Map map )
+	public static Map invert( final Map map )
 	{
 		Map retval = CoinmastersDatabase.getNewMap();
 		Iterator it = map.entrySet().iterator();
@@ -197,7 +197,7 @@ public class CoinmastersDatabase
 		}
 	}
 
-	public static final int getPrice( final String name, final Map prices )
+	public static int getPrice( final String name, final Map prices )
 	{
 		if ( name == null )
 		{
@@ -207,7 +207,7 @@ public class CoinmastersDatabase
 		return ( price == null ) ? 0 : price;
 	}
 
-	public static final boolean availableItem( final String name )
+	public static boolean availableItem( final String name )
 	{
 		if ( name.equals( "a crimbo carol, ch. 1" ) )
 		{
@@ -257,7 +257,7 @@ public class CoinmastersDatabase
 		return true;
 	}
 
-	public static final void clearPurchaseRequests( CoinmasterData data )
+	public static void clearPurchaseRequests( CoinmasterData data )
 	{
 		// Clear all purchase requests for a particular Coin Master
 		Iterator it = CoinmastersDatabase.COINMASTER_ITEMS.values().iterator();
@@ -271,7 +271,7 @@ public class CoinmastersDatabase
 		}
 	}
 
-	public static final void registerPurchaseRequest( CoinmasterData data, int itemId, int price, int quantity )
+	public static void registerPurchaseRequest( CoinmasterData data, int itemId, int price, int quantity )
 	{
 		// Register a purchase request
 		CoinMasterPurchaseRequest request = new CoinMasterPurchaseRequest( data, itemId, price, quantity );
@@ -305,7 +305,7 @@ public class CoinmastersDatabase
 		}
 	}
 
-	public static final CoinMasterPurchaseRequest getPurchaseRequest( final String itemName )
+	public static CoinMasterPurchaseRequest getPurchaseRequest( final String itemName )
 	{
 		Integer id = IntegerPool.get( ItemDatabase.getItemId( itemName, 1, false ) );
 		CoinMasterPurchaseRequest request =  (CoinMasterPurchaseRequest) CoinmastersDatabase.COINMASTER_ITEMS.get(  id );
@@ -321,18 +321,18 @@ public class CoinmastersDatabase
 		return request;
 	}
 
-	public static final boolean contains( final String itemName )
+	public static boolean contains( final String itemName )
 	{
 		return CoinmastersDatabase.contains( itemName, true );
 	}
 
-	public static final int price( final String itemName )
+	public static int price( final String itemName )
 	{
 		PurchaseRequest request = CoinmastersDatabase.getPurchaseRequest( itemName );
 		return request == null ? 0 : request.getPrice();
 	}
 
-	public static final boolean contains( final String itemName, boolean validate )
+	public static boolean contains( final String itemName, boolean validate )
 	{
 		PurchaseRequest item = CoinmastersDatabase.getPurchaseRequest( itemName );
 		return item != null && ( !validate || item.canPurchase() );

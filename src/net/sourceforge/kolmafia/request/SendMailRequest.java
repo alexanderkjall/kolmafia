@@ -194,7 +194,7 @@ public class SendMailRequest
 		return true;
 	}
 
-	public static final boolean registerRequest( final String urlString )
+	public static boolean registerRequest( final String urlString )
 	{
 		if ( !urlString.startsWith( "sendmessage.php" ) ||
                 !urlString.contains( "action=send" ) )

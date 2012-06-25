@@ -88,7 +88,7 @@ public class AscensionHistoryRequest
 		this.ascensionData = new ArrayList();
 	}
 
-	public static final void setComparator( final boolean isSoftcoreComparator )
+	public static void setComparator( final boolean isSoftcoreComparator )
 	{
 		AscensionHistoryRequest.isSoftcoreComparator = isSoftcoreComparator;
 	}
@@ -395,7 +395,7 @@ public class AscensionHistoryRequest
 	 * already known.
 	 */
 
-	public static final AscensionHistoryRequest getInstance( final String playerName, final String playerId,
+	public static AscensionHistoryRequest getInstance( final String playerName, final String playerId,
 		final String responseText )
 	{
 		AscensionHistoryRequest instance = new AscensionHistoryRequest( playerName, playerId );
@@ -429,7 +429,7 @@ public class AscensionHistoryRequest
 		return this.ascensionData;
 	}
 
-	private static final String[] extractColumns( String rowData )
+	private static String[] extractColumns( String rowData )
 	{
 		rowData = rowData.replaceFirst( "</tr><td.*?>", "" );
 

@@ -108,7 +108,7 @@ public class FriarRequest
 		RequestFrame.refreshStatus();
 	}
 
-	public static final void parseResponse( final String location, final String responseText )
+	public static void parseResponse( final String location, final String responseText )
 	{
 		// No, seriously, you can only get one of those per day.
 		// Brother <name> smiles and rubs some ashes on your face.
@@ -121,7 +121,7 @@ public class FriarRequest
 		}
 	}
 
-	public static final boolean registerRequest( final String location )
+	public static boolean registerRequest( final String location )
 	{
 		if ( !location.startsWith( "friars.php" ) )
 		{

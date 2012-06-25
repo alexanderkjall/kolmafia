@@ -70,7 +70,7 @@ public class ArtistRequest
 		ArtistRequest.parseResponse( this.getURLString(), this.responseText );
 	}
 
-	public static final void parseResponse( final String location, final String responseText )
+	public static void parseResponse( final String location, final String responseText )
 	{
 		if ( !location.startsWith( "town_wrong.php" ) )
 		{
@@ -125,7 +125,7 @@ public class ArtistRequest
 		}
 	}
 
-	public static final boolean registerRequest( final String urlString )
+	public static boolean registerRequest( final String urlString )
 	{
 		if ( !urlString.startsWith( "town_wrong.php" ) )
 		{

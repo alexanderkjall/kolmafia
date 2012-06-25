@@ -59,17 +59,17 @@ public class ContactManager
 
 	private static ContactListFrame contactsFrame = null;
 
-	public static final boolean isMailContact( final String playerName )
+	public static boolean isMailContact( final String playerName )
 	{
 		return ContactManager.mailContacts.contains( playerName );
 	}
 
-	public static final SortedListModel getMailContacts()
+	public static SortedListModel getMailContacts()
 	{
 		return ContactManager.mailContacts;
 	}
 
-	public static final void clearMailContacts()
+	public static void clearMailContacts()
 	{
 		ContactManager.mailContacts.clear();
 	}
@@ -78,7 +78,7 @@ public class ContactManager
 	 * Replaces the current contact list with the given contact list. This is used after every call to /friends or /who.
 	 */
 
-	public static final void updateContactList( final String title, final Map contacts )
+	public static void updateContactList( final String title, final Map contacts )
 	{
 		if ( !ChatManager.isRunning() )
 		{
@@ -111,7 +111,7 @@ public class ContactManager
 		}
 	}
 
-	public static final void addMailContact( String playerName, final String playerId )
+	public static void addMailContact( String playerName, final String playerId )
 	{
 		ContactManager.registerPlayerId( playerName, playerId );
 
@@ -130,7 +130,7 @@ public class ContactManager
 	 * @param playerId The player Id associated with this player
 	 */
 
-	public static final void registerPlayerId( String playerName, final String playerId )
+	public static void registerPlayerId( String playerName, final String playerId )
 	{
 		if ( playerId.startsWith( "-" ) )
 		{
@@ -156,12 +156,12 @@ public class ContactManager
 	 *         and other elements encoded if the player's Id has not been seen.
 	 */
 
-	public static final String getPlayerId( final String playerName )
+	public static String getPlayerId( final String playerName )
 	{
 		return ContactManager.getPlayerId( playerName, false );
 	}
 
-	public static final String getPlayerId( final String playerName, boolean retrieveId )
+	public static String getPlayerId( final String playerName, boolean retrieveId )
 	{
 		if ( playerName == null )
 		{
@@ -193,7 +193,7 @@ public class ContactManager
 	 *         possible).
 	 */
 
-	public static final String getPlayerName( final String playerId )
+	public static String getPlayerName( final String playerId )
 	{
 		if ( playerId == null )
 		{

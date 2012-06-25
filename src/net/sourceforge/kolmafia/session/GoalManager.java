@@ -64,12 +64,12 @@ public class GoalManager
 
 	private static final LockableListModel goals = new LockableListModel();
 
-	public static final LockableListModel getGoals()
+	public static LockableListModel getGoals()
 	{
 		return GoalManager.goals;
 	}
 
-	public static final String getGoalString()
+	public static String getGoalString()
 	{
 		StringBuilder conditionString = new StringBuilder();
 
@@ -87,7 +87,7 @@ public class GoalManager
 		return conditionString.toString();
 	}
 
-	public static final void clearGoals()
+	public static void clearGoals()
 	{
 		GoalManager.goals.clear();
 		
@@ -97,32 +97,32 @@ public class GoalManager
 		}
 	}
 
-	public static final boolean hasGoals()
+	public static boolean hasGoals()
 	{
 		return !GoalManager.goals.isEmpty();
 	}
 
-	public static final boolean hasItemGoal( int itemId )
+	public static boolean hasItemGoal( int itemId )
 	{
 		return GoalManager.hasGoal( ItemPool.get( itemId, 1 ) );
 	}
 
-	public static final boolean hasGoal( AdventureResult goal )
+	public static boolean hasGoal( AdventureResult goal )
 	{
 		return GoalManager.goals.contains( goal );
 	}
 
-	public static final int getGoalCount( AdventureResult goal )
+	public static int getGoalCount( AdventureResult goal )
 	{
 		return goal.getCount( GoalManager.goals );
 	}
 
-	public static final void addItemGoal( int itemId, int count )
+	public static void addItemGoal( int itemId, int count )
 	{
 		GoalManager.addGoal( ItemPool.get( itemId, count ) );
 	}
 
-	public static final void addGoal( AdventureResult goal )
+	public static void addGoal( AdventureResult goal )
 	{
 		String goalName = goal.getName();
 		
@@ -148,12 +148,12 @@ public class GoalManager
 		}
 	}
 
-	public static final void setItemGoal( int itemId, int count )
+	public static void setItemGoal( int itemId, int count )
 	{
 		GoalManager.setGoal( ItemPool.get( itemId, count ) );
 	}
 
-	public static final void setGoal( AdventureResult goal )
+	public static void setGoal( AdventureResult goal )
 	{
 		String goalName = goal.getName();
 
@@ -217,7 +217,7 @@ public class GoalManager
 		GoalManager.addGoal( goal );
 	}
 
-	public static final void makeSideTrip( KoLAdventure location, AdventureResult goal )
+	public static void makeSideTrip( KoLAdventure location, AdventureResult goal )
 	{
 		List previousGoals = new ArrayList( GoalManager.goals );
 
@@ -236,7 +236,7 @@ public class GoalManager
 		GoalManager.goals.addAll( previousGoals );
 	}
 
-	public static final void checkAutoStop( String message )
+	public static void checkAutoStop( String message )
 	{
 		boolean hasOtherGoals = false;
 		
@@ -257,7 +257,7 @@ public class GoalManager
 		}
 	}
 
-	public static final void updateProgress( AdventureResult goal )
+	public static void updateProgress( AdventureResult goal )
 	{
 		int goalIndex = GoalManager.goals.indexOf( goal );
 

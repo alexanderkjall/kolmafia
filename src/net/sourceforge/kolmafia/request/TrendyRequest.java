@@ -171,7 +171,7 @@ public class TrendyRequest
 
 	public static final Pattern TRENDY_PATTERN = Pattern.compile( "<tr class=\"([^\"]*)\">.*?<td[^>]*>([^<]*)</td>.*?<td[^>]*>([^<]*)</td>.*?<td[^>]*>((?:[^<]*(?:(?!</t[dr]>)<))*[^<]*)</t[dr]>", Pattern.DOTALL );
 
-	public static final void parseResponse( final String location, final String responseText )
+	public static void parseResponse( final String location, final String responseText )
 	{
 		TrendyRequest.reset();
 
@@ -202,7 +202,7 @@ public class TrendyRequest
 		TrendyRequest.initialized = true;
 	}
 
-	public static final boolean registerRequest( final String urlString )
+	public static boolean registerRequest( final String urlString )
 	{
 		if ( !urlString.startsWith( "typeii.php" ) )
 		{

@@ -203,7 +203,7 @@ public class GenericRequest
 	 * user's proxy settings.
 	 */
 
-	public static final void applySettings()
+	public static void applySettings()
 	{
 		Properties systemProperties = System.getProperties();
 
@@ -248,13 +248,13 @@ public class GenericRequest
 		}
 	}
 
-	private static final void applyProxySettings()
+	private static void applyProxySettings()
 	{
 		GenericRequest.applyProxySettings( "http" );
 		GenericRequest.applyProxySettings( "https" );
 	}
 
-	private static final void applyProxySettings( String protocol )
+	private static void applyProxySettings( String protocol )
 	{
 		if ( System.getProperty( "os.name" ).startsWith( "Mac" ) )
 		{
@@ -310,7 +310,7 @@ public class GenericRequest
 		}
 	}
 
-	private static final boolean substringMatches( final String a, final String b )
+	private static boolean substringMatches( final String a, final String b )
 	{
 		return a.contains( b ) || b.contains( a );
 	}
@@ -322,7 +322,7 @@ public class GenericRequest
 	 * @param server The hostname of the server to be used.
 	 */
 
-	public static final void setLoginServer( final String server )
+	public static void setLoginServer( final String server )
 	{
 		if ( server == null )
 		{
@@ -339,7 +339,7 @@ public class GenericRequest
 		}
 	}
 
-	private static final void setLoginServer( final int serverIndex )
+	private static void setLoginServer( final int serverIndex )
 	{
 		GenericRequest.KOL_HOST = GenericRequest.SERVERS[ serverIndex ];
 
@@ -384,7 +384,7 @@ public class GenericRequest
 	 * @return The host name for the current server
 	 */
 
-	public static final String getRootHostName()
+	public static String getRootHostName()
 	{
 		return GenericRequest.KOL_HOST;
 	}
@@ -1108,7 +1108,7 @@ public class GenericRequest
 
 	public static final Pattern HOWMUCH_PATTERN = Pattern.compile( "howmuch=([^&]*)" );
 
-	public static final int getHowMuch( final String urlString )
+	public static int getHowMuch( final String urlString )
 	{
 		Matcher matcher = GenericRequest.HOWMUCH_PATTERN.matcher( urlString );
 		if ( matcher.find() )
@@ -1425,7 +1425,7 @@ public class GenericRequest
 		}
 	}
 
-	public static final boolean shouldIgnore( final GenericRequest request )
+	public static boolean shouldIgnore( final GenericRequest request )
 	{
 		String requestURL = GenericRequest.decodeField( request.formURLString );
 		return requestURL == null ||
@@ -2176,7 +2176,7 @@ public class GenericRequest
 	 * @param tokenCount The number of tokens to skip
 	 */
 
-	public static final void skipTokens( final StringTokenizer st, final int tokenCount )
+	public static void skipTokens( final StringTokenizer st, final int tokenCount )
 	{
 		for ( int i = 0; i < tokenCount; ++i )
 		{
@@ -2193,7 +2193,7 @@ public class GenericRequest
 	 * @return The integer token, if it exists, or 0, if the token was not a number
 	 */
 
-	public static final int intToken( final StringTokenizer st )
+	public static int intToken( final StringTokenizer st )
 	{
 		return GenericRequest.intToken( st, 0 );
 	}
@@ -2209,7 +2209,7 @@ public class GenericRequest
 	 * @return The integer token, if it exists, or 0, if the token was not a number
 	 */
 
-	public static final int intToken( final StringTokenizer st, final int fromStart )
+	public static int intToken( final StringTokenizer st, final int fromStart )
 	{
 		String token = st.nextToken().substring( fromStart );
 		return StringUtilities.parseInt( token );
@@ -2227,7 +2227,7 @@ public class GenericRequest
 	 * @return The integer token, if it exists, or 0, if the token was not a number
 	 */
 
-	public static final int intToken( final StringTokenizer st, final int fromStart, final int fromEnd )
+	public static int intToken( final StringTokenizer st, final int fromStart, final int fromEnd )
 	{
 		String token = st.nextToken();
 		token = token.substring( fromStart, token.length() - fromEnd );
@@ -2247,7 +2247,7 @@ public class GenericRequest
 		return 0;
 	}
 
-	private final void parseResults()
+	private void parseResults()
 	{
 		String urlString = this.getURLString();
 
@@ -2404,7 +2404,7 @@ public class GenericRequest
 		}
 	}
 
-	private static final void checkItemRedirection( final String location )
+	private static void checkItemRedirection( final String location )
 	{
 		AdventureResult item = UseItemRequest.extractItem( location );
 		GenericRequest.itemMonster = null;
@@ -2632,7 +2632,7 @@ public class GenericRequest
 		GenericRequest.itemMonster = itemName;
 	}
 
-	private static final AdventureResult sealRitualCandles( final int itemId )
+	private static AdventureResult sealRitualCandles( final int itemId )
 	{
 		switch ( itemId )
 		{
@@ -2702,7 +2702,7 @@ public class GenericRequest
 
 	private static String lastUserAgent = "";
 
-	public static final void saveUserAgent( final String agent )
+	public static void saveUserAgent( final String agent )
 	{
 		if ( !agent.equals( GenericRequest.lastUserAgent ) )
 		{
@@ -2711,7 +2711,7 @@ public class GenericRequest
 		}
 	}
 
-	public static final void setUserAgent()
+	public static void setUserAgent()
 	{
 		String agent = "";
 		if ( Preferences.getBoolean( "useLastUserAgent" ) )
@@ -2725,7 +2725,7 @@ public class GenericRequest
 		GenericRequest.setUserAgent( agent );
 	}
 
-	public static final void setUserAgent( final String agent )
+	public static void setUserAgent( final String agent )
 	{
 		if ( !agent.equals( GenericRequest.userAgent ) )
 		{

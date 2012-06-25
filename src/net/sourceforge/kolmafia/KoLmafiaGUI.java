@@ -97,7 +97,7 @@ public class KoLmafiaGUI
 	 * default look and feel of all <code>JFrame</code> objects to decorated.
 	 */
 
-	public static final void initialize()
+	public static void initialize()
 	{
 		KoLmafiaGUI session = new KoLmafiaGUI();
 		StaticEntity.setClient( session );
@@ -121,7 +121,7 @@ public class KoLmafiaGUI
 		}
 	}
 
-	public static final void checkFrameSettings()
+	public static void checkFrameSettings()
 	{
 		String frameSetting = Preferences.getString( "initialFrames" );
 		String desktopSetting = Preferences.getString( "initialDesktop" );
@@ -214,7 +214,7 @@ public class KoLmafiaGUI
 		LoginFrame.disposeInstance();
 	}
 
-	public static final void constructFrame( final String frameName )
+	public static void constructFrame( final String frameName )
 	{
 		if ( frameName.equals( "" ) )
 		{
@@ -257,7 +257,7 @@ public class KoLmafiaGUI
 		}
 	}
 
-	public static final void constructFrame( final Class frameClass )
+	public static void constructFrame( final Class frameClass )
 	{
 		// Now, test to see if any requests need to be run before
 		// you fall into the event dispatch thread.

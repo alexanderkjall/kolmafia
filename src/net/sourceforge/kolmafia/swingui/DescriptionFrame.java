@@ -54,12 +54,12 @@ public class DescriptionFrame
 		return false;
 	}
 
-	public static final void showLocation( final String location )
+	public static void showLocation( final String location )
 	{
 		DescriptionFrame.showRequest( RequestEditorKit.extractRequest( location ) );
 	}
 
-	public static final void showRequest( final GenericRequest request )
+	public static void showRequest( final GenericRequest request )
 	{
 		if ( DescriptionFrame.INSTANCE == null )
 		{

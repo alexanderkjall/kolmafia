@@ -99,7 +99,7 @@ public class NemesisDecorator
 		},
 	};
 
-	public static final void useGothyHandwave( final String monster, final String responseText )
+	public static void useGothyHandwave( final String monster, final String responseText )
 	{
 		String setting = null;
 
@@ -143,7 +143,7 @@ public class NemesisDecorator
 		Preferences.increment( setting, 1 );
 	}
 
-	private static final String [] findRaver( final String monster )
+	private static String [] findRaver( final String monster )
 	{
 		for ( int i = 0; i < NemesisDecorator.SPECIAL_MOVES.length; ++i )
 		{
@@ -158,7 +158,7 @@ public class NemesisDecorator
 		return null;
 	}
 
-	public static final String danceMoveStatus( final String monster )
+	public static String danceMoveStatus( final String monster )
 	{
 		NemesisManager.ensureUpdatedNemesisStatus();
 		String moves[] = NemesisDecorator.findRaver( monster );
@@ -185,7 +185,7 @@ public class NemesisDecorator
 		return null;
 	}
 
-	public static final void decorateRaverFight( final StringBuffer buffer )
+	public static void decorateRaverFight( final StringBuffer buffer )
 	{
 		NemesisManager.ensureUpdatedNemesisStatus();
 		String moves[] = NemesisDecorator.findRaver( FightRequest.getLastMonsterName() );
@@ -212,7 +212,7 @@ public class NemesisDecorator
 		}
 	}
 
-	private static final void decorateMove( final StringBuffer buffer, final String move )
+	private static void decorateMove( final StringBuffer buffer, final String move )
 	{
 		StringUtilities.singleStringReplace( buffer, move, "<font color=#DD00FF>" + move + "</font>" );
 	}

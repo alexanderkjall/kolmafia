@@ -93,7 +93,7 @@ public class ChatPoller
 		while ( ChatManager.isRunning() );
 	}
 
-	public static final void reset()
+	public static void reset()
 	{
 		ChatPoller.chatHistoryEntries.clear();
 
@@ -118,7 +118,7 @@ public class ChatPoller
 		ChatPoller.chatHistoryEntries.add( entry );
 	}
 
-	private static final void addValidEntry( final List newEntries, final HistoryEntry entry, final boolean isRelayRequest )
+	private static void addValidEntry( final List newEntries, final HistoryEntry entry, final boolean isRelayRequest )
 	{
 		if ( !( entry instanceof SentMessageEntry ) )
 		{
@@ -187,7 +187,7 @@ public class ChatPoller
 		return newEntries;
 	}
 
-	public static final String getRightClickMenu()
+	public static String getRightClickMenu()
 	{
 		if ( ChatPoller.rightClickMenu.equals( "" ) )
 		{

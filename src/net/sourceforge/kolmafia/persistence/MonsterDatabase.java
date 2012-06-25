@@ -130,7 +130,7 @@ public class MonsterDatabase
 		"undead",
 	};
 
-	public static final int elementNumber( final String name )
+	public static int elementNumber( final String name )
 	{
 		for ( int i = 0; i < MonsterDatabase.elementNames.length; ++i )
 		{
@@ -142,7 +142,7 @@ public class MonsterDatabase
 		return -1;
 	}
 
-	public static final int phylumNumber( final String name )
+	public static int phylumNumber( final String name )
 	{
 		for ( int i = 0; i < MonsterDatabase.phylumNames.length; ++i )
 		{
@@ -154,7 +154,7 @@ public class MonsterDatabase
 		return -1;
 	}
 
-	public static final boolean elementalVulnerability( final int element1, final int element2 )
+	public static boolean elementalVulnerability( final int element1, final int element2 )
 	{
 		switch ( element1 )
 		{
@@ -177,7 +177,7 @@ public class MonsterDatabase
 		MonsterDatabase.refreshMonsterTable();
 	}
 
-	public static final void refreshMonsterTable()
+	public static void refreshMonsterTable()
 	{
 		MonsterDatabase.MONSTER_DATA.clear();
 
@@ -235,7 +235,7 @@ public class MonsterDatabase
 		}
 	}
 
-	private static final AdventureResult parseItem( final String data )
+	private static AdventureResult parseItem( final String data )
 	{
 		String name = data;
 		int count = 0;
@@ -274,7 +274,7 @@ public class MonsterDatabase
 		return new AdventureResult( name, (count << 16) | prefix );
 	}
 
-	public static final MonsterData findMonster( final String name, boolean trySubstrings )
+	public static MonsterData findMonster( final String name, boolean trySubstrings )
 	{
 		String keyName = CombatActionManager.encounterKey( name, true );
 		MonsterData match = (MonsterData) MonsterDatabase.MONSTER_DATA.get( keyName );
@@ -309,19 +309,19 @@ public class MonsterDatabase
 	}
 
 	// Register an unknown monster
-	public static final MonsterData registerMonster( final String name )
+	public static MonsterData registerMonster( final String name )
 	{
 		MonsterData monster = MonsterDatabase.registerMonster( name, "" );
 		MonsterDatabase.MONSTER_DATA.put( name, monster );
 		return monster;
 	}
 
-	public static final Set entrySet()
+	public static Set entrySet()
 	{
 		return MonsterDatabase.MONSTER_DATA.entrySet();
 	}
 
-	public static final MonsterData registerMonster( final String name, final String s )
+	public static MonsterData registerMonster( final String name, final String s )
 	{
 		MonsterData monster = MonsterDatabase.findMonster( name, false );
 		if ( monster != null )
@@ -521,7 +521,7 @@ public class MonsterDatabase
 			attackElement, defenseElement, minMeat, maxMeat, phylum, poison, boss );
 	}
 
-	private static final Object parseNumeric( StringTokenizer tokens )
+	private static Object parseNumeric( StringTokenizer tokens )
 	{
 		if ( !tokens.hasMoreTokens() )
 		{
@@ -544,7 +544,7 @@ public class MonsterDatabase
 		return temp.substring( 1, temp.length() - 1 );
 	}
 
-	private static final int parseElement( final String s )
+	private static int parseElement( final String s )
 	{
 		if ( s.equals( "heat" ) )
 		{
@@ -573,7 +573,7 @@ public class MonsterDatabase
 		return MonsterDatabase.NONE;
 	}
 
-	private static final int parsePhylum( final String s )
+	private static int parsePhylum( final String s )
 	{
 		if ( s.equals( "beast" ) )
 		{

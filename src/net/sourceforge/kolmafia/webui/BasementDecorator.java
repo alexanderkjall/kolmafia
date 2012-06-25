@@ -66,7 +66,7 @@ import net.sourceforge.kolmafia.utilities.StringUtilities;
 
 public class BasementDecorator
 {
-	public static final void decorate( final StringBuffer buffer )
+	public static void decorate( final StringBuffer buffer )
 	{
 		addBasementButtons( buffer );
 
@@ -91,7 +91,7 @@ public class BasementDecorator
 		addBasementSpoilers( buffer );
 	}
 
-	private static final void addBasementButtons( final StringBuffer buffer )
+	private static void addBasementButtons( final StringBuffer buffer )
 	{
 		if ( !Preferences.getBoolean( "relayAddsCustomCombat" ) )
 		{
@@ -113,7 +113,7 @@ public class BasementDecorator
 		}
 	}
 
-	private static final void addBasementButton( final String parameter, final StringBuffer response,
+	private static void addBasementButton( final String parameter, final StringBuffer response,
 		final StringBuffer buffer, final String action, final boolean isEnabled )
 	{
 		buffer.append( "<input type=\"button\" onClick=\"" );
@@ -140,7 +140,7 @@ public class BasementDecorator
 		buffer.append( "\"" + ( isEnabled ? "" : " disabled" ) + ">&nbsp;" );
 	}
 
-	public static final void addBasementSpoilers( final StringBuffer buffer )
+	public static void addBasementSpoilers( final StringBuffer buffer )
 	{
 		if ( !BasementRequest.checkBasement( false, buffer.toString() ) )
 		{
@@ -277,7 +277,7 @@ public class BasementDecorator
 			"</td><td>&nbsp;&nbsp;&nbsp;&nbsp;</td><td><font id=\"spoiler\" size=2>" + checkString + "</font></td></tr></table>" );
 	}
 
-	private static final void addBasementChoiceSpoilers( final StringBuffer buffer, final String choice1,
+	private static void addBasementChoiceSpoilers( final StringBuffer buffer, final String choice1,
 		final String choice2 )
 	{
 		String text = buffer.toString();
@@ -305,7 +305,7 @@ public class BasementDecorator
 		buffer.append( text.substring( index1 ) );
 	}
 
-	private static final void appendBasementEffect( final StringBuffer changes, final StatBooster effect )
+	private static void appendBasementEffect( final StringBuffer changes, final StatBooster effect )
 	{
 		changes.append( "<option value=" );
 		changes.append( effect.getEffectiveBoost() );
@@ -442,7 +442,7 @@ public class BasementDecorator
 			}
 		}
 
-		public static final boolean moxieControlsMP()
+		public static boolean moxieControlsMP()
 		{
 			// With Moxie Magnet, uses Moxie, not Mysticality
 			if ( KoLCharacter.hasEquipped( MOXIE_MAGNET ) )

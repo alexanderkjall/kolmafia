@@ -257,7 +257,7 @@ public class PandamoniumRequest
 		PandamoniumRequest.parseResponse( this.getURLString(), this.responseText );
 	}
 
-	public static final boolean parseResponse( final String urlString, final String responseText )
+	public static boolean parseResponse( final String urlString, final String responseText )
 	{
 		if ( !urlString.startsWith( "pandamonium.php" ) )
 		{
@@ -372,7 +372,7 @@ public class PandamoniumRequest
 		return false;
 	}
 
-	public static final void decoratePandamonium( final String url, final StringBuffer buffer )
+	public static void decoratePandamonium( final String url, final StringBuffer buffer )
 	{
 		if ( !url.startsWith( "pandamonium.php" ) )
 		{
@@ -388,7 +388,7 @@ public class PandamoniumRequest
 	private static final String svenFormStart= "<form name=\"bandcamp\" method=\"post\" action=\"pandamonium.php\">";
 	private static final String svenFormEnd = "</form>";
 
-	private static final void decorateSven( final StringBuffer buffer )
+	private static void decorateSven( final StringBuffer buffer )
 	{
 		if ( !Preferences.getBoolean( "relayShowSpoilers" ) )
 		{
@@ -443,7 +443,7 @@ public class PandamoniumRequest
 		PandamoniumRequest.saveSvenResponse( buffer.toString() );
 	}
 
-	private static final void addBandmember( final StringBuffer form, final String name, final int item1, final int item2 )
+	private static void addBandmember( final StringBuffer form, final String name, final int item1, final int item2 )
 	{
 		form.append( "<tr><td> Give " );
 		form.append( name );
@@ -460,7 +460,7 @@ public class PandamoniumRequest
 		form.append( "</td></tr>" );
 	}
 
-	private static final void addItem( final StringBuffer form, final int itemId )
+	private static void addItem( final StringBuffer form, final int itemId )
 	{
 		AdventureResult item = ItemPool.get( itemId, 1 );
 		if ( item.getCount( KoLConstants.inventory ) > 0 )
@@ -477,13 +477,13 @@ public class PandamoniumRequest
 
 	private static String lastResponse = null;
 
-	public static final void saveSvenResponse( final String responseText )
+	public static void saveSvenResponse( final String responseText )
 	{
 		PandamoniumRequest.lastResponse = responseText;
 	}
 
 	private static final Pattern GIVE_PATTERN = Pattern.compile( "([^&=]*)=([^&]*)" );
-	public static final void solveSven( final String parameters )
+	public static void solveSven( final String parameters )
 	{
 		String response = PandamoniumRequest.lastResponse;
 
@@ -540,7 +540,7 @@ public class PandamoniumRequest
 		}
 	}
 
-	public static final boolean registerRequest( final String urlString )
+	public static boolean registerRequest( final String urlString )
 	{
 		if ( !urlString.startsWith( "pandamonium.php" ) )
 		{

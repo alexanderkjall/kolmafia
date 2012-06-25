@@ -867,7 +867,7 @@ public class ResultProcessor
 	 * inside of inventories and lots of other good stuff.
 	 */
 
-	public static final void tallyResult( final AdventureResult result, final boolean updateCalculatedLists )
+	public static void tallyResult( final AdventureResult result, final boolean updateCalculatedLists )
 	{
 		// Treat the result as normal from this point forward.
 		// Figure out which list the skill should be added to

@@ -963,12 +963,12 @@ public class Modifiers
 		return rv;
 	}
 
-	public static final Iterator getAllModifiers()
+	public static Iterator getAllModifiers()
 	{
 		return Modifiers.modifiersByName.keySet().iterator();
 	}
 
-	public static final void overrideModifier( String name, Object value )
+	public static void overrideModifier( String name, Object value )
 	{
 		name = StringUtilities.getCanonicalName( name );
 		if ( value != null )
@@ -981,32 +981,32 @@ public class Modifiers
 		}
 	}
 
-	public static final String getModifierName( final int index )
+	public static String getModifierName( final int index )
 	{
 		return Modifiers.modifierName( Modifiers.floatModifiers, index );
 	}
 
-	public static final String getBitmapModifierName( final int index )
+	public static String getBitmapModifierName( final int index )
 	{
 		return Modifiers.modifierName( Modifiers.bitmapModifiers, index );
 	}
 
-	public static final String getBooleanModifierName( final int index )
+	public static String getBooleanModifierName( final int index )
 	{
 		return Modifiers.modifierName( Modifiers.booleanModifiers, index );
 	}
 
-	public static final String getStringModifierName( final int index )
+	public static String getStringModifierName( final int index )
 	{
 		return Modifiers.modifierName( Modifiers.stringModifiers, index );
 	}
 
-	public static final String getDerivedModifierName( final int index )
+	public static String getDerivedModifierName( final int index )
 	{
 		return Modifiers.modifierName( Modifiers.derivedModifiers, index );
 	}
 
-	private static final String modifierName( final Object[][] table, final int index )
+	private static String modifierName( final Object[][] table, final int index )
 	{
 		if ( index < 0 || index >= table.length )
 		{
@@ -1015,7 +1015,7 @@ public class Modifiers
 		return (String) table[ index ][ 0 ];
 	};
 
-	private static final Object modifierDescPattern( final Object[][] table, final int index )
+	private static Object modifierDescPattern( final Object[][] table, final int index )
 	{
 		if ( index < 0 || index >= table.length )
 		{
@@ -1024,7 +1024,7 @@ public class Modifiers
 		return table[ index ][ 1 ];
 	};
 
-	private static final Pattern modifierTagPattern( final Object[][] table, final int index )
+	private static Pattern modifierTagPattern( final Object[][] table, final int index )
 	{
 		if ( index < 0 || index >= table.length )
 		{
@@ -1033,7 +1033,7 @@ public class Modifiers
 		return (Pattern) table[ index ][ 2 ];
 	};
 
-	private static final String modifierTag( final Object[][] table, final int index )
+	private static String modifierTag( final Object[][] table, final int index )
 	{
 		if ( index < 0 || index >= table.length )
 		{
@@ -1137,7 +1137,7 @@ public class Modifiers
 		return available;
 	}
 
-	private static final int findName( final Object[][] table, final String name )
+	private static int findName( final Object[][] table, final String name )
 	{
 		for ( int i = 0; i < table.length; ++i )
 		{
@@ -1149,12 +1149,12 @@ public class Modifiers
 		return -1;
 	};
 	
-	public static final int findName( String name )
+	public static int findName( String name )
 	{
 		return Modifiers.findName( Modifiers.floatModifiers, name );
 	}
 
-	public static final int findBooleanName( String name )
+	public static int findBooleanName( String name )
 	{
 		return Modifiers.findName( Modifiers.booleanModifiers, name );
 	}
@@ -1545,7 +1545,7 @@ public class Modifiers
 		}
 	}
 
-	public static final Modifiers getModifiers( String name )
+	public static Modifiers getModifiers( String name )
 	{
 		if ( name == null || name.equals( "" ) )
 		{
@@ -1843,7 +1843,7 @@ public class Modifiers
 		return false;
 	}
 
-	public static final float getNumericModifier( final String name, final String mod )
+	public static float getNumericModifier( final String name, final String mod )
 	{
 		Modifiers mods = Modifiers.getModifiers( name );
 		if ( mods == null )
@@ -1853,7 +1853,7 @@ public class Modifiers
 		return mods.get( mod );
 	}
 
-	public static final float getNumericModifier( final FamiliarData fam, final String mod, final int passedWeight, final AdventureResult item )
+	public static float getNumericModifier( final FamiliarData fam, final String mod, final int passedWeight, final AdventureResult item )
 	{
 		int familiarId = fam != null ? fam.getId() : -1;
 		if ( familiarId == -1 )
@@ -1879,7 +1879,7 @@ public class Modifiers
 		return tempMods.get( mod );
 	}
 
-	public static final boolean getBooleanModifier( final String name, final String mod )
+	public static boolean getBooleanModifier( final String name, final String mod )
 	{
 		Modifiers mods = Modifiers.getModifiers( name );
 		if ( mods == null )
@@ -1889,7 +1889,7 @@ public class Modifiers
 		return mods.getBoolean( mod );
 	}
 
-	public static final String getStringModifier( final String name, final String mod )
+	public static String getStringModifier( final String name, final String mod )
 	{
 		Modifiers mods = Modifiers.getModifiers( name );
 		if ( mods == null )
@@ -2081,7 +2081,7 @@ public class Modifiers
 		}
 	}
 	
-	public static final String getFamiliarEffect( final String itemName )
+	public static String getFamiliarEffect( final String itemName )
 	{
 		return (String) Modifiers.familiarEffectByName.get( 
 			StringUtilities.getCanonicalName( itemName ) );
@@ -2117,7 +2117,7 @@ public class Modifiers
 
 	private static final Pattern DR_PATTERN = Pattern.compile( "Damage Reduction: (<b>)?([+-]?\\d+)(</b>)?" );
 
-	public static final String parseDamageReduction( final String text )
+	public static String parseDamageReduction( final String text )
 	{
 		Matcher matcher = Modifiers.DR_PATTERN.matcher( text );
 		if ( matcher.find() )
@@ -2131,7 +2131,7 @@ public class Modifiers
 	private static final Pattern SINGLE_PATTERN =
 		Pattern.compile( "You may not equip more than one of this item at a time" );
 
-	public static final String parseSingleEquip( final String text )
+	public static String parseSingleEquip( final String text )
 	{
 		Matcher matcher = Modifiers.SINGLE_PATTERN.matcher( text );
 		if ( matcher.find() )
@@ -2145,7 +2145,7 @@ public class Modifiers
 	private static final Pattern SOFTCORE_PATTERN =
 		Pattern.compile( "This item cannot be equipped while in Hardcore" );
 
-	public static final String parseSoftcoreOnly( final String text )
+	public static String parseSoftcoreOnly( final String text )
 	{
 		Matcher matcher = Modifiers.SOFTCORE_PATTERN.matcher( text );
 		if ( matcher.find() )
@@ -2159,7 +2159,7 @@ public class Modifiers
 	private static final Pattern FREE_PULL_PATTERN =
 		Pattern.compile( "Free pull from Hagnk's" );
 
-	public static final String parseFreePull( final String text )
+	public static String parseFreePull( final String text )
 	{
 		Matcher matcher = Modifiers.FREE_PULL_PATTERN.matcher( text );
 		if ( matcher.find() )
@@ -2172,7 +2172,7 @@ public class Modifiers
 
 	private static final Pattern EFFECT_PATTERN = Pattern.compile( "Effect: <b><a[^>]*>([^<]*)</a></b>" );
 
-	public static final String parseEffect( final String text )
+	public static String parseEffect( final String text )
 	{
 		Matcher matcher = Modifiers.EFFECT_PATTERN.matcher( text );
 		if ( matcher.find() )
@@ -2185,7 +2185,7 @@ public class Modifiers
 
 	private static final Pattern DURATION_PATTERN = Pattern.compile( "Duration: <b>([\\d]*) Adventures</b>" );
 
-	public static final String parseDuration( final String text )
+	public static String parseDuration( final String text )
 	{
 		Matcher matcher = Modifiers.DURATION_PATTERN.matcher( text );
 		if ( matcher.find() )
@@ -2202,7 +2202,7 @@ public class Modifiers
 	private static final Pattern COMBAT_PATTERN = Pattern.compile( "Monsters will be (.*) attracted to you" );
 	private static final Pattern HP_MP_PATTERN = Pattern.compile( "^Maximum HP/MP ([+-]\\d+)$" );
 
-	public static final String parseModifier( final String enchantment )
+	public static String parseModifier( final String enchantment )
 	{
 		String result;
 
@@ -2311,7 +2311,7 @@ public class Modifiers
 		return null;
 	}
 
-	private static final String parseModifier( final Object[][] table, final String enchantment, final boolean quoted )
+	private static String parseModifier( final Object[][] table, final String enchantment, final boolean quoted )
 	{
 		String quote = quoted ? "\"" : "";
 		for ( int i = 0; i < table.length; ++i )
@@ -2357,7 +2357,7 @@ public class Modifiers
 	private static final Pattern REGEN_PATTERN =
 		Pattern.compile( "Regenerate (\\d*)-?(\\d*)? ([HM]P)( and .*)? per [aA]dventure$" );
 
-	private static final String parseRegeneration( final String enchantment )
+	private static String parseRegeneration( final String enchantment )
 	{
 		Matcher matcher = Modifiers.REGEN_PATTERN.matcher( enchantment );
 		if ( !matcher.find() )
@@ -2388,7 +2388,7 @@ public class Modifiers
 		return Modifiers.MP_REGEN_MIN_TAG + min + ", " + Modifiers.MP_REGEN_MAX_TAG + max;
 	}
 
-	private static final String parseResistance( final String enchantment )
+	private static String parseResistance( final String enchantment )
 	{
 		String level = "";
 
@@ -2450,7 +2450,7 @@ public class Modifiers
 		return null;
 	}
 
-	private static final boolean findModifier( final Object[][] table, final String tag )
+	private static boolean findModifier( final Object[][] table, final String tag )
 	{
 		for ( int i = 0; i < table.length; ++i )
 		{
@@ -2469,7 +2469,7 @@ public class Modifiers
 		return false;
 	}
 
-	public static final void checkModifiers()
+	public static void checkModifiers()
 	{
 		Object[] keys = Modifiers.modifiersByName.keySet().toArray();
 		for ( int i = 0; i < keys.length; ++i )
@@ -3014,7 +3014,7 @@ public class Modifiers
 		return "# " + name;
 	}
 
-	public static final void registerItem( final String name, final String text )
+	public static void registerItem( final String name, final String text )
 	{
 		// Examine the item description and decide what it is.
 		ArrayList unknown = new ArrayList();
@@ -3022,7 +3022,7 @@ public class Modifiers
 		Modifiers.registerObject( name, unknown, known );
 	}
 
-	public static final void registerEffect( final String name, final String text )
+	public static void registerEffect( final String name, final String text )
 	{
 		// Examine the item description and decide what it is.
 		ArrayList unknown = new ArrayList();
@@ -3030,7 +3030,7 @@ public class Modifiers
 		Modifiers.registerObject( name, unknown, known );
 	}
 
-	private static final void registerObject( final String name, final ArrayList unknown, final String known )
+	private static void registerObject( final String name, final ArrayList unknown, final String known )
 	{
 		for ( int i = 0; i < unknown.size(); ++i )
 		{

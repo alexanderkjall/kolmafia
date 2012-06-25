@@ -83,7 +83,7 @@ public class LogoutRequest
 		LogoutRequest.lastResponse = this.responseText;
 	}
 
-	public static final String getLastResponse()
+	public static String getLastResponse()
 	{
 		return LogoutRequest.lastResponse;
 	}

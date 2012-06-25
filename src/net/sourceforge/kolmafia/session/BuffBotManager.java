@@ -108,7 +108,7 @@ public abstract class BuffBotManager
 	 * Resets the buffbot's internal variables and reloads the appropriate variables from memory.
 	 */
 
-	public static final void loadSettings()
+	public static void loadSettings()
 	{
 		BuffBotManager.isInitializing = true;
 
@@ -164,7 +164,7 @@ public abstract class BuffBotManager
 	 * Returns the table of costs for each buff managed by this buffbot.
 	 */
 
-	public static final SortedListModel getBuffCostTable()
+	public static SortedListModel getBuffCostTable()
 	{
 		return BuffBotManager.buffCostTable;
 	}
@@ -174,7 +174,7 @@ public abstract class BuffBotManager
 	 * list of available buffs.
 	 */
 
-	public static final void addBuff( final String skillName, final int price, final int castCount )
+	public static void addBuff( final String skillName, final int price, final int castCount )
 	{
 		if ( price <= 0 || castCount <= 0 )
 		{
@@ -216,7 +216,7 @@ public abstract class BuffBotManager
 	 * An internal method which removes the list of selected buffs from the current mappings.
 	 */
 
-	public static final void removeBuffs( final Object[] buffs )
+	public static void removeBuffs( final Object[] buffs )
 	{
 		Offering toRemove;
 		boolean removedOne = false;
@@ -244,7 +244,7 @@ public abstract class BuffBotManager
 	 * An internal method which saves the list of buffs into the user-specific settings file.
 	 */
 
-	private static final void saveBuffs()
+	private static void saveBuffs()
 	{
 		if ( BuffBotManager.isInitializing )
 		{
@@ -302,7 +302,7 @@ public abstract class BuffBotManager
 	 * continue). On each pass, it gets all messages from the mailbox, then iterates on the mailbox.
 	 */
 
-	public static final void runBuffBot( final int iterations )
+	public static void runBuffBot( final int iterations )
 	{
 		BuffBotHome.loadSettings();
 
@@ -397,7 +397,7 @@ public abstract class BuffBotManager
 		BuffBotHome.setBuffBotActive( false );
 	}
 
-	public static final void runOnce()
+	public static void runOnce()
 	{
 		MailManager.getMessages( "Inbox" ).clear();
 		RequestThread.postRequest( new MailboxRequest( "Inbox" ) );
@@ -425,7 +425,7 @@ public abstract class BuffBotManager
 	 * messages do not result in refunds.
 	 */
 
-	private static final void queueOutgoingMessage( final String recipient, final String message,
+	private static void queueOutgoingMessage( final String recipient, final String message,
 		final AdventureResult result )
 	{
 		if ( BuffBotManager.sendList.isEmpty() )
@@ -438,7 +438,7 @@ public abstract class BuffBotManager
 	 * Queues an incoming message to be processed. This ensures that the message only appears on one list.
 	 */
 
-	public static final void queueIncomingMessage( final KoLMailMessage message, final boolean delete )
+	public static void queueIncomingMessage( final KoLMailMessage message, final boolean delete )
 	{
 		if ( !BuffBotManager.saveList.contains( message ) && !BuffBotManager.deleteList.contains( message ) )
 		{
@@ -458,7 +458,7 @@ public abstract class BuffBotManager
 	 * entity, this doesn't really matter, but it is convenient to have, from a style perspective.
 	 */
 
-	public static final KoLMailMessage addMessage( final String boxname, final String message )
+	public static KoLMailMessage addMessage( final String boxname, final String message )
 	{
 		KoLMailMessage success = MailManager.addMessage( boxname, message );
 
@@ -503,7 +503,7 @@ public abstract class BuffBotManager
 	 * Returns whether or not the given username exists on the current white list for restricted buffs.
 	 */
 
-	private static final boolean onWhiteList( final String userName )
+	private static boolean onWhiteList( final String userName )
 	{
 		return Collections.binarySearch( BuffBotManager.whiteList, userName.toLowerCase() ) > -1;
 	}
@@ -512,7 +512,7 @@ public abstract class BuffBotManager
 	 * Sends a refund for the given amount to the given user with the appropriate reason attached.
 	 */
 
-	private static final void sendRefund( final String recipient, final String reason, final int amount )
+	private static void sendRefund( final String recipient, final String reason, final int amount )
 	{
 		if ( BuffBotManager.sendList.isEmpty() )
 		{
@@ -528,7 +528,7 @@ public abstract class BuffBotManager
 	 * @return <code>true</code> if there is a donation
 	 */
 
-	private static final boolean containsDonation( final KoLMailMessage message )
+	private static boolean containsDonation( final KoLMailMessage message )
 	{
 		return message.getMessageHTML().contains( "You acquire" );
 	}
@@ -537,7 +537,7 @@ public abstract class BuffBotManager
 	 * Sends a thank you message to the given user, with the given message HTML quoted.
 	 */
 
-	private static final void sendThankYou( final String recipient, final String messageHTML )
+	private static void sendThankYou( final String recipient, final String messageHTML )
 	{
 		if ( BuffBotManager.sendList.isEmpty() && !BuffBotManager.thanksMessage.equals( "" ) )
 		{
@@ -550,7 +550,7 @@ public abstract class BuffBotManager
 		}
 	}
 
-	private static final Offering extractRequest( final KoLMailMessage message, final int meatSent )
+	private static Offering extractRequest( final KoLMailMessage message, final int meatSent )
 	{
 		Offering castList = (Offering) BuffBotManager.buffCostMap.get( IntegerPool.get( meatSent ) );
 
@@ -638,7 +638,7 @@ public abstract class BuffBotManager
 	 * applicable thank you messages.
 	 */
 
-	private static final void processMessage( final KoLMailMessage message )
+	private static void processMessage( final KoLMailMessage message )
 		throws Exception
 	{
 		// Now that you're guaranteed to be above the threshold,
@@ -742,7 +742,7 @@ public abstract class BuffBotManager
 		}
 	}
 
-	private static final boolean executeBuff( final Offering buff, final String recipient, final int meatSent )
+	private static boolean executeBuff( final Offering buff, String recipient, final int meatSent )
 	{
 		// If it's not a philanthropic buff, process the buff as
 		// normal (no need to slow down to verify).

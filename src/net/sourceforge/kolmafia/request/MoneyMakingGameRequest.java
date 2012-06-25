@@ -56,41 +56,41 @@ public class MoneyMakingGameRequest
 	public static final Pattern LOWER_PATTERN = Pattern.compile( "lower=(\\d*)" );
 	public static final Pattern HIGHER_PATTERN = Pattern.compile( "higher=(\\d*)" );
 
-	public static final String getLower( final String urlString )
+	public static String getLower( final String urlString )
 	{
 		Matcher matcher = LOWER_PATTERN.matcher( urlString );
 		return matcher.find() ? matcher.group(1) : null;
 	}
 
-	public static final String getHigher( final String urlString )
+	public static String getHigher( final String urlString )
 	{
 		Matcher matcher = HIGHER_PATTERN.matcher( urlString );
 		return matcher.find() ? matcher.group(1) : null;
 	}
 
-	public static final int parseInteger( final Pattern pattern, final String urlString )
+	public static int parseInteger( final Pattern pattern, final String urlString )
 	{
 		Matcher matcher = pattern.matcher( urlString );
 		return matcher.find() ? StringUtilities.parseInt( matcher.group(1) ) : -1;
 	}
 
-	public static final int getFrom( final String urlString )
+	public static int getFrom( final String urlString )
 	{
 		return MoneyMakingGameRequest.parseInteger( FROM_PATTERN, urlString );
 	}
 
-	public static final String getFromString( final String urlString )
+	public static String getFromString( final String urlString )
 	{
 		int from = getFrom( urlString );
 		return from == 0 ? "inventory" : from == 1 ? "storage" : null;
 	}
 
-	public static final int getWhichBet( final String urlString )
+	public static int getWhichBet( final String urlString )
 	{
 		return MoneyMakingGameRequest.parseInteger( WHICHBET_PATTERN, urlString );
 	}
 
-	public static final int getBetId( final String urlString )
+	public static int getBetId( final String urlString )
 	{
 		return MoneyMakingGameRequest.parseInteger( BETID_PATTERN, urlString );
 	}
@@ -276,7 +276,7 @@ public class MoneyMakingGameRequest
 		return null;
 	}
 
-	public static final void parseResponse( final String urlString, final String responseText, final boolean internal )
+	public static void parseResponse( final String urlString, final String responseText, final boolean internal )
 	{
 		if ( !urlString.startsWith( "bet.php" ) )
 		{
@@ -329,7 +329,7 @@ public class MoneyMakingGameRequest
 		}
 	}
 
-	public static final boolean registerRequest( final String urlString )
+	public static boolean registerRequest( final String urlString )
 	{
 		if ( !urlString.startsWith( "bet.php" ) )
 		{

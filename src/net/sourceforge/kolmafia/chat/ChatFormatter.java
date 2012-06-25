@@ -73,7 +73,7 @@ public class ChatFormatter
 
 	private static final HashMap chatColors = new HashMap();
 
-	public static final String formatInternalMessage( final String originalContent )
+	public static String formatInternalMessage( final String originalContent )
 	{
 		String normalizedContent = ChatFormatter.getNormalizedMessage( originalContent );
 
@@ -84,7 +84,7 @@ public class ChatFormatter
 		return noTableContent;
 	}
 
-	public static final String formatExternalMessage( final String originalContent )
+	public static String formatExternalMessage( final String originalContent )
 	{
 		String normalizedContent = ChatFormatter.getNormalizedMessage( originalContent );
 
@@ -99,7 +99,7 @@ public class ChatFormatter
 		return normalPrivateContent;
 	}
 
-	private static final String getNormalizedMessage( final String originalContent )
+	private static String getNormalizedMessage( final String originalContent )
 	{
 		if ( originalContent == null || originalContent.length() == 0 )
 		{
@@ -135,12 +135,12 @@ public class ChatFormatter
 		return leftAlignContent;
 	}
 
-	public static final String formatChatMessage( final ChatMessage message )
+	public static String formatChatMessage( final ChatMessage message )
 	{
 		return ChatFormatter.formatChatMessage( message, true );
 	}
 
-	public static final String formatChatMessage( final ChatMessage message, boolean includeTimestamp )
+	public static String formatChatMessage( final ChatMessage message, boolean includeTimestamp )
 	{
 		StringBuilder displayHTML = new StringBuilder();
 
@@ -237,7 +237,7 @@ public class ChatFormatter
 		return displayHTML.toString();
 	}
 
-	public static final String getChatColor( final String sender )
+	public static String getChatColor( final String sender )
 	{
 		if ( ChatFormatter.chatColors.containsKey( sender ) )
 		{
@@ -272,7 +272,7 @@ public class ChatFormatter
 		ChatFormatter.chatColors.put( sender, color );
 	}
 
-	public static final Color getRandomColor()
+	public static Color getRandomColor()
 	{
 		int[] colors = new int[ 3 ];
 
@@ -295,7 +295,7 @@ public class ChatFormatter
 	 * added.
 	 */
 
-	public static final void addHighlighting()
+	public static void addHighlighting()
 	{
 		String highlight =
 			InputFieldUtilities.input( "What word/phrase would you like to highlight?", KoLCharacter.getUserName() );
@@ -323,7 +323,7 @@ public class ChatFormatter
 	 * highlight at a time can be removed with this method.
 	 */
 
-	public static final void removeHighlighting()
+	public static void removeHighlighting()
 	{
 		Object[] patterns = StyledChatBuffer.searchStrings.toArray();
 

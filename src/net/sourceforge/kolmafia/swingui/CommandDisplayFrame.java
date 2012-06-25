@@ -86,12 +86,12 @@ public class CommandDisplayFrame
 		return true;
 	}
 
-	public static final boolean hasQueuedCommands()
+	public static boolean hasQueuedCommands()
 	{
 		return !CommandDisplayFrame.commandQueue.isEmpty();
 	}
 
-	public static final void executeCommand( final String command )
+	public static void executeCommand( final String command )
 	{
 		if ( command.length() == 0 )
 		{

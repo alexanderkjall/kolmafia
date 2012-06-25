@@ -114,7 +114,7 @@ public class StarChartRequest
 		}
 	}
 
-	public static final boolean parseCreation( final String urlString, final String responseText )
+	public static boolean parseCreation( final String urlString, final String responseText )
 	{
                 // Your stars and lines combine to form a new item!
 
@@ -141,7 +141,7 @@ public class StarChartRequest
 		return false;
 	}
 
-	public static final boolean registerRequest( final String urlString )
+	public static boolean registerRequest( final String urlString )
 	{
 		Matcher starMatcher = StarChartRequest.STAR_PATTERN.matcher( urlString );
 		Matcher lineMatcher = StarChartRequest.LINE_PATTERN.matcher( urlString );

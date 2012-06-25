@@ -444,7 +444,7 @@ public class MoodTrigger
 		this.stringForm.append( this.action );
 	}
 
-	public static final MoodTrigger constructNode( final String line )
+	public static MoodTrigger constructNode( final String line )
 	{
 		String[] pieces = CharacterEntities.unescape( line ).split( " => " );
 		if ( pieces.length != 2 )

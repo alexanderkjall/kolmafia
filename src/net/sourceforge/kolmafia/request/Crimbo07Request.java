@@ -85,7 +85,7 @@ public class Crimbo07Request
 		super.run();
 	}
 
-	public static final boolean registerRequest( final String urlString )
+	public static boolean registerRequest( final String urlString )
 	{
 		Matcher createMatcher = Crimbo07Request.CREATE_PATTERN.matcher( urlString );
 		if ( !createMatcher.find() )

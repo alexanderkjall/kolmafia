@@ -92,7 +92,7 @@ public class CurseRequest
 		CurseRequest.parseResponse( this.getURLString(), this.responseText );
 	}
 
-	public static final void parseResponse( final String location, final String responseText )
+	public static void parseResponse( final String location, final String responseText )
 	{
 		if ( !location.startsWith( "curse.php" ) )
 		{
@@ -157,7 +157,7 @@ public class CurseRequest
 			" at " + m.group( 1 ) );
 	}
 
-	public static final boolean registerRequest( final String urlString )
+	public static boolean registerRequest( final String urlString )
 	{
 		if ( !urlString.startsWith( "curse.php" ) )
 		{

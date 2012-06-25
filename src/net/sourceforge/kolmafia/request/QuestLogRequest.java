@@ -74,38 +74,38 @@ public class QuestLogRequest
 		super( "questlog.php" );
 	}
 
-	private static final boolean finishedQuest( final String pref )
+	private static boolean finishedQuest( final String pref )
 	{
 		return Preferences.getString( pref ).equals( QuestDatabase.FINISHED );
 	}
 
-	public static final boolean galaktikCuresAvailable()
+	public static boolean galaktikCuresAvailable()
 	{
 		return GalaktikRequest.getDiscount();
 	}
 
-	public static final boolean isDungeonOfDoomAvailable()
+	public static boolean isDungeonOfDoomAvailable()
 	{
 		return QuestLogRequest.dungeonOfDoomAvailable;
 	}
 
-	public static final void setDungeonOfDoomAvailable()
+	public static void setDungeonOfDoomAvailable()
 	{
 		QuestLogRequest.dungeonOfDoomAvailable = true;
 	}
 
-	public static final boolean isWhiteCitadelAvailable()
+	public static boolean isWhiteCitadelAvailable()
 	{
 		String pref = Preferences.getString( Quest.CITADEL.getPref() );
 		return pref.equals( QuestDatabase.FINISHED ) || pref.equals( "step5" ) || pref.equals( "step6" );
 	}
 
-	public static final boolean areFriarsAvailable()
+	public static boolean areFriarsAvailable()
 	{
 		return Preferences.getString( Quest.FRIAR.getPref() ).equals( QuestDatabase.FINISHED );
 	}
 
-	public static final boolean isBlackMarketAvailable()
+	public static boolean isBlackMarketAvailable()
 	{
 		if ( Preferences.getInteger( "lastWuTangDefeated" ) == KoLCharacter.getAscensions() )
 		{
@@ -116,7 +116,7 @@ public class QuestLogRequest
 		return pref.equals( QuestDatabase.FINISHED ) || pref.contains( "step" );
 	}
 
-	public static final boolean isHippyStoreAvailable()
+	public static boolean isHippyStoreAvailable()
 	{
 		return !Preferences.getString( Quest.ISLAND_WAR.getPref() ).equals( "step1" );
 	}
@@ -146,7 +146,7 @@ public class QuestLogRequest
 		return true;
 	}
 
-	public static final void registerQuests( final boolean isExternal, final String urlString, final String responseText )
+	public static void registerQuests( final boolean isExternal, final String urlString, final String responseText )
 	{
 		if ( !urlString.contains( "which=" ) )
 		{

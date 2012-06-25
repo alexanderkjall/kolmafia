@@ -570,7 +570,7 @@ public class Macrofier
 		}
 	}
 
-	public static final void macroUseAntidote( StringBuffer macro )
+	public static void macroUseAntidote( StringBuffer macro )
 	{
 		if ( !KoLConstants.inventory.contains( FightRequest.ANTIDOTE ) )
 		{

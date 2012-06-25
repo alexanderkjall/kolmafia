@@ -64,7 +64,7 @@ import net.sourceforge.kolmafia.utilities.StringUtilities;
 
 public class ValhallaDecorator
 {
-	public static final void decorateGashJump( final StringBuffer buffer )
+	public static void decorateGashJump( final StringBuffer buffer )
 	{
 		buffer.delete( buffer.indexOf( "<p>Are you" ), buffer.indexOf( "<p><center>" ) );
 		StringUtilities.singleStringReplace( buffer, "<p>Please", " Please" );
@@ -124,7 +124,7 @@ public class ValhallaDecorator
 		return;
 	}
 
-	public static final void decorateAfterLife( final String location, final StringBuffer buffer )
+	public static void decorateAfterLife( final String location, final StringBuffer buffer )
 	{
 		if ( !location.startsWith( "afterlife.php" ) )
 		{
@@ -133,7 +133,7 @@ public class ValhallaDecorator
 	}
 
 	// The following is obsolete
-	private static final void decorateOldAfterlife( final String location, final StringBuffer buffer )
+	private static void decorateOldAfterlife( final String location, final StringBuffer buffer )
 	{
 		// What we're going to do is kill the standard form and replace
 		// it with one that requires a lot less scrolling while still
@@ -321,7 +321,7 @@ public class ValhallaDecorator
 		buffer.append( suffix );
 	}
 
-	private static final void createSkillTable( final StringBuffer buffer, final ArrayList skillList )
+	private static void createSkillTable( final StringBuffer buffer, final ArrayList skillList )
 	{
 		buffer.append( "<table width=\"80%\"><tr>" );
 		buffer.append( "<td valign=\"top\" bgcolor=\"#ffcccc\"><table><tr><th style=\"text-decoration: underline; text-align: left;\">Muscle Skills</th></tr><tr><td><font size=\"-1\">" );
@@ -339,7 +339,7 @@ public class ValhallaDecorator
 		buffer.append( "</tr></table>" );
 	}
 
-	private static final void listPermableSkills( final StringBuffer buffer, final ArrayList unpermedSkills )
+	private static void listPermableSkills( final StringBuffer buffer, final ArrayList unpermedSkills )
 	{
 		for ( int i = 0; i < unpermedSkills.size(); ++i )
 		{
@@ -363,7 +363,7 @@ public class ValhallaDecorator
 		}
 	}
 
-	private static final void listPermanentSkills( final StringBuffer buffer, final ArrayList skillList, final int startingPoint )
+	private static void listPermanentSkills( final StringBuffer buffer, final ArrayList skillList, final int startingPoint )
 	{
 		for ( int i = 0; i < 100; ++i )
 		{
@@ -410,7 +410,7 @@ public class ValhallaDecorator
 		}
 	}
 
-	private static final void listCommonTasks( final StringBuffer buffer )
+	private static void listCommonTasks( final StringBuffer buffer )
 	{
 		RelayRequest.redirectedCommandURL = "/ascend.php";
 
@@ -528,7 +528,7 @@ public class ValhallaDecorator
 		buffer.append( " key lime</a></nobr><br />" );
 	}
 
-	private static final void developerGift( final StringBuffer buffer, final int itemId, final String developer )
+	private static void developerGift( final StringBuffer buffer, final int itemId, final String developer )
 	{
 		int giftCount = InventoryManager.getAccessibleCount( itemId );
 		if ( giftCount <= 0 )
@@ -558,7 +558,7 @@ public class ValhallaDecorator
 		buffer.append( "</a></nobr><br>" );
 	}
 
-	private static final void switchSeeds( final StringBuffer buffer )
+	private static void switchSeeds( final StringBuffer buffer )
 	{
 		boolean havePumpkin = InventoryManager.hasItem( ItemPool.PUMPKIN_SEEDS );
 		boolean havePeppermint = InventoryManager.hasItem( ItemPool.PEPPERMINT_PACKET );

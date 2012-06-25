@@ -121,7 +121,7 @@ public class MoneyMakingGameManager
 		}
 	}
 
-	public static final Bet getLastBet()
+	public static Bet getLastBet()
 	{
 		synchronized ( MoneyMakingGameManager.lock )
 		{
@@ -129,7 +129,7 @@ public class MoneyMakingGameManager
 		}
 	}
 
-	public static final int getLastBetId()
+	public static int getLastBetId()
 	{
 		synchronized ( MoneyMakingGameManager.lock )
 		{
@@ -138,7 +138,7 @@ public class MoneyMakingGameManager
 		}
 	}
 
-	private static final int [] getBets( final List list )
+	private static int [] getBets( final List list )
 	{
 		Iterator it = list.iterator();
 		int [] bets = new int[ list.size() ];
@@ -151,7 +151,7 @@ public class MoneyMakingGameManager
 		return bets;
 	}
 
-	private static final Bet findBet( final int id, List list )
+	private static Bet findBet( final int id, List list )
 	{
 		Iterator it = list.iterator();
 		int index = 0;
@@ -166,7 +166,7 @@ public class MoneyMakingGameManager
 		return null;
 	}
 
-	public static final int [] getOfferedBets()
+	public static int [] getOfferedBets()
 	{
 		synchronized ( MoneyMakingGameManager.lock )
 		{
@@ -174,7 +174,7 @@ public class MoneyMakingGameManager
 		}
 	}
 
-	public static final void parseOfferedBets( final String responseText )
+	public static void parseOfferedBets( final String responseText )
 	{
 		synchronized ( MoneyMakingGameManager.lock )
 		{
@@ -198,7 +198,7 @@ public class MoneyMakingGameManager
 		}
 	}
 
-	public static final int [] getActiveBets()
+	public static int [] getActiveBets()
 	{
 		synchronized ( MoneyMakingGameManager.lock )
 		{
@@ -206,7 +206,7 @@ public class MoneyMakingGameManager
 		}
 	}
 
-	public static final void parseMyBets( final String responseText, final boolean internal )
+	public static void parseMyBets( final String responseText, final boolean internal )
 	{
 		synchronized ( MoneyMakingGameManager.lock )
 		{
@@ -271,7 +271,7 @@ public class MoneyMakingGameManager
 		}
 	}
 
-	private static final void handleTakenBet( final Bet bet )
+	private static void handleTakenBet( final Bet bet )
 	{
 		Event ev = MoneyMakingGameManager.findMatchingEvent( bet.getAmount() );
 		if ( ev != null )
@@ -284,7 +284,7 @@ public class MoneyMakingGameManager
 		}
 	}
 
-	private static final void resolveEvent( final Event ev, final Bet bet )
+	private static void resolveEvent( final Event ev, final Bet bet )
 	{
 		// A bet which is not internally generated was placed in the
 		// Relay Browser, not via a request from an ASH script.
@@ -304,7 +304,7 @@ public class MoneyMakingGameManager
 		}
 	}
 
-	private static final Bet findBet( final int id )
+	private static Bet findBet( final int id )
 	{
 		Bet bet = MoneyMakingGameManager.findBet( id, offered );
 		if ( bet != null )
@@ -329,7 +329,7 @@ public class MoneyMakingGameManager
 		return null;
 	}
 
-	public static final String betOwner( final int id )
+	public static String betOwner( final int id )
 	{
 		synchronized ( MoneyMakingGameManager.lock )
 		{
@@ -338,7 +338,7 @@ public class MoneyMakingGameManager
 		}
 	}
 
-	public static final int betOwnerId( final int id )
+	public static int betOwnerId( final int id )
 	{
 		synchronized ( MoneyMakingGameManager.lock )
 		{
@@ -347,7 +347,7 @@ public class MoneyMakingGameManager
 		}
 	}
 
-	public static final int betAmount( final int id )
+	public static int betAmount( final int id )
 	{
 		synchronized ( MoneyMakingGameManager.lock )
 		{
@@ -356,7 +356,7 @@ public class MoneyMakingGameManager
 		}
 	}
 
-	public static final void makeBet( final String responseText )
+	public static void makeBet( final String responseText )
 	{
 		synchronized ( MoneyMakingGameManager.lock )
 		{
@@ -380,7 +380,7 @@ public class MoneyMakingGameManager
 		}
 	}
 
-	public static final void retractBet( final String urlString, final String responseText )
+	public static void retractBet( final String urlString, final String responseText )
 	{
 		synchronized ( MoneyMakingGameManager.lock )
 		{
@@ -426,7 +426,7 @@ public class MoneyMakingGameManager
 		}
 	}
 
-	public static final void takeBet( final String urlString, final String responseText )
+	public static void takeBet( final String urlString, final String responseText )
 	{
 		synchronized ( MoneyMakingGameManager.lock )
 		{
@@ -496,7 +496,7 @@ public class MoneyMakingGameManager
 		}
 	}
 
-	public static final int getLastWinnings()
+	public static int getLastWinnings()
 	{
 		synchronized ( MoneyMakingGameManager.lock )
 		{
@@ -504,7 +504,7 @@ public class MoneyMakingGameManager
 		}
 	}
 
-	public static final void processEvent( final String eventText )
+	public static void processEvent( final String eventText )
 	{
 		synchronized ( MoneyMakingGameManager.lock )
 		{
@@ -575,7 +575,7 @@ public class MoneyMakingGameManager
 		}
 	}
 
-	private static final Event findMatchingEvent( final int amount )
+	private static Event findMatchingEvent( final int amount )
 	{
 		Iterator it = MoneyMakingGameManager.received.iterator();
 		while ( it.hasNext() )
@@ -590,7 +590,7 @@ public class MoneyMakingGameManager
 		return null;
 	}
 
-	private static final Bet findMatchingBet( final int amount, final List list )
+	private static Bet findMatchingBet( final int amount, final List list )
 	{
 		Iterator it = list.iterator();
 		while ( it.hasNext() )
@@ -607,7 +607,7 @@ public class MoneyMakingGameManager
 	private static final GenericRequest VISIT = new MoneyMakingGameRequest();
 	private static final GenericRequest MAIN = new GenericRequest( "main.php" );
 
-	public static final int getNextEvent( final int ms )
+	public static int getNextEvent( final int ms )
 	{
 		// Wait up to specified number of seconds to get an event.
 		// Return bet ID, or 0 if timeout
@@ -687,7 +687,7 @@ public class MoneyMakingGameManager
 		}
 	}
 
-	public static final Event getLastEvent()
+	public static Event getLastEvent()
 	{
 		synchronized ( MoneyMakingGameManager.lock )
 		{
@@ -695,7 +695,7 @@ public class MoneyMakingGameManager
 		}
 	}
 
-	public static final Bet getLastEventBet()
+	public static Bet getLastEventBet()
 	{
 		synchronized ( MoneyMakingGameManager.lock )
 		{
@@ -704,7 +704,7 @@ public class MoneyMakingGameManager
 		}
 	}
 
-	public static final int getLastEventBetId()
+	public static int getLastEventBetId()
 	{
 		synchronized ( MoneyMakingGameManager.lock )
 		{
@@ -713,7 +713,7 @@ public class MoneyMakingGameManager
 		}
 	}
 
-	public static final String getLastEventPlayer()
+	public static String getLastEventPlayer()
 	{
 		synchronized ( MoneyMakingGameManager.lock )
 		{
@@ -722,7 +722,7 @@ public class MoneyMakingGameManager
 		}
 	}
 
-	public static final int getLastEventPlayerId()
+	public static int getLastEventPlayerId()
 	{
 		synchronized ( MoneyMakingGameManager.lock )
 		{
@@ -731,7 +731,7 @@ public class MoneyMakingGameManager
 		}
 	}
 
-	public static final int getLastEventWinnings()
+	public static int getLastEventWinnings()
 	{
 		synchronized ( MoneyMakingGameManager.lock )
 		{

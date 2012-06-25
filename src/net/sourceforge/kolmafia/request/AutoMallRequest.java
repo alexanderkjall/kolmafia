@@ -165,7 +165,7 @@ public class AutoMallRequest
 		return AutoMallRequest.parseTransfer( this.getURLString(), this.responseText );
     }
 
-	public static final boolean parseTransfer( final String urlString, final String responseText )
+	public static boolean parseTransfer( final String urlString, final String responseText )
 	{
 		if ( !urlString.contains( "action=additem" ) )
 		{
@@ -222,7 +222,7 @@ public class AutoMallRequest
 		return "Transferring items to store";
 	}
 
-	public static final boolean registerRequest( final String urlString )
+	public static boolean registerRequest( final String urlString )
 	{
 		Pattern itemPattern = null;
 		Pattern quantityPattern = null;

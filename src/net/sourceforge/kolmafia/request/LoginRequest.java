@@ -188,7 +188,7 @@ public class LoginRequest
 		return true;
 	}
 
-	private static final String digestPassword( final String password, final String challenge )
+	private static String digestPassword( final String password, final String challenge )
 		throws Exception
 	{
 		// KoL now makes use of a HMAC-MD5 in order to preprocess the
@@ -206,7 +206,7 @@ public class LoginRequest
 		return hash2;
 	}
 
-	private static final String getHexString( final byte[] bytes )
+	private static String getHexString( final byte[] bytes )
 	{
 		byte[] nonNegativeBytes = new byte[ bytes.length + 1 ];
 		System.arraycopy( bytes, 0, nonNegativeBytes, 1, bytes.length );
@@ -322,7 +322,7 @@ public class LoginRequest
 		KoLmafia.updateDisplay( MafiaState.ABORT, "Encountered error in login." );
 	}
 
-	public static final boolean executeTimeInRequest( final String requestLocation, final String redirectLocation )
+	public static boolean executeTimeInRequest( final String requestLocation, final String redirectLocation )
 	{
 		if ( LoginRequest.lastRequest == null || LoginRequest.isTimingIn )
 		{
@@ -352,22 +352,22 @@ public class LoginRequest
 		return LoginRequest.completedLogin;
 	}
 
-	public static final void isLoggingIn( final boolean isLoggingIn )
+	public static void isLoggingIn( final boolean isLoggingIn )
 	{
 		LoginRequest.isLoggingIn = isLoggingIn;
 	}
 
-	public static final boolean isInstanceRunning()
+	public static boolean isInstanceRunning()
 	{
 		return LoginRequest.isLoggingIn;
 	}
 
-	public static final boolean completedLogin()
+	public static boolean completedLogin()
 	{
 		return LoginRequest.completedLogin;
 	}
 
-	public static final void processLoginRequest( final GenericRequest request )
+	public static void processLoginRequest( final GenericRequest request )
 	{
 		if ( request.redirectLocation == null )
 		{

@@ -364,17 +364,17 @@ public abstract class TransferItemRequest
 
 	public abstract boolean parseTransfer();
 
-	public static final boolean hadSendMessageFailure()
+	public static boolean hadSendMessageFailure()
 	{
 		return TransferItemRequest.hadSendMessageFailure;
 	}
 
-	public static final boolean willUpdateDisplayOnFailure()
+	public static boolean willUpdateDisplayOnFailure()
 	{
 		return TransferItemRequest.updateDisplayOnFailure;
 	}
 
-	public static final void setUpdateDisplayOnFailure( final boolean shouldUpdate )
+	public static void setUpdateDisplayOnFailure( final boolean shouldUpdate )
 	{
 		TransferItemRequest.updateDisplayOnFailure = shouldUpdate;
 	}
@@ -398,7 +398,7 @@ public abstract class TransferItemRequest
 		return false;
 	}
 
-	public static final void transferItems( final String urlString,
+	public static void transferItems( final String urlString,
 		final List source, final List destination,
 		final int defaultQuantity )
 	{
@@ -409,7 +409,7 @@ public abstract class TransferItemRequest
 			source, destination, defaultQuantity );
 	}
 
-	public static final void transferItems( final String urlString,
+	public static void transferItems( final String urlString,
 		final Pattern itemPattern, final Pattern quantityPattern,
 		final List source, final List destination,
 		final int defaultQuantity )
@@ -424,7 +424,7 @@ public abstract class TransferItemRequest
 		TransferItemRequest.transferItems( itemList, source, destination );
 	}
 
-	public static final int transferItems( ArrayList itemList,
+	public static int transferItems( ArrayList itemList,
 		final List source, final List destination )
 	{
 		int count = 0;
@@ -471,7 +471,7 @@ public abstract class TransferItemRequest
 		return count;
 	}
 
-	public static final ArrayList getItemList( final String urlString,
+	public static ArrayList getItemList( final String urlString,
 		final Pattern itemPattern, final Pattern quantityPattern,
 		final List source, final int defaultQuantity )
 	{
@@ -513,7 +513,7 @@ public abstract class TransferItemRequest
 		return itemList;
 	}
 
-	public static final ArrayList getItemList( final String urlString,
+	public static ArrayList getItemList( final String urlString,
 		final Pattern itemPattern, final Pattern quantityPattern,
 		final List source )
 	{
@@ -561,7 +561,7 @@ public abstract class TransferItemRequest
 		return itemList;
 	}
 
-	public static final void transferItems( final String responseText,
+	public static void transferItems( final String responseText,
 		final Pattern itemPattern,
 		final List source, final List destination )
 	{
@@ -578,12 +578,12 @@ public abstract class TransferItemRequest
 	public static final Pattern ITEM_PATTERN1 = Pattern.compile( "(.*?) \\((\\d+)\\)" );
 	public static final Pattern ITEM_PATTERN2 = Pattern.compile( "^(\\d+) ([^,]*)" );
 
-	public static final ArrayList getItemList( final String responseText, final Pattern itemPattern )
+	public static ArrayList getItemList( final String responseText, final Pattern itemPattern )
 	{
 		return TransferItemRequest.getItemList( responseText, itemPattern, TransferItemRequest.ITEM_PATTERN1, TransferItemRequest.ITEM_PATTERN2 );
 	}
 
-	public static final ArrayList getItemList( final String responseText, final Pattern outerPattern,
+	public static ArrayList getItemList( final String responseText, final Pattern outerPattern,
 						   final Pattern innerPattern1, final Pattern innerPattern2 )
 	{
 		ArrayList itemList = new ArrayList();
@@ -599,7 +599,7 @@ public abstract class TransferItemRequest
 		return itemList;
 	}
 
-	public static final void getItemCount( List list, String text, final Pattern pattern )
+	public static void getItemCount( List list, String text, final Pattern pattern )
 	{
 		if ( pattern == null )
 		{
@@ -617,7 +617,7 @@ public abstract class TransferItemRequest
 		}
 	}
 
-	public static final void getCountItem( List list, String text, final Pattern pattern )
+	public static void getCountItem( List list, String text, final Pattern pattern )
 	{
 		if ( pattern == null )
 		{
@@ -635,7 +635,7 @@ public abstract class TransferItemRequest
 		}
 	}
 
-	public static final int transferredMeat( final String urlString, final String field )
+	public static int transferredMeat( final String urlString, final String field )
 	{
 		if ( field == null )
 		{
@@ -652,14 +652,14 @@ public abstract class TransferItemRequest
 		return StringUtilities.parseInt( matcher.group(1) );
 	}
 
-	public static final boolean registerRequest( final String command, final String urlString,
+	public static boolean registerRequest( final String command, final String urlString,
 		final List source, final int defaultQuantity )
 	{
 		return TransferItemRequest.registerRequest(
 			command, urlString, source, defaultQuantity, null );
 	}
 
-	public static final boolean registerRequest( final String command, final String urlString, final List source, final int defaultQuantity, final String meatField )
+	public static boolean registerRequest( final String command, final String urlString, final List source, final int defaultQuantity, final String meatField )
 	{
 		return TransferItemRequest.registerRequest(
 			command, urlString,
@@ -668,7 +668,7 @@ public abstract class TransferItemRequest
 			source, defaultQuantity, meatField );
 	}
 
-	public static final boolean registerRequest( final String command, final String urlString,
+	public static boolean registerRequest( final String command, final String urlString,
 		final Pattern itemPattern, final Pattern quantityPattern,
 		final List source, final int defaultQuantity )
 	{
@@ -678,7 +678,7 @@ public abstract class TransferItemRequest
 			source, defaultQuantity, null );
 	}
 
-	public static final boolean registerRequest( final String command, final String urlString,
+	public static boolean registerRequest( final String command, final String urlString,
 		final Pattern itemPattern, final Pattern quantityPattern,
 		final List source, final int defaultQuantity,
 		final String meatField )

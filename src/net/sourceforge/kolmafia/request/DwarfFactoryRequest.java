@@ -133,7 +133,7 @@ public class DwarfFactoryRequest
 		DwarfFactoryRequest.parseResponse( this.getURLString(), this.responseText );
 	}
 
-	public static final void parseResponse( final String urlString, final String responseText )
+	public static void parseResponse( final String urlString, final String responseText )
 	{
 		if ( !urlString.startsWith( "dwarffactory.php" ) )
 		{
@@ -203,7 +203,7 @@ public class DwarfFactoryRequest
 		DwarfFactoryRequest.hopperCount[3] = 0;
 	}
 
-	public static final void decorate( final String urlString, final StringBuffer buffer )
+	public static void decorate( final String urlString, final StringBuffer buffer )
 	{
 		if ( !urlString.startsWith( "dwarffactory.php" ) )
 		{
@@ -442,7 +442,7 @@ public class DwarfFactoryRequest
 		DwarfFactoryRequest.pruneItemRunes( itemId, value );
 	}
 
-	public static final void setHopperRune( final int hopper, final String responseText )
+	public static void setHopperRune( final int hopper, final String responseText )
 	{
 		KoLCharacter.ensureUpdatedDwarfFactory();
 
@@ -685,7 +685,7 @@ public class DwarfFactoryRequest
 		return ItemDatabase.getItemIdFromDescription( matcher.group(1) );
 	}
 
-	public static final boolean registerRequest( final String urlString )
+	public static boolean registerRequest( final String urlString )
 	{
 		if ( !urlString.startsWith( "dwarffactory.php" ) )
 		{

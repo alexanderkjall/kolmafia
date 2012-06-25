@@ -71,18 +71,18 @@ public class FaxBotDatabase
         public static final LockableListModel categories = new LockableListModel();
         public static LockableListModel [] monstersByCategory;
 
-	public static final void configure()
+	public static void configure()
 	{
 		FaxBotDatabase.configureFaxBot();
 	}
 
-	public static final void reconfigure()
+	public static void reconfigure()
 	{
 		FaxBotDatabase.isInitialized = false;
 		FaxBotDatabase.configure();
 	}
 
-	private static final void configureFaxBot()
+	private static void configureFaxBot()
 	{
 		if ( FaxBotDatabase.isInitialized )
 		{
@@ -132,7 +132,7 @@ public class FaxBotDatabase
 		FaxBotDatabase.isInitialized = true;
 	}
 
-	private static final boolean configureFaxBot( final String URL )
+	private static boolean configureFaxBot( final String URL )
 	{
 		FaxBotDatabase.faxBotConfigured = false;
 		FaxBotDatabase.faxBotError = false;
@@ -150,7 +150,7 @@ public class FaxBotDatabase
 		return !FaxBotDatabase.faxBotError;
 	}
 
-	public static final String botName( final int i )
+	public static String botName( final int i )
 	{
 		if ( i >= faxbots.size() )
 		{

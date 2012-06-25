@@ -128,7 +128,7 @@ public class CakeArenaRequest
 		return ResultProcessor.processResults( false, responseText );
 	}
 
-	public static final void parseResponse( final String urlString, final String responseText )
+	public static void parseResponse( final String urlString, final String responseText )
 	{
 		if ( urlString.contains( "action=go" ) )
 		{
@@ -195,7 +195,7 @@ public class CakeArenaRequest
 		}
 	}
 
-	public static final boolean registerRequest( final String urlString )
+	public static boolean registerRequest( final String urlString )
 	{
 		if ( !urlString.startsWith( "arena.php" ) )
 		{

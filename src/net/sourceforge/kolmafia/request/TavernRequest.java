@@ -88,7 +88,7 @@ public class TavernRequest
 		TavernRequest.parseResponse( this.getURLString(), this.responseText );
 	}
 
-	public static final void parseResponse( final String location, final String responseText )
+	public static void parseResponse( final String location, final String responseText )
 	{
 		if ( !location.startsWith( "tavern.php" ) )
 		{
@@ -137,7 +137,7 @@ public class TavernRequest
 
 	private static final Pattern MAP_PATTERN = Pattern.compile( "alt=\"([^\"]*) \\(([\\d]*),([\\d]*)\\)\"" );
 
-	private static final void parseCellarMap( final String text )
+	private static void parseCellarMap( final String text )
 	{
 		String oldLayout = TavernRequest.tavernLayout();
 		StringBuilder layout = new StringBuilder( oldLayout );
@@ -198,7 +198,7 @@ public class TavernRequest
 	}
 
 	private static final Pattern SPOT_PATTERN = Pattern.compile( "whichspot=([\\d,]+)" );
-	private static final int getSquare( final String urlString )
+	private static int getSquare( final String urlString )
 	{
 		// cellar.php?action=explore&whichspot=4
 		if ( !urlString.startsWith( "cellar.php" ) || !urlString.contains( "action=explore" ) )
@@ -215,7 +215,7 @@ public class TavernRequest
 		return StringUtilities.parseInt( matcher.group( 1 ) );
 	}
 
-	public static final String cellarLocationString( final String urlString )
+	public static String cellarLocationString( final String urlString )
 	{
 		int square = TavernRequest.getSquare( urlString );
 		if ( square == 0 )
@@ -228,7 +228,7 @@ public class TavernRequest
 		return "Tavern Cellar (row " + row + ", col " + col + ")";
 	}
 
-	public static final void validateFaucetQuest()
+	public static void validateFaucetQuest()
 	{
 		int lastAscension = Preferences.getInteger( "lastTavernAscension" );
 		if ( lastAscension < KoLCharacter.getAscensions() )
@@ -239,7 +239,7 @@ public class TavernRequest
 		}
 	}
 
-	public static final String tavernLayout()
+	public static String tavernLayout()
 	{
 		TavernRequest.validateFaucetQuest();
 		String layout = Preferences.getString( "tavernLayout" );
@@ -251,7 +251,7 @@ public class TavernRequest
 		return layout;
 	}
 
-	public static final void preTavernVisit( final GenericRequest request )
+	public static void preTavernVisit( final GenericRequest request )
 	{
 		TavernRequest.validateFaucetQuest();
 
@@ -265,7 +265,7 @@ public class TavernRequest
 		Preferences.setInteger( "lastTavernSquare", square );
 	}
 
-	public static final void postTavernVisit( final GenericRequest request )
+	public static void postTavernVisit( final GenericRequest request )
 	{
 		String urlString = request.getURLString();
 
@@ -332,20 +332,20 @@ public class TavernRequest
 		Preferences.setInteger( "lastTavernSquare", square );
 	}
 
-	public static final void addTavernLocation( final char value )
+	public static void addTavernLocation( final char value )
 	{
 		int square = Preferences.getInteger( "lastTavernSquare" );
 		TavernRequest.addTavernLocation( square, value );
 	}
 
-	private static final void addTavernLocation( final int square, final char value )
+	private static void addTavernLocation( final int square, final char value )
 	{
 		StringBuilder layout = new StringBuilder( TavernRequest.tavernLayout() );
 		layout.setCharAt( square - 1, value );
 		Preferences.setString( "tavernLayout", layout.toString() );
 	}
 
-	public static final boolean registerRequest( final String urlString )
+	public static boolean registerRequest( final String urlString )
 	{
 		if ( !urlString.startsWith( "tavern.php" ) )
 		{

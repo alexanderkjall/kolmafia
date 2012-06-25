@@ -149,7 +149,7 @@ public class SwaggerShopRequest
 		CoinMasterRequest.parseResponse( data, location, responseText );
 	}
 
-	public static final boolean registerRequest( final String urlString )
+	public static boolean registerRequest( final String urlString )
 	{
 		// We only claim peevpee.php?place=shop&action=buy
 		if ( !urlString.startsWith( "peevpee.php" ) )

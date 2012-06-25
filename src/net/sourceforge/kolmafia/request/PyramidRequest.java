@@ -83,7 +83,7 @@ public class PyramidRequest
 		PyramidRequest.parseResponse( this.getURLString(), this.responseText );
 	}
 
-	public static final void parseResponse( final String location, final String responseText )
+	public static void parseResponse( final String location, final String responseText )
 	{
 		// You enter the first chamber, and find it empty. You continue
 		// down a damp, slightly curved corridor, and find rubble piled
@@ -245,7 +245,7 @@ public class PyramidRequest
 		return;
 	}
 
-	public static final String getPyramidLocationString( final String urlString )
+	public static String getPyramidLocationString( final String urlString )
 	{
 		if ( !urlString.startsWith( "pyramid.php" ) ||
                 !urlString.contains( "action=lower" ) )
@@ -257,7 +257,7 @@ public class PyramidRequest
 		return "The Lower Chambers (" + position + ")";
 	}
 
-	public static final void decorateChoice( final int choice, final StringBuffer buffer )
+	public static void decorateChoice( final int choice, final StringBuffer buffer )
 	{
 		// Handle only the two Wheel in the Pyramid choice adventures
 		if ( choice != 134 && choice != 135 )
@@ -289,7 +289,7 @@ public class PyramidRequest
 		StringUtilities.insertBefore( buffer, "</table></center></body>", PyramidRequest.pyramidHTML( false ) );
 	}
 
-	public static final void decorateChoiceResponse( final StringBuffer buffer )
+	public static void decorateChoiceResponse( final StringBuffer buffer )
 	{
                 // Make sure we know the current pyramid position
 		if ( PyramidRequest.getPyramidPosition() == 0 )
@@ -305,7 +305,7 @@ public class PyramidRequest
 
 	}
 
-	public static final String getPyramidHTML()
+	public static String getPyramidHTML()
 	{
 		// Make sure we know the current pyramid position
 		if ( PyramidRequest.getPyramidPosition() == 0 )
@@ -316,7 +316,7 @@ public class PyramidRequest
 		return PyramidRequest.pyramidHTML( true );
 	}
 
-	private static final String pyramidHTML( final boolean link )
+	private static String pyramidHTML( final boolean link )
 	{
 		StringBuilder buffer = new StringBuilder();
 
@@ -414,7 +414,7 @@ public class PyramidRequest
 		return buffer.toString();
 	}
 
-	public static final void ensureUpdatedPyramid()
+	public static void ensureUpdatedPyramid()
 	{
 		int lastAscension = Preferences.getInteger( "lastPyramidReset" );
 		if ( lastAscension < KoLCharacter.getAscensions() )
@@ -426,13 +426,13 @@ public class PyramidRequest
 		}
 	}
 
-	public static final int getPyramidPosition()
+	public static int getPyramidPosition()
 	{
 		PyramidRequest.ensureUpdatedPyramid();
 		return Preferences.getInteger( "pyramidPosition" );
 	}
 
-	public static final String getPyramidPositionString()
+	public static String getPyramidPositionString()
 	{
 		switch ( PyramidRequest.getPyramidPosition() )
 		{
@@ -452,13 +452,13 @@ public class PyramidRequest
 		return "Unknown";
 	}
 
-	public static final void setPyramidPosition( int position )
+	public static void setPyramidPosition( int position )
 	{
 		PyramidRequest.ensureUpdatedPyramid();
 		Preferences.setInteger( "pyramidPosition", position );
 	}
 
-	public static final int advancePyramidPosition()
+	public static int advancePyramidPosition()
 	{
 		// Since using the Middle Chamber to advance the pyramid position always places
 		// the wheel first, the first two cases only apply to using a tomb ratchet
@@ -481,24 +481,24 @@ public class PyramidRequest
 		return position;
 	}
 
-	public static final boolean getPyramidBombUsed()
+	public static boolean getPyramidBombUsed()
 	{
 		PyramidRequest.ensureUpdatedPyramid();
 		return Preferences.getBoolean( "pyramidBombUsed" );
 	}
 
-	public static final void setPyramidBombUsed( boolean used )
+	public static void setPyramidBombUsed( boolean used )
 	{
 		PyramidRequest.ensureUpdatedPyramid();
 		Preferences.setBoolean( "pyramidBombUsed", used );
 	}
 
-	public static final void setPyramidWheelPlaced()
+	public static void setPyramidWheelPlaced()
 	{
 		PyramidRequest.setPyramidWheelPlaced( true );
 	}
 
-	private static final void setPyramidWheelPlaced( boolean wheelPlaced )
+	private static void setPyramidWheelPlaced( boolean wheelPlaced )
 	{
 		PyramidRequest.pyramidWheelPlaced = wheelPlaced;
 	}

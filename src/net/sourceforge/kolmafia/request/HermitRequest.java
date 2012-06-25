@@ -146,7 +146,7 @@ public class HermitRequest
 		this( "trade", itemId, quantity );
 	}
 
-	private static final void registerHermitItem( final int itemId, final int count )
+	private static void registerHermitItem( final int itemId, final int count )
 	{
 		AdventureResult item = ItemPool.get( itemId, count );
 		String name = StringUtilities.getCanonicalName( item.getName() );
@@ -154,7 +154,7 @@ public class HermitRequest
 		HermitRequest.buyPrices.put( name, HermitRequest.ONE );
 	}
 
-	public static final void initialize()
+	public static void initialize()
 	{
 		KoLConstants.hermitItems.clear();
 		HermitRequest.buyPrices.clear();
@@ -179,13 +179,13 @@ public class HermitRequest
 		HermitRequest.resetPurchaseRequests();
 	}
 
-	public static final void reset()
+	public static void reset()
 	{
 		HermitRequest.checkedForClovers = false;
 		HermitRequest.initialize();
 	}
 
-	public static final void resetPurchaseRequests()
+	public static void resetPurchaseRequests()
 	{
 		HermitRequest.HERMIT.registerPurchaseRequests();
 	}
@@ -285,7 +285,7 @@ public class HermitRequest
 	// <tr><td valign=center><input type=radio name=whichitem value=2></td><td valign=center><img src="http://images.kingdomofloathing.com/itemimages/tooth.gif" class=hand onClick='javascript:item(617818041)'></td><td valign=center><b>seal tooth</b></td></tr>
 	private static final Pattern ITEM_PATTERN = Pattern.compile( "name=whichitem value=([\\d]+)>.*?item\\(([\\d]+)\\).*?<b>([^<]*)</b>", Pattern.DOTALL );
 
-	public static final boolean parseHermitTrade( final String urlString, final String responseText )
+	public static boolean parseHermitTrade( final String urlString, final String responseText )
 	{
 		// There should be a form, or an indication of item receipt,
 		// for all valid hermit requests.
@@ -355,7 +355,7 @@ public class HermitRequest
 		return true;
 	}
 
-	private static final int subtractWorthlessItems( final AdventureResult item, final int total )
+	private static int subtractWorthlessItems( final AdventureResult item, final int total )
 	{
 		int count = 0 - Math.min( total, item.getCount( KoLConstants.inventory ) );
 		if ( count != 0 )
@@ -365,7 +365,7 @@ public class HermitRequest
 		return 0 - count;
 	}
 
-	private static final void parseHermitStock( final String responseText )
+	private static void parseHermitStock( final String responseText )
 	{
 		// Refresh the Coin Master inventory every time we visit.
 		Matcher matcher = ITEM_PATTERN.matcher( responseText );
@@ -421,17 +421,17 @@ public class HermitRequest
 		HermitRequest.HERMIT.registerPurchaseRequests();
 	}
 
-	public static final boolean isWorthlessItem( final int itemId )
+	public static boolean isWorthlessItem( final int itemId )
 	{
 		return itemId == ItemPool.WORTHLESS_TRINKET || itemId == ItemPool.WORTHLESS_GEWGAW || itemId == ItemPool.WORTHLESS_KNICK_KNACK;
 	}
 
-	public static final int getWorthlessItemCount()
+	public static int getWorthlessItemCount()
 	{
 		return HermitRequest.getWorthlessItemCount( false );
 	}
 
-	public static final int getWorthlessItemCount( boolean all )
+	public static int getWorthlessItemCount( boolean all )
 	{
 		int count =
 			HermitRequest.TRINKET.getCount( KoLConstants.inventory ) +
@@ -460,7 +460,7 @@ public class HermitRequest
 		return count;
 	}
 
-	public static final int getAcquirableWorthlessItemCount()
+	public static int getAcquirableWorthlessItemCount()
 	{
 		int count = HermitRequest.getWorthlessItemCount( true );
 		if ( Preferences.getBoolean( "autoSatisfyWithNPCs" ) )
@@ -471,7 +471,7 @@ public class HermitRequest
 		return count;
 	}
 
-	public static final int cloverCount()
+	public static int cloverCount()
 	{
 		if ( !HermitRequest.checkedForClovers )
 		{
@@ -482,12 +482,12 @@ public class HermitRequest
 		return index < 0 ? 0 : ( (AdventureResult) KoLConstants.hermitItems.get( index ) ).getCount();
 	}
 
-	public static final boolean isCloverDay()
+	public static boolean isCloverDay()
 	{
 		return HermitRequest.cloverCount() > 0;
 	}
 	
-	public static final void hackHermit()
+	public static void hackHermit()
 	{
 		int index = KoLConstants.hermitItems.indexOf( HermitRequest.CLOVER ); 	 
 		if ( index != -1 ) 	 
@@ -501,7 +501,7 @@ public class HermitRequest
 		}
 	}
 
-	public static final boolean registerRequest( final String urlString )
+	public static boolean registerRequest( final String urlString )
 	{
 		if ( !urlString.startsWith( "hermit.php" ) )
 		{

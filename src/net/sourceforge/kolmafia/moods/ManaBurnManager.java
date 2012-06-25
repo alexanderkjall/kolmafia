@@ -57,7 +57,7 @@ import net.sourceforge.kolmafia.utilities.StringUtilities;
 
 public class ManaBurnManager
 {
-	public static final void burnExtraMana( final boolean isManualInvocation )
+	public static void burnExtraMana( final boolean isManualInvocation )
 	{
 		if ( KoLmafia.refusesContinue() )
 		{
@@ -87,7 +87,7 @@ public class ManaBurnManager
 		MoodManager.isExecuting = was;
 	}
 
-	public static final void burnMana( int minimum )
+	public static void burnMana( int minimum )
 	{
 		String nextBurnCast;
 	
@@ -106,7 +106,7 @@ public class ManaBurnManager
 		MoodManager.isExecuting = was;
 	}
 
-	public static final String getNextBurnCast()
+	public static String getNextBurnCast()
 	{
 		// Punt immediately if mana burning is disabled
 	
@@ -121,7 +121,7 @@ public class ManaBurnManager
 		return ManaBurnManager.getNextBurnCast( minimum );
 	}
 
-	private static final String getNextBurnCast( final int minimum )
+	private static String getNextBurnCast( final int minimum )
 	{
 		// Punt immediately if already burned enough or must recover MP
 	
@@ -265,7 +265,7 @@ public class ManaBurnManager
 		return chosen.toString();
 	}
 
-	private static final String considerBreakfastSkill( final int minimum )
+	private static String considerBreakfastSkill( final int minimum )
 	{
 		for ( int i = 0; i < UseSkillRequest.BREAKFAST_SKILLS.length; ++i )
 		{
@@ -304,7 +304,7 @@ public class ManaBurnManager
 		return ManaBurnManager.considerLibramSummon( minimum );
 	}
 
-	private static final String considerLibramSummon( final int minimum )
+	private static String considerLibramSummon( final int minimum )
 	{
 		int castCount = SkillDatabase.libramSkillCasts( KoLCharacter.getCurrentMP() - minimum );
 		if ( castCount <= 0 )

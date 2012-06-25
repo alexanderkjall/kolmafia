@@ -65,7 +65,7 @@ public class SpleenItemRequest
 		return 0;
 	}
 
-	public static final int maximumUses( final int itemId, final String itemName, final int spleenHit )
+	public static int maximumUses( final int itemId, final String itemName, final int spleenHit )
 	{
 		// Some spleen items also heal HP or MP
 		int restorationMaximum = UseItemRequest.getRestorationMaximum( itemName );
@@ -164,12 +164,12 @@ public class SpleenItemRequest
 		super.runOneIteration( currentIteration, totalIterations, useTypeAsString );
 	}
 
-	private final boolean singleConsume( final int itemId )
+	private boolean singleConsume( final int itemId )
 	{
 		return this.consumptionType == KoLConstants.CONSUME_USE;
 	}
 
-	public static final void parseConsumption( final AdventureResult item, final AdventureResult helper, final String responseText )
+	public static void parseConsumption( final AdventureResult item, final AdventureResult helper, final String responseText )
 	{
 		if ( responseText.contains( "That item isn't usable in quantity" ) )
 		{
@@ -233,7 +233,7 @@ public class SpleenItemRequest
 		}
 	}
 
-	public static final boolean registerRequest()
+	public static boolean registerRequest()
 	{
 		AdventureResult item = UseItemRequest.lastItemUsed;
 		int count = item.getCount();

@@ -61,7 +61,7 @@ public abstract class KoLmafiaASH
 
 	public static final Interpreter NAMESPACE_INTERPRETER = new NamespaceInterpreter();
 
-	public static final boolean getClientHTML( final RelayRequest request )
+	public static boolean getClientHTML( final RelayRequest request )
 	{
 		String script = Preferences.getString( "masterRelayOverride" );
 
@@ -91,7 +91,7 @@ public abstract class KoLmafiaASH
 		return toExecute.exists() && KoLmafiaASH.getClientHTML( request, toExecute );
 	}
 
-	private static final boolean getClientHTML( final RelayRequest request, final File toExecute )
+	private static boolean getClientHTML( final RelayRequest request, final File toExecute )
 	{
 		Interpreter relayScript = KoLmafiaASH.getInterpreter( toExecute );
 		if ( relayScript == null )
@@ -131,7 +131,7 @@ public abstract class KoLmafiaASH
 		}
 	}
 
-	public static final String getScriptHTML( final Interpreter relayScript, final String serverFunc, final String path )
+	public static String getScriptHTML( final Interpreter relayScript, final String serverFunc, final String path )
 	{
 		synchronized( relayScript )
 		{
@@ -164,7 +164,7 @@ public abstract class KoLmafiaASH
 		}
 	}
 
-	public static final Interpreter getInterpreter( final File toExecute )
+	public static Interpreter getInterpreter( final File toExecute )
 	{
 		if ( toExecute == null )
 		{

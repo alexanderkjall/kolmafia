@@ -84,7 +84,7 @@ public class ClanRumpusRequest
 		{ "initiative", "Metal Speed", IntegerPool.get( 4 ) },
 	};
 
-	public static final int findChips( final String name )
+	public static int findChips( final String name )
 	{
 		for ( int i = 0; i < CHIP_FLAVORS.length; ++i )
 		{
@@ -99,7 +99,7 @@ public class ClanRumpusRequest
 		return 0;
 	}
 
-	public static final int findSong( final String name )
+	public static int findSong( final String name )
 	{
 		if ( StringUtilities.isNumeric( name ) )
 		{

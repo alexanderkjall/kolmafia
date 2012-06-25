@@ -133,7 +133,7 @@ public class PvpManager
 		}
 	}
 
-	public static final void executePvpRequest( final ProfileRequest[] targets, final PeeVPeeRequest request )
+	public static void executePvpRequest( final ProfileRequest[] targets, final PeeVPeeRequest request )
 	{
 		PvpManager.checkHippyStone();
 		KoLmafia.updateDisplay( "Determining remaining fights..." );

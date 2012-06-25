@@ -132,7 +132,7 @@ public class AdventureDatabase
 		"Cobb's Knob lab key"
 	};
 
-	public static final void refreshZoneTable()
+	public static void refreshZoneTable()
 	{
 		if ( !AdventureDatabase.ZONE_DESCRIPTIONS.isEmpty() )
 		{
@@ -178,7 +178,7 @@ public class AdventureDatabase
 		}
 	}
 
-	public static final void refreshAdventureTable()
+	public static void refreshAdventureTable()
 	{
 		BufferedReader reader = FileUtilities.getVersionedReader( "adventures.txt", KoLConstants.ADVENTURES_VERSION );
 		if ( reader == null )
@@ -253,7 +253,7 @@ public class AdventureDatabase
 		}
 	}
 
-	public static final void refreshCombatsTable()
+	public static void refreshCombatsTable()
 	{
 		AdventureDatabase.areaCombatData.clear();
 
@@ -302,7 +302,7 @@ public class AdventureDatabase
 		}
 	}
 
-	public static final void refreshAdventureList()
+	public static void refreshAdventureList()
 	{
 		AdventureDatabase.adventures.clear();
 		AdventureDatabase.allAdventures.clear();
@@ -340,7 +340,7 @@ public class AdventureDatabase
 		}
 	}
 
-	public static final void addAdventure( final KoLAdventure location )
+	public static void addAdventure( final KoLAdventure location )
 	{
 		AdventureDatabase.adventures.add( location );
 		AdventureDatabase.allAdventures.add( location );
@@ -368,7 +368,7 @@ public class AdventureDatabase
 		}
 	}
 
-	public static final LockableListModel getAsLockableListModel()
+	public static LockableListModel getAsLockableListModel()
 	{
 		if ( AdventureDatabase.adventures.isEmpty() )
 		{
@@ -378,7 +378,7 @@ public class AdventureDatabase
 		return AdventureDatabase.adventures;
 	}
 
-	public static final KoLAdventure getAdventureByURL( String adventureURL )
+	public static KoLAdventure getAdventureByURL( String adventureURL )
 	{
 		if ( AdventureDatabase.adventureLookup.isEmpty() )
 		{
@@ -429,7 +429,7 @@ public class AdventureDatabase
 			? null : location;
 	}
 
-	public static final String removeField( final String urlString, final String field )
+	public static String removeField( final String urlString, final String field )
 	{
 		int start = urlString.indexOf( field );
 		if ( start == -1 )
@@ -449,7 +449,7 @@ public class AdventureDatabase
 		return prefix + suffix;
 	}
 
-	public static final KoLAdventure getAdventure( final String adventureName )
+	public static KoLAdventure getAdventure( final String adventureName )
 	{
 		if ( AdventureDatabase.adventureLookup.isEmpty() )
 		{
@@ -465,7 +465,7 @@ public class AdventureDatabase
 
 	}
 
-	private static final KoLAdventure getAdventure( final int tableIndex )
+	private static KoLAdventure getAdventure( final int tableIndex )
 	{
 		return new KoLAdventure(
 			AdventureDatabase.adventureTable[ 0 ].get( tableIndex ),
@@ -474,22 +474,22 @@ public class AdventureDatabase
 			AdventureDatabase.adventureTable[ 3 ].get( tableIndex ) );
 	}
 
-	public static final String getZone( final String location )
+	public static String getZone( final String location )
 	{
 		return (String) zoneLookup.get( location );
 	}
 
-	public static final KoLAdventure getBountyLocation( final int itemId )
+	public static KoLAdventure getBountyLocation( final int itemId )
 	{
 		return AdventureDatabase.getBountyLocation( ItemDatabase.getItemName( itemId ) );
 	}
 
-	public static final KoLAdventure getBountyLocation( final String item )
+	public static KoLAdventure getBountyLocation( final String item )
 	{
 		return item == null ? null : (KoLAdventure) AdventureDatabase.locationByBounty.get( StringUtilities.getCanonicalName( item ) );
 	}
 
-	public static final AdventureResult getBounty( final int itemId )
+	public static AdventureResult getBounty( final int itemId )
 	{
 		String name = ItemDatabase.getItemName( itemId );
 		if ( name == null )
@@ -500,7 +500,7 @@ public class AdventureDatabase
 		return AdventureDatabase.getBounty( adventure );
 	}
 
-	public static final AdventureResult getBounty( final KoLAdventure adventure )
+	public static AdventureResult getBounty( final KoLAdventure adventure )
 	{
 		String adventureName = adventure.getAdventureName();
 		String bounty = (String) AdventureDatabase.bountyLookup.get( adventureName );
@@ -515,13 +515,13 @@ public class AdventureDatabase
 		return new AdventureResult( name, count, false );
 	}
 
-	public static final AdventureResult currentBounty()
+	public static AdventureResult currentBounty()
 	{
 		int bountyItem = Preferences.getInteger( "currentBountyItem" );
 		return bountyItem == 0 ? null : AdventureDatabase.getBounty( bountyItem );
 	}
 
-	public static final String getDefaultConditions( final KoLAdventure adventure )
+	public static String getDefaultConditions( final KoLAdventure adventure )
 	{
 		if ( adventure == null )
 		{
@@ -591,7 +591,7 @@ public class AdventureDatabase
 		return conditions;
 	}
 
-	public static final LockableListModel getDefaultConditionsList( final KoLAdventure adventure, LockableListModel list )
+	public static LockableListModel getDefaultConditionsList( final KoLAdventure adventure, LockableListModel list )
 	{
 		String string = AdventureDatabase.getDefaultConditions( adventure );
 		String [] conditions = string.split( "\\|" );
@@ -612,7 +612,7 @@ public class AdventureDatabase
 		return list;
 	}
 
-	public static final boolean isFreeAdventure( final String text )
+	public static boolean isFreeAdventure( final String text )
 	{
 		for ( int i = 0; i < AdventureDatabase.FREE_ADVENTURES.length; ++i )
 		{
@@ -624,7 +624,7 @@ public class AdventureDatabase
 		return false;
 	}
 
-	private static final boolean validateAdventureArea( final String area, final String[] areas )
+	private static boolean validateAdventureArea( final String area, final String[] areas )
 	{
 		for ( int i = 0; i < areas.length; ++i )
 		{
@@ -636,7 +636,7 @@ public class AdventureDatabase
 		return false;
 	}
 
-	public static final AreaCombatData getAreaCombatData( String area )
+	public static AreaCombatData getAreaCombatData( String area )
 	{
 		// Strip out zone name if present
 		int index = area.indexOf( ":" );
@@ -649,7 +649,7 @@ public class AdventureDatabase
 		return (AreaCombatData) AdventureDatabase.areaCombatData.get( area );
 	}
 
-	public static final String getUnknownName( final String urlString )
+	public static String getUnknownName( final String urlString )
 	{
 		if ( urlString.startsWith( "adventure.php" ) )
 		{

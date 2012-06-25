@@ -95,7 +95,7 @@ public abstract class StoreManager
 
 	public static boolean soldItemsRetrieved = false;
 
-	public static final void clearCache()
+	public static void clearCache()
 	{
 		StoreManager.soldItemsRetrieved = false;
 		StoreManager.storeLog.clear();
@@ -105,7 +105,7 @@ public abstract class StoreManager
 		StoreManager.potentialEarnings = 0;
 	}
 
-	public static final long getPotentialEarnings()
+	public static long getPotentialEarnings()
 	{
 		return StoreManager.potentialEarnings;
 	}
@@ -115,7 +115,7 @@ public abstract class StoreManager
 	 * is used to sell the item.
 	 */
 
-	public static final SoldItem registerItem( final int itemId, final int quantity, final int price, final int limit,
+	public static SoldItem registerItem( final int itemId, final int quantity, final int price, final int limit,
 		final int lowest )
 	{
 		if ( price < 50000000 )
@@ -155,7 +155,7 @@ public abstract class StoreManager
 	 * price.
 	 */
 
-	public static final int getPrice( final int itemId )
+	public static int getPrice( final int itemId )
 	{
 		int currentPrice = 999999999;
 		for ( int i = 0; i < StoreManager.soldItemList.size(); ++i )
@@ -169,22 +169,22 @@ public abstract class StoreManager
 		return currentPrice;
 	}
 
-	public static final LockableListModel getSoldItemList()
+	public static LockableListModel getSoldItemList()
 	{
 		return StoreManager.soldItemList;
 	}
 
-	public static final LockableListModel getSortedSoldItemList()
+	public static LockableListModel getSortedSoldItemList()
 	{
 		return StoreManager.sortedSoldItemList;
 	}
 
-	public static final LockableListModel getStoreLog()
+	public static LockableListModel getStoreLog()
 	{
 		return StoreManager.storeLog;
 	}
 
-	public static final void sortStoreLog( final boolean cycleSortType )
+	public static void sortStoreLog( final boolean cycleSortType )
 	{
 		if ( cycleSortType )
 		{
@@ -209,7 +209,7 @@ public abstract class StoreManager
 		StoreManager.storeLog.sort();
 	}
 
-	public static final void update( final String storeText, final boolean isPriceManagement )
+	public static void update( final String storeText, final boolean isPriceManagement )
 	{
 		StoreManager.potentialEarnings = 0;
 		ArrayList newItems = new ArrayList();
@@ -307,7 +307,7 @@ public abstract class StoreManager
 		StoreManageFrame.updateEarnings( StoreManager.potentialEarnings );
 	}
 
-	public static final void parseLog( final String logText )
+	public static void parseLog( final String logText )
 	{
 		StoreManager.storeLog.clear();
 		ArrayList currentLog = new ArrayList();
@@ -379,7 +379,7 @@ public abstract class StoreManager
 		}
 	}
 
-	public static final void flushCache()
+	public static void flushCache()
 	{
 		long t0, t1;
 		t1 = System.currentTimeMillis();
@@ -408,7 +408,7 @@ public abstract class StoreManager
 	 * Utility method used to search the mall for a specific item.
 	 */
 
-	public static final ArrayList searchMall( final AdventureResult item )
+	public static ArrayList searchMall( final AdventureResult item )
 	{
 		int itemId = item.getItemId();
 		if ( itemId <= 0 )
@@ -455,7 +455,7 @@ public abstract class StoreManager
 	 * Utility method used to search the mall for a search string
 	 */
 
-	public static final void searchMall( final String searchString, final List resultSummary, final int maximumResults, boolean toString )
+	public static void searchMall( final String searchString, final List resultSummary, final int maximumResults, boolean toString )
 	{
 		resultSummary.clear();
 
@@ -509,7 +509,7 @@ public abstract class StoreManager
 		}
 	}
 
-	public static final void updateMallPrice( final AdventureResult item, final ArrayList results )
+	public static void updateMallPrice( final AdventureResult item, final ArrayList results )
 	{
 		if ( item.getItemId() < 1 )
 		{
@@ -536,7 +536,7 @@ public abstract class StoreManager
 		}
 	}
 
-	public static final synchronized int getMallPrice( final AdventureResult item )
+	public static synchronized int getMallPrice( final AdventureResult item )
 	{
 		StoreManager.flushCache();
 		if ( item.getItemId() < 1 ||

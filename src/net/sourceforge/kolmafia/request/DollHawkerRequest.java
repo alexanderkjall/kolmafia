@@ -96,7 +96,7 @@ public class DollHawkerRequest
 		this( action, ar.getItemId(), ar.getCount() );
 	}
 
-	public static final boolean registerRequest( final String urlString )
+	public static boolean registerRequest( final String urlString )
 	{
 		if ( !urlString.startsWith( "spaaace.php" ) || !urlString.contains( "place=shop2" ) )
 		{

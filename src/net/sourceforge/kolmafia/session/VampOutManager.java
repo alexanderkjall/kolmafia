@@ -88,7 +88,7 @@ public class VampOutManager
 	private static final String TORREMOLINOS = "Torremolinos";
 	private static final String VENTRILO = "Ventrilo";
 
-	public static final String autoVampOut( int vampOutGoal, final int stepCount, final String responseText )
+	public static String autoVampOut( int vampOutGoal, final int stepCount, final String responseText )
 	{
 		vampOutGoal = vampOutGoal - 1;
 
@@ -176,13 +176,13 @@ public class VampOutManager
 		return decision;
 	}
 
-	private static final void logText( final String text )
+	private static void logText( String text )
 	{
 		RequestLogger.printLine( text );
 		RequestLogger.updateSessionLog( text );
 	}
 
-	public static final void postChoiceVampOut( final String responseText )
+	public static void postChoiceVampOut( final String responseText )
 	{
 		// Make sure this is the final page, it won't have any choice selections
 		if ( !responseText.contains( "choiceform" ) )
@@ -208,7 +208,7 @@ public class VampOutManager
 		}
 	}
 
-	private static final String currentGoalString()
+	private static String currentGoalString()
 	{
 		int goal = Preferences.getInteger( "choiceAdventure546" ) - 1;
 
@@ -220,7 +220,7 @@ public class VampOutManager
 		return VampOutGoals[ goal ];
 	}
 
-	public static final void addGoalButton( final StringBuffer buffer )
+	public static void addGoalButton( final StringBuffer buffer )
 	{
 		// Only add the goal button to the first choice
 		if ( buffer.indexOf( "Finally, the sun has set." ) > -1 )

@@ -162,7 +162,7 @@ public abstract class MushroomManager
 	 * plot. This should be used whenever the login process is restarted.
 	 */
 
-	public static final void reset()
+	public static void reset()
 	{
 		MushroomManager.ownsPlot = false;
 	}
@@ -171,7 +171,7 @@ public abstract class MushroomManager
 	 * Utility method which returns a two-dimensional array showing the arrangement of the plot.
 	 */
 
-	public static final String getMushroomManager( final boolean isDataOnly )
+	public static String getMushroomManager( final boolean isDataOnly )
 	{
 		MushroomManager.initialize();
 		return MushroomManager.getMushroomManager( isDataOnly, MushroomManager.actualPlot );
@@ -182,12 +182,12 @@ public abstract class MushroomManager
 	 * plot will look like tomorrow).
 	 */
 
-	public static final String getForecastedPlot( final boolean isDataOnly )
+	public static String getForecastedPlot( final boolean isDataOnly )
 	{
 		return MushroomManager.getForecastedPlot( isDataOnly, MushroomManager.actualPlot );
 	}
 
-	public static final String getForecastedPlot( final boolean isDataOnly, final String[][] plot )
+	public static String getForecastedPlot( final boolean isDataOnly, final String[][] plot )
 	{
 		// Construct the forecasted plot now.
 
@@ -252,7 +252,7 @@ public abstract class MushroomManager
 		return MushroomManager.getMushroomManager( isDataOnly, forecastPlot );
 	}
 
-	private static final String getForecastSquare( final int row, final int col, final String[][] plot )
+	private static String getForecastSquare( final int row, final int col, final String[][] plot )
 	{
 		String[] touched = new String[ 4 ];
 
@@ -300,7 +300,7 @@ public abstract class MushroomManager
 		return plot[ row ][ col ];
 	}
 
-	private static final String getShorthand( final int mushroomType, final boolean isAdult )
+	private static String getShorthand( final int mushroomType, final boolean isAdult )
 	{
 		for ( int i = 0; i < MushroomManager.MUSHROOMS.length; ++i )
 		{
@@ -313,7 +313,7 @@ public abstract class MushroomManager
 		return "__";
 	}
 
-	private static final String getMushroomManager( boolean isDataOnly, final String[][] plot )
+	private static String getMushroomManager( boolean isDataOnly, final String[][] plot )
 	{
 		// Otherwise, you need to construct the string form
 		// of the mushroom plot.  Shorthand and hypertext are
@@ -374,7 +374,7 @@ public abstract class MushroomManager
 	 * Utility method which retrieves the image associated with the given mushroom type.
 	 */
 
-	public static final String getMushroomImage( final String mushroomType )
+	public static String getMushroomImage( final String mushroomType )
 	{
 		for ( int i = 1; i < MushroomManager.MUSHROOMS.length; ++i )
 		{
@@ -395,7 +395,7 @@ public abstract class MushroomManager
 	 * Utility method which retrieves the mushroom which is associated with the given image.
 	 */
 
-	public static final int getMushroomType( final String mushroomImage )
+	public static int getMushroomType( final String mushroomImage )
 	{
 		for ( int i = 0; i < MushroomManager.MUSHROOMS.length; ++i )
 		{
@@ -408,7 +408,7 @@ public abstract class MushroomManager
 		return MushroomManager.EMPTY;
 	}
 
-	public static final int[] getSporeDataByType( final int spore )
+	public static int[] getSporeDataByType( final int spore )
 	{
 		for ( int i = 0; i < MushroomManager.SPORE_DATA.length; ++i )
 		{
@@ -421,7 +421,7 @@ public abstract class MushroomManager
                 return null;
 	}
 
-	public static final int[] getSporeDataByIndex( final int index )
+	public static int[] getSporeDataByIndex( final int index )
 	{
 		for ( int i = 0; i < MushroomManager.SPORE_DATA.length; ++i )
 		{
@@ -434,22 +434,22 @@ public abstract class MushroomManager
                 return null;
 	}
 
-	public static final int getSporeType( final int[] data )
+	public static int getSporeType( final int[] data )
 	{
                 return data[0];
 	}
 
-	public static final String getSporeName( final int[] data )
+	public static String getSporeName( final int[] data )
 	{
 		return ItemDatabase.getItemName( data[0] );
 	}
 
-	public static final int getSporePrice( final int[] data )
+	public static int getSporePrice( final int[] data )
 	{
                 return data[1];
 	}
 
-	public static final int getSporeIndex( final int[] data )
+	public static int getSporeIndex( final int[] data )
 	{
                 return data[2];
 	}
@@ -459,7 +459,7 @@ public abstract class MushroomManager
 	 * position (or square) of the mushroom plot.
 	 */
 
-	public static final boolean plantMushroom( final int square, final int spore )
+	public static boolean plantMushroom( final int square, final int spore )
 	{
 		// Validate square parameter.  It's possible that
 		// the user input the wrong spore number.
@@ -530,7 +530,7 @@ public abstract class MushroomManager
 		return true;
 	}
 
-	public static final void clearField()
+	public static void clearField()
 	{
 		for ( int i = 1; i <= 16; ++i )
 		{
@@ -542,7 +542,7 @@ public abstract class MushroomManager
 	 * Picks all the mushrooms in all squares. This is equivalent to harvesting your mushroom crop, hence the name.
 	 */
 
-	public static final void harvestMushrooms()
+	public static void harvestMushrooms()
 	{
 		for ( int i = 1; i <= 16; ++i )
 		{
@@ -555,7 +555,7 @@ public abstract class MushroomManager
 	 * square.
 	 */
 
-	public static final boolean pickMushroom( final int square, final boolean pickSpores )
+	public static boolean pickMushroom( final int square, final boolean pickSpores )
 	{
 		// Validate square parameter.  It's possible that
 		// the user input the wrong spore number.
@@ -599,7 +599,7 @@ public abstract class MushroomManager
 	 * Utility method used to initialize the state of the plot into the one-dimensional array.
 	 */
 
-	public static final boolean initialize()
+	public static boolean initialize()
 	{
 		if ( !MushroomManager.ownsPlot() )
 		{
@@ -610,7 +610,7 @@ public abstract class MushroomManager
 		return true;
 	}
 
-	public static final boolean ownsPlot()
+	public static boolean ownsPlot()
 	{
 		// If you can't go inside Degrassi Knoll, no go
 
@@ -629,7 +629,7 @@ public abstract class MushroomManager
 		return MushroomManager.ownsPlot;
 	}
 
-	public static final void parsePlot( final String text )
+	public static void parsePlot( final String text )
 	{
 		// Pretend all of the sections on the plot are empty
 		// before you begin parsing the plot.
@@ -667,7 +667,7 @@ public abstract class MushroomManager
 		}
 	}
 
-	private static final int parseSquare( final String text )
+	private static int parseSquare( final String text )
 	{
 		// We figure out what's there based on the image.  This
 		// is done by checking the text in the square against
@@ -689,7 +689,7 @@ public abstract class MushroomManager
 		return MushroomManager.EMPTY;
 	}
 
-	public static final int loadLayout( final String filename, final String[][] originalData,
+	public static int loadLayout( final String filename, final String[][] originalData,
 		final String[][] planningData )
 	{
 		// The easiest file to parse that is already provided is
@@ -790,7 +790,7 @@ public abstract class MushroomManager
 		}
 	}
 
-	private static final void copyMushroomImage( final String location )
+	private static void copyMushroomImage( final String location )
 	{
 		File source = new File( UtilityConstants.IMAGE_LOCATION, location );
 		File destination = new File( KoLConstants.PLOTS_LOCATION + "/" + location );
@@ -798,7 +798,7 @@ public abstract class MushroomManager
 		FileUtilities.copyFile( source, destination );
 	}
 
-	public static final void saveLayout( final String filename, final String[][] originalData,
+	public static void saveLayout( final String filename, final String[][] originalData,
 		final String[][] planningData )
 	{
 		File preview = new File( KoLConstants.PLOTS_LOCATION, filename + ".htm" );

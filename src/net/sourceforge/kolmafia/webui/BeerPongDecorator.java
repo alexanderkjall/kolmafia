@@ -39,7 +39,7 @@ import net.sourceforge.kolmafia.utilities.StringUtilities;
 
 public abstract class BeerPongDecorator
 {
-	public static final void decorate( final StringBuffer buffer )
+	public static void decorate( final StringBuffer buffer )
 	{
 		String insult = BeerPongRequest.findRicketsInsult( buffer.toString() );
 		if ( insult == null )

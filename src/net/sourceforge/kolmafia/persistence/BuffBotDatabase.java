@@ -86,7 +86,7 @@ public class BuffBotDatabase
 	private static int buffBotsAvailable = 0;
 	private static int buffBotsConfigured = 0;
 
-	public static final int getOffering( String name, final int amount )
+	public static int getOffering( String name, final int amount )
 	{
 		// If you have no idea what the names present in
 		// the database are, go ahead and refresh it.
@@ -237,7 +237,7 @@ public class BuffBotDatabase
 		return bestMatch.getPrice();
 	}
 
-	public static final boolean hasOfferings()
+	public static boolean hasOfferings()
 	{
 		if ( !BuffBotDatabase.isInitialized )
 		{
@@ -247,7 +247,7 @@ public class BuffBotDatabase
 		return !BuffBotDatabase.normalOfferings.isEmpty() || !BuffBotDatabase.freeOfferings.isEmpty();
 	}
 
-	public static final Object[] getCompleteBotList()
+	public static Object[] getCompleteBotList()
 	{
 		ArrayList completeList = new ArrayList();
 		completeList.addAll( BuffBotDatabase.normalOfferings.keySet() );
@@ -267,17 +267,17 @@ public class BuffBotDatabase
 		return completeList.toArray();
 	}
 
-	public static final LockableListModel getStandardOfferings( final String botName )
+	public static LockableListModel getStandardOfferings( final String botName )
 	{
 		return botName != null && BuffBotDatabase.normalOfferings.containsKey( botName ) ? (LockableListModel) BuffBotDatabase.normalOfferings.get( botName ) : new LockableListModel();
 	}
 
-	public static final LockableListModel getPhilanthropicOfferings( final String botName )
+	public static LockableListModel getPhilanthropicOfferings( final String botName )
 	{
 		return botName != null && BuffBotDatabase.freeOfferings.containsKey( botName ) ? (LockableListModel) BuffBotDatabase.freeOfferings.get( botName ) : new LockableListModel();
 	}
 
-	private static final void configureBuffBots()
+	private static void configureBuffBots()
 	{
 		if ( BuffBotDatabase.isInitialized )
 		{

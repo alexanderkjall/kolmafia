@@ -131,7 +131,7 @@ public class CRIMBCOGiftShopRequest
 		CoinMasterRequest.parseResponse( data, location, responseText );
 	}
 
-	public static final boolean registerRequest( final String urlString )
+	public static boolean registerRequest( final String urlString )
 	{
 		// We only claim crimbo10.php?action=buygift
 		if ( !urlString.startsWith( "crimbo10.php" ) )

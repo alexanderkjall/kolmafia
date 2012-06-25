@@ -690,7 +690,7 @@ public class AreaCombatData
 		}
 	}
 
-	public static final float getDropRateModifier()
+	public static float getDropRateModifier()
 	{
 		if ( AreaCombatData.lastDropMultiplier != 0.0f && KoLCharacter.getItemDropPercentAdjustment() == AreaCombatData.lastDropModifier )
 		{
@@ -703,7 +703,7 @@ public class AreaCombatData
 		return AreaCombatData.lastDropMultiplier;
 	}
 
-	public static final String elementColor( final int element )
+	public static String elementColor( final int element )
 	{
 		if ( element == MonsterDatabase.HEAT )
 		{
@@ -733,7 +733,7 @@ public class AreaCombatData
 		return "#000000";
 	}
 
-	public static final float hitPercent( final int attack, final int defense )
+	public static float hitPercent( final int attack, final int defense )
 	{
 		// ( (Attack - Defense) / 18 ) * 100 + 50 = Hit%
 		float percent = 100.0f * ( attack - defense ) / 18 + 50.0f;
@@ -748,7 +748,7 @@ public class AreaCombatData
 		return percent;
 	}
 
-	public static final int perfectHit( final int attack, final int defense )
+	public static int perfectHit( final int attack, final int defense )
 	{
 		return attack - defense - 9;
 	}

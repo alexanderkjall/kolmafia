@@ -74,14 +74,14 @@ public abstract class BarrelDecorator
 		B,S,R, B,R,S
 	};
 
-	public static final int barrelToQuad( int barrel )	// 1..36 => 0..8
+	public static int barrelToQuad( int barrel )	// 1..36 => 0..8
 	{
 		int x = ( ( barrel - 1 ) % 6 ) / 2;
 		int y = ( barrel - 1 ) / 12;
 		return y * 3 + x;
 	}
 
-	public static final int quadToBarrel( int quad )	// 0..8 => 1..36
+	public static int quadToBarrel( int quad )	// 0..8 => 1..36
 	{	// Corresponding barrels are at N, N+1, N+6, and N+7
 		int x = quad % 3;
 		int y = quad / 3;
@@ -136,7 +136,7 @@ public abstract class BarrelDecorator
 		return possibles;
 	}
 
-	public static final void decorate( final StringBuffer buffer )
+	public static void decorate( final StringBuffer buffer )
 	{
 		int [] possibles = compute();
 
@@ -222,7 +222,7 @@ public abstract class BarrelDecorator
 
 	private static final Pattern SMASH_PATTERN = Pattern.compile( "smash=(\\d+)" );
 
-	public static final void beginSmash( String url )
+	public static void beginSmash( String url )
 	{
 		Matcher m = SMASH_PATTERN.matcher( url );
 		int square = 0;
@@ -235,7 +235,7 @@ public abstract class BarrelDecorator
 		Preferences.setInteger( "lastBarrelSmashed", square );
 	}
 	
-	public static final void gainItem( AdventureResult item )
+	public static void gainItem( AdventureResult item )
 	{
 		int square = Preferences.getInteger( "lastBarrelSmashed" );
 		if ( (square < 1) || (square > 36) )
@@ -287,7 +287,7 @@ public abstract class BarrelDecorator
 		Preferences.setString( "barrelLayout", layout.toString() );
 	}
 	
-	public static final int recommendSquare()
+	public static int recommendSquare()
 	{
 		if ( unsmashedSquares == 0L || unsmashedUser != KoLCharacter.getUserId() )
 		{	// need to visit the page to determine which barrels are available
@@ -319,7 +319,7 @@ public abstract class BarrelDecorator
 		return square;
 	}
 	
-	private static final int recommendRow( final int[] possibles, final int startQuad )
+	private static int recommendRow( final int[] possibles, final int startQuad )
 	{
 		int maxprob = -1;
 		int quad = -1;

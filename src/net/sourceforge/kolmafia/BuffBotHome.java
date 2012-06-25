@@ -83,7 +83,7 @@ public class BuffBotHome
 	 * displayed.
 	 */
 
-	public static final void loadSettings()
+	public static void loadSettings()
 	{
 		BuffBotHome.messages.clear();
 		BuffBotHome.pastRecipients.clear();
@@ -106,7 +106,7 @@ public class BuffBotHome
 	 * appropriate extension.
 	 */
 
-	private static final File getFile( final String extension )
+	private static File getFile( final String extension )
 	{
 		return new File(
 			KoLConstants.BUFFBOT_LOCATION,
@@ -118,7 +118,7 @@ public class BuffBotHome
 	 * given the appropriate extension.
 	 */
 
-	private static final PrintStream getPrintStream( final String extension )
+	private static PrintStream getPrintStream( final String extension )
 	{
 		File output = BuffBotHome.getFile( extension );
 		return LogStream.openStream( output, false );
@@ -128,7 +128,7 @@ public class BuffBotHome
 	 * Retrieves all the past recipients of the buff associated with the given meat amount.
 	 */
 
-	private static final List getPastRecipients( final int meatSent )
+	private static List getPastRecipients( final int meatSent )
 	{
 		Integer key = IntegerPool.get( meatSent );
 		if ( !BuffBotHome.pastRecipients.containsKey( key ) )
@@ -143,7 +143,7 @@ public class BuffBotHome
 	 * Returns the number of times the given name has requested the buff associated with the given meat amount.
 	 */
 
-	public static final int getInstanceCount( final int meatSent, final String name )
+	public static int getInstanceCount( final int meatSent, final String name )
 	{
 		List pastRecipients = BuffBotHome.getPastRecipients( meatSent );
 		BuffRecord record = new BuffRecord( name );
@@ -205,7 +205,7 @@ public class BuffBotHome
 	 * Registers the given name as a recipient of the buff associated with the given meat amount.
 	 */
 
-	public static final void addToRecipientList( final int meatSent, final String name )
+	public static void addToRecipientList( final int meatSent, final String name )
 	{
 		List pastRecipients = BuffBotHome.getPastRecipients( meatSent );
 		BuffRecord record = new BuffRecord( name );
@@ -225,7 +225,7 @@ public class BuffBotHome
 	 * Causes the given player to be permanently ignored from all future buff requests.
 	 */
 
-	public static final void denyFutureBuffs( final String name )
+	public static void denyFutureBuffs( final String name )
 	{
 		List pastRecipients = BuffBotHome.getPastRecipients( 0 );
 		BuffRecord record = new BuffRecord( name );
@@ -242,7 +242,7 @@ public class BuffBotHome
 		}
 	}
 
-	public static final boolean isPermitted( final String name )
+	public static boolean isPermitted( final String name )
 	{
 		List pastRecipients = BuffBotHome.getPastRecipients( 0 );
 		BuffRecord record = new BuffRecord( name );
@@ -261,7 +261,7 @@ public class BuffBotHome
 	 * the file and sets the log file currently being used to null so that no future updates are attempted.
 	 */
 
-	public static final void deinitialize()
+	public static void deinitialize()
 	{
 		BuffBotHome.hypertextLogStream.println();
 		BuffBotHome.hypertextLogStream.println();
@@ -277,7 +277,7 @@ public class BuffBotHome
 	 * whenever no timestamp is required for a given buffbot entry.
 	 */
 
-	public static final void update( final Color c, final String entry )
+	public static void update( final Color c, final String entry )
 	{
 		if ( entry != null && BuffBotHome.hypertextLogStream != null )
 		{
@@ -298,7 +298,7 @@ public class BuffBotHome
 	 * buffbot. However, the standard appending procedure is still valid.
 	 */
 
-	public static final void timeStampedLogEntry( final Color c, final String entry )
+	public static void timeStampedLogEntry( final Color c, final String entry )
 	{
 		BuffBotHome.update( c, BuffBotHome.TIMESTAMP_FORMAT.format( new Date() ) + ": " + entry );
 	}
@@ -308,7 +308,7 @@ public class BuffBotHome
 	 * buff has been requested and successfully processed.
 	 */
 
-	public static final void recordBuff( final String name, final String buff, final int casts, final int meatSent )
+	public static void recordBuff( final String name, final String buff, final int casts, final int meatSent )
 	{
 		BuffBotHome.textLogStream.println( BuffBotHome.TIMESTAMP_FORMAT.format( new Date() ) + "," + name + "," + ContactManager.getPlayerId( name ) + "," + buff + "," + casts + "," + meatSent );
 	}
@@ -317,7 +317,7 @@ public class BuffBotHome
 	 * Sets the frame that should be updated whenever a status message arrives.
 	 */
 
-	public static final void setFrame( final BuffBotFrame frame )
+	public static void setFrame( final BuffBotFrame frame )
 	{
 	}
 
@@ -326,7 +326,7 @@ public class BuffBotHome
 	 * continues logging events - it merely affects whether or not the the buffbot itself is running.
 	 */
 
-	public static final void setBuffBotActive( final boolean isActive )
+	public static void setBuffBotActive( final boolean isActive )
 	{
 		BuffBotHome.isActive = isActive;
 	}
@@ -336,7 +336,7 @@ public class BuffBotHome
 	 * currently logging data - int only states whether or not the buffbot itself is running.
 	 */
 
-	public static final boolean isBuffBotActive()
+	public static boolean isBuffBotActive()
 	{
 		return BuffBotHome.isActive;
 	}
@@ -346,7 +346,7 @@ public class BuffBotHome
 	 * if there is a need to display the messages in some list form.
 	 */
 
-	public static final LockableListModel getMessages()
+	public static LockableListModel getMessages()
 	{
 		return BuffBotHome.messages;
 	}
@@ -356,7 +356,7 @@ public class BuffBotHome
 	 * setting.
 	 */
 
-	public static final DefaultListCellRenderer getMessageRenderer()
+	public static DefaultListCellRenderer getMessageRenderer()
 	{
 		return new BuffMessageRenderer();
 	}

@@ -107,7 +107,7 @@ public class CharPaneDecorator
 		},
 	};
 
-	public static final void decorate( final StringBuffer buffer )
+	public static void decorate( final StringBuffer buffer )
 	{
 		// We are interested in the following sections of the CharPane:
 		//
@@ -137,7 +137,7 @@ public class CharPaneDecorator
 		"<center><font size=1>[<a href=\"charpane.php\">refresh</a>]</font></center></body>" );
 	}
 
-	private static final void decorateStatus( final StringBuffer buffer )
+	private static void decorateStatus( final StringBuffer buffer )
 	{
 		if ( !Preferences.getBoolean( "relayAddsRestoreLinks" ) )
 		{
@@ -183,7 +183,7 @@ public class CharPaneDecorator
 	private static final Pattern POINTS_PATTERN = Pattern.compile( "(<td.*?<br><span.*?>)([\\d,]+)(&nbsp;.*?</td>)" );
 	private static final Pattern COMPACT_POINTS_PATTERN = Pattern.compile( "(<td.*?<b>)(?:<font.*?>)?(\\d+)(.*?(?:</font>)?</b></td>)" );
 
-	private static final void addRestoreLink( final StringBuffer buffer, final boolean hp, final float current, final float threshold, final float dangerous )
+	private static void addRestoreLink( final StringBuffer buffer, final boolean hp, final float current, final float threshold, final float dangerous )
 	{
 		// If we don't need restoration, do nothing
 		if ( current >= threshold )
@@ -227,7 +227,7 @@ public class CharPaneDecorator
 		}
 	}
 
-	private static final String getHPDatum( final StringBuffer buffer )
+	private static String getHPDatum( final StringBuffer buffer )
 	{
 		int startIndex, endIndex;
 
@@ -245,7 +245,7 @@ public class CharPaneDecorator
 		return startIndex < 0 ? "" : buffer.substring( startIndex, endIndex );
 	}
 
-	private static final String getMPDatum( final StringBuffer buffer )
+	private static String getMPDatum( final StringBuffer buffer )
 	{
 		int startIndex, endIndex;
 
@@ -268,7 +268,7 @@ public class CharPaneDecorator
 	private static final Pattern COMPACT_LASTADV_PATTERN = Pattern.compile(
 		"<td align=right>(<a onclick=[^<]+ title=\"Last Adventure: ([^\"]+)\" target=mainpane href=\"([^\"]+)\">.*?</a>:)</td>" );
 
-	private static final void decorateLastAdventure( final StringBuffer buffer )
+	private static void decorateLastAdventure( final StringBuffer buffer )
 	{
 		int nLinks = Preferences.getInteger( "recentLocations" );
 
@@ -384,7 +384,7 @@ public class CharPaneDecorator
 		}
 	}
 
-	private static final void decorateFamiliar( final StringBuffer buffer )
+	private static void decorateFamiliar( final StringBuffer buffer )
 	{
 		StringBuffer annotations = CharPaneDecorator.getFamiliarAnnotation();
 		if ( annotations == null )
@@ -409,7 +409,7 @@ public class CharPaneDecorator
 		}
 	}
 	
-	public static final StringBuffer getFamiliarAnnotation()
+	public static StringBuffer getFamiliarAnnotation()
 	{
 		FamiliarData familiar = KoLCharacter.getEffectiveFamiliar();
 		if ( familiar == null )
@@ -575,7 +575,7 @@ public class CharPaneDecorator
 		return null;
 	}
 
-	private static final void decorateEffects( final StringBuffer buffer )
+	private static void decorateEffects( final StringBuffer buffer )
 	{
 		String effectText = CharPaneDecorator.getEffectText( buffer );
 		String moodText = CharPaneDecorator.getMoodText();
@@ -635,7 +635,7 @@ public class CharPaneDecorator
 		}
 	}
 
-	private static final int getIntrinsicIndex( final StringBuffer buffer )
+	private static int getIntrinsicIndex( final StringBuffer buffer )
 	{
 		if ( CharPaneRequest.compactCharacterPane )
 		{
@@ -646,7 +646,7 @@ public class CharPaneDecorator
 		return buffer.indexOf( "<center><p><b><font size=2>Intrinsics:" );
 	}
 
-	private static final int getFamiliarIndex( final StringBuffer buffer )
+	private static int getFamiliarIndex( final StringBuffer buffer )
 	{
 		int index = KoLCharacter.inAxecore() ?
 			buffer.indexOf( "otherimages/clancy" ) :
@@ -665,7 +665,7 @@ public class CharPaneDecorator
 		return buffer.lastIndexOf( KoLCharacter.inAxecore() ? "<center" : "<table", index );
 	}
 
-	private static final String getEffectText( final StringBuffer buffer )
+	private static String getEffectText( final StringBuffer buffer )
 	{
 		int startIndex;
 
@@ -706,7 +706,7 @@ public class CharPaneDecorator
 		return buffer.substring( startIndex, endIndex );
 	}
 
-	private static final int chooseEffectTableIndex( final StringBuffer buffer )
+	private static int chooseEffectTableIndex( final StringBuffer buffer )
 	{
 		// There are no effects currently on the charpane. Choose where
 		// to place the table we constructed.
@@ -732,7 +732,7 @@ public class CharPaneDecorator
 		return buffer.lastIndexOf( "</center>" );
 	}
 
-	private static final String getMoodText()
+	private static String getMoodText()
 	{
 		String fontColor = null;
 		String moodText = null;
@@ -800,7 +800,7 @@ public class CharPaneDecorator
 		return buffer.toString();
 	}
 
-	private static final String dummyEffectTable()
+	private static String dummyEffectTable()
 	{
 		StringBuilder effects = new StringBuilder();
 
@@ -817,7 +817,7 @@ public class CharPaneDecorator
 		return effects.toString();
 	}
 
-	private static final void addMoodText( final StringBuffer buffer, final String moodText )
+	private static void addMoodText( final StringBuffer buffer, final String moodText )
 	{
 		if ( CharPaneRequest.compactCharacterPane )
 		{
@@ -838,7 +838,7 @@ public class CharPaneDecorator
 		}
 	}
 
-	private static final void addUpArrowLinks( final StringBuffer buffer )
+	private static void addUpArrowLinks( final StringBuffer buffer )
 	{
 		String text = buffer.toString();
 		buffer.setLength( 0 );
@@ -1103,7 +1103,7 @@ public class CharPaneDecorator
 		buffer.append( text.substring( lastAppendIndex ) );
 	}
 
-	private static final void addCounters( final StringBuffer buffer )
+	private static void addCounters( final StringBuffer buffer )
 	{
 		Iterator it = TurnCounter.iterator();
 		if ( it.hasNext() )
@@ -1112,7 +1112,7 @@ public class CharPaneDecorator
 		}
 	}
 
-	private static final void addCounters( final StringBuffer buffer, Iterator it )
+	private static void addCounters( final StringBuffer buffer, Iterator it )
 	{
 		TurnCounter current = (TurnCounter) it.next();
 		while ( current.getTurnsRemaining() < 0 )
@@ -1181,7 +1181,7 @@ public class CharPaneDecorator
 		}
 	}
 
-	private static final void addOneCounter( StringBuffer buffer, TurnCounter current, boolean compact )
+	private static void addOneCounter( StringBuffer buffer, TurnCounter current, boolean compact )
 	{
 		String url = current.imageURL();
 
@@ -1241,11 +1241,11 @@ public class CharPaneDecorator
 		}
 	}
 
-	private static final void decorateIntrinsics( final StringBuffer buffer )
+	private static void decorateIntrinsics( final StringBuffer buffer )
 	{
 	}
 
-	public static final void updateFromPreferences()
+	public static void updateFromPreferences()
 	{
 		CharPaneDecorator.recentLocations.clear();
 	}

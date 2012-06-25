@@ -220,7 +220,7 @@ public class CafeRequest
 		usables.add( item );
 	}
 
-	public static final void reset( final LockableListModel menu )
+	public static void reset( final LockableListModel menu )
 	{
 		// Restore usable list with original concoction
 		LockableListModel usables = ConcoctionDatabase.getUsables();
@@ -265,7 +265,7 @@ public class CafeRequest
 		return true;
 	}
 
-	public static final void registerItemUsage( final String itemName, int price )
+	public static void registerItemUsage( final String itemName, int price )
 	{
 		int inebriety = ItemDatabase.getInebriety( itemName );
 		String consume = inebriety > 0 ? "drink" : "eat";

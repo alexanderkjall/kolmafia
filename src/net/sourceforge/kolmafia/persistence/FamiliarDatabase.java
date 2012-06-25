@@ -191,7 +191,7 @@ public class FamiliarDatabase
 	 */
 
 	private static Integer ZERO = IntegerPool.get( 0 );
-	public static final void registerFamiliar( final int familiarId, final String familiarName, final String image )
+	public static void registerFamiliar( final int familiarId, final String familiarName, final String image )
 	{
 		FamiliarDatabase.registerFamiliar( familiarId, familiarName, image, FamiliarDatabase.ZERO );
 	}
@@ -200,7 +200,7 @@ public class FamiliarDatabase
 
 	private static Pattern FAMILIAR_PATTERN = Pattern.compile( "Hatches into:.*?<table.*?which=(\\d*).*?itemimages/(.*?) .*?<b>(.*?)</b>");
 
-	public static final void registerFamiliar( final Integer larvaId, final String text )
+	public static void registerFamiliar( final Integer larvaId, final String text )
 	{
 		Matcher matcher = FAMILIAR_PATTERN.matcher( text );
 		if ( matcher.find() )
@@ -212,7 +212,7 @@ public class FamiliarDatabase
 		}
 	}
 
-	public static final void registerFamiliar( final int familiarId, final String familiarName, final String image, final Integer larvaId )
+	public static void registerFamiliar( final int familiarId, final String familiarName, final String image, final Integer larvaId )
 	{
 		String canon = StringUtilities.getCanonicalName( familiarName );
 		if ( FamiliarDatabase.familiarByName.containsKey( canon ) )
@@ -250,12 +250,12 @@ public class FamiliarDatabase
 	 * @return The name of the corresponding familiar
 	 */
 
-	public static final String getFamiliarName( final int familiarId )
+	public static String getFamiliarName( final int familiarId )
 	{
 		return FamiliarDatabase.getFamiliarName( IntegerPool.get( familiarId ) );
 	}
 
-	public static final String getFamiliarName( final Integer familiarId )
+	public static String getFamiliarName( final Integer familiarId )
 	{
 		return (String) FamiliarDatabase.familiarById.get( familiarId );
 	}
@@ -267,7 +267,7 @@ public class FamiliarDatabase
 	 * @return The Id number of the corresponding familiar
 	 */
 
-	public static final FamiliarData growFamiliarLarva( final int larvaId )
+	public static FamiliarData growFamiliarLarva( final int larvaId )
 	{
 		Object familiarId = FamiliarDatabase.familiarByLarva.get( IntegerPool.get( larvaId ) );
 		return familiarId == null ? null : new FamiliarData( (Integer) familiarId );
@@ -280,7 +280,7 @@ public class FamiliarDatabase
 	 * @return The Id number of the corresponding familiar
 	 */
 
-	public static final int getFamiliarId( final String substring )
+	public static int getFamiliarId( final String substring )
 	{
 		String searchString = substring.toLowerCase();
 		Object familiarId = FamiliarDatabase.familiarByName.get( searchString );
@@ -304,70 +304,70 @@ public class FamiliarDatabase
 		return -1;
 	}
 
-	public static final boolean isCombatType( final int familiarId )
+	public static boolean isCombatType( final int familiarId )
 	{
 		return FamiliarDatabase.combatById.get( familiarId );
 	}
 
-	public static final boolean isVolleyType( final int familiarId )
+	public static boolean isVolleyType( final int familiarId )
 	{
 		return FamiliarDatabase.volleyById.get( familiarId );
 	}
 
-	public static final boolean isSombreroType( final int familiarId )
+	public static boolean isSombreroType( final int familiarId )
 	{
 		return FamiliarDatabase.sombreroById.get( familiarId );
 	}
 
-	public static final boolean isFairyType( final int familiarId )
+	public static boolean isFairyType( final int familiarId )
 	{
 		return FamiliarDatabase.fairyById.get( familiarId );
 	}
 
-	public static final boolean isMeatDropType( final int familiarId )
+	public static boolean isMeatDropType( final int familiarId )
 	{
 		return FamiliarDatabase.meatDropById.get( familiarId );
 	}
 
-	public static final String getFamiliarItem( final int familiarId )
+	public static String getFamiliarItem( final int familiarId )
 	{
 		return FamiliarDatabase.getFamiliarItem( IntegerPool.get( familiarId ) );
 	}
 
-	public static final String getFamiliarItem( final Integer familiarId )
+	public static String getFamiliarItem( final Integer familiarId )
 	{
 		return (String) FamiliarDatabase.familiarItemById.get( familiarId );
 	}
 
-	public static final int getFamiliarItemId( final int familiarId )
+	public static int getFamiliarItemId( final int familiarId )
 	{
 		return FamiliarDatabase.getFamiliarItemId( IntegerPool.get( familiarId ) );
 	}
 
-	public static final int getFamiliarItemId( final Integer familiarId )
+	public static int getFamiliarItemId( final Integer familiarId )
 	{
 		String name = FamiliarDatabase.getFamiliarItem( familiarId );
 		return name == null ? -1 : ItemDatabase.getItemId( name );
 	}
 
-	public static final int getFamiliarByItem( final String item )
+	public static int getFamiliarByItem( final String item )
 	{
 		Object familiarId = FamiliarDatabase.familiarByItem.get( StringUtilities.getCanonicalName( item ) );
 		return familiarId == null ? -1 : (Integer) familiarId;
 	}
 
-	public static final int getFamiliarLarva( final int familiarId )
+	public static int getFamiliarLarva( final int familiarId )
 	{
 		return FamiliarDatabase.getFamiliarLarva( IntegerPool.get( familiarId ) );
 	}
 
-	public static final int getFamiliarLarva( final Integer familiarId )
+	public static int getFamiliarLarva( final Integer familiarId )
 	{
 		Integer id = (Integer) FamiliarDatabase.familiarLarvaById.get( familiarId );
 		return id == null ? 0 : id;
 	}
 
-	public static final String getFamiliarType( final int familiarId )
+	public static String getFamiliarType( final int familiarId )
 	{
 		StringBuilder buffer = new StringBuilder();
 		String sep = "";
@@ -408,24 +408,24 @@ public class FamiliarDatabase
 		return buffer.toString();
 	}
 
-	public static final void setFamiliarImageLocation( final int familiarId, final String location )
+	public static void setFamiliarImageLocation( final int familiarId, final String location )
 	{
 		FamiliarDatabase.familiarImageById.put( IntegerPool.get( familiarId ), location );
 	}
 
-	public static final String getFamiliarImageLocation( final int familiarId )
+	public static String getFamiliarImageLocation( final int familiarId )
 	{
 		String location = (String) FamiliarDatabase.familiarImageById.get( IntegerPool.get( familiarId ) );
 		return ( location != null ) ? location : "debug.gif";
 	}
 
-	public static final int getFamiliarByImageLocation( final String image )
+	public static int getFamiliarByImageLocation( final String image )
 	{
 		Object familiarId = FamiliarDatabase.familiarByImage.get( image );
 		return familiarId == null ? -1 : (Integer) familiarId;
 	}
 
-	private static final ImageIcon getFamiliarIcon( final String location )
+	private static ImageIcon getFamiliarIcon( final String location )
 	{
 		if ( location == null || location.equals( "debug.gif" ) )
 		{
@@ -435,23 +435,23 @@ public class FamiliarDatabase
 		return JComponentUtilities.getImage( "itemimages/" + location );
 	}
 
-	public static final ImageIcon getNoFamiliarImage()
+	public static ImageIcon getNoFamiliarImage()
 	{
 		return JComponentUtilities.getImage( "debug.gif" );
 	}
 
-	public static final ImageIcon getFamiliarImage( final String name )
+	public static ImageIcon getFamiliarImage( final String name )
 	{
 		return FamiliarDatabase.getFamiliarImage( FamiliarDatabase.getFamiliarId( name ) );
 	}
 
-	public static final ImageIcon getFamiliarImage( final int familiarId )
+	public static ImageIcon getFamiliarImage( final int familiarId )
 	{
 		String location = FamiliarDatabase.getFamiliarImageLocation( familiarId );
 		return FamiliarDatabase.getFamiliarIcon( location );
 	}
 
-	public static final ImageIcon getCurrentFamiliarImage()
+	public static ImageIcon getCurrentFamiliarImage()
 	{
 		String location = KoLCharacter.getFamiliarImage();
 		return FamiliarDatabase.getFamiliarIcon( location );
@@ -464,22 +464,22 @@ public class FamiliarDatabase
 	 * @return <code>true</code> if the item is in the database
 	 */
 
-	public static final boolean contains( final String familiarName )
+	public static boolean contains( final String familiarName )
 	{
 		return FamiliarDatabase.familiarByName.containsKey( StringUtilities.getCanonicalName( familiarName ) );
 	}
 
-	public static final Integer getFamiliarSkill( final String name, final int event )
+	public static Integer getFamiliarSkill( final String name, final int event )
 	{
 		return (Integer) FamiliarDatabase.eventSkillByName[ event - 1 ].get( StringUtilities.getCanonicalName( name ) );
 	}
 
-	public static final int[] getFamiliarSkills( final int id )
+	public static int[] getFamiliarSkills( final int id )
 	{
 		return FamiliarDatabase.getFamiliarSkills( IntegerPool.get( id ) );
 	}
 
-	public static final int[] getFamiliarSkills( final Integer id )
+	public static int[] getFamiliarSkills( final Integer id )
 	{
 		String name = StringUtilities.getCanonicalName( FamiliarDatabase.getFamiliarName( id ) );
 		int skills[] = new int[ 4 ];
@@ -490,7 +490,7 @@ public class FamiliarDatabase
 		return skills;
 	}
 
-	public static final void setFamiliarSkills( final String name, final int[] skills )
+	public static void setFamiliarSkills( final String name, final int[] skills )
 	{
 		String canon = StringUtilities.getCanonicalName( name );
 		for ( int i = 0; i < 4; ++i )
@@ -507,12 +507,12 @@ public class FamiliarDatabase
 	 * @return The set of familiars keyed by name
 	 */
 
-	public static final Set entrySet()
+	public static Set entrySet()
 	{
 		return FamiliarDatabase.familiarById.entrySet();
 	}
 
-	public static final void saveDataOverride()
+	public static void saveDataOverride()
 	{
 		FamiliarDatabase.writeFamiliars( new File( UtilityConstants.DATA_LOCATION, "familiars.txt" ) );
 		FamiliarDatabase.newFamiliars = false;

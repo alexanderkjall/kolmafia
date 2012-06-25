@@ -193,7 +193,7 @@ public class SpaaaceRequest
 	// title="peg style 3"
 	private static final Pattern PEG_PATTERN = Pattern.compile( "title=\"peg style ([123])\"" );
 
-	public static final String parseGameBoard( final String responseText )
+	public static String parseGameBoard( final String responseText )
 	{
 		StringBuilder buffer = new StringBuilder();
 		Matcher matcher = PEG_PATTERN.matcher( responseText );
@@ -208,7 +208,7 @@ public class SpaaaceRequest
 	// <div class="blank">x1</div>
 	private static final Pattern PAYOUT_PATTERN = Pattern.compile( "<div class=\"blank\">x(\\d)</div>" );
 
-	public static final String parseGamePayouts( final String responseText )
+	public static String parseGamePayouts( final String responseText )
 	{
 		StringBuilder buffer = new StringBuilder();
 		Matcher matcher = PAYOUT_PATTERN.matcher( responseText );
@@ -220,7 +220,7 @@ public class SpaaaceRequest
 		return buffer.toString();
 	}
 
-	public static final boolean validBoard( final String board, final String payouts )
+	public static boolean validBoard( final String board, final String payouts )
 	{
 		// There must be 8 * ( 9 + 8 ) = 136 pegs
 		// There must be 9 payouts
@@ -232,7 +232,7 @@ public class SpaaaceRequest
 	private static float [] expected = null;
 	private static String [] slots = null;
 
-	public static final void initializeGameBoard()
+	public static void initializeGameBoard()
 	{
 		Preferences.setString( "lastPorkoBoard", "" );
 		Preferences.setString( "lastPorkoPayouts", "" );
@@ -288,7 +288,7 @@ public class SpaaaceRequest
 		"<div class=\"blank\" style=\"background: Tomato\" title=\"3\">.</div>",
 	};
 
-	private static final String makeDiv( int peg, final int min, final int max, final float expected )
+	private static String makeDiv( int peg, final int min, final int max, final float expected )
 	{
 		if ( min == max )
 		{
@@ -342,7 +342,7 @@ public class SpaaaceRequest
 		return buffer.toString();
 	}
 
-	private static final String makeSlot( final int min, final int max, final float expected )
+	private static String makeSlot( final int min, final int max, final float expected )
 	{
 		if ( min == max )
 		{
@@ -366,7 +366,7 @@ public class SpaaaceRequest
 	static final int LEFT = 2;
 	static final int RANDOM = 3;
 
-	public static final void loadGameBoard( final String board, final String payouts)
+	public static void loadGameBoard( final String board, final String payouts)
 	{
 		// Store the 16 rows of pegs in the matrix.
 		// Even numbered rows have 9 pegs in columns 0, 2, ... 16
@@ -424,7 +424,7 @@ public class SpaaaceRequest
 		}
 	}
 
-	public static final void calculateUnreachableCells()
+	public static void calculateUnreachableCells()
 	{
 		// Algorithm courtesy of clump
 
@@ -494,7 +494,7 @@ public class SpaaaceRequest
 		}
 	}
 
-	public static final void solveGameBoard()
+	public static void solveGameBoard()
 	{
 		// We can figure out the expected value for each starting
 		// position by calculating expected value for each peg by
@@ -605,7 +605,7 @@ public class SpaaaceRequest
 		Preferences.setString( "lastPorkoExpected", buffer.toString() );
 	}
 
-	public static final void visitPorkoChoice( final String responseText )
+	public static void visitPorkoChoice( final String responseText )
 	{
 		// Called when we play Porko
 
@@ -637,7 +637,7 @@ public class SpaaaceRequest
 
 	private static final Pattern PORKO_BOARD_PATTERN = Pattern.compile( "<div id=\"porko\">(.*?</div>)</div>", Pattern.DOTALL );
 
-	public static final void decoratePorko( final StringBuffer buffer )
+	public static void decoratePorko( final StringBuffer buffer )
 	{
 		// Make sure we know the expected payouts
 		if ( SpaaaceRequest.expected == null )
@@ -691,7 +691,7 @@ public class SpaaaceRequest
 
 	private static final Pattern DIV_PATTERN = Pattern.compile( "<div.*?class=\"(.*?)\".*?</div>", Pattern.DOTALL );
 
-	private static final String decoratePorkoBoard( final String board )
+	private static String decoratePorkoBoard( final String board )
 	{
 		StringBuilder buffer = new StringBuilder();
 
@@ -750,7 +750,7 @@ public class SpaaaceRequest
 		return buffer.toString();
 	}
 
-	public static final void visitGeneratorChoice( final String responseText )
+	public static void visitGeneratorChoice( final String responseText )
 	{
 		// Called when we visit the Big-Time Generator
 
@@ -773,7 +773,7 @@ public class SpaaaceRequest
 		SpaaaceRequest.solveGameBoard();
 	}
 
-	public static final boolean registerRequest( final String urlString )
+	public static boolean registerRequest( final String urlString )
 	{
 		if ( !urlString.startsWith( "spaaace.php" ) )
 		{

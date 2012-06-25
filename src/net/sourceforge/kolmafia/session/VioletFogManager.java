@@ -123,7 +123,7 @@ public abstract class VioletFogManager
 
 	private static int FogRoutingTable[][][];
 
-	private static final int[] routingTuple( final int source, final int destination )
+	private static int[] routingTuple( final int source, final int destination )
 	{
 		if ( source < VioletFogManager.FIRST_CHOICE || source > VioletFogManager.LAST_CHOICE || destination < VioletFogManager.FIRST_CHOICE + 1 || destination > VioletFogManager.LAST_CHOICE )
 		{
@@ -132,7 +132,7 @@ public abstract class VioletFogManager
 		return VioletFogManager.FogRoutingTable[ source - VioletFogManager.FIRST_CHOICE ][ destination - VioletFogManager.FIRST_CHOICE - 1 ];
 	}
 
-	private static final int nextHop( final int source, final int destination )
+	private static int nextHop( final int source, final int destination )
 	{
 		int[] tuple = VioletFogManager.routingTuple( source, destination );
 		return tuple == null ? -1 : tuple[ 0 ];
@@ -144,7 +144,7 @@ public abstract class VioletFogManager
 		// printRoutingTable();
 	}
 
-	private static final void buildRoutingTable()
+	private static void buildRoutingTable()
 	{
 		// Get a zeroed array to start things off.
 		VioletFogManager.FogRoutingTable =
@@ -269,7 +269,7 @@ public abstract class VioletFogManager
 
 	private static final int FogChoiceTable[][] = new int[ VioletFogManager.LAST_CHOICE - VioletFogManager.FIRST_CHOICE + 1 ][ 4 ];
 
-	public static final void reset()
+	public static void reset()
 	{
 		// Reset what we've "learned" about the fog choices
 		for ( int i = VioletFogManager.FIRST_CHOICE; i <= VioletFogManager.LAST_CHOICE; ++i )
@@ -306,7 +306,7 @@ public abstract class VioletFogManager
 		}
 	}
 
-	public static final void saveMap()
+	public static void saveMap()
 	{
 		StringBuilder map = new StringBuilder();
 
@@ -326,7 +326,7 @@ public abstract class VioletFogManager
 		Preferences.setString( "violetFogLayout", map.toString() );
 	}
 
-	private static final String currentGoalString()
+	private static String currentGoalString()
 	{
 		int goal = Preferences.getInteger( "violetFogGoal" );
 
@@ -362,12 +362,12 @@ public abstract class VioletFogManager
 		return VioletFogManager.FogGoals[ goal ];
 	}
 
-	public static final boolean fogChoice( final int choice )
+	public static boolean fogChoice( final int choice )
 	{
 		return choice >= VioletFogManager.FIRST_CHOICE && choice <= VioletFogManager.LAST_CHOICE;
 	}
 
-	public static final String handleChoice( final int source )
+	public static String handleChoice( final int source )
 	{
 		// We only handle Violet Fog choices
 		if ( !VioletFogManager.fogChoice( source ) )
@@ -460,7 +460,7 @@ public abstract class VioletFogManager
 		return "";
 	}
 
-	public static final boolean mapChoice( final int lastChoice, final int lastDecision, final String text )
+	public static boolean mapChoice( final int lastChoice, final int lastDecision, final String text )
 	{
 		if ( !VioletFogManager.fogChoice( lastChoice ) )
 		{
@@ -545,7 +545,7 @@ public abstract class VioletFogManager
 		return true;
 	}
 
-	public static final String[][] choiceSpoilers( final int choice )
+	public static String[][] choiceSpoilers( final int choice )
 	{
 		// We only handle Violet Fog choices
 		if ( !VioletFogManager.fogChoice( choice ) )
@@ -576,7 +576,7 @@ public abstract class VioletFogManager
 		return result;
 	}
 
-	private static final String choiceName( final int choice, final int destination )
+	private static String choiceName( final int choice, final int destination )
 	{
 		// If it's unknown, no name
 		if ( destination == 0 )
@@ -594,7 +594,7 @@ public abstract class VioletFogManager
 		return VioletFogManager.FogLocationNames[ destination - VioletFogManager.FIRST_CHOICE ];
 	}
 
-	public static final boolean freeAdventure( final String choice, final String decision )
+	public static boolean freeAdventure( final String choice, final String decision )
 	{
 		// "choiceAdventureX"
 		int source = StringUtilities.parseInt( choice.substring( 15 ) );
@@ -688,7 +688,7 @@ public abstract class VioletFogManager
 		63,		// 22
 	};
 
-	private static final int mafiaCode( final int wikiCode )
+	private static int mafiaCode( final int wikiCode )
 	{
 		return VioletFogManager.WikiToMafia[ wikiCode - 1 ];
 	}
@@ -719,7 +719,7 @@ public abstract class VioletFogManager
 		10,		// 70
 	};
 
-	private static final int wikiCode( final int mafiaCode )
+	private static int wikiCode( final int mafiaCode )
 	{
 		return VioletFogManager.MafiaToWiki[ mafiaCode - VioletFogManager.FIRST_CHOICE - 1 ];
 	}
@@ -731,7 +731,7 @@ public abstract class VioletFogManager
 		VioletFogManager.buildWikiExits();
 	}
 
-	private static final void buildWikiExits()
+	private static void buildWikiExits()
 	{
 		// Get a zeroed array to start things off.
 		VioletFogManager.WikiFogLocationExits = new int[ VioletFogManager.LAST_CHOICE - VioletFogManager.FIRST_CHOICE ][ 3 ];
@@ -771,7 +771,7 @@ public abstract class VioletFogManager
 	// Take the resulting 66 digit string and convert two digits at a time
 	// from base 4 to base 16, resulting in a 33 digit hex string
 
-	public static final String gemelliCode()
+	public static String gemelliCode()
 	{
 		int code[] = new int[ 66 ];
 		int codeIndex = 0;
@@ -815,12 +815,12 @@ public abstract class VioletFogManager
 		return String.valueOf( data );
 	}
 
-	public static final void showGemelliMap()
+	public static void showGemelliMap()
 	{
 		RelayLoader.openSystemBrowser( "http://fog.bewarethefgc.com/index.php?mapstring=" + VioletFogManager.gemelliCode() );
 	}
 
-	public static final void addGoalButton( final StringBuffer buffer )
+	public static void addGoalButton( final StringBuffer buffer )
 	{
 		String goal = VioletFogManager.currentGoalString();
 		ChoiceManager.addGoalButton( buffer, goal );

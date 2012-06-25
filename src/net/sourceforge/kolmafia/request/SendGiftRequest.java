@@ -183,7 +183,7 @@ public class SendGiftRequest
 		return this.source == KoLConstants.storage ? "hagnks_sendmeat" : "sendmeat";
 	}
 
-	public static final LockableListModel getPackages()
+	public static LockableListModel getPackages()
 	{
 		// Which packages are available depends on ascension count.
 		// You start with two packages and receive an additional
@@ -201,7 +201,7 @@ public class SendGiftRequest
 		return responseText.contains( "<td>Package sent.</td>" );
 	}
 
-	private static final List source( final String urlString )
+	private static List source( final String urlString )
 	{
 		return urlString.contains( "fromwhere=1" ) ? KoLConstants.storage : KoLConstants.inventory;
 	}
@@ -265,7 +265,7 @@ public class SendGiftRequest
 		return true;
 	}
 
-	public static final boolean registerRequest( final String urlString )
+	public static boolean registerRequest( final String urlString )
 	{
 		if ( !urlString.startsWith( "town_sendgift.php" ) )
 		{

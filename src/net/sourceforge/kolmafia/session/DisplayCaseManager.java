@@ -69,7 +69,7 @@ public abstract class DisplayCaseManager
 
 	public static boolean collectionRetrieved = false;
 
-	public static final void clearCache()
+	public static void clearCache()
 	{
 		KoLConstants.collection.clear();
 		DisplayCaseManager.collectionRetrieved = false;
@@ -77,22 +77,22 @@ public abstract class DisplayCaseManager
 		DisplayCaseManager.shelves.clear();
 	}
 
-	public static final LockableListModel getHeaders()
+	public static LockableListModel getHeaders()
 	{
 		return DisplayCaseManager.headers;
 	}
 
-	public static final String getHeader( final int shelf )
+	public static String getHeader( final int shelf )
 	{
 		return (String) DisplayCaseManager.headers.get( shelf );
 	}
 
-	public static final LockableListModel getShelves()
+	public static LockableListModel getShelves()
 	{
 		return DisplayCaseManager.shelves;
 	}
 
-	public static final void move( final Object[] moving, final int sourceShelf, final int destinationShelf )
+	public static void move( final Object[] moving, final int sourceShelf, final int destinationShelf )
 	{
 		// In order to take advantage of the utilities of the
 		// Collections interface, place everything inside of
@@ -117,7 +117,7 @@ public abstract class DisplayCaseManager
 		KoLmafia.updateDisplay( "Display case updated." );
 	}
 
-	public static final void reorder( final String[] headers )
+	public static void reorder( final String[] headers )
 	{
 		headers[ 0 ] = "-none-";
 
@@ -184,7 +184,7 @@ public abstract class DisplayCaseManager
 		KoLmafia.updateDisplay( "Display case updated." );
 	}
 
-	private static final void save( final List shelfOrder )
+	private static void save( final List shelfOrder )
 	{
 		int elementCounter = 0;
 		SortedListModel currentShelf;
@@ -216,7 +216,7 @@ public abstract class DisplayCaseManager
 		RequestThread.postRequest( new DisplayCaseRequest( newItems, newShelves ) );
 	}
 
-	public static final void update( final String data )
+	public static void update( final String data )
 	{
 		DisplayCaseManager.updateShelves( data );
 
@@ -250,13 +250,13 @@ public abstract class DisplayCaseManager
 		DisplayCaseManager.collectionRetrieved = true;
 	}
 
-	private static final void registerItem( final AdventureResult item, final int shelf )
+	private static void registerItem( final AdventureResult item, final int shelf )
 	{
 		KoLConstants.collection.add( item );
 		( (SortedListModel) DisplayCaseManager.shelves.get( shelf ) ).add( item );
 	}
 
-	private static final void updateShelves( final String data )
+	private static void updateShelves( final String data )
 	{
 		DisplayCaseManager.clearCache();
 

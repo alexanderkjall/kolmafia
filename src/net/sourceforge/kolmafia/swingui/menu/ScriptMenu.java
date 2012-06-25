@@ -134,7 +134,7 @@ public class ScriptMenu
 		return headers;
 	}
 
-	public static final boolean shouldAddScript( final File script )
+	public static boolean shouldAddScript( final File script )
 	{
 		if ( !script.isDirectory() )
 		{

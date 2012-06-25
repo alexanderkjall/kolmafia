@@ -222,7 +222,7 @@ public class DataTypes
 	// For each simple data type X, we supply:
 	// public static final ScriptValue parseXValue( String name );
 
-	public static final Value parseBooleanValue( final String name, final boolean returnDefault )
+	public static Value parseBooleanValue( final String name, final boolean returnDefault )
 	{
 		if ( name.equalsIgnoreCase( "true" ) )
 		{
@@ -241,7 +241,7 @@ public class DataTypes
 		return null;
 	}
 
-	public static final Value parseIntValue( final String name, final boolean returnDefault )
+	public static Value parseIntValue( final String name, final boolean returnDefault )
 	{
 		try
 		{
@@ -253,7 +253,7 @@ public class DataTypes
 		}
 	}
 
-	public static final Value parseFloatValue( final String name, final boolean returnDefault )
+	public static Value parseFloatValue( final String name, final boolean returnDefault )
 	{
 		try
 		{
@@ -265,12 +265,12 @@ public class DataTypes
 		}
 	}
 
-	public static final Value parseStringValue( final String name )
+	public static Value parseStringValue( final String name )
 	{
 		return new Value( name );
 	}
 
-	public static final Value parseItemValue( String name, final boolean returnDefault )
+	public static Value parseItemValue( String name, final boolean returnDefault )
 	{
 		if ( name == null || name.trim().equals( "" ) )
 		{
@@ -312,7 +312,7 @@ public class DataTypes
 		return new Value( DataTypes.ITEM_TYPE, itemId, name );
 	}
 
-	public static final Value parseLocationValue( final String name, final boolean returnDefault )
+	public static Value parseLocationValue( final String name, final boolean returnDefault )
 	{
 		if ( name == null || name.equals( "" ) )
 		{
@@ -333,7 +333,7 @@ public class DataTypes
 		return new Value( DataTypes.LOCATION_TYPE, content.getAdventureName(), (Object) content );
 	}
 
-	public static final Value parseLocationValue( final int adv, final boolean returnDefault )
+	public static Value parseLocationValue( final int adv, final boolean returnDefault )
 	{
 		if ( adv <= 0 )
 		{
@@ -351,7 +351,7 @@ public class DataTypes
 			(Object) content );
 	}
 
-	public static final int classToInt( final String name )
+	public static int classToInt( final String name )
 	{
 		for ( int i = 0; i < DataTypes.CLASSES.length; ++i )
 		{
@@ -363,7 +363,7 @@ public class DataTypes
 		return -1;
 	}
 
-	public static final Value parseClassValue( final String name, final boolean returnDefault )
+	public static Value parseClassValue( final String name, final boolean returnDefault )
 	{
 		if ( name == null || name.equals( "" ) )
 		{
@@ -384,7 +384,7 @@ public class DataTypes
 		return new Value( DataTypes.CLASS_TYPE, num, DataTypes.CLASSES[ num ] );
 	}
 
-	public static final int statToInt( final String name )
+	public static int statToInt( final String name )
 	{
 		for ( int i = 0; i < DataTypes.STATS.length; ++i )
 		{
@@ -396,7 +396,7 @@ public class DataTypes
 		return -1;
 	}
 
-	public static final Value parseStatValue( final String name, final boolean returnDefault )
+	public static Value parseStatValue( final String name, final boolean returnDefault )
 	{
 		if ( name == null || name.equals( "" ) )
 		{
@@ -419,7 +419,7 @@ public class DataTypes
 		return returnDefault ? DataTypes.STAT_INIT : null;
 	}
 
-	public static final Value parseSkillValue( String name, final boolean returnDefault )
+	public static Value parseSkillValue( String name, final boolean returnDefault )
 	{
 		if ( name == null || name.equals( "" ) )
 		{
@@ -443,7 +443,7 @@ public class DataTypes
 		return new Value( DataTypes.SKILL_TYPE, num, name );
 	}
 
-	public static final Value parseEffectValue( String name, final boolean returnDefault )
+	public static Value parseEffectValue( String name, final boolean returnDefault )
 	{
 		if ( name == null || name.equals( "" ) )
 		{
@@ -466,7 +466,7 @@ public class DataTypes
 		return new Value( DataTypes.EFFECT_TYPE, num, name );
 	}
 
-	public static final Value parseFamiliarValue( String name, final boolean returnDefault )
+	public static Value parseFamiliarValue( String name, final boolean returnDefault )
 	{
 		if ( name == null || name.equals( "" ) )
 		{
@@ -488,7 +488,7 @@ public class DataTypes
 		return new Value( DataTypes.FAMILIAR_TYPE, num, name );
 	}
 
-	public static final Value parseSlotValue( String name, final boolean returnDefault )
+	public static Value parseSlotValue( String name, final boolean returnDefault )
 	{
 		if ( name == null || name.equals( "" ) )
 		{
@@ -510,7 +510,7 @@ public class DataTypes
 		return new Value( DataTypes.SLOT_TYPE, num, name );
 	}
 
-	public static final Value parseMonsterValue( final String name, final boolean returnDefault )
+	public static Value parseMonsterValue( final String name, final boolean returnDefault )
 	{
 		if ( name == null || name.equals( "" ) )
 		{
@@ -531,7 +531,7 @@ public class DataTypes
 		return new Value( DataTypes.MONSTER_TYPE, monster.getName(), monster );
 	}
 
-	public static final Value parseElementValue( String name, final boolean returnDefault )
+	public static Value parseElementValue( String name, final boolean returnDefault )
 	{
 		if ( name == null || name.equals( "" ) )
 		{
@@ -553,7 +553,7 @@ public class DataTypes
 		return new Value( DataTypes.ELEMENT_TYPE, num, name );
 	}
 
-	public static final Value parsePhylumValue( String name, final boolean returnDefault )
+	public static Value parsePhylumValue( String name, final boolean returnDefault )
 	{
 		if ( name == null || name.equals( "" ) )
 		{
@@ -575,7 +575,7 @@ public class DataTypes
 		return new Value( DataTypes.PHYLUM_TYPE, num, name );
 	}
 
-	public static final Value parseCoinmasterValue( String name, final boolean returnDefault )
+	public static Value parseCoinmasterValue( String name, final boolean returnDefault )
 	{
 		if ( name == null || name.equals( "" ) )
 		{
@@ -596,7 +596,7 @@ public class DataTypes
 		return new Value( DataTypes.COINMASTER_TYPE, content.getMaster(), (Object) content );
 	}
 
-	public static final Value makeCoinmasterValue( final CoinmasterData data )
+	public static Value makeCoinmasterValue( final CoinmasterData data )
 	{
 		if ( data == null )
 		{
@@ -606,7 +606,7 @@ public class DataTypes
 		return new Value( DataTypes.COINMASTER_TYPE, data.getMaster(), (Object) data );
 	}
 
-	public static final Value parseValue( final Type type, final String name, final boolean returnDefault )
+	public static Value parseValue( final Type type, final String name, final boolean returnDefault )
 	{
 		return type.parseValue( name, returnDefault );
 	}
@@ -614,34 +614,34 @@ public class DataTypes
 	// For data types which map to integers, also supply:
 	// public static final ScriptValue makeXValue( int num )
 
-	public static final Value makeIntValue( final boolean val )
+	public static Value makeIntValue( final boolean val )
 	{
 		return val ? ONE_VALUE : ZERO_VALUE;
 	}
 
-	public static final Value makeIntValue( final long val )
+	public static Value makeIntValue( final long val )
 	{
 		return val == 0 ? ZERO_VALUE :
 		       val == 1 ? ONE_VALUE :
 		       new Value( val );
 	}
 
-	public static final Value makeFloatValue( final double val )
+	public static Value makeFloatValue( final double val )
 	{
 		return val == 0.0 ? ZERO_FLOAT_VALUE : new Value( val );
 	}
 
-	public static final Value makeBooleanValue( final int num )
+	public static Value makeBooleanValue( final int num )
 	{
 		return makeBooleanValue( num != 0 );
 	}
 
-	public static final Value makeBooleanValue( final boolean value )
+	public static Value makeBooleanValue( final boolean value )
 	{
 		return value ? DataTypes.TRUE_VALUE : DataTypes.FALSE_VALUE;
 	}
 
-	public static final Value makeItemValue( final int num )
+	public static Value makeItemValue( final int num )
 	{
 		String name = ItemDatabase.getItemDataName( num );
 
@@ -653,7 +653,7 @@ public class DataTypes
 		return new Value( DataTypes.ITEM_TYPE, num, name );
 	}
 
-	public static final Value makeItemValue( String name )
+	public static Value makeItemValue( String name )
 	{
 		int num = ItemDatabase.getItemId( name );
 
@@ -666,19 +666,19 @@ public class DataTypes
 		return new Value( DataTypes.ITEM_TYPE, num, name );
 	}
 
-	public static final Value makeItemValue( final AdventureResult ar )
+	public static Value makeItemValue( final AdventureResult ar )
 	{
 		int num = ar.getItemId();
 		String name = ItemDatabase.getItemDataName( num );
 		return new Value( DataTypes.ITEM_TYPE, num, name );
 	}
 
-	public static final Value makeClassValue( final String name )
+	public static Value makeClassValue( final String name )
 	{
 		return new Value( DataTypes.CLASS_TYPE, DataTypes.classToInt( name ), name );
 	}
 
-	public static final Value makeSkillValue( final int num )
+	public static Value makeSkillValue( final int num )
 	{
 		String name = SkillDatabase.getSkillDataName( num );
 		if ( name == null )
@@ -689,7 +689,7 @@ public class DataTypes
 		return new Value( DataTypes.SKILL_TYPE, num, name );
 	}
 
-	public static final Value makeEffectValue( final int num )
+	public static Value makeEffectValue( final int num )
 	{
 		String name = EffectDatabase.getEffectDataName( num );
 		if ( name == null )
@@ -699,7 +699,7 @@ public class DataTypes
 		return new Value( DataTypes.EFFECT_TYPE, num, name );
 	}
 
-	public static final Value makeFamiliarValue( final int num )
+	public static Value makeFamiliarValue( final int num )
 	{
 		String name = FamiliarDatabase.getFamiliarName( num );
 		if ( name == null )

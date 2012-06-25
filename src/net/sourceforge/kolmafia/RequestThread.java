@@ -62,7 +62,7 @@ public abstract class RequestThread
 	private static int nextRequestId = 0;
 	private static Map threadMap = new HashMap();
 
-	public static final void runInParallel( final Runnable action )
+	public static void runInParallel( final Runnable action )
 	{
 		// Later on, we'll make this more sophisticated and create
 		// something similar to the worker thread pool used in the
@@ -71,7 +71,7 @@ public abstract class RequestThread
 		new ThreadWrappedRunnable( action ).start();
 	}
 
-	public static final void postRequestAfterInitialization( final GenericRequest request )
+	public static void postRequestAfterInitialization( final GenericRequest request )
 	{
 		RequestThread.runInParallel( new PostDelayedRequestRunnable( request ) );
 	}
@@ -99,7 +99,7 @@ public abstract class RequestThread
 		}
 	}
 
-	public static final void executeMethodAfterInitialization( final Object object, final String method )
+	public static void executeMethodAfterInitialization( final Object object, final String method )
 	{
 		RequestThread.runInParallel( new ExecuteDelayedMethodRunnable( object, method ) );
 	}
@@ -169,7 +169,7 @@ public abstract class RequestThread
 	 * Posts a single request one time without forcing concurrency. The display will be enabled if there is no sequence.
 	 */
 
-	public static final void postRequest( final GenericRequest request )
+	public static void postRequest( final GenericRequest request )
 	{
 		if ( request == null )
 		{
@@ -185,7 +185,7 @@ public abstract class RequestThread
 		RequestThread.postRequest( force, request );
 	}
 
-	public static final void postRequest( final KoLAdventure request )
+	public static void postRequest( final KoLAdventure request )
 	{
 		if ( request == null )
 		{
@@ -196,7 +196,7 @@ public abstract class RequestThread
 		RequestThread.postRequest( force, request );
 	}
 
-	public static final void postRequest( final Runnable request )
+	public static void postRequest( final Runnable request )
 	{
 		if ( request == null )
 		{
@@ -207,7 +207,7 @@ public abstract class RequestThread
 		RequestThread.postRequest( force, request );
 	}
 
-	private static final void postRequest( final boolean force, final Runnable request )
+	private static void postRequest( final boolean force, final Runnable request )
 	{
 		Integer requestId = RequestThread.openRequestSequence( force );
 
@@ -231,7 +231,7 @@ public abstract class RequestThread
 		}
 	}
 
-	public static synchronized final void checkOpenRequestSequences( final boolean flush )
+	public static synchronized void checkOpenRequestSequences( final boolean flush )
 	{
 		int openSequences = 0;
 		Thread currentThread = Thread.currentThread();
@@ -263,17 +263,17 @@ public abstract class RequestThread
 		StaticEntity.printThreadDump();
 	}
 
-	public static synchronized final boolean hasOpenRequestSequences()
+	public static synchronized boolean hasOpenRequestSequences()
 	{
 		return !RequestThread.threadMap.isEmpty();
 	}
 
-	public static synchronized final Integer openRequestSequence()
+	public static synchronized Integer openRequestSequence()
 	{
 		return RequestThread.openRequestSequence( RequestThread.threadMap.isEmpty() );
 	}
 
-	public static synchronized final Integer openRequestSequence( final boolean forceContinue )
+	public static synchronized Integer openRequestSequence( final boolean forceContinue )
 	{
 		if ( forceContinue )
 		{
@@ -288,7 +288,7 @@ public abstract class RequestThread
 		return requestIdObj;
 	}
 
-	public static synchronized final void closeRequestSequence( final Integer requestIdObj )
+	public static synchronized void closeRequestSequence( final Integer requestIdObj )
 	{
 		Thread thread = (Thread) RequestThread.threadMap.remove( requestIdObj );
 
@@ -315,7 +315,7 @@ public abstract class RequestThread
 	 * running requests to be notified that they should stop as soon as possible.
 	 */
 
-	public static final void declareWorldPeace()
+	public static void declareWorldPeace()
 	{
 		KoLmafia.updateDisplay( MafiaState.ABORT, "KoLmafia declares world peace." );
 		InternalMessage message = new InternalMessage( "KoLmafia declares world peace.", "red" );

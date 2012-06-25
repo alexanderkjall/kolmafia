@@ -116,7 +116,7 @@ public class LoginFrame
 		return false;
 	}
 
-	public static final void hideInstance()
+	public static void hideInstance()
 	{
 		if ( LoginFrame.INSTANCE != null )
 		{
@@ -124,7 +124,7 @@ public class LoginFrame
 		}
 	}
 
-	public static final void disposeInstance()
+	public static void disposeInstance()
 	{
 		if ( LoginFrame.INSTANCE != null )
 		{

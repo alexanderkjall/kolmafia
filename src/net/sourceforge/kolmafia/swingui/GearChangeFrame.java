@@ -476,7 +476,7 @@ public class GearChangeFrame
 		}
 	}
 
-	public static final void validateSelections()
+	public static void validateSelections()
 	{
 		if ( GearChangeFrame.INSTANCE == null )
 		{
@@ -486,7 +486,7 @@ public class GearChangeFrame
 		GearChangeFrame.INSTANCE.ensureValidSelections();
 	}
 
-	public static final void updateHats()
+	public static void updateHats()
 	{
 		if ( GearChangeFrame.INSTANCE == null )
 		{
@@ -498,7 +498,7 @@ public class GearChangeFrame
 		GearChangeFrame.INSTANCE.ensureValidSelections();
 	}
 
-	public static final void updatePants()
+	public static void updatePants()
 	{
 		if ( GearChangeFrame.INSTANCE == null )
 		{
@@ -510,7 +510,7 @@ public class GearChangeFrame
 		GearChangeFrame.INSTANCE.ensureValidSelections();
 	}
 
-	public static final void updateWeapons()
+	public static void updateWeapons()
 	{
 		if ( GearChangeFrame.INSTANCE == null )
 		{
@@ -523,7 +523,7 @@ public class GearChangeFrame
 		GearChangeFrame.INSTANCE.ensureValidSelections();
 	}
 
-	public static final void updateStickers( int st1, int st2, int st3 )
+	public static void updateStickers( int st1, int st2, int st3 )
 	{
 		if ( GearChangeFrame.INSTANCE == null )
 		{
@@ -535,7 +535,7 @@ public class GearChangeFrame
 		GearChangeFrame.INSTANCE.sticker3Label.setText( "Sticker (" + st3 + "): " );
 	}
 
-	public static final void clearWeaponLists()
+	public static void clearWeaponLists()
 	{
 		if ( GearChangeFrame.INSTANCE == null )
 		{
@@ -623,7 +623,7 @@ public class GearChangeFrame
 		}
 	}
 
-	public static final void updateFamiliars()
+	public static void updateFamiliars()
 	{
 		if ( GearChangeFrame.INSTANCE == null )
 		{
@@ -634,7 +634,7 @@ public class GearChangeFrame
 		GearChangeFrame.INSTANCE.ensureValidSelections();
 	}
 
-	public static final void clearFamiliarList()
+	public static void clearFamiliarList()
 	{
 		if ( GearChangeFrame.INSTANCE == null )
 		{

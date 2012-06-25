@@ -121,7 +121,7 @@ public class TelescopeRequest
 		}
 	}
 
-	public static final void parseResponse( final String urlString, final String responseText )
+	public static void parseResponse( final String urlString, final String responseText )
 	{
 		if ( !urlString.startsWith( "campground.php" ) )
 		{
@@ -208,7 +208,7 @@ public class TelescopeRequest
 		Pattern.compile( "final window. *Through it you (.*?)\\." ),
 	};
 
-	public static final boolean registerRequest( final String urlString )
+	public static boolean registerRequest( final String urlString )
 	{
 		Matcher matcher = TelescopeRequest.WHERE_PATTERN.matcher( urlString );
 		if ( !matcher.find() )
