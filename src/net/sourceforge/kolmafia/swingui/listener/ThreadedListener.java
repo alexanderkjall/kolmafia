@@ -139,11 +139,6 @@ public abstract class ThreadedListener
 			return;
 		}
 
-		if ( !this.isValidKeyCode( e.getKeyCode() ) )
-		{
-			return;
-		}
-
 		this.keyEvent = e;
 		RequestThread.runInParallel( this );
 

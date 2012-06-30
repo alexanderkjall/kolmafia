@@ -81,7 +81,7 @@ public class TabbedChatFrame
 	@Override
 	public JTabbedPane getTabbedPane()
 	{
-		return Preferences.getBoolean( "useShinyTabbedChat" ) ? (JTabbedPane) new CloseTabbedPane() : (JTabbedPane) new CloseableTabbedPane();
+		return Preferences.getBoolean( "useShinyTabbedChat" ) ? new CloseTabbedPane() : new CloseableTabbedPane();
 	}
 
 	/**
@@ -144,7 +144,7 @@ public class TabbedChatFrame
 
 		try
 		{
-			TabAdder add = new TabAdder( tabName );
+			TabAdder add = new TabAdder( tabName, this, PROFILER, tabs );
 
 			if ( SwingUtilities.isEventDispatchThread() )
 			{
@@ -188,58 +188,6 @@ public class TabbedChatFrame
 				SwingUtilities.invokeLater( new TabHighlighter( i ) );
 				return;
 			}
-		}
-	}
-
-	private class TabAdder
-		implements Runnable
-	{
-		private final String tabName;
-
-		private TabAdder( final String tabName )
-		{
-			this.tabName = tabName;
-		}
-
-		public void run()
-		{
-			JTabbedPane tabs = TabbedChatFrame.this.tabs;
-			ChatPanel createdPanel = new ChatPanel( this.tabName );
-
-			int tabOrder = this.getTabOrder( this.tabName );
-
-			int tabCount = tabs.getTabCount();
-			int tabIndex = tabCount;
-
-			for ( int i = 0; i < tabCount; ++i )
-			{
-				String currentTabName = tabs.getTitleAt( i ).trim();
-
-				int currentTabOrder = this.getTabOrder( currentTabName );
-
-				if ( tabOrder < currentTabOrder )
-				{
-					tabIndex = i;
-					break;
-				}
-			}
-
-			tabs.insertTab( this.tabName, null, createdPanel, "", tabIndex );
-		}
-
-		private int getTabOrder( final String tabName )
-		{
-			if ( tabName.startsWith( "[" ) )
-			{
-				return 2;
-			}
-
-			if ( tabName.startsWith( "/" ) )
-			{
-				return 0;
-			}
-
-			return 1;
 		}
 	}
 
