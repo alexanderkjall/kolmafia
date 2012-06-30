@@ -39,8 +39,7 @@ import java.util.Set;
 
 import net.java.dev.spellcast.utilities.LockableListModel;
 
-public class LowerCaseEntry
-	implements Entry
+public class LowerCaseEntry implements Entry, Comparable<LowerCaseEntry>
 {
 	private final Entry original;
 	private final Object key;
@@ -117,4 +116,8 @@ public class LowerCaseEntry
 
 		return model;
 	}
+
+    public int compareTo(LowerCaseEntry lowerCaseEntry) {
+        return hashCode() - lowerCaseEntry.hashCode();
+    }
 }

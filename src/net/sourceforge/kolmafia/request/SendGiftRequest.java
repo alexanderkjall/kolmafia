@@ -85,7 +85,7 @@ public class SendGiftRequest
 		}
 	}
 
-	private static class GiftWrapper
+	private static class GiftWrapper implements Comparable<GiftWrapper>
 	{
 		private final StringBuffer name;
 		private final int radio, maxCapacity, materialCost;
@@ -109,7 +109,11 @@ public class SendGiftRequest
 		{
 			return this.name.toString();
 		}
-	}
+
+        public int compareTo(GiftWrapper giftWrapper) {
+            return name.toString().compareTo(giftWrapper.toString());
+        }
+    }
 
 	public SendGiftRequest( final String recipient, final String message, final int desiredCapacity,
 		final Object[] attachments )

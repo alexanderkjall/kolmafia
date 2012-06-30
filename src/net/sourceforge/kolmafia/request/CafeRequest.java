@@ -229,7 +229,7 @@ public class CafeRequest
 			String itemName = (String) menu.get( i );
 			Concoction junk = new Concoction( itemName, -1 );
 			usables.remove( junk );
-			Object old = CafeRequest.existing.get( i );
+			Comparable<?> old = CafeRequest.existing.get( i );
 			if ( old != null )
 			{
 				usables.add( old );

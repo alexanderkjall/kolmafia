@@ -182,7 +182,7 @@ public class CakeArenaManager
 	 * An internal class which represents a single arena opponent. Used to track the opponent.
 	 */
 
-	public static class ArenaOpponent
+	public static class ArenaOpponent implements Comparable<ArenaOpponent>
 	{
 		private final int id;
 		private final String name;
@@ -230,5 +230,9 @@ public class CakeArenaManager
 		{
 			return o != null && o instanceof ArenaOpponent && this.id == ( (ArenaOpponent) o ).id;
 		}
-	}
+
+        public int compareTo(ArenaOpponent arenaOpponent) {
+            return id - arenaOpponent.id;
+        }
+    }
 }

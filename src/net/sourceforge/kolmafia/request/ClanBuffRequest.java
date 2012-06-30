@@ -36,7 +36,7 @@ package net.sourceforge.kolmafia.request;
 import net.java.dev.spellcast.utilities.LockableListModel;
 
 public class ClanBuffRequest
-	extends GenericRequest
+	extends GenericRequest implements Comparable<ClanBuffRequest>
 {
 	private final int buffId;
 
@@ -142,4 +142,8 @@ public class ClanBuffRequest
 
 		return stringForm.toString();
 	}
+
+    public int compareTo(ClanBuffRequest clanBuffRequest) {
+        return buffId - clanBuffRequest.buffId;
+    }
 }

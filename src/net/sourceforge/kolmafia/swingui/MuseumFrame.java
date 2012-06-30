@@ -350,7 +350,7 @@ public class MuseumFrame
 					return;
 				}
 
-				Object removed = OrderingPanel.this.elementModel.remove( selectedIndex );
+				Comparable<?> removed = OrderingPanel.this.elementModel.remove( selectedIndex );
 				OrderingPanel.this.elementModel.add( selectedIndex - 1, removed );
 				OrderingPanel.this.elementList.setSelectedIndex( selectedIndex - 1 );
 			}
@@ -373,7 +373,7 @@ public class MuseumFrame
 					return;
 				}
 
-				Object removed = OrderingPanel.this.elementModel.remove( selectedIndex );
+				Comparable<?> removed = OrderingPanel.this.elementModel.remove( selectedIndex );
 				OrderingPanel.this.elementModel.add( selectedIndex + 1, removed );
 				OrderingPanel.this.elementList.setSelectedIndex( selectedIndex + 1 );
 			}

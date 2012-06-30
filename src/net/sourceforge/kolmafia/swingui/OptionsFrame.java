@@ -438,7 +438,7 @@ public class OptionsFrame
 				return;
 			}
 
-			Object value = this.list.remove( index );
+			Comparable<?> value = this.list.remove( index );
 			this.list.add( index - 1, value );
 			this.elementList.setSelectedIndex( index - 1 );
 		}
@@ -452,7 +452,7 @@ public class OptionsFrame
 				return;
 			}
 
-			Object value = this.list.remove( index );
+			Comparable<?> value = this.list.remove( index );
 			this.list.add( index + 1, value );
 			this.elementList.setSelectedIndex( index + 1 );
 		}

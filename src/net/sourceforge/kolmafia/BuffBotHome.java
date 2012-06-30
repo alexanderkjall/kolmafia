@@ -396,7 +396,7 @@ public class BuffBotHome
 	 * An internal class which represents the message associated with the given buff.
 	 */
 
-	private static class BuffMessage
+	private static class BuffMessage implements Comparable<BuffMessage>
 	{
 		private final Color c;
 		private final String message;
@@ -406,5 +406,14 @@ public class BuffBotHome
 			this.c = c;
 			this.message = message;
 		}
-	}
+
+        public int compareTo(BuffMessage buffMessage) {
+            int comp = message.compareTo(buffMessage.message);
+
+            if ( comp == 0 )
+                comp = c.hashCode() - buffMessage.c.hashCode();
+
+            return comp;
+        }
+    }
 }
