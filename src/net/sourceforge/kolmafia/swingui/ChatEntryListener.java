@@ -25,6 +25,7 @@ public class ChatEntryListener extends ThreadedListener
 
     private final ArrayList<String> commandHistory;
     private int lastCommandIndex = 0;
+    private String unfinishedLine;
 
     public ChatEntryListener(ChatPanel chatPanel)
     {
@@ -35,13 +36,20 @@ public class ChatEntryListener extends ThreadedListener
     @Override
     protected void execute()
     {
-        if ( isAction() )
+        String message = chatPanel.getEntryField().getText();
+
+        int keyCode = getKeyCode();
+
+        if ( isAction() || keyCode == KeyEvent.VK_ENTER )
         {
-            submitChat();
+            commandHistory.add( message );
+            lastCommandIndex = commandHistory.size();
+            unfinishedLine = "";
+
+            submitChat( message );
             return;
         }
 
-        int keyCode = getKeyCode();
 
         if ( keyCode == KeyEvent.VK_UP )
         {
@@ -49,30 +57,26 @@ public class ChatEntryListener extends ThreadedListener
             {
                 return;
             }
+            if( lastCommandIndex == commandHistory.size() )
+            {
+                unfinishedLine = chatPanel.getEntryField().getText();
+            }
+
             chatPanel.getEntryField().setText( commandHistory.get( --lastCommandIndex ) );
         }
         else if ( keyCode == KeyEvent.VK_DOWN )
         {
             if ( lastCommandIndex + 1 >= commandHistory.size() )
             {
-                chatPanel.getEntryField().setText( "" );
+                chatPanel.getEntryField().setText( unfinishedLine );
                 return;
             }
-            chatPanel.getEntryField().setText( commandHistory.get( lastCommandIndex++ ) );
-        }
-        else if ( keyCode == KeyEvent.VK_ENTER )
-        {
-            submitChat();
+            chatPanel.getEntryField().setText( commandHistory.get( ++lastCommandIndex ) );
         }
     }
 
-    private void submitChat()
+    private void submitChat(String message)
     {
-        String message = chatPanel.getEntryField().getText();
-
-        commandHistory.add(message);
-        lastCommandIndex++;
-
         if ( message.equals( "" ) )
         {
             return;

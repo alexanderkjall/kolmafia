@@ -1,6 +1,7 @@
 package net.sourceforge.kolmafia.swingui;
 
 import net.sourceforge.kolmafia.request.GenericRequest;
+import org.junit.Before;
 import org.junit.Test;
 
 import java.awt.event.KeyEvent;
@@ -10,73 +11,106 @@ import static org.mockito.Mockito.mock;
 
 public class ChatEntryListenerTest {
 
-    @Test
-    public void testChatHistoryBasic() throws InterruptedException {
-        String associatedContact = "test";
-        String line1 = "line1";
-        String line2 = "line2";
+    private ChatPanel panel;
+    private ChatEntryListener instance;
+
+    @Before
+    public void setup()
+    {
         GenericRequest profiler = mock(GenericRequest.class);
         ChatFrame chatFrame = mock(ChatFrame.class);
-        ChatPanel panel = new ChatPanel(associatedContact, profiler, chatFrame);
+        panel = new ChatPanel("test", profiler, chatFrame);
 
-        ChatEntryListener instance = new ChatEntryListener(panel);
+        instance = new ChatEntryListener(panel);
+    }
+
+    @Test
+    public void testChatHistoryBasic() throws InterruptedException {
+        String line1 = "line1";
+        String line2 = "line2";
 
         panel.getEntryField().setText(line1);
-        instance.keyReleased( new KeyEvent( panel.getEntryField(), KeyEvent.KEY_RELEASED, System.currentTimeMillis(), 0, KeyEvent.VK_ENTER, KeyEvent.CHAR_UNDEFINED ) );
-        Thread.sleep(200);
+        sendEvent( getEvent( KeyEvent.VK_ENTER ), instance );
         panel.getEntryField().setText( line2 );
-        instance.keyReleased( new KeyEvent( panel.getEntryField(), KeyEvent.KEY_RELEASED, System.currentTimeMillis(), 0, KeyEvent.VK_ENTER, KeyEvent.CHAR_UNDEFINED ) );
-        Thread.sleep(200);
+        sendEvent( getEvent( KeyEvent.VK_ENTER ), instance );
 
-        String result = panel.getEntryField().getText();
-        assertEquals("check that the enter event clears current line of text", "", result);
+        assertEquals("check that the enter event clears current line of text", "", panel.getEntryField().getText());
 
-        instance.keyReleased( new KeyEvent(panel.getEntryField(), KeyEvent.KEY_RELEASED, System.currentTimeMillis(), 0, KeyEvent.VK_UP, KeyEvent.CHAR_UNDEFINED));
-        Thread.sleep(200);
+        sendEvent( getEvent( KeyEvent.VK_UP ), instance );
 
-        result = panel.getEntryField().getText();
-        assertEquals("check that the key up event restores one line back from history", line2, result);
+        assertEquals("check that the key up event restores one line back from history", line2, panel.getEntryField().getText());
 
-        instance.keyReleased( new KeyEvent(panel.getEntryField(), KeyEvent.KEY_RELEASED, System.currentTimeMillis(), 0, KeyEvent.VK_UP, KeyEvent.CHAR_UNDEFINED));
-        Thread.sleep(200);
+        sendEvent( getEvent( KeyEvent.VK_UP ), instance );
 
-        result = panel.getEntryField().getText();
-        assertEquals("check that the key up event restores one line back from history", line1, result);
+        assertEquals("check that the key up event restores one line back from history", line1, panel.getEntryField().getText());
     }
 
     @Test
     public void testChatHistory() throws InterruptedException {
-        String associatedContact = "test";
         String line1 = "line1";
-        GenericRequest profiler = mock(GenericRequest.class);
-        ChatFrame chatFrame = mock(ChatFrame.class);
-        ChatPanel panel = new ChatPanel(associatedContact, profiler, chatFrame);
-
-        ChatEntryListener instance = new ChatEntryListener(panel);
 
         panel.getEntryField().setText(line1);
-        instance.keyReleased( new KeyEvent( panel.getEntryField(), KeyEvent.KEY_RELEASED, System.currentTimeMillis(), 0, KeyEvent.VK_ENTER, KeyEvent.CHAR_UNDEFINED ) );
-        Thread.sleep(200);
+        sendEvent( getEvent( KeyEvent.VK_ENTER ), instance );
 
-        String result = panel.getEntryField().getText();
-        assertEquals("check that the enter event clears current line of text", "", result);
+        assertEquals( "check that the enter event clears current line of text", "", panel.getEntryField().getText() );
 
-        instance.keyReleased( new KeyEvent(panel.getEntryField(), KeyEvent.KEY_RELEASED, System.currentTimeMillis(), 0, KeyEvent.VK_UP, KeyEvent.CHAR_UNDEFINED));
-        Thread.sleep(200);
+        sendEvent( getEvent( KeyEvent.VK_UP ), instance );
 
-        result = panel.getEntryField().getText();
-        assertEquals("check that the key up event restores one line back from history", line1, result);
+        assertEquals("check that the key up event restores one line back from history", line1, panel.getEntryField().getText());
 
-        instance.keyReleased( new KeyEvent(panel.getEntryField(), KeyEvent.KEY_RELEASED, System.currentTimeMillis(), 0, KeyEvent.VK_UP, KeyEvent.CHAR_UNDEFINED));
-        Thread.sleep(200);
+        sendEvent( getEvent( KeyEvent.VK_UP ), instance );
 
-        result = panel.getEntryField().getText();
-        assertEquals("check that the key up event restores one line back from history", line1, result);
+        assertEquals("going above the top of history should do nothing", line1, panel.getEntryField().getText());
 
-        instance.keyReleased( new KeyEvent(panel.getEntryField(), KeyEvent.KEY_RELEASED, System.currentTimeMillis(), 0, KeyEvent.VK_DOWN, KeyEvent.CHAR_UNDEFINED));
-        Thread.sleep(200);
+        sendEvent( getEvent( KeyEvent.VK_DOWN ), instance );
 
-        result = panel.getEntryField().getText();
-        assertEquals("check that the key down event empties the line when the history is over", "", result);
+        assertEquals("check that the key down event empties the line when the history is over", "", panel.getEntryField().getText());
+    }
+
+    @Test
+    public void testChatHistorytwoLines() throws InterruptedException {
+        String line1 = "line1";
+        String line2 = "line2";
+
+        panel.getEntryField().setText(line1);
+        sendEvent( getEvent( KeyEvent.VK_ENTER ), instance );
+        panel.getEntryField().setText(line2);
+        sendEvent( getEvent( KeyEvent.VK_ENTER ), instance );
+
+        sendEvent( getEvent( KeyEvent.VK_UP ), instance );
+        assertEquals("check that the key up event restores one line back from history", line2, panel.getEntryField().getText());
+
+        sendEvent( getEvent( KeyEvent.VK_UP ), instance );
+        assertEquals("second up should give first line", line1, panel.getEntryField().getText());
+
+        sendEvent( getEvent( KeyEvent.VK_DOWN ), instance );
+        assertEquals("down gives second line again", line2, panel.getEntryField().getText());
+
+        sendEvent( getEvent( KeyEvent.VK_DOWN ), instance );
+        assertEquals("check that the key down event empties the line when the history is over", "", panel.getEntryField().getText());
+    }
+
+    @Test
+    public void testChatHistoryRestoreUnsentMessage() throws InterruptedException {
+        String line1 = "line1";
+        String unsentLine = "unsentLine";
+
+        panel.getEntryField().setText(line1);
+        sendEvent( getEvent( KeyEvent.VK_ENTER ), instance );
+        panel.getEntryField().setText( unsentLine );
+        sendEvent( getEvent( KeyEvent.VK_UP ), instance );
+        sendEvent( getEvent( KeyEvent.VK_DOWN ), instance );
+
+        assertEquals("check that the key down event restores the not sent line when", unsentLine, panel.getEntryField().getText());
+    }
+
+    private void sendEvent(KeyEvent event, ChatEntryListener instance) throws InterruptedException {
+        instance.keyReleased( event );
+        Thread.sleep( 200 );
+    }
+
+    private KeyEvent getEvent( int key )
+    {
+        return new KeyEvent( panel.getEntryField(), KeyEvent.KEY_RELEASED, System.currentTimeMillis(), 0, key, KeyEvent.CHAR_UNDEFINED );
     }
 }
