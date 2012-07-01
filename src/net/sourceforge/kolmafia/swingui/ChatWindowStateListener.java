@@ -18,7 +18,11 @@ public class ChatWindowStateListener extends WindowAdapter
     {
         if( e.getID() == WindowEvent.WINDOW_GAINED_FOCUS )
         {
-            pane.getComponentAt( pane.getSelectedIndex() ).requestFocusInWindow();
+            int index = pane.getSelectedIndex();
+            if( index != -1 )
+            {
+                pane.getComponentAt( index ).requestFocusInWindow();
+            }
         }
 
         super.windowGainedFocus( e );
