@@ -40,7 +40,7 @@ public class UnaliasCommand
 {
 	public UnaliasCommand()
 	{
-		this.usage = " <word> - remove a CLI abbreviation.";
+        usage = " <word> - remove a CLI abbreviation.";
 	}
 
 	@Override

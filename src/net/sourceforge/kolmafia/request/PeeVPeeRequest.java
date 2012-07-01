@@ -84,20 +84,20 @@ public class PeeVPeeRequest
 	public PeeVPeeRequest( final String place )
 	{
 		super( "peevpee.php" );
-		this.addFormField( "place", place );
+        addFormField( "place", place );
 	}
 	
 	public PeeVPeeRequest( final String opponent, final int stance, final String mission )
 	{
 		super( "peevpee.php" );
-		
-		this.addFormField( "action", "fight" );
-		this.addFormField( "place", "fight" );
-		this.addFormField( "attacktype", mission );
+
+        addFormField( "action", "fight" );
+        addFormField( "place", "fight" );
+        addFormField( "attacktype", mission );
 		// ranked=1 for normal, 2 for harder
-		this.addFormField( "ranked", "1" );
-		this.addFormField( "stance", String.valueOf( stance ) );
-		this.addFormField( "who", opponent );
+        addFormField( "ranked", "1" );
+        addFormField( "stance", String.valueOf( stance ) );
+        addFormField( "who", opponent );
 		
 		String win = Preferences.getString( "defaultFlowerWinMessage" );
 		String lose = Preferences.getString( "defaultFlowerLossMessage" );
@@ -111,19 +111,19 @@ public class PeeVPeeRequest
 			lose =
 				PeeVPeeRequest.LOSE_MESSAGES[ KoLConstants.RNG.nextInt( PeeVPeeRequest.LOSE_MESSAGES.length ) ];
 		}
-		
-		this.addFormField( "winmessage", win );
-		this.addFormField( "losemessage", lose );
+
+        addFormField( "winmessage", win );
+        addFormField( "losemessage", lose );
 	}
 	
 	public void setTarget( final String target )
 	{
-		this.addFormField( "who", target );
+        addFormField( "who", target );
 	}
 	
 	public void setTargetType( final String type )
 	{
-		this.addFormField( "ranked", type );
+        addFormField( "ranked", type );
 	}
 
 	public static void parseResponse( final String location, final String responseText )

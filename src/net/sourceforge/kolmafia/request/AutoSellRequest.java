@@ -71,7 +71,7 @@ public class AutoSellRequest
 	public AutoSellRequest( final Object[] items )
 	{
 		super( AutoSellRequest.getSellPage(), items );
-		this.addFormField( "action", "sell" );
+        addFormField( "action", "sell" );
 	}
 
 	@Override
@@ -109,45 +109,45 @@ public class AutoSellRequest
 	{
 		if ( KoLCharacter.getAutosellMode().equals( "detailed" ) )
 		{
-			this.attachDetailedItem( item );
+            attachDetailedItem( item );
 		}
 		else
 		{
-			this.attachCompactItem( item );
+            attachCompactItem( item );
 		}
 	}
 
 	public void attachDetailedItem( final AdventureResult item )
 	{
-		if ( !this.setMode )
+		if ( !setMode )
 		{
 			int count = item.getCount();
 			int icount = item.getCount( KoLConstants.inventory );
 
 			if ( count == icount )
 			{
-				this.addFormField( "mode", "1" );
+                addFormField( "mode", "1" );
 			}
 			else if ( count == icount - 1 )
 			{
-				this.addFormField( "mode", "2" );
+                addFormField( "mode", "2" );
 			}
 			else
 			{
-				this.addFormField( "mode", "3" );
-				this.addFormField( "quantity", String.valueOf( count ) );
+                addFormField( "mode", "3" );
+                addFormField( "quantity", String.valueOf( count ) );
 			}
 
-			this.setMode = true;
+            setMode = true;
 		}
 
 		String itemId = String.valueOf( item.getItemId() );
-		this.addFormField( "item" + itemId, itemId );
+        addFormField( "item" + itemId, itemId );
 	}
 
 	public void attachCompactItem( final AdventureResult item )
 	{
-		if ( !this.setMode )
+		if ( !setMode )
 		{
 			int count = item.getCount();
 			int icount = item.getCount( KoLConstants.inventory );
@@ -157,30 +157,30 @@ public class AutoSellRequest
 				// As of 2/1/2006, must specify a quantity
 				// field for this - but the value is ignored
 
-				this.addFormField( "type", "all" );
-				this.addFormField( "howmany", "1" );
+                addFormField( "type", "all" );
+                addFormField( "howmany", "1" );
 			}
 			else if ( count == icount - 1 )
 			{
 				// As of 2/1/2006, must specify a quantity
 				// field for this - but the value is ignored
 
-				this.addFormField( "type", "allbutone" );
-				this.addFormField( "howmany", "1" );
+                addFormField( "type", "allbutone" );
+                addFormField( "howmany", "1" );
 			}
 			else
 			{
-				this.addFormField( "type", "quant" );
-				this.addFormField( "howmany", String.valueOf( count ) );
+                addFormField( "type", "quant" );
+                addFormField( "howmany", String.valueOf( count ) );
 			}
 
-			this.setMode = true;
+            setMode = true;
 		}
 
 		// This is a multiple selection input field.
 		// Therefore, you can give it multiple items.
 
-		this.addFormField( "whichitem[]", String.valueOf( item.getItemId() ), true );
+        addFormField( "whichitem[]", String.valueOf( item.getItemId() ), true );
 	}
 
 	@Override
@@ -212,9 +212,9 @@ public class AutoSellRequest
 		ArrayList allButOne = new ArrayList();
 		HashSet others = new HashSet();
 
-		for ( int index = 0; index < this.attachments.length; ++index )
+		for ( int index = 0; index < attachments.length; ++index )
 		{
-			AdventureResult item = (AdventureResult) this.attachments[ index ];
+			AdventureResult item = (AdventureResult) attachments[ index ];
 
 			if ( item == null )
 			{
@@ -242,7 +242,7 @@ public class AutoSellRequest
 
 			if ( !allowSingleton && KoLConstants.singletonList.contains( item ) )
 			{
-				availableCount = this.keepSingleton( item, availableCount );
+				availableCount = keepSingleton( item, availableCount );
 			}
 
 			if ( availableCount <= 0 )
@@ -293,21 +293,21 @@ public class AutoSellRequest
 				}
 			}
 
-			TransferItemRequest subinstance = this.getSubInstance( items.toArray() );
+			TransferItemRequest subinstance = getSubInstance( items.toArray() );
 			subinstance.isSubInstance = true;
 			subinstances.add( subinstance );
 		}
 
 		if ( allButOne.size() > 0 )
 		{
-			TransferItemRequest subinstance = this.getSubInstance( allButOne.toArray() );
+			TransferItemRequest subinstance = getSubInstance( allButOne.toArray() );
 			subinstance.isSubInstance = true;
 			subinstances.add( subinstance );
 		}
 
 		if ( all.size() > 0 )
 		{
-			TransferItemRequest subinstance = this.getSubInstance( all.toArray() );
+			TransferItemRequest subinstance = getSubInstance( all.toArray() );
 			subinstance.isSubInstance = true;
 			subinstances.add( subinstance );
 		}
@@ -331,7 +331,7 @@ public class AutoSellRequest
 	@Override
 	public boolean parseTransfer()
 	{
-		return AutoSellRequest.parseTransfer( this.getURLString(), this.responseText );
+		return AutoSellRequest.parseTransfer( getURLString(), responseText );
 	}
 
 	public static boolean parseTransfer( final String urlString, final String responseText )

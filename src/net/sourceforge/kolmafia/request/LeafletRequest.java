@@ -55,20 +55,20 @@ public class LeafletRequest
 		super( "leaflet.php" );
 		if ( command != null )
 		{
-			this.addFormField( "command", command );
+            addFormField( "command", command );
 		}
 	}
 
 	public void setCommand( final String command )
 	{
-		this.clearDataFields();
-		this.addFormField( "command", command );
+        clearDataFields();
+        addFormField( "command", command );
 	}
 
 	@Override
 	public void processResults()
 	{
-		LeafletRequest.parseResponse( this.getURLString(), this.responseText );
+		LeafletRequest.parseResponse( getURLString(), responseText );
 	}
 
 	public static void parseResponse( final String urlString, final String responseText )

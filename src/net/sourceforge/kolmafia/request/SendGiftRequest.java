@@ -107,7 +107,7 @@ public class SendGiftRequest
 		@Override
 		public String toString()
 		{
-			return this.name.toString();
+			return name.toString();
 		}
 
         public int compareTo(GiftWrapper giftWrapper) {
@@ -130,30 +130,30 @@ public class SendGiftRequest
 		this.message = CharacterEntities.unescape( message );
 		this.desiredCapacity = desiredCapacity;
 
-		this.wrappingType = (GiftWrapper) SendGiftRequest.PACKAGES.get( desiredCapacity );
-		this.maxCapacity = this.wrappingType.maxCapacity;
-		this.materialCost = this.wrappingType.materialCost;
+        wrappingType = (GiftWrapper) SendGiftRequest.PACKAGES.get( desiredCapacity );
+        maxCapacity = wrappingType.maxCapacity;
+        materialCost = wrappingType.materialCost;
 
-		this.addFormField( "action", "Yep." );
-		this.addFormField( "towho", ContactManager.getPlayerId( this.recipient ) );
-		this.addFormField( "note", this.message );
-		this.addFormField( "insidenote", this.message );
-		this.addFormField( "whichpackage", String.valueOf( this.wrappingType.radio ) );
+        addFormField( "action", "Yep." );
+        addFormField( "towho", ContactManager.getPlayerId( this.recipient ) );
+        addFormField( "note", this.message );
+        addFormField( "insidenote", this.message );
+        addFormField( "whichpackage", String.valueOf( wrappingType.radio ) );
 
 		// You can take from inventory (0) or Hagnks (1)
-		this.addFormField( "fromwhere", isFromStorage ? "1" : "0" );
+        addFormField( "fromwhere", isFromStorage ? "1" : "0" );
 
 		if ( isFromStorage )
 		{
-			this.source = KoLConstants.storage;
-			this.destination = new ArrayList();
+            source = KoLConstants.storage;
+            destination = new ArrayList();
 		}
 	}
 
 	@Override
 	public int getCapacity()
 	{
-		return this.maxCapacity;
+		return maxCapacity;
 	}
 
 	@Override
@@ -166,25 +166,25 @@ public class SendGiftRequest
 	public TransferItemRequest getSubInstance( final Object[] attachments )
 	{
 		return new SendGiftRequest(
-			this.recipient, this.message, this.desiredCapacity, attachments, this.source == KoLConstants.storage );
+                recipient, message, desiredCapacity, attachments, source == KoLConstants.storage );
 	}
 
 	@Override
 	public String getItemField()
 	{
-		return this.source == KoLConstants.storage ? "hagnks_whichitem" : "whichitem";
+		return source == KoLConstants.storage ? "hagnks_whichitem" : "whichitem";
 	}
 
 	@Override
 	public String getQuantityField()
 	{
-		return this.source == KoLConstants.storage ? "hagnks_howmany" : "howmany";
+		return source == KoLConstants.storage ? "hagnks_howmany" : "howmany";
 	}
 
 	@Override
 	public String getMeatField()
 	{
-		return this.source == KoLConstants.storage ? "hagnks_sendmeat" : "sendmeat";
+		return source == KoLConstants.storage ? "hagnks_sendmeat" : "sendmeat";
 	}
 
 	public static LockableListModel getPackages()
@@ -235,7 +235,7 @@ public class SendGiftRequest
 	@Override
 	public boolean parseTransfer()
 	{
-		return SendGiftRequest.parseTransfer( this.getURLString(), this.responseText );
+		return SendGiftRequest.parseTransfer( getURLString(), responseText );
 	}
 
 	public static boolean parseTransfer( final String urlString, final String responseText )
@@ -296,6 +296,6 @@ public class SendGiftRequest
 	@Override
 	public String getStatusMessage()
 	{
-		return "Sending package to " + ContactManager.getPlayerName( this.recipient );
+		return "Sending package to " + ContactManager.getPlayerName( recipient );
 	}
 }

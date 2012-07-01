@@ -42,7 +42,7 @@ public class HotTubCommand
 {
 	public HotTubCommand()
 	{
-		this.usage = " - soak in your clan's hot tub";
+        usage = " - soak in your clan's hot tub";
 	}
 
 	@Override

@@ -44,7 +44,7 @@ public class PvpStealCommand
 {
 	public PvpStealCommand()
 	{
-		this.usage = " [attacks] ( flowers | loot | fame) [muscle|myst|moxie|ballyhoo] - commit random acts of PvP [using the specified stance].";
+        usage = " [attacks] ( flowers | loot | fame) [muscle|myst|moxie|ballyhoo] - commit random acts of PvP [using the specified stance].";
 	}
 
 	@Override

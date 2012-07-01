@@ -40,7 +40,7 @@ public class IfStatement
 {
 	public IfStatement()
 	{
-		this.usage = " <condition>; <commands> - do commands once if condition is true (see condref).";
+        usage = " <condition>; <commands> - do commands once if condition is true (see condref).";
 	}
 
 	@Override
@@ -50,7 +50,7 @@ public class IfStatement
 		if ( ConditionalStatement.test( parameters ) )
 		{
 			CLI.elseInvalid();
-			CLI.executeLine( this.continuation );
+			CLI.executeLine( continuation );
 			CLI.elseRuns( false );
 		}
 		else

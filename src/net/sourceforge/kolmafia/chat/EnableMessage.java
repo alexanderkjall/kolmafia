@@ -40,13 +40,13 @@ public class EnableMessage
 
 	public EnableMessage( String channel, boolean isTalkChannel )
 	{
-		this.setSender( channel );
+        setSender( channel );
 
 		this.isTalkChannel = isTalkChannel;
 	}
 
 	public boolean isTalkChannel()
 	{
-		return this.isTalkChannel;
+		return isTalkChannel;
 	}
 }

@@ -133,7 +133,7 @@ public class BURTRequest
 	@Override
 	public void processResults()
 	{
-		BURTRequest.parseResponse( this.getURLString(), this.responseText );
+		BURTRequest.parseResponse( getURLString(), responseText );
 	}
 
 	public static void parseResponse( String location, final String responseText )

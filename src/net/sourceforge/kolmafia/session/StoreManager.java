@@ -349,13 +349,13 @@ public abstract class StoreManager
 
 			String[] pieces = text.split( " " );
 			this.text = text.substring( pieces[ 0 ].length() + pieces[ 1 ].length() + 2 );
-			this.stringForm = id + ": " + text;
+            stringForm = id + ": " + text;
 		}
 
 		@Override
 		public String toString()
 		{
-			return this.stringForm;
+			return stringForm;
 		}
 
 		public int compareTo( final Object o )
@@ -368,11 +368,11 @@ public abstract class StoreManager
 			switch ( StoreManager.currentLogSort )
 			{
 			case RECENT_FIRST:
-				return ( (StoreLogEntry) o ).id - this.id;
+				return ( (StoreLogEntry) o ).id - id;
 			case OLDEST_FIRST:
-				return this.id - ( (StoreLogEntry) o ).id;
+				return id - ( (StoreLogEntry) o ).id;
 			case GROUP_BY_NAME:
-				return this.text.compareToIgnoreCase( ( (StoreLogEntry) o ).text );
+				return text.compareToIgnoreCase( ((StoreLogEntry) o).text );
 			default:
 				return -1;
 			}
@@ -581,13 +581,13 @@ public abstract class StoreManager
 		public SoldItem( final int itemId, final int quantity, final int price, final int limit, final int lowest )
 		{
 			this.itemId = itemId;
-			this.itemName = ItemDatabase.getItemDataName( itemId );
+            itemName = ItemDatabase.getItemDataName( itemId );
 			this.quantity = quantity;
 			this.price = price;
 			this.limit = limit;
 			this.lowest = lowest;
 
-			super.add( this.itemName );
+			super.add( itemName );
 			super.add( IntegerPool.get( price ) );
 			super.add( IntegerPool.get( lowest ) );
 			super.add( IntegerPool.get( quantity ) );
@@ -596,38 +596,38 @@ public abstract class StoreManager
 
 		public int getItemId()
 		{
-			return this.itemId;
+			return itemId;
 		}
 
 		public String getItemName()
 		{
-			return this.itemName;
+			return itemName;
 		}
 
 		public int getQuantity()
 		{
-			return this.quantity;
+			return quantity;
 		}
 
 		public int getPrice()
 		{
-			return this.price;
+			return price;
 		}
 
 		public int getLimit()
 		{
-			return this.limit;
+			return limit;
 		}
 
 		public int getLowest()
 		{
-			return this.lowest;
+			return lowest;
 		}
 
 		@Override
 		public boolean equals( final Object o )
 		{
-			return o != null && o instanceof SoldItem && ( (SoldItem) o ).itemId == this.itemId;
+			return o != null && o instanceof SoldItem && ( (SoldItem) o ).itemId == itemId;
 		}
 
 		public int compareTo( final Object o )
@@ -637,22 +637,22 @@ public abstract class StoreManager
 				return -1;
 			}
 
-			if ( this.price != 999999999 && ( (SoldItem) o ).price == 999999999 )
+			if ( price != 999999999 && ( (SoldItem) o ).price == 999999999 )
 			{
 				return -1;
 			}
 
-			if ( this.price == 999999999 && ( (SoldItem) o ).price != 999999999 )
+			if ( price == 999999999 && ( (SoldItem) o ).price != 999999999 )
 			{
 				return 1;
 			}
 
-			if ( this.price == 999999999 && ( (SoldItem) o ).price == 999999999 )
+			if ( price == 999999999 && ( (SoldItem) o ).price == 999999999 )
 			{
-				return this.itemName.compareToIgnoreCase( ( (SoldItem) o ).itemName );
+				return itemName.compareToIgnoreCase( ((SoldItem) o).itemName );
 			}
 
-			return StoreManager.sortItemsByName ? this.itemName.compareToIgnoreCase( ( (SoldItem) o ).itemName ) : this.price - ( (SoldItem) o ).price;
+			return StoreManager.sortItemsByName ? itemName.compareToIgnoreCase( ((SoldItem) o).itemName ) : price - ( (SoldItem) o ).price;
 		}
 
 		@Override
@@ -660,19 +660,19 @@ public abstract class StoreManager
 		{
 			StringBuilder buffer = new StringBuilder();
 
-			buffer.append( ItemDatabase.getItemName( this.itemId ) );
+			buffer.append( ItemDatabase.getItemName( itemId ) );
 			buffer.append( " (" );
 
-			buffer.append( KoLConstants.COMMA_FORMAT.format( this.quantity ) );
+			buffer.append( KoLConstants.COMMA_FORMAT.format( quantity ) );
 
-			if ( this.limit < this.quantity )
+			if ( limit < quantity )
 			{
 				buffer.append( " limit " );
-				buffer.append( KoLConstants.COMMA_FORMAT.format( this.limit ) );
+				buffer.append( KoLConstants.COMMA_FORMAT.format( limit ) );
 			}
 
 			buffer.append( " @ " );
-			buffer.append( KoLConstants.COMMA_FORMAT.format( this.price ) );
+			buffer.append( KoLConstants.COMMA_FORMAT.format( price ) );
 			buffer.append( ")" );
 
 			return buffer.toString();

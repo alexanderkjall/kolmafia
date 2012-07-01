@@ -50,7 +50,7 @@ public class HatterCommand
 {
 	public HatterCommand()
 	{
-		this.usage = " [hat] - List effects you can get by wearing available hats at the hatter's tea party, or get a buff with a hat.";
+        usage = " [hat] - List effects you can get by wearing available hats at the hatter's tea party, or get a buff with a hat.";
 	}
 
 	@Override

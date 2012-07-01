@@ -163,7 +163,7 @@ public class ShowDescriptionTable
 	public ShowDescriptionTable( final LockableListModel displayModel, final ListElementFilter filter,
 			final int visibleRowCount, final int visibleColumnCount, final boolean[] flags )
 	{
-		this.contextMenu = new JPopupMenu();
+        contextMenu = new JPopupMenu();
 
 		boolean isMoodList = displayModel == MoodManager.getTriggers();
 		boolean isEncyclopedia = !displayModel.isEmpty() && displayModel.get( 0 ) instanceof Entry;
@@ -172,85 +172,85 @@ public class ShowDescriptionTable
 		{
 			if ( displayModel.size() == 0 || !isEncyclopedia )
 			{
-				this.contextMenu.add( new ContextMenuItem( "Game description",
-					new DescriptionRunnable() ) );
+                contextMenu.add( new ContextMenuItem( "Game description",
+                        new DescriptionRunnable() ) );
 			}
 
-			this.contextMenu.add( new ContextMenuItem( "Wiki description", new WikiLookupRunnable() ) );
+            contextMenu.add( new ContextMenuItem( "Wiki description", new WikiLookupRunnable() ) );
 		}
 
 		if ( displayModel == KoLConstants.activeEffects )
 		{
-			this.contextMenu.add( new ContextMenuItem( "Remove this effect", new ShrugOffRunnable() ) );
-			this.contextMenu
+            contextMenu.add( new ContextMenuItem( "Remove this effect", new ShrugOffRunnable() ) );
+            contextMenu
 				.add( new ContextMenuItem( "Add to current mood", new AddToMoodEffectRunnable() ) );
-			this.contextMenu.add( new ContextMenuItem( "Extend this effect", new ExtendEffectRunnable() ) );
+            contextMenu.add( new ContextMenuItem( "Extend this effect", new ExtendEffectRunnable() ) );
 		}
 
 		if ( displayModel == KoLConstants.usableSkills || displayModel == KoLConstants.availableSkills )
 		{
-			this.contextMenu.add( new ContextMenuItem( "Cast the skill once", new CastSkillRunnable() ) );
-			this.contextMenu
+            contextMenu.add( new ContextMenuItem( "Cast the skill once", new CastSkillRunnable() ) );
+            contextMenu
 				.add( new ContextMenuItem( "Add to current mood", new AddToMoodSkillRunnable() ) );
 		}
 
 		if ( displayModel == KoLConstants.tally )
 		{
-			this.contextMenu.add( new ContextMenuItem( "Zero out entries", new ZeroTallyRunnable() ) );
-			this.contextMenu.add( new JSeparator() );
+            contextMenu.add( new ContextMenuItem( "Zero out entries", new ZeroTallyRunnable() ) );
+            contextMenu.add( new JSeparator() );
 
-			this.contextMenu.add( new ContextMenuItem( "Add to junk list", new AddToJunkListRunnable() ) );
-			this.contextMenu.add( new ContextMenuItem( "Add to singleton list",
-				new AddToSingletonListRunnable() ) );
-			this.contextMenu.add( new ContextMenuItem( "Add to memento list",
-				new AddToMementoListRunnable() ) );
+            contextMenu.add( new ContextMenuItem( "Add to junk list", new AddToJunkListRunnable() ) );
+            contextMenu.add( new ContextMenuItem( "Add to singleton list",
+                    new AddToSingletonListRunnable() ) );
+            contextMenu.add( new ContextMenuItem( "Add to memento list",
+                    new AddToMementoListRunnable() ) );
 
-			this.contextMenu.add( new JSeparator() );
+            contextMenu.add( new JSeparator() );
 
-			this.contextMenu.add( new ContextMenuItem( "Autosell selected", new AutoSellRunnable() ) );
-			this.contextMenu.add( new ContextMenuItem( "Add selected to mall", new AutoMallRunnable() ) );
-			this.contextMenu.add( new ContextMenuItem( "Consume selected", new ConsumeRunnable() ) );
-			this.contextMenu.add( new ContextMenuItem( "Pulverize selected", new PulverizeRunnable() ) );
+            contextMenu.add( new ContextMenuItem( "Autosell selected", new AutoSellRunnable() ) );
+            contextMenu.add( new ContextMenuItem( "Add selected to mall", new AutoMallRunnable() ) );
+            contextMenu.add( new ContextMenuItem( "Consume selected", new ConsumeRunnable() ) );
+            contextMenu.add( new ContextMenuItem( "Pulverize selected", new PulverizeRunnable() ) );
 		}
 		else if ( displayModel == KoLConstants.inventory || displayModel == KoLConstants.closet
 			|| isEncyclopedia )
 		{
-			this.contextMenu.add( new ContextMenuItem( "Add to junk list", new AddToJunkListRunnable() ) );
-			this.contextMenu.add( new ContextMenuItem( "Add to singleton list",
-				new AddToSingletonListRunnable() ) );
-			this.contextMenu.add( new ContextMenuItem( "Add to memento list",
-				new AddToMementoListRunnable() ) );
+            contextMenu.add( new ContextMenuItem( "Add to junk list", new AddToJunkListRunnable() ) );
+            contextMenu.add( new ContextMenuItem( "Add to singleton list",
+                    new AddToSingletonListRunnable() ) );
+            contextMenu.add( new ContextMenuItem( "Add to memento list",
+                    new AddToMementoListRunnable() ) );
 		}
 		else if ( isMoodList )
 		{
-			this.contextMenu.add( new ContextMenuItem( "Force execution", new ForceExecuteRunnable() ) );
-			this.contextMenu.add( new ContextMenuItem( "Remove selected", new RemoveTriggerRunnable() ) );
+            contextMenu.add( new ContextMenuItem( "Force execution", new ForceExecuteRunnable() ) );
+            contextMenu.add( new ContextMenuItem( "Remove selected", new RemoveTriggerRunnable() ) );
 
-			this.addKeyListener( new RemoveTriggerListener() );
+            addKeyListener( new RemoveTriggerListener() );
 		}
 
-		this.addMouseListener( new PopupListener() );
+        addMouseListener( new PopupListener() );
 
-		this.originalModel = displayModel;
+        originalModel = displayModel;
 		this.displayModel = filter == null ? displayModel.getMirrorImage() : displayModel
 			.getMirrorImage( filter );
 
-		String[] colNames = TableCellFactory.getColumnNames( this.originalModel, flags );
-		this.adaptedModel = new AdaptedTableModel( this.displayModel, colNames );
+		String[] colNames = TableCellFactory.getColumnNames( originalModel, flags );
+        adaptedModel = new AdaptedTableModel( this.displayModel, colNames );
 
 		// this.getTableHeader().setReorderingAllowed( false );
-		this.setShowGrid( false );
-		this.setModel( this.adaptedModel );
+        setShowGrid( false );
+        setModel( adaptedModel );
 
 		// form of.. magic numbers
-		this.getColumnModel().getColumn( 0 ).setPreferredWidth( 220 );
+        getColumnModel().getColumn( 0 ).setPreferredWidth( 220 );
 
 		// Make the viewport behave
-		this.setPreferredScrollableViewportSize( new Dimension( 1, 1 ) );
-		this.setVisibleRowCount( visibleRowCount );
+        setPreferredScrollableViewportSize( new Dimension( 1, 1 ) );
+        setVisibleRowCount( visibleRowCount );
 
 		// Enable column visibility control
-		this.setColumnControlVisible( true );
+        setColumnControlVisible( true );
 		ColumnControlButton btn = new ColumnControlButton( this )
 		{
 			// Disable the "extra" visibility features which are added by default.
@@ -260,14 +260,14 @@ public class ShowDescriptionTable
 			{
 			}
 		};
-		this.setColumnControl( btn );
+        setColumnControl( btn );
 
 		// Set columns > visibleColumnCount to not visible.
 		List<TableColumn> allColumns = getColumns( true );
 		for ( TableColumn t : allColumns )
 		{
 			TableColumnExt ext = (TableColumnExt) t;
-			ext.setComparator( new RenderedComparator( this.originalModel, ext.getModelIndex(), flags ) );
+			ext.setComparator( new RenderedComparator( originalModel, ext.getModelIndex(), flags ) );
 			if ( ext.getModelIndex() >= visibleColumnCount )
 			{
 				ext.setVisible( false );
@@ -276,11 +276,11 @@ public class ShowDescriptionTable
 
 		// Override the default filtering pipeline with one that won't try to update while the data model is
 		// itself filtering
-		this.setFilters( new HesitantFilter() );
-		this.setDefaultRenderer( String.class, new DescriptionTableRenderer( this.originalModel, flags ) );
-		this.setDefaultRenderer( Integer.class, new DescriptionTableRenderer( this.originalModel, flags ) );
-		
-		this.setIntercellSpacing( new Dimension( 0, 0 ) );
+        setFilters( new HesitantFilter() );
+        setDefaultRenderer( String.class, new DescriptionTableRenderer( originalModel, flags ) );
+        setDefaultRenderer( Integer.class, new DescriptionTableRenderer( originalModel, flags ) );
+
+        setIntercellSpacing( new Dimension( 0, 0 ) );
 	}
 
 	private class RenderedComparator
@@ -292,15 +292,15 @@ public class ShowDescriptionTable
 
 		public RenderedComparator( LockableListModel originalModel, int column, boolean[] flags )
 		{
-			this.model = originalModel;
+            model = originalModel;
 			this.column = column;
 			this.flags = flags;
 		}
 
 		public int compare( Object o1, Object o2 )
 		{
-			Object o1val = TableCellFactory.get( this.column, this.model, o1, this.flags, false, true );
-			Object o2val = TableCellFactory.get( this.column, this.model, o2, this.flags, false, true );
+			Object o1val = TableCellFactory.get( column, model, o1, flags, false, true );
+			Object o2val = TableCellFactory.get( column, model, o2, flags, false, true );
 			if ( o1val instanceof Integer )
 			{
 				if ( o2val == null )
@@ -337,7 +337,7 @@ public class ShowDescriptionTable
 
 	public LockableListModel getOriginalModel()
 	{
-		return this.originalModel;
+		return originalModel;
 	}
 
 	public LockableListModel getDisplayModel()
@@ -354,7 +354,7 @@ public class ShowDescriptionTable
 		public AdaptedTableModel( LockableListModel listModel, String[] columnNames )
 		{
 			super( listModel, columnNames );
-			this.model = listModel;
+            model = listModel;
 		}
 
 		public Object getValueAt( int rowIndex, int columnIndex )
@@ -369,7 +369,7 @@ public class ShowDescriptionTable
 
 		public LockableListModel getModel()
 		{
-			return this.model;
+			return model;
 		}
 
 		@Override
@@ -393,7 +393,7 @@ public class ShowDescriptionTable
 
 		public DescriptionTableRenderer( LockableListModel originalModel, boolean[] flags )
 		{
-			this.model = originalModel;
+            model = originalModel;
 			this.flags = flags;
 		}
 
@@ -401,14 +401,14 @@ public class ShowDescriptionTable
 		public Component getTableCellRendererComponent( JTable table, Object value, boolean isSelected,
 				boolean hasFocus, int row, int col )
 		{
-			this.setValue( TableCellFactory.get( convertColumnIndexToModel( col ), this.model, value,
-				this.flags, isSelected ) );
-			this.setToolTipText( TableCellFactory.getTooltipText( value , flags ) );
+            setValue( TableCellFactory.get( convertColumnIndexToModel( col ), model, value,
+                    flags, isSelected ) );
+            setToolTipText( TableCellFactory.getTooltipText( value , flags ) );
 			
 			if ( isSelected )
 			{
-				this.setBackground( SystemColor.textHighlight );
-				this.setForeground( SystemColor.textHighlightText );
+                setBackground( SystemColor.textHighlight );
+                setForeground( SystemColor.textHighlightText );
 			}
 
 			return this;
@@ -421,7 +421,7 @@ public class ShowDescriptionTable
 		@Override
 		public void flush()
 		{
-			if ( ShowDescriptionTable.this.getDisplayModel().isFiltering() )
+			if ( getDisplayModel().isFiltering() )
 			{
 				return;
 			}
@@ -435,29 +435,29 @@ public class ShowDescriptionTable
 		@Override
 		public void mousePressed( final MouseEvent e )
 		{
-			this.maybeShowPopup( e );
+            maybeShowPopup( e );
 		}
 
 		@Override
 		public void mouseReleased( final MouseEvent e )
 		{
-			this.maybeShowPopup( e );
+            maybeShowPopup( e );
 		}
 
 		private void maybeShowPopup( final MouseEvent e )
 		{
 			if ( e.isPopupTrigger() )
 			{
-				int index = ShowDescriptionTable.this.rowAtPoint( ( e.getPoint() ) );
-				ShowDescriptionTable.this.lastSelectIndex = index;
+				int index = rowAtPoint( ( e.getPoint() ) );
+                lastSelectIndex = index;
 
-				if ( !ShowDescriptionTable.this.isRowSelected( ( index ) ) )
+				if ( !isRowSelected( ( index ) ) )
 				{
-					ShowDescriptionTable.this.clearSelection();
-					ShowDescriptionTable.this.setRowSelectionInterval( index, index );
+                    clearSelection();
+                    setRowSelectionInterval( index, index );
 				}
 
-				ShowDescriptionTable.this.contextMenu.show( e.getComponent(), e.getX(), e.getY() );
+                contextMenu.show( e.getComponent(), e.getX(), e.getY() );
 			}
 		}
 	}
@@ -642,20 +642,18 @@ public class ShowDescriptionTable
 		@Override
 		protected void execute()
 		{
-			this.index = ShowDescriptionTable.this.lastSelectIndex == -1 ? ShowDescriptionTable.this
-				.getSelectedRow() : ShowDescriptionTable.this.lastSelectIndex;
+            index = lastSelectIndex == -1 ? getSelectedRow() : lastSelectIndex;
 
-			this.item = ShowDescriptionTable.this.displayModel.getElementAt( ShowDescriptionTable.this
-				.convertRowIndexToModel( this.index ) );
+            item = displayModel.getElementAt( convertRowIndexToModel( index ) );
 
-			if ( this.item == null )
+			if ( item == null )
 			{
 				return;
 			}
 
 			// ShowDescriptionTable.this.ensureIndexIsVisible( this.index );
 
-			this.executeAction();
+            executeAction();
 		}
 
 		protected abstract void executeAction();
@@ -671,7 +669,7 @@ public class ShowDescriptionTable
 		@Override
 		public void executeAction()
 		{
-			ShowDescriptionTable.showGameDescription( this.item );
+			ShowDescriptionTable.showGameDescription( item );
 		}
 	}
 
@@ -685,14 +683,14 @@ public class ShowDescriptionTable
 		@Override
 		public void executeAction()
 		{
-			ShowDescriptionTable.showWikiDescription( this.item );
+			ShowDescriptionTable.showWikiDescription( item );
 		}
 	}
 
 	public void removeTriggers()
 	{
-		Object[] items = ShowDescriptionTable.this.getSelectedValues();
-		ShowDescriptionTable.this.clearSelection();
+		Object[] items = getSelectedValues();
+        clearSelection();
 
 		MoodManager.removeTriggers( items );
 		MoodManager.saveSettings();
@@ -706,14 +704,13 @@ public class ShowDescriptionTable
 		 * mapping of viewIndex -> modelIndex caused by sorting.
 		 */
 
-		int[] selectedRows = this.getSelectedRows();
+		int[] selectedRows = getSelectedRows();
 
 		Object[] selectedValues = new Object[ selectedRows.length ];
 
 		for ( int i = 0; i < selectedRows.length; ++i )
 		{
-			selectedValues[ i ] = this.displayModel.getElementAt( this
-				.convertRowIndexToModel( selectedRows[ i ] ) );
+			selectedValues[ i ] = displayModel.getElementAt( convertRowIndexToModel( selectedRows[i] ) );
 		}
 		return selectedValues;
 	}
@@ -724,8 +721,8 @@ public class ShowDescriptionTable
 		@Override
 		public void executeAction()
 		{
-			Object[] items = ShowDescriptionTable.this.getSelectedValues();
-			ShowDescriptionTable.this.clearSelection();
+			Object[] items = getSelectedValues();
+            clearSelection();
 
 			for ( int i = 0; i < items.length; ++i )
 			{
@@ -740,7 +737,7 @@ public class ShowDescriptionTable
 		@Override
 		public void executeAction()
 		{
-			ShowDescriptionTable.this.removeTriggers();
+            removeTriggers();
 		}
 	}
 
@@ -760,7 +757,7 @@ public class ShowDescriptionTable
 				return;
 			}
 
-			ShowDescriptionTable.this.removeTriggers();
+            removeTriggers();
 			e.consume();
 		}
 	}
@@ -771,8 +768,8 @@ public class ShowDescriptionTable
 		@Override
 		public void executeAction()
 		{
-			Object[] skills = ShowDescriptionTable.this.getSelectedValues();
-			ShowDescriptionTable.this.clearSelection();
+			Object[] skills = getSelectedValues();
+            clearSelection();
 
 			UseSkillRequest request;
 
@@ -794,8 +791,8 @@ public class ShowDescriptionTable
 		@Override
 		public void executeAction()
 		{
-			Object[] skills = ShowDescriptionTable.this.getSelectedValues();
-			ShowDescriptionTable.this.clearSelection();
+			Object[] skills = getSelectedValues();
+            clearSelection();
 
 			if ( Preferences.getString( "currentMood" ).equals( "apathetic" ) )
 			{
@@ -824,8 +821,8 @@ public class ShowDescriptionTable
 		@Override
 		public void executeAction()
 		{
-			Object[] effects = ShowDescriptionTable.this.getSelectedValues();
-			ShowDescriptionTable.this.clearSelection();
+			Object[] effects = getSelectedValues();
+            clearSelection();
 
 			if ( Preferences.getString( "currentMood" ).equals( "apathetic" ) )
 			{
@@ -861,8 +858,8 @@ public class ShowDescriptionTable
 		@Override
 		public void executeAction()
 		{
-			Object[] effects = ShowDescriptionTable.this.getSelectedValues();
-			ShowDescriptionTable.this.clearSelection();
+			Object[] effects = getSelectedValues();
+            clearSelection();
 
 			String name, action;
 
@@ -885,7 +882,7 @@ public class ShowDescriptionTable
 		@Override
 		public void executeAction()
 		{
-			Object[] effects = ShowDescriptionTable.this.getSelectedValues();
+			Object[] effects = getSelectedValues();
 			for ( int i = 0; i < effects.length; ++i )
 			{
 				RequestThread.postRequest( new UneffectRequest( (AdventureResult) effects[ i ] ) );
@@ -899,8 +896,8 @@ public class ShowDescriptionTable
 		@Override
 		public void executeAction()
 		{
-			Object[] items = ShowDescriptionTable.this.getSelectedValues();
-			ShowDescriptionTable.this.clearSelection();
+			Object[] items = getSelectedValues();
+            clearSelection();
 
 			AdventureResult data;
 
@@ -947,8 +944,8 @@ public class ShowDescriptionTable
 		@Override
 		public void executeAction()
 		{
-			Object[] items = ShowDescriptionTable.this.getSelectedValues();
-			ShowDescriptionTable.this.clearSelection();
+			Object[] items = getSelectedValues();
+            clearSelection();
 
 			AdventureResult data;
 
@@ -999,8 +996,8 @@ public class ShowDescriptionTable
 		@Override
 		public void executeAction()
 		{
-			Object[] items = ShowDescriptionTable.this.getSelectedValues();
-			ShowDescriptionTable.this.clearSelection();
+			Object[] items = getSelectedValues();
+            clearSelection();
 
 			AdventureResult data;
 
@@ -1044,7 +1041,7 @@ public class ShowDescriptionTable
 		@Override
 		public void executeAction()
 		{
-			Object[] items = ShowDescriptionTable.this.getSelectedValues();
+			Object[] items = getSelectedValues();
 			for ( int i = 0; i < items.length; ++i )
 			{
 				AdventureResult.addResultToList( KoLConstants.tally,
@@ -1065,7 +1062,7 @@ public class ShowDescriptionTable
 			}
 
 			RequestThread
-				.postRequest( new AutoSellRequest( ShowDescriptionTable.this.getSelectedValues() ) );
+				.postRequest( new AutoSellRequest( getSelectedValues() ) );
 		}
 	}
 
@@ -1082,7 +1079,7 @@ public class ShowDescriptionTable
 			}
 
 			RequestThread
-				.postRequest( new AutoMallRequest( ShowDescriptionTable.this.getSelectedValues() ) );
+				.postRequest( new AutoMallRequest( getSelectedValues() ) );
 		}
 	}
 
@@ -1097,7 +1094,7 @@ public class ShowDescriptionTable
 				return;
 			}
 
-			Object[] items = ShowDescriptionTable.this.getSelectedValues();
+			Object[] items = getSelectedValues();
 
 			for ( int i = 0; i < items.length; ++i )
 			{
@@ -1118,7 +1115,7 @@ public class ShowDescriptionTable
 				return;
 			}
 
-			Object[] items = ShowDescriptionTable.this.getSelectedValues();
+			Object[] items = getSelectedValues();
 
 			for ( int i = 0; i < items.length; ++i )
 			{
@@ -1134,22 +1131,22 @@ public class ShowDescriptionTable
 
 	public void ensureIndexIsVisible( int index )
 	{
-		this.scrollRowToVisible( convertRowIndexToView( index ) );
+        scrollRowToVisible( convertRowIndexToView( index ) );
 	}
 
 	public int locationToIndex( Point point )
 	{
-		return convertRowIndexToModel( this.rowAtPoint( point ) );
+		return convertRowIndexToModel( rowAtPoint( point ) );
 	}
 
 	public int getSelectedIndex()
 	{
-		return convertRowIndexToModel( this.getSelectedRow() );
+		return convertRowIndexToModel( getSelectedRow() );
 	}
 
 	public void setSelectedIndex( int i )
 	{
-		ShowDescriptionTable.this.setRowSelectionInterval( i, i );
+        setRowSelectionInterval( i, i );
 	}
 
 	public void setCellRenderer( DefaultListCellRenderer renderer )
@@ -1163,7 +1160,7 @@ public class ShowDescriptionTable
 		// JViewPort, GenericScrollPane, JPanel, JPanel, JPanel, Inventory/Restore/etc...
 
 		StringBuilder buffer = new StringBuilder();
-		List<TableColumn> cols = this.getColumns( true );
+		List<TableColumn> cols = getColumns( true );
 		for ( int i = 0; i < cols.size(); ++i )
 		{
 			if ( buffer.length() > 0 )
@@ -1180,7 +1177,7 @@ public class ShowDescriptionTable
 
 	public void setHeaderStates( String rawPref )
 	{
-		List<TableColumn> cols = this.getColumns( true );
+		List<TableColumn> cols = getColumns( true );
 		ArrayList<String[]> sortCols = new ArrayList<String[]>();
 
 		// rawPref is a pipe-delimited list of (header name):(view index)
@@ -1222,7 +1219,7 @@ public class ShowDescriptionTable
 				if ( t.getHeaderValue().toString().equals( it[ 0 ] ) )
 				{
 					// set it visible if its index isn't -1
-					this.getColumnExt( t.getHeaderValue() ).setVisible(
+                    getColumnExt( t.getHeaderValue() ).setVisible(
 						Integer.valueOf( it[ 1 ] ) >= 0 );
 					break;
 				}
@@ -1247,7 +1244,7 @@ public class ShowDescriptionTable
 			{
 				if ( t.getHeaderValue().toString().equals( it[ 0 ] ) )
 				{
-					this.moveColumn( convertColumnIndexToView( t.getModelIndex() ),
+                    moveColumn( convertColumnIndexToView( t.getModelIndex() ),
 						Integer.valueOf( it[ 1 ] ) );
 					break;
 				}

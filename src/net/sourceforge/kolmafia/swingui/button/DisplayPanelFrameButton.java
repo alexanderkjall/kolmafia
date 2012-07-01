@@ -51,7 +51,7 @@ public class DisplayPanelFrameButton
 	{
 		super( JComponentUtilities.getImage( icon ), new DisplayPanelFrameRunnable( tooltip, panel ) );
 		JComponentUtilities.setComponentSize( this, 32, 32 );
-		this.setToolTipText( tooltip );
+        setToolTipText( tooltip );
 
 	}
 
@@ -62,14 +62,14 @@ public class DisplayPanelFrameButton
 
 		public DisplayPanelFrameRunnable( final String tooltip, final ActionPanel panel )
 		{
-			this.parameters = new Object[ 2 ];
-			this.parameters[ 0 ] = tooltip;
-			this.parameters[ 1 ] = panel;
+            parameters = new Object[ 2 ];
+            parameters[ 0 ] = tooltip;
+            parameters[ 1 ] = panel;
 		}
 
 		public void run()
 		{
-			GenericFrame.createDisplay( GenericPanelFrame.class, this.parameters );
+			GenericFrame.createDisplay( GenericPanelFrame.class, parameters );
 		}
 	}
 }

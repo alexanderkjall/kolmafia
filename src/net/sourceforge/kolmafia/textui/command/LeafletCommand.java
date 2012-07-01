@@ -42,7 +42,7 @@ public class LeafletCommand
 {
 	public LeafletCommand()
 	{
-		this.usage = "  [nomagic] | location | command  - complete leaflet quest [without using magic words].";
+        usage = "  [nomagic] | location | command  - complete leaflet quest [without using magic words].";
 	}
 
 	@Override

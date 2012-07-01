@@ -56,7 +56,7 @@ public class RecordInitializer
 		RecordValue record = (RecordValue) type.initialValue();
 		Value[] content = (Value []) record.rawValue();
 
-		Iterator iterator = this.params.iterator();
+		Iterator iterator = params.iterator();
 		int fieldCount = 0;
 
 		interpreter.traceIndent();
@@ -106,6 +106,6 @@ public class RecordInitializer
 	@Override
 	public String toString()
 	{
-		return "<" + this.type + " initializer>";
+		return "<" + type + " initializer>";
 	}
 }

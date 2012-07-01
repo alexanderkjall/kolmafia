@@ -115,7 +115,7 @@ public class RelayServer
 	public void run()
 	{
 		RelayServer.port = 60080;
-		while ( !this.openServerSocket() )
+		while ( !openServerSocket() )
 		{
 			if ( RelayServer.port <= 60089 )
 			{
@@ -133,7 +133,7 @@ public class RelayServer
 		{
 			try
 			{
-				this.dispatchAgent( this.serverSocket.accept() );
+                dispatchAgent( serverSocket.accept() );
 			}
 			catch ( Exception e )
 			{
@@ -145,13 +145,13 @@ public class RelayServer
 			}
 		}
 
-		this.closeAgents();
+        closeAgents();
 
 		try
 		{
-			if ( this.serverSocket != null )
+			if ( serverSocket != null )
 			{
-				this.serverSocket.close();
+                serverSocket.close();
 			}
 		}
 		catch ( Exception e )
@@ -161,7 +161,7 @@ public class RelayServer
 			// if it does, the socket closes.
 		}
 
-		this.serverSocket = null;
+        serverSocket = null;
 		RelayServer.relayThread = null;
 	}
 
@@ -171,11 +171,11 @@ public class RelayServer
 		{
 			if ( Preferences.getBoolean( "relayAllowRemoteAccess" ) )
 			{
-				this.serverSocket = new ServerSocket( RelayServer.port, 25 );
+                serverSocket = new ServerSocket( RelayServer.port, 25 );
 			}
 			else
 			{
-				this.serverSocket = new ServerSocket( RelayServer.port, 25, InetAddress.getByName( "127.0.0.1" ) );
+                serverSocket = new ServerSocket( RelayServer.port, 25, InetAddress.getByName( "127.0.0.1" ) );
 			}
 
 			return true;
@@ -210,7 +210,7 @@ public class RelayServer
 			}
 		}
 
-		this.createAgent( socket );
+        createAgent( socket );
 	}
 
 	private synchronized void createAgent( final Socket socket )

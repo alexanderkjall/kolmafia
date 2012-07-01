@@ -48,9 +48,9 @@ public class RollingLinkedList
 	@Override
 	public boolean add( Object o )
 	{
-		if ( size() == this.limit )
+		if ( size() == limit )
 		{
-			this.removeFirst();
+            removeFirst();
 		}
 
 		super.addLast( o );
@@ -59,13 +59,13 @@ public class RollingLinkedList
 
 	public Object update( Object o )
 	{
-		this.remove( o );
+        remove( o );
 	
 		Object rv = null;
 
-		if ( size() == this.limit )
+		if ( size() == limit )
 		{
-			rv = this.removeFirst();
+			rv = removeFirst();
 		}
 		
 		super.addLast( o );

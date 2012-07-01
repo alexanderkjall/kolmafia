@@ -112,7 +112,7 @@ public class SwaggerShopRequest
 	@Override
 	public void run()
 	{
-		if ( this.action != null ) {
+		if ( action != null ) {
 			if ( KoLCharacter.isHardcore() )
 			{
 				KoLmafia.updateDisplay( MafiaState.ERROR, "You can't spend your swagger in Hardcore." );
@@ -132,7 +132,7 @@ public class SwaggerShopRequest
 	@Override
 	public void processResults()
 	{
-		SwaggerShopRequest.parseResponse( this.getURLString(), this.responseText );
+		SwaggerShopRequest.parseResponse( getURLString(), responseText );
 	}
 
 	public static void parseResponse( final String location, final String responseText )

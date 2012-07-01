@@ -464,60 +464,60 @@ public class ClanLoungeRequest
 	@Override
 	public void run()
 	{
-		switch ( this.action )
+		switch ( action )
 		{
 		case ClanLoungeRequest.SEARCH:
 			break;
 
 		case ClanLoungeRequest.KLAW:
-			this.constructURLString( "clan_viplounge.php" );
-			this.addFormField( "action", "klaw" );
+            constructURLString( "clan_viplounge.php" );
+            addFormField( "action", "klaw" );
 			break;
 
 		case ClanLoungeRequest.HOTTUB:
-			this.constructURLString( "clan_viplounge.php" );
-			this.addFormField( "action", "hottub" );
+            constructURLString( "clan_viplounge.php" );
+            addFormField( "action", "hottub" );
 			break;
 
 		case ClanLoungeRequest.POOL_TABLE:
 			RequestLogger.printLine( "Approaching pool table with " + ClanLoungeRequest.prettyStanceName( option ) + "." );
 
-			this.constructURLString( "clan_viplounge.php" );
+            constructURLString( "clan_viplounge.php" );
 			if ( option != 0 )
 			{
-				this.addFormField( "preaction", "poolgame" );
-				this.addFormField( "stance", String.valueOf( option ) );
+                addFormField( "preaction", "poolgame" );
+                addFormField( "stance", String.valueOf( option ) );
 			}
 			else
 			{
-				this.addFormField( "action", "pooltable" );
+                addFormField( "action", "pooltable" );
 			}
 			break;
 
 		case ClanLoungeRequest.CRIMBO_TREE:
-			this.constructURLString( "clan_viplounge.php" );
-			this.addFormField( "action", "crimbotree" );
+            constructURLString( "clan_viplounge.php" );
+            addFormField( "action", "crimbotree" );
 			break;
 
 		case ClanLoungeRequest.LOOKING_GLASS:
-			this.constructURLString( "clan_viplounge.php" );
-			this.addFormField( "action", "lookingglass" );
+            constructURLString( "clan_viplounge.php" );
+            addFormField( "action", "lookingglass" );
 			break;
 
 		case ClanLoungeRequest.FAX_MACHINE:
-			this.constructURLString( "clan_viplounge.php" );
+            constructURLString( "clan_viplounge.php" );
 			switch ( option )
 			{
 			case SEND_FAX:
 				KoLmafia.updateDisplay( "Sending a fax." );
-				this.addFormField( "preaction", "sendfax" );
+                addFormField( "preaction", "sendfax" );
 				break;
 			case RECEIVE_FAX:
 				KoLmafia.updateDisplay( "Receiving a fax." );
-				this.addFormField( "preaction", "receivefax" );
+                addFormField( "preaction", "receivefax" );
 				break;
 			default:
-				this.addFormField( "action", "faxmachine" );
+                addFormField( "action", "faxmachine" );
 				break;
 			}
 			break;
@@ -525,38 +525,38 @@ public class ClanLoungeRequest
 		case ClanLoungeRequest.APRIL_SHOWER:
 			RequestLogger.printLine( "Let's take " + ClanLoungeRequest.prettyTemperatureName( option ) + " shower." );
 
-			this.constructURLString( "clan_viplounge.php" );
+            constructURLString( "clan_viplounge.php" );
 			if ( option != 0 )
 			{
-				this.addFormField( "preaction", "takeshower" );
-				this.addFormField( "temperature", String.valueOf( option ) );
+                addFormField( "preaction", "takeshower" );
+                addFormField( "temperature", String.valueOf( option ) );
 			}
 			else
 			{
-				this.addFormField( "action", "shower" );
+                addFormField( "action", "shower" );
 			}
 			break;
 
 		case ClanLoungeRequest.SWIMMING_POOL:
 			RequestLogger.printLine( "Let's " + ClanLoungeRequest.prettySwimmingName( option ) + " in the swimming pool." );
 
-			this.constructURLString( "clan_viplounge.php" );
+            constructURLString( "clan_viplounge.php" );
 			switch ( option )
 			{
 			case CANNONBALL:
-				this.addFormField( "preaction", "goswimming" );
-				this.addFormField( "subaction", "screwaround" );
+                addFormField( "preaction", "goswimming" );
+                addFormField( "subaction", "screwaround" );
 				break;
 			case LAPS:
-				this.addFormField( "preaction", "goswimming" );
-				this.addFormField( "subaction", "laps" );
+                addFormField( "preaction", "goswimming" );
+                addFormField( "subaction", "laps" );
 				break;
 			case SPRINTS:
-				this.addFormField( "preaction", "goswimming" );
-				this.addFormField( "subaction", "submarine" );
+                addFormField( "preaction", "goswimming" );
+                addFormField( "subaction", "submarine" );
 				break;
 			default:
-				this.addFormField( "action", "swimmingpool" );
+                addFormField( "action", "swimmingpool" );
 				break;
 			}
 			break;
@@ -567,13 +567,13 @@ public class ClanLoungeRequest
 
 		super.run();
 
-		if ( this.redirectLocation != null && this.redirectLocation.equals( "clan_signup.php" ) )
+		if ( redirectLocation != null && redirectLocation.equals( "clan_signup.php" ) )
 		{
 			RequestLogger.printLine( "You don't seem to be in a clan!" );
 			return;
 		}
 
-		switch ( this.action )
+		switch ( action )
 		{
 		case ClanLoungeRequest.POOL_TABLE:
 			if ( responseText.contains( "You skillfully defeat" ) )
@@ -715,7 +715,7 @@ public class ClanLoungeRequest
 	@Override
 	public void processResults()
 	{
-		ClanLoungeRequest.parseResponse( this.getURLString(), this.responseText );
+		ClanLoungeRequest.parseResponse( getURLString(), responseText );
 	}
 
 	public static void parseResponse( final String urlString, final String responseText )

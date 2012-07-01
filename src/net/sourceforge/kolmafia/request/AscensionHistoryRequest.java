@@ -79,13 +79,13 @@ public class AscensionHistoryRequest
 	{
 		super( "ascensionhistory.php" );
 
-		this.addFormField( "back", "self" );
-		this.addFormField( "who", ContactManager.getPlayerId( playerName ) );
+        addFormField( "back", "self" );
+        addFormField( "who", ContactManager.getPlayerId( playerName ) );
 
 		this.playerName = playerName;
 		this.playerId = playerId;
 
-		this.ascensionData = new ArrayList();
+        ascensionData = new ArrayList();
 	}
 
 	public static void setComparator( final boolean isSoftcoreComparator )
@@ -97,21 +97,21 @@ public class AscensionHistoryRequest
 	public String toString()
 	{
 		StringBuilder stringForm = new StringBuilder();
-		stringForm.append( "<tr><td><a href=\"ascensions/" + ClanManager.getURLName( this.playerName ) + "\"><b>" );
+		stringForm.append( "<tr><td><a href=\"ascensions/" + ClanManager.getURLName( playerName ) + "\"><b>" );
 
-		String name = ContactManager.getPlayerName( this.playerId );
-		stringForm.append( name.equals( this.playerId ) ? this.playerName : name );
+		String name = ContactManager.getPlayerName( playerId );
+		stringForm.append( name.equals( playerId ) ? playerName : name );
 
 		stringForm.append( "</b></a></td>" );
 		stringForm.append( "<td align=right>" );
-		stringForm.append( AscensionHistoryRequest.isSoftcoreComparator ? this.softcoreCount : this.hardcoreCount );
+		stringForm.append( AscensionHistoryRequest.isSoftcoreComparator ? softcoreCount : hardcoreCount );
 		stringForm.append( "</td></tr>" );
 		return stringForm.toString();
 	}
 
 	public int compareTo( final Object o )
 	{
-		return o == null || !( o instanceof AscensionHistoryRequest ) ? -1 : AscensionHistoryRequest.isSoftcoreComparator ? ( (AscensionHistoryRequest) o ).softcoreCount - this.softcoreCount : ( (AscensionHistoryRequest) o ).hardcoreCount - this.hardcoreCount;
+		return o == null || !( o instanceof AscensionHistoryRequest ) ? -1 : AscensionHistoryRequest.isSoftcoreComparator ? ( (AscensionHistoryRequest) o ).softcoreCount - softcoreCount : ( (AscensionHistoryRequest) o ).hardcoreCount - hardcoreCount;
 	}
 
 	@Override
@@ -123,12 +123,12 @@ public class AscensionHistoryRequest
 	@Override
 	public void processResults()
 	{
-		this.responseText =
-			this.responseText.replaceAll( "<a[^>]*?>Back[^<?]</a>", "" ).replaceAll(
+        responseText =
+                responseText.replaceAll( "<a[^>]*?>Back[^<?]</a>", "" ).replaceAll(
 				"<td></td>",
 				"<td><img src=\"http://images.kingdomofloathing.com/itemimages/confused.gif\" height=30 width=30></td>" );
 
-		this.refreshFields();
+        refreshFields();
 	}
 
 	private String getBackupFileData()
@@ -180,7 +180,7 @@ public class AscensionHistoryRequest
 
 				if ( shouldReplace )
 				{
-					File checkFile = new File( ascensionFolders[ j ], "ascensions/" + this.playerId + ".htm" );
+					File checkFile = new File( ascensionFolders[ j ], "ascensions/" + playerId + ".htm" );
 					if ( checkFile.exists() )
 					{
 						backupFile = checkFile;
@@ -227,16 +227,16 @@ public class AscensionHistoryRequest
 
 	private void refreshFields()
 	{
-		if ( this.responseText == null || this.responseText.length() == 0 )
+		if ( responseText == null || responseText.length() == 0 )
 		{
 			return;
 		}
-		
-		this.ascensionData.clear();
-		Matcher fieldMatcher = AscensionHistoryRequest.FIELD_PATTERN.matcher( this.responseText );
+
+        ascensionData.clear();
+		Matcher fieldMatcher = AscensionHistoryRequest.FIELD_PATTERN.matcher( responseText );
 
 		StringBuffer ascensionBuffer = new StringBuffer();
-		ascensionBuffer.append( this.getBackupFileData() );
+		ascensionBuffer.append( getBackupFileData() );
 
 		int lastFindIndex = 0;
 		AscensionDataField lastField;
@@ -266,16 +266,16 @@ public class AscensionHistoryRequest
 				String[] columnsOld = AscensionHistoryRequest.extractColumns( oldDataMatcher.group() );
 				if ( !newDataAvailable )
 				{
-					lastField = new AscensionDataField( this.playerName, this.playerId, columnsOld );
-					this.ascensionData.add( lastField );
+					lastField = new AscensionDataField( playerName, playerId, columnsOld );
+                    ascensionData.add( lastField );
 
 					if ( lastField.isSoftcore )
 					{
-						++this.softcoreCount;
+						++softcoreCount;
 					}
 					else
 					{
-						++this.hardcoreCount;
+						++hardcoreCount;
 					}
 				}
 
@@ -291,30 +291,30 @@ public class AscensionHistoryRequest
 						columnsNew = AscensionHistoryRequest.extractColumns( fieldMatcher.group() );
 					}
 
-					lastField = new AscensionDataField( this.playerName, this.playerId, columnsOld );
-					this.ascensionData.add( lastField );
+					lastField = new AscensionDataField( playerName, playerId, columnsOld );
+                    ascensionData.add( lastField );
 
 					if ( lastField.isSoftcore )
 					{
-						++this.softcoreCount;
+						++softcoreCount;
 					}
 					else
 					{
-						++this.hardcoreCount;
+						++hardcoreCount;
 					}
 				}
 				else
 				{
-					lastField = new AscensionDataField( this.playerName, this.playerId, columnsOld );
-					this.ascensionData.add( lastField );
+					lastField = new AscensionDataField( playerName, playerId, columnsOld );
+                    ascensionData.add( lastField );
 
 					if ( lastField.isSoftcore )
 					{
-						++this.softcoreCount;
+						++softcoreCount;
 					}
 					else
 					{
-						++this.hardcoreCount;
+						++hardcoreCount;
 					}
 
 					try
@@ -349,16 +349,16 @@ public class AscensionHistoryRequest
 
 			if ( inconsistency )
 			{
-				lastField = new AscensionDataField( this.playerName, this.playerId, columnsNew );
-				this.ascensionData.add( lastField );
+				lastField = new AscensionDataField( playerName, playerId, columnsNew );
+                ascensionData.add( lastField );
 
 				if ( lastField.isSoftcore )
 				{
-					++this.softcoreCount;
+					++softcoreCount;
 				}
 				else
 				{
-					++this.hardcoreCount;
+					++hardcoreCount;
 				}
 
 				lastFindIndex = fieldMatcher.end() - 5;
@@ -376,16 +376,16 @@ public class AscensionHistoryRequest
 				continue;
 			}
 
-			lastField = new AscensionDataField( this.playerName, this.playerId, columns );
-			this.ascensionData.add( lastField );
+			lastField = new AscensionDataField( playerName, playerId, columns );
+            ascensionData.add( lastField );
 
 			if ( lastField.isSoftcore )
 			{
-				++this.softcoreCount;
+				++softcoreCount;
 			}
 			else
 			{
-				++this.hardcoreCount;
+				++hardcoreCount;
 			}
 		}
 	}
@@ -408,17 +408,17 @@ public class AscensionHistoryRequest
 
 	public String getPlayerName()
 	{
-		return this.playerName;
+		return playerName;
 	}
 
 	public String getPlayerId()
 	{
-		return this.playerId;
+		return playerId;
 	}
 
 	public void initialize()
 	{
-		if ( this.responseText == null )
+		if ( responseText == null )
 		{
 			RequestThread.postRequest( this );
 		}
@@ -426,7 +426,7 @@ public class AscensionHistoryRequest
 
 	public List getAscensionData()
 	{
-		return this.ascensionData;
+		return ascensionData;
 	}
 
 	private static String[] extractColumns( String rowData )
@@ -466,12 +466,12 @@ public class AscensionHistoryRequest
 
 		public AscensionDataField( final String playerName, final String playerId, final String rowData )
 		{
-			this.setData( playerName, playerId, AscensionHistoryRequest.extractColumns( rowData ) );
+            setData( playerName, playerId, AscensionHistoryRequest.extractColumns( rowData ) );
 		}
 
 		public AscensionDataField( final String playerName, final String playerId, final String[] columns )
 		{
-			this.setData( playerName, playerId, columns );
+            setData( playerName, playerId, columns );
 		}
 
 		private void setData( final String playerName, final String playerId, final String[] columns )
@@ -489,74 +489,74 @@ public class AscensionHistoryRequest
 
 			try
 			{
-				this.timestamp = AscensionHistoryRequest.ASCEND_DATE_FORMAT.parse( columns[ 1 ] );
-				this.level = StringUtilities.parseInt( columns[ 2 ] );
+                timestamp = AscensionHistoryRequest.ASCEND_DATE_FORMAT.parse( columns[ 1 ] );
+                level = StringUtilities.parseInt( columns[ 2 ] );
 			}
 			catch ( Exception e )
 			{
 				StaticEntity.printStackTrace( e );
 			}
 
-			this.turnCount = StringUtilities.parseInt( columns[ 5 ] );
-			this.dayCount = StringUtilities.parseInt( columns[ 6 ] );
+            turnCount = StringUtilities.parseInt( columns[ 5 ] );
+            dayCount = StringUtilities.parseInt( columns[ 6 ] );
 
 			if ( columns.length == 9 )
 			{
-				this.setCurrentColumns( columns );
+                setCurrentColumns( columns );
 			}
 			else
 			{
-				this.setHistoricColumns( columns );
+                setHistoricColumns( columns );
 			}
 
-			this.stringForm = new StringBuffer();
-			this.stringForm.append( "<tr><td><a href=\"ascensions/" + ClanManager.getURLName( this.playerName ) + "\"><b>" );
-			this.stringForm.append( this.playerName );
-			this.stringForm.append( "</b></a>&nbsp;(" );
+            stringForm = new StringBuffer();
+            stringForm.append( "<tr><td><a href=\"ascensions/" + ClanManager.getURLName( this.playerName ) + "\"><b>" );
+            stringForm.append( this.playerName );
+            stringForm.append( "</b></a>&nbsp;(" );
 
-			switch ( this.classId )
+			switch ( classId )
 			{
 			case AscensionSnapshot.SEAL_CLUBBER:
-				this.stringForm.append( "SC" );
+                stringForm.append( "SC" );
 				break;
 
 			case AscensionSnapshot.TURTLE_TAMER:
-				this.stringForm.append( "TT" );
+                stringForm.append( "TT" );
 				break;
 
 			case AscensionSnapshot.PASTAMANCER:
-				this.stringForm.append( "P" );
+                stringForm.append( "P" );
 				break;
 
 			case AscensionSnapshot.SAUCEROR:
-				this.stringForm.append( "S" );
+                stringForm.append( "S" );
 				break;
 
 			case AscensionSnapshot.DISCO_BANDIT:
-				this.stringForm.append( "DB" );
+                stringForm.append( "DB" );
 				break;
 
 			case AscensionSnapshot.ACCORDION_THIEF:
-				this.stringForm.append( "AT" );
+                stringForm.append( "AT" );
 				break;
 			}
 
-			this.stringForm.append( ")&nbsp;&nbsp;&nbsp;&nbsp;</td><td align=right>" );
-			this.stringForm.append( this.dayCount );
-			this.stringForm.append( "</td><td align=right>" );
-			this.stringForm.append( this.turnCount );
-			this.stringForm.append( "</td></tr>" );
+            stringForm.append( ")&nbsp;&nbsp;&nbsp;&nbsp;</td><td align=right>" );
+            stringForm.append( dayCount );
+            stringForm.append( "</td><td align=right>" );
+            stringForm.append( turnCount );
+            stringForm.append( "</td></tr>" );
 		}
 
 		private void setHistoricColumns( final String[] columns )
 		{
-			this.classId =
+            classId =
 				columns[ 3 ].startsWith( "SC" ) ? AscensionSnapshot.SEAL_CLUBBER : columns[ 3 ].startsWith( "T" ) ? AscensionSnapshot.TURTLE_TAMER : columns[ 3 ].startsWith( "P" ) ? AscensionSnapshot.PASTAMANCER : columns[ 3 ].startsWith( "S" ) ? AscensionSnapshot.SAUCEROR : columns[ 3 ].startsWith( "D" ) ? AscensionSnapshot.DISCO_BANDIT : AscensionSnapshot.ACCORDION_THIEF;
 
 			String[] path = columns[ 7 ].split( "," );
 
-			this.isSoftcore = path[ 0 ].equals( "Normal" );
-			this.pathId =
+            isSoftcore = path[ 0 ].equals( "Normal" );
+            pathId =
 				path[ 1 ].equals( "No Path" ) ? AscensionSnapshot.NOPATH : path[ 1 ].equals( "Teetotaler" ) ? AscensionSnapshot.TEETOTALER : path[ 1 ].equals( "Boozetafarian" ) ? AscensionSnapshot.BOOZETAFARIAN : AscensionSnapshot.OXYGENARIAN;
 		}
 
@@ -564,11 +564,11 @@ public class AscensionHistoryRequest
 		{
 			try
 			{
-				this.classId =
+                classId =
                         columns[3].contains( "club" ) ? AscensionSnapshot.SEAL_CLUBBER : columns[3].contains( "turtle" ) ? AscensionSnapshot.TURTLE_TAMER : columns[3].contains( "pasta" ) ? AscensionSnapshot.PASTAMANCER : columns[3].contains( "sauce" ) ? AscensionSnapshot.SAUCEROR : columns[3].contains( "disco" ) ? AscensionSnapshot.DISCO_BANDIT : AscensionSnapshot.ACCORDION_THIEF;
 
-				this.isSoftcore = !columns[8].contains( "hardcore" );
-				this.pathId =
+                isSoftcore = !columns[8].contains( "hardcore" );
+                pathId =
                         columns[8].contains( "bowl" ) ? AscensionSnapshot.TEETOTALER : columns[8].contains( "martini" ) ? AscensionSnapshot.BOOZETAFARIAN : columns[8].contains( "oxy" ) ? AscensionSnapshot.OXYGENARIAN : AscensionSnapshot.NOPATH;
 			}
 			catch ( Exception e )
@@ -582,12 +582,12 @@ public class AscensionHistoryRequest
 
 		public String getDateAsString()
 		{
-			return ProfileRequest.OUTPUT_FORMAT.format( this.timestamp );
+			return ProfileRequest.OUTPUT_FORMAT.format( timestamp );
 		}
 
 		public int getAge()
 		{
-			long ascensionDate = this.timestamp.getTime();
+			long ascensionDate = timestamp.getTime();
 			float difference = System.currentTimeMillis() - ascensionDate;
 			int days = Math.round( ( difference / ( 1000 * 60 * 60 * 24 ) ) );
 			return days;
@@ -596,24 +596,24 @@ public class AscensionHistoryRequest
 		@Override
 		public String toString()
 		{
-			return this.stringForm.toString();
+			return stringForm.toString();
 		}
 
 		@Override
 		public boolean equals( final Object o )
 		{
-			return o != null && o instanceof AscensionDataField && this.playerId.equals( ( (AscensionDataField) o ).playerId );
+			return o != null && o instanceof AscensionDataField && playerId.equals( ((AscensionDataField) o).playerId );
 		}
 
 		public boolean matchesFilter( final boolean isSoftcore, final int pathFilter, final int classFilter,
 			final int maxAge )
 		{
-			return isSoftcore == this.isSoftcore && ( pathFilter == AscensionSnapshot.NO_FILTER || pathFilter == this.pathId ) && ( classFilter == AscensionSnapshot.NO_FILTER || classFilter == this.classId ) && ( maxAge == 0 || maxAge >= this.getAge() );
+			return isSoftcore == this.isSoftcore && ( pathFilter == AscensionSnapshot.NO_FILTER || pathFilter == pathId) && ( classFilter == AscensionSnapshot.NO_FILTER || classFilter == classId) && ( maxAge == 0 || maxAge >= getAge() );
 		}
 
 		public boolean matchesFilter( final boolean isSoftcore, final int pathFilter, final int classFilter )
 		{
-			return isSoftcore == this.isSoftcore && ( pathFilter == AscensionSnapshot.NO_FILTER || pathFilter == this.pathId ) && ( classFilter == AscensionSnapshot.NO_FILTER || classFilter == this.classId );
+			return isSoftcore == this.isSoftcore && ( pathFilter == AscensionSnapshot.NO_FILTER || pathFilter == pathId) && ( classFilter == AscensionSnapshot.NO_FILTER || classFilter == classId);
 		}
 
 		public int compareTo( final Object o )
@@ -628,7 +628,7 @@ public class AscensionHistoryRequest
 			// First, compare the number of days between
 			// ascension runs.
 
-			int dayDifference = this.dayCount - adf.dayCount;
+			int dayDifference = dayCount - adf.dayCount;
 			if ( dayDifference != 0 )
 			{
 				return dayDifference;
@@ -637,7 +637,7 @@ public class AscensionHistoryRequest
 			// Next, compare the number of turns it took
 			// in order to complete the ascension.
 
-			int turnDifference = this.turnCount - adf.turnCount;
+			int turnDifference = turnCount - adf.turnCount;
 			if ( turnDifference != 0 )
 			{
 				return turnDifference;
@@ -647,11 +647,11 @@ public class AscensionHistoryRequest
 			// compare the timestamp.  Later, this will also
 			// take the 60-day sliding window into account.
 
-			if ( this.timestamp.before( adf.timestamp ) )
+			if ( timestamp.before( adf.timestamp ) )
 			{
 				return -1;
 			}
-			if ( this.timestamp.after( adf.timestamp ) )
+			if ( timestamp.after( adf.timestamp ) )
 			{
 				return 1;
 			}
@@ -660,7 +660,7 @@ public class AscensionHistoryRequest
 			// in levels, and return that -- effectively, if all
 			// comparable elements are the same, then they are equal.
 
-			return this.level - adf.level;
+			return level - adf.level;
 		}
 	}
 }

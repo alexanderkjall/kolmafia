@@ -50,7 +50,7 @@ public class DisplayCaseCommand
 {
 	public DisplayCaseCommand()
 	{
-		this.usage = " [<filter>] | put <item>... | take <item>... - list or manipulate your display case.";
+        usage = " [<filter>] | put <item>... | take <item>... - list or manipulate your display case.";
 	}
 
 	@Override

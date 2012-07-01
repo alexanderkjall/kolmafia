@@ -48,17 +48,17 @@ public class InternalRequestCommand
 
 	public void addRequest( GenericRequest request )
 	{
-		if ( this.isRunning )
+		if ( isRunning )
 		{
 			return;
 		}
 
-		this.requests.add( request );
+        requests.add( request );
 	}
 
 	public void addRequests( Object [] requests )
 	{
-		if ( this.isRunning )
+		if ( isRunning )
 		{
 			return;
 		}
@@ -69,14 +69,14 @@ public class InternalRequestCommand
 	@Override
 	public void run( final String cmd, final String parameters )
 	{
-		if ( this.isRunning )
+		if ( isRunning )
 		{
 			return;
 		}
 
-		this.isRunning = true;
+        isRunning = true;
 
-		Iterator requestIterator = this.requests.iterator();
+		Iterator requestIterator = requests.iterator();
 
 		while ( requestIterator.hasNext() )
 		{

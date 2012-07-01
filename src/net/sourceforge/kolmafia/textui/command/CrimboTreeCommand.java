@@ -45,7 +45,7 @@ public class CrimboTreeCommand
 {
 	public CrimboTreeCommand()
 	{
-		this.usage = " [get] - check [or get present from] the Crimbo Tree in your clan's VIP lounge";
+        usage = " [get] - check [or get present from] the Crimbo Tree in your clan's VIP lounge";
 	}
 
 	@Override

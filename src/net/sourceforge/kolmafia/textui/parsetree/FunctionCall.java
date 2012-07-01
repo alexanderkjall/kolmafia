@@ -56,24 +56,24 @@ public class FunctionCall
 	{
 		this.target = target;
 		this.params = params;
-		this.fileName = parser.getShortFileName();
-		this.lineNumber = parser.getLineNumber();
+        fileName = parser.getShortFileName();
+        lineNumber = parser.getLineNumber();
 	}
 
 	public Function getTarget()
 	{
-		return this.target;
+		return target;
 	}
 
 	public Iterator getValues()
 	{
-		return this.params.iterator();
+		return params.iterator();
 	}
 
 	@Override
 	public Type getType()
 	{
-		return this.target.getType();
+		return target.getType();
 	}
 
 	@Override
@@ -88,9 +88,9 @@ public class FunctionCall
 		interpreter.traceIndent();
 
 		// Save current variable bindings
-		this.target.saveBindings( interpreter );
+        target.saveBindings( interpreter );
 
-		Iterator valIterator = this.params.iterator();
+		Iterator valIterator = params.iterator();
 		Value [] values = new Value[ params.size() ];
 		int paramCount = 0;
 
@@ -118,7 +118,7 @@ public class FunctionCall
 
 			if ( interpreter.getState() == Interpreter.STATE_EXIT )
 			{
-				this.target.restoreBindings( interpreter );
+                target.restoreBindings( interpreter );
 				interpreter.traceUnindent();
 				return null;
 			}
@@ -126,7 +126,7 @@ public class FunctionCall
 			values[ paramCount -1 ] = value;
 		}
 
-		Iterator refIterator = this.target.getReferences();
+		Iterator refIterator = target.getReferences();
 		paramCount = 0;
 		while ( refIterator.hasNext() )
 		{
@@ -140,10 +140,10 @@ public class FunctionCall
 
 		if ( interpreter.isTracing() )
 		{
-			interpreter.trace( "Entering function " + this.target.getName() );
+			interpreter.trace( "Entering function " + target.getName() );
 		}
 
-		interpreter.setLineAndFile( this.fileName, this.lineNumber );
+		interpreter.setLineAndFile( fileName, lineNumber );
 		
 		Value result;
 		Profiler prev = interpreter.profiler;
@@ -151,11 +151,11 @@ public class FunctionCall
 		{
 			long t0 = System.nanoTime();
 			prev.net += t0 - prev.net0;
-			Profiler curr = Profiler.create( this.target.getSignature() );
+			Profiler curr = Profiler.create( target.getSignature() );
 			curr.net0 = t0;
 			interpreter.profiler = curr;
 			
-			result = this.target.execute( interpreter );
+			result = target.execute( interpreter );
 			
 			long t1 = System.nanoTime();
 			prev.net0 = t1;
@@ -166,12 +166,12 @@ public class FunctionCall
 		}
 		else
 		{
-			result = this.target.execute( interpreter );
+			result = target.execute( interpreter );
 		}
 		
 		if ( interpreter.isTracing() )
 		{
-			interpreter.trace( "Function " + this.target.getName() + " returned: " + result );
+			interpreter.trace( "Function " + target.getName() + " returned: " + result );
 		}
 
 		if ( interpreter.getState() != Interpreter.STATE_EXIT )
@@ -180,7 +180,7 @@ public class FunctionCall
 		}
 
 		// Restore initial variable bindings
-		this.target.restoreBindings( interpreter );
+        target.restoreBindings( interpreter );
 		interpreter.traceUnindent();
 
 		return result;
@@ -189,16 +189,16 @@ public class FunctionCall
 	@Override
 	public String toString()
 	{
-		return this.target.getName() + "()";
+		return target.getName() + "()";
 	}
 
 	@Override
 	public void print( final PrintStream stream, final int indent )
 	{
 		Interpreter.indentLine( stream, indent );
-		stream.println( "<CALL " + this.getTarget().getName() + ">" );
+		stream.println( "<CALL " + getTarget().getName() + ">" );
 
-		Iterator it = this.getValues();
+		Iterator it = getValues();
 		while ( it.hasNext() )
 		{
 			Value current = (Value) it.next();

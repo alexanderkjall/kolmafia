@@ -55,7 +55,7 @@ public class AutoAttackCommand
 
 	public AutoAttackCommand()
 	{
-		this.usage = " <skill> - set default attack method.";
+        usage = " <skill> - set default attack method.";
 	}
 
 	@Override

@@ -50,13 +50,13 @@ public abstract class Loop
 
 	public Scope getScope()
 	{
-		return this.scope;
+		return scope;
 	}
 
 	@Override
 	public Value execute( final Interpreter interpreter )
 	{
-		Value result = this.scope.execute( interpreter );
+		Value result = scope.execute( interpreter );
 
 		if ( !KoLmafia.permitsContinue() )
 		{

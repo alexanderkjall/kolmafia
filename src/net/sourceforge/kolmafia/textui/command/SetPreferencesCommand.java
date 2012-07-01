@@ -49,8 +49,8 @@ public class SetPreferencesCommand
 {
 	public SetPreferencesCommand()
 	{
-		this.usage = " <preference> [ = <value> ] - show/change preference settings";
-		this.flags = KoLmafiaCLI.FULL_LINE_CMD;
+        usage = " <preference> [ = <value> ] - show/change preference settings";
+        flags = KoLmafiaCLI.FULL_LINE_CMD;
 	}
 
 	@Override

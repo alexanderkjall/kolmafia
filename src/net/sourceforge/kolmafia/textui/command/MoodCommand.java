@@ -47,7 +47,7 @@ public class MoodCommand
 	extends AbstractCommand
 {
 	{
-		this.usage = " list | clear | autofill | execute | repeat [<numTimes>] | <moodName> [<numTimes>] - mood management.";
+        usage = " list | clear | autofill | execute | repeat [<numTimes>] | <moodName> [<numTimes>] - mood management.";
 	}
 
 	@Override
@@ -125,7 +125,7 @@ public class MoodCommand
 
 			if ( multiplicity > 0 )
 			{
-				this.CLI.executeCommand( "mood", "repeat " + multiplicity );
+                CLI.executeCommand( "mood", "repeat " + multiplicity );
 				MoodManager.setMood( previousMood );
 			}
 		}

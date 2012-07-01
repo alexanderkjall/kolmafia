@@ -65,7 +65,7 @@ public class GlobalMenuBar
 		// Add general features.
 
 		JMenu statusMenu = new JMenu( "General" );
-		this.add( statusMenu );
+        add( statusMenu );
 
 		// Add the refresh menu, which holds the ability to refresh
 		// everything in the session.
@@ -98,7 +98,7 @@ public class GlobalMenuBar
 		// Add specialized tools.
 
 		JMenu toolsMenu = new JMenu( "Tools" );
-		this.add( toolsMenu );
+        add( toolsMenu );
 
 		toolsMenu.add( new InvocationMenuItem( "Clear Results", StaticEntity.getClient(), "resetSession" ) );
 		toolsMenu.add( new InvocationMenuItem( "Stop Everything", RequestThread.class, "declareWorldPeace" ) );
@@ -120,7 +120,7 @@ public class GlobalMenuBar
 		// Add the old-school people menu.
 
 		JMenu peopleMenu = new JMenu( "People" );
-		this.add( peopleMenu );
+        add( peopleMenu );
 
 		peopleMenu.add( new RelayBrowserMenuItem( "Read KoLmail", "game.php?mainpane=messages" ) );
 		peopleMenu.add( new DisplayFrameMenuItem( "KoLmafia Chat", "ChatManager" ) );
@@ -143,7 +143,7 @@ public class GlobalMenuBar
 		// Add in common tasks menu
 
 		JMenu travelMenu = new JMenu( "Travel" );
-		this.add( travelMenu );
+        add( travelMenu );
 
 		travelMenu.add( new RelayBrowserMenuItem( "Doc Galaktik", "galaktik.php" ) );
 		travelMenu.add( new RestCampgroundMenuItem() );
@@ -163,7 +163,7 @@ public class GlobalMenuBar
 		// Add in automatic quest completion scripts.
 
 		JMenu questsMenu = new JMenu( "Quests" );
-		this.add( questsMenu );
+        add( questsMenu );
 
 		questsMenu.add( new InvocationMenuItem( "Unlock Guild", GuildUnlockManager.class, "unlockGuild" ) );
 		questsMenu.add( new InvocationMenuItem( "Tavern Quest (faucet)", TavernManager.class, "locateTavernFaucet" ) );
@@ -188,21 +188,21 @@ public class GlobalMenuBar
 
 		if ( !KoLConstants.bookmarks.isEmpty() )
 		{
-			this.bookmarkMenu = new BookmarkMenu();
-			this.add( this.bookmarkMenu );
+            bookmarkMenu = new BookmarkMenu();
+            add( bookmarkMenu );
 		}
 
-		this.scriptMenu = new ScriptMenu();
-		this.add( this.scriptMenu );
+        scriptMenu = new ScriptMenu();
+        add( scriptMenu );
 
-		this.windowMenu = new WindowMenu();
-		this.add( this.windowMenu );
+        windowMenu = new WindowMenu();
+        add( windowMenu );
 
 		// Add help information for KoLmafia.  This includes
 		// the additional help-oriented stuffs.
 
 		JMenu helperMenu = new JMenu( "Help" );
-		this.add( helperMenu );
+        add( helperMenu );
 
 		helperMenu.add( new ThreadedMenuItem( "Copyright Notice", new LicenseDisplayListener() ) );
 		helperMenu.add( new DebugLogMenuItem() );
@@ -235,19 +235,19 @@ public class GlobalMenuBar
 
 	public void dispose()
 	{
-		if ( this.scriptMenu != null )
+		if ( scriptMenu != null )
 		{
-			this.scriptMenu.dispose();
+            scriptMenu.dispose();
 		}
 
-		if ( this.windowMenu != null )
+		if ( windowMenu != null )
 		{
-			this.windowMenu.dispose();
+            windowMenu.dispose();
 		}
 
-		if ( this.bookmarkMenu != null )
+		if ( bookmarkMenu != null )
 		{
-			this.bookmarkMenu.dispose();
+            bookmarkMenu.dispose();
 		}
 	}
 }

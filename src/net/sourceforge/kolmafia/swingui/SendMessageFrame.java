@@ -93,14 +93,14 @@ public class SendMessageFrame
 	public SendMessageFrame( final String recipient )
 	{
 		this();
-		this.setRecipient( recipient );
+        setRecipient( recipient );
 	}
 
 	public SendMessageFrame( final String recipient, final String text )
 	{
 		this();
-		this.setRecipient( recipient );
-		this.setMessageText( text );
+        setRecipient( recipient );
+        setMessageText( text );
 	}
 
 	public SendMessageFrame()
@@ -110,29 +110,29 @@ public class SendMessageFrame
 
 		// What kind of package you want to send.
 
-		this.sourceSelect = new JComboBox();
-		this.sourceSelect.addItem( "Send items/meat from inventory" );
-		this.sourceSelect.addItem( "Send items/meat from ancestral storage" );
-		this.sourceSelect.addActionListener( new AttachmentClearListener() );
+        sourceSelect = new JComboBox();
+        sourceSelect.addItem( "Send items/meat from inventory" );
+        sourceSelect.addItem( "Send items/meat from ancestral storage" );
+        sourceSelect.addActionListener( new AttachmentClearListener() );
 
 		// Who you want to send it to.
 
-		this.contacts = (LockableListModel) ContactManager.getMailContacts().getMirrorImage();
-		this.recipientEntry = new AutoFilterComboBox( this.contacts, true );
+        contacts = (LockableListModel) ContactManager.getMailContacts().getMirrorImage();
+        recipientEntry = new AutoFilterComboBox( contacts, true );
 
 		// How much you want to attach, in raw terms.
 
-		this.attachments = new LockableListModel();
-		this.attachedMeat = new AutoHighlightTextField( "0" );
+        attachments = new LockableListModel();
+        attachedMeat = new AutoHighlightTextField( "0" );
 
 		// Now, layout the center part of the panel.
 
 		mainPanel.add( new JLabel( "Source:  ", SwingConstants.RIGHT ) );
-		mainPanel.add( this.sourceSelect );
+		mainPanel.add( sourceSelect );
 		mainPanel.add( new JLabel( "Recipient:  ", SwingConstants.RIGHT ) );
-		mainPanel.add( this.recipientEntry );
+		mainPanel.add( recipientEntry );
 		mainPanel.add( new JLabel( "Send Meat:  ", SwingConstants.RIGHT ) );
-		mainPanel.add( this.attachedMeat );
+		mainPanel.add( attachedMeat );
 		SpringUtilities.makeCompactGrid( mainPanel, 3, 2, 5, 5, 5, 5 );
 
 		// Construct the east container.
@@ -151,9 +151,9 @@ public class SendMessageFrame
 		labelPanel.add( buttonPanel, BorderLayout.WEST );
 		labelPanel.add( new JLabel( "Attach or detach items", SwingConstants.LEFT ), BorderLayout.CENTER );
 
-		GenericScrollPane pane = new GenericScrollPane( this.attachments, 3 );
-		this.attachmentsList = (JList) pane.getComponent();
-		this.attachmentsList.addKeyListener( new RemoveAttachmentListener() );
+		GenericScrollPane pane = new GenericScrollPane( attachments, 3 );
+        attachmentsList = (JList) pane.getComponent();
+        attachmentsList.addKeyListener( new RemoveAttachmentListener() );
 
 		JPanel attachPanel = new JPanel( new BorderLayout( 5, 5 ) );
 		attachPanel.add( labelPanel, BorderLayout.NORTH );
@@ -168,13 +168,13 @@ public class SendMessageFrame
 
 		// Add the message entry to the panel.
 
-		this.messageEntry = new JTextArea();
-		this.messageEntry.setFont( KoLConstants.DEFAULT_FONT );
-		this.messageEntry.setRows( 7 );
-		this.messageEntry.setLineWrap( true );
-		this.messageEntry.setWrapStyleWord( true );
+        messageEntry = new JTextArea();
+        messageEntry.setFont( KoLConstants.DEFAULT_FONT );
+        messageEntry.setRows( 7 );
+        messageEntry.setLineWrap( true );
+        messageEntry.setWrapStyleWord( true );
 
-		GenericScrollPane scrollArea = new GenericScrollPane( this.messageEntry );
+		GenericScrollPane scrollArea = new GenericScrollPane( messageEntry );
 		mainHolder.add( scrollArea, BorderLayout.CENTER );
 
 		// Add a button to the bottom panel.
@@ -188,7 +188,7 @@ public class SendMessageFrame
 		JPanel cardPanel = new JPanel( new CardLayout( 10, 10 ) );
 		cardPanel.add( mainHolder, "" );
 
-		this.setCenterComponent( mainHolder );
+        setCenterComponent( mainHolder );
 	}
 
 	public void createItemAttachPanel()
@@ -208,26 +208,26 @@ public class SendMessageFrame
 
 	public void setRecipient( String recipient )
 	{
-		this.isStorage = false;
-		this.sourceSelect.setSelectedIndex( 0 );
+        isStorage = false;
+        sourceSelect.setSelectedIndex( 0 );
 
-		if ( !this.contacts.contains( recipient ) )
+		if ( !contacts.contains( recipient ) )
 		{
 			recipient = ContactManager.getPlayerName( recipient );
-			this.contacts.add( 0, recipient );
+            contacts.add( 0, recipient );
 		}
 
-		this.recipientEntry.getEditor().setItem( recipient );
-		this.recipientEntry.setSelectedItem( recipient );
+        recipientEntry.getEditor().setItem( recipient );
+        recipientEntry.setSelectedItem( recipient );
 
-		this.attachments.clear();
-		this.attachedMeat.setText( "" );
-		this.messageEntry.setText( "" );
+        attachments.clear();
+        attachedMeat.setText( "" );
+        messageEntry.setText( "" );
 	}
 
 	public void setMessageText( String text )
 	{
-		this.messageEntry.setText( text );
+        messageEntry.setText( text );
 	}
 
 	@Override
@@ -241,30 +241,30 @@ public class SendMessageFrame
 	{
 		public void actionPerformed( final ActionEvent e )
 		{
-			boolean wasStorage = SendMessageFrame.this.isStorage;
-			SendMessageFrame.this.isStorage = SendMessageFrame.this.sourceSelect.getSelectedIndex() == 1;
+			boolean wasStorage = isStorage;
+            isStorage = sourceSelect.getSelectedIndex() == 1;
 
-			if ( SendMessageFrame.this.isStorage != wasStorage )
+			if ( isStorage != wasStorage )
 			{
-				SendMessageFrame.this.attachments.clear();
+                attachments.clear();
 			}
 		}
 	}
 
 	public void sendMessage()
 	{
-		Object[] attachmentsArray = new Object[ this.attachments.size() + 1 ];
-		this.attachments.toArray( attachmentsArray );
+		Object[] attachmentsArray = new Object[attachments.size() + 1 ];
+        attachments.toArray( attachmentsArray );
 
-		attachmentsArray[ this.attachments.size() ] =
-			new AdventureResult( AdventureResult.MEAT, InputFieldUtilities.getValue( this.attachedMeat, 0 ) );
+		attachmentsArray[attachments.size() ] =
+			new AdventureResult( AdventureResult.MEAT, InputFieldUtilities.getValue( attachedMeat, 0 ) );
 
-		String[] recipients = StaticEntity.getClient().extractTargets( (String) this.recipientEntry.getSelectedItem() );
+		String[] recipients = StaticEntity.getClient().extractTargets( (String) recipientEntry.getSelectedItem() );
 
 		for ( int i = 0; i < recipients.length; ++i )
 		{
 			SendMessageCommand.send(
-				recipients[ i ], this.messageEntry.getText(), attachmentsArray, this.isStorage, false );
+				recipients[ i ], messageEntry.getText(), attachmentsArray, isStorage, false );
 		}
 	}
 
@@ -287,7 +287,7 @@ public class SendMessageFrame
 
 	public void attachItem()
 	{
-		LockableListModel source = this.isStorage ? KoLConstants.storage : KoLConstants.inventory;
+		LockableListModel source = isStorage ? KoLConstants.storage : KoLConstants.inventory;
 		if ( source.isEmpty() )
 		{
 			return;
@@ -323,19 +323,19 @@ public class SendMessageFrame
 		{
 			if ( values[ i ] != null )
 			{
-				this.attachments.add( values[ i ] );
+                attachments.add( values[i] );
 			}
 		}
 	}
 
 	public void detachItems()
 	{
-		JList list = this.attachmentsList;
+		JList list = attachmentsList;
 		int [] indices = list.getSelectedIndices();
 		for ( int i = indices.length; i > 0; --i )
 		{
 			int index = indices[ i - 1 ];
-			this.attachments.remove( index );
+            attachments.remove( index );
 		}
 	}
 
@@ -355,7 +355,7 @@ public class SendMessageFrame
 				return;
 			}
 
-			SendMessageFrame.this.detachItems();
+            detachItems();
 
 			e.consume();
 		}

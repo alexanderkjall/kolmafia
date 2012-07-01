@@ -163,53 +163,53 @@ public abstract class ChoiceManager
 
 			if ( items != null )
 			{
-				this.spoilers = new String[][] { settingArray, nameArray, options, items };
+                spoilers = new String[][] { settingArray, nameArray, options, items };
 			}
 			else
 			{
-				this.spoilers = new String[][] { settingArray, nameArray, options };
+                spoilers = new String[][] { settingArray, nameArray, options };
 			}
 		}
 
 		public String getZone()
 		{
-			return this.zone;
+			return zone;
 		}
 
 		public String getSetting()
 		{
-			return this.setting;
+			return setting;
 		}
 
 		public String getName()
 		{
-			return this.name;
+			return name;
 		}
 
 		public String[] getItems()
 		{
-			return this.items;
+			return items;
 		}
 
 		public String[] getOptions()
 		{
-			if ( this.options == null )
+			if ( options == null )
 			{
-				return ChoiceManager.dynamicChoiceOptions( this.setting );
+				return ChoiceManager.dynamicChoiceOptions( setting );
 			}
-			return this.options;
+			return options;
 		}
 
 		public String[][] getSpoilers()
 		{
-			return this.spoilers;
+			return spoilers;
 		}
 
 		public int compareTo( final Object o )
 		{
 			if ( ChoiceManager.choicesOrderedByName )
 			{
-				int result = this.name.compareToIgnoreCase( ( (ChoiceAdventure) o ).name );
+				int result = name.compareToIgnoreCase( ((ChoiceAdventure) o).name );
 
 				if ( result != 0 )
 				{
@@ -217,7 +217,7 @@ public abstract class ChoiceManager
 				}
 			}
 
-			int a = StringUtilities.parseInt( this.setting.substring( 15 ) );
+			int a = StringUtilities.parseInt( setting.substring( 15 ) );
 			int b = StringUtilities.parseInt( ( (ChoiceAdventure) o ).setting.substring( 15 ) );
 
 			return a - b;

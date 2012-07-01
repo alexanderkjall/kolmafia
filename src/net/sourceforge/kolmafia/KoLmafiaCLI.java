@@ -121,7 +121,7 @@ public class KoLmafiaCLI
 	{
 		try
 		{
-			this.commandStream = FileUtilities.getReader( inputStream );
+            commandStream = FileUtilities.getReader( inputStream );
 		}
 		catch ( Exception e )
 		{
@@ -145,7 +145,7 @@ public class KoLmafiaCLI
 			{
 				System.out.println();
 				System.out.print( "username: " );
-				username = this.commandStream.readLine();
+				username = commandStream.readLine();
 			}
 
 			if ( username == null || username.length() == 0 )
@@ -164,7 +164,7 @@ public class KoLmafiaCLI
 			if ( password == null )
 			{
 				System.out.print( "password: " );
-				password = this.commandStream.readLine();
+				password = commandStream.readLine();
 			}
 
 			if ( password == null || password.length() == 0 )
@@ -194,35 +194,35 @@ public class KoLmafiaCLI
 
 			try
 			{
-				while ( ( line = KoLmafiaCLI.this.commandStream.readLine() ) != null )
+				while ( ( line = commandStream.readLine() ) != null )
 				{
 					if ( line.equals( "--" ) )
 					{
 						RequestThread.declareWorldPeace();
 
-						synchronized ( KoLmafiaCLI.this.queuedLines )
+						synchronized (queuedLines)
 						{
-							KoLmafiaCLI.this.queuedLines.clear();
+                            queuedLines.clear();
 						}
 					}
 					else if ( line.length() == 0 || line.startsWith( "#" ) || line.startsWith( "//" ) || line.startsWith( "\'" ) )
 					{
-						synchronized ( KoLmafiaCLI.this.queuedLines )
+						synchronized (queuedLines)
 						{
-							KoLmafiaCLI.this.queuedLines.addLast( null );
+                            queuedLines.addLast( null );
 						}
 					}
 					else
 					{
-						synchronized ( KoLmafiaCLI.this.queuedLines )
+						synchronized (queuedLines)
 						{
-							KoLmafiaCLI.this.queuedLines.addLast( line );
+                            queuedLines.addLast( line );
 						}
 					}
 				}
 
-				KoLmafiaCLI.this.commandStream.close();
-				KoLmafiaCLI.this.currentLine = null;
+                commandStream.close();
+                currentLine = null;
 			}
 			catch ( IOException e )
 			{
@@ -243,7 +243,7 @@ public class KoLmafiaCLI
 
 			do
 			{
-				line = KoLmafiaCLI.this.getNextLine( " > " );
+				line = getNextLine( " > " );
 
 				if ( StaticEntity.getClient() == KoLmafiaCLI.this )
 				{
@@ -252,9 +252,9 @@ public class KoLmafiaCLI
 
 				if ( line != null )
 				{
-					KoLmafiaCLI.this.isGUI = false;
-					KoLmafiaCLI.this.executeLine( line );
-					KoLmafiaCLI.this.isGUI = true;
+                    isGUI = false;
+                    executeLine( line );
+                    isGUI = true;
 				}
 
 				if ( StaticEntity.getClient() == KoLmafiaCLI.this )
@@ -272,14 +272,14 @@ public class KoLmafiaCLI
 
 		while ( line == null )
 		{
-			if ( message != null && KoLmafiaCLI.this.queuedLines.isEmpty() && StaticEntity.getClient() == KoLmafiaCLI.this && KoLmafiaCLI.this.retriever.isAlive() )
+			if ( message != null && queuedLines.isEmpty() && StaticEntity.getClient() == KoLmafiaCLI.this && retriever.isAlive() )
 			{
 				RequestLogger.printLine();
 
 				System.out.print( message );
 			}
 
-			if ( KoLmafiaCLI.this.queuedLines.isEmpty() && KoLmafiaCLI.this.retriever.isAlive() )
+			if ( queuedLines.isEmpty() && retriever.isAlive() )
 			{
 				PauseObject pauser = new PauseObject();
 
@@ -287,10 +287,10 @@ public class KoLmafiaCLI
 				{
 					pauser.pause( 100 );
 				}
-				while ( KoLmafiaCLI.this.queuedLines.isEmpty() && KoLmafiaCLI.this.retriever.isAlive() );
+				while ( queuedLines.isEmpty() && retriever.isAlive() );
 			}
 
-			if ( KoLmafiaCLI.this.queuedLines.isEmpty() )
+			if ( queuedLines.isEmpty() )
 			{
 				return null;
 			}
@@ -300,9 +300,9 @@ public class KoLmafiaCLI
 				RequestLogger.printLine();
 			}
 
-			synchronized ( KoLmafiaCLI.this.queuedLines )
+			synchronized (queuedLines)
 			{
-				line = (String) KoLmafiaCLI.this.queuedLines.removeFirst();
+				line = (String) queuedLines.removeFirst();
 			}
 		}
 
@@ -319,19 +319,19 @@ public class KoLmafiaCLI
 
 		if ( StaticEntity.getClient() == KoLmafiaCLI.this )
 		{
-			this.retriever.start();
-			this.processor.start();
+            retriever.start();
+            processor.start();
 		}
 		else
 		{
-			this.retriever.run();
-			this.processor.run();
+            retriever.run();
+            processor.run();
 		}
 	}
 
 	public void executeLine( String line )
 	{
-		this.executeLine( line, null );
+        executeLine( line, null );
 	}
 
 	public void executeLine( String line, final Interpreter interpreter )
@@ -358,10 +358,10 @@ public class KoLmafiaCLI
 		// First, handle all the aliasing that may be
 		// defined by the user.
 
-		this.currentLine = line = Aliases.apply( line );
+        currentLine = line = Aliases.apply( line );
 		if ( !line.startsWith( "repeat" ) )
 		{
-			this.previousLine = line;
+            previousLine = line;
 		}
 
 		while ( KoLmafia.permitsContinue() && line.length() > 0 )
@@ -449,7 +449,7 @@ public class KoLmafiaCLI
 
 			if ( flags == KoLmafiaCLI.FLOW_CONTROL_CMD )
 			{
-				String continuation = this.getContinuation( line );
+				String continuation = getContinuation( line );
 				if ( !KoLmafia.permitsContinue() )
 				{
 					return;
@@ -459,11 +459,11 @@ public class KoLmafiaCLI
 				handler.run( lcommand, trimmed );
 				handler.CLI = null;
 				KoLmafiaCLI.isExecutingCheckOnlyCommand = false;
-				this.previousLine = command + " " + trimmed + ";" + continuation;
+                previousLine = command + " " + trimmed + ";" + continuation;
 				return;
 			}
 
-			this.executeCommand( command, trimmed, interpreter );
+            executeCommand( command, trimmed, interpreter );
 			KoLmafiaCLI.isExecutingCheckOnlyCommand = false;
 		}
 
@@ -528,13 +528,13 @@ public class KoLmafiaCLI
 			// We need another line to complete the command.  However, if the
 			// original command didn't come from the input stream (the gCLI
 			// entry field, perhaps), trying to read a line would just hang.
-			if ( this.isGUI )
+			if ( isGUI )
 			{
 				KoLmafia.updateDisplay( MafiaState.ERROR, "Multi-line statements cannot be used from the gCLI." );
 				return "";
 			}
 
-			line = this.getNextLine( "+> " );
+			line = getNextLine( "+> " );
 
 			if ( line == null )
 			{
@@ -553,7 +553,7 @@ public class KoLmafiaCLI
 
 	public void executeCommand( String command, String parameters )
 	{
-		this.executeCommand( command, parameters, null );
+        executeCommand( command, parameters, null );
 	}
 
 	private void executeCommand( String command, String parameters, Interpreter interpreter )
@@ -562,7 +562,7 @@ public class KoLmafiaCLI
 
 		try
 		{
-			this.doExecuteCommand( command, parameters, interpreter );
+            doExecuteCommand( command, parameters, interpreter );
 		}
 		catch ( Exception e )
 		{
@@ -624,13 +624,13 @@ public class KoLmafiaCLI
 
 	public void elseRuns( final boolean shouldRun )
 	{
-		this.elseRuns = shouldRun;
-		this.elseValid = true;
+        elseRuns = shouldRun;
+        elseValid = true;
 	}
 
 	public boolean elseValid()
 	{
-		return this.elseValid;
+		return elseValid;
 	}
 
 	/**
@@ -638,7 +638,7 @@ public class KoLmafiaCLI
 	 */
 	public void elseInvalid()
 	{
-		this.elseValid = false;
+        elseValid = false;
 	}
 
 
@@ -650,15 +650,15 @@ public class KoLmafiaCLI
 
 	public boolean elseRuns()
 	{
-		if ( !this.elseValid )
+		if ( !elseValid )
 		{
 			KoLmafia.updateDisplay(
 				MafiaState.ERROR,
 				"'else' must follow a conditional command, and both must be at the outermost level." );
 			return false;
 		}
-		this.elseValid = false;
-		return this.elseRuns;
+        elseValid = false;
+		return elseRuns;
 	}
 
 	static

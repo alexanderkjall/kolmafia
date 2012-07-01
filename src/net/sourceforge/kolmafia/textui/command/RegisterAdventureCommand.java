@@ -42,7 +42,7 @@ public class RegisterAdventureCommand
 {
 	public RegisterAdventureCommand()
 	{
-		this.usage = null;
+        usage = null;
 	}
 
 	@Override

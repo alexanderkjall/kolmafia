@@ -55,18 +55,18 @@ public class KoLDatabase
 		{
 			ItemCounter ic = (ItemCounter) o;
 
-			if ( this.count != ic.count )
+			if ( count != ic.count )
 			{
-				return ic.count - this.count;
+				return ic.count - count;
 			}
 
-			return this.name.compareToIgnoreCase( ic.name );
+			return name.compareToIgnoreCase( ic.name );
 		}
 
 		@Override
 		public String toString()
 		{
-			return this.name + ": " + this.count;
+			return name + ": " + count;
 		}
 	}
 

@@ -48,7 +48,7 @@ public class ZapCommand
 {
 	public ZapCommand()
 	{
-		this.usage = " <item> [, <item>]... - transform items with your wand.";
+        usage = " <item> [, <item>]... - transform items with your wand.";
 	}
 
 	@Override

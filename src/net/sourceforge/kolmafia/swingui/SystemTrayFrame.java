@@ -198,7 +198,7 @@ public abstract class SystemTrayFrame
 		public ThreadedTrayIconPopupSimpleItem( final String title )
 		{
 			super( title );
-			this.addActionListener( this );
+            addActionListener( this );
 		}
 
 		public final void actionPerformed( final ActionEvent e )
@@ -234,7 +234,7 @@ public abstract class SystemTrayFrame
 
 		public void run()
 		{
-			KoLmafiaGUI.constructFrame( this.frame );
+			KoLmafiaGUI.constructFrame( frame );
 		}
 	}
 

@@ -211,7 +211,7 @@ public class ItemManageFrame
 
 		selectorPanel.setSelectedIndex( Preferences.getInteger( "itemManagerIndex" ) );
 
-		this.setCenterComponent( selectorPanel );
+        setCenterComponent( selectorPanel );
 		
 		ItemManageFrame.setHeaderStates();
 	}
@@ -434,9 +434,9 @@ public class ItemManageFrame
 		{
 			super( "automall", "host sale", KoLConstants.profitableList, true );
 
-			this.filters[ 4 ].setSelected( false );
-			this.filters[ 4 ].setEnabled( false );
-			this.filterItems();
+            filters[ 4 ].setSelected( false );
+            filters[ 4 ].setEnabled( false );
+            filterItems();
 		}
 
 		@Override
@@ -478,9 +478,9 @@ public class ItemManageFrame
 		{
 			super( "pull item", isEquipmentOnly ? "pull & equip" : "closet item", KoLConstants.storage, isEquipmentOnly );
 
-			this.addFilters();
-			this.addMovers();
-			this.elementList.setCellRenderer( ListCellRendererFactory.getStorageRenderer() );
+            addFilters();
+            addMovers();
+            elementList.setCellRenderer( ListCellRendererFactory.getStorageRenderer() );
 
 			Box box = Box.createVerticalBox();
 			JLabel budget = new JLabel( "Budget:" );
@@ -509,13 +509,13 @@ public class ItemManageFrame
 				box.add( Box.createVerticalStrut( 5 ) );
 				box.add( ItemManageFrame.pullsRemainingLabel2 );
 			}
-			this.eastPanel.add( box, BorderLayout.SOUTH );
+            eastPanel.add( box, BorderLayout.SOUTH );
 		}
 
 		@Override
 		public void addMovers()
 		{
-			if ( !this.isEquipmentOnly )
+			if ( !isEquipmentOnly )
 			{
 				super.addMovers();
 			}
@@ -524,7 +524,7 @@ public class ItemManageFrame
 		@Override
 		protected int getDesiredItemAmount( final Object item, final String itemName, final int itemCount, final String message, final int quantityType )
 		{
-			if ( !this.isPullingForUse || quantityType != ItemManagePanel.TAKE_MULTIPLE )
+			if ( !isPullingForUse || quantityType != ItemManagePanel.TAKE_MULTIPLE )
 			{
 				return super.getDesiredItemAmount( item, itemName, itemCount, message, quantityType );
 			}
@@ -548,7 +548,7 @@ public class ItemManageFrame
 		private Object[] pullItems( final boolean isPullingForUse )
 		{
 			this.isPullingForUse = isPullingForUse;
-			Object[] items = this.getDesiredItems( "Pulling" );
+			Object[] items = getDesiredItems( "Pulling" );
 
 			if ( items == null )
 			{
@@ -584,19 +584,19 @@ public class ItemManageFrame
 		@Override
 		public void actionConfirmed()
 		{
-			this.pullItems( false );
+            pullItems( false );
 		}
 
 		@Override
 		public void actionCancelled()
 		{
-			Object[] items = this.pullItems( this.isEquipmentOnly );
+			Object[] items = pullItems( isEquipmentOnly );
 			if ( items == null )
 			{
 				return;
 			}
 
-			if ( this.isEquipmentOnly )
+			if ( isEquipmentOnly )
 			{
 				for ( int i = 0; i < items.length; ++i )
 				{
@@ -617,9 +617,9 @@ public class ItemManageFrame
 		{
 			super( "pull item", "closet item", KoLConstants.freepulls, false );
 
-			this.addFilters();
-			this.addMovers();
-			this.elementList.setCellRenderer( ListCellRendererFactory.getFreePullsRenderer() );
+            addFilters();
+            addMovers();
+            elementList.setCellRenderer( ListCellRendererFactory.getFreePullsRenderer() );
 		}
 
 		@Override
@@ -630,7 +630,7 @@ public class ItemManageFrame
 
 		private Object[] pullItems()
 		{
-			Object[] items = this.getDesiredItems( "Pulling" );
+			Object[] items = getDesiredItems( "Pulling" );
 
 			if ( items == null )
 			{
@@ -644,13 +644,13 @@ public class ItemManageFrame
 		@Override
 		public void actionConfirmed()
 		{
-			this.pullItems();
+            pullItems();
 		}
 
 		@Override
 		public void actionCancelled()
 		{
-			Object[] items = this.pullItems();
+			Object[] items = pullItems();
 			if ( items == null )
 			{
 				return;
@@ -667,8 +667,8 @@ public class ItemManageFrame
 		public PullBudgetSpinner()
 		{
 			super();
-			this.setAlignmentX( 0.0f );
-			this.addChangeListener( this );
+            setAlignmentX( 0.0f );
+            addChangeListener( this );
 		}
 
 		public void stateChanged( ChangeEvent e )
@@ -694,20 +694,20 @@ public class ItemManageFrame
 		{
 			super( items.split( "\\|" ) );
 			this.pref = pref;
-			this.addActionListener( this );
+            addActionListener( this );
 			PreferenceListenerRegistry.registerListener( pref, this );
-			this.update();
+            update();
 		}
 
 		public void update()
 		{
-			this.setSelectedItem( Preferences.getString( this.pref ) );
+            setSelectedItem( Preferences.getString( pref ) );
 		}
 
 		@Override
 		public void actionPerformed( ActionEvent e )
 		{
-			Preferences.setString( this.pref, (String) this.getSelectedItem() );
+			Preferences.setString( pref, (String) getSelectedItem() );
 		}
 	}
 
@@ -741,7 +741,7 @@ public class ItemManageFrame
 			elements[ 9 ] = new VerifiableElement( "Other Items: ",
 				new PrefPopup( "usableOther" ) );
 
-			this.setContent( elements );
+            setContent( elements );
 		}
 
 		@Override

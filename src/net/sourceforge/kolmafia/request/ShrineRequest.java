@@ -156,12 +156,12 @@ public class ShrineRequest
 
 		if ( data != null )
 		{
-			this.addFormField( "action", dataAction( data ) );
+            addFormField( "action", dataAction( data ) );
 			key = dataKey( data );
 		}
-		this.hasStatueKey = key != null && KoLConstants.inventory.contains( key );
+        hasStatueKey = key != null && KoLConstants.inventory.contains( key );
 
-		this.addFormField( "howmuch", String.valueOf( amount ) );
+        addFormField( "howmuch", String.valueOf( amount ) );
 		this.amount = amount;
 	}
 
@@ -173,7 +173,7 @@ public class ShrineRequest
 	@Override
 	public void run()
 	{
-		if ( !this.hasStatueKey )
+		if ( !hasStatueKey )
 		{
 			KoLmafia.updateDisplay( MafiaState.ERROR, "You don't have the appropriate key." );
 			return;
@@ -184,7 +184,7 @@ public class ShrineRequest
 	@Override
 	public void processResults()
 	{
-                String error = ShrineRequest.parseResponse( this.getURLString(), this.responseText );
+                String error = ShrineRequest.parseResponse( getURLString(), responseText );
                 if ( error != null )
                 {
 			KoLmafia.updateDisplay( MafiaState.ERROR, error );

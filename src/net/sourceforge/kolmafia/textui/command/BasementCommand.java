@@ -40,7 +40,7 @@ public class BasementCommand
 {
 	public BasementCommand()
 	{
-		this.usage = " - check Fernswarthy's Basement status.";
+        usage = " - check Fernswarthy's Basement status.";
 	}
 
 	@Override

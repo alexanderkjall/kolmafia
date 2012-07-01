@@ -42,7 +42,7 @@ public class BallPitCommand
 {
 	public BallPitCommand()
 	{
-		this.usage = " - jump in your clan's awesome ball pit";
+        usage = " - jump in your clan's awesome ball pit";
 	}
 
 	@Override

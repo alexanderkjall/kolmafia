@@ -141,8 +141,8 @@ public class ReleaseNotes
 
 		public Revision( int revision, String viewRoot )
 		{
-			this.revisionId = revision;
-			this.contents = new StringBuffer();
+            revisionId = revision;
+            contents = new StringBuffer();
 
 			contents.append( "Revision: [url=" );
 			contents.append( viewRoot );
@@ -167,7 +167,7 @@ public class ReleaseNotes
 
 		public int compareTo( Object o )
 		{
-			return this.revisionId - ((Revision)o).revisionId;
+			return revisionId - ((Revision)o).revisionId;
 		}
 	}
 }

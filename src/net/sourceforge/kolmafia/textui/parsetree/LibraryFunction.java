@@ -55,20 +55,20 @@ public class LibraryFunction
 	{
 		super( name.toLowerCase(), type );
 
-		this.values = new Object[ params.length + 1];
+        values = new Object[ params.length + 1];
 		Class[] args = new Class[ params.length + 1 ];
 
 		args[ 0 ] = Interpreter.class;
 		for ( int i = 1; i <= params.length; ++i )
 		{
 			Variable variable = new Variable( params[ i - 1 ] );
-			this.variableReferences.add( new VariableReference( variable ) );
+            variableReferences.add( new VariableReference( variable ) );
 			args[ i ] = Value.class;
 		}
 
 		try
 		{
-			this.method = RuntimeLibrary.findMethod( name, args );
+            method = RuntimeLibrary.findMethod( name, args );
 		}
 		catch ( Exception e )
 		{
@@ -88,31 +88,31 @@ public class LibraryFunction
 			return null;
 		}
 
-		if ( StaticEntity.isDisabled( this.getName() ) )
+		if ( StaticEntity.isDisabled( getName() ) )
 		{
-			this.printDisabledMessage( interpreter );
-			return this.getType().initialValue();
+            printDisabledMessage( interpreter );
+			return getType().initialValue();
 		}
 
-		if ( this.method == null )
+		if ( method == null )
 		{
-			throw interpreter.runtimeException( "Internal error: no method for " + this.getName() );
+			throw interpreter.runtimeException( "Internal error: no method for " + getName() );
 		}
 
 		// Dereference variables and pass ScriptValues to function
 
-		Iterator it = this.variableReferences.iterator();
-		this.values[ 0 ] = interpreter;
+		Iterator it = variableReferences.iterator();
+        values[ 0 ] = interpreter;
 		for ( int i = 1; it.hasNext(); ++i )
 		{
 			VariableReference current = (VariableReference) it.next();
-			this.values[ i ] = current.getValue( interpreter );
+            values[ i ] = current.getValue( interpreter );
 		}
 
 		try
 		{
 			// Invoke the method
-			return (Value) this.method.invoke( this, (Object []) this.values );
+			return (Value) method.invoke( this, (Object[]) values );
 		}
 		catch ( InvocationTargetException e )
 		{

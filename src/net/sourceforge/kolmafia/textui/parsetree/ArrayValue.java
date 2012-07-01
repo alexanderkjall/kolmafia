@@ -56,7 +56,7 @@ public class ArrayValue
 	@Override
 	public Value aref( final Value key, final Interpreter interpreter )
 	{
-		Value[] array = (Value[]) this.content;
+		Value[] array = (Value[]) content;
 		int index = (int) key.intValue();
 		if ( index < 0 || index >= array.length )
 		{
@@ -68,7 +68,7 @@ public class ArrayValue
 	@Override
 	public void aset( final Value key, final Value val, final Interpreter interpreter )
 	{
-		Value[] array = (Value[]) this.content;
+		Value[] array = (Value[]) content;
 		int index = (int) key.intValue();
 		if ( index < 0 || index >= array.length )
 		{
@@ -103,38 +103,38 @@ public class ArrayValue
 	@Override
 	public Value remove( final Value key, final Interpreter interpreter )
 	{
-		Value[] array = (Value[]) this.content;
+		Value[] array = (Value[]) content;
 		int index = (int) key.intValue();
 		if ( index < 0 || index >= array.length )
 		{
 			throw interpreter.runtimeException( "Array index out of bounds" );
 		}
 		Value result = array[ index ];
-		array[ index ] = this.getDataType().initialValue();
+		array[ index ] = getDataType().initialValue();
 		return result;
 	}
 
 	@Override
 	public void clear()
 	{
-		Value[] array = (Value[]) this.content;
+		Value[] array = (Value[]) content;
 		for ( int index = 0; index < array.length; ++index )
 		{
-			array[ index ] = this.getDataType().initialValue();
+			array[ index ] = getDataType().initialValue();
 		}
 	}
 
 	@Override
 	public int count()
 	{
-		Value[] array = (Value[]) this.content;
+		Value[] array = (Value[]) content;
 		return array.length;
 	}
 
 	@Override
 	public boolean contains( final Value key )
 	{
-		Value[] array = (Value[]) this.content;
+		Value[] array = (Value[]) content;
 		int index = (int) key.intValue();
 		return index >= 0 && index < array.length;
 	}
@@ -142,7 +142,7 @@ public class ArrayValue
 	@Override
 	public Value[] keys()
 	{
-		int size = ( (Value[]) this.content ).length;
+		int size = ( (Value[]) content).length;
 		Value[] result = new Value[ size ];
 		for ( int i = 0; i < size; ++i )
 		{

@@ -125,7 +125,7 @@ public class StyledChatBuffer
 			String searchString = (String) StyledChatBuffer.searchStrings.get( i );
 			String colorString = (String) StyledChatBuffer.colorStrings.get( i );
 
-			highlightMessage = this.applyHighlight( highlightMessage, searchString, colorString );
+			highlightMessage = applyHighlight( highlightMessage, searchString, colorString );
 		}
 
 		super.append( highlightMessage );
@@ -139,13 +139,13 @@ public class StyledChatBuffer
 
 	public void applyHighlights()
 	{
-		String[] lines = this.getContent().split( "<br>" );
+		String[] lines = getContent().split( "<br>" );
 
-		this.clear();
+        clear();
 
 		for ( int i = 0; i < lines.length; ++i )
 		{
-			this.append( lines[ i ] + "<br>" );
+            append( lines[ i ] + "<br>" );
 		}
 	}
 

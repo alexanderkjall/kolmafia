@@ -90,43 +90,43 @@ public class MushroomScriptPanel
 
 	public MushroomScriptPanel()
 	{
-		this.headers = new JLabel[ MushroomFrame.MAX_FORECAST + 1 ];
+        headers = new JLabel[ MushroomFrame.MAX_FORECAST + 1 ];
 
-		this.planningData = new String[ MushroomFrame.MAX_FORECAST + 1 ][ 16 ];
-		this.originalData = new String[ MushroomFrame.MAX_FORECAST + 1 ][ 16 ];
+        planningData = new String[ MushroomFrame.MAX_FORECAST + 1 ][ 16 ];
+        originalData = new String[ MushroomFrame.MAX_FORECAST + 1 ][ 16 ];
 
 		for ( int i = 0; i < MushroomFrame.MAX_FORECAST; ++i )
 		{
 			for ( int j = 0; j < 16; ++j )
 			{
-				this.planningData[ i ][ j ] = "__";
-				this.originalData[ i ][ j ] = "__";
+                planningData[ i ][ j ] = "__";
+                originalData[ i ][ j ] = "__";
 			}
 		}
 
-		this.centerPanel = new JPanel( new GridLayout( 0, 4, 20, 20 ) );
+        centerPanel = new JPanel( new GridLayout( 0, 4, 20, 20 ) );
 
 		// Now add the first panel to the layout so that the person
 		// can add more panels as they are needed.
 
-		this.planningPanels = new JPanel[ MushroomFrame.MAX_FORECAST + 1 ];
-		this.planningButtons = new MushroomButton[ MushroomFrame.MAX_FORECAST + 1 ][ 4 ][ 4 ];
+        planningPanels = new JPanel[ MushroomFrame.MAX_FORECAST + 1 ];
+        planningButtons = new MushroomButton[ MushroomFrame.MAX_FORECAST + 1 ][ 4 ][ 4 ];
 
 		for ( int i = 0; i < MushroomFrame.MAX_FORECAST; ++i )
 		{
-			this.planningPanels[ i ] = new JPanel( new GridLayout( 4, 4, 0, 2 ) );
+            planningPanels[ i ] = new JPanel( new GridLayout( 4, 4, 0, 2 ) );
 			for ( int j = 0; j < 4; ++j )
 			{
 				for ( int k = 0; k < 4; ++k )
 				{
-					this.planningButtons[ i ][ j ][ k ] = new MushroomButton( i, j * 4 + k );
-					this.planningPanels[ i ].add( this.planningButtons[ i ][ j ][ k ] );
+                    planningButtons[ i ][ j ][ k ] = new MushroomButton( i, j * 4 + k );
+                    planningPanels[ i ].add( planningButtons[ i ][ j ][ k ] );
 				}
 			}
 		}
 
-		this.centerPanel.add( this.constructPanel( 0, this.planningPanels[ 0 ] ) );
-		this.centerPanel.add( this.constructPanel( 1, this.planningPanels[ 1 ] ) );
+        centerPanel.add( constructPanel( 0, planningPanels[0] ) );
+        centerPanel.add( constructPanel( 1, planningPanels[1] ) );
 
 		// Dummy buttons for the mushroom plot (just for layout
 		// viewing purposes.  To be replaced with real functionality
@@ -136,67 +136,67 @@ public class MushroomScriptPanel
 
 		// Now add the various action buttons.
 
-		this.addToLayoutButton = new InvocationButton( "Add a Day", this, "addToLayout" );
-		this.deleteFromLayoutButton = new InvocationButton( "Delete a Day", this, "removeFromLayout" );
-		this.deleteFromLayoutButton.setEnabled( false );
+        addToLayoutButton = new InvocationButton( "Add a Day", this, "addToLayout" );
+        deleteFromLayoutButton = new InvocationButton( "Delete a Day", this, "removeFromLayout" );
+        deleteFromLayoutButton.setEnabled( false );
 
-		buttonPanel.add( this.addToLayoutButton );
-		buttonPanel.add( this.deleteFromLayoutButton );
+		buttonPanel.add( addToLayoutButton );
+		buttonPanel.add( deleteFromLayoutButton );
 		buttonPanel.add( new InvocationButton( "Run Layout", this, "runLayout" ) );
 		buttonPanel.add( new InvocationButton( "Load Layout", this, "loadLayout" ) );
 		buttonPanel.add( new InvocationButton( "Save Layout", this, "saveLayout" ) );
-		this.centerPanel.add( buttonPanel );
+        centerPanel.add( buttonPanel );
 
-		this.setLayout( new CardLayout( 40, 40 ) );
-		this.add( this.centerPanel, "" );
+        setLayout( new CardLayout( 40, 40 ) );
+        add( centerPanel, "" );
 
-		this.enableLayout();
-		this.currentLayout = Preferences.getString( "plantingScript" );
-		this.initializeLayout();
+        enableLayout();
+        currentLayout = Preferences.getString( "plantingScript" );
+        initializeLayout();
 	}
 
 	private void enableLayout()
 	{
-		for ( int i = 0; i < this.currentForecast; ++i )
+		for ( int i = 0; i < currentForecast; ++i )
 		{
-			this.headers[ i ].setText( "Day " + ( i + 1 ) );
+            headers[ i ].setText( "Day " + ( i + 1 ) );
 		}
 
-		this.headers[ this.currentForecast - 1 ].setText( "Final Day" );
+        headers[currentForecast - 1 ].setText( "Final Day" );
 
 		for ( int i = 0; i < 16; ++i )
 		{
-			this.planningData[ this.currentForecast ][ i ] = "__";
-			this.originalData[ this.currentForecast ][ i ] = "__";
+            planningData[currentForecast][ i ] = "__";
+            originalData[currentForecast][ i ] = "__";
 		}
 
-		this.updateForecasts( this.currentForecast - 1 );
+        updateForecasts( currentForecast - 1 );
 
-		this.centerPanel.validate();
-		this.centerPanel.repaint();
+        centerPanel.validate();
+        centerPanel.repaint();
 
-		this.addToLayoutButton.setEnabled( this.currentForecast != MushroomFrame.MAX_FORECAST );
-		this.deleteFromLayoutButton.setEnabled( this.currentForecast != 2 );
+        addToLayoutButton.setEnabled( currentForecast != MushroomFrame.MAX_FORECAST );
+        deleteFromLayoutButton.setEnabled( currentForecast != 2 );
 	}
 
 	public void addToLayout()
 	{
-		this.centerPanel.invalidate();
-		this.centerPanel.add(
-			this.constructPanel( this.currentForecast, this.planningPanels[ this.currentForecast ] ),
-			this.currentForecast < 3 ? this.currentForecast : this.currentForecast + 1 );
+        centerPanel.invalidate();
+        centerPanel.add(
+                constructPanel( currentForecast, planningPanels[currentForecast] ),
+                currentForecast < 3 ? currentForecast : currentForecast + 1 );
 
-		++this.currentForecast;
-		this.enableLayout();
+		++currentForecast;
+        enableLayout();
 	}
 
 	public void removeFromLayout()
 	{
-		this.centerPanel.invalidate();
-		this.centerPanel.remove( this.currentForecast < 4 ? this.currentForecast - 1 : this.currentForecast );
+        centerPanel.invalidate();
+        centerPanel.remove( currentForecast < 4 ? currentForecast - 1 : currentForecast );
 
-		--this.currentForecast;
-		this.enableLayout();
+		--currentForecast;
+        enableLayout();
 	}
 
 	public void initializeLayout()
@@ -204,7 +204,7 @@ public class MushroomScriptPanel
 		int plantingLength = 2;
 		int indexToHighlight = 0;
 
-		if ( this.currentLayout.equals( "" ) )
+		if ( currentLayout.equals( "" ) )
 		{
 			Preferences.setInteger( "plantingDay", -1 );
 			Preferences.setString( "plantingDate", "" );
@@ -212,31 +212,31 @@ public class MushroomScriptPanel
 		}
 		else
 		{
-			plantingLength = MushroomManager.loadLayout( this.currentLayout, this.originalData, this.planningData );
+			plantingLength = MushroomManager.loadLayout( currentLayout, originalData, planningData );
 			indexToHighlight = Preferences.getInteger( "plantingDay" );
 		}
 
-		if ( plantingLength > this.currentForecast )
+		if ( plantingLength > currentForecast )
 		{
-			this.centerPanel.invalidate();
-			for ( int i = this.currentForecast; i < plantingLength; ++i )
+            centerPanel.invalidate();
+			for ( int i = currentForecast; i < plantingLength; ++i )
 			{
-				this.centerPanel.add( this.constructPanel( i, this.planningPanels[ i ] ), i < 3 ? i : i + 1 );
+                centerPanel.add( constructPanel( i, planningPanels[i] ), i < 3 ? i : i + 1 );
 			}
 
-			this.currentForecast = plantingLength;
-			this.enableLayout();
+            currentForecast = plantingLength;
+            enableLayout();
 		}
 		else if ( plantingLength > 1 )
 		{
-			this.centerPanel.invalidate();
-			for ( int i = this.currentForecast; i > plantingLength; --i )
+            centerPanel.invalidate();
+			for ( int i = currentForecast; i > plantingLength; --i )
 			{
-				this.centerPanel.remove( i < 4 ? i - 1 : i );
+                centerPanel.remove( i < 4 ? i - 1 : i );
 			}
 
-			this.currentForecast = plantingLength;
-			this.enableLayout();
+            currentForecast = plantingLength;
+            enableLayout();
 		}
 
 		String today = KoLConstants.DAILY_FORMAT.format( new Date() );
@@ -246,24 +246,24 @@ public class MushroomScriptPanel
 			++indexToHighlight;
 		}
 
-		for ( int i = 0; i < this.currentForecast; ++i )
+		for ( int i = 0; i < currentForecast; ++i )
 		{
-			this.headers[ i ].setBackground( i == indexToHighlight ? MushroomScriptPanel.TODAY_COLOR : MushroomScriptPanel.OTHER_COLOR );
+            headers[ i ].setBackground( i == indexToHighlight ? MushroomScriptPanel.TODAY_COLOR : MushroomScriptPanel.OTHER_COLOR );
 		}
 
-		this.updateImages();
+        updateImages();
 	}
 
 	public void runLayout()
 	{
-		if ( this.currentLayout.equals( "" ) )
+		if ( currentLayout.equals( "" ) )
 		{
-			this.saveLayout();
+            saveLayout();
 		}
 
-		if ( !this.currentLayout.equals( "" ) )
+		if ( !currentLayout.equals( "" ) )
 		{
-			KoLmafiaCLI.DEFAULT_SHELL.executeLine( "call " + KoLConstants.PLOTS_DIRECTORY + this.currentLayout + ".ash" );
+			KoLmafiaCLI.DEFAULT_SHELL.executeLine( "call " + KoLConstants.PLOTS_DIRECTORY + currentLayout + ".ash" );
 		}
 	}
 
@@ -293,19 +293,19 @@ public class MushroomScriptPanel
 		String layout = (String) InputFieldUtilities.input( "Which mushroom plot?", names.toArray() );
 		if ( layout != null )
 		{
-			this.loadLayout( layout );
+            loadLayout( layout );
 		}
 	}
 
 	public void loadLayout( final String layout )
 	{
-		if ( layout == null || layout.equals( "" ) || this.currentLayout.equals( layout ) )
+		if ( layout == null || layout.equals( "" ) || currentLayout.equals( layout ) )
 		{
 			return;
 		}
 
-		this.currentLayout = layout;
-		this.initializeLayout();
+        currentLayout = layout;
+        initializeLayout();
 	}
 
 	public void saveLayout()
@@ -316,20 +316,20 @@ public class MushroomScriptPanel
 			return;
 		}
 
-		this.currentLayout = location;
+        currentLayout = location;
 
 		String[] planned = new String[ 16 ];
 
 		for ( int i = 0; i < 16; ++i )
 		{
-			planned[ i ] = this.planningData[ this.currentForecast - 1 ][ i ];
-			this.planningData[ this.currentForecast - 1 ][ i ] = "__";
+			planned[ i ] = planningData[currentForecast - 1 ][ i ];
+            planningData[currentForecast - 1 ][ i ] = "__";
 		}
 
-		MushroomManager.saveLayout( location, this.originalData, this.planningData );
+		MushroomManager.saveLayout( location, originalData, planningData );
 		for ( int i = 0; i < 16; ++i )
 		{
-			this.planningData[ this.currentForecast - 1 ][ i ] = planned[ i ];
+            planningData[currentForecast - 1 ][ i ] = planned[ i ];
 		}
 	}
 
@@ -342,19 +342,19 @@ public class MushroomScriptPanel
 			{
 				for ( int k = 0; k < 4; ++k )
 				{
-					holdingData[ j ][ k ] = this.planningData[ i - 1 ][ j * 4 + k ];
+					holdingData[ j ][ k ] = planningData[ i - 1 ][ j * 4 + k ];
 				}
 			}
 
 			String[] forecastData = MushroomManager.getForecastedPlot( true, holdingData ).split( ";" );
 			for ( int j = 0; j < 16; ++j )
 			{
-				this.planningData[ i ][ j ] = forecastData[ j ];
-				this.originalData[ i ][ j ] = forecastData[ j ];
+                planningData[ i ][ j ] = forecastData[ j ];
+                originalData[ i ][ j ] = forecastData[ j ];
 			}
 		}
 
-		this.updateImages();
+        updateImages();
 	}
 
 	private void updateImages()
@@ -365,7 +365,7 @@ public class MushroomScriptPanel
 			{
 				for ( int k = 0; k < 4; ++k )
 				{
-					this.planningButtons[ i ][ j ][ k ].updateImage();
+                    planningButtons[ i ][ j ][ k ].updateImage();
 				}
 			}
 		}
@@ -376,9 +376,9 @@ public class MushroomScriptPanel
 		JPanel panel = new JPanel( new BorderLayout() );
 		panel.setBorder( BorderFactory.createLineBorder( Color.black, 1 ) );
 
-		this.headers[ dayIndex ] = new JLabel( "Day " + ( dayIndex + 1 ), SwingConstants.CENTER );
+        headers[ dayIndex ] = new JLabel( "Day " + ( dayIndex + 1 ), SwingConstants.CENTER );
 
-		panel.add( this.headers[ dayIndex ], BorderLayout.NORTH );
+		panel.add( headers[ dayIndex ], BorderLayout.NORTH );
 		panel.add( c, BorderLayout.CENTER );
 
 		return panel;
@@ -397,60 +397,60 @@ public class MushroomScriptPanel
 			super( JComponentUtilities.getImage( "itemimages/dirt1.gif" ) );
 
 			this.dayIndex = dayIndex;
-			this.loopIndex = 4;
+            loopIndex = 4;
 			this.squareIndex = squareIndex;
 
 			JComponentUtilities.setComponentSize( this, 30, 30 );
-			this.addActionListener( this );
+            addActionListener( this );
 		}
 
 		public void actionPerformed( ActionEvent e )
 		{
-			if ( this.dayIndex == MushroomScriptPanel.this.currentForecast - 1 )
+			if ( dayIndex == currentForecast - 1 )
 			{
 				return;
 			}
 
-			MushroomScriptPanel.this.planningData[ this.dayIndex ][ this.squareIndex ] = this.toggleMushroom();
-			MushroomScriptPanel.this.updateForecasts( this.dayIndex + 1 );
+            planningData[dayIndex][squareIndex] = toggleMushroom();
+            updateForecasts( dayIndex + 1 );
 		}
 
 		public void updateImage()
 		{
-			String currentMushroom = MushroomScriptPanel.this.planningData[ this.dayIndex ][ this.squareIndex ];
+			String currentMushroom = planningData[dayIndex][squareIndex];
 
 			if ( currentMushroom.equals( "__" ) )
 			{
-				this.setIcon( JComponentUtilities.getImage( "itemimages/dirt1.gif" ) );
+                setIcon( JComponentUtilities.getImage( "itemimages/dirt1.gif" ) );
 			}
 			else if ( currentMushroom.equals( currentMushroom.toLowerCase() ) )
 			{
-				this.setIcon( JComponentUtilities.getImage( "itemimages/mushsprout.gif" ) );
+                setIcon( JComponentUtilities.getImage( "itemimages/mushsprout.gif" ) );
 			}
 			else
 			{
-				this.setIcon( JComponentUtilities.getImage( MushroomManager.getMushroomImage( currentMushroom ) ) );
+                setIcon( JComponentUtilities.getImage( MushroomManager.getMushroomImage( currentMushroom ) ) );
 			}
 
 			for ( int i = 0; i < MushroomManager.MUSHROOMS.length; ++i )
 			{
 				if ( currentMushroom.equals( MushroomManager.MUSHROOMS[ i ][ 2 ] ) || currentMushroom.equals( MushroomManager.MUSHROOMS[ i ][ 3 ] ) )
 				{
-					this.setToolTipText( (String) MushroomManager.MUSHROOMS[ i ][ 5 ] );
+                    setToolTipText( (String) MushroomManager.MUSHROOMS[ i ][ 5 ] );
 				}
 			}
 		}
 
 		private String toggleMushroom()
 		{
-			MushroomScriptPanel.this.currentLayout = "";
+            currentLayout = "";
 
 			// Everything rotates based on what was there
 			// when you clicked on the image.
 
-			this.loopIndex = ( this.loopIndex + 1 ) % 5;
+            loopIndex = (loopIndex + 1 ) % 5;
 
-			switch ( this.loopIndex )
+			switch ( loopIndex )
 			{
 			// If you loop around, then test to see if the
 			// old data was a blank.  If it was, then you
@@ -460,9 +460,9 @@ public class MushroomScriptPanel
 
 			case 0:
 
-				if ( MushroomScriptPanel.this.originalData[ this.dayIndex ][ this.squareIndex ].equals( "__" ) )
+				if ( originalData[dayIndex][squareIndex].equals( "__" ) )
 				{
-					this.loopIndex = 1;
+                    loopIndex = 1;
 				}
 				else
 				{
@@ -479,7 +479,7 @@ public class MushroomScriptPanel
 			case 3:
 				return "sp";
 			case 4:
-				return MushroomScriptPanel.this.originalData[ this.dayIndex ][ this.squareIndex ];
+				return originalData[dayIndex][squareIndex];
 			}
 
 			return "__";

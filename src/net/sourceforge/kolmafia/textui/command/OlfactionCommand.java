@@ -47,7 +47,7 @@ public class OlfactionCommand
 {
 	public OlfactionCommand()
 	{
-		this.usage =
+        usage =
 			" ( none | monster <name> | [item] <list> | goals ) [abort] - tag next monster [that drops all items in list, or your goals].";
 	}
 

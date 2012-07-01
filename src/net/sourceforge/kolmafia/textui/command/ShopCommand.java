@@ -61,7 +61,7 @@ public class ShopCommand
 {
 	public ShopCommand()
 	{
-		this.usage = " put <item> [[@] <price> [[limit] <num>]] [, <another>] | take [all] <item> [, <another>] - sell or remove from Mall..";
+        usage = " put <item> [[@] <price> [[limit] <num>]] [, <another>] | take [all] <item> [, <another>] - sell or remove from Mall..";
 	}
 
 	@Override

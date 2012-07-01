@@ -40,7 +40,7 @@ public class WhileStatement
 {
 	public WhileStatement()
 	{
-		this.usage = " <condition>; <commands> - do commands repeatedly while condition is true.";
+        usage = " <condition>; <commands> - do commands repeatedly while condition is true.";
 	}
 
 	@Override

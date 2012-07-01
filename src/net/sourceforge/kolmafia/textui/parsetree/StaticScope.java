@@ -47,7 +47,7 @@ public class StaticScope
 	@Override
 	public Value execute( final Interpreter interpreter )
 	{
-		if ( !this.executed )
+		if ( !executed )
 		{
 			return super.execute( interpreter );
 		}

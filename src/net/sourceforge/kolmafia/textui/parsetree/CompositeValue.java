@@ -51,12 +51,12 @@ public class CompositeValue
 
 	public CompositeType getCompositeType()
 	{
-		return (CompositeType) this.type;
+		return (CompositeType) type;
 	}
 
 	public Value aref( final Value key )
 	{
-		return this.aref( key, null );
+		return aref( key, null );
 	}
 
 	public Value aref( final Value key, final Interpreter interpreter )
@@ -66,7 +66,7 @@ public class CompositeValue
 
 	public void aset( final Value key, final Value val )
 	{
-		this.aset( key, val, null );
+        aset( key, val, null );
 	}
 
 	public void aset( final Value key, final Value val, final Interpreter interpreter )
@@ -90,18 +90,18 @@ public class CompositeValue
 
 	public Iterator iterator()
 	{
-		return Arrays.asList( this.keys() ).iterator();
+		return Arrays.asList( keys() ).iterator();
 	}
 
 	public Value initialValue( final Object key )
 	{
-		return ( (CompositeType) this.type ).getDataType( key ).initialValue();
+		return ( (CompositeType) type).getDataType( key ).initialValue();
 	}
 
 	@Override
 	public void dump( final PrintStream writer, final String prefix, final boolean compact )
 	{
-		Value[] keys = this.keys();
+		Value[] keys = keys();
 		if ( keys.length == 0 )
 		{
 			return;
@@ -110,7 +110,7 @@ public class CompositeValue
 		for ( int i = 0; i < keys.length; ++i )
 		{
 			Value key = keys[ i ];
-			Value value = this.aref( key );
+			Value value = aref( key );
 			String first = prefix + key + "\t";
 			value.dump( writer, first, compact );
 		}
@@ -140,13 +140,13 @@ public class CompositeValue
 
 		if ( dataType instanceof CompositeType )
 		{
-			CompositeValue slice = (CompositeValue) this.aref( key );
+			CompositeValue slice = (CompositeValue) aref( key );
 
 			// Create missing intermediate slice
 			if ( slice == null )
 			{
-				slice = (CompositeValue) this.initialValue( key );
-				this.aset( key, slice );
+				slice = (CompositeValue) initialValue( key );
+                aset( key, slice );
 			}
 
 			return slice.read( data, index + 1, compact ) + 1;
@@ -158,13 +158,13 @@ public class CompositeValue
 			dataType.parseValue( data[ index + 1 ], true ) :
 			dataType.initialValue();
 
-		this.aset( key, value );
+        aset( key, value );
 		return 2;
 	}
 
 	@Override
 	public String toString()
 	{
-		return "composite " + this.type.toString();
+		return "composite " + type.toString();
 	}
 }

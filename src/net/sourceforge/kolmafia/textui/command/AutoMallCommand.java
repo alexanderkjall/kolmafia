@@ -48,7 +48,7 @@ public class AutoMallCommand
 {
 	public AutoMallCommand()
 	{
-		this.usage = " - dump all profitable, non-memento items into the Mall.";
+        usage = " - dump all profitable, non-memento items into the Mall.";
 	}
 
 	@Override

@@ -148,16 +148,16 @@ public abstract class GenericFrame
 
 	public GenericFrame( final String title )
 	{
-		this.setTitle( title );
-		this.setDefaultCloseOperation( WindowConstants.DISPOSE_ON_CLOSE );
+        setTitle( title );
+        setDefaultCloseOperation( WindowConstants.DISPOSE_ON_CLOSE );
 
-		this.tabs = this.getTabbedPane();
-		this.framePanel = new FramePanel();
+        tabs = getTabbedPane();
+        framePanel = new FramePanel();
 
-		this.frameName = this.getClass().getName();
-		this.frameName = this.frameName.substring( this.frameName.lastIndexOf( "." ) + 1 );
+        frameName = getClass().getName();
+        frameName = frameName.substring( frameName.lastIndexOf( "." ) + 1 );
 
-		if ( this.shouldAddStatusBar() )
+		if ( shouldAddStatusBar() )
 		{
 			JScrollPane statusBar = KoLConstants.commandBuffer.addDisplay( new RequestPane() );
 			JComponentUtilities.setComponentSize( statusBar, new Dimension( 200, 50 ) );
@@ -171,35 +171,35 @@ public abstract class GenericFrame
 			JPanel wrappedDoublePane = new JPanel( new BorderLayout( 0, 0 ) );
 			wrappedDoublePane.add( doublePane, BorderLayout.CENTER );
 
-			this.setContentPane( wrappedDoublePane );
+            setContentPane( wrappedDoublePane );
 		}
 		else
 		{
-			this.setContentPane( framePanel );
+            setContentPane( framePanel );
 		}
 
-		this.menuBar = new GlobalMenuBar();
-		this.setJMenuBar( this.menuBar );
-		this.addHotKeys();
+        menuBar = new GlobalMenuBar();
+        setJMenuBar( menuBar );
+        addHotKeys();
 
 		++GenericFrame.existingFrameCount;
 
-		if ( this.showInWindowMenu() )
+		if ( showInWindowMenu() )
 		{
-			KoLConstants.existingFrames.add( this.getFrameName() );
+			KoLConstants.existingFrames.add( getFrameName() );
 		}
 
-		this.setFocusCycleRoot( true );
-		this.setFocusTraversalPolicy( new DefaultComponentFocusTraversalPolicy( this.framePanel ) );
+        setFocusCycleRoot( true );
+        setFocusTraversalPolicy( new DefaultComponentFocusTraversalPolicy( framePanel ) );
 
-		this.addFocusListener( this );
+        addFocusListener( this );
 
 		OSXAdapter.setWindowCanFullScreen( this, true );
 	}
 
 	public void focusGained( FocusEvent e )
 	{
-		this.framePanel.requestFocus();
+        framePanel.requestFocus();
 	}
 
 	public void focusLost( FocusEvent e )
@@ -208,27 +208,27 @@ public abstract class GenericFrame
 
 	public void setCenterComponent( Component c )
 	{
-		this.framePanel.add( c, BorderLayout.CENTER );
+        framePanel.add( c, BorderLayout.CENTER );
 	}
 
 	public Component getCenterComponent()
 	{
-		return this.framePanel.centerComponent;
+		return framePanel.centerComponent;
 	}
 
 	public void removeCenterComponent()
 	{
-		this.framePanel.remove( this.framePanel.centerComponent );
+        framePanel.remove( framePanel.centerComponent );
 	}
 
 	public JPanel getFramePanel()
 	{
-		return this.framePanel;
+		return framePanel;
 	}
 
 	public boolean shouldAddStatusBar()
 	{
-		return Preferences.getBoolean( "addStatusBarToFrames" ) && !this.appearsInTab();
+		return Preferences.getBoolean( "addStatusBarToFrames" ) && !appearsInTab();
 	}
 
 	public boolean showInWindowMenu()
@@ -238,24 +238,24 @@ public abstract class GenericFrame
 
 	protected void addActionListener( final JCheckBox component, final ActionListener listener )
 	{
-		if ( this.listenerMap == null )
+		if ( listenerMap == null )
 		{
-			this.listenerMap = new HashMap();
+            listenerMap = new HashMap();
 		}
 
 		component.addActionListener( listener );
-		this.listenerMap.put( component, new WeakReference( listener ) );
+        listenerMap.put( component, new WeakReference( listener ) );
 	}
 
 	protected void addActionListener( final JComboBox component, final ActionListener listener )
 	{
-		if ( this.listenerMap == null )
+		if ( listenerMap == null )
 		{
-			this.listenerMap = new HashMap();
+            listenerMap = new HashMap();
 		}
 
 		component.addActionListener( listener );
-		this.listenerMap.put( component, new WeakReference( listener ) );
+        listenerMap.put( component, new WeakReference( listener ) );
 	}
 
 	protected void removeActionListener( final JComponent component, final ActionListener listener )
@@ -272,7 +272,7 @@ public abstract class GenericFrame
 
 	public boolean appearsInTab()
 	{
-		return GenericFrame.appearsInTab( this.frameName );
+		return GenericFrame.appearsInTab( frameName );
 	}
 
 	public static boolean appearsInTab( String frameName )
@@ -288,23 +288,23 @@ public abstract class GenericFrame
 
 	public void addHotKeys()
 	{
-		JComponentUtilities.addGlobalHotKey( this.getRootPane(), KeyEvent.VK_ESCAPE, new WorldPeaceListener() );
-		JComponentUtilities.addGlobalHotKey( this.getRootPane(), KeyEvent.VK_F5, new RefreshSessionListener() );
+		JComponentUtilities.addGlobalHotKey( getRootPane(), KeyEvent.VK_ESCAPE, new WorldPeaceListener() );
+		JComponentUtilities.addGlobalHotKey( getRootPane(), KeyEvent.VK_F5, new RefreshSessionListener() );
 
 		JComponentUtilities.addGlobalHotKey(
-			this.getRootPane(), KeyEvent.VK_PAGE_UP, InputEvent.CTRL_MASK, new TabForwardListener() );
+                getRootPane(), KeyEvent.VK_PAGE_UP, InputEvent.CTRL_MASK, new TabForwardListener() );
 		JComponentUtilities.addGlobalHotKey(
-			this.getRootPane(), KeyEvent.VK_PAGE_DOWN, InputEvent.CTRL_MASK, new TabBackwardListener() );
+                getRootPane(), KeyEvent.VK_PAGE_DOWN, InputEvent.CTRL_MASK, new TabBackwardListener() );
 	}
 
 	public void removeHotKeys()
 	{
-		this.getRootPane().unregisterKeyboardAction( KeyStroke.getKeyStroke( KeyEvent.VK_ESCAPE, 0 ) );
-		this.getRootPane().unregisterKeyboardAction( KeyStroke.getKeyStroke( KeyEvent.VK_F5, 0 ) );
+        getRootPane().unregisterKeyboardAction( KeyStroke.getKeyStroke( KeyEvent.VK_ESCAPE, 0 ) );
+        getRootPane().unregisterKeyboardAction( KeyStroke.getKeyStroke( KeyEvent.VK_F5, 0 ) );
 
-		this.getRootPane().unregisterKeyboardAction(
+        getRootPane().unregisterKeyboardAction(
 			KeyStroke.getKeyStroke( KeyEvent.VK_PAGE_UP, InputEvent.CTRL_MASK ) );
-		this.getRootPane().unregisterKeyboardAction(
+        getRootPane().unregisterKeyboardAction(
 			KeyStroke.getKeyStroke( KeyEvent.VK_PAGE_DOWN, InputEvent.CTRL_MASK ) );
 	}
 
@@ -313,12 +313,12 @@ public abstract class GenericFrame
 	{
 		public void actionPerformed( final ActionEvent e )
 		{
-			if ( GenericFrame.this.tabs == null )
+			if ( tabs == null )
 			{
 				return;
 			}
 
-			GenericFrame.this.tabs.setSelectedIndex( ( GenericFrame.this.tabs.getSelectedIndex() + 1 ) % GenericFrame.this.tabs.getTabCount() );
+            tabs.setSelectedIndex( (tabs.getSelectedIndex() + 1) % tabs.getTabCount() );
 		}
 	}
 
@@ -327,38 +327,38 @@ public abstract class GenericFrame
 	{
 		public void actionPerformed( final ActionEvent e )
 		{
-			if ( GenericFrame.this.tabs == null )
+			if ( tabs == null )
 			{
 				return;
 			}
 
-			GenericFrame.this.tabs.setSelectedIndex( GenericFrame.this.tabs.getSelectedIndex() == 0 ? GenericFrame.this.tabs.getTabCount() - 1 : GenericFrame.this.tabs.getSelectedIndex() - 1 );
+            tabs.setSelectedIndex( tabs.getSelectedIndex() == 0 ? tabs.getTabCount() - 1 : tabs.getSelectedIndex() - 1 );
 		}
 	}
 
 	public final void addTab( final String name, final JComponent panel )
 	{
-		if ( this.tabs == null )
+		if ( tabs == null )
 		{
 			return;
 		}
 
-		this.tabs.setOpaque( true );
+        tabs.setOpaque( true );
 
 		GenericScrollPane scroller = new GenericScrollPane( panel );
 		JComponentUtilities.setComponentSize( scroller, 560, 400 );
-		this.tabs.add( name, scroller );
+        tabs.add( name, scroller );
 	}
 
 	@Override
 	public final void setTitle( final String newTitle )
 	{
-		this.lastTitle = newTitle;
+        lastTitle = newTitle;
 		KoLDesktop.setTitle( this, newTitle );
 
 		if ( this instanceof LoginFrame )
 		{
-			super.setTitle( this.lastTitle );
+			super.setTitle( lastTitle );
 			return;
 		}
 
@@ -368,7 +368,7 @@ public abstract class GenericFrame
 			username = "Not Logged In";
 		}
 
-		super.setTitle( this.lastTitle + " (" + username + ")" );
+		super.setTitle( lastTitle + " (" + username + ")" );
 	}
 
 	public boolean useSidePane()
@@ -378,7 +378,7 @@ public abstract class GenericFrame
 
 	public JToolBar getToolbar()
 	{
-		return this.getToolbar( false );
+		return getToolbar( false );
 	}
 
 	public JToolBar getToolbar( final boolean force )
@@ -388,7 +388,7 @@ public abstract class GenericFrame
 		if ( force )
 		{
 			toolbarPanel = new JToolBar( "KoLmafia Toolbar" );
-			this.framePanel.add( toolbarPanel, BorderLayout.NORTH );
+            framePanel.add( toolbarPanel, BorderLayout.NORTH );
 			toolbarPanel.setFloatable( false );
 			return toolbarPanel;
 		}
@@ -397,22 +397,22 @@ public abstract class GenericFrame
 		{
 		case 1:
 			toolbarPanel = new JToolBar( "KoLmafia Toolbar" );
-			this.framePanel.add( toolbarPanel, BorderLayout.NORTH );
+            framePanel.add( toolbarPanel, BorderLayout.NORTH );
 			break;
 
 		case 2:
 			toolbarPanel = new JToolBar( "KoLmafia Toolbar" );
-			this.framePanel.add( toolbarPanel, BorderLayout.SOUTH );
+            framePanel.add( toolbarPanel, BorderLayout.SOUTH );
 			break;
 
 		case 3:
 			toolbarPanel = new JToolBar( "KoLmafia Toolbar", JToolBar.VERTICAL );
-			this.framePanel.add( toolbarPanel, BorderLayout.WEST );
+            framePanel.add( toolbarPanel, BorderLayout.WEST );
 			break;
 
 		case 4:
 			toolbarPanel = new JToolBar( "KoLmafia Toolbar", JToolBar.VERTICAL );
-			this.framePanel.add( toolbarPanel, BorderLayout.EAST );
+            framePanel.add( toolbarPanel, BorderLayout.EAST );
 			break;
 
 		default:
@@ -420,7 +420,7 @@ public abstract class GenericFrame
 			toolbarPanel = new JToolBar( "KoLmafia Toolbar" );
 			if ( this instanceof LoginFrame || this instanceof ChatFrame )
 			{
-				this.framePanel.add( toolbarPanel, BorderLayout.NORTH );
+                framePanel.add( toolbarPanel, BorderLayout.NORTH );
 				break;
 			}
 		}
@@ -443,29 +443,29 @@ public abstract class GenericFrame
 	{
 		StaticEntity.unregisterPanels( this );
 
-		if ( this.isVisible() )
+		if ( isVisible() )
 		{
-			this.rememberPosition();
-			this.setVisible( false );
+            rememberPosition();
+            setVisible( false );
 		}
 
 		// Determine which frame needs to be removed from
 		// the maintained list of frames.
 
-		if ( this.exists )
+		if ( exists )
 		{
-			this.exists = false;
+            exists = false;
 			--GenericFrame.existingFrameCount;
-			KoLConstants.existingFrames.remove( this.getFrameName() );
+			KoLConstants.existingFrames.remove( getFrameName() );
 		}
 
 		// Remove listeners from interface elements
 
-		this.removeHotKeys();
+        removeHotKeys();
 
-		if ( this.listenerMap != null )
+		if ( listenerMap != null )
 		{
-			Object[] entries = this.listenerMap.entrySet().toArray();
+			Object[] entries = listenerMap.entrySet().toArray();
 
 			for ( int i = 0; i < entries.length; ++i )
 			{
@@ -479,25 +479,25 @@ public abstract class GenericFrame
 
 				if ( listener != null )
 				{
-					this.removeActionListener( component, listener );
+                    removeActionListener( component, listener );
 				}
 			}
 		}
 
-		if ( this.refreshListener != null )
+		if ( refreshListener != null )
 		{
-			KoLCharacter.removeCharacterListener( this.refreshListener );
+			KoLCharacter.removeCharacterListener( refreshListener );
 		}
 
-		this.menuBar.dispose();
+        menuBar.dispose();
 
 		super.dispose();
-		this.checkForLogout();
+        checkForLogout();
 	}
 
 	public boolean exists()
 	{
-		return this.exists;
+		return exists;
 	}
 
 	public static boolean instanceExists()
@@ -516,17 +516,17 @@ public abstract class GenericFrame
 	@Override
 	public String toString()
 	{
-		return this.lastTitle;
+		return lastTitle;
 	}
 
 	public String getLastTitle()
 	{
-		return this.lastTitle;
+		return lastTitle;
 	}
 
 	public String getFrameName()
 	{
-		return this.frameName;
+		return frameName;
 	}
 
 	/**
@@ -537,19 +537,19 @@ public abstract class GenericFrame
 
 	public void addCompactPane()
 	{
-		if ( this.sidepane != null )
+		if ( sidepane != null )
 		{
 			return;
 		}
 
-		this.sidepane = new CompactSidePane();
-		this.sidepane.run();
+        sidepane = new CompactSidePane();
+        sidepane.run();
 
-		this.refreshListener = new KoLCharacterAdapter( this.sidepane );
-		KoLCharacter.addCharacterListener( this.refreshListener );
+        refreshListener = new KoLCharacterAdapter( sidepane );
+		KoLCharacter.addCharacterListener( refreshListener );
 
-		this.sidepane.setBackground( KoLConstants.ENABLED_COLOR );
-		this.framePanel.add( this.sidepane, BorderLayout.WEST );
+        sidepane.setBackground( KoLConstants.ENABLED_COLOR );
+        framePanel.add( sidepane, BorderLayout.WEST );
 	}
 
 	public void addScriptPane()
@@ -566,7 +566,7 @@ public abstract class GenericFrame
 
 		if ( scriptButtons == 1 )
 		{
-			scriptBar = this.getToolbar();
+			scriptBar = getToolbar();
 		}
 		else
 		{
@@ -581,7 +581,7 @@ public abstract class GenericFrame
 
 		if ( scriptButtons == 2 )
 		{
-			this.framePanel.add( scriptBar, BorderLayout.EAST );
+            framePanel.add( scriptBar, BorderLayout.EAST );
 		}
 	}
 
@@ -617,12 +617,12 @@ public abstract class GenericFrame
 			break;
 		}
 
-		if ( this.sidepane != null )
+		if ( sidepane != null )
 		{
-			this.sidepane.setBackground( color );
+            sidepane.setBackground( color );
 		}
 
-		this.setEnabled( enabled );
+        setEnabled( enabled );
 	}
 
 	/**
@@ -645,9 +645,9 @@ public abstract class GenericFrame
 	@Override
 	public void processWindowEvent( final WindowEvent e )
 	{
-		if ( this.isVisible() && e.getID() == WindowEvent.WINDOW_CLOSING )
+		if ( isVisible() && e.getID() == WindowEvent.WINDOW_CLOSING )
 		{
-			this.rememberPosition();
+            rememberPosition();
 		}
 
 		super.processWindowEvent( e );
@@ -663,11 +663,11 @@ public abstract class GenericFrame
 	{
 		if ( isVisible )
 		{
-			this.restorePosition();
+            restorePosition();
 		}
 		else
 		{
-			this.rememberPosition();
+            rememberPosition();
 		}
 
 		if ( !isVisible )
@@ -680,7 +680,7 @@ public abstract class GenericFrame
 		{
 			if ( SwingUtilities.isEventDispatchThread() )
 			{
-				this.run();
+                run();
 			}
 			else
 			{
@@ -712,16 +712,16 @@ public abstract class GenericFrame
 
 	private void rememberPosition()
 	{
-		Point p = this.getLocation();
+		Point p = getLocation();
 
-		if ( this.tabs == null )
+		if ( tabs == null )
 		{
-			Preferences.setString( this.frameName, (int) p.getX() + "," + (int) p.getY() );
+			Preferences.setString( frameName, (int) p.getX() + "," + (int) p.getY() );
 		}
 		else
 		{
 			Preferences.setString(
-				this.frameName, (int) p.getX() + "," + (int) p.getY() + "," + this.tabs.getSelectedIndex() );
+                    frameName, (int) p.getX() + "," + (int) p.getY() + "," + tabs.getSelectedIndex() );
 		}
 	}
 
@@ -731,15 +731,15 @@ public abstract class GenericFrame
 		int yLocation = 0;
 
 		Dimension screenSize = KoLConstants.TOOLKIT.getScreenSize();
-		String position = Preferences.getString( this.frameName );
+		String position = Preferences.getString( frameName );
 
 		if ( position == null || !position.contains( "," ) )
 		{
-			this.setLocationRelativeTo( null );
+            setLocationRelativeTo( null );
 
-			if ( !( this instanceof OptionsFrame ) && !( this instanceof KoLDesktop ) && this.tabs != null && this.tabs.getTabCount() > 0 )
+			if ( !( this instanceof OptionsFrame ) && !( this instanceof KoLDesktop ) && tabs != null && tabs.getTabCount() > 0 )
 			{
-				this.tabs.setSelectedIndex( 0 );
+                tabs.setSelectedIndex( 0 );
 			}
 
 			return;
@@ -751,24 +751,24 @@ public abstract class GenericFrame
 
 		if ( xLocation > 0 && yLocation > 0 && xLocation < screenSize.getWidth() && yLocation < screenSize.getHeight() )
 		{
-			this.setLocation( xLocation, yLocation );
+            setLocation( xLocation, yLocation );
 		}
 		else
 		{
-			this.setLocationRelativeTo( null );
+            setLocationRelativeTo( null );
 		}
 
-		if ( location.length > 2 && this.tabs != null )
+		if ( location.length > 2 && tabs != null )
 		{
 			int tabIndex = StringUtilities.parseInt( location[ 2 ] );
 
-			if ( tabIndex >= 0 && tabIndex < this.tabs.getTabCount() )
+			if ( tabIndex >= 0 && tabIndex < tabs.getTabCount() )
 			{
-				this.tabs.setSelectedIndex( tabIndex );
+                tabs.setSelectedIndex( tabIndex );
 			}
-			else if ( this.tabs.getTabCount() > 0 )
+			else if ( tabs.getTabCount() > 0 )
 			{
-				this.tabs.setSelectedIndex( 0 );
+                tabs.setSelectedIndex( 0 );
 			}
 		}
 	}
@@ -869,7 +869,7 @@ public abstract class GenericFrame
 		public FramePanel()
 		{
 			super( new BorderLayout() );
-			this.addFocusListener( this );
+            addFocusListener( this );
 		}
 
 		@Override
@@ -879,18 +879,18 @@ public abstract class GenericFrame
 
 			if ( constraint == BorderLayout.CENTER )
 			{
-				this.centerComponent = c;
+                centerComponent = c;
 
-				this.setFocusCycleRoot( true );
-				this.setFocusTraversalPolicy( new DefaultComponentFocusTraversalPolicy( c ) );
+                setFocusCycleRoot( true );
+                setFocusTraversalPolicy( new DefaultComponentFocusTraversalPolicy( c ) );
 			}
 		}
 
 		public void focusGained( FocusEvent e )
 		{
-			if ( this.centerComponent != null )
+			if ( centerComponent != null )
 			{
-				this.centerComponent.requestFocus();
+                centerComponent.requestFocus();
 			}
 		}
 

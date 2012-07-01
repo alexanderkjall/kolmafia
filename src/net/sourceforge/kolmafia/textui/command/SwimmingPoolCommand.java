@@ -44,7 +44,7 @@ public class SwimmingPoolCommand
 {
 	public SwimmingPoolCommand()
 	{
-		this.usage = " laps | ml | sprints | noncombat - work out in your clan's VIP lounge swimming pool";
+        usage = " laps | ml | sprints | noncombat - work out in your clan's VIP lounge swimming pool";
 	}
 
 	@Override

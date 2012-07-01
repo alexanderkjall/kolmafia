@@ -55,55 +55,55 @@ public class CustomCombatStrategy
 
 		this.name = name;
 
-		this.resetActionCount();
+        resetActionCount();
 	}
 
 	public String getName()
 	{
-		return this.name;
+		return name;
 	}
 
 	@Override
 	public void removeAllChildren()
 	{
-		this.resetActionCount();
+        resetActionCount();
 
 		super.removeAllChildren();
 	}
 
 	public void resetActionCount()
 	{
-		this.actionCount = 0;
-		this.actionOffsets = null;
+        actionCount = 0;
+        actionOffsets = null;
 	}
 
 	public int getActionCount( CustomCombatLookup lookup, HashSet seen )
 	{
 		// Ignore any call to a section that results in a loop
 
-		if ( seen.contains( this.name ) )
+		if ( seen.contains( name ) )
 		{
-			KoLmafia.abortAfter( "CCS aborted due to recursive section reference: " + this.name );
+			KoLmafia.abortAfter( "CCS aborted due to recursive section reference: " + name );
 			return 0;
 		}
 
-		seen.add( this.name );
+		seen.add( name );
 
 		// If we've already computed the length, return the length
 
 		if ( actionOffsets != null )
 		{
-			return this.actionCount;
+			return actionCount;
 		}
 
 		int childCount = getChildCount();
 
-		this.actionCount = 0;
-		this.actionOffsets = new int[ childCount ];
+        actionCount = 0;
+        actionOffsets = new int[ childCount ];
 
 		for ( int i = 0; i < childCount; ++i )
 		{
-			this.actionOffsets[ i ] = this.actionCount;
+            actionOffsets[ i ] = actionCount;
 
 			CustomCombatAction actionNode = (CustomCombatAction) getChildAt( i );
 			String sectionReference = actionNode.getSectionReference();
@@ -117,7 +117,7 @@ public class CustomCombatStrategy
 
 			if ( strategy != null )
 			{
-				this.actionCount += strategy.getActionCount( lookup, seen );
+                actionCount += strategy.getActionCount( lookup, seen );
 			}
 			else if ( sectionReference != null )
 			{
@@ -125,11 +125,11 @@ public class CustomCombatStrategy
 			}
 			else
 			{
-				++this.actionCount;
+				++actionCount;
 			}
 		}
 
-		return this.actionCount;
+		return actionCount;
 	}
 
 	public String getAction( final CustomCombatLookup lookup, final int roundIndex, boolean allowMacro )
@@ -145,14 +145,14 @@ public class CustomCombatStrategy
 
 		for ( int i = 0; i < childCount; ++i )
 		{
-			if ( this.actionOffsets[ i ] > roundIndex )
+			if ( actionOffsets[ i ] > roundIndex )
 			{
 				CustomCombatAction actionNode = (CustomCombatAction) getChildAt( i - 1 );
 				String sectionReference = actionNode.getSectionReference();
 
 				if ( sectionReference != null )
 				{
-					int offset = ( i > 0 ) ? this.actionOffsets[ i - 1 ] : 0;
+					int offset = ( i > 0 ) ? actionOffsets[ i - 1 ] : 0;
 					CustomCombatStrategy strategy = lookup.getStrategy( sectionReference );
 
 					if ( strategy != null )
@@ -182,7 +182,7 @@ public class CustomCombatStrategy
 
 			if ( strategy != null )
 			{
-				return strategy.getAction( lookup, roundIndex - this.actionOffsets[ childCount - 1 ], allowMacro );
+				return strategy.getAction( lookup, roundIndex - actionOffsets[ childCount - 1 ], allowMacro );
 			}
 
 			KoLmafia.abortAfter( "CCS aborted due to invalid section reference: " + sectionReference );
@@ -210,7 +210,7 @@ public class CustomCombatStrategy
 
 		CustomCombatAction node = new CustomCombatAction( roundIndex, indent, combatAction, isMacro );
 
-		this.resetActionCount();
+        resetActionCount();
 
 		super.add( node );
 	}
@@ -246,7 +246,7 @@ public class CustomCombatStrategy
 
 	public void store( PrintStream writer )
 	{
-		writer.println( "[ " + this.name + " ]" );
+		writer.println( "[ " + name + " ]" );
 
 		int childCount = getChildCount();
 

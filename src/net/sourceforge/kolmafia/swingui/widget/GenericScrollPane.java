@@ -78,7 +78,7 @@ public class GenericScrollPane
 	public GenericScrollPane( final Component view, final int vsbPolicy, final int hsbPolicy )
 	{
 		super( view, vsbPolicy, hsbPolicy );
-		this.setOpaque( true );
+        setOpaque( true );
 
 		if ( view instanceof JList )
 		{
@@ -90,14 +90,14 @@ public class GenericScrollPane
 		}
 		else if ( !( view instanceof JTextComponent ) )
 		{
-			this.getVerticalScrollBar().setUnitIncrement( 30 );
+            getVerticalScrollBar().setUnitIncrement( 30 );
 		}
 
-		this.component = view;
+        component = view;
 	}
 
 	public Component getComponent()
 	{
-		return this.component;
+		return component;
 	}
 }

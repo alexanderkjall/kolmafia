@@ -56,9 +56,9 @@ public class CombineMeatRequest
 	{
 		super( "craft.php", conc );
 
-		this.addFormField( "action", "makepaste" );
-		this.addFormField( "whichitem", String.valueOf( this.getItemId() ) );
-		this.addFormField( "ajax", "1" );
+        addFormField( "action", "makepaste" );
+        addFormField( "whichitem", String.valueOf( getItemId() ) );
+        addFormField( "ajax", "1" );
 	}
 
 	public static int getCost( int itemId )
@@ -78,15 +78,15 @@ public class CombineMeatRequest
 	@Override
 	public void reconstructFields()
 	{
-		this.constructURLString( this.getURLString() );
+        constructURLString( getURLString() );
 	}
 
 	@Override
 	public void run()
 	{
-		String name = this.getName();
-		int count = this.getQuantityNeeded();
-		int cost = CombineMeatRequest.getCost( this.getItemId() );
+		String name = getName();
+		int count = getQuantityNeeded();
+		int cost = CombineMeatRequest.getCost( getItemId() );
 
 		if ( cost * count > KoLCharacter.getAvailableMeat() )
 		{
@@ -95,7 +95,7 @@ public class CombineMeatRequest
 		}
 
 		KoLmafia.updateDisplay( "Creating " + count + " " + name + "..." );
-		this.addFormField( "qty", String.valueOf( count ) );
+        addFormField( "qty", String.valueOf( count ) );
 		super.run();
 	}
 

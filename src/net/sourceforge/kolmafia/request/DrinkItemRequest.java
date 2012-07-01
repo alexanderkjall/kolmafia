@@ -135,23 +135,23 @@ public class DrinkItemRequest
 	@Override
 	public void run()
 	{
-		if ( this.consumptionType == KoLConstants.CONSUME_DRINK_HELPER )
+		if ( consumptionType == KoLConstants.CONSUME_DRINK_HELPER )
 		{
-			int count = this.itemUsed.getCount();
+			int count = itemUsed.getCount();
 
-			if ( !InventoryManager.retrieveItem( this.itemUsed ) )
+			if ( !InventoryManager.retrieveItem( itemUsed ) )
 			{
 				KoLmafia.updateDisplay( MafiaState.ERROR, "Helper not available." );
 				return;
 			}
 
-			if ( this.itemUsed.equals( DrinkItemRequest.queuedDrinkHelper ) )
+			if ( itemUsed.equals( DrinkItemRequest.queuedDrinkHelper ) )
 			{
 				DrinkItemRequest.queuedDrinkHelperCount += count;
 			}
 			else
 			{
-				DrinkItemRequest.queuedDrinkHelper = this.itemUsed;
+				DrinkItemRequest.queuedDrinkHelper = itemUsed;
 				DrinkItemRequest.queuedDrinkHelperCount = count;
 			}
 
@@ -161,38 +161,38 @@ public class DrinkItemRequest
 			return;
 		}
 
-		if ( !ItemDatabase.meetsLevelRequirement( this.itemUsed.getName() ) )
+		if ( !ItemDatabase.meetsLevelRequirement( itemUsed.getName() ) )
 		{
-			UseItemRequest.lastUpdate = "Insufficient level to consume " + this.itemUsed;
+			UseItemRequest.lastUpdate = "Insufficient level to consume " + itemUsed;
 			KoLmafia.updateDisplay( MafiaState.ERROR, UseItemRequest.lastUpdate );
 			return;
 		}
 
-		int itemId = this.itemUsed.getItemId();
+		int itemId = itemUsed.getItemId();
 		UseItemRequest.lastUpdate = "";
 
 		int maximumUses = UseItemRequest.maximumUses( itemId );
-		if ( maximumUses < this.itemUsed.getCount() )
+		if ( maximumUses < itemUsed.getCount() )
 		{
-			KoLmafia.updateDisplay( "(usable quantity of " + this.itemUsed +
+			KoLmafia.updateDisplay( "(usable quantity of " + itemUsed +
 				" is limited to " + maximumUses + " by " +
 				UseItemRequest.limiter + ")" );
-			this.itemUsed = this.itemUsed.getInstance( maximumUses );
+            itemUsed = itemUsed.getInstance( maximumUses );
 		}
 
-		if ( this.itemUsed.getCount() < 1 )
+		if ( itemUsed.getCount() < 1 )
 		{
 			return;
 		}
 
 		if ( !DrinkItemRequest.sequentialConsume( itemId ) &&
-		     !InventoryManager.retrieveItem( this.itemUsed ) )
+		     !InventoryManager.retrieveItem( itemUsed ) )
 		{
 			return;
 		}
 
 		int iterations = 1;
-		int origCount = this.itemUsed.getCount();
+		int origCount = itemUsed.getCount();
 
 		// The miracle of "consume some" does not apply to TPS drinks
 		if ( origCount != 1 &&
@@ -200,25 +200,25 @@ public class DrinkItemRequest
 		       ( DrinkItemRequest.sequentialConsume( itemId ) && InventoryManager.getCount( itemId ) < origCount) ) )
 		{
 			iterations = origCount;
-			this.itemUsed = this.itemUsed.getInstance( 1 );
+            itemUsed = itemUsed.getInstance( 1 );
 		}
 
-		String originalURLString = this.getURLString();
+		String originalURLString = getURLString();
 
 		for ( int i = 1; i <= iterations && KoLmafia.permitsContinue(); ++i )
 		{
-			if ( !this.allowBoozeConsumption() )
+			if ( !allowBoozeConsumption() )
 			{
 				return;
 			}
 
-			this.constructURLString( originalURLString );
-			this.useOnce( i, iterations, "Drinking" );
+            constructURLString( originalURLString );
+            useOnce( i, iterations, "Drinking" );
 		}
 
 		if ( KoLmafia.permitsContinue() )
 		{
-			KoLmafia.updateDisplay( "Finished drinking " + origCount + " " + this.itemUsed.getName() + "." );
+			KoLmafia.updateDisplay( "Finished drinking " + origCount + " " + itemUsed.getName() + "." );
 		}
 	}
 
@@ -231,14 +231,14 @@ public class DrinkItemRequest
 		// inventory first - if not, report the error message and
 		// return from the method.
 
-		if ( !InventoryManager.retrieveItem( this.itemUsed ) )
+		if ( !InventoryManager.retrieveItem( itemUsed ) )
 		{
 			UseItemRequest.lastUpdate = "Insufficient items to use.";
 			return;
 		}
 
-		this.addFormField( "ajax", "1" );
-		this.addFormField( "quantity", String.valueOf( this.itemUsed.getCount() ) );
+        addFormField( "ajax", "1" );
+        addFormField( "quantity", String.valueOf( itemUsed.getCount() ) );
 
 		if ( DrinkItemRequest.queuedDrinkHelper != null && DrinkItemRequest.queuedDrinkHelperCount > 0 )
 		{
@@ -253,12 +253,12 @@ public class DrinkItemRequest
 					return;
 				}
 			}
-			this.addFormField( "utensil", String.valueOf( helperItemId ) );
+            addFormField( "utensil", String.valueOf( helperItemId ) );
 			--DrinkItemRequest.queuedDrinkHelperCount;
 		}
 		else
 		{
-			this.removeFormField( "utensil" );
+            removeFormField( "utensil" );
 		}
 
 		super.runOneIteration( currentIteration, totalIterations, useTypeAsString );
@@ -293,15 +293,15 @@ public class DrinkItemRequest
 	private boolean allowBoozeConsumption()
 	{
 		// Always allow the steel margarita
-		int itemId = this.itemUsed.getItemId();
+		int itemId = itemUsed.getItemId();
 		if ( itemId == ItemPool.STEEL_LIVER )
 		{
 			return true;
 		}
 
-		int inebriety = ItemDatabase.getInebriety( this.itemUsed.getName() );
-		int count = this.itemUsed.getCount();
-		String itemName = this.itemUsed.getName();
+		int inebriety = ItemDatabase.getInebriety( itemUsed.getName() );
+		int count = itemUsed.getCount();
+		String itemName = itemUsed.getName();
 		String advGain = ItemDatabase.getAdvRangeByName( itemName );
 
 		return DrinkItemRequest.allowBoozeConsumption( inebriety, count, advGain );

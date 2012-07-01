@@ -55,11 +55,11 @@ public class ByteArrayStream
 
 	public byte[] getCurrentBuffer()
 	{
-		return this.buf;
+		return buf;
 	}
 
 	public ByteArrayInputStream getByteArrayInputStream()
 	{
-		return new ByteArrayInputStream( this.buf, 0, this.count );
+		return new ByteArrayInputStream( buf, 0, count );
 	}
 }

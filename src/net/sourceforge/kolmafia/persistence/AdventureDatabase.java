@@ -926,18 +926,18 @@ public class AdventureDatabase
 
 		public KoLAdventure get( final int index )
 		{
-			if ( index < 0 || index > this.internalList.size() )
+			if ( index < 0 || index > internalList.size() )
 			{
 				return null;
 			}
 
-			return (KoLAdventure) this.internalList.get( index );
+			return (KoLAdventure) internalList.get( index );
 		}
 
 		public void add( final KoLAdventure value )
 		{
-			this.nameList.add( value.getAdventureName().toLowerCase() );
-			this.internalList.add( value );
+            nameList.add( value.getAdventureName().toLowerCase() );
+            internalList.add( value );
 		}
 
 		public KoLAdventure find( String adventureName )
@@ -965,7 +965,7 @@ public class AdventureDatabase
 			if ( matchingNames.size() == 1 )
 			{
 				String match = (String) matchingNames.get( 0 );
-				return this.get( nameList.indexOf( match ) );
+				return get( nameList.indexOf( match ) );
 			}
 
 			return null;
@@ -973,13 +973,13 @@ public class AdventureDatabase
 
 		public void clear()
 		{
-			this.nameList.clear();
-			this.internalList.clear();
+            nameList.clear();
+            internalList.clear();
 		}
 
 		public int size()
 		{
-			return this.internalList.size();
+			return internalList.size();
 		}
 	}
 }

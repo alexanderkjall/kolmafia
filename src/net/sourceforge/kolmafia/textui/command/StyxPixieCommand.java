@@ -46,7 +46,7 @@ public class StyxPixieCommand
 {
 	public StyxPixieCommand()
 	{
-		this.usage = " muscle | mysticality | moxie - get daily Styx Pixie buff.";
+        usage = " muscle | mysticality | moxie - get daily Styx Pixie buff.";
 	}
 
 	@Override

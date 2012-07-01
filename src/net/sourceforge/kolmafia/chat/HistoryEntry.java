@@ -53,18 +53,18 @@ public class HistoryEntry
 	public HistoryEntry( final ChatMessage message, final long localLastSeen )
 	{
 		this.localLastSeen = localLastSeen;
-		this.chatMessages = new ArrayList();
+        chatMessages = new ArrayList();
 
-		this.chatMessages.add( message );
+        chatMessages.add( message );
 
-		this.serverLastSeen = 0;
-		this.content = ChatFormatter.formatChatMessage( message );
+        serverLastSeen = 0;
+        content = ChatFormatter.formatChatMessage( message );
 	}
 
 	public HistoryEntry( final String responseText, final long localLastSeen )
 	{
 		this.localLastSeen = localLastSeen;
-		this.chatMessages = new ArrayList();
+        chatMessages = new ArrayList();
 
 		Matcher matcher = responseText != null ?
 			HistoryEntry.LASTSEEN_PATTERN.matcher( responseText ) :
@@ -72,21 +72,21 @@ public class HistoryEntry
 
 		if ( matcher != null && matcher.find() )
 		{
-			this.serverLastSeen = StringUtilities.parseLong( matcher.group( 1 ) );
-			this.content = matcher.replaceFirst( "" );
+            serverLastSeen = StringUtilities.parseLong( matcher.group( 1 ) );
+            content = matcher.replaceFirst( "" );
 		}
 		else
 		{
-			this.serverLastSeen = 0;
-			this.content = responseText;
+            serverLastSeen = 0;
+            content = responseText;
 		}
 
-		ChatParser.parseLines( this.chatMessages, this.content );
+		ChatParser.parseLines( chatMessages, content );
 	}
 
 	public String getContent()
 	{
-		return this.content;
+		return content;
 	}
 
 	public void setContent( String content )
@@ -96,16 +96,16 @@ public class HistoryEntry
 
 	public long getLocalLastSeen()
 	{
-		return this.localLastSeen;
+		return localLastSeen;
 	}
 
 	public long getServerLastSeen()
 	{
-		return this.serverLastSeen;
+		return serverLastSeen;
 	}
 
 	public List getChatMessages()
 	{
-		return this.chatMessages;
+		return chatMessages;
 	}
 }

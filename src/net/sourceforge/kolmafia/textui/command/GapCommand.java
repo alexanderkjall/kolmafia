@@ -48,7 +48,7 @@ public class GapCommand
 {
 	public GapCommand()
 	{
-		this.usage = " [skill|structure|vision|speed|accuracy] - get a Greatest American Pants buff.";
+        usage = " [skill|structure|vision|speed|accuracy] - get a Greatest American Pants buff.";
 	}
 
 	@Override

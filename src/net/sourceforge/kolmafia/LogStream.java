@@ -131,7 +131,7 @@ public class LogStream
 	public void run()
 	{
 		KoLDesktop.getInstance().getRootPane().putClientProperty(
-			"Window.documentFile", this.proxy );
+			"Window.documentFile", proxy );
 	}
 
 	private LogStream( final OutputStream ostream, final String encoding )

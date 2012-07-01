@@ -105,26 +105,26 @@ public class RequestFrame
 	{
 		this( "Mini-Browser" );
 
-		this.displayRequest( new GenericRequest( "main.php" ) );
+        displayRequest( new GenericRequest( "main.php" ) );
 	}
 
 	public RequestFrame( final String title )
 	{
 		super( title );
 
-		this.mainDisplay = new RequestPane();
-		this.mainDisplay.addHyperlinkListener( new RequestHyperlinkAdapter() );
+        mainDisplay = new RequestPane();
+        mainDisplay.addHyperlinkListener( new RequestHyperlinkAdapter() );
 
 		JScrollPane mainScroller =
 			new JScrollPane(
-				this.mainDisplay, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS,
+                    mainDisplay, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS,
 				ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER );
 
 		// Game text descriptions and player searches should not add
 		// extra requests to the server by having a side panel.
 
-		this.constructSideBar( mainScroller );
-		this.getToolbar();
+        constructSideBar( mainScroller );
+        getToolbar();
 	}
 
 	@Override
@@ -135,21 +135,21 @@ public class RequestFrame
 
 	private void constructSideBar( final JScrollPane mainScroller )
 	{
-		if ( !this.hasSideBar() )
+		if ( !hasSideBar() )
 		{
 			JComponentUtilities.setComponentSize( mainScroller, 400, 300 );
-			this.setCenterComponent( mainScroller );
+            setCenterComponent( mainScroller );
 			return;
 		}
 
 		RequestFrame.sideBarFrames.add( this );
 
-		this.sideDisplay = new RequestPane();
-		this.sideDisplay.addHyperlinkListener( new RequestHyperlinkAdapter() );
+        sideDisplay = new RequestPane();
+        sideDisplay.addHyperlinkListener( new RequestHyperlinkAdapter() );
 
 		JScrollPane sideScroller =
 			new JScrollPane(
-				this.sideDisplay, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS,
+                    sideDisplay, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS,
 				ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER );
 
 		JComponentUtilities.setComponentSize( sideScroller, 150, 450 );
@@ -158,7 +158,7 @@ public class RequestFrame
 		horizontalSplit.setOneTouchExpandable( true );
 		JComponentUtilities.setComponentSize( horizontalSplit, 600, 450 );
 
-		this.setCenterComponent( horizontalSplit );
+        setCenterComponent( horizontalSplit );
 		RequestFrame.refreshStatus();
 	}
 
@@ -176,11 +176,11 @@ public class RequestFrame
 		toolbarPanel.add( new ThreadedButton( JComponentUtilities.getImage( "reload.gif" ), new ReloadRunnable() ) );
 
 		toolbarPanel.add( new JToolBar.Separator() );
-		toolbarPanel.add( this.locationField );
+		toolbarPanel.add( locationField );
 		toolbarPanel.add( new JToolBar.Separator() );
 
 		ThreadedButton goButton = new ThreadedButton( "Go", new GoRunnable() );
-		this.locationField.addKeyListener( goButton );
+        locationField.addKeyListener( goButton );
 
 		toolbarPanel.add( goButton );
 
@@ -190,7 +190,7 @@ public class RequestFrame
 	@Override
 	public Component getCenterComponent()
 	{
-		return this.getFramePanel();
+		return getFramePanel();
 	}
 
 	/**
@@ -205,7 +205,7 @@ public class RequestFrame
 
 	public String getCurrentLocation()
 	{
-		return this.currentLocation;
+		return currentLocation;
 	}
 
 	/**
@@ -215,12 +215,12 @@ public class RequestFrame
 
 	public void refresh( final GenericRequest request )
 	{
-		if ( !this.isVisible() && !this.appearsInTab() )
+		if ( !isVisible() && !appearsInTab() )
 		{
-			this.setVisible( true );
+            setVisible( true );
 		}
 
-		this.displayRequest( request );
+        displayRequest( request );
 	}
 
 	/**
@@ -231,7 +231,7 @@ public class RequestFrame
 
 	protected String getDisplayHTML( final String responseText )
 	{
-		return RequestFrame.getDisplayHTML( this.currentLocation, responseText, true );
+		return RequestFrame.getDisplayHTML( currentLocation, responseText, true );
 	}
 
 	private static String getDisplayHTML( final String location, final String responseText, boolean logIt )
@@ -449,7 +449,7 @@ public class RequestFrame
 
 	public void displayRequest( GenericRequest request )
 	{
-		if ( this.mainDisplay == null || request == null )
+		if ( mainDisplay == null || request == null )
 		{
 			return;
 		}
@@ -460,7 +460,7 @@ public class RequestFrame
 			request.responseText = FightRequest.lastResponseText;
 		}
 
-		this.currentLocation = request.getURLString();
+        currentLocation = request.getURLString();
 
 		if ( request.responseText == null || request.responseText.length() == 0 )
 		{
@@ -468,7 +468,7 @@ public class RequestFrame
 		}
 		else
 		{
-			this.showHTML( request.responseText );
+            showHTML( request.responseText );
 		}
 	}
 
@@ -489,20 +489,20 @@ public class RequestFrame
 
 			boolean original = Preferences.getBoolean( "showAllRequests" );
 			Preferences.setBoolean( "showAllRequests", false );
-			this.request.run();
+            request.run();
 			Preferences.setBoolean( "showAllRequests", original );
 
 			// If this resulted in a redirect, then update the display
 			// to indicate that you were redirected and the display
 			// cannot be shown in the minibrowser.
 
-			if ( this.request.responseText == null || this.request.responseText.length() == 0 )
+			if ( request.responseText == null || request.responseText.length() == 0 )
 			{
-				RequestFrame.this.mainDisplay.setText( "" );
+                mainDisplay.setText( "" );
 				return;
 			}
-	 
-			RequestFrame.this.showHTML( this.request.responseText );
+
+            showHTML( request.responseText );
 		}
 	}
 
@@ -512,22 +512,22 @@ public class RequestFrame
 		// if you open a new frame after going back, all the ones
 		// in the future get removed.
 
-		responseText = this.getDisplayHTML( responseText );
+		responseText = getDisplayHTML( responseText );
 
-		String location = this.currentLocation;
-		this.history.add( location );
-		this.shownHTML.add( responseText );
+		String location = currentLocation;
+        history.add( location );
+        shownHTML.add( responseText );
 
-		if ( this.history.size() > RequestFrame.HISTORY_LIMIT )
+		if ( history.size() > RequestFrame.HISTORY_LIMIT )
 		{
-			this.history.remove( 0 );
-			this.shownHTML.remove( 0 );
+            history.remove( 0 );
+            shownHTML.remove( 0 );
 		}
 
 		location = location.substring( location.lastIndexOf( "/" ) + 1 );
-		this.locationField.setText( location );
+        locationField.setText( location );
 
-		this.locationIndex = RequestFrame.this.shownHTML.size() - 1;
+        locationIndex = shownHTML.size() - 1;
 
 		Matcher imageMatcher = RequestFrame.IMAGE_PATTERN.matcher( responseText );
 		while ( imageMatcher.find() )
@@ -535,7 +535,7 @@ public class RequestFrame
 			FileUtilities.downloadImage( imageMatcher.group() );
 		}
 
-		this.mainDisplay.setText( responseText );
+        mainDisplay.setText( responseText );
 	}
 
 	public static void refreshStatus()
@@ -567,14 +567,14 @@ public class RequestFrame
 
 	public boolean containsText( final String search )
 	{
-		return this.mainDisplay.getText().contains( search );
+		return mainDisplay.getText().contains( search );
 	}
 
 	@Override
 	public void dispose()
 	{
-		this.history.clear();
-		this.shownHTML.clear();
+        history.clear();
+        shownHTML.clear();
 		super.dispose();
 	}
 
@@ -589,7 +589,7 @@ public class RequestFrame
 	{
 		public void run()
 		{
-			RequestFrame.this.refresh( new GenericRequest( "main.php" ) );
+            refresh( new GenericRequest( "main.php" ) );
 		}
 	}
 
@@ -598,11 +598,11 @@ public class RequestFrame
 	{
 		public void run()
 		{
-			if ( RequestFrame.this.locationIndex > 0 )
+			if ( locationIndex > 0 )
 			{
-				--RequestFrame.this.locationIndex;
-				RequestFrame.this.mainDisplay.setText( (String) RequestFrame.this.shownHTML.get( RequestFrame.this.locationIndex ) );
-				RequestFrame.this.locationField.setText( (String) RequestFrame.this.history.get( RequestFrame.this.locationIndex ) );
+				--locationIndex;
+                mainDisplay.setText( (String) shownHTML.get( locationIndex ) );
+                locationField.setText( (String) history.get( locationIndex ) );
 			}
 		}
 	}
@@ -612,11 +612,11 @@ public class RequestFrame
 	{
 		public void run()
 		{
-			if ( RequestFrame.this.locationIndex + 1 < RequestFrame.this.shownHTML.size() )
+			if ( locationIndex + 1 < shownHTML.size() )
 			{
-				++RequestFrame.this.locationIndex;
-				RequestFrame.this.mainDisplay.setText( (String) RequestFrame.this.shownHTML.get( RequestFrame.this.locationIndex ) );
-				RequestFrame.this.locationField.setText( (String) RequestFrame.this.history.get( RequestFrame.this.locationIndex ) );
+				++locationIndex;
+                mainDisplay.setText( (String) shownHTML.get( locationIndex ) );
+                locationField.setText( (String) history.get( locationIndex ) );
 			}
 		}
 	}
@@ -626,12 +626,12 @@ public class RequestFrame
 	{
 		public void run()
 		{
-			if ( RequestFrame.this.currentLocation == null )
+			if ( currentLocation == null )
 			{
 				return;
 			}
 
-			RequestFrame.this.refresh( new GenericRequest( RequestFrame.this.currentLocation ) );
+            refresh( new GenericRequest( currentLocation ) );
 		}
 	}
 
@@ -640,10 +640,10 @@ public class RequestFrame
 	{
 		public void run()
 		{
-			KoLAdventure adventure = AdventureDatabase.getAdventure( RequestFrame.this.locationField.getText() );
+			KoLAdventure adventure = AdventureDatabase.getAdventure( locationField.getText() );
 			GenericRequest request =
-				RequestEditorKit.extractRequest( adventure == null ? RequestFrame.this.locationField.getText() : adventure.getRequest().getURLString() );
-			RequestFrame.this.refresh( request );
+				RequestEditorKit.extractRequest( adventure == null ? locationField.getText() : adventure.getRequest().getURLString() );
+            refresh( request );
 		}
 	}
 
@@ -680,13 +680,13 @@ public class RequestFrame
 			}
 			else
 			{
-				RequestFrame.this.gotoLink( location );
+                gotoLink( location );
 			}
 		}
 	}
 
 	public void gotoLink( final String location )
 	{
-		this.refresh( RequestEditorKit.extractRequest( location ) );
+        refresh( RequestEditorKit.extractRequest( location ) );
 	}
 }

@@ -44,7 +44,7 @@ public class CampgroundCommand
 {
 	public CampgroundCommand()
 	{
-		this.usage = " rest | <etc.> [<numTimes>] - perform campground actions.";
+        usage = " rest | <etc.> [<numTimes>] - perform campground actions.";
 	}
 
 	@Override

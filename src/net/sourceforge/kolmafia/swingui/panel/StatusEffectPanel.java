@@ -58,13 +58,13 @@ public class StatusEffectPanel
 	public StatusEffectPanel( final ShowDescriptionList list )
 	{
 		super( "Active Effects", "uneffect", "add to mood", list );
-		this.elementList = (ShowDescriptionList) this.scrollComponent;
+        elementList = (ShowDescriptionList) scrollComponent;
 	}
 
 	@Override
 	public void actionConfirmed()
 	{
-		Object[] effects = this.elementList.getSelectedValues();
+		Object[] effects = elementList.getSelectedValues();
 		for ( int i = 0; i < effects.length; ++i )
 		{
 			RequestThread.postRequest( new UneffectRequest( (AdventureResult) effects[ i ] ) );
@@ -74,8 +74,8 @@ public class StatusEffectPanel
 	@Override
 	public void actionCancelled()
 	{
-		Object[] effects = this.elementList.getSelectedValues();
-		this.elementList.clearSelection();
+		Object[] effects = elementList.getSelectedValues();
+        elementList.clearSelection();
 
 		if ( Preferences.getString( "currentMood" ).equals( "apathetic" ) )
 		{

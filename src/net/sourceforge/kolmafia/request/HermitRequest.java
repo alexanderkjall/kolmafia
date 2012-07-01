@@ -206,9 +206,9 @@ public class HermitRequest
 		}
 
 		// If we want to make a trade, fetch enough worthless items
-		if ( HermitRequest.getWorthlessItemCount( false ) < this.quantity )
+		if ( HermitRequest.getWorthlessItemCount( false ) < quantity )
 		{
-			InventoryManager.retrieveItem( HermitRequest.WORTHLESS_ITEM.getInstance( this.quantity ) );
+			InventoryManager.retrieveItem( HermitRequest.WORTHLESS_ITEM.getInstance( quantity ) );
 		}
 
 		// Otherwise, we are simply visiting and need only one
@@ -222,9 +222,9 @@ public class HermitRequest
 			return;
 		}
 
-		if ( this.quantity > 0 )
+		if ( quantity > 0 )
 		{
-			this.setQuantity( Math.min( this.quantity, HermitRequest.getWorthlessItemCount( false ) ) );
+            setQuantity( Math.min( quantity, HermitRequest.getWorthlessItemCount( false ) ) );
 		}
 
 		super.run();
@@ -233,12 +233,12 @@ public class HermitRequest
 	@Override
 	public void processResults()
 	{
-		if ( !HermitRequest.parseHermitTrade( this.getURLString(), this.responseText ) )
+		if ( !HermitRequest.parseHermitTrade( getURLString(), responseText ) )
 		{
 			// If we got here, the hermit wouldn't talk to us.
 			if ( InventoryManager.retrieveItem( HermitRequest.PERMIT ) )
 			{
-				this.run();
+                run();
 				return;
 			}
 
@@ -246,7 +246,7 @@ public class HermitRequest
 			return;
 		}
 
-		if ( this.itemId == -1 )
+		if ( itemId == -1 )
 		{
 			return;
 		}
@@ -255,11 +255,11 @@ public class HermitRequest
 		// The Hermit looks at you expectantly, and when you don't respond, he points to a crudely-chalked
 		// sign on the wall reading "Hermit Permit required, pursuant to Seaside Town Ordinance #3769"
 
-		if ( this.responseText.contains( "Hermit Permit required" ) )
+		if ( responseText.contains( "Hermit Permit required" ) )
 		{
 			if ( InventoryManager.retrieveItem( HermitRequest.PERMIT ) )
 			{
-				this.run();
+                run();
 			}
 
 			return;
@@ -267,7 +267,7 @@ public class HermitRequest
 
 		// If the item is unavailable, assume he was asking for clover
 
-		if ( this.responseText.contains( "doesn't have that item." ) )
+		if ( responseText.contains( "doesn't have that item." ) )
 		{
 			KoLmafia.updateDisplay( MafiaState.ERROR, "Today is not a clover day." );
 			return;
@@ -275,7 +275,7 @@ public class HermitRequest
 
 		// If you still didn't acquire items, what went wrong?
 
-		if ( !this.responseText.contains( "You acquire" ) )
+		if ( !responseText.contains( "You acquire" ) )
 		{
 			KoLmafia.updateDisplay( MafiaState.ERROR, "The hermit kept his stuff." );
 			return;

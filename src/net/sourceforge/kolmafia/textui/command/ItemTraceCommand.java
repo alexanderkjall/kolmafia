@@ -53,7 +53,7 @@ public class ItemTraceCommand
 
 	public ItemTraceCommand()
 	{
-		this.usage = " <item> [, <item>]... - watch changes to inventory count of items";
+        usage = " <item> [, <item>]... - watch changes to inventory count of items";
 	}
 
 	@Override
@@ -87,12 +87,12 @@ public class ItemTraceCommand
 		{
 			this.item = item;
 			InventoryManager.registerListener( item.getItemId(), this );
-			this.update();
+            update();
 		}
 		
 		public void update()
 		{
-			String msg = "itrace: " + this.item.getName() + " = " +
+			String msg = "itrace: " + item.getName() + " = " +
 				item.getCount( KoLConstants.inventory );
 			RequestLogger.updateSessionLog( msg );
 			if ( RequestLogger.isDebugging() )

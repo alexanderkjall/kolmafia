@@ -46,7 +46,7 @@ public class GalaktikCommand
 {
 	public GalaktikCommand()
 	{
-		this.usage = " (hp|mp) [<amount>] - restore some or all hp or mp";
+        usage = " (hp|mp) [<amount>] - restore some or all hp or mp";
 	}
 
 	@Override

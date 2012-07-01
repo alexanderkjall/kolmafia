@@ -45,7 +45,7 @@ public class GardenCommand
 {
 	public GardenCommand()
 	{
-		this.usage = "[pick] - get status of garden, or harvest it.";
+        usage = "[pick] - get status of garden, or harvest it.";
 	}
 
 	@Override

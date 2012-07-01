@@ -81,7 +81,7 @@ public class MoodTrigger
 	{
 		this.type = type;
 		this.effect = effect;
-		this.name = effect == null ? null : effect.getName();
+        name = effect == null ? null : effect.getName();
 
 		if ( ( action.startsWith( "use " ) || action.startsWith( "cast " ) ) && !action.contains( ";" ) )
 		{
@@ -93,22 +93,22 @@ public class MoodTrigger
 
 			if ( action.startsWith( "use" ) )
 			{
-				this.item = ItemFinder.getFirstMatchingItem( parameters, false );
+                item = ItemFinder.getFirstMatchingItem( parameters, false );
 
-				if ( this.item != null )
+				if ( item != null )
 				{
-					this.count = this.item.getCount();
-					this.action = "use " + this.count + " " + this.item.bangPotionAlias();
+                    count = item.getCount();
+					this.action = "use " + count + " " + item.bangPotionAlias();
 				}
 			}
 			else
 			{
-				this.count = 1;
+                count = 1;
 
 				if ( Character.isDigit( parameters.charAt( 0 ) ) )
 				{
 					spaceIndex = parameters.indexOf( " " );
-					this.count = StringUtilities.parseInt( parameters.substring( 0, spaceIndex ) );
+                    count = StringUtilities.parseInt( parameters.substring( 0, spaceIndex ) );
 					parameters = parameters.substring( spaceIndex ).trim();
 				}
 
@@ -117,18 +117,18 @@ public class MoodTrigger
 					parameters = SkillDatabase.getUsableSkillName( parameters );
 				}
 
-				this.skill = UseSkillRequest.getInstance( parameters );
+                skill = UseSkillRequest.getInstance( parameters );
 
-				if ( this.skill != null )
+				if ( skill != null )
 				{
-					this.action = "cast " + this.count + " " + this.skill.getSkillName();
+					this.action = "cast " + count + " " + skill.getSkillName();
 				}
 			}
 		}
 
 		if ( this.action == null )
 		{
-			this.count = 1;
+            count = 1;
 			this.action = action;
 		}
 
@@ -147,13 +147,13 @@ public class MoodTrigger
 			String skillName = UneffectRequest.effectToSkill( effect.getName() );
 			if ( SkillDatabase.contains( skillName ) )
 			{
-				this.skillId = SkillDatabase.getSkillId( skillName );
-				this.isThiefTrigger = this.skillId > 6000 && this.skillId < 7000;
+                skillId = SkillDatabase.getSkillId( skillName );
+                isThiefTrigger = skillId > 6000 && skillId < 7000;
 			}
 		}
 
-		this.stringForm = new StringBuffer();
-		this.updateStringForm();
+        stringForm = new StringBuffer();
+        updateStringForm();
 	}
 
 	public static String getKnownSources( String name )
@@ -190,7 +190,7 @@ public class MoodTrigger
 	
 	public boolean matches()
 	{
-		return KoLConstants.activeEffects.contains( this.effect );
+		return KoLConstants.activeEffects.contains( effect );
 	}
 	
 	public boolean matches( AdventureResult effect )
@@ -210,53 +210,53 @@ public class MoodTrigger
 
 	public boolean isSkill()
 	{
-		return this.skillId != -1;
+		return skillId != -1;
 	}
 	
 	public AdventureResult getEffect()
 	{
-		return this.effect;
+		return effect;
 	}
 	
 	public String getType()
 	{
-		return this.type;
+		return type;
 	}
 
 	public String getName()
 	{
-		return this.name;
+		return name;
 	}
 
 	public String getAction()
 	{
-		return this.action;
+		return action;
 	}
 
 	@Override
 	public String toString()
 	{
-		return this.stringForm.toString();
+		return stringForm.toString();
 	}
 
 	public String toSetting()
 	{
-		if ( this.effect == null )
+		if ( effect == null )
 		{
-			return this.type + " => " + this.action;
+			return type + " => " + action;
 		}
 
-		if ( this.item != null )
+		if ( item != null )
 		{
-			return this.type + " " + StringUtilities.getCanonicalName( this.name ) + " => use " + this.count + " " + StringUtilities.getCanonicalName( this.item.bangPotionAlias() );
+			return type + " " + StringUtilities.getCanonicalName( name ) + " => use " + count + " " + StringUtilities.getCanonicalName( item.bangPotionAlias() );
 		}
 
-		if ( this.skill != null )
+		if ( skill != null )
 		{
-			return this.type + " " + StringUtilities.getCanonicalName( this.name ) + " => cast " + this.count + " " + StringUtilities.getCanonicalName( this.skill.getSkillName() );
+			return type + " " + StringUtilities.getCanonicalName( name ) + " => cast " + count + " " + StringUtilities.getCanonicalName( skill.getSkillName() );
 		}
 
-		return this.type + " " + StringUtilities.getCanonicalName( this.name ) + " => " + this.action;
+		return type + " " + StringUtilities.getCanonicalName( name ) + " => " + action;
 	}
 
 	@Override
@@ -268,12 +268,12 @@ public class MoodTrigger
 		}
 
 		MoodTrigger mt = (MoodTrigger) o;
-		if ( !this.type.equals( mt.getType() ) )
+		if ( !type.equals( mt.getType() ) )
 		{
 			return false;
 		}
 
-		if ( this.name == null )
+		if ( name == null )
 		{
 			return mt.name == null;
 		}
@@ -283,34 +283,34 @@ public class MoodTrigger
 			return false;
 		}
 
-		return this.name.equals( mt.name );
+		return name.equals( mt.name );
 	}
 
 	public void execute( final int multiplicity )
 	{
-		if ( !this.shouldExecute( multiplicity ) )
+		if ( !shouldExecute( multiplicity ) )
 		{
 			return;
 		}
 
-		if ( this.item != null )
+		if ( item != null )
 		{
-			RequestThread.postRequest( UseItemRequest.getInstance( this.item.getInstance( Math.max(
-				this.count, this.count * multiplicity ) ) ) );
+			RequestThread.postRequest( UseItemRequest.getInstance( item.getInstance( Math.max(
+                    count, count * multiplicity ) ) ) );
 
 			return;
 		}
 
-		if ( this.skill != null )
+		if ( skill != null )
 		{
-			int casts = Math.max( this.count, this.count * multiplicity );
-			this.skill.setBuffCount( casts );
-			this.skill.setTarget( KoLCharacter.getUserName() );
-			RequestThread.postRequest( this.skill );
+			int casts = Math.max( count, count * multiplicity );
+            skill.setBuffCount( casts );
+            skill.setTarget( KoLCharacter.getUserName() );
+			RequestThread.postRequest( skill );
 
 			if ( !UseSkillRequest.lastUpdate.equals( "" ) )
 			{
-				String name = this.skill.getSkillName();
+				String name = skill.getSkillName();
 				KoLmafia.updateDisplay( MafiaState.ERROR, "Mood failed to cast " + casts + " " + name + ": " + UseSkillRequest.lastUpdate );
 				RequestThread.declareWorldPeace();
 			}
@@ -318,7 +318,7 @@ public class MoodTrigger
 			return;
 		}
 
-		KoLmafiaCLI.DEFAULT_SHELL.executeLine( this.action );
+		KoLmafiaCLI.DEFAULT_SHELL.executeLine( action );
 	}
 
 	public boolean shouldExecute( final int multiplicity )
@@ -328,27 +328,27 @@ public class MoodTrigger
 			return false;
 		}
 
-		if ( this.type.equals( "unconditional" ) || this.effect == null )
+		if ( type.equals( "unconditional" ) || effect == null )
 		{
 			return true;
 		}
 
-		if ( this.type.equals( "lose_effect" ) && multiplicity > 0 )
+		if ( type.equals( "lose_effect" ) && multiplicity > 0 )
 		{
 			return true;
 		}
 
-		if ( this.type.equals( "gain_effect" ) )
+		if ( type.equals( "gain_effect" ) )
 		{
-			return KoLConstants.activeEffects.contains( this.effect );
+			return KoLConstants.activeEffects.contains( effect );
 		}
 
-		if ( MoodManager.unstackableAction( this.action ) )
+		if ( MoodManager.unstackableAction( action ) )
 		{
-			return !KoLConstants.activeEffects.contains( this.effect );
+			return !KoLConstants.activeEffects.contains( effect );
 		}
 
-		int activeCount = this.effect.getCount( KoLConstants.activeEffects );
+		int activeCount = effect.getCount( KoLConstants.activeEffects );
 
 		if ( multiplicity == -1 )
 		{
@@ -360,7 +360,7 @@ public class MoodTrigger
 
 	public boolean isThiefTrigger()
 	{
-		return this.isThiefTrigger;
+		return isThiefTrigger;
 	}
 
 	public int compareTo( final Object o )
@@ -376,18 +376,18 @@ public class MoodTrigger
 
 		int compareResult = 0;
 
-		if ( this.type.equals( "unconditional" ) )
+		if ( type.equals( "unconditional" ) )
 		{
 			if ( othertype.equals( "unconditional" ) )
 			{
-				compareResult = this.action.compareToIgnoreCase( otherTriggerAction );
+				compareResult = action.compareToIgnoreCase( otherTriggerAction );
 			}
 			else
 			{
 				compareResult = -1;
 			}
 		}
-		else if ( this.type.equals( "gain_effect" ) )
+		else if ( type.equals( "gain_effect" ) )
 		{
 			if ( othertype.equals( "unconditional" ) )
 			{
@@ -395,18 +395,18 @@ public class MoodTrigger
 			}
 			else if ( othertype.equals( "gain_effect" ) )
 			{
-				compareResult = this.name.compareToIgnoreCase( othername );
+				compareResult = name.compareToIgnoreCase( othername );
 			}
 			else
 			{
 				compareResult = -1;
 			}
 		}
-		else if ( this.type.equals( "lose_effect" ) )
+		else if ( type.equals( "lose_effect" ) )
 		{
 			if ( othertype.equals( "lose_effect" ) )
 			{
-				compareResult = this.name.compareToIgnoreCase( othername );
+				compareResult = name.compareToIgnoreCase( othername );
 			}
 			else
 			{
@@ -419,29 +419,29 @@ public class MoodTrigger
 
 	public void updateStringForm()
 	{
-		this.stringForm.setLength( 0 );
+        stringForm.setLength( 0 );
 
-		if ( this.type.equals( "gain_effect" ) )
+		if ( type.equals( "gain_effect" ) )
 		{
-			this.stringForm.append( "When I get" );
+            stringForm.append( "When I get" );
 		}
-		else if ( this.type.equals( "lose_effect" ) )
+		else if ( type.equals( "lose_effect" ) )
 		{
-			this.stringForm.append( "When I run low on" );
+            stringForm.append( "When I run low on" );
 		}
 		else
 		{
-			this.stringForm.append( "Always" );
+            stringForm.append( "Always" );
 		}
 
-		if ( this.name != null )
+		if ( name != null )
 		{
-			this.stringForm.append( " " );
-			this.stringForm.append( this.name );
+            stringForm.append( " " );
+            stringForm.append( name );
 		}
 
-		this.stringForm.append( ", " );
-		this.stringForm.append( this.action );
+        stringForm.append( ", " );
+        stringForm.append( action );
 	}
 
 	public static MoodTrigger constructNode( final String line )

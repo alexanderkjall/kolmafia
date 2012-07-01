@@ -59,19 +59,19 @@ public class ChefStaffRequest
 	{
 		super( "guild.php", conc );
 
-		this.addFormField( "action", "makestaff" );
+        addFormField( "action", "makestaff" );
 
 		// The first ingredient is the staff we will upgrade
 		AdventureResult[] ingredients = conc.getIngredients();
 		AdventureResult staff = ingredients[ 0 ];
 
-		this.addFormField( "whichstaff", String.valueOf( staff.getItemId() ) );
+        addFormField( "whichstaff", String.valueOf( staff.getItemId() ) );
 	}
 
 	@Override
 	public void reconstructFields()
 	{
-		this.constructURLString( this.getURLString() );
+        constructURLString( getURLString() );
 	}
 
 	@Override
@@ -80,7 +80,7 @@ public class ChefStaffRequest
 		// Attempting to make the ingredients will pull the
 		// needed items from the closet if they are missing.
 
-		if ( this.makeIngredients() )
+		if ( makeIngredients() )
 		{
 			super.run();
 		}
@@ -92,7 +92,7 @@ public class ChefStaffRequest
 		// Since we create one at a time, override processResults so
 		// superclass method doesn't undo ingredient usage.
 
-		if ( ChefStaffRequest.parseCreation( this.getURLString(), this.responseText ) )
+		if ( ChefStaffRequest.parseCreation( getURLString(), responseText ) )
                 {
 			KoLmafia.updateDisplay( MafiaState.ERROR, "You're missing some ingredients." );
                 }

@@ -58,11 +58,11 @@ public class OverlapPanel
 
 		if ( this.isOverlap )
 		{
-			this.elementList.setCellRenderer( ListCellRendererFactory.getNameOnlyRenderer() );
+            elementList.setCellRenderer( ListCellRendererFactory.getNameOnlyRenderer() );
 		}
 
-		this.elementList.addKeyListener( new OverlapAdapter() );
-		this.addFilters();
+        elementList.addKeyListener( new OverlapAdapter() );
+        addFilters();
 	}
 
 	@Override
@@ -77,7 +77,7 @@ public class OverlapPanel
 		@Override
 		public boolean isVisible( final Object element )
 		{
-			return super.isVisible( element ) && ( OverlapPanel.this.isOverlap ? KoLConstants.inventory.contains( element ) : !OverlapPanel.this.overlapModel.contains( element ) );
+			return super.isVisible( element ) && (isOverlap ? KoLConstants.inventory.contains( element ) : !overlapModel.contains( element ) );
 		}
 	}
 
@@ -97,19 +97,19 @@ public class OverlapPanel
 				return;
 			}
 
-			Object[] items = OverlapPanel.this.elementList.getSelectedValues();
-			OverlapPanel.this.elementList.clearSelection();
+			Object[] items = elementList.getSelectedValues();
+            elementList.clearSelection();
 
 			for ( int i = 0; i < items.length; ++i )
 			{
-				OverlapPanel.this.overlapModel.remove( items[ i ] );
-				if ( OverlapPanel.this.overlapModel == KoLConstants.singletonList )
+                overlapModel.remove( items[i] );
+				if ( overlapModel == KoLConstants.singletonList )
 				{
 					KoLConstants.junkList.remove( items[ i ] );
 				}
 			}
 
-			OverlapPanel.this.filterItems();
+            filterItems();
 			e.consume();
 		}
 	}

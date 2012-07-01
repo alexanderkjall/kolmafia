@@ -98,7 +98,7 @@ public class AWOLQuartermasterRequest
 	public AWOLQuartermasterRequest( final String action, final int itemId, final int quantity )
 	{
 		super( AWOLQuartermasterRequest.AWOL, action, itemId, quantity );
-		this.addFormField( "doit", "69" );
+        addFormField( "doit", "69" );
 	}
 
 	public AWOLQuartermasterRequest( final String action, final int itemId )
@@ -114,7 +114,7 @@ public class AWOLQuartermasterRequest
 	@Override
 	public void processResults()
 	{
-		AWOLQuartermasterRequest.parseResponse( this.getURLString(), this.responseText );
+		AWOLQuartermasterRequest.parseResponse( getURLString(), responseText );
 	}
 
 	private static final Pattern TATTOO_PATTERN = Pattern.compile( "sigils/aol(\\d+).gif" );

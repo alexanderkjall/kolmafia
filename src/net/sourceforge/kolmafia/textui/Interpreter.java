@@ -104,85 +104,85 @@ public class Interpreter
 
 	public Interpreter()
 	{
-		this.parser = new Parser();
-		this.scope = new Scope( new VariableList(), Parser.getExistingFunctionScope() );
-		this.hadPendingState = false;
+        parser = new Parser();
+        scope = new Scope( new VariableList(), Parser.getExistingFunctionScope() );
+        hadPendingState = false;
 	}
 
 	private Interpreter( final Interpreter source, final File scriptFile )
 	{
-		this.parser = new Parser( scriptFile, null, source.getImports() );
-		this.scope = source.scope;
-		this.hadPendingState = false;
+        parser = new Parser( scriptFile, null, source.getImports() );
+        scope = source.scope;
+        hadPendingState = false;
 	}
 
 	public void initializeRelayScript( final RelayRequest request )
 	{
-		this.relayRequest = request;
-		if ( this.serverReplyBuffer == null )
+        relayRequest = request;
+		if ( serverReplyBuffer == null )
 		{
-			this.serverReplyBuffer = new StringBuffer();
+            serverReplyBuffer = new StringBuffer();
 		}
 		else
 		{
-			this.serverReplyBuffer.setLength( 0 );
+            serverReplyBuffer.setLength( 0 );
 		}
 	}
 
 	public RelayRequest getRelayRequest()
 	{
-		return this.relayRequest;
+		return relayRequest;
 	}
 
 	public StringBuffer getServerReplyBuffer()
 	{
-		return this.serverReplyBuffer;
+		return serverReplyBuffer;
 	}
 
 	public void finishRelayScript()
 	{
-		this.relayRequest = null;
-		this.serverReplyBuffer = null;
+        relayRequest = null;
+        serverReplyBuffer = null;
 	}
 
 	public void cloneRelayScript( final Interpreter caller )
 	{
-		this.finishRelayScript();
+        finishRelayScript();
 		if ( caller != null )
 		{
-			this.relayRequest = caller.getRelayRequest();
-			this.serverReplyBuffer = caller.getServerReplyBuffer();
+            relayRequest = caller.getRelayRequest();
+            serverReplyBuffer = caller.getServerReplyBuffer();
 		}
 	}
 
 	public Parser getParser()
 	{
-		return this.parser;
+		return parser;
 	}
 
 	public String getFileName()
 	{
-		return this.parser.getFileName();
+		return parser.getFileName();
 	}
 
 	public TreeMap getImports()
 	{
-		return this.parser.getImports();
+		return parser.getImports();
 	}
 
 	public Iterator getFunctions()
 	{
-		return this.scope.getFunctions();
+		return scope.getFunctions();
 	}
 
 	public String getState()
 	{
-		return this.currentState;
+		return currentState;
 	}
 
 	public void setState( final String state )
 	{
-		this.currentState = state;
+        currentState = state;
 	}
 
 	public static void rememberPendingState()
@@ -250,12 +250,12 @@ public class Interpreter
 	{
 		try
 		{
-			this.parser = new Parser( scriptFile, stream, null );
-			this.scope = parser.parse();
-			this.resetTracing();
-			if ( this.isTracing() )
+            parser = new Parser( scriptFile, stream, null );
+            scope = parser.parse();
+            resetTracing();
+			if ( isTracing() )
 			{
-				this.printScope( this.scope );
+                printScope( scope );
 			}
 			return true;
 		}
@@ -274,9 +274,9 @@ public class Interpreter
 
 	public Value execute( final String functionName, final String[] parameters )
 	{
-		String currentScript = this.getFileName() == null ? "<>" : "<" + this.getFileName() + ">";
+		String currentScript = getFileName() == null ? "<>" : "<" + getFileName() + ">";
 		String notifyList = Preferences.getString( "previousNotifyList" );
-		String notifyRecipient = this.parser.getNotifyRecipient();
+		String notifyRecipient = parser.getNotifyRecipient();
 
 		if ( notifyRecipient != null && !notifyList.contains( currentScript ) )
 		{
@@ -286,14 +286,14 @@ public class Interpreter
 			RequestThread.postRequest( notifier );
 		}
 
-		return this.execute( functionName, parameters, true );
+		return execute( functionName, parameters, true );
 	}
 
 	public Value execute( final String functionName, final String[] parameters, final boolean executeTopLevel )
 	{
 		try
 		{
-			return this.executeScope( this.scope, functionName, parameters, executeTopLevel );
+			return executeScope( scope, functionName, parameters, executeTopLevel );
 		}
 		catch ( ScriptException e )
 		{
@@ -301,7 +301,7 @@ public class Interpreter
 		}
 		catch ( StackOverflowError e )
 		{
-			KoLmafia.updateDisplay( MafiaState.ERROR, "Stack overflow during ASH script: " + Parser.getLineAndFile( this.fileName, this.lineNumber ) );
+			KoLmafia.updateDisplay( MafiaState.ERROR, "Stack overflow during ASH script: " + Parser.getLineAndFile( fileName, lineNumber ) );
 		}
 		catch ( Exception e )
 		{
@@ -319,12 +319,12 @@ public class Interpreter
 
 		Interpreter.interpreterStack.push( this );
 
-		this.currentState = Interpreter.STATE_NORMAL;
-		this.resetTracing();
+        currentState = Interpreter.STATE_NORMAL;
+        resetTracing();
 
 		if ( functionName.equals( "main" ) )
 		{
-			main = this.parser.getMainMethod();
+			main = parser.getMainMethod();
 		}
 		else
 		{
@@ -341,14 +341,14 @@ public class Interpreter
 
 		if ( executeTopLevel )
 		{
-			if ( this.isTracing() )
+			if ( isTracing() )
 			{
-				this.trace( "Executing top-level commands" );
+                trace( "Executing top-level commands" );
 			}
 			result = topScope.execute( this );
 		}
 
-		if ( this.currentState == Interpreter.STATE_EXIT )
+		if ( currentState == Interpreter.STATE_EXIT )
 		{
 			return result;
 		}
@@ -356,12 +356,12 @@ public class Interpreter
 		// Now execute main function, if any
 		if ( main != null )
 		{
-			if ( this.isTracing() )
+			if ( isTracing() )
 			{
-				this.trace( "Executing main function" );
+                trace( "Executing main function" );
 			}
 
-			if ( !this.requestUserParams( main, parameters ) )
+			if ( !requestUserParams( main, parameters ) )
 			{
 				return null;
 			}
@@ -472,13 +472,13 @@ public class Interpreter
 			return;
 		}
 
-		PrintStream stream = this.traceStream;
+		PrintStream stream = traceStream;
 		scope.print( stream, 0 );
 
-		Function mainMethod = this.parser.getMainMethod();
+		Function mainMethod = parser.getMainMethod();
 		if ( mainMethod != null )
 		{
-			this.indentLine( 1 );
+            indentLine( 1 );
 			stream.println( "<MAIN>" );
 			mainMethod.print( stream, 2 );
 		}
@@ -488,34 +488,34 @@ public class Interpreter
 
 	public final boolean isTracing()
 	{
-		return this.traceStream != NullStream.INSTANCE;
+		return traceStream != NullStream.INSTANCE;
 	}
 
 	public final void resetTracing()
 	{
-		this.traceIndentation = 0;
-		this.traceStream = RequestLogger.getDebugStream();
+        traceIndentation = 0;
+        traceStream = RequestLogger.getDebugStream();
 	}
 
 	private void indentLine( final int indent )
 	{
-		Interpreter.indentLine( this.traceStream, indent );
+		Interpreter.indentLine( traceStream, indent );
 	}
 
 	public final void traceIndent()
 	{
-		this.traceIndentation++ ;
+        traceIndentation++ ;
 	}
 
 	public final void traceUnindent()
 	{
-		this.traceIndentation-- ;
+        traceIndentation-- ;
 	}
 
 	public final void trace( final String string )
 	{
-		this.indentLine( this.traceIndentation );
-		this.traceStream.println( string );
+        indentLine( traceIndentation );
+        traceStream.println( string );
 	}
 
 	public final void captureValue( final Value value )
@@ -526,20 +526,20 @@ public class Interpreter
 		if ( KoLmafia.refusesContinue() || value == null )
 		{
 			// User aborted
-			this.setState( STATE_EXIT );
+            setState( STATE_EXIT );
 			return;
 		}
 
 		// Even if an error occurred, since we captured the result,
 		// permit further execution.
 
-		this.setState( STATE_NORMAL );
+        setState( STATE_NORMAL );
 		KoLmafia.forceContinue();
 	}
 
 	public final ScriptException runtimeException( final String message )
 	{
-		return Interpreter.runtimeException( message, this.fileName, this.lineNumber );
+		return Interpreter.runtimeException( message, fileName, lineNumber );
 	}
 
 	public static ScriptException runtimeException( final String message, final String fileName, final int lineNumber )
@@ -549,6 +549,6 @@ public class Interpreter
 
 	public final ScriptException undefinedFunctionException( final String name, final ValueList params )
 	{
-		return this.runtimeException( Parser.undefinedFunctionMessage( name, params ) );
+		return runtimeException( Parser.undefinedFunctionMessage( name, params ) );
 	}
 }

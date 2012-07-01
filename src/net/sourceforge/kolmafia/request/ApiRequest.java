@@ -63,15 +63,15 @@ public class ApiRequest
 	{
 		super( "api.php" );
 		this.what = what;
-		this.id = "";
-		this.addFormField( "what", what );
-		this.addFormField( "for", "KoLmafia" );
+        id = "";
+        addFormField( "what", what );
+        addFormField( "for", "KoLmafia" );
 	}
 
 	public ApiRequest( final String what, final String id )
 	{
 		this( what );
-		this.addFormField( "id", id );
+        addFormField( "id", id );
 		this.id = id;
 	}
 
@@ -89,40 +89,40 @@ public class ApiRequest
 	@Override
 	public void run()
 	{
-		if ( this.what.equals( "status" ) )
+		if ( what.equals( "status" ) )
 		{
 			KoLmafia.updateDisplay( "Loading character status..." );
 		}
-		else if ( this.what.equals( "inventory" ) )
+		else if ( what.equals( "inventory" ) )
 		{
 			KoLmafia.updateDisplay( "Updating inventory..." );
 		}
-		else if ( this.what.equals( "item" ) )
+		else if ( what.equals( "item" ) )
 		{
-			KoLmafia.updateDisplay( "Looking at item #" + this.id + "..." );
+			KoLmafia.updateDisplay( "Looking at item #" + id + "..." );
 		}
 
-		this.JSON = null;
+        JSON = null;
 		super.run();
 	}
 
 	@Override
 	public void processResults()
 	{
-		if ( this.redirectLocation != null )
+		if ( redirectLocation != null )
 		{
 			return;
 		}
 
 		// Save the JSON object so caller can look further at it
-		this.JSON = ApiRequest.getJSON( this.responseText, this.what );
-		if ( this.what.equals( "status" ) )
+        JSON = ApiRequest.getJSON( responseText, what );
+		if ( what.equals( "status" ) )
 		{
-			ApiRequest.parseStatus( this.JSON );
+			ApiRequest.parseStatus( JSON );
 		}
-		else if ( this.what.equals( "inventory" ) )
+		else if ( what.equals( "inventory" ) )
 		{
-			ApiRequest.parseInventory( this.JSON );
+			ApiRequest.parseInventory( JSON );
 		}
 	}
 

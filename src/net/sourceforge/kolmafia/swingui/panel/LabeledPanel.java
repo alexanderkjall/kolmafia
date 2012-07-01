@@ -71,10 +71,10 @@ public abstract class LabeledPanel
 	{
 		super.setContent( elements, bothDisabledOnClick );
 
-		if ( this.panelTitle != null && !this.panelTitle.equals( "" ) )
+		if ( panelTitle != null && !panelTitle.equals( "" ) )
 		{
-			this.add(
-				JComponentUtilities.createLabel( this.panelTitle, SwingConstants.CENTER, Color.black, Color.white ),
+            add(
+				JComponentUtilities.createLabel( panelTitle, SwingConstants.CENTER, Color.black, Color.white ),
 				BorderLayout.NORTH );
 		}
 	}

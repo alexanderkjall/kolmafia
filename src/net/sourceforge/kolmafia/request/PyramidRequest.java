@@ -68,19 +68,19 @@ public class PyramidRequest
 
 		if ( lower )
 		{
-			this.addFormField( "action", "lower" );
+            addFormField( "action", "lower" );
 		}
 	}
 
 	@Override
 	public void processResults()
 	{
-		if ( !this.getURLString().startsWith( "pyramid.php" ) )
+		if ( !getURLString().startsWith( "pyramid.php" ) )
 		{
 			return;
 		}
 
-		PyramidRequest.parseResponse( this.getURLString(), this.responseText );
+		PyramidRequest.parseResponse( getURLString(), responseText );
 	}
 
 	public static void parseResponse( final String location, final String responseText )

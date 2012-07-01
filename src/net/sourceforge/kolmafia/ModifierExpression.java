@@ -48,9 +48,9 @@ public class ModifierExpression
 	{
 		// The first check also matches "[zone(The Slime Tube)]"
 		// Hence the second check.
-		if ( text.contains( "T" ) && EffectDatabase.contains( this.name ) )
+		if ( text.contains( "T" ) && EffectDatabase.contains( name ) )
 		{
-			this.effect = new AdventureResult( name, 0, true );
+            effect = new AdventureResult( name, 0, true );
 		}
 	}
 
@@ -63,29 +63,29 @@ public class ModifierExpression
 	@Override
 	protected String function()
 	{
-		if ( this.optional( "loc(" ) )
+		if ( optional( "loc(" ) )
 		{
-			return this.literal( this.until( ")" ).toLowerCase(), 'l' );
+			return literal( until( ")" ).toLowerCase(), 'l' );
 		}
-		if ( this.optional( "zone(" ) )
+		if ( optional( "zone(" ) )
 		{
-			return this.literal( this.until( ")" ).toLowerCase(), 'z' );
+			return literal( until( ")" ).toLowerCase(), 'z' );
 		}
-		if ( this.optional( "fam(" ) )
+		if ( optional( "fam(" ) )
 		{
-			return this.literal( this.until( ")" ).toLowerCase(), 'w' );
+			return literal( until( ")" ).toLowerCase(), 'w' );
 		}
-		if ( this.optional( "mainhand(" ) )
+		if ( optional( "mainhand(" ) )
 		{
-			return this.literal( this.until( ")" ).toLowerCase(), 'h' );
+			return literal( until( ")" ).toLowerCase(), 'h' );
 		}
-		if ( this.optional( "effect(" ) )
+		if ( optional( "effect(" ) )
 		{
-			return this.literal( this.until( ")" ).toLowerCase(), 'e' );
+			return literal( until( ")" ).toLowerCase(), 'e' );
 		}
-		if ( this.optional( "res(" ) )
+		if ( optional( "res(" ) )
 		{
-			return this.literal( this.until( ")" ).toLowerCase(), 'b' );
+			return literal( until( ")" ).toLowerCase(), 'b' );
 		}
 
 		return null;

@@ -106,7 +106,7 @@ public class ClanLogRequest
 
 		File file = new File( UtilityConstants.ROOT_LOCATION, "clan/" + ClanManager.getClanId() + "/stashlog.htm" );
 
-		this.loadPreviousData( file );
+        loadPreviousData( file );
 		super.run();
 
 		KoLmafia.updateDisplay( "Stash log retrieved." );
@@ -114,36 +114,36 @@ public class ClanLogRequest
 		// First, process all additions to the clan stash.
 		// These are designated with the word "added to".
 
-		this.handleItems( true );
+        handleItems( true );
 
 		// Next, process all the removals from the clan stash.
 		// These are designated with the word "took from".
 
-		this.handleItems( false );
+        handleItems( false );
 
 		// Next, process all the clan warfare log entries.
 		// Though grouping by player isn't very productive,
 		// KoLmafia is meant to show a historic history, and
 		// showing it by player may prove enlightening.
 
-		this.handleBattles();
+        handleBattles();
 
 		// Now, handle all of the administrative-related
 		// things in the clan.
 
-		this.handleAdmin(
+        handleAdmin(
 			ClanLogRequest.CLAN_WHITELIST, "was accepted into the clan \\(whitelist\\)", "",
 			"auto-accepted through whitelist" );
-		this.handleAdmin( ClanLogRequest.CLAN_ACCEPT, "accepted", " into the clan", "accepted by " );
-		this.handleAdmin( ClanLogRequest.CLAN_LEAVE, "left the clan", "", "left clan" );
-		this.handleAdmin( ClanLogRequest.CLAN_BOOT, "booted", "", "booted by " );
+        handleAdmin( ClanLogRequest.CLAN_ACCEPT, "accepted", " into the clan", "accepted by " );
+        handleAdmin( ClanLogRequest.CLAN_LEAVE, "left the clan", "", "left clan" );
+        handleAdmin( ClanLogRequest.CLAN_BOOT, "booted", "", "booted by " );
 
-		this.saveCurrentData( file );
+        saveCurrentData( file );
 	}
 
 	private void loadPreviousData( final File file )
 	{
-		this.stashMap.clear();
+        stashMap.clear();
 
 		List entryList = null;
 		StashLogEntry entry = null;
@@ -165,11 +165,11 @@ public class ClanLogRequest
 						if ( line.startsWith( " " ) )
 						{
 							currentMember = line.substring( 1, line.length() - 1 );
-							entryList = (List) this.stashMap.get( currentMember );
+							entryList = (List) stashMap.get( currentMember );
 							if ( entryList == null )
 							{
 								entryList = new ArrayList();
-								this.stashMap.put( currentMember, entryList );
+                                stashMap.put( currentMember, entryList );
 							}
 						}
 						else if ( line.length() > 0 && !line.startsWith( "<" ) )
@@ -201,8 +201,8 @@ public class ClanLogRequest
 
 	private void saveCurrentData( final File file )
 	{
-		String[] members = new String[ this.stashMap.size() ];
-		this.stashMap.keySet().toArray( members );
+		String[] members = new String[stashMap.size() ];
+        stashMap.keySet().toArray( members );
 
 		PrintStream ostream = LogStream.openStream( file, true );
 		Object[] entries;
@@ -233,7 +233,7 @@ public class ClanLogRequest
 		{
 			ostream.println( " " + members[ i ] + ":" );
 
-			entryList = (List) this.stashMap.get( members[ i ] );
+			entryList = (List) stashMap.get( members[i] );
 			Collections.sort( entryList );
 			entries = entryList.toArray();
 
@@ -270,7 +270,7 @@ public class ClanLogRequest
 
 		StashLogEntry entry;
 		StringBuilder entryBuffer = new StringBuilder();
-		Matcher entryMatcher = Pattern.compile( regex, Pattern.DOTALL ).matcher( this.responseText );
+		Matcher entryMatcher = Pattern.compile( regex, Pattern.DOTALL ).matcher( responseText );
 
 		while ( entryMatcher.find() )
 		{
@@ -279,12 +279,12 @@ public class ClanLogRequest
 				entryBuffer.setLength( 0 );
 				currentMember = entryMatcher.group( 2 ).trim();
 
-				if ( !this.stashMap.containsKey( currentMember ) )
+				if ( !stashMap.containsKey( currentMember ) )
 				{
-					this.stashMap.put( currentMember, new ArrayList() );
+                    stashMap.put( currentMember, new ArrayList() );
 				}
 
-				entryList = (List) this.stashMap.get( currentMember );
+				entryList = (List) stashMap.get( currentMember );
 				entryCount = StringUtilities.parseInt( entryMatcher.group( 3 ) );
 
 				lastItemId = ItemDatabase.getItemId( entryMatcher.group( 4 ), entryCount );
@@ -311,7 +311,7 @@ public class ClanLogRequest
 			}
 		}
 
-		this.responseText = entryMatcher.replaceAll( "" );
+        responseText = entryMatcher.replaceAll( "" );
 	}
 
 	private void handleBattles()
@@ -320,19 +320,19 @@ public class ClanLogRequest
 		String currentMember;
 
 		StashLogEntry entry;
-		Matcher entryMatcher = ClanLogRequest.WAR_PATTERN.matcher( this.responseText );
+		Matcher entryMatcher = ClanLogRequest.WAR_PATTERN.matcher( responseText );
 
 		while ( entryMatcher.find() )
 		{
 			try
 			{
 				currentMember = entryMatcher.group( 2 ).trim();
-				if ( !this.stashMap.containsKey( currentMember ) )
+				if ( !stashMap.containsKey( currentMember ) )
 				{
-					this.stashMap.put( currentMember, new ArrayList() );
+                    stashMap.put( currentMember, new ArrayList() );
 				}
 
-				entryList = (List) this.stashMap.get( currentMember );
+				entryList = (List) stashMap.get( currentMember );
 				entry =
 					new StashLogEntry(
 						ClanLogRequest.WAR_BATTLE,
@@ -353,7 +353,7 @@ public class ClanLogRequest
 			}
 		}
 
-		this.responseText = entryMatcher.replaceAll( "" );
+        responseText = entryMatcher.replaceAll( "" );
 	}
 
 	private void handleAdmin( final String entryType, final String searchString, final String suffixString,
@@ -367,19 +367,19 @@ public class ClanLogRequest
 
 		StashLogEntry entry;
 		String entryString;
-		Matcher entryMatcher = Pattern.compile( regex ).matcher( this.responseText );
+		Matcher entryMatcher = Pattern.compile( regex ).matcher( responseText );
 
 		while ( entryMatcher.find() )
 		{
 			try
 			{
 				currentMember = entryMatcher.group( descriptionString.endsWith( " " ) ? 3 : 2 ).trim();
-				if ( !this.stashMap.containsKey( currentMember ) )
+				if ( !stashMap.containsKey( currentMember ) )
 				{
-					this.stashMap.put( currentMember, new ArrayList() );
+                    stashMap.put( currentMember, new ArrayList() );
 				}
 
-				entryList = (List) this.stashMap.get( currentMember );
+				entryList = (List) stashMap.get( currentMember );
 				entryString =
 					descriptionString.endsWith( " " ) ? descriptionString + entryMatcher.group( 2 ) : descriptionString;
 				entry =
@@ -400,7 +400,7 @@ public class ClanLogRequest
 			}
 		}
 
-		this.responseText = entryMatcher.replaceAll( "" );
+        responseText = entryMatcher.replaceAll( "" );
 	}
 
 	public static class StashLogEntry
@@ -416,7 +416,7 @@ public class ClanLogRequest
 			this.timestamp = timestamp;
 			this.entry = entry;
 
-			this.stringform =
+            stringform =
 				"\t<li class=\"" + entryType + "\">" + ClanLogRequest.STASH_FORMAT.format( timestamp ) + ": " + entry + "</li>";
 		}
 
@@ -425,11 +425,11 @@ public class ClanLogRequest
 			Matcher entryMatcher = ClanLogRequest.LOGENTRY_PATTERN.matcher( stringform );
 			entryMatcher.find();
 
-			this.entryType = entryMatcher.group( 1 );
+            entryType = entryMatcher.group( 1 );
 
 			try
 			{
-				this.timestamp = ClanLogRequest.STASH_FORMAT.parse( entryMatcher.group( 2 ) );
+                timestamp = ClanLogRequest.STASH_FORMAT.parse( entryMatcher.group( 2 ) );
 			}
 			catch ( Exception e )
 			{
@@ -437,28 +437,28 @@ public class ClanLogRequest
 				// a stack trace for debug purposes.
 
 				StaticEntity.printStackTrace( e );
-				this.timestamp = new Date();
+                timestamp = new Date();
 			}
 
-			this.entry = entryMatcher.group( 3 );
+            entry = entryMatcher.group( 3 );
 			this.stringform = stringform;
 		}
 
 		public int compareTo( final Object o )
 		{
-			return o == null || !( o instanceof StashLogEntry ) ? -1 : this.timestamp.before( ( (StashLogEntry) o ).timestamp ) ? 1 : this.timestamp.after( ( (StashLogEntry) o ).timestamp ) ? -1 : 0;
+			return o == null || !( o instanceof StashLogEntry ) ? -1 : timestamp.before( ((StashLogEntry) o).timestamp ) ? 1 : timestamp.after( ((StashLogEntry) o).timestamp ) ? -1 : 0;
 		}
 
 		@Override
 		public boolean equals( final Object o )
 		{
-			return o == null || !( o instanceof StashLogEntry ) ? false : this.stringform.equals( o.toString() );
+			return o == null || !( o instanceof StashLogEntry ) ? false : stringform.equals( o.toString() );
 		}
 
 		@Override
 		public String toString()
 		{
-			return this.stringform;
+			return stringform;
 		}
 	}
 }

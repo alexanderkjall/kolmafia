@@ -42,7 +42,7 @@ public class WumpusCommand
 {
 	public WumpusCommand()
 	{
-		this.usage = " status - Display status of last wumpus cave.";
+        usage = " status - Display status of last wumpus cave.";
 	}
 
 	@Override

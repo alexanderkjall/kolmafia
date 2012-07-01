@@ -50,8 +50,8 @@ public class AshSingleLineCommand
 {
 	public AshSingleLineCommand()
 	{
-		this.flags = KoLmafiaCLI.FULL_LINE_CMD;
-		this.usage = " <statement> - test a line of ASH code without having to edit a script.";
+        flags = KoLmafiaCLI.FULL_LINE_CMD;
+        usage = " <statement> - test a line of ASH code without having to edit a script.";
 	}
 
 	@Override
@@ -87,7 +87,7 @@ public class AshSingleLineCommand
 		rv = Value.asProxy( rv );
 		if ( rv instanceof CompositeValue )
 		{
-			this.dump( (CompositeValue) rv, "" );
+            dump( (CompositeValue) rv, "" );
 		}
 	}
 
@@ -100,7 +100,7 @@ public class AshSingleLineCommand
 			RequestLogger.printLine( indent + keys[ i ] + " => " + v );
 			if ( v instanceof CompositeValue )
 			{
-				this.dump( (CompositeValue) v, indent + "&nbsp;&nbsp;" );
+                dump( (CompositeValue) v, indent + "&nbsp;&nbsp;" );
 			}
 		}
 	}

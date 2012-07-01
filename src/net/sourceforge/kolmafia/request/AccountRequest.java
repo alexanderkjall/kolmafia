@@ -78,7 +78,7 @@ public class AccountRequest
 		String field = getTabField( tab );
 		if ( field != null )
 		{
-			this.addFormField( "tab", field );
+            addFormField( "tab", field );
 		}
 	}
 
@@ -168,7 +168,7 @@ public class AccountRequest
 	@Override
 	public void run()
 	{
-		if ( this.tab == ALL )
+		if ( tab == ALL )
 		{
 			RequestThread.postRequest( new AccountRequest( INTERFACE ) );
 			RequestThread.postRequest( new AccountRequest( INVENTORY ) );
@@ -187,7 +187,7 @@ public class AccountRequest
 	@Override
 	public void processResults()
 	{
-		AccountRequest.parseAccountData( this.getURLString(), this.responseText );
+		AccountRequest.parseAccountData( getURLString(), responseText );
 	}
 
 	public static void parseAccountData( final String location, final String responseText )

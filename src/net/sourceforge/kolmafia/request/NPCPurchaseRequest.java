@@ -82,50 +82,50 @@ public class NPCPurchaseRequest
 	{
 		super( NPCPurchaseRequest.pickForm( storeId ) );
 
-		this.isMallStore = false;
-		this.item = new AdventureResult( itemId, 1 );
+        isMallStore = false;
+        item = new AdventureResult( itemId, 1 );
 
-		this.shopName = storeName;
-		this.npcStoreId = storeId;
+        shopName = storeName;
+        npcStoreId = storeId;
 
-		this.quantity = PurchaseRequest.MAX_QUANTITY;
+        quantity = PurchaseRequest.MAX_QUANTITY;
 		this.price = price;
-		this.limit = this.quantity;
-		this.canPurchase = true;
+        limit = quantity;
+        canPurchase = true;
 
-		this.addFormField( "whichitem", String.valueOf( itemId ) );
+        addFormField( "whichitem", String.valueOf( itemId ) );
 
 		if ( storeId.equals( "galaktik.php" ) )
 		{
 			// Annoying special case.
-			this.addFormField( "action", "buyitem" );
-			this.hashField = "pwd";
-			this.quantityField = "howmany";
+            addFormField( "action", "buyitem" );
+            hashField = "pwd";
+            quantityField = "howmany";
 		}
 		else if ( storeId.equals( "town_giftshop.php" ) )
 		{
-			this.addFormField( "action", "buy" );
-			this.hashField = "pwd";
-			this.quantityField = "howmany";
+            addFormField( "action", "buy" );
+            hashField = "pwd";
+            quantityField = "howmany";
 		}
 		else if ( storeId.equals( "fdkol" ) )
 		{
-			this.addFormField( "whichshop", storeId );
-			this.addFormField( "action", "buyitem" );
-			this.addFormField( "ajax", "1" );
-			this.hashField = "pwd";
-			this.quantityField = "quantity";
+            addFormField( "whichshop", storeId );
+            addFormField( "action", "buyitem" );
+            addFormField( "ajax", "1" );
+            hashField = "pwd";
+            quantityField = "quantity";
 		}
 		else
 		{
-			this.addFormField( "whichstore", storeId );
-			this.addFormField( "buying", "1" );
-			this.addFormField( "ajax", "1" );
-			this.hashField = "phash";
-			this.quantityField = "howmany";
+            addFormField( "whichstore", storeId );
+            addFormField( "buying", "1" );
+            addFormField( "ajax", "1" );
+            hashField = "phash";
+            quantityField = "howmany";
 		}
 
-		this.timestamp = 0L;
+        timestamp = 0L;
 	}
 
 	public static String pickForm( final String storeId )
@@ -139,7 +139,7 @@ public class NPCPurchaseRequest
 
 	public String getStoreId()
 	{
-		return this.npcStoreId;
+		return npcStoreId;
 	}
 
 	/**
@@ -151,7 +151,7 @@ public class NPCPurchaseRequest
 	@Override
 	public int getPrice()
 	{
-		return NPCPurchaseRequest.currentPrice( this.price );
+		return NPCPurchaseRequest.currentPrice( price );
 	}
 
 	private static int currentPrice( final int price )
@@ -167,7 +167,7 @@ public class NPCPurchaseRequest
 	@Override
 	public void run()
 	{
-		this.addFormField( this.quantityField, String.valueOf( this.limit ) );
+        addFormField( quantityField, String.valueOf( limit ) );
 
 		super.run();
 	}
@@ -175,7 +175,7 @@ public class NPCPurchaseRequest
 	@Override
 	public boolean ensureProperAttire()
 	{
-		if ( this.npcStoreId.equals( "fdkol" ) )
+		if ( npcStoreId.equals( "fdkol" ) )
 		{
 			// Travoltan trousers do not give a discount
 			return true;
@@ -183,20 +183,20 @@ public class NPCPurchaseRequest
 
 		int neededOutfit = 0;
 
-		if ( this.npcStoreId.equals( "b" ) )
+		if ( npcStoreId.equals( "b" ) )
 		{
 			neededOutfit = 1;
 		}
-		else if ( this.npcStoreId.equals( "r" ) )
+		else if ( npcStoreId.equals( "r" ) )
 		{
 			if ( !KoLCharacter.hasEquipped( NPCPurchaseRequest.FLEDGES ) )
 			{
 				neededOutfit = 9;
 			}
 		}
-		else if ( this.npcStoreId.equals( "h" ) )
+		else if ( npcStoreId.equals( "h" ) )
 		{
-			if ( this.shopName.equals( "Hippy Store (Pre-War)" ) )
+			if ( shopName.equals( "Hippy Store (Pre-War)" ) )
 			{
 				neededOutfit = 2;
 			}
@@ -204,11 +204,11 @@ public class NPCPurchaseRequest
 			{
 				neededOutfit = 0;
 			}
-			else if ( this.shopName.equals( "Hippy Store (Hippy)" ) )
+			else if ( shopName.equals( "Hippy Store (Hippy)" ) )
 			{
 				neededOutfit = 32;
 			}
-			else if ( this.shopName.equals( "Hippy Store (Fratboy)" ) )
+			else if ( shopName.equals( "Hippy Store (Fratboy)" ) )
 			{
 				neededOutfit = 33;
 			}
@@ -300,18 +300,18 @@ public class NPCPurchaseRequest
 	@Override
 	public void processResults()
 	{
-		String urlString = this.getURLString();
+		String urlString = getURLString();
 
 		if ( urlString.startsWith( "store.php" ) )
 		{
-			NPCPurchaseRequest.parseResponse( urlString, this.responseText );
+			NPCPurchaseRequest.parseResponse( urlString, responseText );
 		}
 		else if ( urlString.startsWith( "shop.php" ) )
 		{
-			NPCPurchaseRequest.parseShopResponse( urlString, this.responseText );
+			NPCPurchaseRequest.parseShopResponse( urlString, responseText );
 		}
 
-		int quantityAcquired = this.item.getCount( KoLConstants.inventory ) - this.initialCount;
+		int quantityAcquired = item.getCount( KoLConstants.inventory ) - initialCount;
 
 		if ( quantityAcquired > 0 )
 		{
@@ -321,7 +321,7 @@ public class NPCPurchaseRequest
 			     !urlString.startsWith( "shop.php" ) &&
 			     !urlString.startsWith( "galaktik.php" ) )
 			{
-				ResultProcessor.processMeat( -1 * this.getPrice() * quantityAcquired );
+				ResultProcessor.processMeat( -1 * getPrice() * quantityAcquired );
 				KoLCharacter.updateStatus();
 			}
 

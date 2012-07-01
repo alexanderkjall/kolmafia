@@ -101,41 +101,41 @@ public class BuffRequestFrame
 	{
 		super( "Purchase Buffs" );
 
-		this.panelMap = new TreeMap();
-		this.nameList = new SortedListModel[ 4 ];
+        panelMap = new TreeMap();
+        nameList = new SortedListModel[ 4 ];
 		for ( int i = 0; i < 4; ++i )
 		{
-			this.nameList[ i ] = new SortedListModel();
+            nameList[ i ] = new SortedListModel();
 		}
 
-		this.names = new JComboBox( this.nameList[ 0 ] );
+        names = new JComboBox( nameList[ 0 ] );
 
-		this.types = new JComboBox();
-		this.types.addItem( "buff packs" );
-		this.types.addItem( "sauceror buffs" );
-		this.types.addItem( "turtle tamer buffs" );
-		this.types.addItem( "accordion thief buffs" );
+        types = new JComboBox();
+        types.addItem( "buff packs" );
+        types.addItem( "sauceror buffs" );
+        types.addItem( "turtle tamer buffs" );
+        types.addItem( "accordion thief buffs" );
 
 		CardSwitchListener listener = new CardSwitchListener();
 
-		this.addActionListener( this.names, listener );
-		this.addActionListener( this.types, listener );
+        addActionListener( names, listener );
+        addActionListener( types, listener );
 
-		this.nameCards = new CardLayout();
-		this.nameContainer = new JPanel( this.nameCards );
+        nameCards = new CardLayout();
+        nameContainer = new JPanel( nameCards );
 
-		this.mainPanel = new BuffRequestPanel();
-		this.setCenterComponent( this.mainPanel );
+        mainPanel = new BuffRequestPanel();
+        setCenterComponent( mainPanel );
 
-		this.nameContainer.add( new GenericScrollPane( new JPanel() ), "" );
+        nameContainer.add( new GenericScrollPane( new JPanel() ), "" );
 
 		int lastSelectedIndex = Preferences.getInteger( "lastBuffRequestType" );
 		if ( lastSelectedIndex >= 0 && lastSelectedIndex < 4 )
 		{
-			this.types.setSelectedIndex( lastSelectedIndex );
+            types.setSelectedIndex( lastSelectedIndex );
 		}
 
-		this.resetCard();
+        resetCard();
 	}
 
 	@Override
@@ -147,7 +147,7 @@ public class BuffRequestFrame
 	@Override
 	public void dispose()
 	{
-		Preferences.setInteger( "lastBuffRequestType", this.types.getSelectedIndex() );
+		Preferences.setInteger( "lastBuffRequestType", types.getSelectedIndex() );
 		super.dispose();
 	}
 
@@ -180,22 +180,22 @@ public class BuffRequestFrame
 				}
 
 				RequestPanel panel = new RequestPanel( (String) list[ i ] );
-				BuffRequestFrame.this.panelMap.put( list[ i ], panel );
-				BuffRequestFrame.this.nameContainer.add( panel, list[ i ] );
+                panelMap.put( list[i], panel );
+                nameContainer.add( panel, list[i] );
 			}
 
 			VerifiableElement[] elements = new VerifiableElement[ 2 ];
-			elements[ 0 ] = new VerifiableElement( "Category:  ", BuffRequestFrame.this.types );
-			elements[ 1 ] = new VerifiableElement( "Bot Name:  ", BuffRequestFrame.this.names );
+			elements[ 0 ] = new VerifiableElement( "Category:  ", types );
+			elements[ 1 ] = new VerifiableElement( "Bot Name:  ", names );
 
-			this.setContent( elements );
-			this.add( BuffRequestFrame.this.nameContainer, BorderLayout.SOUTH );
+            setContent( elements );
+            add( nameContainer, BorderLayout.SOUTH );
 		}
 
 		@Override
 		public void actionConfirmed()
 		{
-			RequestPanel panel = BuffRequestFrame.this.getPanel();
+			RequestPanel panel = getPanel();
 
 			if ( panel == null )
 			{
@@ -222,7 +222,7 @@ public class BuffRequestFrame
 
 			for ( int i = 0; i < requests.size(); ++i )
 			{
-				KoLmafia.updateDisplay( "Submitting buff request " + ( i + 1 ) + " of " + requests.size() + " to " + BuffRequestFrame.this.botName + "..." );
+				KoLmafia.updateDisplay( "Submitting buff request " + ( i + 1 ) + " of " + requests.size() + " to " + botName + "..." );
 				RequestThread.postRequest( (SendMailRequest) requests.get( i ) );
 			}
 
@@ -238,7 +238,7 @@ public class BuffRequestFrame
 		@Override
 		public void actionCancelled()
 		{
-			BuffRequestFrame.this.isBotOnline( BuffRequestFrame.this.botName );
+            isBotOnline( botName );
 		}
 	}
 
@@ -255,26 +255,26 @@ public class BuffRequestFrame
 
 		public RequestPanel( final String botName )
 		{
-			this.setLayout( this.categoryCards );
+            setLayout( categoryCards );
 
 			if ( BuffBotDatabase.getStandardOfferings( botName ).isEmpty() )
 			{
-				this.checkboxes = null;
-				this.offerings = null;
+                checkboxes = null;
+                offerings = null;
 
-				this.addNoRequestMessage( botName );
+                addNoRequestMessage( botName );
 				return;
 			}
 
 			for ( int i = 0; i < 4; ++i )
 			{
-				this.categoryPanels[ i ] = new JPanel();
-				this.categoryPanels[ i ].setLayout( new BoxLayout( this.categoryPanels[ i ], BoxLayout.Y_AXIS ) );
+                categoryPanels[ i ] = new JPanel();
+                categoryPanels[ i ].setLayout( new BoxLayout( categoryPanels[ i ], BoxLayout.Y_AXIS ) );
 
-				GenericScrollPane scroller = new GenericScrollPane( this.categoryPanels[ i ] );
+				GenericScrollPane scroller = new GenericScrollPane( categoryPanels[ i ] );
 				JComponentUtilities.setComponentSize( scroller, 500, 400 );
 
-				this.add( scroller, String.valueOf( i ) );
+                add( scroller, String.valueOf( i ) );
 			}
 
 			ArrayList list = new ArrayList();
@@ -283,39 +283,39 @@ public class BuffRequestFrame
 
 			Collections.sort( list );
 
-			this.offerings = new Offering[ list.size() ];
-			list.toArray( this.offerings );
+            offerings = new Offering[ list.size() ];
+			list.toArray( offerings );
 
-			this.checkboxes = new JCheckBox[ this.offerings.length ];
+            checkboxes = new JCheckBox[offerings.length ];
 
-			for ( int i = 0; i < this.checkboxes.length; ++i )
+			for ( int i = 0; i < checkboxes.length; ++i )
 			{
-				if ( this.offerings[ i ].getLowestBuffId() < 1000 )
+				if ( offerings[ i ].getLowestBuffId() < 1000 )
 				{
 					continue;
 				}
 
-				this.checkboxes[ i ] = new JCheckBox( this.offerings[ i ].toString() );
-				this.checkboxes[ i ].setVerticalTextPosition( SwingConstants.TOP );
-				BuffRequestFrame.this.addActionListener( this.checkboxes[ i ], BuffRequestFrame.this.priceUpdater );
+                checkboxes[ i ] = new JCheckBox( offerings[ i ].toString() );
+                checkboxes[ i ].setVerticalTextPosition( SwingConstants.TOP );
+                addActionListener( checkboxes[ i ], priceUpdater );
 
-				int price = this.offerings[ i ].getPrice();
-				int[] turns = this.offerings[ i ].getTurns();
+				int price = offerings[ i ].getPrice();
+				int[] turns = offerings[ i ].getTurns();
 				String tooltip =
 					price + " meat (" + KoLConstants.FLOAT_FORMAT.format( (float) turns[ 0 ] / (float) price ) + " turns/meat)";
-				this.checkboxes[ i ].setToolTipText( tooltip );
+                checkboxes[ i ].setToolTipText( tooltip );
 
-				int buffId = this.offerings[ i ].getLowestBuffId();
-				int categoryId = this.getCategory( turns.length, buffId );
+				int buffId = offerings[ i ].getLowestBuffId();
+				int categoryId = getCategory( turns.length, buffId );
 
-				this.addBuffLabel( turns.length, buffId, categoryId );
+                addBuffLabel( turns.length, buffId, categoryId );
 
-				if ( !BuffRequestFrame.this.nameList[ categoryId ].contains( botName ) )
+				if ( !nameList[ categoryId ].contains( botName ) )
 				{
-					BuffRequestFrame.this.nameList[ categoryId ].add( botName );
+                    nameList[ categoryId ].add( botName );
 				}
 
-				this.categoryPanels[ categoryId ].add( this.checkboxes[ i ] );
+                categoryPanels[ categoryId ].add( checkboxes[ i ] );
 			}
 		}
 
@@ -358,7 +358,7 @@ public class BuffRequestFrame
 				message.setOpaque( false );
 				message.setFont( KoLConstants.DEFAULT_FONT );
 
-				this.add( new GenericScrollPane( message ), String.valueOf( i ) );
+                add( new GenericScrollPane( message ), String.valueOf( i ) );
 			}
 		}
 
@@ -366,45 +366,45 @@ public class BuffRequestFrame
 		{
 			if ( count > 1 )
 			{
-				if ( this.addedBuffPackLabel )
+				if ( addedBuffPackLabel )
 				{
 					return;
 				}
 
-				this.addedBuffPackLabel = true;
-				this.categoryPanels[ categoryId ].add( new JLabel( "<html><h3>Buff Packs</h3></html>" ) );
-				this.categoryPanels[ categoryId ].add( Box.createVerticalStrut( 5 ) );
+                addedBuffPackLabel = true;
+                categoryPanels[ categoryId ].add( new JLabel( "<html><h3>Buff Packs</h3></html>" ) );
+                categoryPanels[ categoryId ].add( Box.createVerticalStrut( 5 ) );
 				return;
 			}
 
-			if ( buffId == this.lastBuffId )
+			if ( buffId == lastBuffId )
 			{
 				return;
 			}
 
-			this.lastBuffId = buffId;
-			this.categoryPanels[ categoryId ].add( new JLabel(
+            lastBuffId = buffId;
+            categoryPanels[ categoryId ].add( new JLabel(
 				"<html><h3>" + SkillDatabase.getSkillName( buffId ) + "</h3></html>" ) );
-			this.categoryPanels[ categoryId ].add( Box.createVerticalStrut( 5 ) );
+            categoryPanels[ categoryId ].add( Box.createVerticalStrut( 5 ) );
 		}
 	}
 
 	private void updateSendPrice()
 	{
-		if ( this.mainPanel == null )
+		if ( mainPanel == null )
 		{
 			return;
 		}
 
-		RequestPanel panel = this.getPanel();
+		RequestPanel panel = getPanel();
 		if ( panel == null || panel.checkboxes == null || panel.offerings == null )
 		{
 			return;
 		}
 
-		if ( this.lastPanel != null && this.lastPanel != panel )
+		if ( lastPanel != null && lastPanel != panel )
 		{
-			JCheckBox[] checkboxes = this.lastPanel.checkboxes;
+			JCheckBox[] checkboxes = lastPanel.checkboxes;
 
 			for ( int i = 0; i < checkboxes.length; ++i )
 			{
@@ -415,7 +415,7 @@ public class BuffRequestFrame
 			}
 		}
 
-		this.lastPanel = panel;
+        lastPanel = panel;
 
 		int price = 0;
 		JCheckBox[] checkboxes = panel.checkboxes;
@@ -434,46 +434,46 @@ public class BuffRequestFrame
 			}
 		}
 
-		this.mainPanel.setStatusMessage( KoLConstants.COMMA_FORMAT.format( price ) + " meat will be sent to " + this.botName );
+        mainPanel.setStatusMessage( KoLConstants.COMMA_FORMAT.format( price ) + " meat will be sent to " + botName );
 	}
 
 	private String getCardId()
 	{
-		this.botName = (String) this.names.getSelectedItem();
-		return this.botName;
+        botName = (String) names.getSelectedItem();
+		return botName;
 	}
 
 	private void resetCard()
 	{
-		int typeId = this.types.getSelectedIndex();
-		if ( typeId != -1 && this.names.getModel() != this.nameList[ typeId ] )
+		int typeId = types.getSelectedIndex();
+		if ( typeId != -1 && names.getModel() != nameList[ typeId ] )
 		{
-			this.names.setModel( this.nameList[ typeId ] );
+            names.setModel( nameList[typeId] );
 		}
 
-		RequestPanel panel = this.getPanel();
+		RequestPanel panel = getPanel();
 		if ( typeId == -1 || panel == null )
 		{
-			this.nameCards.show( this.nameContainer, "" );
-			this.mainPanel.setStatusMessage( " " );
+            nameCards.show( nameContainer, "" );
+            mainPanel.setStatusMessage( " " );
 			return;
 		}
 
 		panel.categoryCards.show( panel, String.valueOf( typeId ) );
-		this.nameCards.show( this.nameContainer, this.getCardId() );
+        nameCards.show( nameContainer, getCardId() );
 
-		this.updateSendPrice();
+        updateSendPrice();
 	}
 
 	private RequestPanel getPanel()
 	{
-		String cardId = this.getCardId();
+		String cardId = getCardId();
 		if ( cardId == null )
 		{
 			return null;
 		}
 
-		return (RequestPanel) this.panelMap.get( cardId );
+		return (RequestPanel) panelMap.get( cardId );
 	}
 
 	private class CardSwitchListener
@@ -482,7 +482,7 @@ public class BuffRequestFrame
 		@Override
 		protected void execute()
 		{
-			BuffRequestFrame.this.resetCard();
+            resetCard();
 		}
 	}
 
@@ -491,7 +491,7 @@ public class BuffRequestFrame
 	{
 		public void actionPerformed( final ActionEvent e )
 		{
-			BuffRequestFrame.this.updateSendPrice();
+            updateSendPrice();
 		}
 	}
 }

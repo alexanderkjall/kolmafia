@@ -51,7 +51,7 @@ public class WikiLookupCommand
 {
 	public WikiLookupCommand()
 	{
-		this.usage = " <item> | <effect> - go to appropriate KoL Wiki page.";
+        usage = " <item> | <effect> - go to appropriate KoL Wiki page.";
 	}
 
 	@Override

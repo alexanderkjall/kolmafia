@@ -47,23 +47,23 @@ public class GnomeTinkerRequest
 	{
 		super( "gnomes.php", conc );
 
-		this.addFormField( "place", "tinker" );
-		this.addFormField( "action", "tinksomething" );
+        addFormField( "place", "tinker" );
+        addFormField( "action", "tinksomething" );
 
-		this.ingredients = conc.getIngredients();
+        ingredients = conc.getIngredients();
 
-		if ( this.ingredients != null && this.ingredients.length == 3 )
+		if ( ingredients != null && ingredients.length == 3 )
 		{
-			this.addFormField( "item1", String.valueOf( this.ingredients[ 0 ].getItemId() ) );
-			this.addFormField( "item2", String.valueOf( this.ingredients[ 1 ].getItemId() ) );
-			this.addFormField( "item3", String.valueOf( this.ingredients[ 2 ].getItemId() ) );
+            addFormField( "item1", String.valueOf( ingredients[ 0 ].getItemId() ) );
+            addFormField( "item2", String.valueOf( ingredients[ 1 ].getItemId() ) );
+            addFormField( "item3", String.valueOf( ingredients[ 2 ].getItemId() ) );
 		}
 	}
 
 	@Override
 	public void reconstructFields()
 	{
-		this.constructURLString( this.getURLString() );
+        constructURLString( getURLString() );
 	}
 
 	@Override
@@ -73,7 +73,7 @@ public class GnomeTinkerRequest
 		// just return from the method call to avoid hitting on
 		// the server as a result of a bad mixture in the database.
 
-		if ( this.ingredients == null || this.ingredients.length != 3 )
+		if ( ingredients == null || ingredients.length != 3 )
 		{
 			return;
 		}
@@ -81,13 +81,13 @@ public class GnomeTinkerRequest
 		// Attempting to make the ingredients will pull the
 		// needed items from the closet if they are missing.
 
-		if ( !this.makeIngredients() )
+		if ( !makeIngredients() )
 		{
 			return;
 		}
 
-		KoLmafia.updateDisplay( "Creating " + this.getQuantityNeeded() + " " + this.getName() + "..." );
-		this.addFormField( "qty", String.valueOf( this.getQuantityNeeded() ) );
+		KoLmafia.updateDisplay( "Creating " + getQuantityNeeded() + " " + getName() + "..." );
+        addFormField( "qty", String.valueOf( getQuantityNeeded() ) );
 		super.run();
 	}
 }

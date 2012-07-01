@@ -51,18 +51,18 @@ public class Operator
 	public Operator( final String operator, final Parser parser )
 	{
 		this.operator = operator;
-		this.fileName = parser.getShortFileName();
-		this.lineNumber = parser.getLineNumber();
+        fileName = parser.getShortFileName();
+        lineNumber = parser.getLineNumber();
 	}
 
 	public boolean equals( final String op )
 	{
-		return this.operator.equals( op );
+		return operator.equals( op );
 	}
 
 	public boolean precedes( final Operator oper )
 	{
-		return this.operStrength() > oper.operStrength();
+		return operStrength() > oper.operStrength();
 	}
 
 	private int operStrength()
@@ -70,81 +70,81 @@ public class Operator
 		// *** Here is where a postfix ++ and -- would go
 		// return 14;
 
-		if ( this.operator.equals( "!" ) ||
-		     this.operator.equals( "~" ) ||
-		     this.operator.equals( "contains" ) ||
-		     this.operator.equals( "remove" ) )
+		if ( operator.equals( "!" ) ||
+                operator.equals( "~" ) ||
+                operator.equals( "contains" ) ||
+                operator.equals( "remove" ) )
 		{
 			// also prefix ++ and --
 			return 13;
 		}
 
-		if ( this.operator.equals( "**" ) )
+		if ( operator.equals( "**" ) )
 		{
 			return 12;
 		}
 
-		if ( this.operator.equals( "*" ) ||
-		     this.operator.equals( "/" ) ||
-		     this.operator.equals( "%" ) )
+		if ( operator.equals( "*" ) ||
+                operator.equals( "/" ) ||
+                operator.equals( "%" ) )
 		{
 			return 11;
 		}
 
-		if ( this.operator.equals( "+" ) ||
-		     this.operator.equals( "-" ) )
+		if ( operator.equals( "+" ) ||
+                operator.equals( "-" ) )
 		{
 			return 10;
 		}
 
-		if ( this.operator.equals( "<<" ) ||
-		     this.operator.equals( ">>" ) ||
-		     this.operator.equals( ">>>" ) )
+		if ( operator.equals( "<<" ) ||
+                operator.equals( ">>" ) ||
+                operator.equals( ">>>" ) )
 		{
 			return 9;
 		}
 
-		if ( this.operator.equals( "<" ) ||
-		     this.operator.equals( ">" ) ||
-		     this.operator.equals( "<=" ) ||
-		     this.operator.equals( ">=" ) )
+		if ( operator.equals( "<" ) ||
+                operator.equals( ">" ) ||
+                operator.equals( "<=" ) ||
+                operator.equals( ">=" ) )
 		{
 			return 8;
 		}
 
-		if ( this.operator.equals( "==" ) ||
-		     this.operator.equals( "!=" ) )
+		if ( operator.equals( "==" ) ||
+                operator.equals( "!=" ) )
 		{
 			return 7;
 		}
 
-		if ( this.operator.equals( "&" ) )
+		if ( operator.equals( "&" ) )
 		{
 			return 6;
 		}
 
-		if ( this.operator.equals( "^" ) )
+		if ( operator.equals( "^" ) )
 		{
 			return 5;
 		}
 
-		if ( this.operator.equals( "|" ) )
+		if ( operator.equals( "|" ) )
 		{
 			return 4;
 		}
 
-		if ( this.operator.equals( "&&" ) )
+		if ( operator.equals( "&&" ) )
 		{
 			return 3;
 		}
 
-		if ( this.operator.equals( "||" ) )
+		if ( operator.equals( "||" ) )
 		{
 			return 2;
 		}
 
-		if ( this.operator.equals( "?" ) ||
-		     this.operator.equals( ":" ) )
+		if ( operator.equals( "?" ) ||
+                operator.equals( ":" ) )
 		{
 			return 1;
 		}
@@ -163,49 +163,49 @@ public class Operator
 
 	public boolean isArithmetic()
 	{
-		return this.operator.equals( "+" ) ||
-			this.operator.equals( "-" ) ||
-			this.operator.equals( "*" ) ||
-			this.operator.equals( "/" ) ||
-			this.operator.equals( "%" ) ||
-			this.operator.equals( "**" );
+		return operator.equals( "+" ) ||
+                operator.equals( "-" ) ||
+                operator.equals( "*" ) ||
+                operator.equals( "/" ) ||
+                operator.equals( "%" ) ||
+                operator.equals( "**" );
 	}
 
 	public boolean isLogical()
 	{
-		return this.operator.equals( "&" ) ||
-			this.operator.equals( "|" ) ||
-			this.operator.equals( "^" ) ||
-			this.operator.equals( "~" ) ||
-			this.operator.equals( "&=" ) ||
-			this.operator.equals( "^=" ) ||
-			this.operator.equals( "|=" );
+		return operator.equals( "&" ) ||
+                operator.equals( "|" ) ||
+                operator.equals( "^" ) ||
+                operator.equals( "~" ) ||
+                operator.equals( "&=" ) ||
+                operator.equals( "^=" ) ||
+                operator.equals( "|=" );
 	}
 
 	public boolean isInteger()
 	{
-		return this.operator.equals( "<<" ) ||
-			this.operator.equals( ">>" ) ||
-			this.operator.equals( ">>>" ) ||
-			this.operator.equals( "<<=" ) ||
-			this.operator.equals( ">>=" ) ||
-			this.operator.equals( ">>>=" );
+		return operator.equals( "<<" ) ||
+                operator.equals( ">>" ) ||
+                operator.equals( ">>>" ) ||
+                operator.equals( "<<=" ) ||
+                operator.equals( ">>=" ) ||
+                operator.equals( ">>>=" );
 	}
 
 	public boolean isComparison()
 	{
-		return this.operator.equals( "==" ) ||
-			this.operator.equals( "!=" ) ||
-			this.operator.equals( "<" ) ||
-			this.operator.equals( ">" ) ||
-			this.operator.equals( "<=" ) ||
-			this.operator.equals( ">=" );
+		return operator.equals( "==" ) ||
+                operator.equals( "!=" ) ||
+                operator.equals( "<" ) ||
+                operator.equals( ">" ) ||
+                operator.equals( "<=" ) ||
+                operator.equals( ">=" );
 	}
 
 	@Override
 	public String toString()
 	{
-		return this.operator;
+		return operator;
 	}
 
 	private Value compareValues( final Interpreter interpreter, Value leftValue, Value rightValue )
@@ -218,12 +218,12 @@ public class Operator
 		if ( Operator.isStringLike( ltype ) || Operator.isStringLike( rtype ) )
 		{
 			int c = leftValue.toString().compareToIgnoreCase( rightValue.toString() );
-			bool = this.operator.equals( "==" ) ? c == 0 :
-			       this.operator.equals( "!=" ) ? c != 0 :
-			       this.operator.equals( ">=" ) ? c >= 0 :
-			       this.operator.equals( "<=" ) ? c <= 0 :
-			       this.operator.equals( ">" ) ? c > 0 :
-			       this.operator.equals( "<" ) ? c < 0 :
+			bool = operator.equals( "==" ) ? c == 0 :
+                    operator.equals( "!=" ) ? c != 0 :
+                            operator.equals( ">=" ) ? c >= 0 :
+                                    operator.equals( "<=" ) ? c <= 0 :
+                                            operator.equals( ">" ) ? c > 0 :
+                                                    operator.equals( "<" ) ? c < 0 :
 			       false;
 		}
 
@@ -233,12 +233,12 @@ public class Operator
 		{
 			double lfloat = leftValue.toFloatValue().floatValue();
 			double rfloat = rightValue.toFloatValue().floatValue();
-			bool = this.operator.equals( "==" ) ? lfloat == rfloat :
-			       this.operator.equals( "!=" ) ? lfloat != rfloat :
-			       this.operator.equals( ">=" ) ? lfloat >= rfloat :
-			       this.operator.equals( "<=" ) ? lfloat <= rfloat :
-			       this.operator.equals( ">" ) ? lfloat > rfloat :
-			       this.operator.equals( "<" ) ? lfloat < rfloat :
+			bool = operator.equals( "==" ) ? lfloat == rfloat :
+                    operator.equals( "!=" ) ? lfloat != rfloat :
+                            operator.equals( ">=" ) ? lfloat >= rfloat :
+                                    operator.equals( "<=" ) ? lfloat <= rfloat :
+                                            operator.equals( ">" ) ? lfloat > rfloat :
+                                                    operator.equals( "<" ) ? lfloat < rfloat :
 			       false;
 		}
 
@@ -247,12 +247,12 @@ public class Operator
 		{
 			long lint = leftValue.intValue();
 			long rint = rightValue.intValue();
-			bool = this.operator.equals( "==" ) ? lint == rint :
-			       this.operator.equals( "!=" ) ? lint != rint :
-			       this.operator.equals( ">=" ) ? lint >= rint :
-			       this.operator.equals( "<=" ) ? lint <= rint :
-			       this.operator.equals( ">" ) ? lint > rint :
-			       this.operator.equals( "<" ) ? lint < rint :
+			bool = operator.equals( "==" ) ? lint == rint :
+                    operator.equals( "!=" ) ? lint != rint :
+                            operator.equals( ">=" ) ? lint >= rint :
+                                    operator.equals( "<=" ) ? lint <= rint :
+                                            operator.equals( ">" ) ? lint > rint :
+                                                    operator.equals( "<" ) ? lint < rint :
 			       false;
 		}
 
@@ -276,9 +276,9 @@ public class Operator
 		{
 			// Since we only do string concatenation, we should
 			// only get here if the operator is "+".
-			if ( !this.operator.equals( "+" ) )
+			if ( !operator.equals( "+" ) )
 			{
-				throw interpreter.runtimeException( "Operator '" + this.operator + "' applied to string operands", this.fileName, this.lineNumber );
+				throw interpreter.runtimeException( "Operator '" + operator + "' applied to string operands", fileName, lineNumber );
 			}
 
 			String string = leftValue.toStringValue().toString() + rightValue.toStringValue().toString();
@@ -290,33 +290,33 @@ public class Operator
 		else if ( ltype.equals( DataTypes.TYPE_FLOAT ) || rtype.equals( DataTypes.TYPE_FLOAT ) )
 		{
 			double rfloat = rightValue.toFloatValue().floatValue();
-			if (  ( this.operator.equals( "/" ) || this.operator.equals( "%" ) ) &&
+			if (  (operator.equals( "/" ) || operator.equals( "%" ) ) &&
 			      rfloat == 0.0 )
 			{
-				throw interpreter.runtimeException( "Division by zero", this.fileName, this.lineNumber );
+				throw interpreter.runtimeException( "Division by zero", fileName, lineNumber );
 			}
 
 			double lfloat = leftValue.toFloatValue().floatValue();
 			double val =
-				this.operator.equals( "+" ) ? lfloat + rfloat :
-				this.operator.equals( "-" ) ? lfloat - rfloat :
-				this.operator.equals( "*" ) ? lfloat * rfloat :
-				this.operator.equals( "/" ) ? lfloat / rfloat :
-				this.operator.equals( "%" ) ? lfloat % rfloat :
-				this.operator.equals( "**" ) ? Math.pow( lfloat, rfloat ) :
+                    operator.equals( "+" ) ? lfloat + rfloat :
+                            operator.equals( "-" ) ? lfloat - rfloat :
+                                    operator.equals( "*" ) ? lfloat * rfloat :
+                                            operator.equals( "/" ) ? lfloat / rfloat :
+                                                    operator.equals( "%" ) ? lfloat % rfloat :
+                                                            operator.equals( "**" ) ? Math.pow( lfloat, rfloat ) :
 				0.0;
 			result = DataTypes.makeFloatValue( val );
 		}
 
 		// If this is a logical operator, return an int or boolean
-		else if ( this.isLogical() )
+		else if ( isLogical() )
 		{
 			long lint = leftValue.intValue();
 			long rint = rightValue.intValue();
 			long val =
-				this.operator.equals( "&" ) ? lint & rint :
-				this.operator.equals( "^" ) ? lint ^ rint :
-				this.operator.equals( "|" ) ? lint | rint :
+                    operator.equals( "&" ) ? lint & rint :
+                            operator.equals( "^" ) ? lint ^ rint :
+                                    operator.equals( "|" ) ? lint | rint :
 				0;
 			result = ltype.equals( DataTypes.TYPE_BOOLEAN ) ?
 				DataTypes.makeBooleanValue( val != 0 ) :
@@ -328,23 +328,23 @@ public class Operator
 		else
 		{
 			long rint = rightValue.intValue();
-			if (  ( this.operator.equals( "/" ) || this.operator.equals( "%" ) ) &&
+			if (  (operator.equals( "/" ) || operator.equals( "%" ) ) &&
 			      rint == 0 )
 			{
-				throw interpreter.runtimeException( "Division by zero", this.fileName, this.lineNumber );
+				throw interpreter.runtimeException( "Division by zero", fileName, lineNumber );
 			}
 
 			long lint = leftValue.intValue();
 			long val =
-				this.operator.equals( "+" ) ? lint + rint :
-				this.operator.equals( "-" ) ? lint - rint :
-				this.operator.equals( "*" ) ? lint * rint :
-				this.operator.equals( "/" ) ? lint / rint :
-				this.operator.equals( "%" ) ? lint % rint :
-				this.operator.equals( "**" ) ? (long) Math.pow( lint, rint ) :
-				this.operator.equals( "<<" ) ? lint << rint :
-				this.operator.equals( ">>" ) ? lint >> rint :
-				this.operator.equals( ">>>" ) ? lint >>> rint :
+                    operator.equals( "+" ) ? lint + rint :
+                            operator.equals( "-" ) ? lint - rint :
+                                    operator.equals( "*" ) ? lint * rint :
+                                            operator.equals( "/" ) ? lint / rint :
+                                                    operator.equals( "%" ) ? lint % rint :
+                                                            operator.equals( "**" ) ? (long) Math.pow( lint, rint ) :
+                                                                    operator.equals( "<<" ) ? lint << rint :
+                                                                            operator.equals( ">>" ) ? lint >> rint :
+                                                                                    operator.equals( ">>>" ) ? lint >>> rint :
 				0;
 			result = DataTypes.makeIntValue( val );
 		}
@@ -362,11 +362,11 @@ public class Operator
 		interpreter.traceIndent();
 		if ( interpreter.isTracing() )
 		{
-			interpreter.trace( "Operator: " + this.operator );
+			interpreter.trace( "Operator: " + operator );
 		}
 
 		// Unary operator with special evaluation of argument
-		if ( this.operator.equals( "remove" ) )
+		if ( operator.equals( "remove" ) )
 		{
 			CompositeReference operand = (CompositeReference) lhs;
                         if ( interpreter.isTracing() )
@@ -409,7 +409,7 @@ public class Operator
 		}
 
 		// Unary Operators
-		if ( this.operator.equals( "!" ) )
+		if ( operator.equals( "!" ) )
 		{
 			Value result = DataTypes.makeBooleanValue( leftValue.intValue() == 0 );
 			if ( interpreter.isTracing() )
@@ -420,7 +420,7 @@ public class Operator
 			return result;
 		}
 
-		if ( this.operator.equals( "~" ) )
+		if ( operator.equals( "~" ) )
 		{
 			long val = leftValue.intValue();
 			Value result =
@@ -435,7 +435,7 @@ public class Operator
 			return result;
 		}
 
-		if ( this.operator.equals( "-" ) && rhs == null )
+		if ( operator.equals( "-" ) && rhs == null )
 		{
 			Value result = null;
 			if ( lhs.getType().equals( DataTypes.TYPE_INT ) )
@@ -448,7 +448,7 @@ public class Operator
 			}
 			else
 			{
-				throw Interpreter.runtimeException( "Internal error: Unary minus can only be applied to numbers", this.fileName, this.lineNumber );
+				throw Interpreter.runtimeException( "Internal error: Unary minus can only be applied to numbers", fileName, lineNumber );
 			}
 			if ( interpreter.isTracing() )
 			{
@@ -461,11 +461,11 @@ public class Operator
 		// Unknown operator
 		if ( rhs == null )
 		{
-			throw interpreter.runtimeException( "Internal error: missing right operand.", this.fileName, this.lineNumber );
+			throw interpreter.runtimeException( "Internal error: missing right operand.", fileName, lineNumber );
 		}
 
 		// Binary operators with optional right values
-		if ( this.operator.equals( "||" ) )
+		if ( operator.equals( "||" ) )
 		{
 			if ( leftValue.intValue() == 1 )
 			{
@@ -505,7 +505,7 @@ public class Operator
 			return rightValue;
 		}
 
-		if ( this.operator.equals( "&&" ) )
+		if ( operator.equals( "&&" ) )
 		{
 			if ( leftValue.intValue() == 0 )
 			{
@@ -548,11 +548,11 @@ public class Operator
 		// Ensure type compatibility of operands
 		if ( !Parser.validCoercion( lhs.getType(), rhs.getType(), this ) )
 		{
-			throw interpreter.runtimeException( "Internal error: left hand side and right hand side do not correspond", this.fileName, this.lineNumber );
+			throw interpreter.runtimeException( "Internal error: left hand side and right hand side do not correspond", fileName, lineNumber );
 		}
 
 		// Special binary operator: <aggref> contains <any>
-		if ( this.operator.equals( "contains" ) )
+		if ( operator.equals( "contains" ) )
 		{
 			interpreter.traceIndent();
 			if ( interpreter.isTracing() )
@@ -608,19 +608,19 @@ public class Operator
 		}
 
 		// Comparison operators
-		if ( this.isComparison() )
+		if ( isComparison() )
 		{
-			return this.compareValues( interpreter, leftValue, rightValue );
+			return compareValues( interpreter, leftValue, rightValue );
 		}
 
 		// Arithmetic operators
-		if ( this.isArithmetic() || this.isLogical() || this.isInteger() )
+		if ( isArithmetic() || isLogical() || isInteger() )
 		{
-			return this.performArithmetic( interpreter, leftValue, rightValue );
+			return performArithmetic( interpreter, leftValue, rightValue );
 		}
 
 		// Unknown operator
-		throw interpreter.runtimeException( "Internal error: illegal operator \"" + this.operator + "\"", this.fileName, this.lineNumber );
+		throw interpreter.runtimeException( "Internal error: illegal operator \"" + operator + "\"", fileName, lineNumber );
 	}
 
 	@Override
@@ -633,6 +633,6 @@ public class Operator
 	public void print( final PrintStream stream, final int indent )
 	{
 		Interpreter.indentLine( stream, indent );
-		stream.println( "<OPER " + this.operator + ">" );
+		stream.println( "<OPER " + operator + ">" );
 	}
 }

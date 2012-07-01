@@ -49,7 +49,7 @@ public class NunneryCommand
 {
 	public NunneryCommand()
 	{
-		this.usage = " [mp] - visit the Nunnery for restoration [but only if MP is restored].";
+        usage = " [mp] - visit the Nunnery for restoration [but only if MP is restored].";
 	}
 
 	@Override

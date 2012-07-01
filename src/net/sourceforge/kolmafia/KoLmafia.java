@@ -795,7 +795,7 @@ public abstract class KoLmafia
 
 	public void refreshSession()
 	{
-		this.refreshSessionData();
+        refreshSessionData();
 
 		// Check to see if you need to reset the counters.
 
@@ -1154,7 +1154,7 @@ public abstract class KoLmafia
 				}
 			}
 
-			this.executeRequest( request, iterations, wasAdventuring );
+            executeRequest( request, iterations, wasAdventuring );
 
 			if ( request instanceof KoLAdventure && !wasAdventuring )
 			{
@@ -1300,7 +1300,7 @@ public abstract class KoLmafia
 			int runBeforeRequest = KoLCharacter.getCurrentRun();
 			KoLmafia.tookChoice = false;
 
-			this.executeRequestOnce( request, wasAdventuring, currentIteration, totalIterations, items, creatables );
+            executeRequestOnce( request, wasAdventuring, currentIteration, totalIterations, items, creatables );
 
 			if ( isAdventure && KoLmafia.redoSkippedAdventures &&
 			     runBeforeRequest == KoLCharacter.getCurrentRun() )
@@ -1355,7 +1355,7 @@ public abstract class KoLmafia
 			return;
 		}
 
-		if ( this.handleConditions( items, creatables ) )
+		if ( handleConditions( items, creatables ) )
 		{
 			KoLmafia.updateDisplay(
 				MafiaState.PENDING, "Conditions satisfied after " + currentIteration + " adventures." );
@@ -1416,7 +1416,7 @@ public abstract class KoLmafia
 
 		KoLmafia.executeAfterAdventureScript();
 
-		if ( this.handleConditions( items, creatables ) )
+		if ( handleConditions( items, creatables ) )
 		{
 			KoLmafia.updateDisplay(
 				MafiaState.PENDING, "Conditions satisfied after " + currentIteration + " adventures." );
@@ -1429,7 +1429,7 @@ public abstract class KoLmafia
 	{
 		if ( request instanceof KoLAdventure )
 		{
-			this.executeAdventureOnce(
+            executeAdventureOnce(
 				(KoLAdventure) request, wasAdventuring, currentIteration, totalIterations, items, creatables );
 			return;
 		}
@@ -1648,7 +1648,7 @@ public abstract class KoLmafia
 	public void makePurchases( final List results, final Object[] purchases, final int maxPurchases,
 		final boolean isAutomated )
 	{
-		this.makePurchases( results, purchases, maxPurchases, isAutomated, 0 );
+        makePurchases( results, purchases, maxPurchases, isAutomated, 0 );
 	}
 
 	public void makePurchases( final List results, final Object[] purchases, final int maxPurchases,
@@ -1999,14 +1999,14 @@ public abstract class KoLmafia
 			// as-is would keep the entire page in memory.
 			this.name = new String( name );
 
-			this.stringform = type == null ? name : type + ": " + name;
-			this.encounterCount = 1;
+            stringform = type == null ? name : type + ": " + name;
+            encounterCount = 1;
 		}
 
 		@Override
 		public String toString()
 		{
-			return "<html>" + this.stringform + " (" + this.encounterCount + ")</html>";
+			return "<html>" + stringform + " (" + encounterCount + ")</html>";
 		}
 
 		public int compareTo( final Object o )
@@ -2016,12 +2016,12 @@ public abstract class KoLmafia
 				return -1;
 			}
 
-			if ( this.type == null || ( (RegisteredEncounter) o ).type == null || this.type.equals( ( (RegisteredEncounter) o ).type ) )
+			if ( type == null || ( (RegisteredEncounter) o ).type == null || type.equals( ((RegisteredEncounter) o).type ) )
 			{
-				return this.name.compareToIgnoreCase( ( (RegisteredEncounter) o ).name );
+				return name.compareToIgnoreCase( ((RegisteredEncounter) o).name );
 			}
 
-			return this.type.equals( "Combat" ) ? 1 : -1;
+			return type.equals( "Combat" ) ? 1 : -1;
 		}
 	}
 

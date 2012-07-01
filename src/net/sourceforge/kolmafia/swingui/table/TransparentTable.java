@@ -56,9 +56,9 @@ public class TransparentTable
 	{
 		super( t );
 
-		this.setDefaultEditor( Integer.class, new IntegerEditor() );
-		this.setDefaultRenderer( Integer.class, new IntegerRenderer() );
-		this.setDefaultRenderer( JButton.class, new ButtonRenderer() );
+        setDefaultEditor( Integer.class, new IntegerEditor() );
+        setDefaultRenderer( Integer.class, new IntegerRenderer() );
+        setDefaultRenderer( JButton.class, new ButtonRenderer() );
 	}
 
 	@Override
@@ -78,18 +78,18 @@ public class TransparentTable
 	{
 		super.changeSelection( row, column, toggle, extend );
 
-		if ( !this.editCellAt( row, column ) )
+		if ( !editCellAt( row, column ) )
 		{
 			return;
 		}
 
-		Component editor = this.getEditorComponent();
+		Component editor = getEditorComponent();
 		if ( !( editor instanceof JTextField ) )
 		{
 			return;
 		}
 
-		JTextField field = (JTextField) this.getEditorComponent();
+		JTextField field = (JTextField) getEditorComponent();
 
 		if ( getColumnClass( column ) == Integer.class )
 		{

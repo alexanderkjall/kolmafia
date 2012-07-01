@@ -58,15 +58,15 @@ public class PhineasRequest
 	{
 		super( "volcanoisland.php", conc );
 
-		this.addFormField( "action", "npc" );
-		this.addFormField( "subaction", "make" );
-		this.addFormField( "makewhich", String.valueOf( this.getItemId() ) );
+        addFormField( "action", "npc" );
+        addFormField( "subaction", "make" );
+        addFormField( "makewhich", String.valueOf( getItemId() ) );
 	}
 
 	@Override
 	public void reconstructFields()
 	{
-		this.constructURLString( this.getURLString() );
+        constructURLString( getURLString() );
 	}
 
 	@Override
@@ -77,13 +77,13 @@ public class PhineasRequest
 		// In this case, it will also create the needed white
 		// pixels if they are not currently available.
 
-		if ( !this.makeIngredients() )
+		if ( !makeIngredients() )
 		{
 			return;
 		}
 
-		KoLmafia.updateDisplay( "Creating " + this.getQuantityNeeded() + " " + this.getName() + "..." );
-		this.addFormField( "quantity", String.valueOf( this.getQuantityNeeded() ) );
+		KoLmafia.updateDisplay( "Creating " + getQuantityNeeded() + " " + getName() + "..." );
+        addFormField( "quantity", String.valueOf( getQuantityNeeded() ) );
 		super.run();
 	}
 

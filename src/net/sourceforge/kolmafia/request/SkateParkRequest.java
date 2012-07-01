@@ -115,7 +115,7 @@ public class SkateParkRequest
 		String action = SkateParkRequest.buffToAction( buff );
 		if ( action != null )
 		{
-			this.addFormField( "action", action );
+            addFormField( "action", action );
 		}
 	}
 
@@ -223,7 +223,7 @@ public class SkateParkRequest
 	@Override
 	public void processResults()
 	{
-		String urlString = this.getURLString();
+		String urlString = getURLString();
 		String responseText = this.responseText;
 		Matcher matcher = GenericRequest.ACTION_PATTERN.matcher( urlString );
 		String action = matcher.find() ? matcher.group(1) : null;

@@ -52,7 +52,7 @@ public class RestorativeItemPanel
 	public RestorativeItemPanel()
 	{
 		super( "use item", "check wiki", KoLConstants.inventory, new boolean[] {false, true} );
-		this.filterItems();
+        filterItems();
 	}
 
 	@Override
@@ -64,7 +64,7 @@ public class RestorativeItemPanel
 	@Override
 	public void actionConfirmed()
 	{
-		Object[] items = this.getDesiredItems( "Consume" );
+		Object[] items = getDesiredItems( "Consume" );
 		if ( items == null )
 		{
 			return;
@@ -80,7 +80,7 @@ public class RestorativeItemPanel
 	public void actionCancelled()
 	{
 		String name;
-		Object[] values = this.elementList.getSelectedValues();
+		Object[] values = elementList.getSelectedValues();
 
 		for ( int i = 0; i < values.length; ++i )
 		{

@@ -67,9 +67,9 @@ public class RaffleRequest
 		this.count = count;
 		this.source = source;
 
-		this.addFormField( "action", "buy" );
-		this.addFormField( "where", String.valueOf( source ) );
-		this.addFormField( "quantity", String.valueOf( count ) );
+        addFormField( "action", "buy" );
+        addFormField( "where", String.valueOf( source ) );
+        addFormField( "quantity", String.valueOf( count ) );
 	}
 
 	public RaffleRequest( final int count )
@@ -90,7 +90,7 @@ public class RaffleRequest
 	@Override
 	public void run()
 	{
-		if ( this.source != RaffleRequest.INVENTORY && this.source != RaffleRequest.STORAGE )
+		if ( source != RaffleRequest.INVENTORY && source != RaffleRequest.STORAGE )
 		{
 			KoLmafia.updateDisplay( MafiaState.ERROR, "Decide where to take meat from." );
 			return;
@@ -103,13 +103,13 @@ public class RaffleRequest
 	@Override
 	public void processResults()
 	{
-		String urlString = this.getURLString();
+		String urlString = getURLString();
 		String responseText = this.responseText;
 
 		// You cannot afford that many tickets.
 		if ( !RaffleRequest.parseResponse( urlString, responseText ) )
 		{
-			String where = ( this.source == RaffleRequest.INVENTORY ) ? "inventory" : "storage";
+			String where = (source == RaffleRequest.INVENTORY ) ? "inventory" : "storage";
 			KoLmafia.updateDisplay( MafiaState.ERROR, "You don't have enough meat in " + where );
 			return;
 		}

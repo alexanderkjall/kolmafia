@@ -40,7 +40,7 @@ public class SaveAsMoodCommand
 {
 	public SaveAsMoodCommand()
 	{
-		this.usage = " - add your current effects to the mood.";
+        usage = " - add your current effects to the mood.";
 	}
 
 	@Override

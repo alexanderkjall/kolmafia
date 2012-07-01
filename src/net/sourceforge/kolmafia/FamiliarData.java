@@ -113,35 +113,35 @@ public class FamiliarData
 	{
 		this.id = id;
 		this.name = name;
-		this.race = id == -1 ? "(none)" : FamiliarDatabase.getFamiliarName( id );
-		this.beeware = this.race.contains( "b" ) || this.race.contains( "B" );
+        race = id == -1 ? "(none)" : FamiliarDatabase.getFamiliarName( id );
+        beeware = race.contains( "b" ) || race.contains( "B" );
 
 		this.weight = weight;
 		this.item = item;
-		this.feasted = false;
-		this.charges = 0;
+        feasted = false;
+        charges = 0;
 	}
 
 	private FamiliarData( final Matcher dataMatcher )
 	{
-		this.id = StringUtilities.parseInt( dataMatcher.group( 2 ) );
-		this.race = dataMatcher.group( 4 );
-		this.beeware = this.race.contains( "b" ) || this.race.contains( "B" );
+        id = StringUtilities.parseInt( dataMatcher.group( 2 ) );
+        race = dataMatcher.group( 4 );
+        beeware = race.contains( "b" ) || race.contains( "B" );
 
 		String image = dataMatcher.group( 1 );
-		FamiliarDatabase.registerFamiliar( this.id, this.race, image );
+		FamiliarDatabase.registerFamiliar( id, race, image );
 
-		this.update( dataMatcher );
+        update( dataMatcher );
 	}
 
 	public final void update( final Matcher dataMatcher )
 	{
-		this.name = dataMatcher.group( 3 );
-		this.experience = StringUtilities.parseInt( dataMatcher.group( 5 ) );
-		this.setWeight();
+        name = dataMatcher.group( 3 );
+        experience = StringUtilities.parseInt( dataMatcher.group( 5 ) );
+        setWeight();
 		String itemData = dataMatcher.group( 6 );
-		this.item = FamiliarData.parseFamiliarItem( this.id, itemData );
-		this.favorite = itemData.contains( "[unfavorite]" );
+        item = FamiliarData.parseFamiliarItem( id, itemData );
+        favorite = itemData.contains( "[unfavorite]" );
 	}
 
 	public final boolean canEquip()
@@ -153,13 +153,13 @@ public class FamiliarData
 		}
 
 		// Familiars with a "B" in their race cannot be equipped in Beecore
-		if ( KoLCharacter.inBeecore() && this.beeware )
+		if ( KoLCharacter.inBeecore() && beeware )
 		{
 			return false;
 		}
 
 		// Untrendy familiars cannot be equipped in Trendycore
-		if ( KoLCharacter.isTrendy() && !TrendyRequest.isTrendy( "Familiars", this.race ) )
+		if ( KoLCharacter.isTrendy() && !TrendyRequest.isTrendy( "Familiars", race ) )
 		{
 			return false;
 		}
@@ -169,12 +169,12 @@ public class FamiliarData
 
 	public final int getTotalExperience()
 	{
-		return this.experience;
+		return experience;
 	}
 
 	public final void addCombatExperience( String responseText )
 	{
-		if ( this.id == FamiliarPool.STOCKING_MIMIC ) 
+		if ( id == FamiliarPool.STOCKING_MIMIC )
 		{
 			// Doesn't automatically gain experience from winning a combat
 			return;
@@ -196,16 +196,16 @@ public class FamiliarData
 			}
 		}
 
-		this.experience += 1 + experienceModifier;
+        experience += 1 + experienceModifier;
 
-		this.setWeight();
+        setWeight();
 	}
 
 	public final void addNonCombatExperience( int exp )
 	{
-		this.experience += exp;
+        experience += exp;
 
-		this.setWeight();
+        setWeight();
 	}
 
 	public final void recognizeCombatUse()
@@ -214,9 +214,9 @@ public class FamiliarData
 
 		if ( singleFamiliarRun == 0 )
 		{
-			Preferences.setInteger( "singleFamiliarRun", this.id );
+			Preferences.setInteger( "singleFamiliarRun", id );
 		}
-		else if ( this.id != singleFamiliarRun )
+		else if ( id != singleFamiliarRun )
 		{
 			Preferences.setInteger( "singleFamiliarRun", -1 );
 		}
@@ -224,14 +224,14 @@ public class FamiliarData
 
 	public final boolean isUnexpectedFamiliar()
 	{
-		if ( this.id == -1 && KoLCharacter.getCurrentRun() == 0 )
+		if ( id == -1 && KoLCharacter.getCurrentRun() == 0 )
 		{
 			return true;
 		}
 
 		int singleFamiliarRun = getSingleFamiliarRun();
 
-		return singleFamiliarRun > 0 && this.id != singleFamiliarRun;
+		return singleFamiliarRun > 0 && id != singleFamiliarRun;
 	}
 
 	public static int getSingleFamiliarRun()
@@ -266,14 +266,14 @@ public class FamiliarData
 
 	private void setWeight()
 	{
-		int max = this.id == FamiliarPool.STOCKING_MIMIC ? 100 : 20;
-		this.weight = Math.max( Math.min( max, (int) Math.sqrt( this.experience ) ), 1 );
+		int max = id == FamiliarPool.STOCKING_MIMIC ? 100 : 20;
+        weight = Math.max( Math.min( max, (int) Math.sqrt( experience ) ), 1 );
 	}
 
 	public final void checkWeight( final int weight, final boolean feasted )
 	{
 		// Sanity check: don't adjust NO_FAMILIAR
-		if ( this.id == -1 )
+		if ( id == -1 )
 		{
 			return;
 		}
@@ -282,7 +282,7 @@ public class FamiliarData
 		// familiar's weight and "well-fed" status.
 		this.feasted = feasted;
 
-		int delta = weight - this.getModifiedWeight();
+		int delta = weight - getModifiedWeight();
 		if ( delta != 0 )
 		{
 			RequestLogger.printLine( "Adjusting familiar weight by " + delta + " pound" + ( delta == 1 ? "" : "s" ) );
@@ -403,17 +403,17 @@ public class FamiliarData
 
 	public int getId()
 	{
-		return this.id;
+		return id;
 	}
 
 	public boolean getFeasted()
 	{
-		return this.feasted;
+		return feasted;
 	}
 
 	public void setItem( final AdventureResult item )
 	{
-		if ( this.id < 1 )
+		if ( id < 1 )
 		{
 			return;
 		}
@@ -446,7 +446,7 @@ public class FamiliarData
 
 		if ( !KoLmafia.isRefreshing() )
 		{
-			switch ( this.id )
+			switch ( id )
 			{
 			case FamiliarPool.HATRACK:
 				// Mad Hatrack
@@ -475,7 +475,7 @@ public class FamiliarData
 
 	public AdventureResult getItem()
 	{
-		return this.item == null ? EquipmentRequest.UNEQUIP : this.item;
+		return item == null ? EquipmentRequest.UNEQUIP : item;
 	}
 
 	public void setWeight( final int weight )
@@ -485,7 +485,7 @@ public class FamiliarData
 
 	public int getWeight()
 	{
-		return this.weight;
+		return weight;
 	}
 
 	public int getModifiedWeight()
@@ -517,7 +517,7 @@ public class FamiliarData
 			}
 
 			// Add modifiers for this familiar's equipment
-			item = this.getItem();
+			item = getItem();
 			if ( item != EquipmentRequest.UNEQUIP )
 			{
 				Modifiers mods = Modifiers.getModifiers( item.getName() );
@@ -540,7 +540,7 @@ public class FamiliarData
 		}
 
 		// If the familiar is well-fed, it's 10 lbs. heavier
-		if ( this.feasted )
+		if ( feasted )
 		{
 			weight += 10;
 		}
@@ -560,27 +560,27 @@ public class FamiliarData
 
 	public String getName()
 	{
-		return this.name;
+		return name;
 	}
 
 	public String getRace()
 	{
-		return this.race;
+		return race;
 	}
 
 	public boolean getFavorite()
 	{
-		return this.favorite;
+		return favorite;
 	}
 
 	public void setFavorite( boolean favor )
 	{
-		this.favorite = favor;
+        favorite = favor;
 	}
 
 	public String getImageLocation()
 	{
-		String image = FamiliarDatabase.getFamiliarImageLocation( this.id );
+		String image = FamiliarDatabase.getFamiliarImageLocation( id );
 		int index = image.lastIndexOf( "/" );
 		return index == -1 ? image : image.substring( index + 1 );
 	}
@@ -592,17 +592,17 @@ public class FamiliarData
 
 	public int getCharges()
 	{
-		return this.charges;
+		return charges;
 	}
 
 	public boolean trainable()
 	{
-		if ( this.id == -1 )
+		if ( id == -1 )
 		{
 			return false;
 		}
 
-		int skills[] = FamiliarDatabase.getFamiliarSkills( this.id );
+		int skills[] = FamiliarDatabase.getFamiliarSkills( id );
 
 		// If any skill is greater than 0, we can train in that event
 		for ( int i = 0; i < skills.length; ++i )
@@ -618,13 +618,13 @@ public class FamiliarData
 
 	public boolean waterBreathing()
 	{
-		Modifiers mods = Modifiers.getModifiers( "fam:" + this.getRace() );
+		Modifiers mods = Modifiers.getModifiers( "fam:" + getRace() );
 		return mods != null && mods.getBoolean( Modifiers.UNDERWATER_FAMILIAR );
 	}
 
 	public boolean enthroneable()
 	{
-		switch ( this.id )
+		switch ( id )
 		{
 		case FamiliarPool.DOPPEL:
 		case FamiliarPool.CHAMELEON:
@@ -639,23 +639,23 @@ public class FamiliarData
 	@Override
 	public String toString()
 	{
-		return this.id == -1 ? "(none)" : this.race + " (" + this.getModifiedWeight() + " lbs)";
+		return id == -1 ? "(none)" : race + " (" + getModifiedWeight() + " lbs)";
 	}
 
 	@Override
 	public boolean equals( final Object o )
 	{
-		return o != null && o instanceof FamiliarData && this.id == ( (FamiliarData) o ).id;
+		return o != null && o instanceof FamiliarData && id == ( (FamiliarData) o ).id;
 	}
 
 	public int compareTo( final Object o )
 	{
-		return o == null || !( o instanceof FamiliarData ) ? 1 : this.compareTo( (FamiliarData) o );
+		return o == null || !( o instanceof FamiliarData ) ? 1 : compareTo( (FamiliarData) o );
 	}
 
 	public int compareTo( final FamiliarData fd )
 	{
-		return this.race.compareToIgnoreCase( fd.race );
+		return race.compareToIgnoreCase( fd.race );
 	}
 
 	/**
@@ -681,7 +681,7 @@ public class FamiliarData
 			return false;
 		}
 
-		switch ( this.id )
+		switch ( id )
 		{
 		case -1:
 			return false;
@@ -707,7 +707,7 @@ public class FamiliarData
 		}
 
 		String name = item.getName();
-		if ( name.equals( FamiliarDatabase.getFamiliarItem( this.id ) ) )
+		if ( name.equals( FamiliarDatabase.getFamiliarItem( id ) ) )
 		{
 			return true;
 		}
@@ -730,7 +730,7 @@ public class FamiliarData
 		String[] pieces = others.split( "\\s*\\|\\s*" );
 		for ( int i = pieces.length - 1; i >= 0; --i )
 		{
-			if ( pieces[ i ].equals( this.getRace() ) )
+			if ( pieces[ i ].equals( getRace() ) )
 			{
 				return true;
 			}
@@ -751,12 +751,12 @@ public class FamiliarData
 
 	public boolean isCombatFamiliar()
 	{
-		if ( FamiliarDatabase.isCombatType( this.id ) )
+		if ( FamiliarDatabase.isCombatType( id ) )
 		{
 			return true;
 		}
 
-		if ( this.id == FamiliarPool.DANDY_LION )
+		if ( id == FamiliarPool.DANDY_LION )
 		{
 			return EquipmentManager.getEquipment( EquipmentManager.WEAPON ).getName().endsWith( "whip" ) ||
 			       EquipmentManager.getEquipment( EquipmentManager.OFFHAND ).getName().endsWith( "whip" );
@@ -767,7 +767,7 @@ public class FamiliarData
 
 	public final void findAndWearItem( boolean steal )
 	{
-		AdventureResult use = this.findGoodItem( steal );
+		AdventureResult use = findGoodItem( steal );
 		if ( use != null )
 		{
 			RequestThread.postRequest( new EquipmentRequest( use, EquipmentManager.FAMILIAR ) );
@@ -801,7 +801,7 @@ public class FamiliarData
 			return FamiliarData.MOVEABLE_FEAST;
 		}
 
-		int itemId = FamiliarDatabase.getFamiliarItemId( this.id );
+		int itemId = FamiliarDatabase.getFamiliarItemId( id );
 		AdventureResult item = itemId > 0 ? ItemPool.get( itemId, 1 ) : null;
 		if ( item != null && FamiliarData.availableItem( item, false ) )
 		{

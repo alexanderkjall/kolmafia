@@ -42,7 +42,7 @@ public class VariableList
 
 	public boolean add( final Variable n )
 	{
-		if ( this.find( n.getName() ) != null )
+		if ( find( n.getName() ) != null )
 		{
 			return false;
 		}

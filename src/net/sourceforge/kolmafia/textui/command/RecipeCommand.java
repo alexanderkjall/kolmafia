@@ -52,7 +52,7 @@ public class RecipeCommand
 {
 	public RecipeCommand()
 	{
-		this.usage = " <item> [, <item>]... - get ingredients or recipe for items.";
+        usage = " <item> [, <item>]... - get ingredients or recipe for items.";
 	}
 
 	@Override

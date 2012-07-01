@@ -52,9 +52,9 @@ public class ClanBuffRequest
 		super( "clan_stash.php" );
 
 		this.buffId = buffId;
-		this.addFormField( "action", "buyround" );
-		this.addFormField( "size", String.valueOf( buffId % 10 ) );
-		this.addFormField( "whichgift", String.valueOf( ( buffId / 10 ) ) );
+        addFormField( "action", "buyround" );
+        addFormField( "size", String.valueOf( buffId % 10 ) );
+        addFormField( "whichgift", String.valueOf( ( buffId / 10 ) ) );
 	}
 
 	/**
@@ -90,8 +90,8 @@ public class ClanBuffRequest
 	public String toString()
 	{
 		StringBuilder stringForm = new StringBuilder();
-		int size = this.buffId % 10;
-		int gift = this.buffId / 10;
+		int size = buffId % 10;
+		int gift = buffId / 10;
 
 		if ( gift != 9 )
 		{

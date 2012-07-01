@@ -122,7 +122,7 @@ public class ShowDescriptionList
 	public ShowDescriptionList( final LockableListModel displayModel, final ListElementFilter filter,
 		final int visibleRowCount )
 	{
-		this.contextMenu = new JPopupMenu();
+        contextMenu = new JPopupMenu();
 
 		boolean isMoodList = displayModel == MoodManager.getTriggers();
 		boolean isEncyclopedia = !displayModel.isEmpty() && displayModel.get( 0 ) instanceof Entry;
@@ -131,69 +131,69 @@ public class ShowDescriptionList
 		{
 			if ( displayModel.size() == 0 || !isEncyclopedia )
 			{
-				this.contextMenu.add( new ContextMenuItem( "Game description", new DescriptionRunnable() ) );
+                contextMenu.add( new ContextMenuItem( "Game description", new DescriptionRunnable() ) );
 			}
 
-			this.contextMenu.add( new ContextMenuItem( "Wiki description", new WikiLookupRunnable() ) );
+            contextMenu.add( new ContextMenuItem( "Wiki description", new WikiLookupRunnable() ) );
 		}
 
 		if ( displayModel == KoLConstants.activeEffects )
 		{
-			this.contextMenu.add( new ContextMenuItem( "Remove this effect", new ShrugOffRunnable() ) );
-			this.contextMenu.add( new ContextMenuItem( "Add to current mood", new AddToMoodEffectRunnable() ) );
-			this.contextMenu.add( new ContextMenuItem( "Extend this effect", new ExtendEffectRunnable() ) );
+            contextMenu.add( new ContextMenuItem( "Remove this effect", new ShrugOffRunnable() ) );
+            contextMenu.add( new ContextMenuItem( "Add to current mood", new AddToMoodEffectRunnable() ) );
+            contextMenu.add( new ContextMenuItem( "Extend this effect", new ExtendEffectRunnable() ) );
 		}
 
 		if ( displayModel == KoLConstants.usableSkills || displayModel == KoLConstants.availableSkills )
 		{
-			this.contextMenu.add( new ContextMenuItem( "Cast the skill once", new CastSkillRunnable() ) );
-			this.contextMenu.add( new ContextMenuItem( "Add to current mood", new AddToMoodSkillRunnable() ) );
+            contextMenu.add( new ContextMenuItem( "Cast the skill once", new CastSkillRunnable() ) );
+            contextMenu.add( new ContextMenuItem( "Add to current mood", new AddToMoodSkillRunnable() ) );
 		}
 
 		if ( displayModel == KoLConstants.tally )
 		{
-			this.contextMenu.add( new ContextMenuItem( "Zero out entries", new ZeroTallyRunnable() ) );
-			this.contextMenu.add( new JSeparator() );
+            contextMenu.add( new ContextMenuItem( "Zero out entries", new ZeroTallyRunnable() ) );
+            contextMenu.add( new JSeparator() );
 
-			this.contextMenu.add( new ContextMenuItem( "Add to junk list", new AddToJunkListRunnable() ) );
-			this.contextMenu.add( new ContextMenuItem( "Add to singleton list", new AddToSingletonListRunnable() ) );
-			this.contextMenu.add( new ContextMenuItem( "Add to memento list", new AddToMementoListRunnable() ) );
+            contextMenu.add( new ContextMenuItem( "Add to junk list", new AddToJunkListRunnable() ) );
+            contextMenu.add( new ContextMenuItem( "Add to singleton list", new AddToSingletonListRunnable() ) );
+            contextMenu.add( new ContextMenuItem( "Add to memento list", new AddToMementoListRunnable() ) );
 
-			this.contextMenu.add( new JSeparator() );
+            contextMenu.add( new JSeparator() );
 
-			this.contextMenu.add( new ContextMenuItem( "Autosell selected", new AutoSellRunnable() ) );
-			this.contextMenu.add( new ContextMenuItem( "Add selected to mall", new AutoMallRunnable() ) );
-			this.contextMenu.add( new ContextMenuItem( "Consume selected", new ConsumeRunnable() ) );
-			this.contextMenu.add( new ContextMenuItem( "Pulverize selected", new PulverizeRunnable() ) );
+            contextMenu.add( new ContextMenuItem( "Autosell selected", new AutoSellRunnable() ) );
+            contextMenu.add( new ContextMenuItem( "Add selected to mall", new AutoMallRunnable() ) );
+            contextMenu.add( new ContextMenuItem( "Consume selected", new ConsumeRunnable() ) );
+            contextMenu.add( new ContextMenuItem( "Pulverize selected", new PulverizeRunnable() ) );
 		}
 		else if ( displayModel == KoLConstants.inventory || displayModel == KoLConstants.closet || isEncyclopedia )
 		{
-			this.contextMenu.add( new ContextMenuItem( "Add to junk list", new AddToJunkListRunnable() ) );
-			this.contextMenu.add( new ContextMenuItem( "Add to singleton list", new AddToSingletonListRunnable() ) );
-			this.contextMenu.add( new ContextMenuItem( "Add to memento list", new AddToMementoListRunnable() ) );
+            contextMenu.add( new ContextMenuItem( "Add to junk list", new AddToJunkListRunnable() ) );
+            contextMenu.add( new ContextMenuItem( "Add to singleton list", new AddToSingletonListRunnable() ) );
+            contextMenu.add( new ContextMenuItem( "Add to memento list", new AddToMementoListRunnable() ) );
 		}
 		else if ( isMoodList )
 		{
-			this.contextMenu.add( new ContextMenuItem( "Force execution", new ForceExecuteRunnable() ) );
-			this.contextMenu.add( new ContextMenuItem( "Remove selected", new RemoveTriggerRunnable() ) );
+            contextMenu.add( new ContextMenuItem( "Force execution", new ForceExecuteRunnable() ) );
+            contextMenu.add( new ContextMenuItem( "Remove selected", new RemoveTriggerRunnable() ) );
 
-			this.addKeyListener( new RemoveTriggerListener() );
+            addKeyListener( new RemoveTriggerListener() );
 		}
 
-		this.addMouseListener( new PopupListener() );
+        addMouseListener( new PopupListener() );
 
-		this.originalModel = displayModel;
+        originalModel = displayModel;
 		this.displayModel = filter == null ? displayModel.getMirrorImage() : displayModel.getMirrorImage( filter );
-		this.setModel( this.displayModel );
+        setModel( this.displayModel );
 
-		this.setVisibleRowCount( visibleRowCount );
-		this.setCellRenderer( ListCellRendererFactory.getDefaultRenderer() );
-		this.setPrototypeCellValue( "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789" );
+        setVisibleRowCount( visibleRowCount );
+        setCellRenderer( ListCellRendererFactory.getDefaultRenderer() );
+        setPrototypeCellValue( "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789" );
 	}
 
 	public LockableListModel getOriginalModel()
 	{
-		return this.originalModel;
+		return originalModel;
 	}
 
 	/**
@@ -207,29 +207,29 @@ public class ShowDescriptionList
 		@Override
 		public void mousePressed( final MouseEvent e )
 		{
-			this.maybeShowPopup( e );
+            maybeShowPopup( e );
 		}
 
 		@Override
 		public void mouseReleased( final MouseEvent e )
 		{
-			this.maybeShowPopup( e );
+            maybeShowPopup( e );
 		}
 
 		private void maybeShowPopup( final MouseEvent e )
 		{
 			if ( e.isPopupTrigger() )
 			{
-				int index = ShowDescriptionList.this.locationToIndex( e.getPoint() );
-				ShowDescriptionList.this.lastSelectIndex = index;
+				int index = locationToIndex( e.getPoint() );
+                lastSelectIndex = index;
 
-				if ( !ShowDescriptionList.this.isSelectedIndex( index ) )
+				if ( !isSelectedIndex( index ) )
 				{
-					ShowDescriptionList.this.clearSelection();
-					ShowDescriptionList.this.addSelectionInterval( index, index );
+                    clearSelection();
+                    addSelectionInterval( index, index );
 				}
 
-				ShowDescriptionList.this.contextMenu.show( e.getComponent(), e.getX(), e.getY() );
+                contextMenu.show( e.getComponent(), e.getX(), e.getY() );
 			}
 		}
 	}
@@ -405,18 +405,18 @@ public class ShowDescriptionList
 		@Override
 		protected void execute()
 		{
-			this.index = ShowDescriptionList.this.lastSelectIndex == -1 ? ShowDescriptionList.this.getSelectedIndex() : ShowDescriptionList.this.lastSelectIndex;
+            index = lastSelectIndex == -1 ? getSelectedIndex() : lastSelectIndex;
 
-			this.item = ShowDescriptionList.this.displayModel.getElementAt( this.index );
+            item = displayModel.getElementAt( index );
 
-			if ( this.item == null )
+			if ( item == null )
 			{
 				return;
 			}
 
-			ShowDescriptionList.this.ensureIndexIsVisible( this.index );
+            ensureIndexIsVisible( index );
 
-			this.executeAction();
+            executeAction();
 		}
 
 		protected abstract void executeAction();
@@ -432,7 +432,7 @@ public class ShowDescriptionList
 		@Override
 		public void executeAction()
 		{
-			ShowDescriptionList.showGameDescription( this.item );
+			ShowDescriptionList.showGameDescription( item );
 		}
 	}
 
@@ -446,14 +446,14 @@ public class ShowDescriptionList
 		@Override
 		public void executeAction()
 		{
-			ShowDescriptionList.showWikiDescription( this.item );
+			ShowDescriptionList.showWikiDescription( item );
 		}
 	}
 
 	public void removeTriggers()
 	{
-		Object[] items = ShowDescriptionList.this.getSelectedValues();
-		ShowDescriptionList.this.clearSelection();
+		Object[] items = getSelectedValues();
+        clearSelection();
 
 		MoodManager.removeTriggers( items );
 		MoodManager.saveSettings();
@@ -465,8 +465,8 @@ public class ShowDescriptionList
 		@Override
 		public void executeAction()
 		{
-			Object[] items = ShowDescriptionList.this.getSelectedValues();
-			ShowDescriptionList.this.clearSelection();
+			Object[] items = getSelectedValues();
+            clearSelection();
 
 			for ( int i = 0; i < items.length; ++i )
 			{
@@ -481,7 +481,7 @@ public class ShowDescriptionList
 		@Override
 		public void executeAction()
 		{
-			ShowDescriptionList.this.removeTriggers();
+            removeTriggers();
 		}
 	}
 
@@ -501,7 +501,7 @@ public class ShowDescriptionList
 				return;
 			}
 
-			ShowDescriptionList.this.removeTriggers();
+            removeTriggers();
 			e.consume();
 		}
 	}
@@ -512,8 +512,8 @@ public class ShowDescriptionList
 		@Override
 		public void executeAction()
 		{
-			Object[] skills = ShowDescriptionList.this.getSelectedValues();
-			ShowDescriptionList.this.clearSelection();
+			Object[] skills = getSelectedValues();
+            clearSelection();
 
 			UseSkillRequest request;
 
@@ -535,8 +535,8 @@ public class ShowDescriptionList
 		@Override
 		public void executeAction()
 		{
-			Object[] skills = ShowDescriptionList.this.getSelectedValues();
-			ShowDescriptionList.this.clearSelection();
+			Object[] skills = getSelectedValues();
+            clearSelection();
 
 			if ( Preferences.getString( "currentMood" ).equals( "apathetic" ) )
 			{
@@ -565,8 +565,8 @@ public class ShowDescriptionList
 		@Override
 		public void executeAction()
 		{
-			Object[] effects = ShowDescriptionList.this.getSelectedValues();
-			ShowDescriptionList.this.clearSelection();
+			Object[] effects = getSelectedValues();
+            clearSelection();
 
 			if ( Preferences.getString( "currentMood" ).equals( "apathetic" ) )
 			{
@@ -602,8 +602,8 @@ public class ShowDescriptionList
 		@Override
 		public void executeAction()
 		{
-			Object[] effects = ShowDescriptionList.this.getSelectedValues();
-			ShowDescriptionList.this.clearSelection();
+			Object[] effects = getSelectedValues();
+            clearSelection();
 
 			String name, action;
 
@@ -626,7 +626,7 @@ public class ShowDescriptionList
 		@Override
 		public void executeAction()
 		{
-			Object[] effects = ShowDescriptionList.this.getSelectedValues();
+			Object[] effects = getSelectedValues();
 			for ( int i = 0; i < effects.length; ++i )
 			{
 				RequestThread.postRequest( new UneffectRequest( (AdventureResult) effects[ i ] ) );
@@ -640,8 +640,8 @@ public class ShowDescriptionList
 		@Override
 		public void executeAction()
 		{
-			Object[] items = ShowDescriptionList.this.getSelectedValues();
-			ShowDescriptionList.this.clearSelection();
+			Object[] items = getSelectedValues();
+            clearSelection();
 
 			AdventureResult data;
 
@@ -685,8 +685,8 @@ public class ShowDescriptionList
 		@Override
 		public void executeAction()
 		{
-			Object[] items = ShowDescriptionList.this.getSelectedValues();
-			ShowDescriptionList.this.clearSelection();
+			Object[] items = getSelectedValues();
+            clearSelection();
 
 			AdventureResult data;
 
@@ -734,8 +734,8 @@ public class ShowDescriptionList
 		@Override
 		public void executeAction()
 		{
-			Object[] items = ShowDescriptionList.this.getSelectedValues();
-			ShowDescriptionList.this.clearSelection();
+			Object[] items = getSelectedValues();
+            clearSelection();
 
 			AdventureResult data;
 
@@ -776,7 +776,7 @@ public class ShowDescriptionList
 		@Override
 		public void executeAction()
 		{
-			Object[] items = ShowDescriptionList.this.getSelectedValues();
+			Object[] items = getSelectedValues();
 			for ( int i = 0; i < items.length; ++i )
 			{
 				AdventureResult.addResultToList( KoLConstants.tally, ( (AdventureResult) items[ i ] ).getNegation() );
@@ -796,7 +796,7 @@ public class ShowDescriptionList
 			}
 
 			RequestThread.postRequest( new AutoSellRequest(
-				ShowDescriptionList.this.getSelectedValues() ) );
+                    getSelectedValues() ) );
 		}
 	}
 
@@ -812,7 +812,7 @@ public class ShowDescriptionList
 			}
 
 			RequestThread.postRequest( new AutoMallRequest(
-				ShowDescriptionList.this.getSelectedValues() ) );
+                    getSelectedValues() ) );
 		}
 	}
 
@@ -827,7 +827,7 @@ public class ShowDescriptionList
 				return;
 			}
 
-			Object[] items = ShowDescriptionList.this.getSelectedValues();
+			Object[] items = getSelectedValues();
 
 			for ( int i = 0; i < items.length; ++i )
 			{
@@ -847,7 +847,7 @@ public class ShowDescriptionList
 				return;
 			}
 
-			Object[] items = ShowDescriptionList.this.getSelectedValues();
+			Object[] items = getSelectedValues();
 
 			for ( int i = 0; i < items.length; ++i )
 			{

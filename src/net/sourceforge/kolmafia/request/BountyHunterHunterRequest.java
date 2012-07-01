@@ -119,7 +119,7 @@ public class BountyHunterHunterRequest
 	@Override
 	public void processResults()
 	{
-		BountyHunterHunterRequest.parseResponse( this.getURLString(), this.responseText );
+		BountyHunterHunterRequest.parseResponse( getURLString(), responseText );
 	}
 
 	private static final Pattern BOUNTY_PATTERN = Pattern.compile( "I'm still waiting for you to bring me (\\d+) (.*?), Bounty Hunter!" );

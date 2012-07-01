@@ -60,15 +60,15 @@ public class CompositeReference
 	{
 		super( target );
 		this.indices = indices;
-		this.fileName = parser.getShortFileName();
-		this.lineNumber = parser.getLineNumber();
+        fileName = parser.getShortFileName();
+        lineNumber = parser.getLineNumber();
 	}
 
 	@Override
 	public Type getType()
 	{
-		Type type = this.target.getType().getBaseType();
-		Iterator it = this.indices.iterator();
+		Type type = target.getType().getBaseType();
+		Iterator it = indices.iterator();
 
 		while ( it.hasNext() )
 		{
@@ -80,20 +80,20 @@ public class CompositeReference
 	@Override
 	public String getName()
 	{
-		return this.target.getName() + "[]";
+		return target.getName() + "[]";
 	}
 
 	@Override
 	public ValueList getIndices()
 	{
-		return this.indices;
+		return indices;
 	}
 
 	@Override
 	public Value execute( final Interpreter interpreter )
 	{
-		interpreter.setLineAndFile( this.fileName, this.lineNumber );
-		return this.getValue( interpreter );
+		interpreter.setLineAndFile( fileName, lineNumber );
+		return getValue( interpreter );
 	}
 
 	// Evaluate all the indices and step through the slices.
@@ -109,16 +109,16 @@ public class CompositeReference
 			return false;
 		}
 
-		this.slice = (CompositeValue) Value.asProxy( this.target.getValue( interpreter ) );
-		this.index = null;
+        slice = (CompositeValue) Value.asProxy( target.getValue( interpreter ) );
+        index = null;
 
 		interpreter.traceIndent();
 		if ( interpreter.isTracing() )
 		{
-			interpreter.trace( "AREF: " + this.slice.toString() );
+			interpreter.trace( "AREF: " + slice.toString() );
 		}
 
-		Iterator it = this.indices.iterator();
+		Iterator it = indices.iterator();
 
 		for ( int i = 0; it.hasNext(); ++i )
 		{
@@ -130,16 +130,16 @@ public class CompositeReference
 				interpreter.trace( "Key #" + ( i + 1 ) + ": " + exp.toQuotedString() );
 			}
 
-			this.index = exp.execute( interpreter );
-			interpreter.captureValue( this.index );
-			if ( this.index == null )
+            index = exp.execute( interpreter );
+			interpreter.captureValue( index );
+			if ( index == null )
 			{
-				this.index = DataTypes.VOID_VALUE;
+                index = DataTypes.VOID_VALUE;
 			}
 
 			if ( interpreter.isTracing() )
 			{
-				interpreter.trace( "[" + interpreter.getState() + "] <- " + this.index.toQuotedString() );
+				interpreter.trace( "[" + interpreter.getState() + "] <- " + index.toQuotedString() );
 			}
 			interpreter.traceUnindent();
 
@@ -152,21 +152,21 @@ public class CompositeReference
 			if ( it.hasNext() )
 			{
 				CompositeValue result = (CompositeValue) Value.asProxy(
-					this.slice.aref( this.index, interpreter ) );
+                        slice.aref( index, interpreter ) );
 
 				// Create missing intermediate slices
 				if ( result == null )
 				{	// ...but don't actually save a proxy in the parent object
-					Value temp = this.slice.initialValue( this.index );
-					this.slice.aset( this.index, temp, interpreter );
+					Value temp = slice.initialValue( index );
+                    slice.aset( index, temp, interpreter );
 					result = (CompositeValue) Value.asProxy( temp );
 				}
 
-				this.slice = result;
+                slice = result;
 
 				if ( interpreter.isTracing() )
 				{
-					interpreter.trace( "AREF <- " + this.slice.toString() );
+					interpreter.trace( "AREF <- " + slice.toString() );
 				}
 			}
 		}
@@ -179,15 +179,15 @@ public class CompositeReference
 	@Override
 	public Value getValue( final Interpreter interpreter )
 	{
-		interpreter.setLineAndFile( this.fileName, this.lineNumber );
+		interpreter.setLineAndFile( fileName, lineNumber );
 		// Iterate through indices to final slice
-		if ( this.getSlice( interpreter ) )
+		if ( getSlice( interpreter ) )
 		{
-			Value result = this.slice.aref( this.index, interpreter );
+			Value result = slice.aref( index, interpreter );
 
 			if ( result == null )
 			{
-				result = this.slice.initialValue( this.index );
+				result = slice.initialValue( index );
 			}
 
 			interpreter.traceIndent();
@@ -206,9 +206,9 @@ public class CompositeReference
 	@Override
 	public Value setValue( Interpreter interpreter, final Value targetValue, final Operator oper )
 	{
-		interpreter.setLineAndFile( this.fileName, this.lineNumber );
+		interpreter.setLineAndFile( fileName, lineNumber );
 		// Iterate through indices to final slice
-		if ( this.getSlice( interpreter ) )
+		if ( getSlice( interpreter ) )
 		{
 			Value newValue = targetValue;
 
@@ -216,12 +216,12 @@ public class CompositeReference
 
 			if ( oper != null )
 			{
-				Value currentValue = this.slice.aref( this.index, interpreter );
+				Value currentValue = slice.aref( index, interpreter );
 
 				if ( currentValue == null )
 				{
-					currentValue = this.slice.initialValue( this.index );
-					this.slice.aset( this.index, currentValue, interpreter );
+					currentValue = slice.initialValue( index );
+                    slice.aset( index, currentValue, interpreter );
 				}
 
 				if ( interpreter.isTracing() )
@@ -232,7 +232,7 @@ public class CompositeReference
 				newValue = oper.applyTo( interpreter, currentValue, targetValue );
 			}
 
-			this.slice.aset( this.index, newValue, interpreter );
+            slice.aset( index, newValue, interpreter );
 
 			if ( interpreter.isTracing() )
 			{
@@ -249,14 +249,14 @@ public class CompositeReference
 
 	public Value removeKey( final Interpreter interpreter )
 	{
-		interpreter.setLineAndFile( this.fileName, this.lineNumber );
+		interpreter.setLineAndFile( fileName, lineNumber );
 		// Iterate through indices to final slice
-		if ( this.getSlice( interpreter ) )
+		if ( getSlice( interpreter ) )
 		{
-			Value result = this.slice.remove( this.index, interpreter );
+			Value result = slice.remove( index, interpreter );
 			if ( result == null )
 			{
-				result = this.slice.initialValue( this.index );
+				result = slice.initialValue( index );
 			}
 			interpreter.traceIndent();
 			if ( interpreter.isTracing() )
@@ -271,12 +271,12 @@ public class CompositeReference
 
 	public boolean contains( final Interpreter interpreter, final Value index )
 	{
-		interpreter.setLineAndFile( this.fileName, this.lineNumber );
+		interpreter.setLineAndFile( fileName, lineNumber );
 		boolean result = false;
 		// Iterate through indices to final slice
-		if ( this.getSlice( interpreter ) )
+		if ( getSlice( interpreter ) )
 		{
-			result = this.slice.aref( index, interpreter ) != null;
+			result = slice.aref( index, interpreter ) != null;
 		}
 		interpreter.traceIndent();
 		if ( interpreter.isTracing() )
@@ -290,14 +290,14 @@ public class CompositeReference
 	@Override
 	public String toString()
 	{
-		return this.target.getName() + "[]";
+		return target.getName() + "[]";
 	}
 
 	@Override
 	public void print( final PrintStream stream, final int indent )
 	{
 		Interpreter.indentLine( stream, indent );
-		stream.println( "<AGGREF " + this.getName() + ">" );
-		Parser.printIndices( this.getIndices(), stream, indent + 1 );
+		stream.println( "<AGGREF " + getName() + ">" );
+		Parser.printIndices( getIndices(), stream, indent + 1 );
 	}
 }

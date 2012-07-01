@@ -1034,12 +1034,12 @@ public class HolidayDatabase
 
 			HolidayEntry other = (HolidayEntry) o;
 
-			if ( this.offset != other.offset )
+			if ( offset != other.offset )
 			{
-				return this.offset - other.offset;
+				return offset - other.offset;
 			}
 
-			return this.name.compareTo( other.name );
+			return name.compareTo( other.name );
 		}
 
 		@Override
@@ -1052,13 +1052,13 @@ public class HolidayDatabase
 
 			HolidayEntry other = (HolidayEntry) o;
 
-			return ( this.offset == other.offset ) && this.name.equals( other.name );
+			return (offset == other.offset ) && name.equals( other.name );
 		}
 
 		@Override
 		public String toString()
 		{
-			return this.name + ": " + getDayCountAsString( offset );
+			return name + ": " + getDayCountAsString( offset );
 		}
 	}
 

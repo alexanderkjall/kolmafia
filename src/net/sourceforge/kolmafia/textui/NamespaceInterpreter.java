@@ -65,11 +65,11 @@ public class NamespaceInterpreter
 	{
 		String importString = Preferences.getString( "commandLineNamespace" );
 
-		boolean shouldRefresh = !this.lastImportString.equals( importString );
+		boolean shouldRefresh = !lastImportString.equals( importString );
 
 		if ( !shouldRefresh )
 		{
-			TreeMap imports = this.parser.getImports();
+			TreeMap imports = parser.getImports();
 			Iterator it = imports.entrySet().iterator();
 
 			while ( it.hasNext() && !shouldRefresh )
@@ -91,9 +91,9 @@ public class NamespaceInterpreter
 	
 	private boolean refresh( String importString )
 	{
-		this.scope = new Scope( new VariableList(), Parser.getExistingFunctionScope() );
+        scope = new Scope( new VariableList(), Parser.getExistingFunctionScope() );
 
-		TreeMap imports = this.parser.getImports();
+		TreeMap imports = parser.getImports();
 		imports.clear();
 	
 		if ( importString.length() > 0 )
@@ -104,7 +104,7 @@ public class NamespaceInterpreter
 			{
 				try
 				{
-					this.parser.importFile( importList[ i ], this.scope );
+                    parser.importFile( importList[i], scope );
 				}
 				catch ( ScriptException e )
 				{
@@ -119,8 +119,8 @@ public class NamespaceInterpreter
 				}
 			}
 		}
-		
-		this.lastImportString = importString;
+
+        lastImportString = importString;
 		return true;
 	}
 }

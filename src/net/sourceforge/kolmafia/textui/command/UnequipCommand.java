@@ -47,7 +47,7 @@ public class UnequipCommand
 {
 	public UnequipCommand()
 	{
-		this.usage = " <slot> | <name> - remove equipment in slot, or that matches name";
+        usage = " <slot> | <name> - remove equipment in slot, or that matches name";
 	}
 
 	@Override

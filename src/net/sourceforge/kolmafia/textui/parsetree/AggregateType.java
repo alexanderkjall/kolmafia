@@ -48,87 +48,87 @@ public class AggregateType
 		super( "aggregate", DataTypes.TYPE_AGGREGATE );
 		this.dataType = dataType;
 		this.indexType = indexType;
-		this.size = 0;
+        size = 0;
 	}
 
 	// Array
 	public AggregateType( final Type dataType, final int size )
 	{
 		super( "aggregate", DataTypes.TYPE_AGGREGATE );
-		this.primitive = false;
+        primitive = false;
 		this.dataType = dataType;
-		this.indexType = DataTypes.INT_TYPE;
+        indexType = DataTypes.INT_TYPE;
 		this.size = size;
 	}
 
 	@Override
 	public Type getDataType()
 	{
-		return this.dataType;
+		return dataType;
 	}
 
 	@Override
 	public Type getDataType( final Object key )
 	{
-		return this.dataType;
+		return dataType;
 	}
 
 	@Override
 	public Type getIndexType()
 	{
-		return this.indexType;
+		return indexType;
 	}
 
 	public int getSize()
 	{
-		return this.size;
+		return size;
 	}
 
 	@Override
 	public boolean equals( final Type o )
 	{
-		return o instanceof AggregateType && this.dataType.equals( ( (AggregateType) o ).dataType ) && this.indexType.equals( ( (AggregateType) o ).indexType );
+		return o instanceof AggregateType && dataType.equals( ((AggregateType) o).dataType ) && indexType.equals( ((AggregateType) o).indexType );
 	}
 
 	@Override
 	public Type simpleType()
 	{
-		if ( this.dataType instanceof AggregateType )
+		if ( dataType instanceof AggregateType )
 		{
-			return this.dataType.simpleType();
+			return dataType.simpleType();
 		}
-		return this.dataType;
+		return dataType;
 	}
 
 	@Override
 	public String toString()
 	{
-		return this.simpleType().toString() + " [" + this.indexString() + "]";
+		return simpleType().toString() + " [" + indexString() + "]";
 	}
 
 	public String indexString()
 	{
-		if ( this.dataType instanceof AggregateType )
+		if ( dataType instanceof AggregateType )
 		{
-			String suffix = ", " + ( (AggregateType) this.dataType ).indexString();
-			if ( this.size != 0 )
+			String suffix = ", " + ( (AggregateType) dataType).indexString();
+			if ( size != 0 )
 			{
-				return this.size + suffix;
+				return size + suffix;
 			}
-			return this.indexType.toString() + suffix;
+			return indexType.toString() + suffix;
 		}
 
-		if ( this.size != 0 )
+		if ( size != 0 )
 		{
-			return String.valueOf( this.size );
+			return String.valueOf( size );
 		}
-		return this.indexType.toString();
+		return indexType.toString();
 	}
 
 	@Override
 	public Value initialValue()
 	{
-		if ( this.size != 0 )
+		if ( size != 0 )
 		{
 			return new ArrayValue( this );
 		}

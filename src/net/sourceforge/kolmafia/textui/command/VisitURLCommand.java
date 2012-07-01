@@ -61,7 +61,7 @@ public class VisitURLCommand
 
 		if ( cmd.equals( "text" ) )
 		{
-			this.CLI.showHTML( visitor.getURLString(), visitor.responseText );
+            CLI.showHTML( visitor.getURLString(), visitor.responseText );
 		}
 	}
 

@@ -171,22 +171,22 @@ public class AddCustomDeedsPanel
 		JPanel textPanel = new JPanel( new GridBagLayout() );
 		GridBagConstraints c = new GridBagConstraints();
 
-		this.simpleField1 = new JTextField( 25 );
-		this.simpleField2 = new JTextField( 25 );
-		this.simpleField3 = new JTextField( 25 );
-		this.simpleLabel1 = new JLabel( "required" );
-		this.simpleLabel1.setToolTipText( "The text to display on the button." );
-		this.simpleLabel2 = new JLabel( "(optional)" );
-		this.simpleLabel2.setToolTipText( "The command that the button will execute." );
-		this.simpleLabel3 = new JLabel( "(optional)" );
-		this.simpleLabel3
+        simpleField1 = new JTextField( 25 );
+        simpleField2 = new JTextField( 25 );
+        simpleField3 = new JTextField( 25 );
+        simpleLabel1 = new JLabel( "required" );
+        simpleLabel1.setToolTipText( "The text to display on the button." );
+        simpleLabel2 = new JLabel( "(optional)" );
+        simpleLabel2.setToolTipText( "The command that the button will execute." );
+        simpleLabel3 = new JLabel( "(optional)" );
+        simpleLabel3
 			.setToolTipText( "Provide an integer to disable the button at.  The button will be enabled until the preference reaches this number." );
 
-		this.simpleField1.getDocument().addDocumentListener( new SimpleField1Listener() );
-		this.simpleField2.getDocument().addDocumentListener( new SimpleField2Listener() );
-		this.simpleField3.getDocument().addDocumentListener( new SimpleField3Listener() );
+        simpleField1.getDocument().addDocumentListener( new SimpleField1Listener() );
+        simpleField2.getDocument().addDocumentListener( new SimpleField2Listener() );
+        simpleField3.getDocument().addDocumentListener( new SimpleField3Listener() );
 
-		this.simpleButton = new ThreadedButton( "add deed", new SimpleActionRunnable() );
+        simpleButton = new ThreadedButton( "add deed", new SimpleActionRunnable() );
 
 		title.add( new JLabel( "Adding simple deed." ) );
 
@@ -222,23 +222,23 @@ public class AddCustomDeedsPanel
 		c.gridx = 1;
 		c.gridy = 1;
 		c.anchor = GridBagConstraints.CENTER;
-		textPanel.add( this.simpleField1, c );
+		textPanel.add( simpleField1, c );
 		c.gridx = 1;
 		c.gridy = 2;
-		textPanel.add( this.simpleField2, c );
+		textPanel.add( simpleField2, c );
 		c.gridx = 1;
 		c.gridy = 3;
-		textPanel.add( this.simpleField3, c );
+		textPanel.add( simpleField3, c );
 
 		c.gridx = 2;
 		c.gridy = 1;
-		textPanel.add( this.simpleLabel1, c );
+		textPanel.add( simpleLabel1, c );
 		c.gridx = 2;
 		c.gridy = 2;
-		textPanel.add( this.simpleLabel2, c );
+		textPanel.add( simpleLabel2, c );
 		c.gridx = 2;
 		c.gridy = 3;
-		textPanel.add( this.simpleLabel3, c );
+		textPanel.add( simpleLabel3, c );
 
 		c.gridx = 0;
 		c.gridy = 5;
@@ -251,8 +251,8 @@ public class AddCustomDeedsPanel
 		c.gridx = 1;
 		c.gridy = 5;
 		c.anchor = GridBagConstraints.SOUTHEAST;
-		textPanel.add( this.simpleButton, c );
-		this.simpleButton.setEnabled( false );
+		textPanel.add( simpleButton, c );
+        simpleButton.setEnabled( false );
 
 		panel.add( title );
 		panel.add( textPanel );
@@ -269,26 +269,26 @@ public class AddCustomDeedsPanel
 		JPanel textPanel = new JPanel( new GridBagLayout() );
 		GridBagConstraints c = new GridBagConstraints();
 
-		this.commandField1 = new JTextField( 25 );
-		this.commandField2 = new JTextField( 25 );
-		this.commandField3 = new JTextField( 25 );
-		this.commandField4 = new JTextField( 25 );
-		this.commandLabel1 = new JLabel( "required" );
-		this.commandLabel1.setToolTipText( "The text to display on the button." );
-		this.commandLabel2 = new JLabel( "required" );
-		this.commandLabel2.setToolTipText( "The preference that the button will track." );
-		this.commandLabel3 = new JLabel( "(optional)" );
-		this.commandLabel3.setToolTipText( "The command that the button will execute." );
-		this.commandLabel4 = new JLabel( "(optional)" );
-		this.commandLabel4
+        commandField1 = new JTextField( 25 );
+        commandField2 = new JTextField( 25 );
+        commandField3 = new JTextField( 25 );
+        commandField4 = new JTextField( 25 );
+        commandLabel1 = new JLabel( "required" );
+        commandLabel1.setToolTipText( "The text to display on the button." );
+        commandLabel2 = new JLabel( "required" );
+        commandLabel2.setToolTipText( "The preference that the button will track." );
+        commandLabel3 = new JLabel( "(optional)" );
+        commandLabel3.setToolTipText( "The command that the button will execute." );
+        commandLabel4 = new JLabel( "(optional)" );
+        commandLabel4
 			.setToolTipText( "Provide an integer to disable the button at.  The button will be enabled until the preference reaches this number." );
 
-		this.commandField1.getDocument().addDocumentListener( new CommandField1Listener() );
-		this.commandField2.getDocument().addDocumentListener( new CommandField2Listener() );
-		this.commandField3.getDocument().addDocumentListener( new CommandField3Listener() );
-		this.commandField4.getDocument().addDocumentListener( new CommandField4Listener() );
+        commandField1.getDocument().addDocumentListener( new CommandField1Listener() );
+        commandField2.getDocument().addDocumentListener( new CommandField2Listener() );
+        commandField3.getDocument().addDocumentListener( new CommandField3Listener() );
+        commandField4.getDocument().addDocumentListener( new CommandField4Listener() );
 
-		this.commandButton = new ThreadedButton( "add deed", new CommandActionRunnable() );
+        commandButton = new ThreadedButton( "add deed", new CommandActionRunnable() );
 
 		title.add( new JLabel( "Adding command deed." ) );
 
@@ -330,29 +330,29 @@ public class AddCustomDeedsPanel
 		c.gridx = 1;
 		c.gridy = 1;
 		c.anchor = GridBagConstraints.CENTER;
-		textPanel.add( this.commandField1, c );
+		textPanel.add( commandField1, c );
 		c.gridx = 1;
 		c.gridy = 2;
-		textPanel.add( this.commandField2, c );
+		textPanel.add( commandField2, c );
 		c.gridx = 1;
 		c.gridy = 3;
-		textPanel.add( this.commandField3, c );
+		textPanel.add( commandField3, c );
 		c.gridx = 1;
 		c.gridy = 4;
-		textPanel.add( this.commandField4, c );
+		textPanel.add( commandField4, c );
 
 		c.gridx = 2;
 		c.gridy = 1;
-		textPanel.add( this.commandLabel1, c );
+		textPanel.add( commandLabel1, c );
 		c.gridx = 2;
 		c.gridy = 2;
-		textPanel.add( this.commandLabel2, c );
+		textPanel.add( commandLabel2, c );
 		c.gridx = 2;
 		c.gridy = 3;
-		textPanel.add( this.commandLabel3, c );
+		textPanel.add( commandLabel3, c );
 		c.gridx = 2;
 		c.gridy = 4;
-		textPanel.add( this.commandLabel4, c );
+		textPanel.add( commandLabel4, c );
 
 		c.gridx = 0;
 		c.gridy = 5;
@@ -365,8 +365,8 @@ public class AddCustomDeedsPanel
 		c.gridx = 1;
 		c.gridy = 5;
 		c.anchor = GridBagConstraints.SOUTHEAST;
-		textPanel.add( this.commandButton, c );
-		this.commandButton.setEnabled( false );
+		textPanel.add( commandButton, c );
+        commandButton.setEnabled( false );
 
 		panel.add( title );
 		panel.add( textPanel );
@@ -383,28 +383,28 @@ public class AddCustomDeedsPanel
 		JPanel textPanel = new JPanel( new GridBagLayout() );
 		GridBagConstraints c = new GridBagConstraints();
 
-		this.itemField1 = new JTextField( 25 );
-		this.itemField2 = new JTextField( 25 );
-		this.itemField3 = new JTextField( 25 );
-		this.itemField4 = new JTextField( 25 );
-		this.itemLabel1 = new JLabel( "required" );
-		this.itemLabel1.setToolTipText( "The text to display on the button." );
-		this.itemLabel2 = new JLabel( "required" );
-		this.itemLabel2.setToolTipText( "The preference that the button will track." );
-		this.itemLabel3 = new JLabel( "(optional)" );
-		this.itemLabel3
+        itemField1 = new JTextField( 25 );
+        itemField2 = new JTextField( 25 );
+        itemField3 = new JTextField( 25 );
+        itemField4 = new JTextField( 25 );
+        itemLabel1 = new JLabel( "required" );
+        itemLabel1.setToolTipText( "The text to display on the button." );
+        itemLabel2 = new JLabel( "required" );
+        itemLabel2.setToolTipText( "The preference that the button will track." );
+        itemLabel3 = new JLabel( "(optional)" );
+        itemLabel3
 			.setToolTipText( "If an item is not specified, defaults to displayText.  Uses fuzzy matching." );
-		this.itemLabel4 = new JLabel( "(optional)" );
-		this.itemLabel4
+        itemLabel4 = new JLabel( "(optional)" );
+        itemLabel4
 			.setToolTipText( "Provide an integer to disable the button at.  The button will be enabled until the preference reaches this number." );
 
-		this.itemField1.getDocument().addDocumentListener( new ItemField1Listener() );
-		this.itemField2.getDocument().addDocumentListener( new ItemField2Listener() );
-		this.itemField3.getDocument().addDocumentListener( new ItemField1Listener() );
+        itemField1.getDocument().addDocumentListener( new ItemField1Listener() );
+        itemField2.getDocument().addDocumentListener( new ItemField2Listener() );
+        itemField3.getDocument().addDocumentListener( new ItemField1Listener() );
 		// listener 1 sets the state of both label1 and label3
-		this.itemField4.getDocument().addDocumentListener( new ItemField4Listener() );
+        itemField4.getDocument().addDocumentListener( new ItemField4Listener() );
 
-		this.itemButton = new ThreadedButton( "add deed", new ItemPrefRunnable() );
+        itemButton = new ThreadedButton( "add deed", new ItemPrefRunnable() );
 
 		title.add( new JLabel( "Adding Item Deed." ) );
 
@@ -446,29 +446,29 @@ public class AddCustomDeedsPanel
 		c.gridx = 1;
 		c.gridy = 1;
 		c.anchor = GridBagConstraints.CENTER;
-		textPanel.add( this.itemField1, c );
+		textPanel.add( itemField1, c );
 		c.gridx = 1;
 		c.gridy = 2;
-		textPanel.add( this.itemField2, c );
+		textPanel.add( itemField2, c );
 		c.gridx = 1;
 		c.gridy = 3;
-		textPanel.add( this.itemField3, c );
+		textPanel.add( itemField3, c );
 		c.gridx = 1;
 		c.gridy = 4;
-		textPanel.add( this.itemField4, c );
+		textPanel.add( itemField4, c );
 
 		c.gridx = 2;
 		c.gridy = 1;
-		textPanel.add( this.itemLabel1, c );
+		textPanel.add( itemLabel1, c );
 		c.gridx = 2;
 		c.gridy = 2;
-		textPanel.add( this.itemLabel2, c );
+		textPanel.add( itemLabel2, c );
 		c.gridx = 2;
 		c.gridy = 3;
-		textPanel.add( this.itemLabel3, c );
+		textPanel.add( itemLabel3, c );
 		c.gridx = 2;
 		c.gridy = 4;
-		textPanel.add( this.itemLabel4, c );
+		textPanel.add( itemLabel4, c );
 
 		c.gridx = 0;
 		c.gridy = 5;
@@ -481,8 +481,8 @@ public class AddCustomDeedsPanel
 		c.gridx = 1;
 		c.gridy = 5;
 		c.anchor = GridBagConstraints.SOUTHEAST;
-		textPanel.add( this.itemButton, c );
-		this.itemButton.setEnabled( false );
+		textPanel.add( itemButton, c );
+        itemButton.setEnabled( false );
 
 		panel.add( title );
 		panel.add( textPanel );
@@ -499,26 +499,26 @@ public class AddCustomDeedsPanel
 		JPanel textPanel = new JPanel( new GridBagLayout() );
 		GridBagConstraints c = new GridBagConstraints();
 
-		this.skillField1 = new JTextField( 25 );
-		this.skillField2 = new JTextField( 25 );
-		this.skillField3 = new JTextField( 25 );
-		this.skillField4 = new JTextField( 25 );
-		this.skillLabel1 = new JLabel( "required" );
-		this.skillLabel1.setToolTipText( "The text to display on the button." );
-		this.skillLabel2 = new JLabel( "required" );
-		this.skillLabel2.setToolTipText( "The preference that the button will track." );
-		this.skillLabel3 = new JLabel( "(optional)" );
-		this.skillLabel3.setToolTipText( "The skill that the button will cast." );
-		this.skillLabel4 = new JLabel( "(optional)" );
-		this.skillLabel4.setToolTipText( "Provide an integer to disable the button at.  The button will be enabled until the preference reaches this number." );
+        skillField1 = new JTextField( 25 );
+        skillField2 = new JTextField( 25 );
+        skillField3 = new JTextField( 25 );
+        skillField4 = new JTextField( 25 );
+        skillLabel1 = new JLabel( "required" );
+        skillLabel1.setToolTipText( "The text to display on the button." );
+        skillLabel2 = new JLabel( "required" );
+        skillLabel2.setToolTipText( "The preference that the button will track." );
+        skillLabel3 = new JLabel( "(optional)" );
+        skillLabel3.setToolTipText( "The skill that the button will cast." );
+        skillLabel4 = new JLabel( "(optional)" );
+        skillLabel4.setToolTipText( "Provide an integer to disable the button at.  The button will be enabled until the preference reaches this number." );
 
-		this.skillField1.getDocument().addDocumentListener( new SkillField1Listener() );
-		this.skillField2.getDocument().addDocumentListener( new SkillField2Listener() );
+        skillField1.getDocument().addDocumentListener( new SkillField1Listener() );
+        skillField2.getDocument().addDocumentListener( new SkillField2Listener() );
 		// listener 1 sets the state of both label1 and label3
-		this.skillField3.getDocument().addDocumentListener( new SkillField1Listener() );
-		this.skillField4.getDocument().addDocumentListener( new SkillField4Listener() );
+        skillField3.getDocument().addDocumentListener( new SkillField1Listener() );
+        skillField4.getDocument().addDocumentListener( new SkillField4Listener() );
 
-		this.skillButton = new ThreadedButton( "add deed", new SkillActionRunnable() );
+        skillButton = new ThreadedButton( "add deed", new SkillActionRunnable() );
 
 		title.add( new JLabel( "Adding Skill Deed." ) );
 
@@ -560,29 +560,29 @@ public class AddCustomDeedsPanel
 		c.gridx = 1;
 		c.gridy = 1;
 		c.anchor = GridBagConstraints.CENTER;
-		textPanel.add( this.skillField1, c );
+		textPanel.add( skillField1, c );
 		c.gridx = 1;
 		c.gridy = 2;
-		textPanel.add( this.skillField2, c );
+		textPanel.add( skillField2, c );
 		c.gridx = 1;
 		c.gridy = 3;
-		textPanel.add( this.skillField3, c );
+		textPanel.add( skillField3, c );
 		c.gridx = 1;
 		c.gridy = 4;
-		textPanel.add( this.skillField4, c );
+		textPanel.add( skillField4, c );
 
 		c.gridx = 2;
 		c.gridy = 1;
-		textPanel.add( this.skillLabel1, c );
+		textPanel.add( skillLabel1, c );
 		c.gridx = 2;
 		c.gridy = 2;
-		textPanel.add( this.skillLabel2, c );
+		textPanel.add( skillLabel2, c );
 		c.gridx = 2;
 		c.gridy = 3;
-		textPanel.add( this.skillLabel3, c );
+		textPanel.add( skillLabel3, c );
 		c.gridx = 2;
 		c.gridy = 4;
-		textPanel.add( this.skillLabel4, c );
+		textPanel.add( skillLabel4, c );
 
 		c.gridx = 0;
 		c.gridy = 5;
@@ -595,8 +595,8 @@ public class AddCustomDeedsPanel
 		c.gridx = 1;
 		c.gridy = 5;
 		c.anchor = GridBagConstraints.SOUTHEAST;
-		textPanel.add( this.skillButton, c );
-		this.skillButton.setEnabled( false );
+		textPanel.add( skillButton, c );
+        skillButton.setEnabled( false );
 
 		panel.add( title );
 		panel.add( textPanel );
@@ -613,24 +613,24 @@ public class AddCustomDeedsPanel
 		JPanel textPanel = new JPanel( new GridBagLayout() );
 		GridBagConstraints c = new GridBagConstraints();
 
-		this.textField = new JTextField( 25 );
-		this.textArea = new JTextArea();
-		this.textArea.setColumns( 10 );
-		this.textArea.setRows( 4 );
-		this.textArea.setMaximumSize( this.textArea.getPreferredSize() );
-		this.textArea.setBorder( BorderFactory.createLoweredBevelBorder() );
-		this.textArea.setLineWrap( true );
-		this.textArea.setWrapStyleWord( true );
-		this.textArea.setEditable( false );
-		this.textArea.setOpaque( false );
-		this.textArea.setFont( KoLConstants.DEFAULT_FONT );
+        textField = new JTextField( 25 );
+        textArea = new JTextArea();
+        textArea.setColumns( 10 );
+        textArea.setRows( 4 );
+        textArea.setMaximumSize( textArea.getPreferredSize() );
+        textArea.setBorder( BorderFactory.createLoweredBevelBorder() );
+        textArea.setLineWrap( true );
+        textArea.setWrapStyleWord( true );
+        textArea.setEditable( false );
+        textArea.setOpaque( false );
+        textArea.setFont( KoLConstants.DEFAULT_FONT );
 
 		ThreadedButton undoButton = new ThreadedButton( "undo", new RemoveLastTextRunnable() );
 		ThreadedButton clearButton = new ThreadedButton( "clear", new ClearTextRunnable() );
 
-		this.textField.getDocument().addDocumentListener( new TextFieldListener() );
-		this.addTextButton = new ThreadedButton( "add text", new AddTextRunnable() );
-		this.textDeedButton = new ThreadedButton( "add deed", new TextActionRunnable() );
+        textField.getDocument().addDocumentListener( new TextFieldListener() );
+        addTextButton = new ThreadedButton( "add text", new AddTextRunnable() );
+        textDeedButton = new ThreadedButton( "add deed", new TextActionRunnable() );
 
 		title.add( new JLabel( "Adding Text Deed." ) );
 
@@ -647,14 +647,14 @@ public class AddCustomDeedsPanel
 		c.gridy = 1;
 		c.gridwidth = 1;
 		c.anchor = GridBagConstraints.NORTH;
-		textPanel.add( this.textField, c );
+		textPanel.add( textField, c );
 
 		c.fill = GridBagConstraints.NONE;
 		c.gridx = 2;
 		c.gridy = 1;
 		c.anchor = GridBagConstraints.NORTHWEST;
-		textPanel.add( this.addTextButton, c );
-		this.addTextButton.setEnabled( false );
+		textPanel.add( addTextButton, c );
+        addTextButton.setEnabled( false );
 		c.fill = GridBagConstraints.NONE;
 		c.gridx = 2;
 		c.gridy = 2;
@@ -670,7 +670,7 @@ public class AddCustomDeedsPanel
 		c.gridy = 2;
 		c.anchor = GridBagConstraints.CENTER;
 		c.gridheight = 2;
-		textPanel.add( this.textArea, c );
+		textPanel.add( textArea, c );
 
 		c.gridx = 0;
 		c.gridy = 5;
@@ -684,8 +684,8 @@ public class AddCustomDeedsPanel
 		c.gridx = 1;
 		c.gridy = 5;
 		c.anchor = GridBagConstraints.SOUTHEAST;
-		textPanel.add( this.textDeedButton, c );
-		this.textDeedButton.setEnabled( false );
+		textPanel.add( textDeedButton, c );
+        textDeedButton.setEnabled( false );
 
 		panel.add( title );
 		panel.add( textPanel );
@@ -1703,10 +1703,10 @@ public class AddCustomDeedsPanel
 	{
 		JTextField[] fields =
 		{
-			this.commandField1, this.commandField2, this.commandField3, this.commandField4,
-			this.itemField1, this.itemField2, this.itemField3, this.itemField4, this.skillField1,
-			this.skillField2, this.skillField3, this.skillField4, this.textField, this.simpleField1,
-			this.simpleField2, this.simpleField3
+                commandField1, commandField2, commandField3, commandField4,
+                itemField1, itemField2, itemField3, itemField4, skillField1,
+                skillField2, skillField3, skillField4, textField, simpleField1,
+                simpleField2, simpleField3
 		};
 		return fields[ choice ];
 	}
@@ -1715,10 +1715,10 @@ public class AddCustomDeedsPanel
 	{
 		JLabel[] labels =
 		{
-			this.commandLabel1, this.commandLabel2, this.commandLabel3, this.commandLabel4,
-			this.itemLabel1, this.itemLabel2, this.itemLabel3, this.itemLabel4, this.skillLabel1,
-			this.skillLabel2, this.skillLabel3, this.skillLabel4, this.simpleLabel1, this.simpleLabel2,
-			this.simpleLabel3
+                commandLabel1, commandLabel2, commandLabel3, commandLabel4,
+                itemLabel1, itemLabel2, itemLabel3, itemLabel4, skillLabel1,
+                skillLabel2, skillLabel3, skillLabel4, simpleLabel1, simpleLabel2,
+                simpleLabel3
 		};
 		return labels[ choice ];
 	}

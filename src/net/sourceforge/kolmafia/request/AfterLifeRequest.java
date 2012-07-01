@@ -61,7 +61,7 @@ public class AfterLifeRequest
 	@Override
 	public void processResults()
 	{
-		AfterLifeRequest.parseResponse( this.getURLString(), this.responseText );
+		AfterLifeRequest.parseResponse( getURLString(), responseText );
 	}
 
 	public static boolean parseResponse( final String urlString, final String responseText )

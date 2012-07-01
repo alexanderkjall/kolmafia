@@ -49,7 +49,7 @@ public class CreationSettingCheckBox
 	{
 		super( label, property );
 
-		this.setToolTipText( tooltip );
+        setToolTipText( tooltip );
 	}
 
 	@Override

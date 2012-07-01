@@ -71,13 +71,13 @@ public class VolcanoIslandRequest
 	public VolcanoIslandRequest( final String action )
 	{
 		super( "volcanoisland.php" );
-		this.addFormField( "action", action );
+        addFormField( "action", action );
 	}
 
 	public VolcanoIslandRequest( final String action, final String subaction )
 	{
 		this( action );
-		this.addFormField( "subaction", subaction );
+        addFormField( "subaction", subaction );
 	}
 
 	public static void getSlime()

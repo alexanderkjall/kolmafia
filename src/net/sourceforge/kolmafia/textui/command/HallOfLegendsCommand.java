@@ -46,7 +46,7 @@ public class HallOfLegendsCommand
 {
 	public HallOfLegendsCommand()
 	{
-		this.usage = " boris | mus | jarl | mys | pete | mox <amount> - donate in Hall of Legends.";
+        usage = " boris | mus | jarl | mys | pete | mox <amount> - donate in Hall of Legends.";
 	}
 
 	@Override

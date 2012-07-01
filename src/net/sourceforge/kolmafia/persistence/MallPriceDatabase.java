@@ -308,22 +308,22 @@ public class MallPriceDatabase
 
 		public Price get( final int index )
 		{
-			return index < 0 || index >= this.internalList.size() ? null : (Price) this.internalList.get( index );
+			return index < 0 || index >= internalList.size() ? null : (Price) internalList.get( index );
 		}
 
 		public void set( final int index, final Price value )
 		{
-			for ( int i = this.internalList.size(); i <= index; ++i )
+			for ( int i = internalList.size(); i <= index; ++i )
 			{
-				this.internalList.add( null );
+                internalList.add( null );
 			}
 
-			this.internalList.set( index, value );
+            internalList.set( index, value );
 		}
 
 		public int size()
 		{
-			return this.internalList.size();
+			return internalList.size();
 		}
 	}
 }

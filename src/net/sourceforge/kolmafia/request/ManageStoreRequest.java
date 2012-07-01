@@ -65,7 +65,7 @@ public class ManageStoreRequest
 	public ManageStoreRequest( final boolean isStoreLog )
 	{
 		super( isStoreLog ? "storelog.php" : "manageprices.php" );
-		this.requestType = isStoreLog ? ManageStoreRequest.VIEW_STORE_LOG : ManageStoreRequest.PRICE_MANAGEMENT;
+        requestType = isStoreLog ? ManageStoreRequest.VIEW_STORE_LOG : ManageStoreRequest.PRICE_MANAGEMENT;
 	}
 
 	public ManageStoreRequest( final int itemId )
@@ -76,11 +76,11 @@ public class ManageStoreRequest
 	public ManageStoreRequest( final int itemId, final boolean takeAll )
 	{
 		super( "managestore.php" );
-		this.addFormField( "action", takeAll ? "takeall" : "take" );
-		this.addFormField( "whichitem", String.valueOf( itemId ) );
+        addFormField( "action", takeAll ? "takeall" : "take" );
+        addFormField( "whichitem", String.valueOf( itemId ) );
 
-		this.requestType = ManageStoreRequest.ITEM_REMOVAL;
-		this.takenItemId = itemId;
+        requestType = ManageStoreRequest.ITEM_REMOVAL;
+        takenItemId = itemId;
 
 		if ( takeAll )
 		{
@@ -95,14 +95,14 @@ public class ManageStoreRequest
 	public ManageStoreRequest( final int[] itemId, final int[] prices, final int[] limits )
 	{
 		super( "manageprices.php" );
-		this.addFormField( "action", "update" );
+        addFormField( "action", "update" );
 
-		this.requestType = ManageStoreRequest.PRICE_MANAGEMENT;
+        requestType = ManageStoreRequest.PRICE_MANAGEMENT;
 		for ( int i = 0; i < itemId.length; ++i )
 		{
-			this.addFormField( "price" + itemId[ i ], prices[ i ] == 0 ? "" : String.valueOf( Math.max(
+            addFormField( "price" + itemId[ i ], prices[ i ] == 0 ? "" : String.valueOf( Math.max(
 				prices[ i ], Math.max( ItemDatabase.getPriceById( itemId[ i ] ), 100 ) ) ) );
-			this.addFormField( "limit" + itemId[ i ], String.valueOf( limits[ i ] ) );
+            addFormField( "limit" + itemId[ i ], String.valueOf( limits[ i ] ) );
 		}
 	}
 
@@ -115,18 +115,18 @@ public class ManageStoreRequest
 	@Override
 	public void run()
 	{
-		switch ( this.requestType )
+		switch ( requestType )
 		{
 		case ITEM_REMOVAL:
-			this.removeItem();
+            removeItem();
 			break;
 
 		case PRICE_MANAGEMENT:
-			this.managePrices();
+            managePrices();
 			break;
 
 		case VIEW_STORE_LOG:
-			this.viewStoreLogs();
+            viewStoreLogs();
 			break;
 		}
 	}
@@ -137,9 +137,9 @@ public class ManageStoreRequest
 
 		super.run();
 
-		if ( this.responseText != null )
+		if ( responseText != null )
 		{
-			StoreManager.parseLog( this.responseText );
+			StoreManager.parseLog( responseText );
 		}
 
 		KoLmafia.updateDisplay( "Store purchase logs retrieved." );
@@ -151,9 +151,9 @@ public class ManageStoreRequest
 
 		super.run();
 
-		if ( this.responseText != null )
+		if ( responseText != null )
 		{
-			StoreManager.update( this.responseText, true );
+			StoreManager.update( responseText, true );
 		}
 
 		KoLmafia.updateDisplay( "Store inventory request complete." );
@@ -161,21 +161,21 @@ public class ManageStoreRequest
 
 	private void removeItem()
 	{
-		KoLmafia.updateDisplay( "Removing " + ItemDatabase.getItemName( this.takenItemId ) + " from store..." );
-		AdventureResult takenItem = new AdventureResult( this.takenItemId, 0 );
+		KoLmafia.updateDisplay( "Removing " + ItemDatabase.getItemName( takenItemId ) + " from store..." );
+		AdventureResult takenItem = new AdventureResult( takenItemId, 0 );
 
 		super.run();
 
 		Matcher takenItemMatcher =
-			Pattern.compile( "<option value=\"" + this.takenItemId + "\".*?>.*?\\(([\\d,]+)\\)</option>" ).matcher(
-				this.responseText );
+			Pattern.compile( "<option value=\"" + takenItemId + "\".*?>.*?\\(([\\d,]+)\\)</option>" ).matcher(
+                    responseText );
 		if ( takenItemMatcher.find() )
 		{
 			ResultProcessor.processResult(
 				takenItem.getInstance( StringUtilities.parseInt( takenItemMatcher.group( 1 ) ) - takenItem.getCount( KoLConstants.inventory ) ) );
 		}
 
-		StoreManager.update( this.responseText, false );
+		StoreManager.update( responseText, false );
 		KoLmafia.updateDisplay( takenItem.getName() + " removed from your store." );
 	}
 

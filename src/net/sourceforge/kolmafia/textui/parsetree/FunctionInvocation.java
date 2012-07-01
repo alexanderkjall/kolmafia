@@ -60,7 +60,7 @@ public class FunctionInvocation
 	@Override
 	public Type getType()
 	{
-		return this.type;
+		return type;
 	}
 
 	@Override
@@ -77,11 +77,11 @@ public class FunctionInvocation
 		if ( interpreter.isTracing() )
 		{
 			interpreter.trace( "Invoke: " + this );
-			interpreter.trace( "Function name: " + this.name );
+			interpreter.trace( "Function name: " + name );
 		}
 
 		// Get the function name
-		Value funcValue = this.name.execute( interpreter );
+		Value funcValue = name.execute( interpreter );
 
 		if ( interpreter.isTracing() )
 		{
@@ -94,21 +94,21 @@ public class FunctionInvocation
 			return null;
 		}
 
-		interpreter.setLineAndFile( this.fileName, this.lineNumber );
+		interpreter.setLineAndFile( fileName, lineNumber );
 
 		String func = funcValue.toString();
-		Function function = this.scope.findFunction( func, this.params );
+		Function function = scope.findFunction( func, params );
 		if ( function == null )
 		{
-			throw interpreter.undefinedFunctionException( func, this.params );
+			throw interpreter.undefinedFunctionException( func, params );
 		}
 
-		if ( !Parser.validCoercion( this.type, function.getType(), "return" ) )
+		if ( !Parser.validCoercion( type, function.getType(), "return" ) )
 		{
-			throw interpreter.runtimeException( "Calling \"" + func + "\", which returns " + function.getType() + " but " + this.type + " expected" );
+			throw interpreter.runtimeException( "Calling \"" + func + "\", which returns " + function.getType() + " but " + type + " expected" );
 		}
 
-		this.target = function;
+        target = function;
 
 		// Invoke it.
 		Value result = super.execute( interpreter );
@@ -120,17 +120,17 @@ public class FunctionInvocation
 	@Override
 	public String toString()
 	{
-		return "call " + this.type.toString() + " " + this.name.toString() + "()";
+		return "call " + type.toString() + " " + name.toString() + "()";
 	}
 
 	@Override
 	public void print( final PrintStream stream, final int indent )
 	{
 		Interpreter.indentLine( stream, indent );
-		stream.println( "<INVOKE " + this.name.toString() + ">" );
-		this.type.print( stream, indent + 1 );
+		stream.println( "<INVOKE " + name.toString() + ">" );
+        type.print( stream, indent + 1 );
 
-		Iterator it = this.getValues();
+		Iterator it = getValues();
 		while ( it.hasNext() )
 		{
 			Value current = (Value) it.next();

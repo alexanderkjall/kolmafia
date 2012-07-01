@@ -62,7 +62,7 @@ public class UseItemPanel
 	@Override
 	public void actionConfirmed()
 	{
-		Object[] items = this.getDesiredItems( "Consume" );
+		Object[] items = getDesiredItems( "Consume" );
 		if ( items == null )
 		{
 			return;
@@ -78,7 +78,7 @@ public class UseItemPanel
 	public void actionCancelled()
 	{
 		String name;
-		Object[] values = this.elementList.getSelectedValues();
+		Object[] values = elementList.getSelectedValues();
 
 		for ( int i = 0; i < values.length; ++i )
 		{
@@ -99,7 +99,7 @@ public class UseItemPanel
 			AdventureResult item = (AdventureResult) element;
 			int itemId = item.getItemId();
 
-			if ( !UsableItemFilterField.this.notrade && !ItemDatabase.isTradeable( itemId ) )
+			if ( !notrade && !ItemDatabase.isTradeable( itemId ) )
 			{
 				return false;
 			}
@@ -109,11 +109,11 @@ public class UseItemPanel
 			switch ( ItemDatabase.getConsumptionType( itemId ) )
 			{
 			case KoLConstants.CONSUME_EAT:
-				filter = UsableItemFilterField.this.food;
+				filter = food;
 				break;
 
 			case KoLConstants.CONSUME_DRINK:
-				filter = UsableItemFilterField.this.booze;
+				filter = booze;
 				break;
 
 			case KoLConstants.CONSUME_USE:
@@ -125,7 +125,7 @@ public class UseItemPanel
 			case KoLConstants.MP_RESTORE:
 			case KoLConstants.HP_RESTORE:
 			case KoLConstants.HPMP_RESTORE:
-				filter = UsableItemFilterField.this.other;
+				filter = other;
 				break;
 
 			case KoLConstants.EQUIP_FAMILIAR:
@@ -136,11 +136,11 @@ public class UseItemPanel
 			case KoLConstants.EQUIP_SHIRT:
 			case KoLConstants.EQUIP_WEAPON:
 			case KoLConstants.EQUIP_OFFHAND:
-				filter = UsableItemFilterField.this.equip;
+				filter = equip;
 				break;
 
 			default:
-				filter = UsableItemFilterField.this.other &&
+				filter = other &&
 					ItemDatabase.getAttribute( itemId,
 						ItemDatabase.ATTR_USABLE | ItemDatabase.ATTR_MULTIPLE | ItemDatabase.ATTR_REUSABLE | ItemDatabase.ATTR_CURSE );
 			}

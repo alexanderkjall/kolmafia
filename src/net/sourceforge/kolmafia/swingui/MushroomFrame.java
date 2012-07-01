@@ -50,14 +50,14 @@ public class MushroomFrame
 		JPanel plantPanel = new JPanel();
 		plantPanel.add( new MushroomPlotPanel() );
 
-		this.tabs.addTab( "One Day Planting", plantPanel );
+        tabs.addTab( "One Day Planting", plantPanel );
 
 		JPanel planPanel = new JPanel();
 		planPanel.add( new MushroomScriptPanel() );
 
-		this.tabs.addTab( "Script Generator", planPanel );
+        tabs.addTab( "Script Generator", planPanel );
 
-		this.setCenterComponent( this.tabs );
+        setCenterComponent( tabs );
 	}
 
 }

@@ -44,7 +44,7 @@ public class JukeboxCommand
 {
 	public JukeboxCommand()
 	{
-		this.usage = " song - listen to a song on your clan's jukebox";
+        usage = " song - listen to a song on your clan's jukebox";
 	}
 
 	@Override

@@ -408,36 +408,36 @@ public class BasementDecorator
 		{
 			this.name = name;
 
-			this.computedBoost = this.computeBoost();
-			this.effectiveBoost = this.computedBoost > 0.0f ? this.computedBoost : 0 - this.computedBoost;
+            computedBoost = computeBoost();
+            effectiveBoost = computedBoost > 0.0f ? computedBoost : 0 - computedBoost;
 
-			this.action =
-				this.computedBoost < 0 ? "uneffect " + name : MoodManager.getDefaultAction( "lose_effect", name );
+            action =
+                    computedBoost < 0 ? "uneffect " + name : MoodManager.getDefaultAction( "lose_effect", name );
 
-			this.item = null;
-			this.itemAvailable = true;
-			this.fullness = 0;
-			this.spleen = 0;
-			this.inebriety = 0;
-			this.isDamageAbsorption =
+            item = null;
+            itemAvailable = true;
+            fullness = 0;
+            spleen = 0;
+            inebriety = 0;
+            isDamageAbsorption =
 				this.name.equals( Effect.ASTRAL_SHELL.effectName() ) || this.name.equals( Effect.GHOSTLY_SHELL.effectName() );
-			this.isElementalImmunity = BasementRequest.isElementalImmunity( this.name );
-			this.isStatEqualizer =
+            isElementalImmunity = BasementRequest.isElementalImmunity( this.name );
+            isStatEqualizer =
 				this.name.equals( Effect.EXPERT_OILINESS.effectName() ) || this.name.equals( Effect.SLIPPERY_OILINESS.effectName() ) || this.name.equals( Effect.STABILIZING_OILINESS.effectName() );
 
-			if ( this.action.startsWith( "use" ) ||
-				this.action.startsWith( "chew" ) ||
-				this.action.startsWith( "drink" ) ||
-				this.action.startsWith( "eat" ) )
+			if ( action.startsWith( "use" ) ||
+                    action.startsWith( "chew" ) ||
+                    action.startsWith( "drink" ) ||
+                    action.startsWith( "eat" ) )
 			{
-				int index = this.action.indexOf( " " ) + 1;
-				this.item = ItemFinder.getFirstMatchingItem( this.action.substring( index ).trim(), false );
-				if ( this.item != null )
+				int index = action.indexOf( " " ) + 1;
+                item = ItemFinder.getFirstMatchingItem( action.substring( index ).trim(), false );
+				if ( item != null )
 				{
-					this.itemAvailable = InventoryManager.hasItem( this.item );
-					this.fullness = ItemDatabase.getFullness( item.getName() );
-					this.spleen = ItemDatabase.getSpleenHit( item.getName() );
-					this.inebriety = ItemDatabase.getInebriety( item.getName() );
+                    itemAvailable = InventoryManager.hasItem( item );
+                    fullness = ItemDatabase.getFullness( item.getName() );
+                    spleen = ItemDatabase.getSpleenHit( item.getName() );
+                    inebriety = ItemDatabase.getInebriety( item.getName() );
 				}
 			}
 		}
@@ -457,17 +457,17 @@ public class BasementDecorator
 
 		public final boolean isDamageAbsorption()
 		{
-			return this.isDamageAbsorption;
+			return isDamageAbsorption;
 		}
 
 		public final boolean isElementalImmunity()
 		{
-			return this.isElementalImmunity;
+			return isElementalImmunity;
 		}
 
 		public final boolean isStatEqualizer()
 		{
-			return this.isStatEqualizer;
+			return isStatEqualizer;
 		}
 
 		public static void checkSkills()
@@ -485,18 +485,18 @@ public class BasementDecorator
 		@Override
 		public boolean equals( final Object o )
 		{
-			return o instanceof StatBooster && this.name.equals( ( (StatBooster) o ).name );
+			return o instanceof StatBooster && name.equals( ((StatBooster) o).name );
 		}
 
 		public int compareTo( final Object o )
 		{
-			if ( this.effectiveBoost == 0.0f )
+			if ( effectiveBoost == 0.0f )
 			{
 				if ( ( (StatBooster) o ).effectiveBoost != 0.0f )
 				{
 					return -1;
 				}
-				if ( this.isElementalImmunity )
+				if ( isElementalImmunity )
 				{
 					return -1;
 				}
@@ -504,7 +504,7 @@ public class BasementDecorator
 				{
 					return 1;
 				}
-				return this.name.compareToIgnoreCase( ( (StatBooster) o ).name );
+				return name.compareToIgnoreCase( ((StatBooster) o).name );
 			}
 
 			if ( ( (StatBooster) o ).effectiveBoost == 0.0f )
@@ -512,12 +512,12 @@ public class BasementDecorator
 				return 1;
 			}
 
-			if ( this.effectiveBoost != ( (StatBooster) o ).effectiveBoost )
+			if ( effectiveBoost != ( (StatBooster) o ).effectiveBoost )
 			{
-				return this.effectiveBoost > ( (StatBooster) o ).effectiveBoost ? -1 : 1;
+				return effectiveBoost > ( (StatBooster) o ).effectiveBoost ? -1 : 1;
 			}
 
-			return this.name.compareToIgnoreCase( ( (StatBooster) o ).name );
+			return name.compareToIgnoreCase( ((StatBooster) o).name );
 		}
 
 		public String getName()
@@ -532,12 +532,12 @@ public class BasementDecorator
 		
 		public int getItemPrice()
 		{
-			if ( this.item == null ) return 0;
-			if ( MallPriceDatabase.getAge( this.item.getItemId() ) > 7.0f )
+			if ( item == null ) return 0;
+			if ( MallPriceDatabase.getAge( item.getItemId() ) > 7.0f )
 			{
-				StoreManager.getMallPrice( this.item );
+				StoreManager.getMallPrice( item );
 			}
-			return MallPriceDatabase.getPrice( this.item.getItemId() );
+			return MallPriceDatabase.getPrice( item.getItemId() );
 		}
 
 		public boolean itemAvailable()
@@ -564,13 +564,13 @@ public class BasementDecorator
 		{
 			if ( item == null )
 			{
-				if ( this.action.startsWith( "concert " ) &&
+				if ( action.startsWith( "concert " ) &&
 					Preferences.getBoolean( "concertVisited" ) )
 				{
 					return true;
 				}
 	
-				if ( this.action.startsWith( "telescope " ) &&
+				if ( action.startsWith( "telescope " ) &&
 					Preferences.getBoolean( "telescopeLookedHigh" ) )
 				{
 					return true;
@@ -579,17 +579,17 @@ public class BasementDecorator
 				return false;
 			}
 
-			if ( this.fullness > 0 && ( KoLCharacter.getFullness() + this.fullness ) > KoLCharacter.getFullnessLimit() )
+			if ( fullness > 0 && ( KoLCharacter.getFullness() + fullness) > KoLCharacter.getFullnessLimit() )
 			{
 				return true;
 			}
 
-			if ( this.spleen > 0 && ( KoLCharacter.getSpleenUse() + this.spleen ) > KoLCharacter.getSpleenLimit() )
+			if ( spleen > 0 && ( KoLCharacter.getSpleenUse() + spleen) > KoLCharacter.getSpleenLimit() )
 			{
 				return true;
 			}
 
-			if ( this.inebriety > 0 && ( KoLCharacter.getInebriety() + this.inebriety ) > KoLCharacter.getInebrietyLimit() )
+			if ( inebriety > 0 && ( KoLCharacter.getInebriety() + inebriety) > KoLCharacter.getInebrietyLimit() )
 			{
 				return true;
 			}
@@ -614,7 +614,7 @@ public class BasementDecorator
 
 		public int computeBoost()
 		{
-			Modifiers m = Modifiers.getModifiers( this.name );
+			Modifiers m = Modifiers.getModifiers( name );
 			if ( m == null )
 			{
 				return 0;

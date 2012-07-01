@@ -830,141 +830,141 @@ public abstract class BuffBotManager
 			int buffId = SkillDatabase.getSkillId( buffName );
 
 			this.casts[ 0 ] = casts;
-			this.turns[ 0 ] = casts * Math.max( 5, SkillDatabase.getEffectDuration( buffId ) );
-			this.updateFreeState();
+            turns[ 0 ] = casts * Math.max( 5, SkillDatabase.getEffectDuration( buffId ) );
+            updateFreeState();
 
-			this.useFullStrings = true;
-			this.changed = true;
+            useFullStrings = true;
+            changed = true;
 		}
 
 		public void updateFreeState()
 		{
 			int totalCost = 0;
 
-			for ( int i = 0; i < this.casts.length; ++i )
+			for ( int i = 0; i < casts.length; ++i )
 			{
 				totalCost +=
-					this.casts[ i ] * SkillDatabase.getMPConsumptionById( SkillDatabase.getSkillId( this.buffs[ i ] ) );
+                        casts[ i ] * SkillDatabase.getMPConsumptionById( SkillDatabase.getSkillId( buffs[ i ] ) );
 			}
 
-			this.free = this.price <= totalCost * 95 / MPRestoreItemList.getManaRestored( "magical mystery juice" );
+            free = price <= totalCost * 95 / MPRestoreItemList.getManaRestored( "magical mystery juice" );
 		}
 
 		public Offering( final String buffName, final String botName, final int price, final int turns,
 			final boolean free )
 		{
-			this.buffs = new String[] { buffName };
-			this.casts = new int[] { turns / 10 };
+            buffs = new String[] { buffName };
+            casts = new int[] { turns / 10 };
 			this.turns = new int[] { turns };
-			this.lowestBuffId = SkillDatabase.getSkillId( buffName );
+            lowestBuffId = SkillDatabase.getSkillId( buffName );
 
 			this.botName = botName;
 			this.price = price;
 			this.free = free;
 
-			this.settingString = new StringBuffer();
-			this.stringForm = new StringBuffer();
+            settingString = new StringBuffer();
+            stringForm = new StringBuffer();
 
-			this.useFullStrings = false;
-			this.changed = true;
+            useFullStrings = false;
+            changed = true;
 		}
 
 		public String getBotName()
 		{
-			return this.botName;
+			return botName;
 		}
 
 		public int getPrice()
 		{
-			return this.price;
+			return price;
 		}
 
 		public int[] getTurns()
 		{
-			return this.turns;
+			return turns;
 		}
 
 		public int getLowestBuffId()
 		{
-			return this.lowestBuffId;
+			return lowestBuffId;
 		}
 
 		@Override
 		public String toString()
 		{
-			if ( this.changed )
+			if ( changed )
 			{
-				this.constructStringForm();
-				this.changed = false;
+                constructStringForm();
+                changed = false;
 			}
 
-			return this.stringForm.toString();
+			return stringForm.toString();
 		}
 
 		public String toSettingString()
 		{
-			if ( this.changed )
+			if ( changed )
 			{
-				this.constructStringForm();
-				this.changed = false;
+                constructStringForm();
+                changed = false;
 			}
 
-			return this.settingString.toString();
+			return settingString.toString();
 		}
 
 		public void addBuff( final String buffName, final int turns )
 		{
-			String[] tempNames = new String[ this.buffs.length + 1 ];
-			int[] tempCasts = new int[ this.casts.length + 1 ];
+			String[] tempNames = new String[buffs.length + 1 ];
+			int[] tempCasts = new int[casts.length + 1 ];
 			int[] tempTurns = new int[ this.turns.length + 1 ];
 
-			System.arraycopy( this.buffs, 0, tempNames, 0, this.buffs.length );
-			System.arraycopy( this.casts, 0, tempCasts, 0, this.buffs.length );
-			System.arraycopy( this.turns, 0, tempTurns, 0, this.buffs.length );
+			System.arraycopy( buffs, 0, tempNames, 0, buffs.length );
+			System.arraycopy( casts, 0, tempCasts, 0, buffs.length );
+			System.arraycopy( this.turns, 0, tempTurns, 0, buffs.length );
 
-			this.buffs = tempNames;
-			this.casts = tempCasts;
+            buffs = tempNames;
+            casts = tempCasts;
 			this.turns = tempTurns;
 
 			int skillId = SkillDatabase.getSkillId( buffName );
 			int duration = Math.max( 5, SkillDatabase.getEffectDuration( skillId ) );
 
-			this.buffs[ this.buffs.length - 1 ] = buffName;
-			this.casts[ this.casts.length - 1 ] = turns / duration;
+            buffs[buffs.length - 1 ] = buffName;
+            casts[casts.length - 1 ] = turns / duration;
 			this.turns[ this.turns.length - 1 ] = turns;
 
-			if ( skillId < this.lowestBuffId )
+			if ( skillId < lowestBuffId )
 			{
-				this.lowestBuffId = skillId;
+                lowestBuffId = skillId;
 			}
 
-			this.changed = true;
+            changed = true;
 		}
 
 		public boolean castOnTarget( final String target )
 		{
-			for ( int i = 0; i < this.buffs.length; ++i )
+			for ( int i = 0; i < buffs.length; ++i )
 			{
-				BuffBotHome.recordBuff( target, this.buffs[ i ], this.casts[ i ], this.price );
+				BuffBotHome.recordBuff( target, buffs[ i ], casts[ i ], price );
 
 				// Figure out how much MP the buff will take, and then identify
 				// the number of casts per request that this character can handle.
 
 				BuffBotHome.update(
 					BuffBotHome.BUFFCOLOR,
-					"Casting " + this.buffs[ i ] + ", " + this.casts[ i ] + " times on " + target + " for " + this.price + " meat... " );
+					"Casting " + buffs[ i ] + ", " + casts[ i ] + " times on " + target + " for " + price + " meat... " );
 
-				RequestThread.postRequest( UseSkillRequest.getInstance( this.buffs[ i ], target, this.casts[ i ] ) );
+				RequestThread.postRequest( UseSkillRequest.getInstance( buffs[ i ], target, casts[ i ] ) );
 
 				if ( UseSkillRequest.lastUpdate.equals( "" ) )
 				{
 					BuffBotHome.update(
-						BuffBotHome.BUFFCOLOR, " ---> Successfully cast " + this.buffs[ i ] + " on " + target );
+						BuffBotHome.BUFFCOLOR, " ---> Successfully cast " + buffs[ i ] + " on " + target );
 				}
 				else
 				{
 					BuffBotHome.update(
-						BuffBotHome.ERRORCOLOR, " ---> Could not cast " + this.buffs[ i ] + " on " + target );
+						BuffBotHome.ERRORCOLOR, " ---> Could not cast " + buffs[ i ] + " on " + target );
 					return i != 0;
 				}
 			}
@@ -974,62 +974,62 @@ public abstract class BuffBotManager
 
 		private void constructStringForm()
 		{
-			this.stringForm.setLength( 0 );
+            stringForm.setLength( 0 );
 
-			this.stringForm.append( KoLConstants.COMMA_FORMAT.format( this.price ) );
-			this.stringForm.append( " meat for " );
+            stringForm.append( KoLConstants.COMMA_FORMAT.format( price ) );
+            stringForm.append( " meat for " );
 
-			if ( this.turns.length == 1 )
+			if ( turns.length == 1 )
 			{
-				this.stringForm.append( KoLConstants.COMMA_FORMAT.format( this.turns[ 0 ] ) );
-				this.stringForm.append( " turns" );
+                stringForm.append( KoLConstants.COMMA_FORMAT.format( turns[0] ) );
+                stringForm.append( " turns" );
 
-				if ( this.useFullStrings )
+				if ( useFullStrings )
 				{
-					this.stringForm.append( " of " );
-					this.stringForm.append( this.buffs[ 0 ] );
+                    stringForm.append( " of " );
+                    stringForm.append( buffs[0] );
 
-					if ( this.free )
+					if ( free )
 					{
-						this.stringForm.append( " (once per day)" );
+                        stringForm.append( " (once per day)" );
 					}
 				}
 			}
 			else
 			{
-				this.stringForm.insert( 0, "<html>" );
+                stringForm.insert( 0, "<html>" );
 
-				this.stringForm.append( "a" );
+                stringForm.append( "a" );
 
-				if ( this.useFullStrings && this.free )
+				if ( useFullStrings && free )
 				{
-					this.stringForm.append( " Once-Per-Day" );
+                    stringForm.append( " Once-Per-Day" );
 				}
 
-				this.stringForm.append( " Buff Pack which includes:" );
+                stringForm.append( " Buff Pack which includes:" );
 
-				for ( int i = 0; i < this.buffs.length; ++i )
+				for ( int i = 0; i < buffs.length; ++i )
 				{
-					this.stringForm.append( "<br> - " );
-					this.stringForm.append( KoLConstants.COMMA_FORMAT.format( this.turns[ i ] ) );
-					this.stringForm.append( " turns of " );
-					this.stringForm.append( this.buffs[ i ] );
+                    stringForm.append( "<br> - " );
+                    stringForm.append( KoLConstants.COMMA_FORMAT.format( turns[i] ) );
+                    stringForm.append( " turns of " );
+                    stringForm.append( buffs[i] );
 				}
 
-				this.stringForm.append( "</html>" );
+                stringForm.append( "</html>" );
 			}
 
 
-			this.settingString.setLength( 0 );
+            settingString.setLength( 0 );
 
-			for ( int i = 0; i < this.buffs.length; ++i )
+			for ( int i = 0; i < buffs.length; ++i )
 			{
-				this.settingString.append( SkillDatabase.getSkillId( this.buffs[ i ] ) );
-				this.settingString.append( '\t' );
-				this.settingString.append( this.price );
-				this.settingString.append( '\t' );
-				this.settingString.append( this.casts[ i ] );
-				this.settingString.append( KoLConstants.LINE_BREAK );
+                settingString.append( SkillDatabase.getSkillId( buffs[i] ) );
+                settingString.append( '\t' );
+                settingString.append( price );
+                settingString.append( '\t' );
+                settingString.append( casts[i] );
+                settingString.append( KoLConstants.LINE_BREAK );
 			}
 
 		}
@@ -1043,13 +1043,13 @@ public abstract class BuffBotManager
 			}
 
 			Offering off = (Offering) o;
-			return this.botName.equalsIgnoreCase( off.botName ) && this.price == off.price && this.turns == off.turns && this.free == off.free;
+			return botName.equalsIgnoreCase( off.botName ) && price == off.price && turns == off.turns && free == off.free;
 		}
 
 		public SendMailRequest toRequest()
 		{
-			return new SendMailRequest( this.botName, KoLConstants.DEFAULT_KMAIL, new AdventureResult(
-				AdventureResult.MEAT, this.price ) );
+			return new SendMailRequest( botName, KoLConstants.DEFAULT_KMAIL, new AdventureResult(
+				AdventureResult.MEAT, price ) );
 		}
 
 		public int compareTo( final Object o )
@@ -1062,37 +1062,37 @@ public abstract class BuffBotManager
 			Offering off = (Offering) o;
 
 			// First, buffpacks should come before standard offerings
-			if ( ( this.turns.length == 1 || off.turns.length == 1 ) && this.turns.length != off.turns.length )
+			if ( (turns.length == 1 || off.turns.length == 1 ) && turns.length != off.turns.length )
 			{
-				return off.turns.length - this.turns.length;
+				return off.turns.length - turns.length;
 			}
 
 			// If a buffpack, compare price
-			if ( this.turns.length > 1 && off.turns.length > 1 )
+			if ( turns.length > 1 && off.turns.length > 1 )
 			{
-				return this.price - off.price;
+				return price - off.price;
 			}
 
 			// Compare the Id of the lowest Id buffs
-			if ( this.lowestBuffId != off.lowestBuffId )
+			if ( lowestBuffId != off.lowestBuffId )
 			{
-				return this.lowestBuffId - off.lowestBuffId;
+				return lowestBuffId - off.lowestBuffId;
 			}
 
 			// Next compare turns
-			if ( this.turns[ 0 ] != off.turns[ 0 ] )
+			if ( turns[ 0 ] != off.turns[ 0 ] )
 			{
-				return this.turns[ 0 ] - off.turns[ 0 ];
+				return turns[ 0 ] - off.turns[ 0 ];
 			}
 
 			// Next compare price
-			if ( this.price != off.price )
+			if ( price != off.price )
 			{
-				return this.price - off.price;
+				return price - off.price;
 			}
 
 			// Then, compare the names of the bots
-			return this.botName.compareToIgnoreCase( off.botName );
+			return botName.compareToIgnoreCase( off.botName );
 		}
 	}
 }

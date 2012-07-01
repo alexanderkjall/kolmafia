@@ -72,8 +72,8 @@ public class ClanStashRequest
 	public ClanStashRequest()
 	{
 		super( "clan_stash.php" );
-		this.moveType = ClanStashRequest.REFRESH_ONLY;
-		this.destination = new ArrayList();
+        moveType = ClanStashRequest.REFRESH_ONLY;
+        destination = new ArrayList();
 	}
 
 	/**
@@ -85,10 +85,10 @@ public class ClanStashRequest
 	public ClanStashRequest( final int amount )
 	{
 		super( "clan_stash.php", new AdventureResult( AdventureResult.MEAT, amount ) );
-		this.addFormField( "action", "contribute" );
+        addFormField( "action", "contribute" );
 
-		this.moveType = ClanStashRequest.MEAT_TO_STASH;
-		this.destination = new ArrayList();
+        moveType = ClanStashRequest.MEAT_TO_STASH;
+        destination = new ArrayList();
 	}
 
 	public ClanStashRequest( Object attachment, final int moveType )
@@ -109,15 +109,15 @@ public class ClanStashRequest
 
 		if ( moveType == ClanStashRequest.ITEMS_TO_STASH )
 		{
-			this.addFormField( "action", "addgoodies" );
-			this.source = KoLConstants.inventory;
-			this.destination = ClanManager.getStash();
+            addFormField( "action", "addgoodies" );
+            source = KoLConstants.inventory;
+            destination = ClanManager.getStash();
 		}
 		else
 		{
-			this.addFormField( "action", "takegoodies" );
-			this.source = ClanManager.getStash();
-			this.destination = KoLConstants.inventory;
+            addFormField( "action", "takegoodies" );
+            source = ClanManager.getStash();
+            destination = KoLConstants.inventory;
 		}
 
 	}
@@ -125,19 +125,19 @@ public class ClanStashRequest
 	@Override
 	protected boolean retryOnTimeout()
 	{
-		return this.moveType == ClanStashRequest.REFRESH_ONLY;
+		return moveType == ClanStashRequest.REFRESH_ONLY;
 	}
 
 	@Override
 	public String getItemField()
 	{
-		return this.moveType == ClanStashRequest.ITEMS_TO_STASH ? "item" : "whichitem";
+		return moveType == ClanStashRequest.ITEMS_TO_STASH ? "item" : "whichitem";
 	}
 
 	@Override
 	public String getQuantityField()
 	{
-		return this.moveType == ClanStashRequest.ITEMS_TO_STASH ? "qty" : "quantity";
+		return moveType == ClanStashRequest.ITEMS_TO_STASH ? "qty" : "quantity";
 	}
 
 	@Override
@@ -148,21 +148,21 @@ public class ClanStashRequest
 
 	public int getMoveType()
 	{
-		return this.moveType;
+		return moveType;
 	}
 
 	public List getItems()
 	{
 		List itemList = new ArrayList();
 
-		if ( this.attachments == null )
+		if ( attachments == null )
 		{
 			return itemList;
 		}
 
-		for ( int i = 0; i < this.attachments.length; ++i )
+		for ( int i = 0; i < attachments.length; ++i )
 		{
-			itemList.add( this.attachments[ i ] );
+			itemList.add( attachments[ i ] );
 		}
 
 		return itemList;
@@ -171,13 +171,13 @@ public class ClanStashRequest
 	@Override
 	public int getCapacity()
 	{
-		return this.moveType == ClanStashRequest.STASH_TO_ITEMS ? 1 : 11;
+		return moveType == ClanStashRequest.STASH_TO_ITEMS ? 1 : 11;
 	}
 
 	@Override
 	public TransferItemRequest getSubInstance( final Object[] attachments )
 	{
-		return new ClanStashRequest( attachments, this.moveType );
+		return new ClanStashRequest( attachments, moveType );
 	}
 
 	@Override
@@ -185,7 +185,7 @@ public class ClanStashRequest
 	{
 		super.processResults();
 
-		switch ( this.moveType )
+		switch ( moveType )
 		{
 		case REFRESH_ONLY:
 			KoLmafia.updateDisplay( "Stash list retrieved." );
@@ -210,7 +210,7 @@ public class ClanStashRequest
 	@Override
 	public boolean parseTransfer()
 	{
-		return ClanStashRequest.parseTransfer( this.getURLString(), this.responseText );
+		return ClanStashRequest.parseTransfer( getURLString(), responseText );
 	}
 
 	public static final Pattern ITEM_PATTERN1 = Pattern.compile( "You add (.*?) to the Goodies Hoard" );
@@ -401,7 +401,7 @@ public class ClanStashRequest
 	@Override
 	public String getStatusMessage()
 	{
-		switch ( this.moveType )
+		switch ( moveType )
 		{
 		case ClanStashRequest.ITEMS_TO_STASH:
 			return "Dropping items into stash";

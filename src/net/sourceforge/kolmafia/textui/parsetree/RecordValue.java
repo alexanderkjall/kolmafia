@@ -57,23 +57,23 @@ public class RecordValue
 
 	public RecordType getRecordType()
 	{
-		return (RecordType) this.type;
+		return (RecordType) type;
 	}
 
 	public Type getDataType( final Value key )
 	{
-		return ( (RecordType) this.type ).getDataType( key );
+		return ( (RecordType) type).getDataType( key );
 	}
 
 	@Override
 	public Value aref( final Value key, final Interpreter interpreter )
 	{
-		int index = ( (RecordType) this.type ).indexOf( key );
+		int index = ( (RecordType) type).indexOf( key );
 		if ( index < 0 )
 		{
 			throw interpreter.runtimeException( "Internal error: field index out of bounds" );
 		}
-		Value[] array = (Value[]) this.content;
+		Value[] array = (Value[]) content;
 		return array[ index ];
 	}
 
@@ -85,20 +85,20 @@ public class RecordValue
 		{
 			throw interpreter.runtimeException( "Internal error: field index out of bounds" );
 		}
-		Value[] array = (Value[]) this.content;
+		Value[] array = (Value[]) content;
 		return array[ index ];
 	}
 
 	@Override
 	public void aset( final Value key, final Value val, final Interpreter interpreter )
 	{
-		int index = ( (RecordType) this.type ).indexOf( key );
+		int index = ( (RecordType) type).indexOf( key );
 		if ( index < 0 )
 		{
 			throw interpreter.runtimeException( "Internal error: field index out of bounds" );
 		}
 
-		this.aset( index, val, interpreter );
+        aset( index, val, interpreter );
 	}
 
 	public void aset( final int index, final Value val, final Interpreter interpreter )
@@ -110,7 +110,7 @@ public class RecordValue
 			throw interpreter.runtimeException( "Internal error: field index out of bounds" );
 		}
 
-		Value[] array = (Value[]) this.content;
+		Value[] array = (Value[]) content;
 
 		if ( array[ index ].getType().equals( val.getType() ) )
 		{
@@ -140,22 +140,22 @@ public class RecordValue
 	@Override
 	public Value remove( final Value key, final Interpreter interpreter )
 	{
-		int index = ( (RecordType) this.type ).indexOf( key );
+		int index = ( (RecordType) type).indexOf( key );
 		if ( index < 0 )
 		{
 			throw interpreter.runtimeException( "Internal error: field index out of bounds" );
 		}
-		Value[] array = (Value[]) this.content;
+		Value[] array = (Value[]) content;
 		Value result = array[ index ];
-		array[ index ] = this.getDataType( key ).initialValue();
+		array[ index ] = getDataType( key ).initialValue();
 		return result;
 	}
 
 	@Override
 	public void clear()
 	{
-		Type[] DataTypes = ( (RecordType) this.type ).getFieldTypes();
-		Value[] array = (Value[]) this.content;
+		Type[] DataTypes = ( (RecordType) type).getFieldTypes();
+		Value[] array = (Value[]) content;
 		for ( int index = 0; index < array.length; ++index )
 		{
 			array[ index ] = DataTypes[ index ].initialValue();
@@ -165,30 +165,30 @@ public class RecordValue
 	@Override
 	public Value[] keys()
 	{
-		return ( (RecordType) this.type ).getFieldIndices();
+		return ( (RecordType) type).getFieldIndices();
 	}
 
 	@Override
 	public void dump( final PrintStream writer, final String prefix, boolean compact )
 	{
-		if ( !compact || this.type.containsAggregate() )
+		if ( !compact || type.containsAggregate() )
 		{
 			super.dump( writer, prefix, compact );
 			return;
 		}
 
 		writer.print( prefix );
-		this.dumpValue( writer );
+        dumpValue( writer );
 		writer.println();
 	}
 
 	@Override
 	public void dumpValue( final PrintStream writer )
 	{
-		int size = ( (RecordType) this.type ).getFieldTypes().length;
+		int size = ( (RecordType) type).getFieldTypes().length;
 		for ( int i = 0; i < size; ++i )
 		{
-			Value value = this.aref( i, null );
+			Value value = aref( i, null );
 			if ( i > 0 )
 			{
 				writer.print( "\t" );
@@ -200,13 +200,13 @@ public class RecordValue
 	@Override
 	public int read( final String[] data, int index, boolean compact )
 	{
-		if ( !compact || this.type.containsAggregate() )
+		if ( !compact || type.containsAggregate() )
 		{
 			return super.read( data, index, compact );
 		}
 
-		Type[] types = ( (RecordType) this.type ).getFieldTypes();
-		Value[] array = (Value[]) this.content;
+		Type[] types = ( (RecordType) type).getFieldTypes();
+		Value[] array = (Value[]) content;
 
 		int size = Math.min( types.length, data.length - index );
 		int first = index;
@@ -234,6 +234,6 @@ public class RecordValue
 	@Override
 	public String toString()
 	{
-		return "record " + this.type.toString();
+		return "record " + type.toString();
 	}
 }

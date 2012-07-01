@@ -124,7 +124,7 @@ public class BigBrotherRequest
 	@Override
 	public void processResults()
 	{
-		BigBrotherRequest.parseResponse( this.getURLString(), this.responseText );
+		BigBrotherRequest.parseResponse( getURLString(), responseText );
 	}
 
 	public static void parseResponse( final String location, final String responseText )

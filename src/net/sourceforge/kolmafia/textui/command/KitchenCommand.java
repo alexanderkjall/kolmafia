@@ -50,7 +50,7 @@ public class KitchenCommand
 {
 	public KitchenCommand()
 	{
-		this.usage = "[?] <item> - consumes item at Hell's Kitchen, if available.";
+        usage = "[?] <item> - consumes item at Hell's Kitchen, if available.";
 	}
 
 	@Override

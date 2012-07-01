@@ -126,13 +126,13 @@ public class HedgePuzzleRequest
 	public HedgePuzzleRequest( final int tile )
 	{
 		this();
-		this.addFormField( "action", String.valueOf( tile ) );
+        addFormField( "action", String.valueOf( tile ) );
 	}
 
 	@Override
 	public void processResults()
 	{
-		HedgePuzzleRequest.parseResponse( this.getURLString(), this.responseText );
+		HedgePuzzleRequest.parseResponse( getURLString(), responseText );
 		if ( HedgePuzzleRequest.PUZZLE_PIECE.getCount( KoLConstants.inventory ) == 0 )
 		{
 			KoLmafia.updateDisplay( MafiaState.ERROR, "Ran out of puzzle pieces." );

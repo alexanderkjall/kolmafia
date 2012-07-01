@@ -81,10 +81,10 @@ public class EatItemRequest
 	@Override
 	public int getAdventuresUsed()
 	{
-		if ( this.itemUsed.getItemId() == ItemPool.BLACK_PUDDING )
+		if ( itemUsed.getItemId() == ItemPool.BLACK_PUDDING )
 		{
 			// Items that can redirect to a fight
-			return this.itemUsed.getCount();
+			return itemUsed.getCount();
 		}
 
 		return 0;
@@ -112,23 +112,23 @@ public class EatItemRequest
 	@Override
 	public void run()
 	{
-		if ( this.consumptionType == KoLConstants.CONSUME_FOOD_HELPER )
+		if ( consumptionType == KoLConstants.CONSUME_FOOD_HELPER )
 		{
-			int count = this.itemUsed.getCount();
+			int count = itemUsed.getCount();
 
-			if ( !InventoryManager.retrieveItem( this.itemUsed ) )
+			if ( !InventoryManager.retrieveItem( itemUsed ) )
 			{
 				KoLmafia.updateDisplay( MafiaState.ERROR, "Helper not available." );
 				return;
 			}
 
-			if ( this.itemUsed.equals( EatItemRequest.queuedFoodHelper ) )
+			if ( itemUsed.equals( EatItemRequest.queuedFoodHelper ) )
 			{
 				EatItemRequest.queuedFoodHelperCount += count;
 			}
 			else
 			{
-				EatItemRequest.queuedFoodHelper = this.itemUsed;
+				EatItemRequest.queuedFoodHelper = itemUsed;
 				EatItemRequest.queuedFoodHelperCount = count;
 			}
 
@@ -138,38 +138,38 @@ public class EatItemRequest
 			return;
 		}
 
-		if ( !ItemDatabase.meetsLevelRequirement( this.itemUsed.getName() ) )
+		if ( !ItemDatabase.meetsLevelRequirement( itemUsed.getName() ) )
 		{
-			UseItemRequest.lastUpdate = "Insufficient level to consume " + this.itemUsed;
+			UseItemRequest.lastUpdate = "Insufficient level to consume " + itemUsed;
 			KoLmafia.updateDisplay( MafiaState.ERROR, UseItemRequest.lastUpdate );
 			return;
 		}
 
-		int itemId = this.itemUsed.getItemId();
+		int itemId = itemUsed.getItemId();
 		UseItemRequest.lastUpdate = "";
 
 		int maximumUses = UseItemRequest.maximumUses( itemId );
-		if ( maximumUses < this.itemUsed.getCount() )
+		if ( maximumUses < itemUsed.getCount() )
 		{
-			KoLmafia.updateDisplay( "(usable quantity of " + this.itemUsed +
+			KoLmafia.updateDisplay( "(usable quantity of " + itemUsed +
 				" is limited to " + maximumUses + " by " +
 				UseItemRequest.limiter + ")" );
-			this.itemUsed = this.itemUsed.getInstance( maximumUses );
+            itemUsed = itemUsed.getInstance( maximumUses );
 		}
 
-		if ( this.itemUsed.getCount() < 1 )
+		if ( itemUsed.getCount() < 1 )
 		{
 			return;
 		}
 
 		if ( !EatItemRequest.sequentialConsume( itemId ) &&
-		     !InventoryManager.retrieveItem( this.itemUsed ) )
+		     !InventoryManager.retrieveItem( itemUsed ) )
 		{
 			return;
 		}
 
 		int iterations = 1;
-		int origCount = this.itemUsed.getCount();
+		int origCount = itemUsed.getCount();
 
 		// The miracle of "consume some" does not apply to black puddings
 		if ( origCount > 1 &&
@@ -177,25 +177,25 @@ public class EatItemRequest
 		       ( EatItemRequest.sequentialConsume( itemId ) && InventoryManager.getCount( itemId ) < origCount) ) )
 		{
 			iterations = origCount;
-			this.itemUsed = this.itemUsed.getInstance( 1 );
+            itemUsed = itemUsed.getInstance( 1 );
 		}
 
-		String originalURLString = this.getURLString();
+		String originalURLString = getURLString();
 
 		for ( int i = 1; i <= iterations && KoLmafia.permitsContinue(); ++i )
 		{
-			if ( !this.allowFoodConsumption() )
+			if ( !allowFoodConsumption() )
 			{
 				return;
 			}
 
-			this.constructURLString( originalURLString );
-			this.useOnce( i, iterations, "Eating" );
+            constructURLString( originalURLString );
+            useOnce( i, iterations, "Eating" );
 		}
 
 		if ( KoLmafia.permitsContinue() )
 		{
-			KoLmafia.updateDisplay( "Finished eating " + origCount + " " + this.itemUsed.getName() + "." );
+			KoLmafia.updateDisplay( "Finished eating " + origCount + " " + itemUsed.getName() + "." );
 		}
 	}
 
@@ -208,14 +208,14 @@ public class EatItemRequest
 		// inventory first - if not, report the error message and
 		// return from the method.
 
-		if ( !InventoryManager.retrieveItem( this.itemUsed ) )
+		if ( !InventoryManager.retrieveItem( itemUsed ) )
 		{
 			UseItemRequest.lastUpdate = "Insufficient items to use.";
 			return;
 		}
 
-		this.addFormField( "ajax", "1" );
-		this.addFormField( "quantity", String.valueOf( this.itemUsed.getCount() ) );
+        addFormField( "ajax", "1" );
+        addFormField( "quantity", String.valueOf( itemUsed.getCount() ) );
 
 		if ( EatItemRequest.queuedFoodHelper != null && EatItemRequest.queuedFoodHelperCount > 0 )
 		{
@@ -230,12 +230,12 @@ public class EatItemRequest
 					return;
 				}
 			}
-			this.addFormField( "utensil", String.valueOf( helperItemId ) );
+            addFormField( "utensil", String.valueOf( helperItemId ) );
 			--EatItemRequest.queuedFoodHelperCount;
 		}
 		else
 		{
-			this.removeFormField( "utensil" );
+            removeFormField( "utensil" );
 		}
 
 		super.runOneIteration( currentIteration, totalIterations, useTypeAsString );
@@ -283,7 +283,7 @@ public class EatItemRequest
 			return true;
 		}
 
-		String itemName = this.itemUsed.getName();
+		String itemName = itemUsed.getName();
 		String advGain = ItemDatabase.getAdvRangeByName( itemName );
 		if ( !askAboutMilk( advGain ) )
 		{
@@ -308,7 +308,7 @@ public class EatItemRequest
 		}
 
 		// If the food is not made with noodles, no fear
-		if ( ConcoctionDatabase.noodleCreation( this.itemUsed.getName() ) == null )
+		if ( ConcoctionDatabase.noodleCreation( itemUsed.getName() ) == null )
 		{
 			return true;
 		}
@@ -367,9 +367,9 @@ public class EatItemRequest
 
 		// Calculate how much fullness we are about to add
 
-		String name = this.itemUsed.getName();
+		String name = itemUsed.getName();
 		int fullness = ItemDatabase.getFullness( name );
-		int count = this.itemUsed.getCount();
+		int count = itemUsed.getCount();
 		int consumptionTurns = count * fullness - ( Preferences.getBoolean( "distentionPillActive" ) ? 1 : 0 );
 
 		// Check for Glorious Lunch

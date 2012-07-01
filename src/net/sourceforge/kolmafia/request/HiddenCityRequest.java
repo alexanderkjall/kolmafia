@@ -102,22 +102,22 @@ public class HiddenCityRequest
 	@Override
 	public void reconstructFields()
 	{
-		this.constructURLString( "hiddencity.php" );
+        constructURLString( "hiddencity.php" );
 
-		if ( this.action == null )
+		if ( action == null )
 		{
 			int square = HiddenCityRequest.recommendSquare( this.square );
 			if ( square != 0 )
 			{
-				this.addFormField( "which", String.valueOf( square - 1 ) );
+                addFormField( "which", String.valueOf( square - 1 ) );
 			}
 		}
 		else
 		{
-			this.addFormField( "action", this.action );
-			if ( this.itemId != 0 )
+            addFormField( "action", action );
+			if ( itemId != 0 )
 			{
-				this.addFormField( "whichitem", String.valueOf( this.itemId ) );
+                addFormField( "whichitem", String.valueOf( itemId ) );
 			}
 		}
 	}
@@ -165,7 +165,7 @@ public class HiddenCityRequest
 	@Override
 	public void run()
 	{
-		this.reconstructFields();
+        reconstructFields();
 
 		if ( !KoLmafia.permitsContinue() )
 		{
@@ -238,14 +238,14 @@ public class HiddenCityRequest
 	@Override
 	public void processResults()
 	{
-		if ( !this.getURLString().startsWith( "hiddencity.php" ) )
+		if ( !getURLString().startsWith( "hiddencity.php" ) )
 		{
 			return;
 		}
 
-		HiddenCityRequest.parseResponse( this.getURLString(), this.responseText );
+		HiddenCityRequest.parseResponse( getURLString(), responseText );
 
-		int index = KoLAdventure.findAdventureFailure( this.responseText );
+		int index = KoLAdventure.findAdventureFailure( responseText );
 		if ( index >= 0 )
 		{
 			String failure = KoLAdventure.adventureFailureMessage( index );

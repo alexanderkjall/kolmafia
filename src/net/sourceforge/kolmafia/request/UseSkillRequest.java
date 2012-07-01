@@ -230,19 +230,19 @@ public class UseSkillRequest
 	{
 		super( UseSkillRequest.chooseURL( skillName ) );
 
-		this.skillId = SkillDatabase.getSkillId( skillName );
-		if ( this.skillId == -1 )
+        skillId = SkillDatabase.getSkillId( skillName );
+		if ( skillId == -1 )
 		{
 			RequestLogger.printLine( "Unrecognized skill: " + skillName );
 			this.skillName = skillName;
 		}
 		else
 		{
-			this.skillName = SkillDatabase.getSkillName( this.skillId );
+			this.skillName = SkillDatabase.getSkillName( skillId );
 		}
-		this.target = "yourself";
+        target = "yourself";
 
-		this.addFormFields();
+        addFormFields();
 	}
 
 	private static String chooseURL( final String skillName )
@@ -270,94 +270,94 @@ public class UseSkillRequest
 
 	private void addFormFields()
 	{
-		switch ( this.skillId )
+		switch ( skillId )
 		{
 		case SkillDatabase.SNOWCONE:
-			this.addFormField( "preaction", "summonsnowcone" );
+            addFormField( "preaction", "summonsnowcone" );
 			break;
 
 		case SkillDatabase.STICKER:
-			this.addFormField( "preaction", "summonstickers" );
+            addFormField( "preaction", "summonstickers" );
 			break;
 
 		case SkillDatabase.SUGAR:
-			this.addFormField( "preaction", "summonsugarsheets" );
+            addFormField( "preaction", "summonsugarsheets" );
 			break;
 
 		case SkillDatabase.CLIP_ART:
-			this.addFormField( "preaction", "combinecliparts" );
+            addFormField( "preaction", "combinecliparts" );
 			break;
 
 		case SkillDatabase.HILARIOUS:
-			this.addFormField( "preaction", "summonhilariousitems" );
+            addFormField( "preaction", "summonhilariousitems" );
 			break;
 
 		case SkillDatabase.TASTEFUL:
-			this.addFormField( "preaction", "summonspencersitems" );
+            addFormField( "preaction", "summonspencersitems" );
 			break;
 
 		case SkillDatabase.CARDS:
-			this.addFormField( "preaction", "summonaa" );
+            addFormField( "preaction", "summonaa" );
 			break;
 
 		case SkillDatabase.CANDY_HEART:
-			this.addFormField( "preaction", "summoncandyheart" );
+            addFormField( "preaction", "summoncandyheart" );
 			break;
 
 		case SkillDatabase.PARTY_FAVOR:
-			this.addFormField( "preaction", "summonpartyfavor" );
+            addFormField( "preaction", "summonpartyfavor" );
 			break;
 
 		case SkillDatabase.LOVE_SONG:
-			this.addFormField( "preaction", "summonlovesongs" );
+            addFormField( "preaction", "summonlovesongs" );
 			break;
 
 		case SkillDatabase.BRICKOS:
-			this.addFormField( "preaction", "summonbrickos" );
+            addFormField( "preaction", "summonbrickos" );
 			break;
 
 		case SkillDatabase.DICE:
-			this.addFormField( "preaction", "summongygax" );
+            addFormField( "preaction", "summongygax" );
 			break;
 
 		case SkillDatabase.RESOLUTIONS:
-			this.addFormField( "preaction", "summonresolutions" );
+            addFormField( "preaction", "summonresolutions" );
 			break;
 
 		default:
-			this.addFormField( "action", "Skillz." );
-			this.addFormField( "whichskill", String.valueOf( this.skillId ) );
+            addFormField( "action", "Skillz." );
+            addFormField( "whichskill", String.valueOf( skillId ) );
 			break;
 		}
 	}
 
 	public void setTarget( final String target )
 	{
-		if ( SkillDatabase.isBuff( this.skillId ) )
+		if ( SkillDatabase.isBuff( skillId ) )
 		{
-			this.countFieldId = "bufftimes";
+            countFieldId = "bufftimes";
 
 			if ( target == null || target.trim().length() == 0 || target.equals( KoLCharacter.getPlayerId() ) || target.equals( KoLCharacter.getUserName() ) )
 			{
 				this.target = null;
-				this.addFormField( "specificplayer", KoLCharacter.getPlayerId() );
+                addFormField( "specificplayer", KoLCharacter.getPlayerId() );
 			}
 			else
 			{
 				this.target = ContactManager.getPlayerName( target );
-				this.addFormField( "specificplayer", ContactManager.getPlayerId( target ) );
+                addFormField( "specificplayer", ContactManager.getPlayerId( target ) );
 			}
 		}
 		else
 		{
-			this.countFieldId = "quantity";
+            countFieldId = "quantity";
 			this.target = null;
 		}
 	}
 
 	public void setBuffCount( int buffCount )
 	{
-		int mpCost = SkillDatabase.getMPConsumptionById( this.skillId );
+		int mpCost = SkillDatabase.getMPConsumptionById( skillId );
 		if ( mpCost == 0 )
 		{
 			this.buffCount = 0;
@@ -367,13 +367,13 @@ public class UseSkillRequest
 		int maxPossible = 0;
 		int availableMP = KoLCharacter.getCurrentMP();
 
-		if ( SkillDatabase.isLibramSkill( this.skillId ) )
+		if ( SkillDatabase.isLibramSkill( skillId ) )
 		{
 			maxPossible = SkillDatabase.libramSkillCasts( availableMP );
 		}
 		else
 		{
-			maxPossible = Math.min( this.getMaximumCast(), availableMP / mpCost );
+			maxPossible = Math.min( getMaximumCast(), availableMP / mpCost );
 		}
 
 		if ( buffCount < 1 )
@@ -396,26 +396,26 @@ public class UseSkillRequest
 		}
 
 		int mpDifference =
-			SkillDatabase.getMPConsumptionById( this.skillId ) - SkillDatabase.getMPConsumptionById( ( (UseSkillRequest) o ).skillId );
+			SkillDatabase.getMPConsumptionById( skillId ) - SkillDatabase.getMPConsumptionById( ( (UseSkillRequest) o ).skillId );
 
-		return mpDifference != 0 ? mpDifference : this.skillName.compareToIgnoreCase( ( (UseSkillRequest) o ).skillName );
+		return mpDifference != 0 ? mpDifference : skillName.compareToIgnoreCase( ((UseSkillRequest) o).skillName );
 	}
 
 	public int getSkillId()
 	{
-		return this.skillId;
+		return skillId;
 	}
 
 	public String getSkillName()
 	{
-		return this.skillName;
+		return skillName;
 	}
 
 	public int getMaximumCast()
 	{
 		int maximumCast = Integer.MAX_VALUE;
 
-		switch ( this.skillId )
+		switch ( skillId )
 		{
 		// The Smile of Mr. A can be used five times per day per Golden
 		// Mr. Accessory you own
@@ -567,14 +567,14 @@ public class UseSkillRequest
 	@Override
 	public String toString()
 	{
-		if ( this.lastReduction == KoLCharacter.getManaCostAdjustment() && !SkillDatabase.isLibramSkill( this.skillId ) )
+		if ( lastReduction == KoLCharacter.getManaCostAdjustment() && !SkillDatabase.isLibramSkill( skillId ) )
 		{
-			return this.lastStringForm;
+			return lastStringForm;
 		}
 
-		this.lastReduction = KoLCharacter.getManaCostAdjustment();
-		this.lastStringForm = this.skillName + " (" + SkillDatabase.getMPConsumptionById( this.skillId ) + " mp)";
-		return this.lastStringForm;
+        lastReduction = KoLCharacter.getManaCostAdjustment();
+        lastStringForm = skillName + " (" + SkillDatabase.getMPConsumptionById( skillId ) + " mp)";
+		return lastStringForm;
 	}
 
 	private static boolean canSwitchToItem( final AdventureResult item )
@@ -733,36 +733,36 @@ public class UseSkillRequest
 	@Override
 	public void run()
 	{
-		if ( this.isRunning )
+		if ( isRunning )
 		{
 			return;
 		}
 
 		UseSkillRequest.lastUpdate = "";
 
-		if ( this.buffCount == 0 )
+		if ( buffCount == 0 )
 		{
 			// Silently do nothing
 			return;
 		}
 
-		if ( !KoLCharacter.hasSkill( this.skillName ) )
+		if ( !KoLCharacter.hasSkill( skillName ) )
 		{
-			UseSkillRequest.lastUpdate = "You don't know how to cast " + this.skillName + ".";
+			UseSkillRequest.lastUpdate = "You don't know how to cast " + skillName + ".";
 			return;
 		}
 
-		UseSkillRequest.optimizeEquipment( this.skillId );
+		UseSkillRequest.optimizeEquipment( skillId );
 
 		if ( !KoLmafia.permitsContinue() )
 		{
 			return;
 		}
 
-		this.isRunning = true;
-		this.setBuffCount( Math.min( this.buffCount, this.getMaximumCast() ) );
-		this.useSkillLoop();
-		this.isRunning = false;
+        isRunning = true;
+        setBuffCount( Math.min( buffCount, getMaximumCast() ) );
+        useSkillLoop();
+        isRunning = false;
 	}
 
 	private void useSkillLoop()
@@ -775,33 +775,33 @@ public class UseSkillRequest
 		// Before executing the skill, ensure that all necessary mana is
 		// recovered in advance.
 
-		int castsRemaining = this.buffCount;
+		int castsRemaining = buffCount;
 
 		int maximumMP = KoLCharacter.getMaximumMP();
-		int mpPerCast = SkillDatabase.getMPConsumptionById( this.skillId );
+		int mpPerCast = SkillDatabase.getMPConsumptionById( skillId );
 		int maximumCast = maximumMP / mpPerCast;
 
 		// Save name so we can guarantee correct target later
 
-		String originalTarget = this.target;
+		String originalTarget = target;
 
 		while ( !KoLmafia.refusesContinue() && castsRemaining > 0 )
 		{
-			if ( SkillDatabase.isLibramSkill( this.skillId ) )
+			if ( SkillDatabase.isLibramSkill( skillId ) )
 			{
-				mpPerCast = SkillDatabase.getMPConsumptionById( this.skillId );
+				mpPerCast = SkillDatabase.getMPConsumptionById( skillId );
 			}
 
 			if ( maximumMP < mpPerCast )
 			{
-				UseSkillRequest.lastUpdate = "Your maximum mana is too low to cast " + this.skillName + ".";
+				UseSkillRequest.lastUpdate = "Your maximum mana is too low to cast " + skillName + ".";
 				KoLmafia.updateDisplay( UseSkillRequest.lastUpdate );
 				return;
 			}
 
 			// Find out how many times we can cast with current MP
 
-			int currentCast = this.availableCasts( castsRemaining, mpPerCast );
+			int currentCast = availableCasts( castsRemaining, mpPerCast );
 
 			// If none, attempt to recover MP in order to cast;
 			// take auto-recovery into account.
@@ -831,12 +831,12 @@ public class UseSkillRequest
 
 				if ( currentMP == KoLCharacter.getCurrentMP() )
 				{
-					UseSkillRequest.lastUpdate = "Could not restore enough mana to cast " + this.skillName + ".";
+					UseSkillRequest.lastUpdate = "Could not restore enough mana to cast " + skillName + ".";
 					KoLmafia.updateDisplay( UseSkillRequest.lastUpdate );
 					return;
 				}
 
-				currentCast = this.availableCasts( castsRemaining, mpPerCast );
+				currentCast = availableCasts( castsRemaining, mpPerCast );
 			}
 
 			if ( KoLmafia.refusesContinue() )
@@ -849,7 +849,7 @@ public class UseSkillRequest
 			// then there is an effective cap based on how much
 			// the skill is able to restore.
 
-			switch ( this.skillId )
+			switch ( skillId )
 			{
 			case OTTER_TONGUE:
 			case WALRUS_TONGUE:
@@ -858,7 +858,7 @@ public class UseSkillRequest
 			case BANDAGES:
 			case COCOON:
 
-				int healthRestored = HPRestoreItemList.getHealthRestored( this.skillName );
+				int healthRestored = HPRestoreItemList.getHealthRestored( skillName );
 				int maxPossible = Math.max( 1, ( KoLCharacter.getMaximumHP() - KoLCharacter.getCurrentHP() ) / healthRestored );
 				castsRemaining = Math.min( castsRemaining, maxPossible );
 				currentCast = Math.min( currentCast, castsRemaining );
@@ -871,8 +871,8 @@ public class UseSkillRequest
 			{
 				// Attempt to cast the buff.
 
-				this.buffCount = currentCast;
-				UseSkillRequest.optimizeEquipment( this.skillId );
+                buffCount = currentCast;
+				UseSkillRequest.optimizeEquipment( skillId );
 
 				if ( KoLmafia.refusesContinue() )
 				{
@@ -880,17 +880,17 @@ public class UseSkillRequest
 					return;
 				}
 
-				this.setTarget( originalTarget );
+                setTarget( originalTarget );
 
-				this.addFormField( this.countFieldId, String.valueOf( currentCast ), false );
+                addFormField( countFieldId, String.valueOf( currentCast ), false );
 
-				if ( this.target == null || this.target.trim().length() == 0 )
+				if ( target == null || target.trim().length() == 0 )
 				{
-					KoLmafia.updateDisplay( "Casting " + this.skillName + " " + currentCast + " times..." );
+					KoLmafia.updateDisplay( "Casting " + skillName + " " + currentCast + " times..." );
 				}
 				else
 				{
-					KoLmafia.updateDisplay( "Casting " + this.skillName + " on " + this.target + " " + currentCast + " times..." );
+					KoLmafia.updateDisplay( "Casting " + skillName + " on " + target + " " + currentCast + " times..." );
 				}
 
 				super.run();
@@ -914,14 +914,14 @@ public class UseSkillRequest
 		int availableMP = KoLCharacter.getCurrentMP();
 		int currentCast = 0;
 
-		if ( SkillDatabase.isLibramSkill( this.skillId ) )
+		if ( SkillDatabase.isLibramSkill( skillId ) )
 		{
 			currentCast = SkillDatabase.libramSkillCasts( availableMP );
 		}
 		else
 		{
 			currentCast = availableMP / mpPerCast;
-			currentCast = Math.min( this.getMaximumCast(), currentCast );
+			currentCast = Math.min( getMaximumCast(), currentCast );
 		}
 
 		currentCast = Math.min( maxCasts, currentCast );
@@ -1086,7 +1086,7 @@ public class UseSkillRequest
 	{
 		UseSkillRequest.lastUpdate = "";
 
-		boolean shouldStop = UseSkillRequest.parseResponse( this.getURLString(), this.responseText );
+		boolean shouldStop = UseSkillRequest.parseResponse( getURLString(), responseText );
 
 		if ( !UseSkillRequest.lastUpdate.equals( "" ) )
 		{
@@ -1101,20 +1101,20 @@ public class UseSkillRequest
 			return;
 		}
 
-		if ( this.target == null )
+		if ( target == null )
 		{
-			KoLmafia.updateDisplay( this.skillName + " was successfully cast." );
+			KoLmafia.updateDisplay( skillName + " was successfully cast." );
 		}
 		else
 		{
-			KoLmafia.updateDisplay( this.skillName + " was successfully cast on " + this.target + "." );
+			KoLmafia.updateDisplay( skillName + " was successfully cast on " + target + "." );
 		}
 	}
 
 	@Override
 	public boolean equals( final Object o )
 	{
-		return o != null && o instanceof UseSkillRequest && this.getSkillName().equals(
+		return o != null && o instanceof UseSkillRequest && getSkillName().equals(
 			( (UseSkillRequest) o ).getSkillName() );
 	}
 

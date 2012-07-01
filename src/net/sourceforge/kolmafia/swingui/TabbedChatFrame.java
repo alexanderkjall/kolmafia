@@ -63,14 +63,14 @@ public class TabbedChatFrame
 	{
 		super( null );
 
-		this.setTitle( "Loathing Chat" );
+        setTitle( "Loathing Chat" );
 
 		if ( Preferences.getBoolean( "addChatCommandLine" ) )
 		{
-			this.tabs.addTab( "[gcli]", new CommandDisplayPanel() );
+            tabs.addTab( "[gcli]", new CommandDisplayPanel() );
 		}
 
-		this.tabs.addChangeListener( new TabFocusingListener() );
+        tabs.addChangeListener( new TabFocusingListener() );
 	}
 
 	@Override
@@ -87,17 +87,17 @@ public class TabbedChatFrame
 	@Override
 	public void initialize( final String associatedContact )
 	{
-		if ( this.tabs instanceof CloseTabbedPane )
+		if ( tabs instanceof CloseTabbedPane )
 		{
-			( (CloseTabbedPane) this.tabs ).setCloseIconStyle( CloseTabPaneUI.GRAY_CLOSE_ICON );
-			( (CloseTabbedPane) this.tabs ).addCloseListener( this );
+			( (CloseTabbedPane) tabs).setCloseIconStyle( CloseTabPaneUI.GRAY_CLOSE_ICON );
+			( (CloseTabbedPane) tabs).addCloseListener( this );
 		}
 		else
 		{
-			( (CloseableTabbedPane) this.tabs ).addCloseableTabbedPaneListener( this );
+			( (CloseableTabbedPane) tabs).addCloseableTabbedPaneListener( this );
 		}
 
-		this.setCenterComponent( this.tabs );
+        setCenterComponent( tabs );
 	}
 
 	public boolean closeTab( final int tabIndexToClose )
@@ -107,7 +107,7 @@ public class TabbedChatFrame
 			return false;
 		}
 
-		String closedTab = this.tabs.getTitleAt( tabIndexToClose );
+		String closedTab = tabs.getTitleAt( tabIndexToClose );
 
 		RequestThread.runInParallel( new CloseWindowRunnable( closedTab ) );
 
@@ -116,9 +116,9 @@ public class TabbedChatFrame
 
 	public void closeOperation( final MouseEvent e, final int overTabIndex )
 	{
-		if ( this.closeTab( overTabIndex ) )
+		if ( closeTab( overTabIndex ) )
 		{
-			this.tabs.removeTabAt( overTabIndex );
+            tabs.removeTabAt( overTabIndex );
 		}
 	}
 
@@ -129,9 +129,9 @@ public class TabbedChatFrame
 
 	public void addTab( final String tabName )
 	{
-		for ( int i = 0; i < this.tabs.getTabCount(); ++i )
+		for ( int i = 0; i < tabs.getTabCount(); ++i )
 		{
-			if ( this.tabs.getTitleAt( i ).trim().equals( tabName ) )
+			if ( tabs.getTitleAt( i ).trim().equals( tabName ) )
 			{
 				return;
 			}
@@ -159,11 +159,11 @@ public class TabbedChatFrame
 
 	public void removeTab( final String tabName )
 	{
-		for ( int i = 0; i < this.tabs.getTabCount(); ++i )
+		for ( int i = 0; i < tabs.getTabCount(); ++i )
 		{
-			if ( this.tabs.getTitleAt( i ).trim().equals( tabName ) )
+			if ( tabs.getTitleAt( i ).trim().equals( tabName ) )
 			{
-				this.closeOperation( null, i );
+                closeOperation( null, i );
 				return;
 			}
 		}
@@ -176,9 +176,9 @@ public class TabbedChatFrame
 			return;
 		}
 
-		for ( int i = 0; i < this.tabs.getTabCount(); ++i )
+		for ( int i = 0; i < tabs.getTabCount(); ++i )
 		{
-			if ( tabName.equals( this.tabs.getTitleAt( i ).trim() ) )
+			if ( tabName.equals( tabs.getTitleAt( i ).trim() ) )
 			{
 				SwingUtilities.invokeLater( new TabHighlighter( i ) );
 				return;
@@ -199,9 +199,9 @@ public class TabbedChatFrame
 		public void run()
 		{
 			JTabbedPane tabs = TabbedChatFrame.this.tabs;
-			ChatPanel createdPanel = new ChatPanel( this.tabName );
+			ChatPanel createdPanel = new ChatPanel( tabName );
 
-			int tabOrder = this.getTabOrder( this.tabName );
+			int tabOrder = getTabOrder( tabName );
 
 			int tabCount = tabs.getTabCount();
 			int tabIndex = tabCount;
@@ -210,7 +210,7 @@ public class TabbedChatFrame
 			{
 				String currentTabName = tabs.getTitleAt( i ).trim();
 
-				int currentTabOrder = this.getTabOrder( currentTabName );
+				int currentTabOrder = getTabOrder( currentTabName );
 
 				if ( tabOrder < currentTabOrder )
 				{
@@ -219,7 +219,7 @@ public class TabbedChatFrame
 				}
 			}
 
-			tabs.insertTab( this.tabName, null, createdPanel, "", tabIndex );
+			tabs.insertTab( tabName, null, createdPanel, "", tabIndex );
 		}
 
 		private int getTabOrder( final String tabName )
@@ -250,18 +250,18 @@ public class TabbedChatFrame
 
 		public void run()
 		{
-			if ( TabbedChatFrame.this.tabs.getSelectedIndex() == this.tabIndex )
+			if ( tabs.getSelectedIndex() == tabIndex )
 			{
 				return;
 			}
 
-			if ( TabbedChatFrame.this.tabs instanceof CloseTabbedPane )
+			if ( tabs instanceof CloseTabbedPane )
 			{
-				( (CloseTabbedPane) TabbedChatFrame.this.tabs ).highlightTab( this.tabIndex );
+				( (CloseTabbedPane) tabs).highlightTab( tabIndex );
 			}
 			else
 			{
-				( (CloseableTabbedPane) TabbedChatFrame.this.tabs ).highlightTab( this.tabIndex );
+				( (CloseableTabbedPane) tabs).highlightTab( tabIndex );
 			}
 		}
 	}
@@ -278,7 +278,7 @@ public class TabbedChatFrame
 
 		public void run()
 		{
-			ChatManager.closeWindow( this.closedTab );
+			ChatManager.closeWindow( closedTab );
 		}
 	}
 }

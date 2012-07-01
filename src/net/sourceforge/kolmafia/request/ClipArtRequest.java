@@ -50,31 +50,31 @@ public class ClipArtRequest
 	@Override
 	public void reconstructFields()
 	{
-		this.constructURLString( this.getURLString() );
+        constructURLString( getURLString() );
 	}
 
 	@Override
 	public void run()
 	{
-		if ( !KoLmafia.permitsContinue() || this.getQuantityNeeded() <= 0 )
+		if ( !KoLmafia.permitsContinue() || getQuantityNeeded() <= 0 )
 		{
 			return;
 		}
 
-		KoLmafia.updateDisplay( "Creating " + this.getQuantityNeeded() + " " + this.getName() + "..." );
+		KoLmafia.updateDisplay( "Creating " + getQuantityNeeded() + " " + getName() + "..." );
 
-		UseSkillRequest request = UseSkillRequest.getInstance( "Summon Clip Art", this.concoction );
+		UseSkillRequest request = UseSkillRequest.getInstance( "Summon Clip Art", concoction );
 
 		int createdQuantity = 0;
 		int beforeQuantity;
 
 		do
 		{
-			beforeQuantity = this.createdItem.getCount( KoLConstants.inventory );
+			beforeQuantity = createdItem.getCount( KoLConstants.inventory );
 
 			request.run();
 
-			createdQuantity = this.createdItem.getCount( KoLConstants.inventory ) - beforeQuantity;
+			createdQuantity = createdItem.getCount( KoLConstants.inventory ) - beforeQuantity;
 
 			if ( createdQuantity == 0 )
 			{
@@ -86,9 +86,9 @@ public class ClipArtRequest
 				return;
 			}
 
-			KoLmafia.updateDisplay( "Successfully created " + this.getName() + " (" + createdQuantity + ")" );
-			this.setQuantityNeeded( this.getQuantityNeeded() - createdQuantity );
+			KoLmafia.updateDisplay( "Successfully created " + getName() + " (" + createdQuantity + ")" );
+            setQuantityNeeded( getQuantityNeeded() - createdQuantity );
 		}
-		while ( this.getQuantityNeeded() > 0 && KoLmafia.permitsContinue() );
+		while ( getQuantityNeeded() > 0 && KoLmafia.permitsContinue() );
 	}
 }

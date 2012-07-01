@@ -66,7 +66,7 @@ public class MeatManageFrame
 		container.add( new MeatTransferPanel( MeatTransferPanel.MEAT_TO_INVENTORY ) );
 		container.add( new MeatTransferPanel( MeatTransferPanel.PULL_MEAT_FROM_STORAGE ) );
 
-		this.setCenterComponent( container );
+        setCenterComponent( container );
 	}
 
 	@Override
@@ -95,30 +95,30 @@ public class MeatManageFrame
 			heroes.add( "Statue of Jarlsberg" );
 			heroes.add( "Statue of Sneaky Pete" );
 
-			this.heroField = new JComboBox( heroes );
-			this.amountField = new AutoHighlightTextField();
+            heroField = new JComboBox( heroes );
+            amountField = new AutoHighlightTextField();
 
 			VerifiableElement[] elements = new VerifiableElement[ 2 ];
-			elements[ 0 ] = new VerifiableElement( "Donate To: ", this.heroField );
-			elements[ 1 ] = new VerifiableElement( "Amount: ", this.amountField );
+			elements[ 0 ] = new VerifiableElement( "Donate To: ", heroField );
+			elements[ 1 ] = new VerifiableElement( "Amount: ", amountField );
 
-			this.setContent( elements );
+            setContent( elements );
 		}
 
 		@Override
 		public void actionConfirmed()
 		{
-			if ( this.heroField.getSelectedIndex() != -1 )
+			if ( heroField.getSelectedIndex() != -1 )
 			{
 				RequestThread.postRequest( new ShrineRequest(
-					this.heroField.getSelectedIndex() + 1, InputFieldUtilities.getValue( this.amountField ) ) );
+                        heroField.getSelectedIndex() + 1, InputFieldUtilities.getValue( amountField ) ) );
 			}
 		}
 
 		@Override
 		public void actionCancelled()
 		{
-			this.setStatusMessage( "The Frost poem you dialed is unavailable at this time." );
+            setStatusMessage( "The Frost poem you dialed is unavailable at this time." );
 		}
 	}
 }

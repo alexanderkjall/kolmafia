@@ -77,19 +77,19 @@ public class Profiler
 	
 	public void finish()
 	{
-		Profiler existing = (Profiler) Profiler.totals.get( this.name );
+		Profiler existing = (Profiler) Profiler.totals.get( name );
 		if ( existing != null )
 		{
 			++existing.count;
-			existing.total += this.total;
-			existing.net += this.net;
-			this.next = Profiler.freeList;
+			existing.total += total;
+			existing.net += net;
+            next = Profiler.freeList;
 			Profiler.freeList = this;
 		}
 		else
 		{
-			this.count = 1;
-			Profiler.totals.put( this.name, this );
+            count = 1;
+			Profiler.totals.put( name, this );
 		}
 	}
 	

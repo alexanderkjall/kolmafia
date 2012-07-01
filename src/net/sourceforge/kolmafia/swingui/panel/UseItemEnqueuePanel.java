@@ -90,9 +90,9 @@ public class UseItemEnqueuePanel
 	{
 		super( ConcoctionDatabase.getUsables(), true, true );
 		// Remove the default borders inherited from ScrollablePanel.
-		BorderLayout a = (BorderLayout) this.actualPanel.getLayout();
+		BorderLayout a = (BorderLayout) actualPanel.getLayout();
 		a.setVgap( 0 );
-		CardLayout b = (CardLayout) this.actualPanel.getParent().getLayout();
+		CardLayout b = (CardLayout) actualPanel.getParent().getLayout();
 		b.setVgap( 0 );
 
 		this.food = food;
@@ -136,27 +136,27 @@ public class UseItemEnqueuePanel
 		ActionListener [] listenerArray = new ActionListener[ listeners.size() ];
 		listeners.toArray( listenerArray );
 
-		this.setButtons( false, listenerArray );
+        setButtons( false, listenerArray );
 
 		JLabel test = new JLabel( "ABCDEFGHIJKLMNOPQRSTUVWXYZ" );
 
-		this.elementList.setFixedCellHeight( (int) ( test.getPreferredSize().getHeight() * 2.5f ) );
+        elementList.setFixedCellHeight( (int) (test.getPreferredSize().getHeight() * 2.5f) );
 
-		this.elementList.setVisibleRowCount( 6 );
-		this.elementList.setSelectionMode( ListSelectionModel.SINGLE_SELECTION );
+        elementList.setVisibleRowCount( 6 );
+        elementList.setSelectionMode( ListSelectionModel.SINGLE_SELECTION );
 
-		this.filters = new JCheckBox[ food || booze || spleen ? 8 : 7 ];
+        filters = new JCheckBox[ food || booze || spleen ? 8 : 7 ];
 
-		this.filters[ 0 ] = new JCheckBox( "no create" );
-		this.filters[ 1 ] = new TurnFreeCheckbox();
-		this.filters[ 2 ] = new JCheckBox( "no summon" );
-		this.filters[ 3 ] = new JCheckBox( "+mus only" );
-		this.filters[ 4 ] = new JCheckBox( "+mys only" );
-		this.filters[ 5 ] = new JCheckBox( "+mox only" );
+        filters[ 0 ] = new JCheckBox( "no create" );
+        filters[ 1 ] = new TurnFreeCheckbox();
+        filters[ 2 ] = new JCheckBox( "no summon" );
+        filters[ 3 ] = new JCheckBox( "+mus only" );
+        filters[ 4 ] = new JCheckBox( "+mys only" );
+        filters[ 5 ] = new JCheckBox( "+mox only" );
 
 		for ( int i = 0; i < 6; ++i )
 		{
-			this.listenToCheckBox( this.filters[ i ] );
+            listenToCheckBox( filters[ i ] );
 		}
 
 		JPanel filterPanel = new JPanel( new GridLayout() );
@@ -165,24 +165,24 @@ public class UseItemEnqueuePanel
 		JPanel column3 = new JPanel( new BorderLayout() );
 		JPanel column4 = new JPanel( new BorderLayout() );
 
-		column1.add( this.filters[ 0 ], BorderLayout.NORTH );
-		column2.add( this.filters[ 1 ], BorderLayout.NORTH );
-		column3.add( this.filters[ 2 ], BorderLayout.NORTH );
-		column1.add( this.filters[ 3 ], BorderLayout.CENTER );
-		column2.add( this.filters[ 4 ], BorderLayout.CENTER );
-		column3.add( this.filters[ 5 ], BorderLayout.CENTER );
+		column1.add( filters[ 0 ], BorderLayout.NORTH );
+		column2.add( filters[ 1 ], BorderLayout.NORTH );
+		column3.add( filters[ 2 ], BorderLayout.NORTH );
+		column1.add( filters[ 3 ], BorderLayout.CENTER );
+		column2.add( filters[ 4 ], BorderLayout.CENTER );
+		column3.add( filters[ 5 ], BorderLayout.CENTER );
 
 		if ( food || booze || spleen )
 		{
-			this.filters[ 6 ] = new ExperimentalCheckBox( food, booze );
-			this.filters[ 7 ] = new ByRoomCheckbox();
-			column4.add( this.filters[ 6 ], BorderLayout.NORTH );
-			column4.add( this.filters[ 7 ], BorderLayout.CENTER );
+            filters[ 6 ] = new ExperimentalCheckBox( food, booze );
+            filters[ 7 ] = new ByRoomCheckbox();
+			column4.add( filters[ 6 ], BorderLayout.NORTH );
+			column4.add( filters[ 7 ], BorderLayout.CENTER );
 		}
 		else
 		{
-			this.filters[ 6 ] = new ByRoomCheckbox();
-			column4.add( this.filters[ 6 ], BorderLayout.CENTER );
+            filters[ 6 ] = new ByRoomCheckbox();
+			column4.add( filters[ 6 ], BorderLayout.CENTER );
 		}
 
 		filterPanel.add( column1 );
@@ -192,15 +192,15 @@ public class UseItemEnqueuePanel
 
 		// Set the height of the filter panel to be just a wee bit taller than two checkboxes need
 		filterPanel.setPreferredSize( new Dimension( 10,
-			(int) ( this.filters[ 0 ].getPreferredSize().height * 2.1f ) ) );
+			(int) (filters[ 0 ].getPreferredSize().height * 2.1f ) ) );
 
-		this.setEnabled( true );
+        setEnabled( true );
 
-		this.northPanel.add( filterPanel, BorderLayout.NORTH );
+        northPanel.add( filterPanel, BorderLayout.NORTH );
 		// Restore the 10px border that we removed from the bottom.
-		this.actualPanel.add( Box.createVerticalStrut( 10 ), BorderLayout.SOUTH );
+        actualPanel.add( Box.createVerticalStrut( 10 ), BorderLayout.SOUTH );
 
-		this.filterItems();
+        filterItems();
 	}
 
 	@Override
@@ -211,38 +211,38 @@ public class UseItemEnqueuePanel
 		// The "binge" listener is the second or third button
 		int bingeIndex = Preferences.getBoolean( "addCreationQueue" ) ? 2 : 1;
 
-		if ( isEnabled && this.food )
+		if ( isEnabled && food )
 		{
 			boolean haveGhost = KoLCharacter.findFamiliar( FamiliarPool.GHOST ) != null;
-			this.buttons[ bingeIndex ].setEnabled( haveGhost );
+            buttons[ bingeIndex ].setEnabled( haveGhost );
 
 			// We gray out the distend button unless we have a
 			// pill, and haven't used one today.
 			//
 			// The "flush" listener is the last button
-			int flushIndex = this.buttons.length - 1;
+			int flushIndex = buttons.length - 1;
 			boolean havepill = InventoryManager.getCount( ItemPool.DISTENTION_PILL ) > 0;
 			boolean activepill = Preferences.getBoolean( "distentionPillActive" );
 			boolean usedpill = Preferences.getBoolean( "_distentionPillUsed" );
 			boolean canFlush = ( havepill && !activepill && !usedpill );
-			this.buttons[ flushIndex ].setEnabled( canFlush );
+            buttons[ flushIndex ].setEnabled( canFlush );
 		}
 
-		if ( isEnabled && this.booze )
+		if ( isEnabled && booze )
 		{
 			boolean haveHobo = KoLCharacter.findFamiliar( FamiliarPool.HOBO ) != null;
-			this.buttons[ bingeIndex ].setEnabled( haveHobo );
+            buttons[ bingeIndex ].setEnabled( haveHobo );
 
 			// We gray out the dog hair button unless we have
 			// inebriety, have a pill, and haven't used one today.
 			//
 			// The "flush" listener is the last button
-			int flushIndex = this.buttons.length - 1;
+			int flushIndex = buttons.length - 1;
 			boolean havedrunk = KoLCharacter.getInebriety() > 0;
 			boolean havepill = InventoryManager.getCount( ItemPool.SYNTHETIC_DOG_HAIR_PILL ) > 0;
 			boolean usedpill = Preferences.getBoolean( "_syntheticDogHairPillUsed" );
 			boolean canFlush = havedrunk && ( havepill && !usedpill );
-			this.buttons[ flushIndex ].setEnabled( canFlush );
+            buttons[ flushIndex ].setEnabled( canFlush );
 		}
 	}
 
@@ -285,23 +285,23 @@ public class UseItemEnqueuePanel
 		@Override
 		protected void execute()
 		{
-			UseItemEnqueuePanel.this.getDesiredItems( "Queue" );
+            getDesiredItems( "Queue" );
 			ConcoctionDatabase.refreshConcoctions( true );
 
-			if ( UseItemEnqueuePanel.this.food )
+			if ( food )
 			{
-				UseItemEnqueuePanel.this.queueTabs.setTitleAt(
-					0, ConcoctionDatabase.getQueuedFullness() + " Full Queued" );
+                queueTabs.setTitleAt(
+                        0, ConcoctionDatabase.getQueuedFullness() + " Full Queued" );
 			}
-			if ( UseItemEnqueuePanel.this.booze )
+			if ( booze )
 			{
-				UseItemEnqueuePanel.this.queueTabs.setTitleAt(
-					0, ConcoctionDatabase.getQueuedInebriety() + " Drunk Queued" );
+                queueTabs.setTitleAt(
+                        0, ConcoctionDatabase.getQueuedInebriety() + " Drunk Queued" );
 			}
-			if ( UseItemEnqueuePanel.this.spleen )
+			if ( spleen )
 			{
-				UseItemEnqueuePanel.this.queueTabs.setTitleAt(
-					0, ConcoctionDatabase.getQueuedSpleenHit() + " Spleen Queued" );
+                queueTabs.setTitleAt(
+                        0, ConcoctionDatabase.getQueuedSpleenHit() + " Spleen Queued" );
 			}
 			ConcoctionDatabase.getUsables().sort();
 		}
@@ -320,38 +320,38 @@ public class UseItemEnqueuePanel
 		protected void execute()
 		{
 			boolean warnFirst =
-				( UseItemEnqueuePanel.this.food && ConcoctionDatabase.getQueuedFullness() != 0 ) ||
-				( UseItemEnqueuePanel.this.booze && ConcoctionDatabase.getQueuedInebriety() != 0 ) ||
-				( UseItemEnqueuePanel.this.spleen && ConcoctionDatabase.getQueuedSpleenHit() != 0 );
+				(food && ConcoctionDatabase.getQueuedFullness() != 0 ) ||
+				(booze && ConcoctionDatabase.getQueuedInebriety() != 0 ) ||
+				(spleen && ConcoctionDatabase.getQueuedSpleenHit() != 0 );
 
 			if ( warnFirst && !InputFieldUtilities.confirm( "This action will also consume any queued items.  Are you sure you wish to continue?" ) )
 			{
 				return;
 			}
 
-			Object [] items = UseItemEnqueuePanel.this.getDesiredItems( "Consume" );
+			Object [] items = getDesiredItems( "Consume" );
 
 			if ( items == null )
 			{
 				return;
 			}
 
-			ConcoctionDatabase.handleQueue( UseItemEnqueuePanel.this.food, UseItemEnqueuePanel.this.booze, UseItemEnqueuePanel.this.spleen, KoLConstants.CONSUME_USE );
+			ConcoctionDatabase.handleQueue( food, booze, spleen, KoLConstants.CONSUME_USE );
 
-			if ( UseItemEnqueuePanel.this.food )
+			if ( food )
 			{
-				UseItemEnqueuePanel.this.queueTabs.setTitleAt(
-					0, ConcoctionDatabase.getQueuedFullness() + " Full Queued" );
+                queueTabs.setTitleAt(
+                        0, ConcoctionDatabase.getQueuedFullness() + " Full Queued" );
 			}
-			if ( UseItemEnqueuePanel.this.booze )
+			if ( booze )
 			{
-				UseItemEnqueuePanel.this.queueTabs.setTitleAt(
-					0, ConcoctionDatabase.getQueuedInebriety() + " Drunk Queued" );
+                queueTabs.setTitleAt(
+                        0, ConcoctionDatabase.getQueuedInebriety() + " Drunk Queued" );
 			}
-			if ( UseItemEnqueuePanel.this.spleen )
+			if ( spleen )
 			{
-				UseItemEnqueuePanel.this.queueTabs.setTitleAt(
-					0, ConcoctionDatabase.getQueuedSpleenHit() + " Spleen Queued" );
+                queueTabs.setTitleAt(
+                        0, ConcoctionDatabase.getQueuedSpleenHit() + " Spleen Queued" );
 			}
 			ConcoctionDatabase.getUsables().sort();
 		}
@@ -425,21 +425,21 @@ public class UseItemEnqueuePanel
 		@Override
 		protected void execute()
 		{
-			if ( this.warnBeforeConsume() && !InputFieldUtilities.confirm( "This action will also feed any queued items to your familiar. Are you sure you wish to continue?" ) )
+			if ( warnBeforeConsume() && !InputFieldUtilities.confirm( "This action will also feed any queued items to your familiar. Are you sure you wish to continue?" ) )
 			{
 				return;
 			}
 
-			Object [] items = UseItemEnqueuePanel.this.getDesiredItems( "Feed" );
+			Object [] items = getDesiredItems( "Feed" );
 
 			if ( items == null )
 			{
 				return;
 			}
 
-			this.handleQueue();
+            handleQueue();
 
-			UseItemEnqueuePanel.this.queueTabs.setTitleAt( 0, this.getTitle() );
+            queueTabs.setTitleAt( 0, getTitle() );
 		}
 
 		public abstract boolean warnBeforeConsume();
@@ -555,7 +555,7 @@ public class UseItemEnqueuePanel
 			}
 
 			// no create
-			if ( UseItemEnqueuePanel.this.filters[ 0 ].isSelected() )
+			if ( filters[ 0 ].isSelected() )
 			{
 				AdventureResult item = creation.getItem();
 				if ( item != null && item.getCount( KoLConstants.inventory ) == 0 )
@@ -580,7 +580,7 @@ public class UseItemEnqueuePanel
 			}
 			else if ( ItemDatabase.getRawSpleenHit( creation.getName() ) != null )
 			{
-				if ( !UseItemEnqueuePanel.this.spleen )
+				if ( !spleen )
 				{
 					return false;
 				}
@@ -639,7 +639,7 @@ public class UseItemEnqueuePanel
 			}
 
 			// turn-free
-			if ( UseItemEnqueuePanel.this.filters[ 1 ].isSelected() )
+			if ( filters[ 1 ].isSelected() )
 			{
 				if ( creation.getTurnFreeAvailable() == 0 )
 				{
@@ -647,7 +647,7 @@ public class UseItemEnqueuePanel
 				}
 			}
 			// no summon
-			if ( UseItemEnqueuePanel.this.filters[ 2 ].isSelected() )
+			if ( filters[ 2 ].isSelected() )
 			{
 				AdventureResult item = creation.getItem();
 				if ( item != null && 
@@ -656,7 +656,7 @@ public class UseItemEnqueuePanel
 					return false;
 				}
 			}
-			if ( UseItemEnqueuePanel.this.filters[ 3 ].isSelected() )
+			if ( filters[ 3 ].isSelected() )
 			{
 				String range = ItemDatabase.getMuscleRange( creation.getName() );
 				if ( range.equals( "+0.0" ) || range.startsWith( "-" ) )
@@ -665,7 +665,7 @@ public class UseItemEnqueuePanel
 				}
 			}
 
-			if ( UseItemEnqueuePanel.this.filters[ 4 ].isSelected() )
+			if ( filters[ 4 ].isSelected() )
 			{
 				String range = ItemDatabase.getMysticalityRange( creation.getName() );
 				if ( range.equals( "+0.0" ) || range.startsWith( "-" ) )
@@ -674,7 +674,7 @@ public class UseItemEnqueuePanel
 				}
 			}
 
-			if ( UseItemEnqueuePanel.this.filters[ 5 ].isSelected() )
+			if ( filters[ 5 ].isSelected() )
 			{
 				String range = ItemDatabase.getMoxieRange( creation.getName() );
 				if ( range.equals( "+0.0" ) || range.startsWith( "-" ) )
@@ -694,7 +694,7 @@ public class UseItemEnqueuePanel
 		{
 			super( food && booze ? "per full/drunk" : booze ? "per drunk" : food ? "per full" : "per spleen", "showGainsPerUnit" );
 
-			this.setToolTipText( "Sort gains per adventure" );
+            setToolTipText( "Sort gains per adventure" );
 		}
 
 		@Override
@@ -711,7 +711,7 @@ public class UseItemEnqueuePanel
 		{
 			super( "by room", "sortByRoom" );
 
-			this.setToolTipText( "Sort items you have no room for to the bottom" );
+            setToolTipText( "Sort items you have no room for to the bottom" );
 		}
 
 		@Override
@@ -728,7 +728,7 @@ public class UseItemEnqueuePanel
 		{
 			super( "turn-free", "showTurnFreeOnly" );
 
-			this.setToolTipText( "Only show creations that will not take a turn" );
+            setToolTipText( "Only show creations that will not take a turn" );
 		}
 
 		@Override

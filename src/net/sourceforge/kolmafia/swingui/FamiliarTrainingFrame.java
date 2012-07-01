@@ -222,8 +222,8 @@ public class FamiliarTrainingFrame
 	{
 		super( "Familiar Trainer" );
 
-		this.training = new FamiliarTrainingPanel();
-		this.setCenterComponent( this.training );
+        training = new FamiliarTrainingPanel();
+        setCenterComponent( training );
 
 		// Clear left over results from the buffer
 		FamiliarTrainingFrame.results.clear();
@@ -232,7 +232,7 @@ public class FamiliarTrainingFrame
 	@Override
 	public void updateDisplayState( final MafiaState displayState )
 	{
-		this.training.setEnabled( displayState != MafiaState.CONTINUE );
+        training.setEnabled( displayState != MafiaState.CONTINUE );
 	}
 
 	@Override
@@ -267,67 +267,67 @@ public class FamiliarTrainingFrame
 			JPanel container = new JPanel( new BorderLayout( 10, 10 ) );
 
 			// Get current familiar
-			this.familiar = KoLCharacter.getFamiliar();
+            familiar = KoLCharacter.getFamiliar();
 
 			// Put familiar changer on top
-			this.familiars = new ChangeComboBox( KoLCharacter.getFamiliarList() );
-			this.familiars.setRenderer( FamiliarData.getRenderer() );
-			container.add( this.familiars, BorderLayout.NORTH );
+            familiars = new ChangeComboBox( KoLCharacter.getFamiliarList() );
+            familiars.setRenderer( FamiliarData.getRenderer() );
+			container.add( familiars, BorderLayout.NORTH );
 
 			// Put results in center
-			this.resultsPanel = new ResultsPanel();
-			container.add( this.resultsPanel, BorderLayout.CENTER );
-			this.add( container, BorderLayout.CENTER );
+            resultsPanel = new ResultsPanel();
+			container.add( resultsPanel, BorderLayout.CENTER );
+            add( container, BorderLayout.CENTER );
 
 			// Put opponents on left
-			this.opponentsPanel = new OpponentsPanel();
-			this.add( this.opponentsPanel, BorderLayout.WEST );
+            opponentsPanel = new OpponentsPanel();
+            add( opponentsPanel, BorderLayout.WEST );
 
 			// Put buttons on right
 			JPanel buttonContainer = new JPanel( new BorderLayout() );
 
-			this.buttonPanel = new ButtonPanel();
-			buttonContainer.add( this.buttonPanel, BorderLayout.NORTH );
+            buttonPanel = new ButtonPanel();
+			buttonContainer.add( buttonPanel, BorderLayout.NORTH );
 
 			// List of counters at bottom
 			JPanel counterPanel = new JPanel();
 			counterPanel.setLayout( new GridLayout( 3, 1 ) );
 
 			// First the win counter
-			this.winCount = new JLabel( "", JLabel.CENTER );
-			counterPanel.add( this.winCount );
+            winCount = new JLabel( "", JLabel.CENTER );
+			counterPanel.add( winCount );
 
 			// Next the prize counter
-			this.prizeCounter = new JLabel( "", JLabel.CENTER );
-			counterPanel.add( this.prizeCounter );
+            prizeCounter = new JLabel( "", JLabel.CENTER );
+			counterPanel.add( prizeCounter );
 
 			// Finally the total familiar weight
-			this.totalWeight = new JLabel( "", JLabel.CENTER );
-			counterPanel.add( this.totalWeight );
+            totalWeight = new JLabel( "", JLabel.CENTER );
+			counterPanel.add( totalWeight );
 
 			// Make a refresher for the counters
-			FamiliarTrainingFrame.this.weightListener = new KoLCharacterAdapter( new TotalWeightRefresher() );
-			KoLCharacter.addCharacterListener( FamiliarTrainingFrame.this.weightListener );
+            weightListener = new KoLCharacterAdapter( new TotalWeightRefresher() );
+			KoLCharacter.addCharacterListener( weightListener );
 
 			// Show the counters
 			buttonContainer.add( counterPanel, BorderLayout.SOUTH );
 
-			this.add( buttonContainer, BorderLayout.EAST );
+            add( buttonContainer, BorderLayout.EAST );
 
-			this.add( new StatusPanel(), BorderLayout.SOUTH );
+            add( new StatusPanel(), BorderLayout.SOUTH );
 		}
 
 		@Override
 		public void setEnabled( final boolean isEnabled )
 		{
-			if ( this.buttonPanel == null || this.familiars == null )
+			if ( buttonPanel == null || familiars == null )
 			{
 				return;
 			}
 
 			super.setEnabled( isEnabled );
-			this.buttonPanel.setEnabled( isEnabled );
-			this.familiars.setEnabled( isEnabled );
+            buttonPanel.setEnabled( isEnabled );
+            familiars.setEnabled( isEnabled );
 		}
 
 		private class TotalWeightRefresher
@@ -335,18 +335,18 @@ public class FamiliarTrainingFrame
 		{
 			public TotalWeightRefresher()
 			{
-				this.run();
+                run();
 			}
 
 			public void run()
 			{
 				// Arena wins
 				int arenaWins = KoLCharacter.getArenaWins();
-				FamiliarTrainingPanel.this.winCount.setText( arenaWins + " arena wins" );
+                winCount.setText( arenaWins + " arena wins" );
 
 				// Wins to next prize
 				int nextPrize = 5 - arenaWins % 5;
-				FamiliarTrainingPanel.this.prizeCounter.setText( nextPrize + " wins to next prize" );
+                prizeCounter.setText( nextPrize + " wins to next prize" );
 
 				// Terrarium weight
 				int totalTerrariumWeight = 0;
@@ -362,7 +362,7 @@ public class FamiliarTrainingFrame
 					}
 				}
 
-				FamiliarTrainingPanel.this.totalWeight.setText( totalTerrariumWeight + " lb. terrarium" );
+                totalWeight.setText( totalTerrariumWeight + " lb. terrarium" );
 			}
 		}
 
@@ -375,11 +375,11 @@ public class FamiliarTrainingFrame
 				LockableListModel opponents = CakeArenaManager.getOpponentList();
 				int opponentCount = opponents.size();
 
-				this.setLayout( new GridLayout( opponentCount, 1, 0, 20 ) );
+                setLayout( new GridLayout( opponentCount, 1, 0, 20 ) );
 
 				for ( int i = 0; i < opponentCount; ++i )
 				{
-					this.add( new OpponentLabel( (ArenaOpponent) opponents.get( i ) ) );
+                    add( new OpponentLabel( (ArenaOpponent) opponents.get( i ) ) );
 				}
 			}
 
@@ -392,8 +392,8 @@ public class FamiliarTrainingFrame
 						"<html><center>" + opponent.getName() + "<br>" + "(" + opponent.getWeight() + " lbs)</center></html>",
 						FamiliarDatabase.getFamiliarImage( opponent.getRace() ), JLabel.CENTER );
 
-					this.setVerticalTextPosition( JLabel.BOTTOM );
-					this.setHorizontalTextPosition( JLabel.CENTER );
+                    setVerticalTextPosition( JLabel.BOTTOM );
+                    setHorizontalTextPosition( JLabel.CENTER );
 				}
 			}
 		}
@@ -409,48 +409,48 @@ public class FamiliarTrainingFrame
 			{
 				JPanel containerPanel = new JPanel( new GridLayout( 11, 1, 5, 5 ) );
 
-				this.matchup = new DisplayFrameButton( "View Matchup", "CakeArenaFrame" );
-				containerPanel.add( this.matchup );
+                matchup = new DisplayFrameButton( "View Matchup", "CakeArenaFrame" );
+				containerPanel.add( matchup );
 
 				containerPanel.add( new JLabel() );
 
-				this.base = new JButton( "Train Base Weight" );
-				this.base.addActionListener( new BaseListener() );
-				containerPanel.add( this.base );
+                base = new JButton( "Train Base Weight" );
+                base.addActionListener( new BaseListener() );
+				containerPanel.add( base );
 
-				this.buffed = new JButton( "Train Buffed Weight" );
-				this.buffed.addActionListener( new BuffedListener() );
-				containerPanel.add( this.buffed );
+                buffed = new JButton( "Train Buffed Weight" );
+                buffed.addActionListener( new BuffedListener() );
+				containerPanel.add( buffed );
 
-				this.turns = new JButton( "Train for Set Turns" );
-				this.turns.addActionListener( new TurnsListener() );
-				containerPanel.add( this.turns );
-
-				containerPanel.add( new JLabel() );
-
-				this.stop = new JButton( "Stop Training" );
-				this.stop.addActionListener( new StopListener() );
-				containerPanel.add( this.stop );
-
-				this.save = new JButton( "Save Transcript" );
-				this.save.addActionListener( new SaveListener() );
-				containerPanel.add( this.save );
+                turns = new JButton( "Train for Set Turns" );
+                turns.addActionListener( new TurnsListener() );
+				containerPanel.add( turns );
 
 				containerPanel.add( new JLabel() );
 
-				this.learn = new JButton( "Learn Familiar Strengths" );
-				this.learn.addActionListener( new LearnListener() );
-				containerPanel.add( this.learn );
+                stop = new JButton( "Stop Training" );
+                stop.addActionListener( new StopListener() );
+				containerPanel.add( stop );
 
-				this.equip = new JButton( "Equip All Familiars" );
-				this.equip.addActionListener( new EquipAllListener() );
-				containerPanel.add( this.equip );
+                save = new JButton( "Save Transcript" );
+                save.addActionListener( new SaveListener() );
+				containerPanel.add( save );
+
+				containerPanel.add( new JLabel() );
+
+                learn = new JButton( "Learn Familiar Strengths" );
+                learn.addActionListener( new LearnListener() );
+				containerPanel.add( learn );
+
+                equip = new JButton( "Equip All Familiars" );
+                equip.addActionListener( new EquipAllListener() );
+				containerPanel.add( equip );
 
 				// debug = new JButton( "Debug" );
 				// debug.addActionListener( new DebugListener() );
 				// this.add( debug );
 
-				this.add( containerPanel );
+                add( containerPanel );
 			}
 
 			@Override
@@ -458,34 +458,34 @@ public class FamiliarTrainingFrame
 			{
 				super.setEnabled( isEnabled );
 
-				if ( this.matchup != null )
+				if ( matchup != null )
 				{
-					this.matchup.setEnabled( isEnabled );
+                    matchup.setEnabled( isEnabled );
 				}
-				if ( this.base != null )
+				if ( base != null )
 				{
-					this.base.setEnabled( isEnabled );
+                    base.setEnabled( isEnabled );
 				}
-				if ( this.buffed != null )
+				if ( buffed != null )
 				{
-					this.buffed.setEnabled( isEnabled );
+                    buffed.setEnabled( isEnabled );
 				}
-				if ( this.turns != null )
+				if ( turns != null )
 				{
-					this.turns.setEnabled( isEnabled );
+                    turns.setEnabled( isEnabled );
 				}
 				// this.stop is always enabled
-				if ( this.save != null )
+				if ( save != null )
 				{
-					this.save.setEnabled( isEnabled );
+                    save.setEnabled( isEnabled );
 				}
-				if ( this.learn != null )
+				if ( learn != null )
 				{
-					this.learn.setEnabled( isEnabled );
+                    learn.setEnabled( isEnabled );
 				}
-				if ( this.equip != null )
+				if ( equip != null )
 				{
-					this.equip.setEnabled( isEnabled );
+                    equip.setEnabled( isEnabled );
 				}
 			}
 
@@ -604,7 +604,7 @@ public class FamiliarTrainingFrame
 				@Override
 				protected void execute()
 				{
-					if ( FamiliarTrainingPanel.this.familiar == FamiliarData.NO_FAMILIAR )
+					if ( familiar == FamiliarData.NO_FAMILIAR )
 					{
 						return;
 					}
@@ -635,7 +635,7 @@ public class FamiliarTrainingFrame
 					if ( skills != null )
 					{
 						int[] original =
-							FamiliarDatabase.getFamiliarSkills( FamiliarTrainingPanel.this.familiar.getId() );
+							FamiliarDatabase.getFamiliarSkills( familiar.getId() );
 						boolean changed = false;
 
 						for ( int i = 0; i < original.length; ++i )
@@ -647,9 +647,9 @@ public class FamiliarTrainingFrame
 							}
 						}
 
-						if ( changed && InputFieldUtilities.confirm( "Save arena parameters for the " + FamiliarTrainingPanel.this.familiar.getRace() + "?" ) )
+						if ( changed && InputFieldUtilities.confirm( "Save arena parameters for the " + familiar.getRace() + "?" ) )
 						{
-							FamiliarDatabase.setFamiliarSkills( FamiliarTrainingPanel.this.familiar.getRace(), skills );
+							FamiliarDatabase.setFamiliarSkills( familiar.getRace(), skills );
 						}
 
 						KoLmafia.updateDisplay(
@@ -678,32 +678,32 @@ public class FamiliarTrainingFrame
 
 					for ( int i = 0; i < familiars.length; ++i )
 					{
-						this.equipFamiliar( familiars[ i ] );
+                        equipFamiliar( familiars[ i ] );
 					}
 
 					// If nothing to do, do nothing!
 
-					if ( this.requests.size() == 0 )
+					if ( requests.size() == 0 )
 					{
 						return;
 					}
 
 					if ( closetItems.size() > 0 )
 					{
-						AdventureResult[] array = new AdventureResult[ this.closetItems.size() ];
-						this.closetItems.toArray( array );
+						AdventureResult[] array = new AdventureResult[closetItems.size() ];
+                        closetItems.toArray( array );
 						RequestThread.postRequest( new ClosetRequest( ClosetRequest.CLOSET_TO_INVENTORY, array ) );
 					}
 
 					if ( storageItems.size() > 0 )
 					{
-						AdventureResult[] array = new AdventureResult[ this.storageItems.size() ];
-						this.storageItems.toArray( array );
+						AdventureResult[] array = new AdventureResult[storageItems.size() ];
+                        storageItems.toArray( array );
 						RequestThread.postRequest( new StorageRequest( StorageRequest.STORAGE_TO_INVENTORY, array ) );
 					}
 
-					GenericRequest[] array = new GenericRequest[ this.requests.size() ];
-					this.requests.toArray( array );
+					GenericRequest[] array = new GenericRequest[requests.size() ];
+                    requests.toArray( array );
 
 					for ( int i = 0; i < array.length; ++i )
 					{
@@ -715,9 +715,9 @@ public class FamiliarTrainingFrame
 					// Leave list empty for next time and
 					// allow garbage collection.
 
-					this.closetItems.clear();
-					this.storageItems.clear();
-					this.requests.clear();
+                    closetItems.clear();
+                    storageItems.clear();
+                    requests.clear();
 				}
 
 				private void equipFamiliar( FamiliarData familiar )
@@ -742,12 +742,12 @@ public class FamiliarTrainingFrame
 					else if ( item.getCount( KoLConstants.closet ) > 0 )
 					{
 						// Use one from the closet
-						this.closetItems.add( item );
+                        closetItems.add( item );
 					}
 					else if ( item.getCount( KoLConstants.storage ) > 0 )
 					{
 						// Use one from storage
-						this.storageItems.add( item );
+                        storageItems.add( item );
 					}
 					else
 					{
@@ -763,7 +763,7 @@ public class FamiliarTrainingFrame
 					{
 						req = new FamiliarRequest( familiar, item );
 					}
-					this.requests.add( req );
+                    requests.add( req );
 
 					return;
 				}
@@ -781,13 +781,13 @@ public class FamiliarTrainingFrame
 
 			public ResultsPanel()
 			{
-				this.setLayout( new BorderLayout( 10, 10 ) );
+                setLayout( new BorderLayout( 10, 10 ) );
 
 				RequestPane resultsDisplay = new RequestPane();
 				JScrollPane scroller = FamiliarTrainingFrame.results.addDisplay( resultsDisplay );
 				JComponentUtilities.setComponentSize( scroller, 400, 400 );
 
-				this.add( scroller, BorderLayout.CENTER );
+                add( scroller, BorderLayout.CENTER );
 			}
 		}
 
@@ -797,7 +797,7 @@ public class FamiliarTrainingFrame
 			public ChangeComboBox( final LockableListModel selector )
 			{
 				super( selector );
-				this.addActionListener( new ChangeComboBoxListener() );
+                addActionListener( new ChangeComboBoxListener() );
 			}
 
 			private class ChangeComboBoxListener
@@ -806,15 +806,15 @@ public class FamiliarTrainingFrame
 				@Override
 				protected void execute()
 				{
-					FamiliarData selection = (FamiliarData) ChangeComboBox.this.getSelectedItem();
+					FamiliarData selection = (FamiliarData) getSelectedItem();
 
-					if ( selection == null || selection == FamiliarTrainingPanel.this.familiar )
+					if ( selection == null || selection == familiar )
 					{
 						return;
 					}
 
 					RequestThread.postRequest( new FamiliarRequest( selection ) );
-					FamiliarTrainingPanel.this.familiar = KoLCharacter.getFamiliar();
+                    familiar = KoLCharacter.getFamiliar();
 				}
 			}
 		}
@@ -1618,36 +1618,36 @@ public class FamiliarTrainingFrame
 		public FamiliarStatus()
 		{
 			// Find out which familiar we are working with
-			this.familiar = KoLCharacter.getFamiliar();
+            familiar = KoLCharacter.getFamiliar();
 
 			// Get details about the special item it can wear
-			String name = FamiliarDatabase.getFamiliarItem( this.familiar.getId() );
-			this.familiarItem = new AdventureResult( name, 1, false );
-			this.familiarItemWeight = FamiliarData.itemWeightModifier( this.familiarItem.getItemId() );
+			String name = FamiliarDatabase.getFamiliarItem( familiar.getId() );
+            familiarItem = new AdventureResult( name, 1, false );
+            familiarItemWeight = FamiliarData.itemWeightModifier( familiarItem.getItemId() );
 
 			// No turns have been used yet
-			this.turns = 0;
+            turns = 0;
 
 			// Initialize set of weights
-			this.weights = new TreeSet();
+            weights = new TreeSet();
 
 			// Initialize the list of GearSets
-			this.gearSets = new ArrayList();
+            gearSets = new ArrayList();
 
 			// Check skills and equipment
-			this.updateStatus();
+            updateStatus();
 		}
 
 		public void updateStatus()
 		{
 			// Check available skills
-			this.checkSkills();
+            checkSkills();
 
 			// Check current equipment
-			this.checkCurrentEquipment();
+            checkCurrentEquipment();
 
 			// Check available equipment
-			this.checkAvailableEquipment( KoLConstants.inventory );
+            checkAvailableEquipment( KoLConstants.inventory );
 		}
 
 		private void checkSkills()
@@ -1692,7 +1692,7 @@ public class FamiliarTrainingFrame
 
 		private void checkCurrentEquipment()
 		{
-			this.checkCurrentEquipment(
+            checkCurrentEquipment(
 				EquipmentManager.getEquipment( EquipmentManager.WEAPON ),
 				EquipmentManager.getEquipment( EquipmentManager.OFFHAND ),
 				EquipmentManager.getEquipment( EquipmentManager.HAT ),
@@ -1712,46 +1712,46 @@ public class FamiliarTrainingFrame
 			this.hat = null;
 			this.item = null;
 
-			this.specItem = null;
-			this.specWeight = 0;
+            specItem = null;
+            specWeight = 0;
 
-			this.pithHelmet = false;
-			this.crumpledFedora = false;
-			this.leadNecklace = false;
-			this.ratHeadBalloon = false;
-			this.bathysphere = false;
-			this.dasBoot = false;
-			this.pumpkinBucket = false;
-			this.flowerBouquet = false;
-			this.boxFireworks = false;
-			this.sugarShield = false;
-			this.doppelganger = false;
+            pithHelmet = false;
+            crumpledFedora = false;
+            leadNecklace = false;
+            ratHeadBalloon = false;
+            bathysphere = false;
+            dasBoot = false;
+            pumpkinBucket = false;
+            flowerBouquet = false;
+            boxFireworks = false;
+            sugarShield = false;
+            doppelganger = false;
 
-			this.whipCount = 0;
-			this.tpCount = 0;
+            whipCount = 0;
+            tpCount = 0;
 
 			// Check hat for pithiness
 			if ( hat.getItemId() == FamiliarTrainingFrame.PITH_HELMET.getItemId() )
 			{
-				this.pithHelmet = true;
+                pithHelmet = true;
 				this.hat = FamiliarTrainingFrame.PITH_HELMET;
 			}
 
 			if ( hat.getItemId() == FamiliarTrainingFrame.CRUMPLED_FEDORA.getItemId() )
 			{
-				this.crumpledFedora = true;
+                crumpledFedora = true;
 				this.hat = FamiliarTrainingFrame.CRUMPLED_FEDORA;
 			}
 
 			if ( weapon != null && weapon.getItemId() == FamiliarTrainingFrame.BAR_WHIP.getItemId() )
 			{
-				++this.whipCount;
+				++whipCount;
 				this.weapon = FamiliarTrainingFrame.BAR_WHIP;
 			}
 
 			if ( offhand != null && offhand.getItemId() == FamiliarTrainingFrame.BAR_WHIP.getItemId() )
 			{
-				++this.whipCount;
+				++whipCount;
 				this.offhand = FamiliarTrainingFrame.BAR_WHIP;
 			}
 
@@ -1760,80 +1760,80 @@ public class FamiliarTrainingFrame
 			{
 				int itemId = item.getItemId();
 
-				if ( itemId == this.familiarItem.getItemId() )
+				if ( itemId == familiarItem.getItemId() )
 				{
-					this.item = this.specItem = this.familiarItem;
-					this.specWeight = this.familiarItemWeight;
+					this.item = specItem = familiarItem;
+                    specWeight = familiarItemWeight;
 				}
 
 				if ( itemId == FamiliarData.PUMPKIN_BUCKET.getItemId() )
 				{
-					this.pumpkinBucket = true;
+                    pumpkinBucket = true;
 					this.item = FamiliarData.PUMPKIN_BUCKET;
 				}
 
 				if ( itemId == FamiliarData.FLOWER_BOUQUET.getItemId() )
 				{
-					this.flowerBouquet = true;
+                    flowerBouquet = true;
 					this.item = FamiliarData.FLOWER_BOUQUET;
 				}
 
 				if ( itemId == FamiliarData.FIREWORKS.getItemId() )
 				{
-					this.boxFireworks = true;
+                    boxFireworks = true;
 					this.item = FamiliarData.FIREWORKS;
 				}
 
 				if ( itemId == FamiliarData.SUGAR_SHIELD.getItemId() )
 				{
-					this.sugarShield = true;
+                    sugarShield = true;
 					this.item = FamiliarData.SUGAR_SHIELD;
 				}
 
 				if ( itemId == FamiliarData.LEAD_NECKLACE.getItemId() )
 				{
-					this.leadNecklace = true;
+                    leadNecklace = true;
 					this.item = FamiliarData.LEAD_NECKLACE;
 				}
 
 				if ( itemId == FamiliarData.RAT_HEAD_BALLOON.getItemId() )
 				{
-					this.ratHeadBalloon = true;
+                    ratHeadBalloon = true;
 					this.item = FamiliarData.RAT_HEAD_BALLOON;
 				}
 
 				if ( itemId == ItemPool.BATHYSPHERE )
 				{
-					this.bathysphere = true;
+                    bathysphere = true;
 					this.item = FamiliarData.BATHYSPHERE;
 				}
 
 				if ( itemId == ItemPool.DAS_BOOT )
 				{
-					this.dasBoot = true;
+                    dasBoot = true;
 					this.item = FamiliarData.DAS_BOOT;
 				}
 
 				if ( itemId == FamiliarData.DOPPELGANGER.getItemId() )
 				{
-					this.doppelganger = true;
+                    doppelganger = true;
 					this.item = FamiliarData.DOPPELGANGER;
 				}
 			}
 
 			// Check accessories for tininess and plasticity
 
-			this.checkAccessory( 0, acc1 );
-			this.checkAccessory( 1, acc2 );
-			this.checkAccessory( 2, acc3 );
+            checkAccessory( 0, acc1 );
+            checkAccessory( 1, acc2 );
+            checkAccessory( 2, acc3 );
 		}
 
 		private void checkAccessory( final int index, final AdventureResult accessory )
 		{
-			if ( this.isTinyPlasticItem( accessory ) )
+			if ( isTinyPlasticItem( accessory ) )
 			{
-				this.acc[ index ] = accessory;
-				this.tp[ this.tpCount++ ] = accessory;
+                acc[ index ] = accessory;
+                tp[tpCount++ ] = accessory;
 			}
 		}
 
@@ -1867,87 +1867,87 @@ public class FamiliarTrainingFrame
 		private void checkAvailableEquipment( final LockableListModel inventory )
 		{
 			// If not wearing a pith helmet, search inventory
-			this.pithHelmet |=
+            pithHelmet |=
 				FamiliarTrainingFrame.PITH_HELMET.getCount( inventory ) > 0 && EquipmentManager.canEquip( "plexiglass pith helmet" );
 
 			// If not wearing a crumpled fedora helmet, search inventory
-			this.crumpledFedora |=
+            crumpledFedora |=
 				FamiliarTrainingFrame.CRUMPLED_FEDORA.getCount( inventory ) > 0 && EquipmentManager.canEquip( "crumpled felt fedora" );
 
 			// If current familiar item is not the special item and
 			// such an item affects weight, search inventory
-			if ( this.familiarItem != this.item && this.familiarItemWeight != 0 && this.familiarItem.getCount( inventory ) > 0 )
+			if ( familiarItem != item && familiarItemWeight != 0 && familiarItem.getCount( inventory ) > 0 )
 			{
-				this.specItem = this.familiarItem;
-				this.specWeight = this.familiarItemWeight;
+                specItem = familiarItem;
+                specWeight = familiarItemWeight;
 			}
 
 			if ( !KoLCharacter.isHardcore() )
 			{
 				// If current familiar is not wearing a pumpkin bucket,
 				// search inventory
-				this.pumpkinBucket |= FamiliarData.PUMPKIN_BUCKET.getCount( inventory ) > 0;
+                pumpkinBucket |= FamiliarData.PUMPKIN_BUCKET.getCount( inventory ) > 0;
 
 				// If current familiar is not wearing a Mayflower bouquet,
 				// search inventory
-				this.flowerBouquet |= FamiliarData.FLOWER_BOUQUET.getCount( inventory ) > 0;
+                flowerBouquet |= FamiliarData.FLOWER_BOUQUET.getCount( inventory ) > 0;
 
 				// If current familiar is not wearing a box of fireworks,
 				// search inventory
-				this.boxFireworks |= FamiliarData.FIREWORKS.getCount( inventory ) > 0;
+                boxFireworks |= FamiliarData.FIREWORKS.getCount( inventory ) > 0;
 			}
 
 			// If current familiar is not wearing a sugar shield,
 			// search inventory
-			this.sugarShield |= FamiliarData.SUGAR_SHIELD.getCount( inventory ) > 0;
+            sugarShield |= FamiliarData.SUGAR_SHIELD.getCount( inventory ) > 0;
 
 			// If current familiar is not wearing a lead necklace,
 			// search inventory
-			this.leadNecklace |= FamiliarData.LEAD_NECKLACE.getCount( inventory ) > 0;
+            leadNecklace |= FamiliarData.LEAD_NECKLACE.getCount( inventory ) > 0;
 
 			// If current familiar is not wearing a rat head
 			// balloon, search inventory
-			this.ratHeadBalloon |= FamiliarData.RAT_HEAD_BALLOON.getCount( inventory ) > 0;
+            ratHeadBalloon |= FamiliarData.RAT_HEAD_BALLOON.getCount( inventory ) > 0;
 
 			// If current familiar is not wearing a bathysphere,
 			// search inventory
-			this.bathysphere |= FamiliarData.BATHYSPHERE.getCount( inventory ) > 0;
+            bathysphere |= FamiliarData.BATHYSPHERE.getCount( inventory ) > 0;
 
 			// If current familiar is not wearing das boot
 			// search inventory
-			this.dasBoot |= FamiliarData.DAS_BOOT.getCount( inventory ) > 0;
+            dasBoot |= FamiliarData.DAS_BOOT.getCount( inventory ) > 0;
 
 			// If current familiar is not wearing a doppel,
 			// search inventory
-			this.doppelganger |= FamiliarData.DOPPELGANGER.getCount( inventory ) > 0;
+            doppelganger |= FamiliarData.DOPPELGANGER.getCount( inventory ) > 0;
 
-			this.whipCount =
+            whipCount =
 				Math.min(
 					KoLCharacter.hasSkill( "Double-Fisted Skull Smashing" ) ? 2 : 1,
-					this.whipCount + FamiliarTrainingFrame.BAR_WHIP.getCount( inventory ) );
+                        whipCount + FamiliarTrainingFrame.BAR_WHIP.getCount( inventory ) );
 
 			// If equipped with fewer than three tiny plastic items
 			// equipped, search inventory for more
 			for ( int i = 0; i < FamiliarTrainingFrame.tinyPlasticNormal.length; ++i )
 			{
-				this.addTinyPlastic( FamiliarTrainingFrame.tinyPlasticNormal[ i ] );
+                addTinyPlastic( FamiliarTrainingFrame.tinyPlasticNormal[ i ] );
 			}
 
 			// Check Tiny Plastic Crimbo objects
 			for ( int i = 0; i < FamiliarTrainingFrame.tinyPlasticCrimbo.length; ++i )
 			{
-				this.addTinyPlastic( FamiliarTrainingFrame.tinyPlasticCrimbo[ i ] );
+                addTinyPlastic( FamiliarTrainingFrame.tinyPlasticCrimbo[ i ] );
 			}
 
 			// If we're not training a chameleon and we don't have
 			// a lead necklace or a rat head balloon, search other
 			// familiars; we'll steal it from them if necessary
 
-			if ( this.familiar.getId() == FamiliarPool.CHAMELEON ||
-			     this.leadNecklace && this.ratHeadBalloon &&
-			     this.pumpkinBucket && this.flowerBouquet &&
-			     this.boxFireworks && this.sugarShield &&
-			     this.bathysphere && this.dasBoot )
+			if ( familiar.getId() == FamiliarPool.CHAMELEON ||
+                    leadNecklace && ratHeadBalloon &&
+                            pumpkinBucket && flowerBouquet &&
+                            boxFireworks && sugarShield &&
+                            bathysphere && dasBoot )
 			{
 				return;
 			}
@@ -1965,21 +1965,21 @@ public class FamiliarTrainingFrame
 					continue;
 				}
 
-				this.leadNecklace |= item.getItemId() == FamiliarData.LEAD_NECKLACE.getItemId();
-				this.ratHeadBalloon |= item.getItemId() == FamiliarData.RAT_HEAD_BALLOON.getItemId();
-				this.bathysphere |= item.getItemId() == ItemPool.BATHYSPHERE;
-				this.dasBoot |= item.getItemId() == ItemPool.DAS_BOOT;
-				this.pumpkinBucket |= item.getItemId() == FamiliarData.PUMPKIN_BUCKET.getItemId();
-				this.flowerBouquet |= item.getItemId() == FamiliarData.FLOWER_BOUQUET.getItemId();
-				this.doppelganger |= item.getItemId() == FamiliarData.DOPPELGANGER.getItemId();
-				this.boxFireworks |= item.getItemId() == FamiliarData.FIREWORKS.getItemId();
-				this.sugarShield |= item.getItemId() == FamiliarData.SUGAR_SHIELD.getItemId();
+                leadNecklace |= item.getItemId() == FamiliarData.LEAD_NECKLACE.getItemId();
+                ratHeadBalloon |= item.getItemId() == FamiliarData.RAT_HEAD_BALLOON.getItemId();
+                bathysphere |= item.getItemId() == ItemPool.BATHYSPHERE;
+                dasBoot |= item.getItemId() == ItemPool.DAS_BOOT;
+                pumpkinBucket |= item.getItemId() == FamiliarData.PUMPKIN_BUCKET.getItemId();
+                flowerBouquet |= item.getItemId() == FamiliarData.FLOWER_BOUQUET.getItemId();
+                doppelganger |= item.getItemId() == FamiliarData.DOPPELGANGER.getItemId();
+                boxFireworks |= item.getItemId() == FamiliarData.FIREWORKS.getItemId();
+                sugarShield |= item.getItemId() == FamiliarData.SUGAR_SHIELD.getItemId();
 			}
 		}
 
 		private void addTinyPlastic( final int id )
 		{
-			if ( this.tpCount == 3 )
+			if ( tpCount == 3 )
 			{
 				return;
 			}
@@ -1988,9 +1988,9 @@ public class FamiliarTrainingFrame
 			int count = ar.getCount( KoLConstants.inventory );
 
 			// Make a new one for each slot
-			while ( count-- > 0 && this.tpCount < 3 )
+			while ( count-- > 0 && tpCount < 3 )
 			{
-				this.tp[ this.tpCount++ ] = new AdventureResult( id, 1 );
+                tp[tpCount++ ] = new AdventureResult( id, 1 );
 			}
 		}
 
@@ -1999,16 +1999,16 @@ public class FamiliarTrainingFrame
 		public int[] getWeights()
 		{
 			// Clear the set of possible weights
-			this.weights.clear();
+            weights.clear();
 
 			// Calculate base weight
-			int weight = this.familiar.getWeight();
+			int weight = familiar.getWeight();
 
 			// Sympathy adds 5 lbs. except to a dodecapede, for
 			// which it subtracts 5 lbs.
 			if ( FamiliarTrainingFrame.sympathyAvailable )
 			{
-				weight += this.familiar.getId() == FamiliarPool.DODECAPEDE ? -5 : 5;
+				weight += familiar.getId() == FamiliarPool.DODECAPEDE ? -5 : 5;
 			}
 			if ( FamiliarTrainingFrame.empathyActive > 0 )
 			{
@@ -2050,10 +2050,10 @@ public class FamiliarTrainingFrame
 				weight += 5;
 			}
 
-			this.getItemWeights( weight );
+            getItemWeights( weight );
 
 			// Make an array to hold values
-			Object[] vals = this.weights.toArray();
+			Object[] vals = weights.toArray();
 			int[] value = new int[ vals.length ];
 
 			// Read Integers from the set and store ints
@@ -2071,104 +2071,104 @@ public class FamiliarTrainingFrame
 			FamiliarData familiar = KoLCharacter.getFamiliar();
 
 			// Calculate Accessory Weights with no Familiar Items
-			this.getAccessoryWeights( weight );
+            getAccessoryWeights( weight );
 
 			// Only consider familiar items if current familiar is
 			// not a chameleon and you have no doppelganger
-			if ( familiar.getId() == FamiliarPool.CHAMELEON || this.doppelganger )
+			if ( familiar.getId() == FamiliarPool.CHAMELEON || doppelganger )
 			{
 				return;
 			}
 
 			// If familiar specific item adds weight, calculate
-			if ( this.specWeight != 0 )
+			if ( specWeight != 0 )
 			{
-				this.getAccessoryWeights( weight + this.specWeight );
+                getAccessoryWeights( weight + specWeight );
 			}
 
 			// If we have a sugar shield, use it
-			if ( this.sugarShield )
+			if ( sugarShield )
 			{
-				this.getAccessoryWeights( weight + 10 );
+                getAccessoryWeights( weight + 10 );
 			}
 
 			// If we have a pumpkin bucket, use it
-			if ( this.pumpkinBucket )
+			if ( pumpkinBucket )
 			{
-				this.getAccessoryWeights( weight + 5 );
+                getAccessoryWeights( weight + 5 );
 			}
 
 			// If we have a Mayflower bouquet, use it
-			if ( this.flowerBouquet )
+			if ( flowerBouquet )
 			{
-				this.getAccessoryWeights( weight + 5 );
+                getAccessoryWeights( weight + 5 );
 			}
 
 			// If we have a little box of fireworks, use it
-			if ( this.boxFireworks )
+			if ( boxFireworks )
 			{
-				this.getAccessoryWeights( weight + 5 );
+                getAccessoryWeights( weight + 5 );
 			}
 
 			// If we have a lead necklace, use it
-			if ( this.leadNecklace )
+			if ( leadNecklace )
 			{
-				this.getAccessoryWeights( weight + 3 );
+                getAccessoryWeights( weight + 3 );
 			}
 
 			// If we have a rat head balloon, use it
-			if ( this.ratHeadBalloon )
+			if ( ratHeadBalloon )
 			{
-				this.getAccessoryWeights( weight - 3 );
+                getAccessoryWeights( weight - 3 );
 			}
 
 			// If we have das boot, use it
-			if ( this.dasBoot )
+			if ( dasBoot )
 			{
-				this.getAccessoryWeights( weight - 10 );
+                getAccessoryWeights( weight - 10 );
 			}
 
 			// If we have a bathysphere, use it
-			if ( this.bathysphere )
+			if ( bathysphere )
 			{
-				this.getAccessoryWeights( weight - 20 );
+                getAccessoryWeights( weight - 20 );
 			}
 		}
 
 		private void getAccessoryWeights( final int weight )
 		{
 			// Calculate using variable #s of tiny plastic objects
-			for ( int i = 0; i <= this.tpCount; ++i )
+			for ( int i = 0; i <= tpCount; ++i )
 			{
-				this.getWhipWeights( weight + i );
+                getWhipWeights( weight + i );
 			}
 		}
 
 		private void getWhipWeights( final int weight )
 		{
 			// Calculate using variable #s of whips
-			for ( int i = 0; i <= this.whipCount; ++i )
+			for ( int i = 0; i <= whipCount; ++i )
 			{
-				this.getHatWeights( weight + i * 2 );
+                getHatWeights( weight + i * 2 );
 			}
 		}
 
 		private void getHatWeights( final int weight )
 		{
 			// Add weight with helmet
-			if ( this.pithHelmet )
+			if ( pithHelmet )
 			{
-				this.weights.add( IntegerPool.get( Math.max( weight + 5, 1 ) ) );
+                weights.add( IntegerPool.get( Math.max( weight + 5, 1 ) ) );
 			}
 
 			// Add weight with fedora
-			if ( this.crumpledFedora )
+			if ( crumpledFedora )
 			{
-				this.weights.add( IntegerPool.get( Math.max( weight + 10, 1 ) ) );
+                weights.add( IntegerPool.get( Math.max( weight + 10, 1 ) ) );
 			}
 
 			// Add weight with no helmet
-			this.weights.add( IntegerPool.get( Math.max( weight, 1 ) ) );
+            weights.add( IntegerPool.get( Math.max( weight, 1 ) ) );
 		}
 
 		/** *********************************************************** */
@@ -2181,7 +2181,7 @@ public class FamiliarTrainingFrame
 			// Make a GearSet describing what we have now
 			GearSet current = new GearSet();
 
-			if ( this.doppelganger )
+			if ( doppelganger )
 			{
 				RequestThread.postRequest( new EquipmentRequest(
 					FamiliarData.DOPPELGANGER, EquipmentManager.FAMILIAR ) );
@@ -2194,7 +2194,7 @@ public class FamiliarTrainingFrame
 			}
 
 			// Choose a new GearSet with desired weight
-			GearSet next = this.chooseGearSet( current, weight );
+			GearSet next = chooseGearSet( current, weight );
 
 			// If we couldn't pick one, that's an internal error
 			if ( next == null || weight < next.weight() )
@@ -2215,7 +2215,7 @@ public class FamiliarTrainingFrame
 			}
 
 			// Change into the new GearSet
-			this.changeGear( current, next );
+            changeGear( current, next );
 		}
 
 		/*
@@ -2234,7 +2234,7 @@ public class FamiliarTrainingFrame
 			}
 
 			// Choose a new GearSet with desired weight
-			GearSet next = this.chooseGearSet( current, weight );
+			GearSet next = chooseGearSet( current, weight );
 
 			if ( next == null )
 			{
@@ -2251,13 +2251,13 @@ public class FamiliarTrainingFrame
 
 		public void changeGear( final GearSet current, final GearSet next )
 		{
-			this.swapItem( current.weapon, next.weapon, EquipmentManager.WEAPON );
-			this.swapItem( current.offhand, next.offhand, EquipmentManager.OFFHAND );
-			this.swapItem( current.hat, next.hat, EquipmentManager.HAT );
-			this.swapItem( current.item, next.item, EquipmentManager.FAMILIAR );
-			this.swapItem( current.acc1, next.acc1, EquipmentManager.ACCESSORY1 );
-			this.swapItem( current.acc2, next.acc2, EquipmentManager.ACCESSORY2 );
-			this.swapItem( current.acc3, next.acc3, EquipmentManager.ACCESSORY3 );
+            swapItem( current.weapon, next.weapon, EquipmentManager.WEAPON );
+            swapItem( current.offhand, next.offhand, EquipmentManager.OFFHAND );
+            swapItem( current.hat, next.hat, EquipmentManager.HAT );
+            swapItem( current.item, next.item, EquipmentManager.FAMILIAR );
+            swapItem( current.acc1, next.acc1, EquipmentManager.ACCESSORY1 );
+            swapItem( current.acc2, next.acc2, EquipmentManager.ACCESSORY2 );
+            swapItem( current.acc3, next.acc3, EquipmentManager.ACCESSORY3 );
 		}
 
 		private void swapItem( final AdventureResult current, final AdventureResult next, final int slot )
@@ -2277,13 +2277,13 @@ public class FamiliarTrainingFrame
 			{
 				FamiliarTrainingFrame.results.append( "Putting on " + next.getName() + "<br>" );
 				RequestThread.postRequest( new EquipmentRequest( next, slot ) );
-				this.setItem( slot, next );
+                setItem( slot, next );
 			}
 			else if ( current != null )
 			{
 				FamiliarTrainingFrame.results.append( "Taking off " + current.getName() + "<br>" );
 				RequestThread.postRequest( new EquipmentRequest( EquipmentRequest.UNEQUIP, slot ) );
-				this.setItem( slot, null );
+                setItem( slot, null );
 			}
 		}
 
@@ -2292,25 +2292,25 @@ public class FamiliarTrainingFrame
 			switch ( slot )
 			{
 			case EquipmentManager.WEAPON:
-				this.weapon = item;
+                weapon = item;
 				break;
 			case EquipmentManager.OFFHAND:
-				this.offhand = item;
+                offhand = item;
 				break;
 			case EquipmentManager.HAT:
-				this.hat = item;
+                hat = item;
 				break;
 			case EquipmentManager.FAMILIAR:
 				this.item = item;
 				break;
 			case EquipmentManager.ACCESSORY1:
-				this.acc[ 0 ] = item;
+                acc[ 0 ] = item;
 				break;
 			case EquipmentManager.ACCESSORY2:
-				this.acc[ 1 ] = item;
+                acc[ 1 ] = item;
 				break;
 			case EquipmentManager.ACCESSORY3:
-				this.acc[ 2 ] = item;
+                acc[ 2 ] = item;
 				break;
 			}
 		}
@@ -2323,29 +2323,29 @@ public class FamiliarTrainingFrame
 		{
 			// Clear out the accumulated list of GearSets
 
-			this.gearSets.clear();
-			this.getHatGearSets( weight );
+            gearSets.clear();
+            getHatGearSets( weight );
 
 			// Iterate over all the GearSets and choose the first
 			// one which is closest to the current GearSet
 
-			Collections.sort( this.gearSets );
-			return this.gearSets.isEmpty() ? null : (GearSet) this.gearSets.get( 0 );
+			Collections.sort( gearSets );
+			return gearSets.isEmpty() ? null : (GearSet) gearSets.get( 0 );
 		}
 
 		private void getHatGearSets( final int weight )
 		{
-			if ( this.pithHelmet )
+			if ( pithHelmet )
 			{
-				this.getItemGearSets( weight, FamiliarTrainingFrame.PITH_HELMET );
+                getItemGearSets( weight, FamiliarTrainingFrame.PITH_HELMET );
 			}
 
-			if ( this.crumpledFedora )
+			if ( crumpledFedora )
 			{
-				this.getItemGearSets( weight, FamiliarTrainingFrame.CRUMPLED_FEDORA );
+                getItemGearSets( weight, FamiliarTrainingFrame.CRUMPLED_FEDORA );
 			}
 
-			this.getItemGearSets( weight, null );
+            getItemGearSets( weight, null );
 		}
 
 		private void getItemGearSets( final int weight, final AdventureResult hat )
@@ -2355,62 +2355,62 @@ public class FamiliarTrainingFrame
 
 			if ( KoLCharacter.getFamiliar().getId() == FamiliarPool.CHAMELEON )
 			{
-				this.getAccessoryGearSets( weight, null, hat );
+                getAccessoryGearSets( weight, null, hat );
 				return;
 			}
 
-			if ( this.doppelganger )
+			if ( doppelganger )
 			{
-				this.getAccessoryGearSets( weight, FamiliarData.DOPPELGANGER, hat );
+                getAccessoryGearSets( weight, FamiliarData.DOPPELGANGER, hat );
 				return;
 			}
 
-			if ( this.specItem != null )
+			if ( specItem != null )
 			{
-				this.getAccessoryGearSets( weight, this.specItem, hat );
+                getAccessoryGearSets( weight, specItem, hat );
 			}
-			if ( this.pumpkinBucket )
+			if ( pumpkinBucket )
 			{
-				this.getAccessoryGearSets( weight, FamiliarData.PUMPKIN_BUCKET, hat );
+                getAccessoryGearSets( weight, FamiliarData.PUMPKIN_BUCKET, hat );
 			}
-			if ( this.flowerBouquet )
+			if ( flowerBouquet )
 			{
-				this.getAccessoryGearSets( weight, FamiliarData.FLOWER_BOUQUET, hat );
+                getAccessoryGearSets( weight, FamiliarData.FLOWER_BOUQUET, hat );
 			}
-			if ( this.boxFireworks )
+			if ( boxFireworks )
 			{
-				this.getAccessoryGearSets( weight, FamiliarData.FIREWORKS, hat );
+                getAccessoryGearSets( weight, FamiliarData.FIREWORKS, hat );
 			}
-			if ( this.sugarShield )
+			if ( sugarShield )
 			{
-				this.getAccessoryGearSets( weight, FamiliarData.SUGAR_SHIELD, hat );
+                getAccessoryGearSets( weight, FamiliarData.SUGAR_SHIELD, hat );
 			}
-			if ( this.leadNecklace )
+			if ( leadNecklace )
 			{
-				this.getAccessoryGearSets( weight, FamiliarData.LEAD_NECKLACE, hat );
+                getAccessoryGearSets( weight, FamiliarData.LEAD_NECKLACE, hat );
 			}
-			if ( this.ratHeadBalloon )
+			if ( ratHeadBalloon )
 			{
-				this.getAccessoryGearSets( weight, FamiliarData.RAT_HEAD_BALLOON, hat );
+                getAccessoryGearSets( weight, FamiliarData.RAT_HEAD_BALLOON, hat );
 			}
-			if ( this.bathysphere )
+			if ( bathysphere )
 			{
-				this.getAccessoryGearSets( weight, FamiliarData.BATHYSPHERE, hat );
+                getAccessoryGearSets( weight, FamiliarData.BATHYSPHERE, hat );
 			}
-			if ( this.dasBoot )
+			if ( dasBoot )
 			{
-				this.getAccessoryGearSets( weight, FamiliarData.DAS_BOOT, hat );
+                getAccessoryGearSets( weight, FamiliarData.DAS_BOOT, hat );
 			}
 
-			this.getAccessoryGearSets( weight, null, hat );
+            getAccessoryGearSets( weight, null, hat );
 		}
 
 		private void getAccessoryGearSets( final int weight, final AdventureResult item, final AdventureResult hat )
 		{
 			// No matter how many Tiny Plastic Objects we have, a
 			// configuration with none equipped is legal
-			this.addGearSet( weight, null, null, null, item, hat );
-			if ( this.tpCount == 0 )
+            addGearSet( weight, null, null, null, item, hat );
+			if ( tpCount == 0 )
 			{
 				return;
 			}
@@ -2418,10 +2418,10 @@ public class FamiliarTrainingFrame
 			// If we have at least one and it started out equipped,
 			// then it might be in any of the three accessory
 			// slots.
-			this.addGearSet( weight, this.tp[ 0 ], null, null, item, hat );
-			this.addGearSet( weight, null, this.tp[ 0 ], null, item, hat );
-			this.addGearSet( weight, null, null, this.tp[ 0 ], item, hat );
-			if ( this.tpCount == 1 )
+            addGearSet( weight, tp[ 0 ], null, null, item, hat );
+            addGearSet( weight, null, tp[ 0 ], null, item, hat );
+            addGearSet( weight, null, null, tp[ 0 ], item, hat );
+			if ( tpCount == 1 )
 			{
 				return;
 			}
@@ -2430,64 +2430,64 @@ public class FamiliarTrainingFrame
 			// when we came in, they'll be in one of the following
 			// patterns.
 
-			this.addGearSet( weight, this.tp[ 0 ], this.tp[ 1 ], null, item, hat );
-			this.addGearSet( weight, this.tp[ 0 ], null, this.tp[ 1 ], item, hat );
-			this.addGearSet( weight, null, this.tp[ 0 ], this.tp[ 1 ], item, hat );
+            addGearSet( weight, tp[ 0 ], tp[ 1 ], null, item, hat );
+            addGearSet( weight, tp[ 0 ], null, tp[ 1 ], item, hat );
+            addGearSet( weight, null, tp[ 0 ], tp[ 1 ], item, hat );
 
 			// If one of the two was in the inventory, the first
 			// could have been in any of the three accessory
 			// slots. Add a pattern for where it was in the third
 			// slot.
 
-			this.addGearSet( weight, this.tp[ 1 ], null, this.tp[ 0 ], item, hat );
+            addGearSet( weight, tp[ 1 ], null, tp[ 0 ], item, hat );
 
-			if ( this.tpCount == 2 )
+			if ( tpCount == 2 )
 			{
 				return;
 			}
 
 			// If we have three and they were all equipped when we
 			// came in, they'll be in the following pattern
-			this.addGearSet( weight, this.tp[ 0 ], this.tp[ 1 ], this.tp[ 2 ], item, hat );
+            addGearSet( weight, tp[ 0 ], tp[ 1 ], tp[ 2 ], item, hat );
 
 			// If two of them were equipped and the third was in
 			// the inventory, the following patterns are legal
-			this.addGearSet( weight, this.tp[ 0 ], this.tp[ 2 ], this.tp[ 1 ], item, hat );
-			this.addGearSet( weight, this.tp[ 2 ], this.tp[ 0 ], this.tp[ 1 ], item, hat );
+            addGearSet( weight, tp[ 0 ], tp[ 2 ], tp[ 1 ], item, hat );
+            addGearSet( weight, tp[ 2 ], tp[ 0 ], tp[ 1 ], item, hat );
 
 			// If only one was equipped, based on which
 			// two-accessory patterns are legal, the following
 			// three-accessory patterns are also legal
-			this.addGearSet( weight, this.tp[ 1 ], this.tp[ 2 ], this.tp[ 0 ], item, hat );
+            addGearSet( weight, tp[ 1 ], tp[ 2 ], tp[ 0 ], item, hat );
 		}
 
 		private void addGearSet( final int weight, final AdventureResult acc1, final AdventureResult acc2,
 			final AdventureResult acc3, final AdventureResult item, final AdventureResult hat )
 		{
-			int gearWeight = this.gearSetWeight( null, null, acc1, acc2, acc3, item, hat );
+			int gearWeight = gearSetWeight( null, null, acc1, acc2, acc3, item, hat );
 			if ( weight == gearWeight )
 			{
-				this.gearSets.add( new GearSet( null, null, acc1, acc2, acc3, item, hat ) );
+                gearSets.add( new GearSet( null, null, acc1, acc2, acc3, item, hat ) );
 			}
 
-			if ( this.whipCount > 0 )
+			if ( whipCount > 0 )
 			{
-				gearWeight = this.gearSetWeight( FamiliarTrainingFrame.BAR_WHIP, null, acc1, acc2, acc3, item, hat );
+				gearWeight = gearSetWeight( FamiliarTrainingFrame.BAR_WHIP, null, acc1, acc2, acc3, item, hat );
 				if ( weight == gearWeight )
 				{
-					this.gearSets.add( new GearSet( FamiliarTrainingFrame.BAR_WHIP, null, acc1, acc2, acc3, item, hat ) );
+                    gearSets.add( new GearSet( FamiliarTrainingFrame.BAR_WHIP, null, acc1, acc2, acc3, item, hat ) );
 				}
 			}
 
-			if ( this.whipCount > 1 )
+			if ( whipCount > 1 )
 			{
 				gearWeight =
-					this.gearSetWeight(
+                        gearSetWeight(
 						FamiliarTrainingFrame.BAR_WHIP, FamiliarTrainingFrame.BAR_WHIP, acc1, acc2, acc3, item, hat );
 				if ( weight == gearWeight )
 				{
-					this.gearSets.add( new GearSet(
-						FamiliarTrainingFrame.BAR_WHIP, FamiliarTrainingFrame.BAR_WHIP, acc1, acc2, acc3, item, hat ) );
+                    gearSets.add( new GearSet(
+                            FamiliarTrainingFrame.BAR_WHIP, FamiliarTrainingFrame.BAR_WHIP, acc1, acc2, acc3, item, hat ) );
 				}
 			}
 		}
@@ -2496,7 +2496,7 @@ public class FamiliarTrainingFrame
 			final AdventureResult acc1, final AdventureResult acc2, final AdventureResult acc3,
 			final AdventureResult item, final AdventureResult hat )
 		{
-			int weight = this.familiar.getWeight();
+			int weight = familiar.getWeight();
 
 			if ( hat == FamiliarTrainingFrame.CRUMPLED_FEDORA )
 			{
@@ -2509,7 +2509,7 @@ public class FamiliarTrainingFrame
 
 			if ( FamiliarTrainingFrame.sympathyAvailable )
 			{
-				weight += this.familiar.getId() == FamiliarPool.DODECAPEDE ? -5 : 5;
+				weight += familiar.getId() == FamiliarPool.DODECAPEDE ? -5 : 5;
 			}
 
 			if ( FamiliarTrainingFrame.leashActive > 0 )
@@ -2549,9 +2549,9 @@ public class FamiliarTrainingFrame
 			{
 				;
 			}
-			else if ( item == this.specItem )
+			else if ( item == specItem )
 			{
-				weight += this.specWeight;
+				weight += specWeight;
 			}
 			else if ( item == FamiliarData.SUGAR_SHIELD )
 			{
@@ -2595,15 +2595,15 @@ public class FamiliarTrainingFrame
 				weight += 2;
 			}
 
-			if ( this.isTinyPlasticItem( acc1 ) )
+			if ( isTinyPlasticItem( acc1 ) )
 			{
 				weight += 1;
 			}
-			if ( this.isTinyPlasticItem( acc2 ) )
+			if ( isTinyPlasticItem( acc2 ) )
 			{
 				weight += 1;
 			}
-			if ( this.isTinyPlasticItem( acc3 ) )
+			if ( isTinyPlasticItem( acc3 ) )
 			{
 				weight += 1;
 			}
@@ -2626,11 +2626,11 @@ public class FamiliarTrainingFrame
 			if ( xp > 0 )
 			{
 				message =
-					this.familiar.getName() + " gains " + xp + " experience" + (response.contains( "gains a pound" ) ? " and a pound." : "." );
+                        familiar.getName() + " gains " + xp + " experience" + (response.contains( "gains a pound" ) ? " and a pound." : "." );
 			}
 			else
 			{
-				message = this.familiar.getName() + " lost.";
+				message = familiar.getName() + " lost.";
 			}
 
 			FamiliarTrainingFrame.statusMessage( MafiaState.CONTINUE, message );
@@ -2656,20 +2656,20 @@ public class FamiliarTrainingFrame
 			{
 				if ( prize.equals( FamiliarData.LEAD_NECKLACE.getName() ) )
 				{
-					this.leadNecklace = true;
+                    leadNecklace = true;
 				}
-				else if ( this.familiarItemWeight > 0 )
+				else if ( familiarItemWeight > 0 )
 				{
-					if ( this.specItem == null )
+					if ( specItem == null )
 					{
-						this.specItem = this.familiarItem;
-						this.specWeight = this.familiarItemWeight;
+                        specItem = familiarItem;
+                        specWeight = familiarItemWeight;
 					}
 				}
 			}
 
 			// Increment count of turns in this training session
-			this.turns++ ;
+            turns++ ;
 
 			// Decrement buffs
 			if ( FamiliarTrainingFrame.leashActive > 0 )
@@ -2712,28 +2712,28 @@ public class FamiliarTrainingFrame
 
 		public FamiliarData getFamiliar()
 		{
-			return this.familiar;
+			return familiar;
 		}
 
 		public int turnsUsed()
 		{
-			return this.turns;
+			return turns;
 		}
 
 		public int baseWeight()
 		{
-			return this.familiar.getWeight();
+			return familiar.getWeight();
 		}
 
 		public int maxWeight( final boolean buffs )
 		{
 			// Start with current base weight of familiar
-			int weight = this.familiar.getWeight();
+			int weight = familiar.getWeight();
 
 			// Add possible skills
 			if ( FamiliarTrainingFrame.sympathyAvailable )
 			{
-				weight += this.familiar.getId() == FamiliarPool.DODECAPEDE ? -5 : 5;
+				weight += familiar.getId() == FamiliarPool.DODECAPEDE ? -5 : 5;
 			}
 
 			if ( buffs )
@@ -2808,41 +2808,41 @@ public class FamiliarTrainingFrame
 			}
 
 			// Add available familiar items
-			if ( this.pumpkinBucket )
+			if ( pumpkinBucket )
 			{
 				weight += 5;
 			}
-			else if ( this.flowerBouquet )
+			else if ( flowerBouquet )
 			{
 				weight += 5;
 			}
-			else if ( this.boxFireworks )
+			else if ( boxFireworks )
 			{
 				weight += 5;
 			}
-			else if ( this.sugarShield )
+			else if ( sugarShield )
 			{
 				weight += 10;
 			}
-			else if ( this.specWeight > 3 )
+			else if ( specWeight > 3 )
 			{
-				weight += this.specWeight;
+				weight += specWeight;
 			}
-			else if ( this.leadNecklace )
+			else if ( leadNecklace )
 			{
 				weight += 3;
 			}
 
 			// Add available tiny plastic items
-			weight += this.tpCount;
-			weight += 2 * this.whipCount;
+			weight += tpCount;
+			weight += 2 * whipCount;
 
 			// Add crumpled fedora
-			if ( this.crumpledFedora )
+			if ( crumpledFedora )
 			{
 				weight += 10;
 			}
-			else if ( this.pithHelmet )
+			else if ( pithHelmet )
 			{
 				weight += 5;
 			}
@@ -2879,7 +2879,7 @@ public class FamiliarTrainingFrame
 			text.append( "Current buffs:" );
 			if ( FamiliarTrainingFrame.sympathyAvailable )
 			{
-				text.append( " Sympathy (" + ( this.familiar.getId() == FamiliarPool.DODECAPEDE ? "-" : "+" ) + "5 permanent)" );
+				text.append( " Sympathy (" + (familiar.getId() == FamiliarPool.DODECAPEDE ? "-" : "+" ) + "5 permanent)" );
 			}
 			if ( FamiliarTrainingFrame.empathyActive > 0 )
 			{
@@ -2934,71 +2934,71 @@ public class FamiliarTrainingFrame
 
 			text.append( "Current equipment:" );
 
-			if ( this.weapon == FamiliarTrainingFrame.BAR_WHIP )
+			if ( weapon == FamiliarTrainingFrame.BAR_WHIP )
 			{
 				text.append( " bar whip (+2)" );
 			}
-			if ( this.offhand == FamiliarTrainingFrame.BAR_WHIP )
+			if ( offhand == FamiliarTrainingFrame.BAR_WHIP )
 			{
 				text.append( " bar whip (+2)" );
 			}
 
-			if ( this.hat == FamiliarTrainingFrame.CRUMPLED_FEDORA )
+			if ( hat == FamiliarTrainingFrame.CRUMPLED_FEDORA )
 			{
 				text.append( " crumpled felt fedora (+10)" );
 			}
 
-			if ( this.hat == FamiliarTrainingFrame.PITH_HELMET )
+			if ( hat == FamiliarTrainingFrame.PITH_HELMET )
 			{
 				text.append( " plexiglass pith helmet (+5)" );
 			}
 
-			if ( this.item == FamiliarData.DOPPELGANGER )
+			if ( item == FamiliarData.DOPPELGANGER )
 			{
 				text.append( " " + FamiliarData.DOPPELGANGER.getName() + " (+0)" );
 			}
-			else if ( this.item == FamiliarData.PUMPKIN_BUCKET )
+			else if ( item == FamiliarData.PUMPKIN_BUCKET )
 			{
 				text.append( " " + FamiliarData.PUMPKIN_BUCKET.getName() + " (+5)" );
 			}
-			else if ( this.item == FamiliarData.FLOWER_BOUQUET )
+			else if ( item == FamiliarData.FLOWER_BOUQUET )
 			{
 				text.append( " " + FamiliarData.FLOWER_BOUQUET.getName() + " (+5)" );
 			}
-			else if ( this.item == FamiliarData.FIREWORKS )
+			else if ( item == FamiliarData.FIREWORKS )
 			{
 				text.append( " " + FamiliarData.FIREWORKS.getName() + " (+5)" );
 			}
-			else if ( this.item == FamiliarData.SUGAR_SHIELD )
+			else if ( item == FamiliarData.SUGAR_SHIELD )
 			{
 				text.append( " " + FamiliarData.SUGAR_SHIELD.getName() + " (+10)" );
 			}
-			else if ( this.item == FamiliarData.LEAD_NECKLACE )
+			else if ( item == FamiliarData.LEAD_NECKLACE )
 			{
 				text.append( " " + FamiliarData.LEAD_NECKLACE.getName() + " (+3)" );
 			}
-			else if ( this.item == FamiliarData.RAT_HEAD_BALLOON )
+			else if ( item == FamiliarData.RAT_HEAD_BALLOON )
 			{
 				text.append( " " + FamiliarData.RAT_HEAD_BALLOON.getName() + " (-3)" );
 			}
-			else if ( this.item == FamiliarData.BATHYSPHERE )
+			else if ( item == FamiliarData.BATHYSPHERE )
 			{
 				text.append( " " + FamiliarData.BATHYSPHERE.getName() + " (-20)" );
 			}
-			else if ( this.item == FamiliarData.DAS_BOOT )
+			else if ( item == FamiliarData.DAS_BOOT )
 			{
 				text.append( " " + FamiliarData.DAS_BOOT.getName() + " (-10)" );
 			}
-			else if ( this.item != null )
+			else if ( item != null )
 			{
-				text.append( " " + this.specItem.getName() + " (+" + this.specWeight + ")" );
+				text.append( " " + specItem.getName() + " (+" + specWeight + ")" );
 			}
 
 			for ( int i = 0; i < 3; ++i )
 			{
-				if ( this.acc[ i ] != null )
+				if ( acc[ i ] != null )
 				{
-					text.append( " " + this.acc[ i ].getName() + " (+1)" );
+					text.append( " " + acc[ i ].getName() + " (+1)" );
 				}
 			}
 			text.append( "<br>" );
@@ -3012,76 +3012,76 @@ public class FamiliarTrainingFrame
 
 			text.append( "Available equipment:" );
 
-			for ( int i = 0; i < this.whipCount; ++i )
+			for ( int i = 0; i < whipCount; ++i )
 			{
 				text.append( " bar whip (+2)" );
 			}
 
-			if ( this.hat == FamiliarTrainingFrame.CRUMPLED_FEDORA )
+			if ( hat == FamiliarTrainingFrame.CRUMPLED_FEDORA )
 			{
 				text.append( " crumpled felt fedora (+10)" );
 			}
 
-			if ( this.hat == FamiliarTrainingFrame.PITH_HELMET )
+			if ( hat == FamiliarTrainingFrame.PITH_HELMET )
 			{
 				text.append( " plexiglass pith helmet (+5)" );
 			}
 
-			if ( this.doppelganger )
+			if ( doppelganger )
 			{
 				text.append( " flaming familiar doppelg&auml;nger (+0)" );
 			}
 			else
 			{
-				if ( this.crumpledFedora )
+				if ( crumpledFedora )
 				{
 					text.append( " crumpled felt fedora (+10)" );
 				}
-				if ( this.pithHelmet )
+				if ( pithHelmet )
 				{
 					text.append( " plexiglass pith helmet (+5)" );
 				}
-				if ( this.specItem != null )
+				if ( specItem != null )
 				{
-					text.append( " " + this.specItem.getName() + " (+" + this.specWeight + ")" );
+					text.append( " " + specItem.getName() + " (+" + specWeight + ")" );
 				}
-				if ( this.sugarShield )
+				if ( sugarShield )
 				{
 					text.append( " sugar shield (+10)" );
 				}
-				if ( this.pumpkinBucket )
+				if ( pumpkinBucket )
 				{
 					text.append( " plastic pumpkin bucket (+5)" );
 				}
-				if ( this.flowerBouquet )
+				if ( flowerBouquet )
 				{
 					text.append( " mayflower bouquet (+5)" );
 				}
-				if ( this.boxFireworks )
+				if ( boxFireworks )
 				{
 					text.append( " little box of fireworks (+5)" );
 				}
-				if ( this.leadNecklace )
+				if ( leadNecklace )
 				{
 					text.append( " lead necklace (+3)" );
 				}
-				if ( this.ratHeadBalloon )
+				if ( ratHeadBalloon )
 				{
 					text.append( " rat head balloon (-3)" );
 				}
-				if ( this.bathysphere )
+				if ( bathysphere )
 				{
 					text.append( " little bitty bathysphere (-20)" );
 				}
-				if ( this.dasBoot )
+				if ( dasBoot )
 				{
 					text.append( " das boot (-10)" );
 				}
 			}
 
-			for ( int i = 0; i < this.tpCount; ++i )
+			for ( int i = 0; i < tpCount; ++i )
 			{
-				text.append( " " + this.tp[ i ].getName() + " (+1)" );
+				text.append( " " + tp[ i ].getName() + " (+1)" );
 			}
 
 			text.append( "<br>" );
@@ -3103,8 +3103,8 @@ public class FamiliarTrainingFrame
 			public GearSet()
 			{
 				this(
-					FamiliarStatus.this.weapon, FamiliarStatus.this.offhand, FamiliarStatus.this.acc[ 0 ],
-					FamiliarStatus.this.acc[ 1 ], FamiliarStatus.this.acc[ 2 ], FamiliarStatus.this.item,
+					FamiliarStatus.this.weapon, FamiliarStatus.this.offhand, acc[ 0 ],
+                        acc[ 1 ], acc[ 2 ], FamiliarStatus.this.item,
 					FamiliarStatus.this.hat );
 			}
 
@@ -3123,8 +3123,8 @@ public class FamiliarTrainingFrame
 
 			public int weight()
 			{
-				return FamiliarStatus.this.gearSetWeight(
-					this.weapon, this.offhand, this.acc1, this.acc2, this.acc3, this.item, this.hat );
+				return gearSetWeight(
+                        weapon, offhand, acc1, acc2, acc3, item, hat );
 			}
 
 			public int compareTo( final Object o )
@@ -3139,7 +3139,7 @@ public class FamiliarTrainingFrame
 				// Crumpled felt fedora is considered the
 				// most ideal change, if it exists.
 
-				if ( this.hat != that.hat )
+				if ( hat != that.hat )
 				{
 					changes += that.item == null ? 1 : 10;
 				}
@@ -3147,18 +3147,18 @@ public class FamiliarTrainingFrame
 				// Pumpkin bucket is also ideal, lead necklace
 				// is less than ideal, standard item is ideal.
 
-				if ( this.item != that.item )
+				if ( item != that.item )
 				{
 					changes +=
 						that.item == null ? 1 : that.item.getItemId() == FamiliarData.LEAD_NECKLACE.getItemId() ? 10 : 5;
 				}
 
-				if ( this.weapon != that.weapon )
+				if ( weapon != that.weapon )
 				{
 					changes += 15;
 				}
 
-				if ( this.offhand != that.offhand )
+				if ( offhand != that.offhand )
 				{
 					changes += 10;
 				}
@@ -3166,15 +3166,15 @@ public class FamiliarTrainingFrame
 				// Tiny plastic accessory changes are expensive
 				// because they involve frequent changes.
 
-				if ( this.acc1 != that.acc1 )
+				if ( acc1 != that.acc1 )
 				{
 					changes += 20;
 				}
-				if ( this.acc2 != that.acc2 )
+				if ( acc2 != that.acc2 )
 				{
 					changes += 20;
 				}
-				if ( this.acc3 != that.acc3 )
+				if ( acc3 != that.acc3 )
 				{
 					changes += 20;
 				}
@@ -3187,67 +3187,67 @@ public class FamiliarTrainingFrame
 			{
 				StringBuilder text = new StringBuilder();
 				text.append( "(" );
-				if ( this.weapon == null )
+				if ( weapon == null )
 				{
 					text.append( "null" );
 				}
 				else
 				{
-					text.append( this.weapon.getItemId() );
+					text.append( weapon.getItemId() );
 				}
 				text.append( ", " );
-				if ( this.offhand == null )
+				if ( offhand == null )
 				{
 					text.append( "null" );
 				}
 				else
 				{
-					text.append( this.offhand.getItemId() );
+					text.append( offhand.getItemId() );
 				}
 				text.append( ", " );
-				if ( this.hat == null )
+				if ( hat == null )
 				{
 					text.append( "null" );
 				}
 				else
 				{
-					text.append( this.hat.getItemId() );
+					text.append( hat.getItemId() );
 				}
 				text.append( ", " );
-				if ( this.item == null )
+				if ( item == null )
 				{
 					text.append( "null" );
 				}
 				else
 				{
-					text.append( this.item.getItemId() );
+					text.append( item.getItemId() );
 				}
 				text.append( ", " );
-				if ( this.acc1 == null )
+				if ( acc1 == null )
 				{
 					text.append( "null" );
 				}
 				else
 				{
-					text.append( this.acc1.getItemId() );
+					text.append( acc1.getItemId() );
 				}
 				text.append( ", " );
-				if ( this.acc2 == null )
+				if ( acc2 == null )
 				{
 					text.append( "null" );
 				}
 				else
 				{
-					text.append( this.acc2.getItemId() );
+					text.append( acc2.getItemId() );
 				}
 				text.append( ", " );
-				if ( this.acc3 == null )
+				if ( acc3 == null )
 				{
 					text.append( "null" );
 				}
 				else
 				{
-					text.append( this.acc3.getItemId() );
+					text.append( acc3.getItemId() );
 				}
 
 				text.append( ")" );
@@ -3277,24 +3277,24 @@ public class FamiliarTrainingFrame
 			// Turn everything off and back on again
 			// so that it's off to start.
 
-			this.actionPerformed( null );
-			this.actionPerformed( null );
+            actionPerformed( null );
+            actionPerformed( null );
 
-			this.addActionListener( this );
+            addActionListener( this );
 		}
 
 		public void actionPerformed( ActionEvent e )
 		{
-			boolean toggleValue = Preferences.getBoolean( this.property );
-			Preferences.setBoolean( this.property, toggleValue );
+			boolean toggleValue = Preferences.getBoolean( property );
+			Preferences.setBoolean( property, toggleValue );
 
 			if ( toggleValue )
 			{
-				this.setText( "Turn Off " + this.title );
+                setText( "Turn Off " + title );
 			}
 			else
 			{
-				this.setText( "Turn On " + this.title );
+                setText( "Turn On " + title );
 			}
 		}
 	}

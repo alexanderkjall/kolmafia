@@ -759,8 +759,8 @@ public class MoneyMakingGameManager
 			this.amount = amount;
 			this.player = player;
 			this.playerId = playerId;
-			this.fromStorage = false;
-			this.internal = false;
+            fromStorage = false;
+            internal = false;
 		}
 
 		public Bet( final int betId, final int amount, final boolean internal )
@@ -771,32 +771,32 @@ public class MoneyMakingGameManager
 
 		public int getId()
 		{
-			return this.betId;
+			return betId;
 		}
 
 		public int getAmount()
 		{
-			return this.amount;
+			return amount;
 		}
 
 		public String getPlayer()
 		{
-			return this.player;
+			return player;
 		}
 
 		public int getPlayerId()
 		{
-			return this.playerId;
+			return playerId;
 		}
 
 		public boolean fromStorage()
 		{
-			return this.fromStorage;
+			return fromStorage;
 		}
 
 		public boolean isInternal()
 		{
-			return this.internal;
+			return internal;
 		}
 
 		public void setFromStorage( final boolean fromStorage )
@@ -807,14 +807,14 @@ public class MoneyMakingGameManager
 		@Override
 		public boolean equals( final Object o )
 		{
-			return this.compareTo( o ) == 0;
+			return compareTo( o ) == 0;
 		}
 
 		public int compareTo( final Object o )
 		{
 			if ( o instanceof Bet )
 			{
-				return this.betId - ((Bet) o).betId;
+				return betId - ((Bet) o).betId;
 			}
 			return -1;
 		}
@@ -822,7 +822,7 @@ public class MoneyMakingGameManager
 		@Override
 		public String toString()
 		{
-			return "bet(" + this.betId + ", " + this.player + ", " + this.playerId + ", " + this.amount + ")";
+			return "bet(" + betId + ", " + player + ", " + playerId + ", " + amount + ")";
 		}
 	}
 
@@ -837,7 +837,7 @@ public class MoneyMakingGameManager
 
 		public Event( final String player, final int playerId, final int amount, final int winnings )
 		{
-			this.bet = null;
+            bet = null;
 			this.player = player;
 			this.playerId = playerId;
 			this.amount = amount;
@@ -846,12 +846,12 @@ public class MoneyMakingGameManager
 
 		public Bet getBet()
 		{
-			return this.bet;
+			return bet;
 		}
 
 		public int getBetId()
 		{
-			return this.bet == null ? 0 : this.bet.getId();
+			return bet == null ? 0 : bet.getId();
 		}
 
 		public void setBet( final Bet bet )
@@ -861,22 +861,22 @@ public class MoneyMakingGameManager
 
 		public String getPlayer()
 		{
-			return this.player;
+			return player;
 		}
 
 		public int getPlayerId()
 		{
-			return this.playerId;
+			return playerId;
 		}
 
 		public int getAmount()
 		{
-			return this.amount;
+			return amount;
 		}
 
 		public int getWinnings()
 		{
-			return this.winnings;
+			return winnings;
 		}
 
 		public int compareTo( final Object o )
@@ -886,18 +886,18 @@ public class MoneyMakingGameManager
 				return -1;
 			}
 
-			if ( this.bet == null )
+			if ( bet == null )
 			{
 				return 1;
 			}
 
-			return this.bet.compareTo( ((Event) o).bet );
+			return bet.compareTo( ((Event) o).bet );
 		}
 
 		@Override
 		public String toString()
 		{
-			return "event(" + this.getBetId() + ", " + this.player + ", " + this.playerId + ", " + this.winnings + ")";
+			return "event(" + getBetId() + ", " + player + ", " + playerId + ", " + winnings + ")";
 		}
 	}
 }

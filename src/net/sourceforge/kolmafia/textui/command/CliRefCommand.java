@@ -53,7 +53,7 @@ public class CliRefCommand
 {
 	public CliRefCommand()
 	{
-		this.usage = " [<filter>] - list CLI commands [that match filter].";
+        usage = " [<filter>] - list CLI commands [that match filter].";
 	}
 
 	static private Pattern PLACEHOLDER = Pattern.compile( "<(.+?)>" );

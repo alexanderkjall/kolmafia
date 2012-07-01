@@ -41,7 +41,7 @@ public class VersionCommand
 {
 	public VersionCommand()
 	{
-		this.usage = " - display KoLmafia version.";
+        usage = " - display KoLmafia version.";
 	}
 
 	@Override

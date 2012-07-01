@@ -41,7 +41,7 @@ public class OutfitCheckpointCommand
 {
 	public OutfitCheckpointCommand()
 	{
-		this.usage = " [clear] - remembers [or forgets] current equipment, use \"outfit checkpoint\" to restore.";
+        usage = " [clear] - remembers [or forgets] current equipment, use \"outfit checkpoint\" to restore.";
 	}
 
 	@Override

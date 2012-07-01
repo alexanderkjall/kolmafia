@@ -75,7 +75,7 @@ public class CafeRequest
 	public CafeRequest( final String name, final String cafeId )
 	{
 		super( "cafe.php" );
-		this.addFormField( "cafeid", cafeId );
+        addFormField( "cafeid", cafeId );
 		this.name = name;
 	}
 
@@ -102,13 +102,13 @@ public class CafeRequest
 
 	public void setItem( final String itemName, final int itemId, final int price )
 	{
-		this.isPurchase = true;
+        isPurchase = true;
 		this.itemName = itemName;
 		this.price = price;
-		this.fullness = ItemDatabase.getFullness( itemName );
-		this.inebriety = ItemDatabase.getInebriety( itemName );
-		this.addFormField( "action", "CONSUME!" );
-		this.addFormField( "whichitem", String.valueOf( itemId ) );
+        fullness = ItemDatabase.getFullness( itemName );
+        inebriety = ItemDatabase.getInebriety( itemName );
+        addFormField( "action", "CONSUME!" );
+        addFormField( "whichitem", String.valueOf( itemId ) );
 	}
 
 	public static int discountedPrice( int price )
@@ -126,74 +126,74 @@ public class CafeRequest
 	@Override
 	public void run()
 	{
-		if ( !this.isPurchase )
+		if ( !isPurchase )
 		{
 			// Just visiting to peek at the menu
-			KoLmafia.updateDisplay( "Visiting " + this.name + "..." );
+			KoLmafia.updateDisplay( "Visiting " + name + "..." );
 			super.run();
 			return;
 		}
 
-		if ( this.fullness > 0 && !KoLCharacter.canEat() )
+		if ( fullness > 0 && !KoLCharacter.canEat() )
 		{
 			KoLmafia.updateDisplay( MafiaState.ERROR, "You can't eat. Why are you here?" );
 			return;
 		}
 
-		if ( this.inebriety > 0 && !KoLCharacter.canDrink() )
+		if ( inebriety > 0 && !KoLCharacter.canDrink() )
 		{
 			KoLmafia.updateDisplay( MafiaState.ERROR, "You can't drink. Why are you here?" );
 			return;
 		}
 
-		if ( this.price == 0 )
+		if ( price == 0 )
 		{
-			KoLmafia.updateDisplay( MafiaState.ERROR, this.name + " doesn't sell that." );
+			KoLmafia.updateDisplay( MafiaState.ERROR, name + " doesn't sell that." );
 			return;
 		}
 
-		if ( this.price > KoLCharacter.getAvailableMeat() )
+		if ( price > KoLCharacter.getAvailableMeat() )
 		{
 			KoLmafia.updateDisplay( MafiaState.ERROR, "Insufficient funds." );
 			return;
 		}
 
-		if ( this.itemName == null )
+		if ( itemName == null )
 		{
 			return;
 		}
 
-		String advGain = ItemDatabase.getAdvRangeByName( this.itemName );
-		if ( this.inebriety > 0 && !DrinkItemRequest.allowBoozeConsumption( this.inebriety, 1, advGain ) )
+		String advGain = ItemDatabase.getAdvRangeByName( itemName );
+		if ( inebriety > 0 && !DrinkItemRequest.allowBoozeConsumption( inebriety, 1, advGain ) )
 		{
 			return;
 		}
 
-		KoLmafia.updateDisplay( "Purchasing " + this.itemName + " at the " + this.name + "..." );
+		KoLmafia.updateDisplay( "Purchasing " + itemName + " at the " + name + "..." );
 		super.run();
 	}
 
 	@Override
 	public void processResults()
 	{
-		if ( !this.isPurchase )
+		if ( !isPurchase )
 		{
 			return;
 		}
 
-		if ( this.responseText.contains( "This is not currently available to you." ) )
+		if ( responseText.contains( "This is not currently available to you." ) )
 		{
-			KoLmafia.updateDisplay( MafiaState.ERROR, "Couldn't find " + this.name );
+			KoLmafia.updateDisplay( MafiaState.ERROR, "Couldn't find " + name );
 			return;
 		}
 
-		if ( this.responseText.contains( "You're way too drunk already." ) || this.responseText.contains( "You're too full to eat that." ) )
+		if ( responseText.contains( "You're way too drunk already." ) || responseText.contains( "You're too full to eat that." ) )
 		{
 			KoLmafia.updateDisplay( MafiaState.ERROR, "Consumption limit reached." );
 			return;
 		}
 
-		if ( this.responseText.contains( "You can't afford that item." ) )
+		if ( responseText.contains( "You can't afford that item." ) )
 		{
 			KoLmafia.updateDisplay( MafiaState.ERROR, "Insufficient funds." );
 			return;

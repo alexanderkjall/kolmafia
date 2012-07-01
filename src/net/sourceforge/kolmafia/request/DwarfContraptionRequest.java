@@ -62,7 +62,7 @@ public class DwarfContraptionRequest
 	public DwarfContraptionRequest( final String action)
 	{
 		this();
-		this.addFormField( "action", action );
+        addFormField( "action", action );
 	}
 
 	private static String getPlaceName( final String action )
@@ -192,7 +192,7 @@ public class DwarfContraptionRequest
 	@Override
 	public void processResults()
 	{
-		DwarfContraptionRequest.parseResponse( this.getURLString(), this.responseText );
+		DwarfContraptionRequest.parseResponse( getURLString(), responseText );
 	}
 
 	public static void parseResponse( final String urlString, final String responseText )

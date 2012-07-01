@@ -85,17 +85,17 @@ public abstract class RequestThread
 		public PostDelayedRequestRunnable( final GenericRequest request )
 		{
 			this.request = request;
-			this.pauser = new PauseObject();
+            pauser = new PauseObject();
 		}
 
 		public void run()
 		{
 			while ( KoLmafia.isRefreshing() )
 			{
-				this.pauser.pause( 100 );
+                pauser.pause( 100 );
 			}
 
-			RequestThread.postRequest( this.request );
+			RequestThread.postRequest( request );
 		}
 	}
 
@@ -117,12 +117,12 @@ public abstract class RequestThread
 		{
 			if ( object instanceof Class )
 			{
-				this.objectClass = (Class) object;
+                objectClass = (Class) object;
 				this.object = null;
 			}
 			else
 			{
-				this.objectClass = object.getClass();
+                objectClass = object.getClass();
 				this.object = object;
 			}
 
@@ -130,34 +130,34 @@ public abstract class RequestThread
 			try
 			{
 				Class[] parameters = new Class[ 0 ];
-				this.method = this.objectClass.getMethod( methodName, parameters );
+                method = objectClass.getMethod( methodName, parameters );
 			}
 			catch ( Exception e )
 			{
-				this.method = null;
+                method = null;
 				KoLmafia.updateDisplay(
-					MafiaState.ERROR, "Could not invoke " + this.objectClass + "." + this.methodName );
+					MafiaState.ERROR, "Could not invoke " + objectClass + "." + this.methodName );
 			}
 
-			this.pauser = new PauseObject();
+            pauser = new PauseObject();
 		}
 
 		public void run()
 		{
-			if ( this.method == null )
+			if ( method == null )
 			{
 				return;
 			}
 
 			while ( KoLmafia.isRefreshing() )
 			{
-				this.pauser.pause( 100 );
+                pauser.pause( 100 );
 			}
 
 			try
 			{
 				Object[] args = new Object[ 0 ];
-				this.method.invoke( this.object, args );
+                method.invoke( object, args );
 			}
 			catch ( Exception e )
 			{
@@ -339,7 +339,7 @@ public abstract class RequestThread
 
 			try
 			{
-				this.wrapped.run();
+                wrapped.run();
 			}
 			catch ( Exception e )
 			{

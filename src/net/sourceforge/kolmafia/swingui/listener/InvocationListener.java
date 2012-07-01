@@ -49,7 +49,7 @@ public class InvocationListener
 		try
 		{
 			this.object = object;
-			this.method = c.getMethod( methodName, KoLConstants.NOPARAMS );
+            method = c.getMethod( methodName, KoLConstants.NOPARAMS );
 		}
 		catch ( Exception e )
 		{
@@ -65,9 +65,9 @@ public class InvocationListener
 	{
 		try
 		{
-			if ( this.method != null )
+			if ( method != null )
 			{
-				this.method.invoke( this.object, (Object []) null );
+                method.invoke( object, (Object[]) null );
 			}
 		}
 		catch ( Exception e1 )

@@ -46,8 +46,8 @@ public class RelayAutoCombatThread
 	public RelayAutoCombatThread()
 	{
 		super( "LocalRelayCombatThread" );
-		this.setDaemon( true );
-		this.start();
+        setDaemon( true );
+        start();
 	}
 
 	public void wake( final String desiredAction )
@@ -59,7 +59,7 @@ public class RelayAutoCombatThread
 			FightRequest.beginTrackingFights();
 		}
 
-		this.pauser.unpause();
+        pauser.unpause();
 	}
 
 	@Override
@@ -67,15 +67,15 @@ public class RelayAutoCombatThread
 	{
 		while ( true )
 		{
-			this.pauser.pause();
+            pauser.pause();
 
-			if ( this.desiredAction == null )
+			if ( desiredAction == null )
 			{
 				FightRequest.INSTANCE.run();
 			}
 			else
 			{
-				FightRequest.INSTANCE.runOnce( this.desiredAction );
+				FightRequest.INSTANCE.runOnce( desiredAction );
 			}
 
 			FightRequest.stopTrackingFights();

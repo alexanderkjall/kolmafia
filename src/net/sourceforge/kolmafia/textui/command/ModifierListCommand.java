@@ -42,7 +42,7 @@ public class ModifierListCommand
 {
 	public ModifierListCommand()
 	{
-		this.usage = " <filter> - list all possible sources of modifiers matching filter.";
+        usage = " <filter> - list all possible sources of modifiers matching filter.";
 	}
 
 	@Override

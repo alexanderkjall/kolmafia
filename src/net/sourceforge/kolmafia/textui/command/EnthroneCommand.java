@@ -60,7 +60,7 @@ public class EnthroneCommand
 	
 	public EnthroneCommand()
 	{
-		this.usage = "[?] <species> - place a familiar in the Crown of Thrones.";
+        usage = "[?] <species> - place a familiar in the Crown of Thrones.";
 	}
 
 	@Override

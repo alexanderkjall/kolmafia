@@ -40,7 +40,7 @@ public class ExitCommand
 {
 	public ExitCommand()
 	{
-		this.usage = " - logout and exit KoLmafia.";
+        usage = " - logout and exit KoLmafia.";
 	}
 
 	@Override

@@ -50,7 +50,7 @@ public class ChatMessage
 
 	public ChatMessage()
 	{
-		this.timestamp = ChatMessage.MESSAGE_TIMESTAMP.format( new Date() );
+        timestamp = ChatMessage.MESSAGE_TIMESTAMP.format( new Date() );
 	}
 
 	public ChatMessage( String sender, String recipient, String content, boolean isAction )
@@ -60,7 +60,7 @@ public class ChatMessage
 		this.content = content.trim();
 		this.isAction = isAction;
 
-		this.timestamp = ChatMessage.MESSAGE_TIMESTAMP.format( new Date() );
+        timestamp = ChatMessage.MESSAGE_TIMESTAMP.format( new Date() );
 	}
 
 	public String getSender()

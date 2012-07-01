@@ -57,26 +57,26 @@ public class PreferenceListenerCheckBox
 		this.property = property;
 		PreferenceListenerRegistry.registerListener( property, this );
 
-		this.update();
-		this.addActionListener( this );
+        update();
+        addActionListener( this );
 	}
 
 	public void update()
 	{
-		boolean isTrue = Preferences.getBoolean( this.property );
+		boolean isTrue = Preferences.getBoolean( property );
 
-		this.setSelected( isTrue );
+        setSelected( isTrue );
 	}
 
 	public void actionPerformed( final ActionEvent e )
 	{
-		if ( Preferences.getBoolean( this.property ) == this.isSelected() )
+		if ( Preferences.getBoolean( property ) == isSelected() )
 		{
 			return;
 		}
 
-		Preferences.setBoolean( this.property, this.isSelected() );
-		this.handleClick();
+		Preferences.setBoolean( property, isSelected() );
+        handleClick();
 	}
 
 	protected void handleClick()

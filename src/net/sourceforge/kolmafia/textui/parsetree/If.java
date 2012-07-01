@@ -49,17 +49,17 @@ public class If
 	public If( final Scope scope, final Value condition )
 	{
 		super( scope, condition );
-		this.elseLoops = new ArrayList();
+        elseLoops = new ArrayList();
 	}
 
 	public Iterator getElseLoops()
 	{
-		return this.elseLoops.iterator();
+		return elseLoops.iterator();
 	}
 
 	public void addElseLoop( final Conditional elseLoop )
 	{
-		this.elseLoops.add( elseLoop );
+        elseLoops.add( elseLoop );
 	}
 
 	@Override
@@ -73,7 +73,7 @@ public class If
 
 		// Conditional failed. Move to else clauses
 
-		Iterator it = this.elseLoops.iterator();
+		Iterator it = elseLoops.iterator();
 		Conditional elseLoop;
 
 		while ( it.hasNext() )
@@ -102,10 +102,10 @@ public class If
 		Interpreter.indentLine( stream, indent );
 		stream.println( "<IF>" );
 
-		this.getCondition().print( stream, indent + 1 );
-		this.getScope().print( stream, indent + 1 );
+        getCondition().print( stream, indent + 1 );
+        getScope().print( stream, indent + 1 );
 
-		Iterator it = this.getElseLoops();
+		Iterator it = getElseLoops();
 		while ( it.hasNext() )
 		{
 			Conditional currentElse = (Conditional) it.next();
@@ -117,12 +117,12 @@ public class If
 	public boolean assertBarrier()
 	{	// Summary: an If returns if every contained block of code
 		// returns, and the final block is an Else (not an ElseIf).
-		if ( !this.getScope().assertBarrier() )
+		if ( !getScope().assertBarrier() )
 		{
 			return false;
 		}
 		
-		Iterator it = this.elseLoops.iterator();
+		Iterator it = elseLoops.iterator();
 		Conditional elseLoop = null;
 
 		while ( it.hasNext() )
@@ -140,12 +140,12 @@ public class If
 	@Override
 	public boolean assertBreakable()
 	{
-		if ( this.getScope().assertBreakable() )
+		if ( getScope().assertBreakable() )
 		{
 			return true;
 		}
 		
-		Iterator it = this.elseLoops.iterator();
+		Iterator it = elseLoops.iterator();
 
 		while ( it.hasNext() )
 		{

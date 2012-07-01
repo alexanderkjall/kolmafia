@@ -44,7 +44,7 @@ public class AggregateValue
 
 	public Type getDataType()
 	{
-		return ( (AggregateType) this.type ).getDataType();
+		return ( (AggregateType) type).getDataType();
 	}
 
 	@Override
@@ -62,6 +62,6 @@ public class AggregateValue
 	@Override
 	public String toString()
 	{
-		return "aggregate " + this.type.toString();
+		return "aggregate " + type.toString();
 	}
 }

@@ -51,7 +51,7 @@ public class UseSkillCommand
 {
 	public UseSkillCommand()
 	{
-		this.usage = "[?] [ [<count>] <skill> [on <player>] ] - list spells, or use one.";
+        usage = "[?] [ [<count>] <skill> [on <player>] ] - list spells, or use one.";
 	}
 
 	@Override
@@ -60,7 +60,7 @@ public class UseSkillCommand
 		if ( parameters.length() > 0 )
 		{
 			SpecialOutfit.createImplicitCheckpoint();
-			this.cast( parameters );
+            cast( parameters );
 			SpecialOutfit.restoreImplicitCheckpoint();
 			return;
 		}

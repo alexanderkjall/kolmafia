@@ -48,7 +48,7 @@ public class RabbitHoleRequest
 	public RabbitHoleRequest( final String action )
 	{
 		super( "rabbithole" );
-		this.addFormField( "action", action );
+        addFormField( "action", action );
 	}
 
 	@Override
@@ -56,7 +56,7 @@ public class RabbitHoleRequest
 	{
 		super.run();
 
-		RabbitHoleRequest.parseResponse( this.getURLString(), this.responseText );
+		RabbitHoleRequest.parseResponse( getURLString(), responseText );
 	}
 
 	public static void parseResponse( final String urlString, final String responseText )

@@ -67,13 +67,13 @@ public class Type
 	public Type( final String name, final int type )
 	{
 		super( name );
-		this.primitive = true;
+        primitive = true;
 		this.type = type;
 	}
 
 	public int getType()
 	{
-		return this.type;
+		return type;
 	}
 
 	public Type getBaseType()
@@ -83,7 +83,7 @@ public class Type
 
 	public boolean isPrimitive()
 	{
-		return this.primitive;
+		return primitive;
 	}
 
 	public boolean equals( final Type type )
@@ -99,7 +99,7 @@ public class Type
 	@Override
 	public String toString()
 	{
-		return this.name;
+		return name;
 	}
 
 	public Type simpleType()
@@ -146,7 +146,7 @@ public class Type
 
 	public Value initialValue()
 	{
-		switch ( this.type )
+		switch ( type )
 		{
 		case DataTypes.TYPE_VOID:
 			return DataTypes.VOID_VALUE;
@@ -192,7 +192,7 @@ public class Type
 
 	public Value parseValue( final String name, final boolean returnDefault )
 	{
-		switch ( this.type )
+		switch ( type )
 		{
 		case DataTypes.TYPE_BOOLEAN:
 			return DataTypes.parseBooleanValue( name, returnDefault );
@@ -232,13 +232,13 @@ public class Type
 
 	public Value allValues()
 	{
-		if ( this.allValues != null ) return this.allValues;
+		if ( allValues != null ) return allValues;
 		
 		ArrayList<Value> list = new ArrayList<Value>();
-		switch ( this.type )
+		switch ( type )
 		{
 		case DataTypes.TYPE_BOOLEAN:
-			this.addValues( list, DataTypes.BOOLEANS );
+            addValues( list, DataTypes.BOOLEANS );
 			break;
 		case DataTypes.TYPE_ITEM:
 			int limit = ItemDatabase.maxItemId();
@@ -251,48 +251,48 @@ public class Type
 			}
 			break;
 		case DataTypes.TYPE_LOCATION:
-			this.addValues( list, AdventureDatabase.getAsLockableListModel() );
+            addValues( list, AdventureDatabase.getAsLockableListModel() );
 			break;
 		case DataTypes.TYPE_CLASS:
-			this.addValues( list, DataTypes.CLASSES );
+            addValues( list, DataTypes.CLASSES );
 			break;
 		case DataTypes.TYPE_STAT:
-			this.addValues( list, DataTypes.STATS, 0, 3 );
+            addValues( list, DataTypes.STATS, 0, 3 );
 			break;
 		case DataTypes.TYPE_SKILL:
-			this.addValues( list, SkillDatabase.entrySet() );
+            addValues( list, SkillDatabase.entrySet() );
 			break;
 		case DataTypes.TYPE_EFFECT:
-			this.addValues( list, EffectDatabase.entrySet() );
+            addValues( list, EffectDatabase.entrySet() );
 			break;
 		case DataTypes.TYPE_FAMILIAR:
-			this.addValues( list, FamiliarDatabase.entrySet() );
+            addValues( list, FamiliarDatabase.entrySet() );
 			break;
 		case DataTypes.TYPE_SLOT:
-			this.addValues( list, EquipmentRequest.slotNames );
+            addValues( list, EquipmentRequest.slotNames );
 			break;
 		case DataTypes.TYPE_MONSTER:
-			this.addValues( list, MonsterDatabase.entrySet() );
+            addValues( list, MonsterDatabase.entrySet() );
 			break;
 		case DataTypes.TYPE_ELEMENT:
-			this.addValues( list, MonsterDatabase.elementNames, 1, -1 );
+            addValues( list, MonsterDatabase.elementNames, 1, -1 );
 			break;
 		case DataTypes.TYPE_COINMASTER:
-			this.addValues( list, CoinmasterRegistry.MASTERS );
+            addValues( list, CoinmasterRegistry.MASTERS );
 			break;
 		case DataTypes.TYPE_PHYLUM:
-			this.addValues( list, MonsterDatabase.phylumNames, 1, -1 );
+            addValues( list, MonsterDatabase.phylumNames, 1, -1 );
 			break;
 		default:
 			return null;
 		}
-		this.allValues = new PluralValue( this, list );
-		return this.allValues;
+        allValues = new PluralValue( this, list );
+		return allValues;
 	}
 	
 	private void addValues( ArrayList<Value> results, String[] values )
 	{
-		this.addValues( results, values, 0, -1 );
+        addValues( results, values, 0, -1 );
 	}
 
 	private void addValues( ArrayList<Value> results, String[] values, int start, int stop )
@@ -300,7 +300,7 @@ public class Type
 		if ( stop == -1 ) stop = values.length;
 		for ( int i = start; i < stop; ++i )
 		{
-			Value v = this.parseValue( values[ i ], false );
+			Value v = parseValue( values[ i ], false );
 			if ( v != null ) results.add( v );
 		}
 	}
@@ -325,7 +325,7 @@ public class Type
 				// which isn't parseable as an ASH location.
 				o = ((KoLAdventure) o).getAdventureName();
 			}
-			Value v = this.parseValue( o.toString(), false );
+			Value v = parseValue( o.toString(), false );
 			if ( v != null ) results.add( v );
 		}
 	}
@@ -350,6 +350,6 @@ public class Type
 	public void print( final PrintStream stream, final int indent )
 	{
 		Interpreter.indentLine( stream, indent );
-		stream.println( "<TYPE " + this.name + ">" );
+		stream.println( "<TYPE " + name + ">" );
 	}
 }

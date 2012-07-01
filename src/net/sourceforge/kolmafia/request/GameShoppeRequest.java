@@ -134,7 +134,7 @@ public class GameShoppeRequest
 	@Override
 	public void processResults()
 	{
-		GameShoppeRequest.parseResponse( this.getURLString(), this.responseText );
+		GameShoppeRequest.parseResponse( getURLString(), responseText );
 	}
 
 	private static final Pattern ITEM_PATTERN = Pattern.compile( "name=whichitem value=([\\d]+)>.*?descitem.([\\d]+).*?<b>([^<&]*)(?:&nbsp;)*</td>.*?<b>([\\d,]+) credit</b>", Pattern.DOTALL );

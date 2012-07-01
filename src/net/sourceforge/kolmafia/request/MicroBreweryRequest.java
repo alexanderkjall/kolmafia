@@ -73,7 +73,7 @@ public class MicroBreweryRequest
 	public MicroBreweryRequest( final String name )
 	{
 		super( "The Gnomish Micromicrobrewery", "2" );
-		this.isPurchase = true;
+        isPurchase = true;
 
 		int itemId = 0;
 		int price = 0;
@@ -101,7 +101,7 @@ public class MicroBreweryRequest
 			break;
 		}
 
-		this.setItem( name, itemId, price );
+        setItem( name, itemId, price );
 	}
 
 	@Override
@@ -109,7 +109,7 @@ public class MicroBreweryRequest
 	{
 		if ( !KoLCharacter.gnomadsAvailable() )
 		{
-			KoLmafia.updateDisplay( MafiaState.ERROR, "You can't find " + this.name );
+			KoLmafia.updateDisplay( MafiaState.ERROR, "You can't find " + name );
 			return;
 		}
 
@@ -119,13 +119,13 @@ public class MicroBreweryRequest
 	@Override
 	public void processResults()
 	{
-		if ( this.isPurchase )
+		if ( isPurchase )
 		{
 			super.processResults();
 			return;
 		}
 
-		Matcher specialMatcher = MicroBreweryRequest.SPECIAL_PATTERN.matcher( this.responseText );
+		Matcher specialMatcher = MicroBreweryRequest.SPECIAL_PATTERN.matcher( responseText );
 		if ( specialMatcher.find() )
 		{
 			int itemId = StringUtilities.parseInt( specialMatcher.group( 1 ) );

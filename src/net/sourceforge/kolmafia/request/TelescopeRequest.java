@@ -65,10 +65,10 @@ public class TelescopeRequest
 		switch ( where )
 		{
 		case HIGH:
-			this.addFormField( "action", "telescopehigh" );
+            addFormField( "action", "telescopehigh" );
 			break;
 		case LOW:
-			this.addFormField( "action", "telescopelow" );
+            addFormField( "action", "telescopelow" );
 			break;
 		}
 	}
@@ -88,7 +88,7 @@ public class TelescopeRequest
 			return;
 		}
 
-		if ( this.where != TelescopeRequest.HIGH && this.where != TelescopeRequest.LOW )
+		if ( where != TelescopeRequest.HIGH && where != TelescopeRequest.LOW )
 		{
 			KoLmafia.updateDisplay( MafiaState.ERROR, "You can't look there." );
 			return;
@@ -102,14 +102,14 @@ public class TelescopeRequest
 	@Override
 	public void processResults()
 	{
-		TelescopeRequest.parseResponse( this.getURLString(), this.responseText );
+		TelescopeRequest.parseResponse( getURLString(), responseText );
 
-		if ( this.where == TelescopeRequest.HIGH )
+		if ( where == TelescopeRequest.HIGH )
 		{
 			// "You've already peered into the Heavens
 			// today. You're already feeling as inspired as you can
 			// be for one day."
-			if ( this.responseText.contains( "already peered" ) )
+			if ( responseText.contains( "already peered" ) )
 			{
 				KoLmafia.updateDisplay( MafiaState.ERROR, "You've already done that today." );
 				return;

@@ -48,7 +48,7 @@ public class RequestButton
 	public RequestButton( final String title, final String icon, final GenericRequest request )
 	{
 		super( JComponentUtilities.getImage( icon ), new RequestRunnable( request ) );
-		this.setToolTipText( title );
+        setToolTipText( title );
 	}
 
 	private static class RequestRunnable
@@ -63,7 +63,7 @@ public class RequestButton
 
 		public void run()
 		{
-			this.request.run();
+            request.run();
 		}
 }
 

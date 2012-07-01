@@ -47,7 +47,7 @@ public class VolcanoCommand
 {
 	public VolcanoCommand()
 	{
-		this.usage = " visit | solve | map [n] | platforms | jump | move row col | movep row col - play in the lava maze.";
+        usage = " visit | solve | map [n] | platforms | jump | move row col | movep row col - play in the lava maze.";
 	}
 
 	@Override

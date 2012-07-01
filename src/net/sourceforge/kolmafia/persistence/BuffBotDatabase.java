@@ -325,8 +325,8 @@ public class BuffBotDatabase
 		public DynamicBotFetcher( final String[] data )
 		{
 			super( "DynamicBotFetcher" );
-			this.botName = data[ 0 ];
-			this.location = data[ 2 ];
+            botName = data[ 0 ];
+            location = data[ 2 ];
 
 			++BuffBotDatabase.buffBotsAvailable;
 			ContactManager.registerPlayerId( data[ 0 ], data[ 1 ] );
@@ -335,22 +335,22 @@ public class BuffBotDatabase
 		@Override
 		public void run()
 		{
-			if ( BuffBotDatabase.freeOfferings.containsKey( this.botName ) || BuffBotDatabase.normalOfferings.containsKey( this.botName ) )
+			if ( BuffBotDatabase.freeOfferings.containsKey( botName ) || BuffBotDatabase.normalOfferings.containsKey( botName ) )
 			{
 				return;
 			}
 
-			if ( this.location.equals( BuffBotDatabase.OPTOUT_URL ) )
+			if ( location.equals( BuffBotDatabase.OPTOUT_URL ) )
 			{
-				BuffBotDatabase.freeOfferings.put( this.botName, new LockableListModel() );
-				BuffBotDatabase.normalOfferings.put( this.botName, new LockableListModel() );
+				BuffBotDatabase.freeOfferings.put( botName, new LockableListModel() );
+				BuffBotDatabase.normalOfferings.put( botName, new LockableListModel() );
 
 				++BuffBotDatabase.buffBotsConfigured;
 				return;
 			}
 
 			StringBuilder responseText = new StringBuilder();
-			BufferedReader reader = FileUtilities.getReader( this.location );
+			BufferedReader reader = FileUtilities.getReader( location );
 
 			if ( reader == null )
 			{
@@ -425,7 +425,7 @@ public class BuffBotDatabase
 
 					if ( priceMatch == null )
 					{
-						tester.add( new Offering( name, this.botName, price, turns, philanthropic ) );
+						tester.add( new Offering( name, botName, price, turns, philanthropic ) );
 					}
 					else
 					{
@@ -440,13 +440,13 @@ public class BuffBotDatabase
 			if ( !freeBuffs.isEmpty() )
 			{
 				freeBuffs.sort();
-				BuffBotDatabase.freeOfferings.put( this.botName, freeBuffs );
+				BuffBotDatabase.freeOfferings.put( botName, freeBuffs );
 			}
 
 			if ( !normalBuffs.isEmpty() )
 			{
 				normalBuffs.sort();
-				BuffBotDatabase.normalOfferings.put( this.botName, normalBuffs );
+				BuffBotDatabase.normalOfferings.put( botName, normalBuffs );
 			}
 
 			// Now that the buffbot is configured, increment

@@ -87,9 +87,9 @@ public class ZapRequest
 
 		this.item = item;
 
-		this.addFormField( "action", "zap" );
-		this.addFormField( "whichwand", String.valueOf( KoLCharacter.getZapper().getItemId() ) );
-		this.addFormField( "whichitem", String.valueOf( item.getItemId() ) );
+        addFormField( "action", "zap" );
+        addFormField( "whichwand", String.valueOf( KoLCharacter.getZapper().getItemId() ) );
+        addFormField( "whichitem", String.valueOf( item.getItemId() ) );
 	}
 
 	private static void initializeList()
@@ -146,7 +146,7 @@ public class ZapRequest
 	@Override
 	public void run()
 	{
-		if ( this.item == null )
+		if ( item == null )
 		{
 			return;
 		}
@@ -157,18 +157,18 @@ public class ZapRequest
 			return;
 		}
 
-		if ( InventoryManager.hasItem( this.item, true ) )
+		if ( InventoryManager.hasItem( item, true ) )
 		{
-			InventoryManager.retrieveItem( this.item );
+			InventoryManager.retrieveItem( item );
 		}
 
-		if ( !KoLConstants.inventory.contains( this.item ) )
+		if ( !KoLConstants.inventory.contains( item ) )
 		{
-			KoLmafia.updateDisplay( MafiaState.ERROR, "You don't have a " + this.item.getName() + "." );
+			KoLmafia.updateDisplay( MafiaState.ERROR, "You don't have a " + item.getName() + "." );
 			return;
 		}
 
-		KoLmafia.updateDisplay( "Zapping " + this.item.getName() + "..." );
+		KoLmafia.updateDisplay( "Zapping " + item.getName() + "..." );
 		super.run();
 	}
 
@@ -176,18 +176,18 @@ public class ZapRequest
 	public void processResults()
 	{
 		// Remove item if zap succeeded. Remove wand if it blew up.
-		ZapRequest.parseResponse( this.getURLString(), this.responseText );
+		ZapRequest.parseResponse( getURLString(), responseText );
 
 		// "The Crown of the Goblin King shudders for a moment, but
 		// nothing happens."
-		if ( this.responseText.contains( "nothing happens" ) )
+		if ( responseText.contains( "nothing happens" ) )
 		{
-			KoLmafia.updateDisplay( MafiaState.ERROR, "The " + this.item.getName() + " is not zappable." );
+			KoLmafia.updateDisplay( MafiaState.ERROR, "The " + item.getName() + " is not zappable." );
 			return;
 		}
 
 		// Notify the user of success.
-		KoLmafia.updateDisplay( this.item.getName() + " has been transformed." );
+		KoLmafia.updateDisplay( item.getName() + " has been transformed." );
 	}
 
 	public static void parseResponse( final String urlString, final String responseText )

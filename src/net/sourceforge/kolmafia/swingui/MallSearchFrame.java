@@ -95,9 +95,9 @@ public class MallSearchFrame
 	{
 		super( "Purchases" );
 
-		this.mallSearch = new MallSearchPanel();
+        mallSearch = new MallSearchPanel();
 
-		this.setContentPanel( this.mallSearch );
+        setContentPanel( mallSearch );
 
 		MallSearchFrame.INSTANCE = this;
 	}
@@ -126,49 +126,49 @@ public class MallSearchFrame
 		{
 			super( "search", "purchase", "cancel", new Dimension( 100, 20 ), new Dimension( 250, 20 ) );
 
-			this.searchField =
+            searchField =
 				Preferences.getBoolean( "cacheMallSearches" ) ? (JComponent) new AutoFilterComboBox(
 					MallSearchFrame.pastSearches, true ) : (JComponent) new AutoHighlightTextField();
 
-			this.countField = new AutoHighlightTextField();
+            countField = new AutoHighlightTextField();
 
-			this.forceSortingCheckBox = new JCheckBox();
-			this.limitPurchasesCheckBox = new JCheckBox();
-			MallSearchFrame.this.results = new SortedListModel();
+            forceSortingCheckBox = new JCheckBox();
+            limitPurchasesCheckBox = new JCheckBox();
+            results = new SortedListModel();
 
 			JPanel checkBoxPanels = new JPanel();
 			checkBoxPanels.add( Box.createHorizontalStrut( 20 ) );
 			checkBoxPanels.add( new JLabel( "Force Sort: " ), "" );
-			checkBoxPanels.add( this.forceSortingCheckBox );
+			checkBoxPanels.add( forceSortingCheckBox );
 			checkBoxPanels.add( Box.createHorizontalStrut( 20 ) );
 			checkBoxPanels.add( new JLabel( "Limit Purchases: " ), "" );
-			checkBoxPanels.add( this.limitPurchasesCheckBox );
+			checkBoxPanels.add( limitPurchasesCheckBox );
 			checkBoxPanels.add( Box.createHorizontalStrut( 20 ) );
-			this.limitPurchasesCheckBox.setSelected( true );
+            limitPurchasesCheckBox.setSelected( true );
 
 			VerifiableElement[] elements = new VerifiableElement[ 3 ];
-			elements[ 0 ] = new VerifiableElement( "Item to Find: ", this.searchField );
-			elements[ 1 ] = new VerifiableElement( "Search Limit: ", this.countField );
+			elements[ 0 ] = new VerifiableElement( "Item to Find: ", searchField );
+			elements[ 1 ] = new VerifiableElement( "Search Limit: ", countField );
 			elements[ 2 ] = new VerifiableElement( " ", checkBoxPanels, false );
 
 			int searchCount = Preferences.getInteger( "defaultLimit" );
-			this.countField.setText( searchCount <= 0 ? "5" : String.valueOf( searchCount ) );
+            countField.setText( searchCount <= 0 ? "5" : String.valueOf( searchCount ) );
 
-			this.setContent( elements );
+            setContent( elements );
 
-			this.add( new SearchResultsPanel(), BorderLayout.CENTER );
-			MallSearchFrame.this.currentlySearching = false;
-			MallSearchFrame.this.currentlyBuying = false;
+            add( new SearchResultsPanel(), BorderLayout.CENTER );
+            currentlySearching = false;
+            currentlyBuying = false;
 
-			this.setFocusCycleRoot( true );
-			this.setFocusTraversalPolicy( new DefaultComponentFocusTraversalPolicy( this.searchField ) );
+            setFocusCycleRoot( true );
+            setFocusTraversalPolicy( new DefaultComponentFocusTraversalPolicy( searchField ) );
 
-			this.addFocusListener( this );
+            addFocusListener( this );
 		}
 
 		public void focusGained( FocusEvent e )
 		{
-			this.searchField.requestFocus();
+            searchField.requestFocus();
 		}
 
 		public void focusLost( FocusEvent e )
@@ -178,55 +178,55 @@ public class MallSearchFrame
 		@Override
 		public void actionConfirmed()
 		{
-			int searchCount = InputFieldUtilities.getValue( this.countField, 0 );
+			int searchCount = InputFieldUtilities.getValue( countField, 0 );
 			if ( searchCount > 0 )
 			{
 				Preferences.setInteger( "defaultLimit", searchCount );
 			}
 
-			PurchaseRequest.setUsePriceComparison( this.forceSortingCheckBox.isSelected() );
+			PurchaseRequest.setUsePriceComparison( forceSortingCheckBox.isSelected() );
 
 			String searchText = null;
 
-			if ( this.searchField instanceof AutoHighlightTextField )
+			if ( searchField instanceof AutoHighlightTextField )
 			{
-				searchText = ( (AutoHighlightTextField) this.searchField ).getText();
+				searchText = ( (AutoHighlightTextField) searchField).getText();
 			}
 			else
 			{
-				( (AutoFilterComboBox) this.searchField ).forceAddition();
-				searchText = (String) ( (AutoFilterComboBox) this.searchField ).getSelectedItem();
+				( (AutoFilterComboBox) searchField).forceAddition();
+				searchText = (String) ( (AutoFilterComboBox) searchField).getSelectedItem();
 			}
 
-			MallSearchFrame.this.currentlySearching = true;
+            currentlySearching = true;
 
 			MallSearchFrame.searchMall( new MallSearchRequest(
-				searchText, searchCount, MallSearchFrame.this.results, false ) );
+				searchText, searchCount, results, false ) );
 
-			MallSearchFrame.this.currentlySearching = false;
+            currentlySearching = false;
 
-			this.searchField.requestFocus();
+            searchField.requestFocus();
 		}
 
 		@Override
 		public void actionCancelled()
 		{
-			if ( MallSearchFrame.this.currentlySearching )
+			if ( currentlySearching )
 			{
 				KoLmafia.updateDisplay( MafiaState.ERROR, "Search stopped." );
 				return;
 			}
 
-			if ( MallSearchFrame.this.currentlyBuying )
+			if ( currentlyBuying )
 			{
 				KoLmafia.updateDisplay( MafiaState.ERROR, "Purchases stopped." );
 				return;
 			}
 
-			Object[] purchases = MallSearchFrame.this.resultsList.getSelectedValues();
+			Object[] purchases = resultsList.getSelectedValues();
 			if ( purchases == null || purchases.length == 0 )
 			{
-				this.setStatusMessage( "Please select a store from which to purchase." );
+                setStatusMessage( "Please select a store from which to purchase." );
 				return;
 			}
 
@@ -238,7 +238,7 @@ public class MallSearchFrame
 			}
 
 			int count = defaultPurchases;
-			if ( this.limitPurchasesCheckBox.isSelected() || defaultPurchases >= 1000 )
+			if ( limitPurchasesCheckBox.isSelected() || defaultPurchases >= 1000 )
 			{
 				Integer value = InputFieldUtilities.getQuantity( "Maximum number of items to purchase?", defaultPurchases, 1 );
 				count = ( value == null ) ? 0 : value;
@@ -249,13 +249,13 @@ public class MallSearchFrame
 				return;
 			}
 
-			MallSearchFrame.this.currentlyBuying = true;
+            currentlyBuying = true;
 
 			SpecialOutfit.createImplicitCheckpoint();
-			StaticEntity.getClient().makePurchases( MallSearchFrame.this.results, purchases, count, false );
+			StaticEntity.getClient().makePurchases( results, purchases, count, false );
 			SpecialOutfit.restoreImplicitCheckpoint();
 
-			MallSearchFrame.this.currentlyBuying = false;
+            currentlyBuying = false;
 		}
 	}
 
@@ -310,13 +310,13 @@ public class MallSearchFrame
 			resultsPanel.add( JComponentUtilities.createLabel(
 				"Search Results", SwingConstants.CENTER, Color.black, Color.white ), BorderLayout.NORTH );
 
-			MallSearchFrame.this.resultsList = new ShowDescriptionList( MallSearchFrame.this.results );
-			MallSearchFrame.this.resultsList.setSelectionMode( ListSelectionModel.MULTIPLE_INTERVAL_SELECTION );
-			MallSearchFrame.this.resultsList.setPrototypeCellValue( "ABCDEFGHIJKLMNOPQRSTUVWXYZ" );
-			MallSearchFrame.this.resultsList.setVisibleRowCount( 11 );
+            resultsList = new ShowDescriptionList( results );
+            resultsList.setSelectionMode( ListSelectionModel.MULTIPLE_INTERVAL_SELECTION );
+            resultsList.setPrototypeCellValue( "ABCDEFGHIJKLMNOPQRSTUVWXYZ" );
+            resultsList.setVisibleRowCount( 11 );
 
-			MallSearchFrame.this.resultsList.addListSelectionListener( new PurchaseSelectListener() );
-			this.add( new GenericScrollPane( MallSearchFrame.this.resultsList ), BorderLayout.CENTER );
+            resultsList.addListSelectionListener( new PurchaseSelectListener() );
+            add( new GenericScrollPane( resultsList ), BorderLayout.CENTER );
 		}
 
 		/**
@@ -337,9 +337,9 @@ public class MallSearchFrame
 				// show what the current state of the selections
 				// is at this time.
 
-				if ( !MallSearchFrame.this.currentlyBuying )
+				if ( !currentlyBuying )
 				{
-					MallSearchFrame.this.mallSearch.setStatusMessage( MallSearchFrame.this.getPurchaseSummary( MallSearchFrame.this.resultsList.getSelectedValues() ) );
+                    mallSearch.setStatusMessage( getPurchaseSummary( resultsList.getSelectedValues() ) );
 				}
 			}
 		}

@@ -52,7 +52,7 @@ public class RefreshStatusCommand
 {
 	public RefreshStatusCommand()
 	{
-		this.usage = " all | status | equip | inv | storage | familiar | stickers | quests - resynchronize with KoL.";
+        usage = " all | status | equip | inv | storage | familiar | stickers | quests - resynchronize with KoL.";
 	}
 
 	@Override

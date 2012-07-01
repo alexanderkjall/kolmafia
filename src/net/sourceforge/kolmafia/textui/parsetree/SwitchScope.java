@@ -57,38 +57,38 @@ public class SwitchScope
 	@Override
 	public void addCommand( final ParseTreeNode c, final Parser p )
 	{
-		this.commands.add( c );
-		if ( this.barrier == BasicScope.BARRIER_NONE &&
+        commands.add( c );
+		if ( barrier == BasicScope.BARRIER_NONE &&
 			c.assertBarrier() )
 		{
-			this.barrier = BasicScope.BARRIER_SEEN;
+            barrier = BasicScope.BARRIER_SEEN;
 		}
-		else if ( this.barrier == BasicScope.BARRIER_SEEN )
+		else if ( barrier == BasicScope.BARRIER_SEEN )
 		{
-			this.barrier = BasicScope.BARRIER_PAST;
+            barrier = BasicScope.BARRIER_PAST;
 			p.warning( "Unreachable code" );
 		}
 		
-		if ( !this.breakable )
+		if ( !breakable )
 		{
-			this.breakable = c.assertBreakable();
+            breakable = c.assertBreakable();
 		}
 	}
 	
 	public void resetBarrier()
 	{
-		this.barrier = BasicScope.BARRIER_NONE;
+        barrier = BasicScope.BARRIER_NONE;
 	}
 
 	@Override
 	public Iterator getCommands()
 	{
-		return this.commands.listIterator( this.offset );
+		return commands.listIterator( offset );
 	}
 
 	public int commandCount()
 	{
-		return this.commands.size();
+		return commands.size();
 	}
 
 	public void setOffset( final int offset )
@@ -99,13 +99,13 @@ public class SwitchScope
 	@Override
 	public boolean assertBarrier()
 	{
-		return this.barrier >= BasicScope.BARRIER_SEEN;
+		return barrier >= BasicScope.BARRIER_SEEN;
 	}
 	
 	@Override
 	public boolean assertBreakable()
 	{
-		return this.breakable;
+		return breakable;
 	}
 
 	public void print( final PrintStream stream, final int indent, Value [] tests, Integer [] offsets, int defaultIndex )
@@ -118,7 +118,7 @@ public class SwitchScope
 		Interpreter.indentLine( stream, indent + 1 );
 		stream.println( "<VARIABLES>" );
 
-		it = this.getVariables();
+		it = getVariables();
 		while ( it.hasNext() )
 		{
 			Variable currentVar = (Variable) it.next();
@@ -128,7 +128,7 @@ public class SwitchScope
 		Interpreter.indentLine( stream, indent + 1 );
 		stream.println( "<COMMANDS>" );
 
-		int commandCount = this.commands.size();
+		int commandCount = commands.size();
 		int testIndex = 0;
 		int testCount = tests.length;
 

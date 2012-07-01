@@ -59,7 +59,7 @@ public abstract class ConditionalStatement
 	private static final Pattern STATDAY_PATTERN = Pattern.compile( "(today|tomorrow) is (.*?) day" );
 
 	{
-		this.flags = KoLmafiaCLI.FLOW_CONTROL_CMD;
+        flags = KoLmafiaCLI.FLOW_CONTROL_CMD;
 	}
 
 	/**

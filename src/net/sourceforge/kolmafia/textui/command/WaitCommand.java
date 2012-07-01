@@ -44,7 +44,7 @@ public class WaitCommand
 {
 	public WaitCommand()
 	{
-		this.usage = " [<seconds>] - pause script execution (default 1 second).";
+        usage = " [<seconds>] - pause script execution (default 1 second).";
 	}
 
 	@Override

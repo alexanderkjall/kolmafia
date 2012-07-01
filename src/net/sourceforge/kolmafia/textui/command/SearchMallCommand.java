@@ -47,7 +47,7 @@ public class SearchMallCommand
 {
 	public SearchMallCommand()
 	{
-		this.usage = " <item> [ with limit <number> ] - search the Mall.";
+        usage = " <item> [ with limit <number> ] - search the Mall.";
 	}
 
 	@Override

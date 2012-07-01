@@ -42,7 +42,7 @@ public class EventsCommand
 {
 	public EventsCommand()
 	{
-		this.usage = " [clear] - clear or show recent events.";
+        usage = " [clear] - clear or show recent events.";
 	}
 
 	@Override

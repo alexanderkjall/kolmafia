@@ -40,7 +40,7 @@ public class MoleRefCommand
 {
 	public MoleRefCommand()
 	{
-		this.usage = " - Path of the Mole spoilers.";
+        usage = " - Path of the Mole spoilers.";
 	}
 
 	@Override

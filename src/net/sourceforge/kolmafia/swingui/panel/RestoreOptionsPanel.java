@@ -75,23 +75,23 @@ public class RestoreOptionsPanel
 		JPanel manaPanel = new JPanel();
 		manaPanel.add( new ManaOptionsPanel() );
 
-		this.add( healthPanel );
-		this.add( manaPanel );
+        add( healthPanel );
+        add( manaPanel );
 
 		CheckboxListener listener = new CheckboxListener();
-		for ( int i = 0; i < this.hpRestoreCheckbox.length; ++i )
+		for ( int i = 0; i < hpRestoreCheckbox.length; ++i )
 		{
-			this.hpRestoreCheckbox[ i ].addActionListener( listener );
+            hpRestoreCheckbox[ i ].addActionListener( listener );
 		}
-		for ( int i = 0; i < this.mpRestoreCheckbox.length; ++i )
+		for ( int i = 0; i < mpRestoreCheckbox.length; ++i )
 		{
-			this.mpRestoreCheckbox[ i ].addActionListener( listener );
+            mpRestoreCheckbox[ i ].addActionListener( listener );
 		}
 	}
 
 	public void updateFromPreferences()
 	{
-		this.restoreRestoreSettings();
+        restoreRestoreSettings();
 	}
 
 	private GenericScrollPane constructScroller( final JCheckBox[] restoreCheckbox )
@@ -108,7 +108,7 @@ public class RestoreOptionsPanel
 
 	private JPanel constructLabelPair( final String label, final JComponent element1 )
 	{
-		return this.constructLabelPair( label, element1, null );
+		return constructLabelPair( label, element1, null );
 	}
 
 	private JPanel constructLabelPair( final String label, final JComponent element1, final JComponent element2 )
@@ -148,24 +148,24 @@ public class RestoreOptionsPanel
 
 	private void saveRestoreSettings()
 	{
-		if ( this.restoring )
+		if ( restoring )
 		{
 			return;
 		}
 
 		Preferences.setFloat(
-			"autoAbortThreshold", this.getPercentage( this.hpHaltCombatSelect ) );
-		Preferences.setFloat( "hpAutoRecovery", this.getPercentage( this.hpAutoRecoverSelect ) );
+			"autoAbortThreshold", getPercentage( hpHaltCombatSelect ) );
+		Preferences.setFloat( "hpAutoRecovery", getPercentage( hpAutoRecoverSelect ) );
 		Preferences.setFloat(
-			"hpAutoRecoveryTarget", this.getPercentage( this.hpAutoRecoverTargetSelect ) );
-		Preferences.setString( "hpAutoRecoveryItems", this.getSettingString( this.hpRestoreCheckbox ) );
+			"hpAutoRecoveryTarget", getPercentage( hpAutoRecoverTargetSelect ) );
+		Preferences.setString( "hpAutoRecoveryItems", getSettingString( hpRestoreCheckbox ) );
 
-		Preferences.setFloat( "manaBurningTrigger", this.getPercentage( this.mpBalanceTriggerSelect ) );
-		Preferences.setFloat( "manaBurningThreshold", this.getPercentage( this.mpBalanceSelect ) );
-		Preferences.setFloat( "mpAutoRecovery", this.getPercentage( this.mpAutoRecoverSelect ) );
+		Preferences.setFloat( "manaBurningTrigger", getPercentage( mpBalanceTriggerSelect ) );
+		Preferences.setFloat( "manaBurningThreshold", getPercentage( mpBalanceSelect ) );
+		Preferences.setFloat( "mpAutoRecovery", getPercentage( mpAutoRecoverSelect ) );
 		Preferences.setFloat(
-			"mpAutoRecoveryTarget", this.getPercentage( this.mpAutoRecoverTargetSelect ) );
-		Preferences.setString( "mpAutoRecoveryItems", this.getSettingString( this.mpRestoreCheckbox ) );
+			"mpAutoRecoveryTarget", getPercentage( mpAutoRecoverTargetSelect ) );
+		Preferences.setString( "mpAutoRecoveryItems", getSettingString( mpRestoreCheckbox ) );
 	}
 
 	private String getSettingString( final JCheckBox[] restoreCheckbox )
@@ -195,19 +195,19 @@ public class RestoreOptionsPanel
 
 	private void restoreRestoreSettings()
 	{
-		this.restoring = true;
-		this.setSelectedIndex( this.hpHaltCombatSelect, "autoAbortThreshold" );
-		this.setSelectedIndex( this.hpAutoRecoverSelect, "hpAutoRecovery" );
-		this.setSelectedIndex( this.hpAutoRecoverTargetSelect, "hpAutoRecoveryTarget" );
+        restoring = true;
+        setSelectedIndex( hpHaltCombatSelect, "autoAbortThreshold" );
+        setSelectedIndex( hpAutoRecoverSelect, "hpAutoRecovery" );
+        setSelectedIndex( hpAutoRecoverTargetSelect, "hpAutoRecoveryTarget" );
 
-		HPRestoreItemList.updateCheckboxes( this.hpRestoreCheckbox );
+		HPRestoreItemList.updateCheckboxes( hpRestoreCheckbox );
 
-		this.setSelectedIndex( this.mpBalanceTriggerSelect, "manaBurningTrigger" );
-		this.setSelectedIndex( this.mpBalanceSelect, "manaBurningThreshold" );
-		this.setSelectedIndex( this.mpAutoRecoverSelect, "mpAutoRecovery" );
-		this.setSelectedIndex( this.mpAutoRecoverTargetSelect, "mpAutoRecoveryTarget" );
-		MPRestoreItemList.updateCheckboxes( this.mpRestoreCheckbox );
-		this.restoring = false;
+        setSelectedIndex( mpBalanceTriggerSelect, "manaBurningTrigger" );
+        setSelectedIndex( mpBalanceSelect, "manaBurningThreshold" );
+        setSelectedIndex( mpAutoRecoverSelect, "mpAutoRecovery" );
+        setSelectedIndex( mpAutoRecoverTargetSelect, "mpAutoRecoveryTarget" );
+		MPRestoreItemList.updateCheckboxes( mpRestoreCheckbox );
+        restoring = false;
 	}
 
 	private void setSelectedIndex( final JComboBox option, final String property )
@@ -221,7 +221,7 @@ public class RestoreOptionsPanel
 	{
 		public void actionPerformed( final ActionEvent e )
 		{
-			RestoreOptionsPanel.this.saveRestoreSettings();
+            saveRestoreSettings();
 		}
 	}
 
@@ -233,61 +233,61 @@ public class RestoreOptionsPanel
 
 		public HealthOptionsPanel()
 		{
-			RestoreOptionsPanel.this.hpHaltCombatSelect = new JComboBox();
-			RestoreOptionsPanel.this.hpHaltCombatSelect.addItem( "Stop if auto-recovery fails" );
+            hpHaltCombatSelect = new JComboBox();
+            hpHaltCombatSelect.addItem( "Stop if auto-recovery fails" );
 			for ( int i = 0; i <= 19; ++i )
 			{
-				RestoreOptionsPanel.this.hpHaltCombatSelect.addItem( "Stop if health at " + i * 5 + "%" );
+                hpHaltCombatSelect.addItem( "Stop if health at " + i * 5 + "%" );
 			}
 
-			RestoreOptionsPanel.this.hpAutoRecoverSelect = new JComboBox();
-			RestoreOptionsPanel.this.hpAutoRecoverSelect.addItem( "Do not auto-recover health" );
+            hpAutoRecoverSelect = new JComboBox();
+            hpAutoRecoverSelect.addItem( "Do not auto-recover health" );
 			for ( int i = 0; i <= 19; ++i )
 			{
-				RestoreOptionsPanel.this.hpAutoRecoverSelect.addItem( "Auto-recover health at " + i * 5 + "%" );
+                hpAutoRecoverSelect.addItem( "Auto-recover health at " + i * 5 + "%" );
 			}
 
-			RestoreOptionsPanel.this.hpAutoRecoverTargetSelect = new JComboBox();
-			RestoreOptionsPanel.this.hpAutoRecoverTargetSelect.addItem( "Do not recover health" );
+            hpAutoRecoverTargetSelect = new JComboBox();
+            hpAutoRecoverTargetSelect.addItem( "Do not recover health" );
 			for ( int i = 0; i <= 20; ++i )
 			{
-				RestoreOptionsPanel.this.hpAutoRecoverTargetSelect.addItem( "Try to recover up to " + i * 5 + "% health" );
+                hpAutoRecoverTargetSelect.addItem( "Try to recover up to " + i * 5 + "% health" );
 			}
 
 			// Add the elements to the panel
 
-			this.setLayout( new BoxLayout( this, BoxLayout.Y_AXIS ) );
-			this.add( RestoreOptionsPanel.this.constructLabelPair(
-				"Stop automation: ", RestoreOptionsPanel.this.hpHaltCombatSelect ) );
-			this.add( Box.createVerticalStrut( 25 + 15 ) );
+            setLayout( new BoxLayout( this, BoxLayout.Y_AXIS ) );
+            add( constructLabelPair(
+				"Stop automation: ", hpHaltCombatSelect ) );
+            add( Box.createVerticalStrut( 25 + 15 ) );
 
-			this.add( RestoreOptionsPanel.this.constructLabelPair(
-				"Restore your health: ", RestoreOptionsPanel.this.hpAutoRecoverSelect,
-				RestoreOptionsPanel.this.hpAutoRecoverTargetSelect ) );
-			this.add( Box.createVerticalStrut( 15 ) );
+            add( constructLabelPair(
+				"Restore your health: ", hpAutoRecoverSelect,
+                    hpAutoRecoverTargetSelect ) );
+            add( Box.createVerticalStrut( 15 ) );
 
-			this.add( RestoreOptionsPanel.this.constructLabelPair(
+            add( constructLabelPair(
 				"Use these restores: ",
-				RestoreOptionsPanel.this.constructScroller( RestoreOptionsPanel.this.hpRestoreCheckbox = HPRestoreItemList.getCheckboxes() ) ) );
+                    constructScroller( hpRestoreCheckbox = HPRestoreItemList.getCheckboxes() ) ) );
 
-			RestoreOptionsPanel.this.setSelectedIndex( RestoreOptionsPanel.this.hpHaltCombatSelect, "autoAbortThreshold" );
-			RestoreOptionsPanel.this.setSelectedIndex( RestoreOptionsPanel.this.hpAutoRecoverSelect, "hpAutoRecovery" );
-			RestoreOptionsPanel.this.setSelectedIndex(
-				RestoreOptionsPanel.this.hpAutoRecoverTargetSelect, "hpAutoRecoveryTarget" );
+            setSelectedIndex( hpHaltCombatSelect, "autoAbortThreshold" );
+            setSelectedIndex( hpAutoRecoverSelect, "hpAutoRecovery" );
+            setSelectedIndex(
+                    hpAutoRecoverTargetSelect, "hpAutoRecoveryTarget" );
 
-			RestoreOptionsPanel.this.hpHaltCombatSelect.addActionListener( this );
-			RestoreOptionsPanel.this.hpAutoRecoverSelect.addActionListener( this );
-			RestoreOptionsPanel.this.hpAutoRecoverTargetSelect.addActionListener( this );
+            hpHaltCombatSelect.addActionListener( this );
+            hpAutoRecoverSelect.addActionListener( this );
+            hpAutoRecoverTargetSelect.addActionListener( this );
 
-			for ( int i = 0; i < RestoreOptionsPanel.this.hpRestoreCheckbox.length; ++i )
+			for ( int i = 0; i < hpRestoreCheckbox.length; ++i )
 			{
-				RestoreOptionsPanel.this.hpRestoreCheckbox[ i ].addActionListener( this );
+                hpRestoreCheckbox[ i ].addActionListener( this );
 			}
 		}
 
 		public void actionPerformed( final ActionEvent e )
 		{
-			RestoreOptionsPanel.this.saveRestoreSettings();
+            saveRestoreSettings();
 		}
 	}
 
@@ -297,72 +297,72 @@ public class RestoreOptionsPanel
 	{
 		public ManaOptionsPanel()
 		{
-			RestoreOptionsPanel.this.mpBalanceTriggerSelect = new JComboBox();
-			RestoreOptionsPanel.this.mpBalanceTriggerSelect.addItem( "Start recasting immediately" );
+            mpBalanceTriggerSelect = new JComboBox();
+            mpBalanceTriggerSelect.addItem( "Start recasting immediately" );
 			for ( int i = 0; i <= 20; ++i )
 			{
-				RestoreOptionsPanel.this.mpBalanceTriggerSelect.addItem( "Start recasting at " + i * 5 + "%" );
+                mpBalanceTriggerSelect.addItem( "Start recasting at " + i * 5 + "%" );
 			}
 
-			RestoreOptionsPanel.this.mpBalanceSelect = new JComboBox();
-			RestoreOptionsPanel.this.mpBalanceSelect.addItem( "Do not rebalance buffs" );
+            mpBalanceSelect = new JComboBox();
+            mpBalanceSelect.addItem( "Do not rebalance buffs" );
 			for ( int i = 0; i <= 19; ++i )
 			{
-				RestoreOptionsPanel.this.mpBalanceSelect.addItem( "Recast buffs down to " + i * 5 + "%" );
+                mpBalanceSelect.addItem( "Recast buffs down to " + i * 5 + "%" );
 			}
 
-			RestoreOptionsPanel.this.mpAutoRecoverSelect = new JComboBox();
-			RestoreOptionsPanel.this.mpAutoRecoverSelect.addItem( "Do not auto-recover mana" );
+            mpAutoRecoverSelect = new JComboBox();
+            mpAutoRecoverSelect.addItem( "Do not auto-recover mana" );
 			for ( int i = 0; i <= 19; ++i )
 			{
-				RestoreOptionsPanel.this.mpAutoRecoverSelect.addItem( "Auto-recover mana at " + i * 5 + "%" );
+                mpAutoRecoverSelect.addItem( "Auto-recover mana at " + i * 5 + "%" );
 			}
 
-			RestoreOptionsPanel.this.mpAutoRecoverTargetSelect = new JComboBox();
-			RestoreOptionsPanel.this.mpAutoRecoverTargetSelect.addItem( "Do not auto-recover mana" );
+            mpAutoRecoverTargetSelect = new JComboBox();
+            mpAutoRecoverTargetSelect.addItem( "Do not auto-recover mana" );
 			for ( int i = 0; i <= 20; ++i )
 			{
-				RestoreOptionsPanel.this.mpAutoRecoverTargetSelect.addItem( "Try to recover up to " + i * 5 + "% mana" );
+                mpAutoRecoverTargetSelect.addItem( "Try to recover up to " + i * 5 + "% mana" );
 			}
 
 			// Add the elements to the panel
 
-			this.setLayout( new BoxLayout( this, BoxLayout.Y_AXIS ) );
+            setLayout( new BoxLayout( this, BoxLayout.Y_AXIS ) );
 
-			this.add( RestoreOptionsPanel.this.constructLabelPair(
-				"Mana burning: ", RestoreOptionsPanel.this.mpBalanceTriggerSelect,
-				RestoreOptionsPanel.this.mpBalanceSelect ) );
-			this.add( Box.createVerticalStrut( 15 ) );
+            add( constructLabelPair(
+				"Mana burning: ", mpBalanceTriggerSelect,
+                    mpBalanceSelect ) );
+            add( Box.createVerticalStrut( 15 ) );
 
-			this.add( RestoreOptionsPanel.this.constructLabelPair(
-				"Restore your mana: ", RestoreOptionsPanel.this.mpAutoRecoverSelect,
-				RestoreOptionsPanel.this.mpAutoRecoverTargetSelect ) );
-			this.add( Box.createVerticalStrut( 15 ) );
+            add( constructLabelPair(
+				"Restore your mana: ", mpAutoRecoverSelect,
+                    mpAutoRecoverTargetSelect ) );
+            add( Box.createVerticalStrut( 15 ) );
 
-			this.add( RestoreOptionsPanel.this.constructLabelPair(
+            add( constructLabelPair(
 				"Use these restores: ",
-				RestoreOptionsPanel.this.constructScroller( RestoreOptionsPanel.this.mpRestoreCheckbox = MPRestoreItemList.getCheckboxes() ) ) );
+                    constructScroller( mpRestoreCheckbox = MPRestoreItemList.getCheckboxes() ) ) );
 
-			RestoreOptionsPanel.this.setSelectedIndex( RestoreOptionsPanel.this.mpBalanceTriggerSelect, "manaBurningTrigger" );
-			RestoreOptionsPanel.this.setSelectedIndex( RestoreOptionsPanel.this.mpBalanceSelect, "manaBurningThreshold" );
-			RestoreOptionsPanel.this.setSelectedIndex( RestoreOptionsPanel.this.mpAutoRecoverSelect, "mpAutoRecovery" );
-			RestoreOptionsPanel.this.setSelectedIndex(
-				RestoreOptionsPanel.this.mpAutoRecoverTargetSelect, "mpAutoRecoveryTarget" );
+            setSelectedIndex( mpBalanceTriggerSelect, "manaBurningTrigger" );
+            setSelectedIndex( mpBalanceSelect, "manaBurningThreshold" );
+            setSelectedIndex( mpAutoRecoverSelect, "mpAutoRecovery" );
+            setSelectedIndex(
+                    mpAutoRecoverTargetSelect, "mpAutoRecoveryTarget" );
 
-			RestoreOptionsPanel.this.mpBalanceTriggerSelect.addActionListener( this );
-			RestoreOptionsPanel.this.mpBalanceSelect.addActionListener( this );
-			RestoreOptionsPanel.this.mpAutoRecoverSelect.addActionListener( this );
-			RestoreOptionsPanel.this.mpAutoRecoverTargetSelect.addActionListener( this );
+            mpBalanceTriggerSelect.addActionListener( this );
+            mpBalanceSelect.addActionListener( this );
+            mpAutoRecoverSelect.addActionListener( this );
+            mpAutoRecoverTargetSelect.addActionListener( this );
 
-			for ( int i = 0; i < RestoreOptionsPanel.this.mpRestoreCheckbox.length; ++i )
+			for ( int i = 0; i < mpRestoreCheckbox.length; ++i )
 			{
-				RestoreOptionsPanel.this.mpRestoreCheckbox[ i ].addActionListener( this );
+                mpRestoreCheckbox[ i ].addActionListener( this );
 			}
 		}
 
 		public void actionPerformed( final ActionEvent e )
 		{
-			RestoreOptionsPanel.this.saveRestoreSettings();
+            saveRestoreSettings();
 		}
 	}
 }

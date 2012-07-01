@@ -80,7 +80,7 @@ public class ContactListRequest
 	@Override
 	public void processResults()
 	{
-		ContactListRequest.parseResponse( this.getURLString(), this.responseText );
+		ContactListRequest.parseResponse( getURLString(), responseText );
 	}
 
 	public static void parseResponse( final String urlString, final String responseText )

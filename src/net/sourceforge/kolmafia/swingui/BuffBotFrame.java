@@ -84,16 +84,16 @@ public class BuffBotFrame
 
 		// Initialize the display log buffer and the file log
 
-		this.tabs.addTab( "Run Buffbot", new MainBuffPanel() );
+        tabs.addTab( "Run Buffbot", new MainBuffPanel() );
 
 		JPanel optionsContainer = new JPanel( new BorderLayout( 10, 10 ) );
 		optionsContainer.add( new BuffOptionsPanel(), BorderLayout.NORTH );
 		optionsContainer.add( new BuffListPanel(), BorderLayout.CENTER );
 
-		this.tabs.addTab( "Edit Offerings", optionsContainer );
-		this.addTab( "Change Settings", new MainSettingsPanel() );
+        tabs.addTab( "Edit Offerings", optionsContainer );
+        addTab( "Change Settings", new MainSettingsPanel() );
 
-		this.setCenterComponent( this.tabs );
+        setCenterComponent( tabs );
 	}
 
 	@Override
@@ -114,18 +114,18 @@ public class BuffBotFrame
 			super( "BuffBot Activities", "start", "stop", new JList( BuffBotHome.getMessages() ) );
 
 			BuffBotHome.setFrame( BuffBotFrame.this );
-			( (JList) this.scrollComponent ).setCellRenderer( BuffBotHome.getMessageRenderer() );
+			( (JList) scrollComponent).setCellRenderer( BuffBotHome.getMessageRenderer() );
 		}
 
 		@Override
 		public void setEnabled( final boolean isEnabled )
 		{
-			if ( this.confirmedButton == null )
+			if ( confirmedButton == null )
 			{
 				return;
 			}
 
-			this.confirmedButton.setEnabled( isEnabled );
+            confirmedButton.setEnabled( isEnabled );
 		}
 
 		@Override
@@ -176,30 +176,30 @@ public class BuffBotFrame
 				}
 			}
 
-			this.skillSelect = new JComboBox( buffSet );
+            skillSelect = new JComboBox( buffSet );
 
-			this.priceField = new AutoHighlightTextField();
-			this.countField = new AutoHighlightTextField();
+            priceField = new AutoHighlightTextField();
+            countField = new AutoHighlightTextField();
 
 			VerifiableElement[] elements = new VerifiableElement[ 3 ];
-			elements[ 0 ] = new VerifiableElement( "Buff to cast: ", this.skillSelect );
-			elements[ 1 ] = new VerifiableElement( "Price (in meat): ", this.priceField );
-			elements[ 2 ] = new VerifiableElement( "# of casts: ", this.countField );
-			this.setContent( elements );
+			elements[ 0 ] = new VerifiableElement( "Buff to cast: ", skillSelect );
+			elements[ 1 ] = new VerifiableElement( "Price (in meat): ", priceField );
+			elements[ 2 ] = new VerifiableElement( "# of casts: ", countField );
+            setContent( elements );
 		}
 
 		@Override
 		public void actionConfirmed()
 		{
 			BuffBotManager.addBuff(
-				( (UseSkillRequest) this.skillSelect.getSelectedItem() ).getSkillName(),
-				StringUtilities.parseInt( this.priceField.getText() ), StringUtilities.parseInt( this.countField.getText() ) );
+				( (UseSkillRequest) skillSelect.getSelectedItem() ).getSkillName(),
+				StringUtilities.parseInt( priceField.getText() ), StringUtilities.parseInt( countField.getText() ) );
 		}
 
 		@Override
 		public void actionCancelled()
 		{
-			BuffBotManager.removeBuffs( BuffBotFrame.this.buffListDisplay.getSelectedValues() );
+			BuffBotManager.removeBuffs( buffListDisplay.getSelectedValues() );
 		}
 	}
 
@@ -208,16 +208,16 @@ public class BuffBotFrame
 	{
 		public BuffListPanel()
 		{
-			this.setLayout( new BorderLayout() );
-			this.setBorder( BorderFactory.createLineBorder( Color.black, 1 ) );
-			this.add( JComponentUtilities.createLabel(
+            setLayout( new BorderLayout() );
+            setBorder( BorderFactory.createLineBorder( Color.black, 1 ) );
+            add( JComponentUtilities.createLabel(
 				"Active Buffing List", SwingConstants.CENTER, Color.black, Color.white ), BorderLayout.NORTH );
 
-			BuffBotFrame.this.buffListDisplay = new JList( BuffBotManager.getBuffCostTable() );
-			BuffBotFrame.this.buffListDisplay.setSelectionMode( ListSelectionModel.MULTIPLE_INTERVAL_SELECTION );
-			BuffBotFrame.this.buffListDisplay.setVisibleRowCount( 5 );
+            buffListDisplay = new JList( BuffBotManager.getBuffCostTable() );
+            buffListDisplay.setSelectionMode( ListSelectionModel.MULTIPLE_INTERVAL_SELECTION );
+            buffListDisplay.setVisibleRowCount( 5 );
 
-			this.add( new GenericScrollPane( BuffBotFrame.this.buffListDisplay ), BorderLayout.CENTER );
+            add( new GenericScrollPane( buffListDisplay ), BorderLayout.CENTER );
 		}
 	}
 
@@ -240,31 +240,31 @@ public class BuffBotFrame
 			philanthropyModeChoices.add( "Disabled" );
 			philanthropyModeChoices.add( "Once per day" );
 			philanthropyModeChoices.add( "Clan only" );
-			this.philanthropyModeSelect = new JComboBox( philanthropyModeChoices );
+            philanthropyModeSelect = new JComboBox( philanthropyModeChoices );
 
 			LockableListModel messageDisposalChoices = new LockableListModel();
 			messageDisposalChoices.add( "Auto-save non-requests" );
 			messageDisposalChoices.add( "Auto-delete non-requests" );
 			messageDisposalChoices.add( "Do nothing to non-requests" );
-			this.messageDisposalSelect = new JComboBox( messageDisposalChoices );
+            messageDisposalSelect = new JComboBox( messageDisposalChoices );
 
 			VerifiableElement[] elements = new VerifiableElement[ 2 ];
-			elements[ 0 ] = new VerifiableElement( "Philanthropy: ", this.philanthropyModeSelect );
-			elements[ 1 ] = new VerifiableElement( "Message disposal: ", this.messageDisposalSelect );
+			elements[ 0 ] = new VerifiableElement( "Philanthropy: ", philanthropyModeSelect );
+			elements[ 1 ] = new VerifiableElement( "Message disposal: ", messageDisposalSelect );
 
-			this.invalidPriceMessage = new JTextArea();
-			this.thanksMessage = new JTextArea();
+            invalidPriceMessage = new JTextArea();
+            thanksMessage = new JTextArea();
 
-			this.invalidPriceMessage.setFont( KoLConstants.DEFAULT_FONT );
-			this.invalidPriceMessage.setLineWrap( true );
-			this.invalidPriceMessage.setWrapStyleWord( true );
+            invalidPriceMessage.setFont( KoLConstants.DEFAULT_FONT );
+            invalidPriceMessage.setLineWrap( true );
+            invalidPriceMessage.setWrapStyleWord( true );
 
-			this.thanksMessage.setFont( KoLConstants.DEFAULT_FONT );
-			this.thanksMessage.setLineWrap( true );
-			this.thanksMessage.setWrapStyleWord( true );
+            thanksMessage.setFont( KoLConstants.DEFAULT_FONT );
+            thanksMessage.setLineWrap( true );
+            thanksMessage.setWrapStyleWord( true );
 
-			this.actionCancelled();
-			this.setContent( elements );
+            actionCancelled();
+            setContent( elements );
 		}
 
 		@Override
@@ -275,39 +275,39 @@ public class BuffBotFrame
 			JPanel settingsMiddlePanel = new JPanel( new BorderLayout() );
 			settingsMiddlePanel.add( JComponentUtilities.createLabel(
 				"Invalid Buff Price Message", SwingConstants.CENTER, Color.black, Color.white ), BorderLayout.NORTH );
-			settingsMiddlePanel.add( this.invalidPriceMessage, BorderLayout.CENTER );
+			settingsMiddlePanel.add( invalidPriceMessage, BorderLayout.CENTER );
 
 			JPanel settingsBottomPanel = new JPanel( new BorderLayout() );
 			settingsBottomPanel.add( JComponentUtilities.createLabel(
 				"Donation Thanks Message", SwingConstants.CENTER, Color.black, Color.white ), BorderLayout.NORTH );
-			settingsBottomPanel.add( this.thanksMessage, BorderLayout.CENTER );
+			settingsBottomPanel.add( thanksMessage, BorderLayout.CENTER );
 
 			JPanel settingsPanel = new JPanel( new GridLayout( 2, 1, 10, 10 ) );
 
 			settingsPanel.add( settingsMiddlePanel );
 			settingsPanel.add( settingsBottomPanel );
 
-			this.add( settingsPanel, BorderLayout.CENTER );
+            add( settingsPanel, BorderLayout.CENTER );
 		}
 
 		@Override
 		public void actionConfirmed()
 		{
 			Preferences.setInteger(
-				"buffBotPhilanthropyType", this.philanthropyModeSelect.getSelectedIndex() );
+				"buffBotPhilanthropyType", philanthropyModeSelect.getSelectedIndex() );
 			Preferences.setInteger(
-				"buffBotMessageDisposal", this.messageDisposalSelect.getSelectedIndex() );
-			Preferences.setString( "invalidBuffMessage", this.invalidPriceMessage.getText() );
-			Preferences.setString( "thanksMessage", this.thanksMessage.getText() );
+				"buffBotMessageDisposal", messageDisposalSelect.getSelectedIndex() );
+			Preferences.setString( "invalidBuffMessage", invalidPriceMessage.getText() );
+			Preferences.setString( "thanksMessage", thanksMessage.getText() );
 		}
 
 		@Override
 		public void actionCancelled()
 		{
-			this.philanthropyModeSelect.setSelectedIndex( Preferences.getInteger( "buffBotPhilanthropyType" ) );
-			this.messageDisposalSelect.setSelectedIndex( Preferences.getInteger( "buffBotMessageDisposal" ) );
-			this.invalidPriceMessage.setText( Preferences.getString( "invalidBuffMessage" ) );
-			this.thanksMessage.setText( Preferences.getString( "thanksMessage" ) );
+            philanthropyModeSelect.setSelectedIndex( Preferences.getInteger( "buffBotPhilanthropyType" ) );
+            messageDisposalSelect.setSelectedIndex( Preferences.getInteger( "buffBotMessageDisposal" ) );
+            invalidPriceMessage.setText( Preferences.getString( "invalidBuffMessage" ) );
+            thanksMessage.setText( Preferences.getString( "thanksMessage" ) );
 		}
 	}
 }

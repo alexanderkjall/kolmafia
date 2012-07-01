@@ -93,8 +93,8 @@ public class MonsterData
 		}
 		this.beeCount = beeCount;
 
-		this.items = new ArrayList<AdventureResult>();
-		this.pocketRates = new ArrayList<Float>();
+        items = new ArrayList<AdventureResult>();
+        pocketRates = new ArrayList<Float>();
 	}
 
 	private static int ML()
@@ -106,129 +106,129 @@ public class MonsterData
 
 	private MonsterExpression compile( Object expr )
 	{
-		return new MonsterExpression( (String) expr, this.getName() );
+		return new MonsterExpression( (String) expr, getName() );
 	}
  
 	private float getBeeosity()
 	{
-		return 1.0f + ( KoLCharacter.inBeecore() ? ( this.beeCount * 0.20f ) : 0.0f );
+		return 1.0f + ( KoLCharacter.inBeecore() ? (beeCount * 0.20f ) : 0.0f );
 	}
 
 	public int getHP()
 	{
-		if ( this.health == null )
+		if ( health == null )
 		{
 			return 0;
 		}
-		if ( this.health instanceof Integer )
+		if ( health instanceof Integer )
 		{
-			int hp = (Integer) this.health;
+			int hp = (Integer) health;
 			return hp == 0 ? 0 : (int) Math.floor( Math.max( 1, hp + ML() ) * getBeeosity() );
 		}
-		if ( this.health instanceof String )
+		if ( health instanceof String )
 		{
-			this.health = compile( this.health );
+            health = compile( health );
 		}
-		return Math.max( 1, (int) (((MonsterExpression) this.health).eval() * getBeeosity() ) );
+		return Math.max( 1, (int) (((MonsterExpression) health).eval() * getBeeosity() ) );
 	}
 
 	public int getAttack()
 	{
-		if ( this.attack == null )
+		if ( attack == null )
 		{
 			return 0;
 		}
-		if ( this.attack instanceof Integer )
+		if ( attack instanceof Integer )
 		{
 			int attack = (Integer) this.attack;
 			return attack == 0 ? 0 : (int) Math.floor( Math.max( 1, attack + ML() ) * getBeeosity() );
 		}
-		if ( this.attack instanceof String )
+		if ( attack instanceof String )
 		{
-			this.attack = compile( this.attack );
+            attack = compile( attack );
 		}
-		return Math.max( 1, (int) (((MonsterExpression) this.attack).eval() * getBeeosity() ) );
+		return Math.max( 1, (int) (((MonsterExpression) attack).eval() * getBeeosity() ) );
 	}
 
 	public int getDefense()
 	{
-		if ( this.defense == null )
+		if ( defense == null )
 		{
 			return 0;
 		}
-		if ( this.defense instanceof Integer )
+		if ( defense instanceof Integer )
 		{
 			int defense = (Integer) this.defense;
 			return defense == 0 ? 0 :
 				(int) Math.floor( Math.max( 1, (int) Math.ceil( 0.9 * ( defense + ML() ) ) ) * getBeeosity() );
 		}
-		if ( this.defense instanceof String )
+		if ( defense instanceof String )
 		{
-			this.defense = compile( this.defense );
+            defense = compile( defense );
 		}
-		return Math.max( 1, (int) (((MonsterExpression) this.defense).eval() * getBeeosity() ) );
+		return Math.max( 1, (int) (((MonsterExpression) defense).eval() * getBeeosity() ) );
 	}
 
 	public int getInitiative()
 	{
-		if ( this.initiative == null )
+		if ( initiative == null )
 		{
 			return 0;
 		}
-		if ( this.initiative instanceof Integer )
+		if ( initiative instanceof Integer )
 		{
-			return (Integer) this.initiative;
+			return (Integer) initiative;
 		}
-		if ( this.initiative instanceof String )
+		if ( initiative instanceof String )
 		{
-			this.initiative = compile( this.initiative );
+            initiative = compile( initiative );
 		}
-		return (int) ((MonsterExpression) this.initiative).eval();
+		return (int) ((MonsterExpression) initiative).eval();
 	}
 
 	public int getAttackElement()
 	{
-		return this.attackElement;
+		return attackElement;
 	}
 
 	public int getDefenseElement()
 	{
-		return this.defenseElement;
+		return defenseElement;
 	}
 
 	public int getMinMeat()
 	{
-		return this.minMeat;
+		return minMeat;
 	}
 
 	public int getMaxMeat()
 	{
-		return this.maxMeat;
+		return maxMeat;
 	}
 
 	public int getPhylum()
 	{
-		return this.phylum;
+		return phylum;
 	}
 
 	public int getPoison()
 	{
-		return this.poison;
+		return poison;
 	}
 
 	public boolean isBoss()
 	{
-		return this.boss;
+		return boss;
 	}
 
 	public List getItems()
 	{
-		return this.items;
+		return items;
 	}
 
 	public List getPocketRates()
 	{
-		return this.pocketRates;
+		return pocketRates;
 	}
 
 	public boolean shouldSteal()
@@ -236,15 +236,15 @@ public class MonsterData
 		// If the player has an acceptable dodge rate or
 		// then steal anything.
 
-		if ( this.willUsuallyDodge( 0 ) )
+		if ( willUsuallyDodge( 0 ) )
 		{
-			return this.shouldSteal( this.items );
+			return shouldSteal( items );
 		}
 
 		// Otherwise, only steal from monsters that drop
 		// something on your conditions list.
 
-		return this.shouldSteal( GoalManager.getGoals() );
+		return shouldSteal( GoalManager.getGoals() );
 	}
 
 	private boolean shouldSteal( final List checklist )
@@ -253,7 +253,7 @@ public class MonsterData
 
 		for ( int i = 0; i < checklist.size(); ++i )
 		{
-			if ( this.shouldStealItem( (AdventureResult) checklist.get( i ), dropModifier ) )
+			if ( shouldStealItem( (AdventureResult) checklist.get( i ), dropModifier ) )
 			{
 				return true;
 			}
@@ -269,14 +269,14 @@ public class MonsterData
 			return false;
 		}
 
-		int itemIndex = this.items.indexOf( item );
+		int itemIndex = items.indexOf( item );
 
 		// If the monster drops this item, then return true
 		// when the drop rate is less than 100%.
 
 		if ( itemIndex != -1 )
 		{
-			item = (AdventureResult) this.items.get( itemIndex );
+			item = (AdventureResult) items.get( itemIndex );
 			switch ( (char) item.getCount() & 0xFFFF )
 			{
 			case 'p':
@@ -302,7 +302,7 @@ public class MonsterData
 
 		for ( int i = 0; i < subitems.length; ++i )
 		{
-			if ( this.shouldStealItem( subitems[ i ], dropModifier ) )
+			if ( shouldStealItem( subitems[ i ], dropModifier ) )
 			{
 				return true;
 			}
@@ -316,26 +316,26 @@ public class MonsterData
 
 	public void clearItems()
 	{
-		this.items.clear();
+        items.clear();
 	}
 
 	public void addItem( final AdventureResult item )
 	{
-		this.items.add( item );
+        items.add( item );
 	}
 
 	public void doneWithItems()
 	{
-		this.items.trimToSize();
+        items.trimToSize();
 
 		// Calculate the probability that an item will be yoinked
 		// based on the integral provided by Buttons on the HCO forums.
 		// http://forums.hardcoreoxygenation.com/viewtopic.php?t=3396
 
 		float probability = 0.0f;
-		float[] coefficients = new float[ this.items.size() ];
+		float[] coefficients = new float[items.size() ];
 
-		for ( int i = 0; i < this.items.size(); ++i )
+		for ( int i = 0; i < items.size(); ++i )
 		{
 			coefficients[ 0 ] = 1.0f;
 			for ( int j = 1; j < coefficients.length; ++j )
@@ -343,9 +343,9 @@ public class MonsterData
 				coefficients[ j ] = 0.0f;
 			}
 
-			for ( int j = 0; j < this.items.size(); ++j )
+			for ( int j = 0; j < items.size(); ++j )
 			{
-				AdventureResult item = (AdventureResult) this.items.get( j );
+				AdventureResult item = (AdventureResult) items.get( j );
 				probability = (item.getCount() >> 16) / 100.0f;
 				switch ( (char) item.getCount() & 0xFFFF )
 				{
@@ -386,35 +386,35 @@ public class MonsterData
 				probability += coefficients[ j ] / ( j + 1 );
 			}
 
-			this.pocketRates.add( probability );
+            pocketRates.add( probability );
 		}
 	}
 
 	public float getExperience()
 	{
-		if ( this.experience == null )
+		if ( experience == null )
 		{
-			return ( this.getAttack() / this.getBeeosity() ) / 8.0f;
+			return (getAttack() / getBeeosity() ) / 8.0f;
 		}
-		if ( this.experience instanceof Integer )
+		if ( experience instanceof Integer )
 		{
-			return (Integer) this.experience / 2.0f;
+			return (Integer) experience / 2.0f;
 		}
-		if ( this.experience instanceof String )
+		if ( experience instanceof String )
 		{
-			this.experience = compile( this.experience );
+            experience = compile( experience );
 		}
-		return ((MonsterExpression) this.experience).eval() / 2.0f;
+		return ((MonsterExpression) experience).eval() / 2.0f;
 	}
 
 	public boolean willUsuallyMiss()
 	{
-		return this.willUsuallyMiss( 0 );
+		return willUsuallyMiss( 0 );
 	}
 
 	public boolean willUsuallyDodge( final int offenseModifier )
 	{
-		int dodgeRate = KoLCharacter.getAdjustedMoxie() - ( this.getAttack() + offenseModifier ) - 6;
+		int dodgeRate = KoLCharacter.getAdjustedMoxie() - (getAttack() + offenseModifier ) - 6;
 		return dodgeRate > 0;
 	}
 
@@ -422,6 +422,6 @@ public class MonsterData
 	{
 		int hitStat = EquipmentManager.getAdjustedHitStat();
 
-		return AreaCombatData.hitPercent( hitStat - defenseModifier, this.getDefense() ) <= 50.0f;
+		return AreaCombatData.hitPercent( hitStat - defenseModifier, getDefense() ) <= 50.0f;
 	}
 }

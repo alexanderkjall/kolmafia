@@ -52,7 +52,7 @@ public class RestaurantCommand
 {
 	public RestaurantCommand()
 	{
-		this.usage = "[?] [ daily special | <item> ] - show daily special [or consume it or other restaurant item].";
+        usage = "[?] [ daily special | <item> ] - show daily special [or consume it or other restaurant item].";
 	}
 
 	@Override

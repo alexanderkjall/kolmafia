@@ -140,7 +140,7 @@ public class FudgeWandRequest
 	{
 		super( FudgeWandRequest.FUDGEWAND, action, itemId, quantity );
 		String option = FudgeWandRequest.idToOption( itemId );
-		this.addFormField( "option", option );
+        addFormField( "option", option );
 	}
 
 	public FudgeWandRequest( final String action, final int itemId )
@@ -156,7 +156,7 @@ public class FudgeWandRequest
 	@Override
 	public void processResults()
 	{
-		FudgeWandRequest.parseResponse( this.getURLString(), this.responseText );
+		FudgeWandRequest.parseResponse( getURLString(), responseText );
 	}
 
 	public static void parseResponse( final String location, final String responseText )

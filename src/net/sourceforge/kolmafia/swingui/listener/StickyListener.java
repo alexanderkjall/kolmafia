@@ -54,7 +54,7 @@ public class StickyListener
 		this.buffer = buffer;
 		this.editor = editor;
 		this.tolerance = tolerance;
-		this.currentlySticky = true;
+        currentlySticky = true;
 	}
 
 	public void adjustmentValueChanged( AdjustmentEvent event )
@@ -67,10 +67,10 @@ public class StickyListener
 
 		boolean shouldBeSticky = value + knob > max - tolerance;
 
-		if ( this.currentlySticky != shouldBeSticky )
+		if ( currentlySticky != shouldBeSticky )
 		{
-			this.currentlySticky = shouldBeSticky;
-			buffer.setSticky( this.editor, shouldBeSticky );
+            currentlySticky = shouldBeSticky;
+			buffer.setSticky( editor, shouldBeSticky );
 		}
 	}
 }

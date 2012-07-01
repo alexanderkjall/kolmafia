@@ -55,7 +55,7 @@ public class GenericPanelFrame
 	public GenericPanelFrame( final String title, final ActionPanel panel )
 	{
 		super( title );
-		this.setContentPanel( panel );
+        setContentPanel( panel );
 	}
 
 	/**
@@ -66,12 +66,12 @@ public class GenericPanelFrame
 
 	public void setContentPanel( final ActionPanel panel )
 	{
-		if ( this.getClass() == GenericPanelFrame.class )
+		if ( getClass() == GenericPanelFrame.class )
 		{
-			this.frameName = panel.getClass().getName();
-			this.frameName = this.frameName.substring( this.frameName.lastIndexOf( "." ) + 1 );
+            frameName = panel.getClass().getName();
+            frameName = frameName.substring( frameName.lastIndexOf( "." ) + 1 );
 		}
 
-		this.setCenterComponent( panel );
+        setCenterComponent( panel );
 	}
 }

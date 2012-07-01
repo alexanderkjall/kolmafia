@@ -64,17 +64,17 @@ public class MindControlRequest
 
 		if ( KoLCharacter.knollAvailable() )
 		{
-			this.addFormField( "whichitem", String.valueOf( MindControlRequest.RADIO.getItemId() ) );
-			this.addFormField( "tuneradio", String.valueOf( level ) );
+            addFormField( "whichitem", String.valueOf( MindControlRequest.RADIO.getItemId() ) );
+            addFormField( "tuneradio", String.valueOf( level ) );
 		}
 		else
 		{
-			this.addFormField( "action", "changedial" );
-			this.addFormField( "whichlevel", String.valueOf( level ) );
+            addFormField( "action", "changedial" );
+            addFormField( "whichlevel", String.valueOf( level ) );
 		}
 
 		this.level = level;
-		this.maxLevel = KoLCharacter.canadiaAvailable() ? 11 : 10;
+        maxLevel = KoLCharacter.canadiaAvailable() ? 11 : 10;
 	}
 
 	@Override
@@ -96,9 +96,9 @@ public class MindControlRequest
 	{
 		// Avoid server hits if user gives an invalid level
 
-		if ( this.level < 0 || this.level > this.maxLevel )
+		if ( level < 0 || level > maxLevel )
 		{
-			KoLmafia.updateDisplay( MafiaState.ERROR, "The dial only goes from 0 to " + this.maxLevel + "." );
+			KoLmafia.updateDisplay( MafiaState.ERROR, "The dial only goes from 0 to " + maxLevel + "." );
 			return;
 		}
 
@@ -115,7 +115,7 @@ public class MindControlRequest
 	public void processResults()
 	{
 		KoLmafia.updateDisplay( "Mind control device reset." );
-		KoLCharacter.setMindControlLevel( this.level );
+		KoLCharacter.setMindControlLevel( level );
 	}
 
 	public static boolean registerRequest( final String urlString )

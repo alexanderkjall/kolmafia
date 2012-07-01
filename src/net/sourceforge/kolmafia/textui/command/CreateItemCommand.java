@@ -50,7 +50,7 @@ public class CreateItemCommand
 {
 	public CreateItemCommand()
 	{
-		this.usage = " [ <item>... ] - list creatables, or create specified items.";
+        usage = " [ <item>... ] - list creatables, or create specified items.";
 	}
 
 	@Override

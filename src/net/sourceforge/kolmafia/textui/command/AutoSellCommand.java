@@ -45,7 +45,7 @@ public class AutoSellCommand
 {
 	public AutoSellCommand()
 	{
-		this.usage = " <item> [, <item>]... - autosell items.";
+        usage = " <item> [, <item>]... - autosell items.";
 	}
 
 	@Override

@@ -139,7 +139,7 @@ public class CrimboCafeRequest
 			price = dataPrice( data );
 		}
 
-		this.setItem( name, itemId, price );
+        setItem( name, itemId, price );
 	}
 
 	public static boolean onMenu( final String name )

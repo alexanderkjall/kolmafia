@@ -348,11 +348,11 @@ public abstract class NemesisManager
 
 		public PaperStrip( final AdventureResult item )
 		{
-			this.itemId = item.getItemId();
-			String[] words = Preferences.getString( "lastPaperStrip" + this.itemId ).split( ":" );
-			this.left = words.length == 3 ? words[0] : "";
-			this.code = words.length == 3 ? words[1] : "";
-			this.right = words.length == 3 ? words[2] : "";
+            itemId = item.getItemId();
+			String[] words = Preferences.getString( "lastPaperStrip" + itemId ).split( ":" );
+            left = words.length == 3 ? words[0] : "";
+            code = words.length == 3 ? words[1] : "";
+            right = words.length == 3 ? words[2] : "";
 		}
 	}
 }

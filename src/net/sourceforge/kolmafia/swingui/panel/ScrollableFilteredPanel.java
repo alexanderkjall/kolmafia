@@ -50,14 +50,14 @@ public class ScrollableFilteredPanel
 		final JComponent scrollComponent )
 	{
 		super( title, confirmedText, cancelledText, scrollComponent );
-		this.elementList = (ShowDescriptionList) this.scrollComponent;
-		this.filterfield = new AutoFilterTextField( this.elementList );
-		this.centerPanel.add( this.filterfield, BorderLayout.NORTH );
-		this.filterItems();
+        elementList = (ShowDescriptionList) this.scrollComponent;
+        filterfield = new AutoFilterTextField( elementList );
+        centerPanel.add( filterfield, BorderLayout.NORTH );
+        filterItems();
 	}
 
 	public void filterItems()
 	{
-		this.filterfield.update();
+        filterfield.update();
 	}
 }

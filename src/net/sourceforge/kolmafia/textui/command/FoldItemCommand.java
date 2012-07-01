@@ -65,7 +65,7 @@ public class FoldItemCommand
 {
 	public FoldItemCommand()
 	{
-		this.usage = "[?] <item> - produce item by using another form, repeated as needed.";
+        usage = "[?] <item> - produce item by using another form, repeated as needed.";
 	}
 
 	@Override

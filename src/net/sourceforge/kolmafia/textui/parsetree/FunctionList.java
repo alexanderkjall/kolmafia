@@ -45,20 +45,20 @@ public class FunctionList
 
 	public boolean add( final Function f )
 	{
-		this.list.put( f.getName().toLowerCase() + '\0' + this.sequence, f );
-		++this.sequence;
+        list.put( f.getName().toLowerCase() + '\0' + sequence, f );
+		++sequence;
 		return true;
 	}
 
 	public boolean remove( final Function f )
 	{
-		return this.list.values().remove( f );
+		return list.values().remove( f );
 	}
 
 	public Function[] findFunctions( String name )
 	{
 		name = name.toLowerCase();
-		return (Function[]) this.list.subMap( name + '\0', name + '\1' ).values().toArray( new Function[ 0 ] );
+		return (Function[]) list.subMap( name + '\0', name + '\1' ).values().toArray( new Function[ 0 ] );
 	}
 
 	public Iterator iterator()

@@ -51,7 +51,7 @@ public class CompleteQuestCommand
 {
 	public CompleteQuestCommand()
 	{
-		this.usage = " - automatically complete quest.";
+        usage = " - automatically complete quest.";
 	}
 
 	@Override

@@ -135,7 +135,7 @@ public class TrendyRequest
 	@Override
 	public void processResults()
 	{
-		if ( this.responseText.equals( "" ) )
+		if ( responseText.equals( "" ) )
 		{
 			KoLmafia.updateDisplay( "KoL returned a blank page. Giving up." );
 			KoLmafia.forceContinue();
@@ -143,7 +143,7 @@ public class TrendyRequest
 			return;
 		}
 
-		TrendyRequest.parseResponse( this.getURLString(), this.responseText );
+		TrendyRequest.parseResponse( getURLString(), responseText );
 		KoLmafia.updateDisplay( "Done. Are YOU a fashion plate?" );
 	}
 

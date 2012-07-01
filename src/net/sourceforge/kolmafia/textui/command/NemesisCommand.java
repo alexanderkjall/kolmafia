@@ -47,7 +47,7 @@ public class NemesisCommand
 {
 	public NemesisCommand()
 	{
-		this.usage = " strips - Look at the paper strips.";
+        usage = " strips - Look at the paper strips.";
 	}
 
 	@Override

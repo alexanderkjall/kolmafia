@@ -52,12 +52,12 @@ public abstract class Conditional
 
 	public Scope getScope()
 	{
-		return this.scope;
+		return scope;
 	}
 
 	public Value getCondition()
 	{
-		return this.condition;
+		return condition;
 	}
 
 	@Override
@@ -73,11 +73,11 @@ public abstract class Conditional
 
 		if ( interpreter.isTracing() )
 		{
-			interpreter.trace( this.toString() );
-			interpreter.trace( "Test: " + this.condition );
+			interpreter.trace( toString() );
+			interpreter.trace( "Test: " + condition );
 		}
 
-		Value conditionResult = this.condition.execute( interpreter );
+		Value conditionResult = condition.execute( interpreter );
 		interpreter.captureValue( conditionResult );
 
 		if ( interpreter.isTracing() )
@@ -93,7 +93,7 @@ public abstract class Conditional
 
 		if ( conditionResult.intValue() == 1 )
 		{
-			Value result = this.scope.execute( interpreter );
+			Value result = scope.execute( interpreter );
 
 			interpreter.traceUnindent();
 

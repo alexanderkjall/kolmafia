@@ -42,7 +42,7 @@ public class NamespaceAddCommand
 {
 	public NamespaceAddCommand()
 	{
-		this.usage = " <filename> - add ASH script to namespace.";
+        usage = " <filename> - add ASH script to namespace.";
 	}
 
 	@Override
@@ -50,7 +50,7 @@ public class NamespaceAddCommand
 	{
 		// Validate the script first.
 
-		this.CLI.executeCommand( "validate", parameters );
+        CLI.executeCommand( "validate", parameters );
 		if ( !KoLmafia.permitsContinue() )
 		{
 			return;

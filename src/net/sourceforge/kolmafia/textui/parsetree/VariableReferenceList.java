@@ -37,7 +37,7 @@ public class VariableReferenceList extends ParseTreeNodeList
 {
 	public boolean add( final VariableReference n )
 	{
-		this.list.add( n );
+        list.add( n );
 		return true;
 	}
 }

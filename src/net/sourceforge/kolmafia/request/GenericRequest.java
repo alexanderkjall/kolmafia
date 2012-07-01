@@ -398,10 +398,10 @@ public class GenericRequest
 
 	public GenericRequest( final String newURLString, final boolean usePostMethod )
 	{
-		this.data = new ArrayList<String>();
+        data = new ArrayList<String>();
 		if ( !newURLString.equals( "" ) )
 		{
-			this.constructURLString( newURLString, usePostMethod );
+            constructURLString( newURLString, usePostMethod );
 		}
 	}
 
@@ -420,70 +420,70 @@ public class GenericRequest
 		String newURLString = req.getFullURLString();
 		boolean usePostMethod = !req.data.isEmpty();
 		boolean encoded = true;
-		return this.constructURLString( newURLString, usePostMethod, encoded );
+		return constructURLString( newURLString, usePostMethod, encoded );
 	}
 
 	public GenericRequest constructURLString( final String newURLString )
 	{
-		return this.constructURLString( newURLString, true, false );
+		return constructURLString( newURLString, true, false );
 	}
 
 	public GenericRequest constructURLString( final String newURLString, final boolean usePostMethod )
 	{
-		return this.constructURLString( newURLString, usePostMethod, false );
+		return constructURLString( newURLString, usePostMethod, false );
 	}
 
 	public GenericRequest constructURLString( String newURLString, final boolean usePostMethod, final boolean encoded )
 	{
-		this.responseText = null;
-		this.dataChanged = true;
-		this.data.clear();
+        responseText = null;
+        dataChanged = true;
+        data.clear();
 
-		String oldURLString = this.formURLString;
+		String oldURLString = formURLString;
 
 		int formSplitIndex = newURLString.indexOf( "?" );
 		String queryString = null;
 
 		if ( formSplitIndex == -1 )
 		{
-			this.baseURLString = newURLString;
+            baseURLString = newURLString;
 		}
 		else
 		{
-			this.baseURLString = GenericRequest.decodePath( newURLString.substring( 0, formSplitIndex ) );
+            baseURLString = GenericRequest.decodePath( newURLString.substring( 0, formSplitIndex ) );
 
 			queryString = newURLString.substring( formSplitIndex + 1 );
 		}
 
-		while ( this.baseURLString.startsWith( "/" ) || this.baseURLString.startsWith( "." ) )
+		while ( baseURLString.startsWith( "/" ) || baseURLString.startsWith( "." ) )
 		{
-			this.baseURLString = this.baseURLString.substring( 1 );
+            baseURLString = baseURLString.substring( 1 );
 		}
 
 		if ( queryString == null )
 		{
-			this.formURLString = this.baseURLString;
+            formURLString = baseURLString;
 		}
 		else if ( !usePostMethod )
 		{
-			this.formURLString = this.baseURLString + "?" + queryString;
+            formURLString = baseURLString + "?" + queryString;
 		}
 		else
 		{
-			this.formURLString = this.baseURLString;
-			this.addFormFields( queryString, encoded );
+            formURLString = baseURLString;
+            addFormFields( queryString, encoded );
 		}
 
-		if ( !this.formURLString.equals( oldURLString ) )
+		if ( !formURLString.equals( oldURLString ) )
 		{
-			this.currentHost = GenericRequest.KOL_HOST;
-			this.formURL = null;
+            currentHost = GenericRequest.KOL_HOST;
+            formURL = null;
 		}
 
-		this.isChatRequest =
-			this.formURLString.startsWith( "chat.php" ) ||
-				this.formURLString.startsWith( "newchatmessages.php" ) ||
-				this.formURLString.startsWith( "submitnewchat.php" );
+        isChatRequest =
+                formURLString.startsWith( "chat.php" ) ||
+                        formURLString.startsWith( "newchatmessages.php" ) ||
+                        formURLString.startsWith( "submitnewchat.php" );
 
 		return this;
 	}
@@ -494,23 +494,23 @@ public class GenericRequest
 
 	public String getURLString()
 	{
-		return this.data.isEmpty() ?
-			this.formURLString :
-			this.formURLString + "?" + this.getDisplayDataString();
+		return data.isEmpty() ?
+                formURLString :
+                formURLString + "?" + getDisplayDataString();
 	}
 
 	public String getFullURLString()
 	{
-		return this.data.isEmpty() ?
-			this.formURLString :
-			this.formURLString + "?" + this.getDataString();
+		return data.isEmpty() ?
+                formURLString :
+                formURLString + "?" + getDataString();
 	}
 
 	public String getDisplayURLString()
 	{
-		return this.data.isEmpty() ?
-			StringUtilities.singleStringReplace( this.formURLString, GenericRequest.passwordHashValue, "" ) :
-			this.formURLString + "?" + this.getDisplayDataString();
+		return data.isEmpty() ?
+			StringUtilities.singleStringReplace( formURLString, GenericRequest.passwordHashValue, "" ) :
+                formURLString + "?" + getDisplayDataString();
 	}
 
 	/**
@@ -520,14 +520,14 @@ public class GenericRequest
 
 	public void clearDataFields()
 	{
-		this.data.clear();
+        data.clear();
 	}
 
 	public void addFormFields( final String fields, final boolean encoded )
 	{
 		if ( !fields.contains( "&" ) )
 		{
-			this.addFormField( fields, encoded );
+            addFormField( fields, encoded );
 			return;
 		}
 
@@ -536,7 +536,7 @@ public class GenericRequest
 		{
 			if ( tokens[ i ].length() > 0 )
 			{
-				this.addFormField( tokens[ i ], encoded );
+                addFormField( tokens[ i ], encoded );
 			}
 		}
 	}
@@ -545,11 +545,11 @@ public class GenericRequest
 	{
 		if ( encoded )
 		{
-			this.addEncodedFormField( element );
+            addEncodedFormField( element );
 		}
 		else
 		{
-			this.addFormField( element );
+            addFormField( element );
 		}
 	}
 
@@ -565,9 +565,9 @@ public class GenericRequest
 
 	public void addFormField( final String name, final String value, final boolean allowDuplicates )
 	{
-		this.dataChanged = true;
+        dataChanged = true;
 
-		String charset = this.isChatRequest ? "ISO-8859-1" : "UTF-8";
+		String charset = isChatRequest ? "ISO-8859-1" : "UTF-8";
 
 		String encodedName = name + "=";
 		String encodedValue = value == null ? "" : GenericRequest.encodeURL( value, charset );
@@ -577,7 +577,7 @@ public class GenericRequest
 
 		if ( !allowDuplicates )
 		{
-			Iterator it = this.data.iterator();
+			Iterator it = data.iterator();
 			while ( it.hasNext() )
 			{
 				if ( ( (String) it.next() ).startsWith( encodedName ) )
@@ -590,12 +590,12 @@ public class GenericRequest
 		// If the data did not already exist, then
 		// add it to the end of the array.
 
-		this.data.add( encodedName + encodedValue );
+        data.add( encodedName + encodedValue );
 	}
 
 	public void addFormField( final String name, final String value )
 	{
-		this.addFormField( name, value, false );
+        addFormField( name, value, false );
 	}
 
 	/**
@@ -609,13 +609,13 @@ public class GenericRequest
 		int equalIndex = element.indexOf( "=" );
 		if ( equalIndex == -1 )
 		{
-			this.addFormField( element, "", false );
+            addFormField( element, "", false );
 			return;
 		}
 
 		String name = element.substring( 0, equalIndex ).trim();
 		String value = element.substring( equalIndex + 1 ).trim();
-		this.addFormField( name, value, true );
+        addFormField( name, value, true );
 	}
 
 	/**
@@ -682,7 +682,7 @@ public class GenericRequest
 		{
 			String name = element.substring( 0, equalIndex ).trim();
 			String value = element.substring( equalIndex + 1 ).trim();
-			String charset = this.isChatRequest ? "ISO-8859-1" : "UTF-8";
+			String charset = isChatRequest ? "ISO-8859-1" : "UTF-8";
 
 			// The name may or may not be encoded.
 			name = GenericRequest.decodeField( name, "UTF-8" );
@@ -694,7 +694,7 @@ public class GenericRequest
 			element = name + "=" + value;
 		}
 
-		Iterator it = this.data.iterator();
+		Iterator it = data.iterator();
 		while ( it.hasNext() )
 		{
 			if ( ( (String) it.next() ).equals( element ) )
@@ -703,23 +703,23 @@ public class GenericRequest
 			}
 		}
 
-		this.data.add( element );
+        data.add( element );
 	}
 
 	public List getFormFields()
 	{
-		if ( !this.data.isEmpty() )
+		if ( !data.isEmpty() )
 		{
-			return this.data;
+			return data;
 		}
 
-		int index = this.formURLString.indexOf( "?" );
+		int index = formURLString.indexOf( "?" );
 		if ( index == -1 )
 		{
 			return Collections.EMPTY_LIST;
 		}
 
-		String[] tokens = this.formURLString.substring( index + 1 ).split( "&" );
+		String[] tokens = formURLString.substring( index + 1 ).split( "&" );
 		List<String> fields = new ArrayList<String>();
 		for ( int i = 0; i < tokens.length; ++i )
 		{
@@ -730,7 +730,7 @@ public class GenericRequest
 
 	public String getFormField( final String key )
 	{
-		return this.findField( this.getFormFields(), key );
+		return findField( getFormFields(), key );
 	}
 
 	private String findField( final List data, final String key )
@@ -754,7 +754,7 @@ public class GenericRequest
 			String value = datum.substring( splitIndex + 1 );
 
 			// Chat was encoded as ISO-8859-1, so decode it that way.
-			String charset = this.isChatRequest ? "ISO-8859-1" : "UTF-8";
+			String charset = isChatRequest ? "ISO-8859-1" : "UTF-8";
 			return GenericRequest.decodeField( value, charset );
 		}
 
@@ -838,11 +838,11 @@ public class GenericRequest
 			return;
 		}
 
-		this.dataChanged = true;
+        dataChanged = true;
 
 		String encodedName = name + "=";
 
-		Iterator it = this.data.iterator();
+		Iterator it = data.iterator();
 		while ( it.hasNext() )
 		{
 			if ( ( (String) it.next() ).startsWith( encodedName ) )
@@ -854,12 +854,12 @@ public class GenericRequest
 
 	public String getPath()
 	{
-		return this.formURLString;
+		return formURLString;
 	}
 
 	public String getBasePath()
 	{
-		String path = this.formURLString;
+		String path = formURLString;
 		if ( path == null )
 		{
 			return null;
@@ -880,11 +880,11 @@ public class GenericRequest
 		// include the actual value
 
 		StringBuilder dataBuffer = new StringBuilder();
-		String hashField = this.getHashField();
+		String hashField = getHashField();
 
-		for ( int i = 0; i < this.data.size(); ++i )
+		for ( int i = 0; i < data.size(); ++i )
 		{
-			String element = (String) this.data.get( i );
+			String element = (String) data.get( i );
 
 			if ( element.equals( "" ) )
 			{
@@ -934,9 +934,9 @@ public class GenericRequest
 
 		StringBuilder dataBuffer = new StringBuilder();
 
-		for ( int i = 0; i < this.data.size(); ++i )
+		for ( int i = 0; i < data.size(); ++i )
 		{
-			String element = (String) this.data.get( i );
+			String element = (String) data.get( i );
 
 			if ( element.equals( "" ) )
 			{
@@ -969,7 +969,7 @@ public class GenericRequest
 
 	private boolean shouldUpdateDebugLog()
 	{
-		return RequestLogger.isDebugging() && !this.isChatRequest;
+		return RequestLogger.isDebugging() && !isChatRequest;
 	}
 
 	private boolean stopForCounters()
@@ -985,7 +985,7 @@ public class GenericRequest
 				// informational and aborting counters expire
 				// on the same turn.
 				KoLmafia.updateDisplay( "(" + expired.getLabel() + " counter expired)" );
-				this.invokeCounterScript( expired );
+                invokeCounterScript( expired );
 				expired = TurnCounter.getExpiredCounter( this, true );
 			}
 
@@ -1019,7 +1019,7 @@ public class GenericRequest
 				}
 			}
 
-			if ( this.invokeCounterScript( expired ) )
+			if ( invokeCounterScript( expired ) )
 			{
 				// Abort if between battle actions fail
 				if ( !KoLmafia.permitsContinue() )
@@ -1147,10 +1147,10 @@ public class GenericRequest
 			return;
 		}
 
-		this.timeoutCount = 0;
-		this.containsUpdate = false;
+        timeoutCount = 0;
+        containsUpdate = false;
 
-		String location = this.getURLString();
+		String location = getURLString();
 		if ( StaticEntity.backtraceTrigger != null &&
                 location.contains( StaticEntity.backtraceTrigger ) )
 		{
@@ -1165,14 +1165,14 @@ public class GenericRequest
 			}
 		}
 
-		if ( ResponseTextParser.hasResult( this.formURLString ) && this.stopForCounters() )
+		if ( ResponseTextParser.hasResult( formURLString ) && stopForCounters() )
 		{
 			return;
 		}
 
-		if ( this.shouldUpdateDebugLog() )
+		if ( shouldUpdateDebugLog() )
 		{
-			RequestLogger.updateDebugLog( this.getClass() );
+			RequestLogger.updateDebugLog( getClass() );
 		}
 
 		if ( location.startsWith( "hermit.php?auto" ) )
@@ -1294,7 +1294,7 @@ public class GenericRequest
 
 			if ( text != null )
 			{
-				this.responseText = text;
+                responseText = text;
 				return;
 			}
 		}
@@ -1310,40 +1310,40 @@ public class GenericRequest
 			SorceressLairManager.makeGuardianItems();
 		}
 
-		this.execute();
+        execute();
 
-		if ( this.responseCode != 200 )
+		if ( responseCode != 200 )
 		{
 			return;
 		}
 
-		if ( this.responseText == null )
+		if ( responseText == null )
 		{
 			KoLmafia.updateDisplay(
 				MafiaState.ABORT,
-				"Server " + GenericRequest.KOL_HOST + " returned a blank page from " + this.getBasePath() + ". Complain to Jick, not us." );
+				"Server " + GenericRequest.KOL_HOST + " returned a blank page from " + getBasePath() + ". Complain to Jick, not us." );
 			return;
 		}
 
 		// Call central dispatch method for locations that require
 		// special handling
 
-		CouncilFrame.handleQuestChange( location, this.responseText );
+		CouncilFrame.handleQuestChange( location, responseText );
 
-		this.formatResponse();
+        formatResponse();
 		KoLCharacter.updateStatus();
 	}
 
 	public void execute()
 	{
-		String urlString = this.getURLString();
+		String urlString = getURLString();
 
 		if ( !GenericRequest.isRatQuest )
 		{
 			GenericRequest.isRatQuest = urlString.startsWith( "cellar.php" );
 		}
 
-		if ( GenericRequest.isRatQuest && ResponseTextParser.hasResult( this.formURLString ) && !urlString.startsWith( "cellar.php" ) )
+		if ( GenericRequest.isRatQuest && ResponseTextParser.hasResult( formURLString ) && !urlString.startsWith( "cellar.php" ) )
 		{
 			GenericRequest.isRatQuest = urlString.startsWith( "fight.php" );
 		}
@@ -1353,7 +1353,7 @@ public class GenericRequest
 			TavernRequest.preTavernVisit( this );
 		}
 
-		if ( ResponseTextParser.hasResult( this.formURLString ) && GenericRequest.isBarrelSmash )
+		if ( ResponseTextParser.hasResult( formURLString ) && GenericRequest.isBarrelSmash )
 		{
 			// Smash has resulted in a mimic.
 			// Continue tracking throughout the combat
@@ -1366,7 +1366,7 @@ public class GenericRequest
 			BarrelDecorator.beginSmash( urlString );
 		}
 
-		if ( ResponseTextParser.hasResult( this.formURLString ) )
+		if ( ResponseTextParser.hasResult( formURLString ) )
 		{
 			RequestLogger.registerRequest( this, urlString );
 		}
@@ -1412,12 +1412,12 @@ public class GenericRequest
 
 		do
 		{
-			if ( !this.prepareConnection() )
+			if ( !prepareConnection() )
 			{
 				break;
 			}
 		}
-		while ( !this.postClientData() && !this.retrieveServerReply() && this.timeoutCount < GenericRequest.TIMEOUT_LIMIT );
+		while ( !postClientData() && !retrieveServerReply() && timeoutCount < GenericRequest.TIMEOUT_LIMIT );
 
 		if ( !LoginRequest.isInstanceRunning() )
 		{
@@ -1445,67 +1445,67 @@ public class GenericRequest
 
 	private boolean prepareConnection()
 	{
-		if ( this.shouldUpdateDebugLog() )
+		if ( shouldUpdateDebugLog() )
 		{
-			RequestLogger.updateDebugLog( "Connecting to " + this.baseURLString + "..." );
+			RequestLogger.updateDebugLog( "Connecting to " + baseURLString + "..." );
 		}
 
 		// Make sure that all variables are reset before you reopen
 		// the connection.
 
-		this.responseCode = 0;
-		this.responseText = null;
-		this.redirectLocation = null;
-		this.formConnection = null;
+        responseCode = 0;
+        responseText = null;
+        redirectLocation = null;
+        formConnection = null;
 
 		try
 		{
-			this.formURL = this.buildURL();
-			this.formConnection = (HttpURLConnection) this.formURL.openConnection();
+            formURL = buildURL();
+            formConnection = (HttpURLConnection) formURL.openConnection();
 		}
 		catch ( IOException e )
 		{
-			if ( this.shouldUpdateDebugLog() )
+			if ( shouldUpdateDebugLog() )
 			{
-				String message = "IOException opening connection (" + this.getURLString() + "). Retrying...";
+				String message = "IOException opening connection (" + getURLString() + "). Retrying...";
 				StaticEntity.printStackTrace( e, message );
 			}
 
 			return false;
 		}
 
-		this.formConnection.setDoInput( true );
+        formConnection.setDoInput( true );
 
-		this.formConnection.setDoOutput( !this.data.isEmpty() );
-		this.formConnection.setUseCaches( false );
-		this.formConnection.setInstanceFollowRedirects( false );
+        formConnection.setDoOutput( !data.isEmpty() );
+        formConnection.setUseCaches( false );
+        formConnection.setInstanceFollowRedirects( false );
 
 		if ( GenericRequest.serverCookie != null )
 		{
-			if ( this.formURLString.startsWith( "inventory" ) && GenericRequest.inventoryCookie != null )
+			if ( formURLString.startsWith( "inventory" ) && GenericRequest.inventoryCookie != null )
 			{
-				this.formConnection.addRequestProperty(
-					"Cookie", GenericRequest.inventoryCookie + "; " + GenericRequest.serverCookie );
+                formConnection.addRequestProperty(
+                        "Cookie", GenericRequest.inventoryCookie + "; " + GenericRequest.serverCookie );
 			}
-			else if ( !this.formURLString.startsWith( "http:" ) && !this.formURLString.startsWith( "https:" ) )
+			else if ( !formURLString.startsWith( "http:" ) && !formURLString.startsWith( "https:" ) )
 			{
-				this.formConnection.addRequestProperty( "Cookie", GenericRequest.serverCookie );
+                formConnection.addRequestProperty( "Cookie", GenericRequest.serverCookie );
 			}
 		}
 
-		this.formConnection.setRequestProperty( "User-Agent", GenericRequest.userAgent );
-		this.formConnection.setRequestProperty( "Connection", "close" );
+        formConnection.setRequestProperty( "User-Agent", GenericRequest.userAgent );
+        formConnection.setRequestProperty( "Connection", "close" );
 
-		if ( !this.data.isEmpty() )
+		if ( !data.isEmpty() )
 		{
-			if ( this.dataChanged )
+			if ( dataChanged )
 			{
-				this.dataChanged = false;
-				this.dataString = this.getDataString().getBytes();
+                dataChanged = false;
+                dataString = getDataString().getBytes();
 			}
 
-			this.formConnection.setRequestProperty( "Content-Type", "application/x-www-form-urlencoded" );
-			this.formConnection.setRequestProperty( "Content-Length", String.valueOf( this.dataString.length ) );
+            formConnection.setRequestProperty( "Content-Type", "application/x-www-form-urlencoded" );
+            formConnection.setRequestProperty( "Content-Length", String.valueOf( dataString.length ) );
 		}
 
 		return true;
@@ -1514,13 +1514,13 @@ public class GenericRequest
 	private URL buildURL()
 		throws MalformedURLException
 	{
-		if ( this.formURL != null && this.currentHost.equals( GenericRequest.KOL_HOST ) )
+		if ( formURL != null && currentHost.equals( GenericRequest.KOL_HOST ) )
 		{
-			return this.formURL;
+			return formURL;
 		}
 
-		this.currentHost = GenericRequest.KOL_HOST;
-		String urlString = this.formURLString;
+        currentHost = GenericRequest.KOL_HOST;
+		String urlString = formURLString;
 
 		URL context = null;
 
@@ -1548,24 +1548,24 @@ public class GenericRequest
 
 	private boolean postClientData()
 	{
-		if ( this.shouldUpdateDebugLog() )
+		if ( shouldUpdateDebugLog() )
 		{
-			this.printRequestProperties();
+            printRequestProperties();
 		}
 
 		// Only attempt to post something if there's actually data to
 		// post - otherwise, opening an input stream should be enough
 
-		if ( this.data.isEmpty() )
+		if ( data.isEmpty() )
 		{
 			return false;
 		}
 
 		try
 		{
-			this.formConnection.setRequestMethod( "POST" );
-			OutputStream ostream = this.formConnection.getOutputStream();
-			ostream.write( this.dataString );
+            formConnection.setRequestMethod( "POST" );
+			OutputStream ostream = formConnection.getOutputStream();
+			ostream.write( dataString );
 
 			ostream.flush();
 			ostream.close();
@@ -1575,11 +1575,11 @@ public class GenericRequest
 		}
 		catch ( SocketTimeoutException e )
 		{
-			++this.timeoutCount;
+			++timeoutCount;
 
-			if ( this.shouldUpdateDebugLog() )
+			if ( shouldUpdateDebugLog() )
 			{
-				String message = "Time out during data post (" + this.formURLString + "). This could be bad...";
+				String message = "Time out during data post (" + formURLString + "). This could be bad...";
 				RequestLogger.printLine( message );
 			}
 
@@ -1587,15 +1587,15 @@ public class GenericRequest
 		}
 		catch ( IOException e )
 		{
-			String message = "IOException during data post (" + this.getURLString() + ").";
+			String message = "IOException during data post (" + getURLString() + ").";
 
-			if ( this.shouldUpdateDebugLog() )
+			if ( shouldUpdateDebugLog() )
 			{
 				StaticEntity.printStackTrace( e, message );
 			}
 
 			RequestLogger.printLine( MafiaState.ERROR, message );
-			this.timeoutCount = TIMEOUT_LIMIT;
+            timeoutCount = TIMEOUT_LIMIT;
 			return true;
 		}
 	}
@@ -1612,95 +1612,95 @@ public class GenericRequest
 	{
 		InputStream istream = null;
 
-		if ( this.shouldUpdateDebugLog() )
+		if ( shouldUpdateDebugLog() )
 		{
 			RequestLogger.updateDebugLog( "Retrieving server reply..." );
 		}
 
-		this.responseText = "";
-		this.redirectLocation = "";
+        responseText = "";
+        redirectLocation = "";
 
 		try
 		{
-			istream = this.formConnection.getInputStream();
-			this.responseCode = this.formConnection.getResponseCode();
-			this.redirectLocation = this.responseCode != 302 ? null : this.formConnection.getHeaderField( "Location" );
+			istream = formConnection.getInputStream();
+            responseCode = formConnection.getResponseCode();
+            redirectLocation = responseCode != 302 ? null : formConnection.getHeaderField( "Location" );
 		}
 		catch ( SocketTimeoutException e )
 		{
-			if ( this.shouldUpdateDebugLog() )
+			if ( shouldUpdateDebugLog() )
 			{
-				String message = "Time out retrieving server reply (" + this.formURLString + ").";
+				String message = "Time out retrieving server reply (" + formURLString + ").";
 				RequestLogger.printLine( message );
 			}
 
-			boolean shouldRetry = this.retryOnTimeout();
-			if ( !shouldRetry && this.processOnFailure() )
+			boolean shouldRetry = retryOnTimeout();
+			if ( !shouldRetry && processOnFailure() )
 			{
-				this.processResults();
+                processResults();
 			}
 
 			GenericRequest.forceClose( istream );
 
-			++this.timeoutCount;
+			++timeoutCount;
 			return !shouldRetry || KoLmafia.refusesContinue();
 		}
 		catch ( IOException e )
 		{
-			this.responseCode = this.getResponseCode();
+            responseCode = getResponseCode();
 
-			if ( this.responseCode != 0 )
+			if ( responseCode != 0 )
 			{
-				String message = "Server returned response code " + this.responseCode + " for " + this.baseURLString;
+				String message = "Server returned response code " + responseCode + " for " + baseURLString;
 				RequestLogger.printLine( MafiaState.ERROR, message );
 			}
 
-			if ( this.shouldUpdateDebugLog() )
+			if ( shouldUpdateDebugLog() )
 			{
-				String message = "IOException retrieving server reply (" + this.getURLString() + ").";
+				String message = "IOException retrieving server reply (" + getURLString() + ").";
 				StaticEntity.printStackTrace( e, message );
 			}
 
-			if ( this.processOnFailure() )
+			if ( processOnFailure() )
 			{
-				this.responseText = "";
-				this.processResults();
+                responseText = "";
+                processResults();
 			}
 
 			GenericRequest.forceClose( istream );
 
-			this.timeoutCount = TIMEOUT_LIMIT;
+            timeoutCount = TIMEOUT_LIMIT;
 			return true;
 		}
 
 		if ( istream == null )
 		{
-			this.responseCode = 302;
-			this.redirectLocation = "main.php";
+            responseCode = 302;
+            redirectLocation = "main.php";
 			return true;
 		}
 
-		if ( this.shouldUpdateDebugLog() )
+		if ( shouldUpdateDebugLog() )
 		{
-			this.printHeaderFields();
+            printHeaderFields();
 		}
 
 		boolean shouldStop = false;
 
 		try
 		{
-			if ( this.responseCode == 200 )
+			if ( responseCode == 200 )
 			{
-				shouldStop = this.retrieveServerReply( istream );
+				shouldStop = retrieveServerReply( istream );
 				istream.close();
-				if ( shouldStop && this.responseText != null && this.responseText.length() < 200 )
+				if ( shouldStop && responseText != null && responseText.length() < 200 )
 				{
 					// This may be a JavaScript redirect.
-					Matcher m = GenericRequest.JS_REDIRECT_PATTERN.matcher( this.responseText );
+					Matcher m = GenericRequest.JS_REDIRECT_PATTERN.matcher( responseText );
 					if ( m.find() )
 					{
-						this.redirectLocation = m.group( 1 );
-						shouldStop = this.handleServerRedirect();
+                        redirectLocation = m.group( 1 );
+						shouldStop = handleServerRedirect();
 					}
 				}
 			}
@@ -1711,7 +1711,7 @@ public class GenericRequest
 				// the input stream.
 
 				istream.close();
-				shouldStop = this.responseCode == 302 ? this.handleServerRedirect() : true;
+				shouldStop = responseCode == 302 ? handleServerRedirect() : true;
 			}
 		}
 		catch ( IOException e )
@@ -1726,11 +1726,11 @@ public class GenericRequest
 
 	private int getResponseCode()
 	{
-		if ( this.formConnection != null )
+		if ( formConnection != null )
 		{
 			try
 			{
-				return this.formConnection.getResponseCode();
+				return formConnection.getResponseCode();
 			}
 			catch ( IOException e )
 			{
@@ -1756,7 +1756,7 @@ public class GenericRequest
 
 	protected boolean retryOnTimeout()
 	{
-		return this.formURLString.endsWith( ".php" ) && ( this.data.isEmpty() || this.getClass() == GenericRequest.class );
+		return formURLString.endsWith( ".php" ) && (data.isEmpty() || getClass() == GenericRequest.class );
 	}
 
 	protected boolean processOnFailure()
@@ -1766,12 +1766,12 @@ public class GenericRequest
 
 	private boolean handleServerRedirect()
 	{
-		if ( this.redirectLocation == null )
+		if ( redirectLocation == null )
 		{
 			return true;
 		}
 
-		if ( this.redirectLocation.startsWith( "maint.php" ) )
+		if ( redirectLocation.startsWith( "maint.php" ) )
 		{
 			// If the request was issued from the Relay
 			// Browser, follow the redirect and show the
@@ -1794,15 +1794,15 @@ public class GenericRequest
 		// then construct the URL string and notify the browser that it
 		// should change everything.
 
-		if ( this.formURLString.startsWith( "login.php" ) )
+		if ( formURLString.startsWith( "login.php" ) )
 		{
-			if ( this.redirectLocation.startsWith( "login.php" ) )
+			if ( redirectLocation.startsWith( "login.php" ) )
 			{
-				this.constructURLString( this.redirectLocation, false );
+                constructURLString( redirectLocation, false );
 				return false;
 			}
 
-			Matcher matcher = GenericRequest.REDIRECT_PATTERN.matcher( this.redirectLocation );
+			Matcher matcher = GenericRequest.REDIRECT_PATTERN.matcher( redirectLocation );
 			if ( matcher.find() )
 			{
 				String server = matcher.group( 1 );
@@ -1811,7 +1811,7 @@ public class GenericRequest
 					RequestLogger.printLine( "Redirected to " + server + "..." );
 					GenericRequest.setLoginServer( server );
 				}
-				this.constructURLString( matcher.group( 2 ), false );
+                constructURLString( matcher.group( 2 ), false );
 				return false;
 			}
 
@@ -1819,9 +1819,9 @@ public class GenericRequest
 			return true;
 		}
 
-		if ( this.redirectLocation.startsWith( "fight.php" ) )
+		if ( redirectLocation.startsWith( "fight.php" ) )
 		{
-			GenericRequest.checkItemRedirection( this.getURLString() );
+			GenericRequest.checkItemRedirection( getURLString() );
 
 			if ( this instanceof UseItemRequest )
 			{
@@ -1830,32 +1830,32 @@ public class GenericRequest
 			}
 		}
 
-		if ( this.redirectLocation.startsWith( "choice.php" ) )
+		if ( redirectLocation.startsWith( "choice.php" ) )
 		{
-			GenericRequest.checkItemRedirection( this.getURLString() );
+			GenericRequest.checkItemRedirection( getURLString() );
 		}
 
-		if ( this.redirectLocation.startsWith( "messages.php?results=Message" ) )
+		if ( redirectLocation.startsWith( "messages.php?results=Message" ) )
 		{
-			SendMailRequest.parseTransfer( this.getURLString() );
+			SendMailRequest.parseTransfer( getURLString() );
 		}
 
-		if ( this.redirectLocation.startsWith( "login.php" ) )
+		if ( redirectLocation.startsWith( "login.php" ) )
 		{
 			if ( this instanceof LoginRequest )
 			{
-				this.constructURLString( this.redirectLocation, false );
+                constructURLString( redirectLocation, false );
 				return false;
 			}
 
-			if ( this.formURLString.startsWith( "logout.php" ) )
+			if ( formURLString.startsWith( "logout.php" ) )
 			{
 				return true;
 			}
 
-			if ( LoginRequest.executeTimeInRequest( this.getURLString(), this.redirectLocation ) )
+			if ( LoginRequest.executeTimeInRequest( getURLString(), redirectLocation ) )
 			{
-				this.dataChanged = true;
+                dataChanged = true;
 				return false;
 			}
 
@@ -1867,22 +1867,22 @@ public class GenericRequest
 			return true;
 		}
 
-		if ( this.formURLString.startsWith( "fight.php" ) )
+		if ( formURLString.startsWith( "fight.php" ) )
 		{
-			if ( this.redirectLocation.startsWith( "main.php" ) )
+			if ( redirectLocation.startsWith( "main.php" ) )
 			{
-				this.constructURLString( this.redirectLocation, false );
+                constructURLString( redirectLocation, false );
 				return false;
 			}
 		}
 
-		if ( this.shouldFollowRedirect() )
+		if ( shouldFollowRedirect() )
 		{
 			// Re-setup this request to follow the redirect
 			// desired and rerun the request.
 
-			this.constructURLString( this.redirectLocation, false );
-			if ( this.redirectLocation.equals( "choice.php" ) )
+            constructURLString( redirectLocation, false );
+			if ( redirectLocation.equals( "choice.php" ) )
 			{
 				GenericRequest.choiceHandled = false;
 				ChoiceManager.preChoice( this );
@@ -1890,17 +1890,17 @@ public class GenericRequest
 			return false;
 		}
 
-		if ( this.redirectLocation.startsWith( "adventure.php" ) )
+		if ( redirectLocation.startsWith( "adventure.php" ) )
 		{
-			this.constructURLString( this.redirectLocation, false );
+            constructURLString( redirectLocation, false );
 			return false;
 		}
 
-		if ( this.redirectLocation.startsWith( "fight.php" ) )
+		if ( redirectLocation.startsWith( "fight.php" ) )
 		{
 			if ( LoginRequest.isInstanceRunning() )
 			{
-				KoLmafia.updateDisplay( MafiaState.ABORT, this.baseURLString + ": redirected to a fight page." );
+				KoLmafia.updateDisplay( MafiaState.ABORT, baseURLString + ": redirected to a fight page." );
 				FightRequest.initializeAfterFight();
 				return true;
 			}
@@ -1913,10 +1913,10 @@ public class GenericRequest
 				this instanceof BasementRequest ||
 				this instanceof HiddenCityRequest )
 			{
-				int pos = this.redirectLocation.indexOf( "ireallymeanit=" );
+				int pos = redirectLocation.indexOf( "ireallymeanit=" );
 				if ( pos != -1 )
 				{
-					FightRequest.ireallymeanit = this.redirectLocation.substring( pos + 14 );
+					FightRequest.ireallymeanit = redirectLocation.substring( pos + 14 );
 				}
 				FightRequest.INSTANCE.run();
 				return !LoginRequest.isInstanceRunning();
@@ -1925,15 +1925,15 @@ public class GenericRequest
 			// This is a request which should not have lead to a
 			// fight, but it did.  Notify the user.
 
-			KoLmafia.updateDisplay( MafiaState.ABORT, this.baseURLString + ": redirected to a fight page." );
+			KoLmafia.updateDisplay( MafiaState.ABORT, baseURLString + ": redirected to a fight page." );
 			return true;
 		}
 
-		if ( this.redirectLocation.startsWith( "choice.php" ) )
+		if ( redirectLocation.startsWith( "choice.php" ) )
 		{
 			if ( LoginRequest.isInstanceRunning() )
 			{
-				KoLmafia.updateDisplay( MafiaState.ABORT, this.baseURLString + ": redirected to a choice page." );
+				KoLmafia.updateDisplay( MafiaState.ABORT, baseURLString + ": redirected to a choice page." );
 				ChoiceManager.initializeAfterChoice();
 				return true;
 			}
@@ -1944,15 +1944,15 @@ public class GenericRequest
 			return !LoginRequest.isInstanceRunning();
 		}
 
-		if ( this.redirectLocation.startsWith( "ocean.php" ) )
+		if ( redirectLocation.startsWith( "ocean.php" ) )
 		{
 			OceanManager.processOceanAdventure();
 			return true;
 		}
 
-		if ( this.formURLString.startsWith( "sellstuff" ) )
+		if ( formURLString.startsWith( "sellstuff" ) )
 		{
-			String redirect = this.redirectLocation;
+			String redirect = redirectLocation;
 			String newMode =
 				redirect.startsWith( "sellstuff.php" ) ? "compact" :
 					redirect.startsWith( "sellstuff_ugly.php" ) ? "detailed" :
@@ -1967,15 +1967,15 @@ public class GenericRequest
 			}
 		}
 
-		if ( this instanceof AdventureRequest || this.formURLString.startsWith( "choice.php" ) )
+		if ( this instanceof AdventureRequest || formURLString.startsWith( "choice.php" ) )
 		{
-			AdventureRequest.handleServerRedirect( this.redirectLocation );
+			AdventureRequest.handleServerRedirect( redirectLocation );
 			return true;
 		}
 
-		if ( this.shouldUpdateDebugLog() )
+		if ( shouldUpdateDebugLog() )
 		{
-			RequestLogger.updateDebugLog( "Redirected: " + this.redirectLocation );
+			RequestLogger.updateDebugLog( "Redirected: " + redirectLocation );
 		}
 
 		return true;
@@ -1983,20 +1983,20 @@ public class GenericRequest
 
 	protected boolean shouldFollowRedirect()
 	{
-		return this != ChoiceManager.CHOICE_HANDLER && this.getClass() == GenericRequest.class;
+		return this != ChoiceManager.CHOICE_HANDLER && getClass() == GenericRequest.class;
 	}
 
 	private boolean retrieveServerReply( final InputStream istream )
 		throws IOException
 	{
-		if ( this.shouldUpdateDebugLog() )
+		if ( shouldUpdateDebugLog() )
 		{
 			RequestLogger.updateDebugLog( "Retrieving server reply" );
 		}
-		this.responseText = new String( ByteBufferUtilities.read( istream ), "UTF-8" );
-		if ( this.shouldUpdateDebugLog() )
+        responseText = new String( ByteBufferUtilities.read( istream ), "UTF-8" );
+		if ( shouldUpdateDebugLog() )
 		{
-			if ( this.responseText == null )
+			if ( responseText == null )
 			{
 				RequestLogger.updateDebugLog( "ResponseText is null" );
 			}
@@ -2006,11 +2006,11 @@ public class GenericRequest
 			}
 		}
 
-		if ( this.responseText != null )
+		if ( responseText != null )
 		{
 			try
 			{
-				this.processResponse();
+                processResponse();
 			}
 			catch ( Exception e )
 			{
@@ -2027,12 +2027,12 @@ public class GenericRequest
 
 	public void processResponse()
 	{
-		String urlString = this.getURLString();
-		boolean hasResult = ResponseTextParser.hasResult( this.formURLString );
+		String urlString = getURLString();
+		boolean hasResult = ResponseTextParser.hasResult( formURLString );
 
-		if ( this.shouldUpdateDebugLog() )
+		if ( shouldUpdateDebugLog() )
 		{
-			String text = this.responseText;
+			String text = responseText;
 			if ( !Preferences.getBoolean( "logReadableHTML" ) )
 			{
 				text = KoLConstants.LINE_BREAK_PATTERN.matcher( text ).replaceAll( "" );
@@ -2043,19 +2043,19 @@ public class GenericRequest
 		if ( urlString.startsWith( "charpane.php" ) )
 		{
 			long responseTimestamp =
-				this.formConnection.getHeaderFieldDate( "Date", System.currentTimeMillis() );
+                    formConnection.getHeaderFieldDate( "Date", System.currentTimeMillis() );
 
-			if ( !CharPaneRequest.processResults( responseTimestamp, this.responseText ) )
+			if ( !CharPaneRequest.processResults( responseTimestamp, responseText ) )
 			{
-				this.responseCode = 304;
+                responseCode = 304;
 			}
 
 			return;
 		}
 
-		if ( !this.isChatRequest )
+		if ( !isChatRequest )
 		{
-			EventManager.checkForNewEvents( this.responseText );
+			EventManager.checkForNewEvents( responseText );
 		}
 
 		if ( GenericRequest.isRatQuest )
@@ -2064,22 +2064,22 @@ public class GenericRequest
 			GenericRequest.isRatQuest = false;
 		}
 
-		this.encounter = AdventureRequest.registerEncounter( this );
+        encounter = AdventureRequest.registerEncounter( this );
 
 		if ( urlString.startsWith( "fight.php" ) )
 		{
-			FightRequest.updateCombatData( urlString, this.encounter, this.responseText );
+			FightRequest.updateCombatData( urlString, encounter, responseText );
 		}
 		else if ( urlString.startsWith( "shore.php" ) )
 		{
-			AdventureRequest.handleShoreVisit( urlString, this.responseText );
+			AdventureRequest.handleShoreVisit( urlString, responseText );
 		}
 		else if ( urlString.startsWith( "lair6.php" ) && urlString.contains( "place=6" ) )
 		{
 			KoLCharacter.liberateKing();
 		}
 
-		if ( !GenericRequest.choiceHandled && !this.isChatRequest )
+		if ( !GenericRequest.choiceHandled && !isChatRequest )
 		{
 			// Handle choices BEFORE result processing
 			ChoiceManager.postChoice1( this );
@@ -2090,7 +2090,7 @@ public class GenericRequest
 		if ( hasResult )
 		{
 			int initialHP = KoLCharacter.getCurrentHP();
-			this.parseResults();
+            parseResults();
 
 			if ( initialHP != 0 && KoLCharacter.getCurrentHP() == 0 )
 			{
@@ -2100,26 +2100,26 @@ public class GenericRequest
 
 			if ( !LoginRequest.isInstanceRunning() && !( this instanceof RelayRequest ) )
 			{
-				this.showInBrowser( false );
+                showInBrowser( false );
 			}
 		}
 
 		if ( urlString.startsWith( "fight.php" ) )
 		{ // This has to be done after parseResults() to properly
 			// deal with combat items received during combat.
-			FightRequest.parseCombatItems( this.responseText );
-			FightRequest.parseConditionalCombatSkills( this.responseText );
+			FightRequest.parseCombatItems( responseText );
+			FightRequest.parseConditionalCombatSkills( responseText );
 		}
 
 		// Now let the main method of result processing for
 		// each request type happen.
 
-		this.processResults();
+        processResults();
 
-		if ( !GenericRequest.choiceHandled && !this.isChatRequest )
+		if ( !GenericRequest.choiceHandled && !isChatRequest )
 		{
 			// Handle choices AFTER result processing
-			GenericRequest.choiceHandled = !this.responseText.contains( "choice.php" );
+			GenericRequest.choiceHandled = !responseText.contains( "choice.php" );
 			ChoiceManager.postChoice2( this );
 		}
 
@@ -2133,7 +2133,7 @@ public class GenericRequest
 		// Perhaps check for random donations in Fistcore
 		if ( !ResultProcessor.onlyAutosellDonationsCount && KoLCharacter.inFistcore() )
 		{
-			ResultProcessor.handleDonations( urlString, this.responseText );
+			ResultProcessor.handleDonations( urlString, responseText );
 		}
 
 		// Once everything is complete, decide whether or not
@@ -2146,18 +2146,18 @@ public class GenericRequest
 
 		if ( this instanceof RelayRequest )
 		{
-			this.containsUpdate = false;
+            containsUpdate = false;
 		}
-		else if ( effectCount != KoLConstants.activeEffects.size() || this.getAdventuresUsed() > 0 )
+		else if ( effectCount != KoLConstants.activeEffects.size() || getAdventuresUsed() > 0 )
 		{
-			this.containsUpdate = true;
+            containsUpdate = true;
 		}
 		else
 		{
-			this.containsUpdate |= this.responseText.contains( "charpane.php" );
+            containsUpdate |= responseText.contains( "charpane.php" );
 		}
 
-		if ( this.containsUpdate )
+		if ( containsUpdate )
 		{
 			new CharPaneRequest().run();
 			RelayServer.updateStatus();
@@ -2249,7 +2249,7 @@ public class GenericRequest
 
 	private void parseResults()
 	{
-		String urlString = this.getURLString();
+		String urlString = getURLString();
 
 		// If this is a lucky adventure, then remove a clover
 		// from the player's inventory,
@@ -2267,29 +2267,29 @@ public class GenericRequest
 		// The Hippy Camp (In Disguise)'s A Case of the Baskets, the message
 		// is "Like the smoke your ten-leaf clover disappears in a puff of"
 
-		if ( this.responseText.contains( "clover" ) &&
-			(this.responseText.contains( " puff of smoke" ) ||
-                    this.responseText.contains( "into the leprechaun's pocket" ) ||
-                    this.responseText.contains( "disappears in a puff of" )) )
+		if ( responseText.contains( "clover" ) &&
+			(responseText.contains( " puff of smoke" ) ||
+                    responseText.contains( "into the leprechaun's pocket" ) ||
+                    responseText.contains( "disappears in a puff of" )) )
 		{
 			ResultProcessor.processItem( ItemPool.TEN_LEAF_CLOVER, -1 );
 		}
 
 		if ( urlString.startsWith( "dungeon.php" ) &&
-                this.responseText.contains( "key breaks off in the lock" ) )
+                responseText.contains( "key breaks off in the lock" ) )
 		{
 			// Unfortunately, the key breaks off in the lock.
 			ResultProcessor.processItem( ItemPool.SKELETON_KEY, -1 );
 		}
 
-		if ( this.responseText.contains( "You break the bottle on the ground" ) )
+		if ( responseText.contains( "You break the bottle on the ground" ) )
 		{
 			// You break the bottle on the ground, and stomp it to powder
 			ResultProcessor.processItem( ItemPool.EMPTY_AGUA_DE_VIDA_BOTTLE, -1 );
 		}
 
-		if ( this.responseText.contains( "FARQUAR" ) ||
-                this.responseText.contains( "Sleeping Near the Enemy" ) )
+		if ( responseText.contains( "FARQUAR" ) ||
+                responseText.contains( "Sleeping Near the Enemy" ) )
 		{
 			// The password to the Dispensary is known!
 			Preferences.setInteger( "lastDispensaryOpen", KoLCharacter.getAscensions() );
@@ -2299,60 +2299,60 @@ public class GenericRequest
 			urlString.startsWith( "searchmall.php" ) ||
 			urlString.startsWith( "account.php" ) ||
 			urlString.startsWith( "records.php" ) ||
-			( urlString.startsWith( "peevpee.php" ) && this.getFormField("lid") != null ) )
+			( urlString.startsWith( "peevpee.php" ) && getFormField("lid") != null ) )
 		{
 			// These pages cannot possibly contain an actual item
 			// drop, but may have a bogus "You acquire an item:" as
 			// part of a store name, profile quote, familiar name, etc.
-			this.containsUpdate = false;
+            containsUpdate = false;
 		}
 		else if ( urlString.startsWith( "bet.php" ) )
 		{
 			// This can either add or remove meat from inventory
 			// using unique messages, in some cases. Let
 			// MoneyMakingGameRequest sort it all out.
-			this.containsUpdate = true;
+            containsUpdate = true;
 		}
 		else if ( urlString.startsWith( "raffle.php" ) )
 		{
-			this.containsUpdate = true;
+            containsUpdate = true;
 		}
 		else if ( urlString.startsWith( "mallstore.php" ) )
 		{
 			// Mall stores themselves can only contain processable
 			// results when actually buying an item, and then only
 			// at the very top of the page.
-			this.containsUpdate =
-				this.getFormField( "whichitem" ) != null &&
+            containsUpdate =
+                    getFormField( "whichitem" ) != null &&
 					ResultProcessor.processResults(
-						false, this.responseText.substring( 0, this.responseText.indexOf( "</table>" ) ) );
+						false, responseText.substring( 0, responseText.indexOf( "</table>" ) ) );
 		}
 		else if ( urlString.startsWith( "fight.php" ) )
 		{
-			this.containsUpdate = FightRequest.processResults( this.responseText );
+            containsUpdate = FightRequest.processResults( responseText );
 		}
 		else if ( urlString.startsWith( "adventure.php" ) )
 		{
-			this.containsUpdate = ResultProcessor.processResults( true, this.responseText );
+            containsUpdate = ResultProcessor.processResults( true, responseText );
 		}
 		else if ( urlString.startsWith( "arena.php" ) )
 		{
-			this.containsUpdate = CakeArenaRequest.parseResults( this.responseText );
+            containsUpdate = CakeArenaRequest.parseResults( responseText );
 		}
 		else if ( urlString.startsWith( "afterlife.php" ) )
 		{
-			this.containsUpdate = AfterLifeRequest.parseResponse( urlString, this.responseText );
+            containsUpdate = AfterLifeRequest.parseResponse( urlString, responseText );
 		}
 		else
 		{
-			this.containsUpdate = ResultProcessor.processResults( false, this.responseText );
+            containsUpdate = ResultProcessor.processResults( false, responseText );
 		}
 	}
 
 	public void processResults()
 	{
 		boolean externalUpdate = false;
-		String path = this.getPath();
+		String path = getPath();
 
 		if ( ResponseTextParser.hasResult( path ) && !path.startsWith( "fight.php" ) )
 		{
@@ -2365,7 +2365,7 @@ public class GenericRequest
 
 		if ( externalUpdate )
 		{
-			ResponseTextParser.externalUpdate( this.getURLString(), this.responseText );
+			ResponseTextParser.externalUpdate( getURLString(), responseText );
 		}
 	}
 
@@ -2658,7 +2658,7 @@ public class GenericRequest
 
 	public final void loadResponseFromFile( final String filename )
 	{
-		this.loadResponseFromFile( new File( filename ) );
+        loadResponseFromFile( new File( filename ) );
 	}
 
 	public final void loadResponseFromFile( final File f )
@@ -2675,8 +2675,8 @@ public class GenericRequest
 				response.append( line );
 			}
 
-			this.responseCode = 200;
-			this.responseText = response.toString();
+            responseCode = 200;
+            responseText = response.toString();
 		}
 		catch ( IOException e )
 		{
@@ -2697,7 +2697,7 @@ public class GenericRequest
 	@Override
 	public String toString()
 	{
-		return this.getURLString();
+		return getURLString();
 	}
 
 	private static String lastUserAgent = "";
@@ -2740,9 +2740,9 @@ public class GenericRequest
 	public void printRequestProperties()
 	{
 		RequestLogger.updateDebugLog();
-		RequestLogger.updateDebugLog( "Requesting: " + this.formURL.getProtocol() + "://" + GenericRequest.KOL_HOST + "/" + this.getDisplayURLString() );
+		RequestLogger.updateDebugLog( "Requesting: " + formURL.getProtocol() + "://" + GenericRequest.KOL_HOST + "/" + getDisplayURLString() );
 
-		Map requestProperties = this.formConnection.getRequestProperties();
+		Map requestProperties = formConnection.getRequestProperties();
 		RequestLogger.updateDebugLog( requestProperties.size() + " request properties" );
 		RequestLogger.updateDebugLog();
 
@@ -2759,10 +2759,10 @@ public class GenericRequest
 	public void printHeaderFields()
 	{
 		RequestLogger.updateDebugLog();
-		RequestLogger.updateDebugLog( "Retrieved: " + this.formURL.getProtocol() + "://" + GenericRequest.KOL_HOST + "/" + this.getDisplayURLString() );
+		RequestLogger.updateDebugLog( "Retrieved: " + formURL.getProtocol() + "://" + GenericRequest.KOL_HOST + "/" + getDisplayURLString() );
 		RequestLogger.updateDebugLog();
 
-		Map headerFields = this.formConnection.getHeaderFields();
+		Map headerFields = formConnection.getHeaderFields();
 		RequestLogger.updateDebugLog( headerFields.size() + " header fields" );
 
 		Iterator iterator = headerFields.entrySet().iterator();

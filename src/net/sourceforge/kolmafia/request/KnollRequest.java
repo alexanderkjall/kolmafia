@@ -57,7 +57,7 @@ public class KnollRequest
 	public KnollRequest( final String place)
 	{
 		this();
-		this.addFormField( "place", place );
+        addFormField( "place", place );
 	}
 
 	public static String getNPCName( final String place )
@@ -88,7 +88,7 @@ public class KnollRequest
 	@Override
 	public void processResults()
 	{
-		KnollRequest.parseResponse( this.getURLString(), this.responseText );
+		KnollRequest.parseResponse( getURLString(), responseText );
 	}
 
 	public static void parseResponse( final String urlString, final String responseText )

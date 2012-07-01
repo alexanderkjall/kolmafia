@@ -58,20 +58,20 @@ public class TableButtonListener
 	@Override
 	protected void execute()
 	{
-		TableColumnModel columnModel = this.table.getColumnModel();
+		TableColumnModel columnModel = table.getColumnModel();
 
-		int row = getMousePositionY() / this.table.getRowHeight();
+		int row = getMousePositionY() / table.getRowHeight();
 		int column = columnModel.getColumnIndexAtX( getMousePositionX() );
 
-		if ( row >= 0 && row < this.table.getRowCount() && column >= 0 && column < this.table.getColumnCount() )
+		if ( row >= 0 && row < table.getRowCount() && column >= 0 && column < table.getColumnCount() )
 		{
-			Object value = this.table.getValueAt( row, column );
+			Object value = table.getValueAt( row, column );
 
 			if ( value instanceof JButton )
 			{
-				MouseEvent event = SwingUtilities.convertMouseEvent( this.table, getMouseEvent(), (JButton) value );
+				MouseEvent event = SwingUtilities.convertMouseEvent( table, getMouseEvent(), (JButton) value );
 				( (JButton) value ).dispatchEvent( event );
-				this.table.repaint();
+                table.repaint();
 			}
 		}
 	}

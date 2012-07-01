@@ -51,14 +51,14 @@ public class PyroRequest
 	public PyroRequest()
 	{
 		super( IslandDecorator.currentIsland() );
-		this.addFormField( "place", "lighthouse" );
-		this.addFormField( "action", "pyro" );
+        addFormField( "place", "lighthouse" );
+        addFormField( "action", "pyro" );
 	}
 
 	@Override
 	public void processResults()
 	{
-                PyroRequest.parseResponse( this.getURLString(), this.responseText );
+                PyroRequest.parseResponse( getURLString(), responseText );
 	}
 
 	public static void parseResponse( final String location, final String responseText )

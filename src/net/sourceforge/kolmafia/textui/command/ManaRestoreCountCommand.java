@@ -42,7 +42,7 @@ public class ManaRestoreCountCommand
 {
 	public ManaRestoreCountCommand()
 	{
-		this.usage = " - counts MP restoratives in inventory.";
+        usage = " - counts MP restoratives in inventory.";
 	}
 
 	@Override

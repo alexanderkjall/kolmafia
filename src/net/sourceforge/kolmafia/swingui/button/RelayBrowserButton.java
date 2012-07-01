@@ -50,12 +50,12 @@ public class RelayBrowserButton
 	{
 		super( JComponentUtilities.getImage( icon ), new RelayBrowserListener( location ) );
 		JComponentUtilities.setComponentSize( this, 32, 32 );
-		this.setToolTipText( tooltip );
+        setToolTipText( tooltip );
 	}
 
 	@Override
 	public String toString()
 	{
-		return this.getText();
+		return getText();
 	}
 }

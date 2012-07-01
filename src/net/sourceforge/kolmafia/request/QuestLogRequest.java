@@ -129,13 +129,13 @@ public class QuestLogRequest
 		// section you visited last. Therefore, visit all sections but
 		// end with page 1.
 
-		this.addFormField( "which", "3" );
+        addFormField( "which", "3" );
 		super.run();
 
-		this.addFormField( "which", "2" );
+        addFormField( "which", "2" );
 		super.run();
 
-		this.addFormField( "which", "1" );
+        addFormField( "which", "1" );
 		super.run();
 
 	}

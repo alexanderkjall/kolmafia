@@ -40,7 +40,7 @@ public class CompositeType
 	public CompositeType( final String name, final int type )
 	{
 		super( name, type );
-		this.primitive = false;
+        primitive = false;
 	}
 
 	public Type getIndexType()

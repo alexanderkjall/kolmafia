@@ -1428,44 +1428,44 @@ public abstract class UseLinkDecorator
 
 		public int getItemId()
 		{
-			return this.itemId;
+			return itemId;
 		}
 
 		public int getItemCount()
 		{
-			return this.itemCount;
+			return itemCount;
 		}
 
 		public String getUseType()
 		{
-			return this.useType;
+			return useType;
 		}
 
 		public String getUseLocation()
 		{
-			return this.useLocation;
+			return useLocation;
 		}
 
 		public boolean showInline()
 		{
-			return this.inline && Preferences.getBoolean( "relayUsesInlineLinks" );
+			return inline && Preferences.getBoolean( "relayUsesInlineLinks" );
 		}
 
 		public String getItemHTML()
 		{
-			if ( this.useLocation.equals( "#" ) )
+			if ( useLocation.equals( "#" ) )
 			{
-				return "<font size=1>[<a href=\"javascript:" + "multiUse('multiuse.php'," + this.itemId + "," + this.itemCount + ");void(0);\">" + this.useType + "</a>]</font>";
+				return "<font size=1>[<a href=\"javascript:" + "multiUse('multiuse.php'," + itemId + "," + itemCount + ");void(0);\">" + useType + "</a>]</font>";
 			}
 
-			if ( !this.showInline() )
+			if ( !showInline() )
 			{
-				return "<font size=1>[<a href=\"" + this.useLocation + "\">" + this.useType + "</a>]</font>";
+				return "<font size=1>[<a href=\"" + useLocation + "\">" + useType + "</a>]</font>";
 			}
 
-			String[] pieces = this.useLocation.toString().split( "\\?" );
+			String[] pieces = useLocation.toString().split( "\\?" );
 
-			return "<font size=1>[<a href=\"javascript:" + "singleUse('" + pieces[ 0 ].trim() + "','" + pieces[ 1 ].trim() + "&ajax=1');void(0);\">" + this.useType + "</a>]</font>";
+			return "<font size=1>[<a href=\"javascript:" + "singleUse('" + pieces[ 0 ].trim() + "','" + pieces[ 1 ].trim() + "&ajax=1');void(0);\">" + useType + "</a>]</font>";
 		}
 	}
 	
@@ -1483,10 +1483,10 @@ public abstract class UseLinkDecorator
 		public String getItemHTML()
 		{
 			StringBuilder buf = new StringBuilder();
-			for ( int i = 0; i < this.links.length; ++i )
+			for ( int i = 0; i < links.length; ++i )
 			{
 				if ( i > 0 ) buf.append( "&nbsp;" );
-				buf.append( this.links[ i ].getItemHTML() );
+				buf.append( links[ i ].getItemHTML() );
 			}
 			return buf.toString();
 		}

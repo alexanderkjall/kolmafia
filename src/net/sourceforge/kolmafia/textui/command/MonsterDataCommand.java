@@ -43,7 +43,7 @@ public class MonsterDataCommand
 {
 	public MonsterDataCommand()
 	{
-		this.usage = " <location> - show combat details for the specified area.";
+        usage = " <location> - show combat details for the specified area.";
 	}
 
 	@Override
@@ -67,6 +67,6 @@ public class MonsterDataCommand
 		data.getMonsterData( buffer, false );
 		buffer.append( "</html>" );
 
-		this.CLI.showHTML( "", buffer.toString() );
+        CLI.showHTML( "", buffer.toString() );
 	}
 }

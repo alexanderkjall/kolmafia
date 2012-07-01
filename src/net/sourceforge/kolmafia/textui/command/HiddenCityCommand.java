@@ -49,7 +49,7 @@ public class HiddenCityCommand
 {
 	public HiddenCityCommand()
 	{
-		this.usage = " <square> [temple | altar <item>] - set Hidden City square [and perform an action there].";
+        usage = " <square> [temple | altar <item>] - set Hidden City square [and perform an action there].";
 	}
 
 	@Override

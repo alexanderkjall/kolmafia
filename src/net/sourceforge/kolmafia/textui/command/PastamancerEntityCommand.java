@@ -45,7 +45,7 @@ public class PastamancerEntityCommand
 {
 	public PastamancerEntityCommand()
 	{
-		this.usage = " - give details of your current pasta guardians.";
+        usage = " - give details of your current pasta guardians.";
 	}
 
 	@Override

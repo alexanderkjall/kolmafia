@@ -42,8 +42,8 @@ public class FullEchoCommand
 	extends AbstractCommand
 {
 	{
-		this.usage = " <text> - include text in the session log.";
-		this.flags = KoLmafiaCLI.FULL_LINE_CMD;
+        usage = " <text> - include text in the session log.";
+        flags = KoLmafiaCLI.FULL_LINE_CMD;
 	}
 
 	@Override

@@ -51,7 +51,7 @@ public class SummonDemonCommand
 {
 	public SummonDemonCommand()
 	{
-		this.usage = " <demonName> | <effect> | <location> | <number> - use the Summoning Chamber.";
+        usage = " <demonName> | <effect> | <location> | <number> - use the Summoning Chamber.";
 	}
 
 	@Override

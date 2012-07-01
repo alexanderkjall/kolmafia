@@ -54,10 +54,10 @@ public class GrandpaRequest
 	public GrandpaRequest( final String story)
 	{
 		super( "monkeycastle.php" );
-		this.addFormField( "action", "grandpastory" );
+        addFormField( "action", "grandpastory" );
 		if ( story != null )
 		{
-			this.addFormField( "topic", story );
+            addFormField( "topic", story );
 		}
 	}
 
@@ -67,7 +67,7 @@ public class GrandpaRequest
 		// You can't visit the Sea Monkees without some way of
 		// breathing underwater.
 
-		if ( this.responseText.contains( "can't visit the Sea Monkees" ) )
+		if ( responseText.contains( "can't visit the Sea Monkees" ) )
 		{
 			KoLmafia.updateDisplay( MafiaState.ERROR, "You're not equipped to visit the Sea Monkees." );
 		}

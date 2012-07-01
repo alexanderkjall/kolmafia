@@ -186,7 +186,7 @@ public class BasementRequest
 	{
 		// Clear the data flags and probe the basement to see what we have.
 
-		this.data.clear();
+        data.clear();
 		super.run();
 
 		// Load up the data variables and switch outfits if it's a fight.
@@ -202,7 +202,7 @@ public class BasementRequest
 
 		// Decide which action to set. If it's a stat reward, always
 		// boost prime stat.
-		this.addFormField( "action", BasementRequest.getBasementAction( this.responseText ) );
+        addFormField( "action", BasementRequest.getBasementAction( responseText ) );
 
 		// Attempt to pass the test.
 		int lastBasementLevel = BasementRequest.basementLevel;
@@ -211,7 +211,7 @@ public class BasementRequest
 
 		// Handle redirection
 
-		if ( this.responseCode != 200 )
+		if ( responseCode != 200 )
 		{
 			// If it was a fight and we won, good.
 
@@ -222,7 +222,7 @@ public class BasementRequest
 
 			// Otherwise ... what is this? Refetch the page and see if we passed test.
 
-			this.data.clear();
+            data.clear();
 			super.run();
 		}
 
@@ -237,7 +237,7 @@ public class BasementRequest
 	@Override
 	public void processResults()
 	{
-		BasementRequest.parseResponse( this.getURLString(), this.responseText );
+		BasementRequest.parseResponse( getURLString(), responseText );
 	}
 
 	public static void parseResponse( final String location, final String responseText )

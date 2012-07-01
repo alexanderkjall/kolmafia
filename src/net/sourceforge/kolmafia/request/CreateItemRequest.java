@@ -119,24 +119,24 @@ public class CreateItemRequest
 	{
 		super( formSource );
 
-		this.concoction = conc;
-		this.itemId = conc.getItemId();
-		this.name = conc.getName();
-		this.mixingMethod = KoLConstants.SUBCLASS;
-		this.calculateYield();
+        concoction = conc;
+        itemId = conc.getItemId();
+        name = conc.getName();
+        mixingMethod = KoLConstants.SUBCLASS;
+        calculateYield();
 	}
 
 	private CreateItemRequest( final Concoction conc )
 	{
 		this( "", conc );
 
-		this.mixingMethod = conc.getMixingMethod();
+        mixingMethod = conc.getMixingMethod();
 	}
 
 	private void calculateYield()
 	{
-		this.yield = this.concoction.getYield();
-		this.createdItem = this.concoction.getItem().getInstance( this.yield );
+        yield = concoction.getYield();
+        createdItem = concoction.getItem().getInstance( yield );
 	}
 
 	@Override
@@ -145,7 +145,7 @@ public class CreateItemRequest
 		String formSource = "craft.php";
 		String action = "craft";
 		String mode = null;
-		int method = this.mixingMethod & KoLConstants.CT_MASK;
+		int method = mixingMethod & KoLConstants.CT_MASK;
 
 		if ( KoLCharacter.knollAvailable() )
 		{
@@ -155,7 +155,7 @@ public class CreateItemRequest
 				action = "combine";
 			}
 			else if ( method == KoLConstants.SMITH &&
-				  ( this.mixingMethod & KoLConstants.CR_GRIMACITE ) == 0 )
+				  (mixingMethod & KoLConstants.CR_GRIMACITE ) == 0 )
 			{
 				formSource = "knoll.php";
 				action = "smith";
@@ -221,13 +221,13 @@ public class CreateItemRequest
 			}
 		}
 
-		this.constructURLString( formSource );
-		this.addFormField( "action", action );
+        constructURLString( formSource );
+        addFormField( "action", action );
 
 		if ( mode != null )
 		{
-			this.addFormField( "mode", mode );
-			this.addFormField( "ajax", "1" );
+            addFormField( "mode", mode );
+            addFormField( "ajax", "1" );
 		}
 	}
 
@@ -372,12 +372,12 @@ public class CreateItemRequest
 	@Override
 	public boolean equals( final Object o )
 	{
-		return this.compareTo( o ) == 0;
+		return compareTo( o ) == 0;
 	}
 
 	public int compareTo( final Object o )
 	{
-		return o == null ? -1 : this.getName().compareToIgnoreCase( ( (CreateItemRequest) o ).getName() );
+		return o == null ? -1 : getName().compareToIgnoreCase( ( (CreateItemRequest) o ).getName() );
 	}
 
 	/**
@@ -388,17 +388,17 @@ public class CreateItemRequest
 	@Override
 	public void run()
 	{
-		if ( !KoLmafia.permitsContinue() || this.quantityNeeded <= 0 )
+		if ( !KoLmafia.permitsContinue() || quantityNeeded <= 0 )
 		{
 			return;
 		}
 
 		// Acquire all needed ingredients
 
-		int method = this.mixingMethod & KoLConstants.CT_MASK;
+		int method = mixingMethod & KoLConstants.CT_MASK;
 		if ( method != KoLConstants.SUBCLASS &&
 		     method != KoLConstants.ROLLING_PIN &&
-		     !this.makeIngredients() )
+		     !makeIngredients() )
 		{
 			return;
 		}
@@ -411,62 +411,62 @@ public class CreateItemRequest
 
 		do
 		{
-			if ( !this.autoRepairBoxServant() )
+			if ( !autoRepairBoxServant() )
 			{
 				KoLmafia.updateDisplay( MafiaState.ERROR, "Auto-repair was unsuccessful." );
 				break;
 			}
 
-			this.reconstructFields();
-			this.beforeQuantity = this.createdItem.getCount( KoLConstants.inventory );
+            reconstructFields();
+            beforeQuantity = createdItem.getCount( KoLConstants.inventory );
 
 			switch ( method )
 			{
 			case KoLConstants.SUBCLASS:
 				super.run();
-				if ( this.responseCode == 302 && this.redirectLocation.startsWith( "inventory" ) )
+				if ( responseCode == 302 && redirectLocation.startsWith( "inventory" ) )
 				{
-					CreateItemRequest.REDIRECT_REQUEST.constructURLString( this.redirectLocation ).run();
+					CreateItemRequest.REDIRECT_REQUEST.constructURLString( redirectLocation ).run();
 				}
 				break;
 
 			case KoLConstants.ROLLING_PIN:
-				int ingredientsOnHand = InventoryManager.getAccessibleCount( this.concoction
+				int ingredientsOnHand = InventoryManager.getAccessibleCount( concoction
 					.getIngredients()[ 0 ] );
 				if ( ingredientsOnHand > 0 )
 				{
 					// If we have some of the other kind of dough, make up to that amount first
 					// before we make any purchases.
-					int temp = this.quantityNeeded;
-					this.quantityNeeded = Math.min( this.quantityNeeded, ingredientsOnHand );
-					this.makeDough( true );
-					this.quantityNeeded = temp;
+					int temp = quantityNeeded;
+                    quantityNeeded = Math.min( quantityNeeded, ingredientsOnHand );
+                    makeDough( true );
+                    quantityNeeded = temp;
 				}
 				else
 				{
-					this.makeDough();
+                    makeDough();
 				}
 				break;
 
 			case KoLConstants.COINMASTER:
-				this.makeCoinmasterPurchase();
+                makeCoinmasterPurchase();
 				break;
 
 			default:
-				this.combineItems();
+                combineItems();
 				break;
 			}
 
 			// Certain creations are used immediately.
 
-			if ( this.noCreation() )
+			if ( noCreation() )
 			{
 				break;
 			}
 
 			// Figure out how many items were created
 
-			createdQuantity = this.createdItem.getCount( KoLConstants.inventory ) - this.beforeQuantity;
+			createdQuantity = createdItem.getCount( KoLConstants.inventory ) - beforeQuantity;
 
 			// If we created none, log error and stop iterating
 
@@ -482,10 +482,10 @@ public class CreateItemRequest
 				break;
 			}
 
-			KoLmafia.updateDisplay( "Successfully created " + this.getName() + " (" + createdQuantity + ")" );
-			this.quantityNeeded -= createdQuantity;
+			KoLmafia.updateDisplay( "Successfully created " + getName() + " (" + createdQuantity + ")" );
+            quantityNeeded -= createdQuantity;
 		}
-		while ( this.quantityNeeded > 0 && KoLmafia.permitsContinue() );
+		while ( quantityNeeded > 0 && KoLmafia.permitsContinue() );
 
 		SpecialOutfit.restoreImplicitCheckpoint();
 	}
@@ -512,7 +512,7 @@ public class CreateItemRequest
 		for ( int i = 0; i < CreateItemRequest.DOUGH_DATA.length; ++i )
 		{
 			output = CreateItemRequest.DOUGH_DATA[ i ][ 2 ];
-			if ( this.itemId == output )
+			if ( itemId == output )
 			{
 				tool = CreateItemRequest.DOUGH_DATA[ i ][ 1 ];
 				input = CreateItemRequest.DOUGH_DATA[ i ][ 0 ];
@@ -531,7 +531,7 @@ public class CreateItemRequest
 			// If we got here, we have some of one ingredient and none of the other.
 			// It's always cheaper to buy wads of dough, so just do that.
 			// Using makePurchases directly because retrieveItem does not handle this recursion gracefully.
-			AdventureResult dough = ItemPool.get( ItemPool.DOUGH, this.quantityNeeded );
+			AdventureResult dough = ItemPool.get( ItemPool.DOUGH, quantityNeeded );
 			ArrayList results = StoreManager.searchMall( dough );
 			StaticEntity.getClient()
 				.makePurchases( results, results.toArray(), dough.getCount(), false, 50 );
@@ -541,7 +541,7 @@ public class CreateItemRequest
 		// create more than 10 dough, then notify the person that they
 		// should purchase a tool before continuing.
 
-		if ( ( this.quantityNeeded >= 10 || InventoryManager.hasItem( tool ) ) && !InventoryManager.retrieveItem( tool ) )
+		if ( (quantityNeeded >= 10 || InventoryManager.hasItem( tool ) ) && !InventoryManager.retrieveItem( tool ) )
 		{
 			KoLmafia.updateDisplay( MafiaState.ERROR, "Please purchase a " + ItemDatabase.getItemName( tool ) + " first." );
 			return;
@@ -563,21 +563,21 @@ public class CreateItemRequest
 		String name = ItemDatabase.getItemName( output );
 		UseItemRequest request = UseItemRequest.getInstance( ItemPool.get( input, 1 ) );
 
-		for ( int i = 1; KoLmafia.permitsContinue() && i <= this.quantityNeeded; ++i )
+		for ( int i = 1; KoLmafia.permitsContinue() && i <= quantityNeeded; ++i )
 		{
-			KoLmafia.updateDisplay( "Creating " + name + " (" + i + " of " + this.quantityNeeded + ")..." );
+			KoLmafia.updateDisplay( "Creating " + name + " (" + i + " of " + quantityNeeded + ")..." );
 			request.run();
 		}
 	}
 
 	public void makeCoinmasterPurchase()
 	{
-		PurchaseRequest request = this.concoction.getPurchaseRequest();
+		PurchaseRequest request = concoction.getPurchaseRequest();
 		if ( request == null )
 		{
 			return;
 		}
-		request.setLimit( this.quantityNeeded );
+		request.setLimit( quantityNeeded );
 		request.run();
 	}
 
@@ -587,16 +587,16 @@ public class CreateItemRequest
 
 	private void combineItems()
 	{
-		String path = this.getPath();
+		String path = getPath();
 		String quantityField = "quantity";
 
-		this.calculateYield();
+        calculateYield();
 		AdventureResult[] ingredients =
-			ConcoctionDatabase.getIngredients( this.concoction.getIngredients() );
+			ConcoctionDatabase.getIngredients( concoction.getIngredients() );
 
-		if ( ingredients.length == 1 || (this.mixingMethod & KoLConstants.CT_MASK) == KoLConstants.WOK )
+		if ( ingredients.length == 1 || (mixingMethod & KoLConstants.CT_MASK) == KoLConstants.WOK )
 		{
-			if ( this.getAdventuresUsed() > KoLCharacter.getAdventuresLeft() )
+			if ( getAdventuresUsed() > KoLCharacter.getAdventuresLeft() )
 			{
 				KoLmafia.updateDisplay( MafiaState.ERROR, "Ran out of adventures." );
 				return;
@@ -605,43 +605,43 @@ public class CreateItemRequest
 			// If there is only one ingredient, then it probably
 			// only needs a "whichitem" field added to the request.
 
-			this.addFormField( "whichitem", String.valueOf( ingredients[ 0 ].getItemId() ) );
+            addFormField( "whichitem", String.valueOf( ingredients[ 0 ].getItemId() ) );
 		}
 		else if ( path.equals( "craft.php" ) )
 		{
 			quantityField = "qty";
 
-			this.addFormField( "a", String.valueOf( ingredients[ 0 ].getItemId() ) );
-			this.addFormField( "b", String.valueOf( ingredients[ 1 ].getItemId() ) );
+            addFormField( "a", String.valueOf( ingredients[ 0 ].getItemId() ) );
+            addFormField( "b", String.valueOf( ingredients[ 1 ].getItemId() ) );
 		}
 		else
 		{
 			for ( int i = 0; i < ingredients.length; ++i )
 			{
-				this.addFormField( "item" + ( i + 1 ), String.valueOf( ingredients[ i ].getItemId() ) );
+                addFormField( "item" + ( i + 1 ), String.valueOf( ingredients[ i ].getItemId() ) );
 			}
 		}
 
-		int quantity = ( this.quantityNeeded + this.yield - 1 ) / this.yield;
-		this.addFormField( quantityField, String.valueOf( quantity ) );
+		int quantity = (quantityNeeded + yield - 1 ) / yield;
+        addFormField( quantityField, String.valueOf( quantity ) );
 
-		KoLmafia.updateDisplay( "Creating " + this.name + " (" + this.quantityNeeded + ")..." );
+		KoLmafia.updateDisplay( "Creating " + name + " (" + quantityNeeded + ")..." );
 		super.run();
 	}
 
 	@Override
 	public void processResults()
 	{
-		if ( CreateItemRequest.parseGuildCreation( this.getURLString(), this.responseText ) )
+		if ( CreateItemRequest.parseGuildCreation( getURLString(), responseText ) )
 		{
 			return;
 		}
 
-		CreateItemRequest.parseCrafting( this.getURLString(), this.responseText );
+		CreateItemRequest.parseCrafting( getURLString(), responseText );
 
 		// Check to see if box-servant was overworked and exploded.
 
-		if ( this.responseText.contains( "Smoke" ) )
+		if ( responseText.contains( "Smoke" ) )
 		{
 			KoLmafia.updateDisplay( "Your box servant has escaped!" );
 		}
@@ -814,7 +814,7 @@ public class CreateItemRequest
 
 	private boolean autoRepairBoxServant()
 	{
-		return CreateItemRequest.autoRepairBoxServant( this.mixingMethod );
+		return CreateItemRequest.autoRepairBoxServant( mixingMethod );
 	}
 
 	public static boolean autoRepairBoxServant( final int mixingMethod )
@@ -977,18 +977,18 @@ public class CreateItemRequest
 
 	public boolean makeIngredients()
 	{
-		KoLmafia.updateDisplay( "Verifying ingredients for " + this.name + " (" + this.quantityNeeded + ")..." );
+		KoLmafia.updateDisplay( "Verifying ingredients for " + name + " (" + quantityNeeded + ")..." );
 
-		this.calculateYield();
+        calculateYield();
 		boolean foundAllIngredients = true;
 
 		// If this is a combining request, you need meat paste as well.
-		int method = this.mixingMethod & KoLConstants.CT_MASK;
+		int method = mixingMethod & KoLConstants.CT_MASK;
 		if ( ( method == KoLConstants.COMBINE || method == KoLConstants.ACOMBINE ) &&
 		     !KoLCharacter.knollAvailable() )
 		{
-			int pasteNeeded = this.concoction.getMeatPasteNeeded(
-				this.quantityNeeded + this.concoction.initial );
+			int pasteNeeded = concoction.getMeatPasteNeeded(
+                    quantityNeeded + concoction.initial );
 			AdventureResult paste = ItemPool.get( ItemPool.MEAT_PASTE, pasteNeeded );
 
 			if ( !InventoryManager.retrieveItem( paste ) )
@@ -998,7 +998,7 @@ public class CreateItemRequest
 		}
 
 		AdventureResult[] ingredients = (AdventureResult[]) ConcoctionDatabase.getIngredients(
-			this.concoction.getIngredients() ).clone();
+                concoction.getIngredients() ).clone();
 		// Sort ingredients by their creatability, so that if the overall creation
 		// is going to fail, it should do so immediately, without wasted effort.
 		Arrays.sort( ingredients, new Comparator() {
@@ -1031,7 +1031,7 @@ public class CreateItemRequest
 			// Then, make enough of the ingredient in order
 			// to proceed with the concoction.
 
-			int quantity = this.quantityNeeded * multiplier;
+			int quantity = quantityNeeded * multiplier;
 
 			if ( yield > 1 )
 			{
@@ -1055,7 +1055,7 @@ public class CreateItemRequest
 
 	public int getItemId()
 	{
-		return this.itemId;
+		return itemId;
 	}
 
 	/**
@@ -1066,7 +1066,7 @@ public class CreateItemRequest
 
 	public String getName()
 	{
-		return this.name;
+		return name;
 	}
 
 	/**
@@ -1075,7 +1075,7 @@ public class CreateItemRequest
 
 	public int getQuantityNeeded()
 	{
-		return this.quantityNeeded;
+		return quantityNeeded;
 	}
 
 	/**
@@ -1094,7 +1094,7 @@ public class CreateItemRequest
 
 	public int getQuantityPossible()
 	{
-		return this.quantityPossible;
+		return quantityPossible;
 	}
 
 	/**
@@ -1113,7 +1113,7 @@ public class CreateItemRequest
 
 	public int getQuantityPullable()
 	{
-		return this.quantityPullable;
+		return quantityPullable;
 	}
 
 	/**
@@ -1136,7 +1136,7 @@ public class CreateItemRequest
 	@Override
 	public String toString()
 	{
-		return this.getName() + " (" + this.getQuantityPossible() + ")";
+		return getName() + " (" + getQuantityPossible() + ")";
 	}
 
 	/**
@@ -1149,25 +1149,25 @@ public class CreateItemRequest
 	@Override
 	public int getAdventuresUsed()
 	{
-		switch ( this.mixingMethod & KoLConstants.CT_MASK )
+		switch ( mixingMethod & KoLConstants.CT_MASK )
 		{
 		case KoLConstants.SMITH:
-			return KoLCharacter.knollAvailable() ? 0 : Math.max( 0, ( this.quantityNeeded - ConcoctionDatabase.getFreeCraftingTurns() ) );
+			return KoLCharacter.knollAvailable() ? 0 : Math.max( 0, (quantityNeeded - ConcoctionDatabase.getFreeCraftingTurns() ) );
 
 		case KoLConstants.SSMITH:
-			return Math.max( 0, ( this.quantityNeeded - ConcoctionDatabase.getFreeCraftingTurns() ) );
+			return Math.max( 0, (quantityNeeded - ConcoctionDatabase.getFreeCraftingTurns() ) );
 
 		case KoLConstants.JEWELRY:
-			return Math.max( 0, ( ( 3 * this.quantityNeeded ) - ConcoctionDatabase.getFreeCraftingTurns() ) );
+			return Math.max( 0, ( ( 3 * quantityNeeded) - ConcoctionDatabase.getFreeCraftingTurns() ) );
 
 		case KoLConstants.COOK_FANCY:
-			return KoLCharacter.hasChef() ? 0 : Math.max( 0, ( this.quantityNeeded - ConcoctionDatabase.getFreeCraftingTurns() ) );
+			return KoLCharacter.hasChef() ? 0 : Math.max( 0, (quantityNeeded - ConcoctionDatabase.getFreeCraftingTurns() ) );
 
 		case KoLConstants.MIX_FANCY:
-			return KoLCharacter.hasBartender() ? 0 : Math.max( 0, ( this.quantityNeeded - ConcoctionDatabase.getFreeCraftingTurns() ) );
+			return KoLCharacter.hasBartender() ? 0 : Math.max( 0, (quantityNeeded - ConcoctionDatabase.getFreeCraftingTurns() ) );
 
 		case KoLConstants.WOK:
-			return this.quantityNeeded;
+			return quantityNeeded;
 		}
 
 		return 0;

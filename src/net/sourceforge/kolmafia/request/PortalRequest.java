@@ -64,10 +64,10 @@ public class PortalRequest
 		switch ( item.getItemId() )
 		{
 		case ItemPool.POWER_SPHERE:
-			this.addFormField( "action", "powerelvibratoportal" );
+            addFormField( "action", "powerelvibratoportal" );
 			break;
 		case ItemPool.OVERCHARGED_POWER_SPHERE:
-			this.addFormField( "action", "overpowerelvibratoportal" );
+            addFormField( "action", "overpowerelvibratoportal" );
 			break;
 		}
 	}
@@ -75,7 +75,7 @@ public class PortalRequest
 	@Override
 	public void run()
 	{
-		int iterations = this.item.getCount();
+		int iterations = item.getCount();
 
 		for ( int i = 1; i <= iterations && KoLmafia.permitsContinue(); ++i )
 		{
@@ -92,14 +92,14 @@ public class PortalRequest
 
 		if ( KoLmafia.permitsContinue() )
 		{
-			KoLmafia.updateDisplay( "Finished using " + iterations + " " + this.item.getName() + "." );
+			KoLmafia.updateDisplay( "Finished using " + iterations + " " + item.getName() + "." );
 		}
 	}
 
 	@Override
 	public void processResults()
 	{
-		PortalRequest.parseResponse( this.getURLString(), this.responseText );
+		PortalRequest.parseResponse( getURLString(), responseText );
 	}
 
 	private static AdventureResult getSphere( final String urlString )

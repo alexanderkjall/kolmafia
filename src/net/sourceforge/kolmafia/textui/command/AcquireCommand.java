@@ -47,7 +47,7 @@ public class AcquireCommand
 {
 	public AcquireCommand()
 	{
-		this.usage = "[?] <item> - ensure that you have item, creating or buying it if needed.";
+        usage = "[?] <item> - ensure that you have item, creating or buying it if needed.";
 	}
 
 	@Override

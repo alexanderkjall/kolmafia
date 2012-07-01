@@ -232,27 +232,27 @@ public abstract class MPRestoreItemList
 
 			if ( ItemDatabase.contains( itemName ) )
 			{
-				this.itemUsed = ItemPool.get( itemName, 1 );
+                itemUsed = ItemPool.get( itemName, 1 );
 			}
 			else
 			{
-				this.itemUsed = null;
+                itemUsed = null;
 			}
 		}
 
 		public AdventureResult getItem()
 		{
-			return this.itemUsed;
+			return itemUsed;
 		}
 
 		public boolean isSkill()
 		{
-			return this.itemUsed == null && this != MPRestoreItemList.GALAKTIK;
+			return itemUsed == null && this != MPRestoreItemList.GALAKTIK;
 		}
 
 		public boolean isCombatUsable()
 		{
-			return this.isCombatUsable;
+			return isCombatUsable;
 		}
 
 		public int compareTo( final Object o )
@@ -261,14 +261,14 @@ public abstract class MPRestoreItemList
 
 			float restoreAmount = KoLCharacter.getMaximumMP() - KoLCharacter.getCurrentMP();
 
-			float leftRatio = restoreAmount / this.getManaRestored();
+			float leftRatio = restoreAmount / getManaRestored();
 			float rightRatio = restoreAmount / mpi.getManaRestored();
 
 			if ( MPRestoreItemList.purchaseBasedSort )
 			{
-				if ( this.purchaseCost != 0 || mpi.purchaseCost != 0 )
+				if ( purchaseCost != 0 || mpi.purchaseCost != 0 )
 				{
-					leftRatio = (float) Math.ceil( leftRatio ) * this.purchaseCost;
+					leftRatio = (float) Math.ceil( leftRatio ) * purchaseCost;
 					rightRatio = (float) Math.ceil( rightRatio ) * mpi.purchaseCost;
 				}
 			}
@@ -279,16 +279,16 @@ public abstract class MPRestoreItemList
 
 		public int getManaRestored()
 		{
-			return Math.min( this.manaPerUse, KoLCharacter.getMaximumMP() - KoLCharacter.getCurrentMP() );
+			return Math.min( manaPerUse, KoLCharacter.getMaximumMP() - KoLCharacter.getCurrentMP() );
 		}
 
 		public boolean usableInCurrentPath()
 		{
-			if ( this.itemUsed == null || !KoLCharacter.inBeecore() )
+			if ( itemUsed == null || !KoLCharacter.inBeecore() )
 			{
 				return true;
 			}
-			String name = this.itemUsed.getName();
+			String name = itemUsed.getName();
 			return !name.contains( "b" ) && !name.contains( "B" );
 		}
 
@@ -312,7 +312,7 @@ public abstract class MPRestoreItemList
 					return;
 				}
 
-				AdventureResult EXPRESS_CARD = this.getItem();
+				AdventureResult EXPRESS_CARD = getItem();
 
 				if ( KoLConstants.inventory.contains( EXPRESS_CARD ) )
 				{
@@ -366,7 +366,7 @@ public abstract class MPRestoreItemList
 				if ( purchase && needed > KoLCharacter.getCurrentMP() )
 				{
 					RequestThread.postRequest( new GalaktikRequest( GalaktikRequest.MP, Math.min(
-						needed - KoLCharacter.getCurrentMP(), KoLCharacter.getAvailableMeat() / this.purchaseCost ) ) );
+						needed - KoLCharacter.getCurrentMP(), KoLCharacter.getAvailableMeat() / purchaseCost ) ) );
 				}
 
 				return;
@@ -411,7 +411,7 @@ public abstract class MPRestoreItemList
 
 			if ( this == MPRestoreItemList.MYSTERY_JUICE )
 			{
-				this.manaPerUse = (int) ( KoLCharacter.getLevel() * 1.5 + 4.0 );
+                manaPerUse = (int) ( KoLCharacter.getLevel() * 1.5 + 4.0 );
 			}
 
 			int mpShort = needed - KoLCharacter.getCurrentMP();
@@ -420,7 +420,7 @@ public abstract class MPRestoreItemList
 				return;
 			}
 
-			int numberToUse = Math.max( (int) Math.floor( (float) mpShort / (float) this.getManaRestored() ), 1 );
+			int numberToUse = Math.max( (int) Math.floor( (float) mpShort / (float) getManaRestored() ), 1 );
 
 			if ( this == MPRestoreItemList.SOFA )
 			{
@@ -428,15 +428,15 @@ public abstract class MPRestoreItemList
 				return;
 			}
 
-			int numberAvailable = this.itemUsed.getCount( KoLConstants.inventory );
+			int numberAvailable = itemUsed.getCount( KoLConstants.inventory );
 
 			// If you need to purchase, then calculate a better
 			// purchasing strategy.
 
-			if ( purchase && numberAvailable < numberToUse && NPCStoreDatabase.contains( this.itemUsed.getName() ) )
+			if ( purchase && numberAvailable < numberToUse && NPCStoreDatabase.contains( itemUsed.getName() ) )
 			{
 				int numberToBuy = numberToUse;
-				int unitPrice = ItemDatabase.getPriceById( this.itemUsed.getItemId() ) * 2;
+				int unitPrice = ItemDatabase.getPriceById( itemUsed.getItemId() ) * 2;
 
 				if ( MoodManager.isExecuting() )
 				{
@@ -445,7 +445,7 @@ public abstract class MPRestoreItemList
 					// the entire check.
 
 					mpShort = Math.max( mpShort, MoodManager.getMaintenanceCost() - KoLCharacter.getCurrentMP() );
-					numberToBuy = Math.max( (int) Math.floor( (float) mpShort / (float) this.getManaRestored() ), 1 );
+					numberToBuy = Math.max( (int) Math.floor( (float) mpShort / (float) getManaRestored() ), 1 );
 				}
 
 				numberToBuy = Math.min( KoLCharacter.getAvailableMeat() / unitPrice, numberToBuy );
@@ -455,7 +455,7 @@ public abstract class MPRestoreItemList
 				// our original outfit before consuming it.
 
 				SpecialOutfit.createImplicitCheckpoint();
-				boolean success = InventoryManager.retrieveItem( this.itemUsed.getInstance( numberToBuy ) );
+				boolean success = InventoryManager.retrieveItem( itemUsed.getInstance( numberToBuy ) );
 				SpecialOutfit.restoreImplicitCheckpoint();
 
 				if ( !success )
@@ -463,7 +463,7 @@ public abstract class MPRestoreItemList
 					return;
 				}
 
-				numberAvailable = this.itemUsed.getCount( KoLConstants.inventory );
+				numberAvailable = itemUsed.getCount( KoLConstants.inventory );
 			}
 
 			numberToUse = Math.min( numberAvailable, numberToUse );
@@ -476,13 +476,13 @@ public abstract class MPRestoreItemList
 				return;
 			}
 
-			RequestThread.postRequest( UseItemRequest.getInstance( this.itemUsed.getInstance( numberToUse ) ) );
+			RequestThread.postRequest( UseItemRequest.getInstance( itemUsed.getInstance( numberToUse ) ) );
 		}
 
 		@Override
 		public String toString()
 		{
-			return this.itemName;
+			return itemName;
 		}
 	}
 }

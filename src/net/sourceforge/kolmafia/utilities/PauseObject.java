@@ -45,7 +45,7 @@ public class PauseObject implements Runnable
 
 	public void run()
 	{
-		this.pause( this.milliseconds );
+        pause( milliseconds );
 	}
 
 	public void pause()
@@ -54,7 +54,7 @@ public class PauseObject implements Runnable
 		{
 			synchronized ( this )
 			{
-				this.wait();
+                wait();
 			}
 		}
 		catch ( InterruptedException e )
@@ -87,7 +87,7 @@ public class PauseObject implements Runnable
 		{
 			synchronized ( this )
 			{
-				this.wait( milliseconds );
+                wait( milliseconds );
 			}
 		}
 		catch ( InterruptedException e )
@@ -101,7 +101,7 @@ public class PauseObject implements Runnable
 	{
 		synchronized ( this )
 		{
-			this.notifyAll();
+            notifyAll();
 		}
 	}
 }

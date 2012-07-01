@@ -117,7 +117,7 @@ public class MrStoreRequest
 	public void processResults()
 	{
 		String responseText = this.responseText;
-		if ( action != null && this.action.equals( "pullmras" ) )
+		if ( action != null && action.equals( "pullmras" ) )
 		{
 			// You can't pull any more items out of storage today.
 			if ( responseText.contains( "You can't pull any more items out of storage today" ) )
@@ -126,7 +126,7 @@ public class MrStoreRequest
 			}
 		}
 
-		MrStoreRequest.parseResponse( this.getURLString(), responseText );
+		MrStoreRequest.parseResponse( getURLString(), responseText );
 	}
 
 	private static final Pattern ITEM_PATTERN = Pattern.compile( "name=whichitem value=([\\d]+)>.*?desc_?item.*?([\\d]+).*?<b>([^<]*)</b>.*?([\\d]+)&nbsp;Mr\\.", Pattern.DOTALL );

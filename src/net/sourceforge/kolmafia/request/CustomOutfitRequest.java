@@ -69,7 +69,7 @@ public class CustomOutfitRequest
 	@Override
 	public void processResults()
 	{
-		CustomOutfitRequest.parseResponse( this.getURLString(), this.responseText );
+		CustomOutfitRequest.parseResponse( getURLString(), responseText );
 	}
 
 	public static void parseResponse( final String urlString, final String responseText )

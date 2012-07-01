@@ -75,11 +75,11 @@ public class MoodOptionsPanel
 	{
 		super( new BorderLayout() );
 
-		this.add( new MoodTriggerListPanel(), BorderLayout.CENTER );
+        add( new MoodTriggerListPanel(), BorderLayout.CENTER );
 
 		AddTriggerPanel triggers = new AddTriggerPanel();
-		this.moodList.addListSelectionListener( triggers );
-		this.add( triggers, BorderLayout.NORTH );
+        moodList.addListSelectionListener( triggers );
+        add( triggers, BorderLayout.NORTH );
 	}
 
 	private class MoodTriggerListPanel
@@ -91,10 +91,10 @@ public class MoodOptionsPanel
 		{
 			super( "", new ShowDescriptionList( MoodManager.getTriggers() ) );
 
-			this.availableMoods = new MoodComboBox();
+            availableMoods = new MoodComboBox();
 
-			this.centerPanel.add( this.availableMoods, BorderLayout.NORTH );
-			MoodOptionsPanel.this.moodList = (JList) this.scrollComponent;
+            centerPanel.add( availableMoods, BorderLayout.NORTH );
+            moodList = (JList) scrollComponent;
 
 			JPanel extraButtons = new JPanel( new GridLayout( 4, 1, 5, 5 ) );
 
@@ -106,7 +106,7 @@ public class MoodOptionsPanel
 			JPanel buttonHolder = new JPanel( new BorderLayout() );
 			buttonHolder.add( extraButtons, BorderLayout.NORTH );
 
-			this.actualPanel.add( buttonHolder, BorderLayout.EAST );
+            actualPanel.add( buttonHolder, BorderLayout.EAST );
 		}
 
 		@Override
@@ -133,7 +133,7 @@ public class MoodOptionsPanel
 
 				MoodManager.updateFromPreferences();
 
-				this.addActionListener( new MoodComboBoxListener() );
+                addActionListener( new MoodComboBoxListener() );
 			}
 
 			public class MoodComboBoxListener
@@ -141,7 +141,7 @@ public class MoodOptionsPanel
 			{
 				public void actionPerformed( final ActionEvent e )
 				{
-					Mood mood = (Mood) MoodComboBox.this.getSelectedItem();
+					Mood mood = (Mood) getSelectedItem();
 					if ( mood != null )
 					{
 						MoodManager.setMood( mood.toString() );
@@ -223,31 +223,31 @@ public class MoodOptionsPanel
 		{
 			super( "add entry", "auto-fill" );
 
-			this.typeSelect = new TypeComboBox();
+            typeSelect = new TypeComboBox();
 
 			Object[] names = EffectDatabase.values().toArray();
 
 			for ( int i = 0; i < names.length; ++i )
 			{
-				this.EFFECT_MODEL.add( names[ i ].toString() );
+                EFFECT_MODEL.add( names[i].toString() );
 			}
 
-			this.EFFECT_MODEL.sort();
+            EFFECT_MODEL.sort();
 
-			this.valueSelect = new ValueComboBox();
-			this.commandField = new JTextField();
+            valueSelect = new ValueComboBox();
+            commandField = new JTextField();
 
 			VerifiableElement[] elements = new VerifiableElement[ 3 ];
-			elements[ 0 ] = new VerifiableElement( "Trigger On: ", this.typeSelect );
-			elements[ 1 ] = new VerifiableElement( "Check For: ", this.valueSelect );
-			elements[ 2 ] = new VerifiableElement( "Command: ", this.commandField );
+			elements[ 0 ] = new VerifiableElement( "Trigger On: ", typeSelect );
+			elements[ 1 ] = new VerifiableElement( "Check For: ", valueSelect );
+			elements[ 2 ] = new VerifiableElement( "Command: ", commandField );
 
-			this.setContent( elements );
+            setContent( elements );
 		}
 
 		public void valueChanged( final ListSelectionEvent e )
 		{
-			Object selected = MoodOptionsPanel.this.moodList.getSelectedValue();
+			Object selected = moodList.getSelectedValue();
 			if ( selected == null )
 			{
 				return;
@@ -260,21 +260,21 @@ public class MoodOptionsPanel
 
 			if ( type.equals( "lose_effect" ) )
 			{
-				this.typeSelect.setSelectedIndex( 0 );
+                typeSelect.setSelectedIndex( 0 );
 			}
 			else if ( type.equals( "gain_effect" ) )
 			{
-				this.typeSelect.setSelectedIndex( 1 );
+                typeSelect.setSelectedIndex( 1 );
 			}
 			else if ( type.equals( "unconditional" ) )
 			{
-				this.typeSelect.setSelectedIndex( 2 );
+                typeSelect.setSelectedIndex( 2 );
 			}
 
 			// Update the selected effect
 
-			this.valueSelect.setSelectedItem( node.getName() );
-			this.commandField.setText( node.getAction() );
+            valueSelect.setSelectedItem( node.getName() );
+            commandField.setText( node.getAction() );
 		}
 
 		@Override
@@ -288,8 +288,8 @@ public class MoodOptionsPanel
 			}
 
 			MoodManager.addTrigger(
-				this.typeSelect.getSelectedType(), (String) this.valueSelect.getSelectedItem(),
-				this.commandField.getText() );
+                    typeSelect.getSelectedType(), (String) valueSelect.getSelectedItem(),
+                    commandField.getText() );
 			MoodManager.saveSettings();
 		}
 
@@ -333,14 +333,14 @@ public class MoodOptionsPanel
 		{
 			public ValueComboBox()
 			{
-				super( AddTriggerPanel.this.EFFECT_MODEL, false );
+				super( EFFECT_MODEL, false );
 			}
 
 			@Override
 			public void setSelectedItem( final Object anObject )
 			{
-				AddTriggerPanel.this.commandField.setText( MoodManager.getDefaultAction(
-					AddTriggerPanel.this.typeSelect.getSelectedType(), (String) anObject ) );
+                commandField.setText( MoodManager.getDefaultAction(
+                        typeSelect.getSelectedType(), (String) anObject ) );
 				super.setSelectedItem( anObject );
 			}
 		}
@@ -350,16 +350,16 @@ public class MoodOptionsPanel
 		{
 			public TypeComboBox()
 			{
-				this.addItem( "When an effect is lost" );
-				this.addItem( "When an effect is gained" );
-				this.addItem( "Unconditional trigger" );
+                addItem( "When an effect is lost" );
+                addItem( "When an effect is gained" );
+                addItem( "Unconditional trigger" );
 
-				this.addActionListener( new TypeComboBoxListener() );
+                addActionListener( new TypeComboBoxListener() );
 			}
 
 			public String getSelectedType()
 			{
-				switch ( this.getSelectedIndex() )
+				switch ( getSelectedIndex() )
 				{
 				case 0:
 					return "lose_effect";
@@ -377,7 +377,7 @@ public class MoodOptionsPanel
 			{
 				public void actionPerformed( final ActionEvent e )
 				{
-					AddTriggerPanel.this.valueSelect.setModel( TypeComboBox.this.getSelectedIndex() == 2 ? AddTriggerPanel.this.EMPTY_MODEL : AddTriggerPanel.this.EFFECT_MODEL );
+                    valueSelect.setModel( getSelectedIndex() == 2 ? EMPTY_MODEL : EFFECT_MODEL );
 				}
 			}
 		}

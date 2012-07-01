@@ -162,42 +162,42 @@ public class BuffBotHome
 		public BuffRecord( final String name )
 		{
 			this.name = name;
-			this.count = 1;
-			this.deny = false;
+            count = 1;
+            deny = false;
 		}
 
 		public int getCount()
 		{
-			return this.count;
+			return count;
 		}
 
 		public void incrementCount()
 		{
-			if ( this.count != Integer.MAX_VALUE )
+			if ( count != Integer.MAX_VALUE )
 			{
-				++this.count;
+				++count;
 			}
 		}
 
 		public void restrict()
 		{
-			this.deny = true;
+            deny = true;
 		}
 
 		public boolean isPermitted()
 		{
-			return !this.deny;
+			return !deny;
 		}
 
 		public int compareTo( final Object o )
 		{
-			return this.name.compareToIgnoreCase( ( (BuffRecord) o ).name );
+			return name.compareToIgnoreCase( ((BuffRecord) o).name );
 		}
 
 		@Override
 		public boolean equals( final Object o )
 		{
-			return this.name.equalsIgnoreCase( ( (BuffRecord) o ).name );
+			return name.equalsIgnoreCase( ((BuffRecord) o).name );
 		}
 	}
 
@@ -370,7 +370,7 @@ public class BuffBotHome
 	{
 		public BuffMessageRenderer()
 		{
-			this.setOpaque( true );
+            setOpaque( true );
 		}
 
 		@Override

@@ -58,7 +58,7 @@ public class PasswordHashRequest
 			return;
 		}
 
-		PasswordHashRequest.updatePasswordHash( this.responseText );
+		PasswordHashRequest.updatePasswordHash( responseText );
 	}
 	
 	public static void updatePasswordHash( String responseText )

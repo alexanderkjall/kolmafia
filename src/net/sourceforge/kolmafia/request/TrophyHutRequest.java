@@ -53,7 +53,7 @@ public class TrophyHutRequest
 	@Override
 	public void processResults()
 	{
-		TrophyHutRequest.parseResponse( this.getURLString(), this.responseText );
+		TrophyHutRequest.parseResponse( getURLString(), responseText );
 	}
 
 	public static void parseResponse( final String urlString, final String responseText )

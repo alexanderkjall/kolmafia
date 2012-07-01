@@ -83,7 +83,7 @@ public class MoonPhaseRequest
 	@Override
 	public void processResults()
 	{
-		String parseText = this.responseText;
+		String parseText = responseText;
 
 		// Get current phase of Ronald and Grimace
 		if ( parseText.contains( "minimoon" ) )
@@ -99,7 +99,7 @@ public class MoonPhaseRequest
 				StringUtilities.parseInt( moonMatcher.group( 2 ) ) - 1 );
 		}
 
-		KoLCharacter.setClan( this.responseText.contains( "clan_hall.php" ) );
+		KoLCharacter.setClan( responseText.contains( "clan_hall.php" ) );
 	}
 
 	public static void decorate( final StringBuffer buffer )

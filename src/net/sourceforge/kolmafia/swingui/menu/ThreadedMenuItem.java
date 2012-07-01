@@ -44,17 +44,17 @@ public class ThreadedMenuItem
 	{
 		super( label );
 
-		this.addActionListener( action );
+        addActionListener( action );
 	}
 
 	public void setAction( ThreadedListener action )
 	{
-		this.addActionListener( action );
+        addActionListener( action );
 	}
 
 	@Override
 	public String toString()
 	{
-		return this.getText();
+		return getText();
 	}
 }

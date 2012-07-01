@@ -49,7 +49,7 @@ public class ThrowItemCommand
 {
 	public ThrowItemCommand()
 	{
-		this.usage = "[?] <item> at <player> [ || <message> ] - use item on someone else";
+        usage = "[?] <item> at <player> [ || <message> ] - use item on someone else";
 	}
 
 	@Override

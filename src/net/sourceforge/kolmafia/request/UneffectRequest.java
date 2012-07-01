@@ -172,20 +172,20 @@ public class UneffectRequest
 
 		this.effect = effect;
 		String name = effect.getName();
-		this.effectId = EffectDatabase.getEffectId( name );
-		this.isShruggable = UneffectRequest.isShruggable( name );
-		this.isTimer = name.startsWith( "Timer " );
+        effectId = EffectDatabase.getEffectId( name );
+        isShruggable = UneffectRequest.isShruggable( name );
+        isTimer = name.startsWith( "Timer " );
 
-		if ( this.isShruggable )
+		if ( isShruggable )
 		{
-			this.addFormField( "action", "unbuff" );
-			this.addFormField( "ajax", "1" );
-			this.addFormField( "whichbuff", String.valueOf( this.effectId ) );
+            addFormField( "action", "unbuff" );
+            addFormField( "ajax", "1" );
+            addFormField( "whichbuff", String.valueOf( effectId ) );
 		}
 		else
 		{
-			this.addFormField( "using", "Yep." );
-			this.addFormField( "whicheffect", String.valueOf( this.effectId ) );
+            addFormField( "using", "Yep." );
+            addFormField( "whicheffect", String.valueOf( effectId ) );
 		}
 	}
 
@@ -382,7 +382,7 @@ public class UneffectRequest
 
 	private String getAction()
 	{
-		String name = this.effect.getName();
+		String name = effect.getName();
 
 		// If there's an action defined in your mood, use it.
 
@@ -412,7 +412,7 @@ public class UneffectRequest
 
 		// If it's shruggable, then the cleanest way is to just shrug it.
 
-		if ( this.isShruggable )
+		if ( isShruggable )
 		{
 			return "uneffect " + name;
 		}
@@ -483,7 +483,7 @@ public class UneffectRequest
 	@Override
 	public void run()
 	{
-		int index = KoLConstants.activeEffects.indexOf( this.effect );
+		int index = KoLConstants.activeEffects.indexOf( effect );
 		if ( index == -1 )
 		{
 			KoLmafia.updateDisplay( MafiaState.ERROR, "You don't have that effect." );
@@ -492,13 +492,13 @@ public class UneffectRequest
 
 		AdventureResult effect = (AdventureResult) KoLConstants.activeEffects.get( index );
 
-		if ( !UneffectRequest.isRemovable( this.effectId ) )
+		if ( !UneffectRequest.isRemovable( effectId ) )
 		{
 			KoLmafia.updateDisplay( MafiaState.ERROR, effect.getName() + " is unremovable." );
 			return;
 		}
 
-		if ( effect.getCount() == Integer.MAX_VALUE && this.effectId != Effect.OVERCONFIDENT.effectId() )
+		if ( effect.getCount() == Integer.MAX_VALUE && effectId != Effect.OVERCONFIDENT.effectId() )
 		{
 			KoLmafia.updateDisplay( MafiaState.ERROR, effect.getName() + " is intrinsic and cannot be removed." );
 			return;
@@ -506,7 +506,7 @@ public class UneffectRequest
 
 		if ( !UneffectRequest.currentEffectRemovals.contains( effect ) )
 		{
-			String action = this.getAction();
+			String action = getAction();
 
 			if ( !action.equals( "" ) && !action.startsWith( "uneffect" ) &&
 			     !action.startsWith( "shrug" ) && !action.startsWith( "remedy" ) )
@@ -518,11 +518,11 @@ public class UneffectRequest
 			}
 		}
 
-		if ( this.isTimer )
+		if ( isTimer )
 		{
 			KoLmafia.updateDisplay( "Canceling your timer..." );
 		}
-		else if ( this.isShruggable )
+		else if ( isShruggable )
 		{
 			KoLmafia.updateDisplay( "Shrugging off your buff..." );
 		}
@@ -547,21 +547,21 @@ public class UneffectRequest
 		// have any more green fluffy antidote echo drops, or whatever
 		// they're called."
 
-		if ( this.responseText == null )
+		if ( responseText == null )
 		{
 			// What's wrong?
 			return;
 		}
 
-		KoLConstants.activeEffects.remove( this.effect );
+		KoLConstants.activeEffects.remove( effect );
 
 		// If you lose Inigo's, what you can craft changes
-		if ( this.effect.getName().equals( Effect.INIGO.effectName() ) )
+		if ( effect.getName().equals( Effect.INIGO.effectName() ) )
 		{
 			ConcoctionDatabase.setRefreshNeeded( true );
 		}
 
-		KoLmafia.updateDisplay( this.effect.getName() + " removed." );
+		KoLmafia.updateDisplay( effect.getName() + " removed." );
 		RequestFrame.refreshStatus();
 	}
 

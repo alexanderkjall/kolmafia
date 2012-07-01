@@ -42,7 +42,7 @@ public class ColorEchoCommand
 {
 	public ColorEchoCommand()
 	{
-		this.usage = " <color> <text> - show text using color (specified by name or #RRGGBB).";
+        usage = " <color> <text> - show text using color (specified by name or #RRGGBB).";
 	}
 
 	@Override

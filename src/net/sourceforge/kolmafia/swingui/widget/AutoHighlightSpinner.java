@@ -52,18 +52,18 @@ public class AutoHighlightSpinner
 	public AutoHighlightSpinner()
 	{
 		super();
-		this.editor = new AutoHighlightNumberEditor( this );
-		this.setEditor( editor );
+        editor = new AutoHighlightNumberEditor( this );
+        setEditor( editor );
 	}
 
 	public void setValue( int value )
 	{
-		this.setValue( IntegerPool.get( value ) );
+        setValue( IntegerPool.get( value ) );
 	}
 
 	public void setHorizontalAlignment( int alignment )
 	{
-		this.editor.setHorizontalAlignment( alignment );
+        editor.setHorizontalAlignment( alignment );
 	}
 
 	private class AutoHighlightNumberEditor
@@ -75,21 +75,21 @@ public class AutoHighlightSpinner
 		public AutoHighlightNumberEditor( JSpinner spinner)
 		{
 			super();
-			AutoHighlightSpinner.this.addChangeListener( this );
-			this.getDocument().addDocumentListener( new AutoHighlightNumberEditorDocumentListener() );
-			this.setText( "0" );
-			this.changing = false;
+            addChangeListener( this );
+            getDocument().addDocumentListener( new AutoHighlightNumberEditorDocumentListener() );
+            setText( "0" );
+            changing = false;
 		}
 
 		public void stateChanged(ChangeEvent evt)
 		{
-			if ( this.changing )
+			if ( changing )
 			{
 				return;
 			}
 
-			Integer value = (Integer)AutoHighlightSpinner.this.getValue();
-			this.setText( String.valueOf( value ) );
+			Integer value = (Integer) getValue();
+            setText( String.valueOf( value ) );
 		}
 
 		private class AutoHighlightNumberEditorDocumentListener
@@ -101,23 +101,23 @@ public class AutoHighlightSpinner
 
 			public void insertUpdate( DocumentEvent e )
 			{
-				this.updateSpinnerModel();
+                updateSpinnerModel();
 			}
 
 			public void removeUpdate( DocumentEvent e )
 			{
-				this.updateSpinnerModel();
+                updateSpinnerModel();
 			}
 
 			private void updateSpinnerModel()
 			{
 				try
 				{
-					String text = AutoHighlightNumberEditor.this.getText();
+					String text = getText();
 					int value = StringUtilities.parseInt( text );
-					AutoHighlightNumberEditor.this.changing = true;
-					AutoHighlightSpinner.this.setValue( IntegerPool.get( value ) );
-					AutoHighlightNumberEditor.this.changing = false;
+                    changing = true;
+                    setValue( IntegerPool.get( value ) );
+                    changing = false;
 				}
 				catch ( NumberFormatException e )
 				{

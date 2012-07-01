@@ -51,108 +51,108 @@ public class Variable
 	{
 		super( null );
 		this.type = type;
-		this.content = new Value( type );
+        content = new Value( type );
 	}
 
 	public Variable( final String name, final Type type )
 	{
 		super( name );
 		this.type = type;
-		this.content = new Value( type );
+        content = new Value( type );
 	}
 
 	public Type getType()
 	{
-		return this.type;
+		return type;
 	}
 
 	public Type getBaseType()
 	{
-		return this.type.getBaseType();
+		return type.getBaseType();
 	}
 
 	public boolean isStatic()
 	{
-		return this.isStatic;
+		return isStatic;
 	}
 
 	public void markStatic()
 	{
-		this.isStatic = true;
+        isStatic = true;
 	}
 
 	public Value getValue( final Interpreter interpreter )
 	{
-		if ( this.expression != null )
+		if ( expression != null )
 		{
-			this.content = this.expression.execute( interpreter );
+            content = expression.execute( interpreter );
 		}
 
-		return this.content;
+		return content;
 	}
 
 	public Type getValueType( final Interpreter interpreter )
 	{
-		return this.getValue( interpreter ).getType();
+		return getValue( interpreter ).getType();
 	}
 
 	public Object rawValue( final Interpreter interpreter )
 	{
-		return this.getValue( interpreter ).rawValue();
+		return getValue( interpreter ).rawValue();
 	}
 
 	public long intValue( final Interpreter interpreter )
 	{
-		return this.getValue( interpreter ).intValue();
+		return getValue( interpreter ).intValue();
 	}
 
 	public Value toStringValue( final Interpreter interpreter )
 	{
-		return this.getValue( interpreter ).toStringValue();
+		return getValue( interpreter ).toStringValue();
 	}
 
 	public double floatValue( final Interpreter interpreter )
 	{
-		return this.getValue( interpreter ).floatValue();
+		return getValue( interpreter ).floatValue();
 	}
 
 	public void setExpression( final Value targetExpression )
 	{
-		this.expression = targetExpression;
+        expression = targetExpression;
 	}
 
 	public void forceValue( final Value targetValue )
 	{
-		this.content = targetValue;
-		this.expression = null;
+        content = targetValue;
+        expression = null;
 	}
 
 	public void setValue( Interpreter interpreter, final Value targetValue )
 	{
-		if ( this.getBaseType().equals( targetValue.getType() ) )
+		if ( getBaseType().equals( targetValue.getType() ) )
 		{
-			this.content = targetValue;
-			this.expression = null;
+            content = targetValue;
+            expression = null;
 		}
-		else if ( this.getBaseType().equals( DataTypes.TYPE_STRICT_STRING ) || this.getBaseType().equals( DataTypes.TYPE_STRING ) )
+		else if ( getBaseType().equals( DataTypes.TYPE_STRICT_STRING ) || getBaseType().equals( DataTypes.TYPE_STRING ) )
 		{
-			this.content = targetValue.toStringValue();
-			this.expression = null;
+            content = targetValue.toStringValue();
+            expression = null;
 		}
-		else if ( this.getBaseType().equals( DataTypes.TYPE_INT ) && targetValue.getType().equals( DataTypes.TYPE_FLOAT ) )
+		else if ( getBaseType().equals( DataTypes.TYPE_INT ) && targetValue.getType().equals( DataTypes.TYPE_FLOAT ) )
 		{
-			this.content = targetValue.toIntValue();
-			this.expression = null;
+            content = targetValue.toIntValue();
+            expression = null;
 		}
-		else if ( this.getBaseType().equals( DataTypes.TYPE_FLOAT ) && targetValue.getType().equals( DataTypes.TYPE_INT ) )
+		else if ( getBaseType().equals( DataTypes.TYPE_FLOAT ) && targetValue.getType().equals( DataTypes.TYPE_INT ) )
 		{
-			this.content = targetValue.toFloatValue();
-			this.expression = null;
+            content = targetValue.toFloatValue();
+            expression = null;
 		}
 		else
 		{
 			throw new ScriptException(
-				"Internal error: Cannot assign " + targetValue.getType() + " to " + this.getType() );
+				"Internal error: Cannot assign " + targetValue.getType() + " to " + getType() );
 		}
 	}
 
@@ -166,6 +166,6 @@ public class Variable
 	public void print( final PrintStream stream, final int indent )
 	{
 		Interpreter.indentLine( stream, indent );
-		stream.println( "<VAR " + this.getType() + " " + this.getName() + ">" );
+		stream.println( "<VAR " + getType() + " " + getName() + ">" );
 	}
 }

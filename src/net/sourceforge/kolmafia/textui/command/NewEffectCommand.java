@@ -40,7 +40,7 @@ public class NewEffectCommand
 {
 	public NewEffectCommand()
 	{
-		this.usage = " <effect description ID> - learn a new effect";
+        usage = " <effect description ID> - learn a new effect";
 	}
 
 	@Override

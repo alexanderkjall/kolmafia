@@ -93,7 +93,7 @@ public class VolcanoMazeRequest
 		// the Final Battle against your Nemesis, and therefore you
 		// should probably equip that Legendary Epic Weapon of yours
 		// first. Just sayin'.
-		if ( this.responseText.contains( "A niggling voice" ) )
+		if ( responseText.contains( "A niggling voice" ) )
 		{
 			// Should we auto-equip the LEW?
 			KoLmafia.updateDisplay( MafiaState.ERROR, "Equip your Legendary Epic Weapon and try again." );
@@ -103,7 +103,7 @@ public class VolcanoMazeRequest
 		// Still, it wouldn't be a final battle without an especially
 		// fiendish final puzzle, now would it?
 
-		VolcanoMazeRequest.parseResponse( this.getURLString(), this.responseText );
+		VolcanoMazeRequest.parseResponse( getURLString(), responseText );
 	}
 
 	public static void parseResponse( final String urlString, final String responseText )

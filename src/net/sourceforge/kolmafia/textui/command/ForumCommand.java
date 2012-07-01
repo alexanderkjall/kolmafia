@@ -40,7 +40,7 @@ public class ForumCommand
 {
 	public ForumCommand()
 	{
-		this.usage = " - visit the official KoL forums.";
+        usage = " - visit the official KoL forums.";
 	}
 
 	@Override

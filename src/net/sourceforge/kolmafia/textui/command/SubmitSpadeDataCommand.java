@@ -49,7 +49,7 @@ public class SubmitSpadeDataCommand
 {
 	public SubmitSpadeDataCommand()
 	{
-		this.usage = " [prices <URL>] - submit automatically gathered data.";
+        usage = " [prices <URL>] - submit automatically gathered data.";
 	}
 
 	@Override

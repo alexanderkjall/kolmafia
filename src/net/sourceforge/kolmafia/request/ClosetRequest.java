@@ -72,7 +72,7 @@ public class ClosetRequest
 	public ClosetRequest()
 	{
 		super( "closet.php" );
-		this.moveType = REFRESH;
+        moveType = REFRESH;
 	}
 
 	public ClosetRequest( final int moveType )
@@ -102,49 +102,49 @@ public class ClosetRequest
 		switch ( moveType )
 		{
 		case CONSUMABLES:
-			this.addFormField( "which", "1" );
+            addFormField( "which", "1" );
 			break;
 		case EQUIPMENT:
-			this.addFormField( "which", "2" );
+            addFormField( "which", "2" );
 			break;
 		case MISCELLANEOUS:
-			this.addFormField( "which", "3" );
+            addFormField( "which", "3" );
 			break;
 		case MEAT_TO_CLOSET:
 			// closet.php?action=addtakeclosetmeat&addtake=add&pwd&quantity=x
-			this.addFormField( "action", "addtakeclosetmeat" );
-			this.addFormField( "addtake", "add" );
+            addFormField( "action", "addtakeclosetmeat" );
+            addFormField( "addtake", "add" );
 			break;
 
 		case MEAT_TO_INVENTORY:
 			// closet.php?action=addtakeclosetmeat&addtake=take&pwd&quantity=x
-			this.addFormField( "action", "addtakeclosetmeat" );
-			this.addFormField( "addtake", "take" );
+            addFormField( "action", "addtakeclosetmeat" );
+            addFormField( "addtake", "take" );
 			break;
 
 		case INVENTORY_TO_CLOSET:
 			// fillcloset.php?action=closetpush&whichitem=4511&qty=xxx&pwd&ajax=1
 			// fillcloset.php?action=closetpush&whichitem=4511&qty=all&pwd&ajax=1
-			this.addFormField( "action", "closetpush" );
-			this.addFormField( "ajax", "1" );
-			this.source = KoLConstants.inventory;
-			this.destination = KoLConstants.closet;
+            addFormField( "action", "closetpush" );
+            addFormField( "ajax", "1" );
+            source = KoLConstants.inventory;
+            destination = KoLConstants.closet;
 			break;
 
 		case CLOSET_TO_INVENTORY:
 			// closet.php?action=closetpull&whichitem=4511&qty=xxx&pwd&ajax=1
 			// closet.php?action=closetpull&whichitem=4511&qty=all&pwd&ajax=1
-			this.addFormField( "action", "closetpull" );
-			this.addFormField( "ajax", "1" );
-			this.source = KoLConstants.closet;
-			this.destination = KoLConstants.inventory;
+            addFormField( "action", "closetpull" );
+            addFormField( "ajax", "1" );
+            source = KoLConstants.closet;
+            destination = KoLConstants.inventory;
 			break;
 
 		case EMPTY_CLOSET:
 			// closet.php?action=pullallcloset&pwd
-			this.addFormField( "action", "pullallcloset" );
-			this.source = KoLConstants.closet;
-			this.destination = KoLConstants.inventory;
+            addFormField( "action", "pullallcloset" );
+            source = KoLConstants.closet;
+            destination = KoLConstants.inventory;
 			break;
 		}
 	}
@@ -169,7 +169,7 @@ public class ClosetRequest
 
 	public int getMoveType()
 	{
-		return this.moveType;
+		return moveType;
 	}
 
 	@Override
@@ -194,14 +194,14 @@ public class ClosetRequest
 	{
 		List itemList = new ArrayList();
 
-		if ( this.attachments == null )
+		if ( attachments == null )
 		{
 			return itemList;
 		}
 
-		for ( int i = 0; i < this.attachments.length; ++i )
+		for ( int i = 0; i < attachments.length; ++i )
 		{
-			itemList.add( this.attachments[ i ] );
+			itemList.add( attachments[ i ] );
 		}
 
 		return itemList;
@@ -216,25 +216,25 @@ public class ClosetRequest
 	@Override
 	public boolean forceGETMethod()
 	{
-		return this.moveType == INVENTORY_TO_CLOSET || this.moveType == CLOSET_TO_INVENTORY;
+		return moveType == INVENTORY_TO_CLOSET || moveType == CLOSET_TO_INVENTORY;
 	}
 
 	@Override
 	public TransferItemRequest getSubInstance( final Object[] attachments )
 	{
-		return new ClosetRequest( this.moveType, attachments );
+		return new ClosetRequest( moveType, attachments );
 	}
 
 	@Override
 	public boolean parseTransfer()
 	{
-		return ClosetRequest.parseTransfer( this.getURLString(), this.responseText );
+		return ClosetRequest.parseTransfer( getURLString(), responseText );
 	}
 
 	@Override
 	public void run()
 	{
-		if ( this.moveType == REFRESH )
+		if ( moveType == REFRESH )
 		{
 			// If we are refreshing the closet, we need to do all three pages.
 			KoLmafia.updateDisplay( "Refreshing closet..." );
@@ -255,14 +255,14 @@ public class ClosetRequest
 	@Override
 	public void processResults()
 	{
-		switch ( this.moveType )
+		switch ( moveType )
 		{
 		case ClosetRequest.REFRESH:
 			return;
 		case ClosetRequest.CONSUMABLES:
 		case ClosetRequest.EQUIPMENT:
 		case ClosetRequest.MISCELLANEOUS:
-			ClosetRequest.parseCloset( this.getURLString(), this.responseText );
+			ClosetRequest.parseCloset( getURLString(), responseText );
 			return;
 		default:
 			super.processResults();
@@ -471,7 +471,7 @@ public class ClosetRequest
 	@Override
 	public String getStatusMessage()
 	{
-		switch ( this.moveType )
+		switch ( moveType )
 		{
 		case INVENTORY_TO_CLOSET:
 			return "Placing items into closet";

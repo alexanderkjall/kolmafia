@@ -49,7 +49,7 @@ public class PrefTraceCommand
 
 	public PrefTraceCommand()
 	{
-		this.usage = " <name> [, <name>]... - watch changes to indicated preferences";
+        usage = " <name> [, <name>]... - watch changes to indicated preferences";
 	}
 
 	@Override
@@ -83,13 +83,13 @@ public class PrefTraceCommand
 		{
 			this.name = name;
 			PreferenceListenerRegistry.registerListener( name, this );
-			this.update();
+            update();
 		}
 		
 		public void update()
 		{
-			String msg = "ptrace: " + this.name + " = " +
-				Preferences.getString( this.name );
+			String msg = "ptrace: " + name + " = " +
+				Preferences.getString( name );
 			RequestLogger.updateSessionLog( msg );
 			if ( RequestLogger.isDebugging() )
 			{

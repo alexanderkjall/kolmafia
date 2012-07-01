@@ -106,61 +106,61 @@ public class ChatFrame
 			"Chat: " + associatedContact :
 			"Chat PM: " + associatedContact );
 
-		this.initialize( associatedContact );
+        initialize( associatedContact );
 
 		// Add the standard chat options which the user
 		// simply clicks on for functionality.
 
-		JToolBar toolbarPanel = this.getToolbar();
+		JToolBar toolbarPanel = getToolbar();
 
 		if ( toolbarPanel != null )
 		{
 			// Add the name click options as a giant combo
 			// box, rather than a hidden menu.
 
-			this.nameClickSelect = new JComboBox();
-			this.nameClickSelect.addItem( "Name click shows player profile" );
-			this.nameClickSelect.addItem( "Name click opens blue message" );
-			this.nameClickSelect.addItem( "Name click sends kmail message" );
-			this.nameClickSelect.addItem( "Name click opens trade request" );
-			this.nameClickSelect.addItem( "Name click shows display case" );
-			this.nameClickSelect.addItem( "Name click shows ascension history" );
-			this.nameClickSelect.addItem( "Name click shows mall store" );
-			this.nameClickSelect.addItem( "Name click performs /whois" );
-			this.nameClickSelect.addItem( "Name click friends the player" );
-			this.nameClickSelect.addItem( "Name click baleets the player" );
-			toolbarPanel.add( this.nameClickSelect );
+            nameClickSelect = new JComboBox();
+            nameClickSelect.addItem( "Name click shows player profile" );
+            nameClickSelect.addItem( "Name click opens blue message" );
+            nameClickSelect.addItem( "Name click sends kmail message" );
+            nameClickSelect.addItem( "Name click opens trade request" );
+            nameClickSelect.addItem( "Name click shows display case" );
+            nameClickSelect.addItem( "Name click shows ascension history" );
+            nameClickSelect.addItem( "Name click shows mall store" );
+            nameClickSelect.addItem( "Name click performs /whois" );
+            nameClickSelect.addItem( "Name click friends the player" );
+            nameClickSelect.addItem( "Name click baleets the player" );
+			toolbarPanel.add( nameClickSelect );
 
-			this.nameClickSelect.setSelectedIndex( 0 );
+            nameClickSelect.setSelectedIndex( 0 );
 		}
 
 		// Set the default size so that it doesn't appear super-small
 		// when it's first constructed
 
-		this.setSize( new Dimension( 500, 300 ) );
+        setSize( new Dimension( 500, 300 ) );
 
-		if ( this.mainPanel != null && associatedContact != null )
+		if ( mainPanel != null && associatedContact != null )
 		{
 			if ( associatedContact.startsWith( "/" ) )
 			{
-				this.setTitle( associatedContact );
+                setTitle( associatedContact );
 			}
 			else
 			{
-				this.setTitle( "private to " + associatedContact );
+                setTitle( "private to " + associatedContact );
 			}
 		}
 
-		this.setFocusCycleRoot( true );
-		this.setFocusTraversalPolicy( new DefaultComponentFocusTraversalPolicy( this.mainPanel ) );
+        setFocusCycleRoot( true );
+        setFocusTraversalPolicy( new DefaultComponentFocusTraversalPolicy( mainPanel ) );
 	}
 
 	@Override
 	public void focusGained( FocusEvent e )
 	{
-		if ( this.mainPanel != null )
+		if ( mainPanel != null )
 		{
-			this.mainPanel.requestFocus();
+            mainPanel.requestFocus();
 		}
 	}
 
@@ -195,7 +195,7 @@ public class ChatFrame
 	@Override
 	public Component getCenterComponent()
 	{
-		return this.getFramePanel();
+		return getFramePanel();
 	}
 
 	@Override
@@ -219,7 +219,7 @@ public class ChatFrame
 	@Override
 	public void dispose()
 	{
-		String contact = this.getAssociatedContact();
+		String contact = getAssociatedContact();
 
 		if ( contact != null && contact.equals( ChatManager.getCurrentChannel() ) )
 		{
@@ -238,8 +238,8 @@ public class ChatFrame
 
 	public void initialize( final String associatedContact )
 	{
-		this.mainPanel = new ChatPanel( associatedContact );
-		this.setCenterComponent( this.mainPanel );
+        mainPanel = new ChatPanel( associatedContact );
+        setCenterComponent( mainPanel );
 	}
 
 	/**
@@ -260,38 +260,38 @@ public class ChatFrame
 		public ChatPanel( final String associatedContact )
 		{
 			super( new BorderLayout() );
-			this.chatDisplay = new RequestPane();
-			this.chatDisplay.addHyperlinkListener( new ChatLinkClickedListener() );
+            chatDisplay = new RequestPane();
+            chatDisplay.addHyperlinkListener( new ChatLinkClickedListener() );
 
 			this.associatedContact = associatedContact;
-			this.commandHistory = new ArrayList();
+            commandHistory = new ArrayList();
 
 			ChatEntryListener listener = new ChatEntryListener();
 
 			JPanel entryPanel = new JPanel( new BorderLayout() );
-			this.entryField = new JTextField();
-			this.entryField.addKeyListener( listener );
+            entryField = new JTextField();
+            entryField.addKeyListener( listener );
 
 			JButton entryButton = new JButton( "chat" );
 			entryButton.addActionListener( listener );
 
-			entryPanel.add( this.entryField, BorderLayout.CENTER );
+			entryPanel.add( entryField, BorderLayout.CENTER );
 			entryPanel.add( entryButton, BorderLayout.EAST );
 
 			ChatBuffer buffer = ChatManager.getBuffer( associatedContact );
-			JScrollPane scroller = buffer.addDisplay( this.chatDisplay );
-			scroller.getVerticalScrollBar().addAdjustmentListener( new StickyListener( buffer, this.chatDisplay, 200 ) );
-			this.add( scroller, BorderLayout.CENTER );
+			JScrollPane scroller = buffer.addDisplay( chatDisplay );
+			scroller.getVerticalScrollBar().addAdjustmentListener( new StickyListener( buffer, chatDisplay, 200 ) );
+            add( scroller, BorderLayout.CENTER );
 
-			this.add( entryPanel, BorderLayout.SOUTH );
-			this.setFocusTraversalPolicy( new DefaultComponentFocusTraversalPolicy( this.entryField ) );
+            add( entryPanel, BorderLayout.SOUTH );
+            setFocusTraversalPolicy( new DefaultComponentFocusTraversalPolicy( entryField ) );
 
-			this.addFocusListener( this );
+            addFocusListener( this );
 		}
 
 		public void focusGained( FocusEvent e )
 		{
-			this.entryField.requestFocus();
+            entryField.requestFocus();
 		}
 
 		public void focusLost( FocusEvent e )
@@ -300,18 +300,18 @@ public class ChatFrame
 
 		public String getAssociatedContact()
 		{
-			return this.associatedContact;
+			return associatedContact;
 		}
 
 		@Override
 		public boolean hasFocus()
 		{
-			if ( this.entryField == null || this.chatDisplay == null )
+			if ( entryField == null || chatDisplay == null )
 			{
 				return false;
 			}
 
-			return this.entryField.hasFocus() || this.chatDisplay.hasFocus();
+			return entryField.hasFocus() || chatDisplay.hasFocus();
 		}
 
 		/**
@@ -325,50 +325,50 @@ public class ChatFrame
 			@Override
 			protected void execute()
 			{
-				if ( this.isAction() )
+				if ( isAction() )
 				{
-					this.submitChat();
+                    submitChat();
 					return;
 				}
 
-				int keyCode = this.getKeyCode();
+				int keyCode = getKeyCode();
 
 				if ( keyCode == KeyEvent.VK_UP )
 				{
-					if ( ChatPanel.this.lastCommandIndex <= 0 )
+					if ( lastCommandIndex <= 0 )
 					{
 						return;
 					}
 
-					ChatPanel.this.entryField.setText( (String) ChatPanel.this.commandHistory.get( --ChatPanel.this.lastCommandIndex ) );
+                    entryField.setText( (String) commandHistory.get( --lastCommandIndex ) );
 				}
 				else if ( keyCode == KeyEvent.VK_DOWN )
 				{
-					if ( ChatPanel.this.lastCommandIndex + 1 >= ChatPanel.this.commandHistory.size() )
+					if ( lastCommandIndex + 1 >= commandHistory.size() )
 					{
 						return;
 					}
 
-					ChatPanel.this.entryField.setText( (String) ChatPanel.this.commandHistory.get( ++ChatPanel.this.lastCommandIndex ) );
+                    entryField.setText( (String) commandHistory.get( ++lastCommandIndex ) );
 				}
 				else if ( keyCode == KeyEvent.VK_ENTER )
 				{
-					this.submitChat();
+                    submitChat();
 				}
 			}
 
 			private void submitChat()
 			{
-				String message = ChatPanel.this.entryField.getText();
+				String message = entryField.getText();
 
 				if ( message.equals( "" ) )
 				{
 					return;
 				}
 
-				ChatPanel.this.entryField.setText( "" );
+                entryField.setText( "" );
 
-				StyledChatBuffer buffer = ChatManager.getBuffer( ChatPanel.this.associatedContact );
+				StyledChatBuffer buffer = ChatManager.getBuffer( associatedContact );
 
 				if ( message.startsWith( "/clear" ) || message.startsWith( "/cls" ) || message.equals( "clear" ) || message.equals( "cls" ) )
 				{
@@ -388,7 +388,7 @@ public class ChatFrame
 					return;
 				}
 
-				ChatSender.sendMessage( ChatPanel.this.associatedContact, message, false );
+				ChatSender.sendMessage( associatedContact, message, false );
 			}
 		}
 	}
@@ -401,7 +401,7 @@ public class ChatFrame
 
 	public String getAssociatedContact()
 	{
-		return this.mainPanel == null ? null : this.mainPanel.getAssociatedContact();
+		return mainPanel == null ? null : mainPanel.getAssociatedContact();
 	}
 
 	/**
@@ -411,7 +411,7 @@ public class ChatFrame
 	@Override
 	public boolean hasFocus()
 	{
-		return super.hasFocus() || this.mainPanel != null && this.mainPanel.hasFocus();
+		return super.hasFocus() || mainPanel != null && mainPanel.hasFocus();
 	}
 
 	/**
@@ -452,8 +452,8 @@ public class ChatFrame
 			// Next, determine the option which had been
 			// selected in the link-click.
 
-			int linkOption = ChatFrame.this.nameClickSelect != null ?
-				ChatFrame.this.nameClickSelect.getSelectedIndex(): 0;
+			int linkOption = nameClickSelect != null ?
+                    nameClickSelect.getSelectedIndex(): 0;
 
 			String urlString = null;
 

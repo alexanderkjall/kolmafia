@@ -44,12 +44,12 @@ public class CommandAlias
 		super();
 		this.actualCmd = actualCmd;
 		this.actualParams = actualParams;
-		this.usage = " => " + actualCmd + " " + actualParams;
+        usage = " => " + actualCmd + " " + actualParams;
 	}
 
 	@Override
 	public void run( final String cmd, final String parameters )
 	{
-		this.CLI.executeCommand( this.actualCmd, ( this.actualParams + " " + parameters ).trim() );
+        CLI.executeCommand( actualCmd, (actualParams + " " + parameters).trim() );
 	}
 }

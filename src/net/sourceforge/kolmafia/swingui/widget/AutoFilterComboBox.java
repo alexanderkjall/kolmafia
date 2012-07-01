@@ -66,36 +66,36 @@ public class AutoFilterComboBox
 
 	public AutoFilterComboBox( final LockableListModel model, final boolean allowAdditions )
 	{
-		this.setModel( model );
+        setModel( model );
 
-		this.setEditable( true );
+        setEditable( true );
 
 		this.allowAdditions = allowAdditions;
 		NameInputListener listener = new NameInputListener();
 
-		this.addItemListener( listener );
-		this.editor = (JTextComponent) this.getEditor().getEditorComponent();
+        addItemListener( listener );
+        editor = (JTextComponent) getEditor().getEditorComponent();
 
-		this.editor.addFocusListener( listener );
-		this.editor.addKeyListener( listener );
+        editor.addFocusListener( listener );
+        editor.addKeyListener( listener );
 	}
 
 	public String getText()
 	{
-		return (String) ( this.getSelectedItem() != null ? this.getSelectedItem() : this.currentMatch );
+		return (String) (getSelectedItem() != null ? getSelectedItem() : currentMatch);
 	}
 
 	public void setText( final String text )
 	{
-		if ( this.model.indexOf( text ) != -1 )
+		if ( model.indexOf( text ) != -1 )
 		{
-			this.setSelectedItem( text );
+            setSelectedItem( text );
 		}
 		else
 		{
-			this.setSelectedItem( null );
-			this.currentMatch = text;
-			this.editor.setText( text );
+            setSelectedItem( null );
+            currentMatch = text;
+            editor.setText( text );
 		}
 	}
 
@@ -108,86 +108,86 @@ public class AutoFilterComboBox
 
 	public void forceAddition()
 	{
-		if ( this.currentName == null || this.currentName.length() == 0 )
+		if ( currentName == null || currentName.length() == 0 )
 		{
 			return;
 		}
 
-		if ( this.currentMatch == null && this.allowAdditions && !this.model.contains( this.currentName ) )
+		if ( currentMatch == null && allowAdditions && !model.contains( currentName ) )
 		{
-			this.model.add( this.currentName );
+            model.add( currentName );
 		}
 
-		this.setSelectedItem( this.currentName );
+        setSelectedItem( currentName );
 	}
 
 	private void update()
 	{
-		if ( this.currentName == null )
+		if ( currentName == null )
 		{
 			return;
 		}
 
-		this.isRecentFocus = false;
-		this.currentIndex = -1;
-		this.model.setSelectedItem( null );
+        isRecentFocus = false;
+        currentIndex = -1;
+        model.setSelectedItem( null );
 
-		this.active = true;
-		this.matchString = this.currentName.toLowerCase();
+        active = true;
+        matchString = currentName.toLowerCase();
 
-		this.strict = true;
-		this.model.updateFilter( false );
+        strict = true;
+        model.updateFilter( false );
 
-		if ( this.model.getSize() > 0 )
+		if ( model.getSize() > 0 )
 		{
 			return;
 		}
 
-		this.strict = false;
-		this.model.updateFilter( false );
+        strict = false;
+        model.updateFilter( false );
 	}
 
 	public synchronized void findMatch( final int keyCode )
 	{
-		this.currentName = this.getEditor().getItem().toString();
-		int caretPosition = this.editor.getCaretPosition();
+        currentName = getEditor().getItem().toString();
+		int caretPosition = editor.getCaretPosition();
 
-		if ( !this.allowAdditions && this.model.contains( this.currentName ) )
+		if ( !allowAdditions && model.contains( currentName ) )
 		{
-			this.setSelectedItem( this.currentName );
+            setSelectedItem( currentName );
 			return;
 		}
 
-		this.currentMatch = null;
-		this.update();
+        currentMatch = null;
+        update();
 
-		if ( this.allowAdditions )
+		if ( allowAdditions )
 		{
-			if ( this.model.getSize() != 1 || keyCode == KeyEvent.VK_BACK_SPACE || keyCode == KeyEvent.VK_DELETE )
+			if ( model.getSize() != 1 || keyCode == KeyEvent.VK_BACK_SPACE || keyCode == KeyEvent.VK_DELETE )
 			{
-				this.editor.setText( this.currentName );
-				this.editor.setCaretPosition( caretPosition );
+                editor.setText( currentName );
+                editor.setCaretPosition( caretPosition );
 				return;
 			}
 
-			this.currentMatch = this.model.getElementAt( 0 );
-			this.matchString = this.currentMatch.toString().toLowerCase();
+            currentMatch = model.getElementAt( 0 );
+            matchString = currentMatch.toString().toLowerCase();
 
-			this.editor.setText( this.currentMatch.toString() );
-			this.editor.moveCaretPosition( caretPosition );
+            editor.setText( currentMatch.toString() );
+            editor.moveCaretPosition( caretPosition );
 			return;
 		}
 
-		this.editor.setText( this.currentName );
-		if ( !this.isPopupVisible() )
+        editor.setText( currentName );
+		if ( !isPopupVisible() )
 		{
-			this.showPopup();
+            showPopup();
 		}
 	}
 
 	public boolean isVisible( final Object element )
 	{
-		if ( !this.active )
+		if ( !active )
 		{
 			return true;
 		}
@@ -195,14 +195,14 @@ public class AutoFilterComboBox
 		// If it's not a result, then check to see if you need to
 		// filter based on its string form.
 
-		if ( this.matchString == null || this.matchString.length() == 0 )
+		if ( matchString == null || matchString.length() == 0 )
 		{
 			return true;
 		}
 
 		String elementName = element.toString().toLowerCase();
-		return this.allowAdditions ? elementName.startsWith( this.matchString ) : this.strict ? elementName.contains( this.matchString ) : StringUtilities.fuzzyMatches(
-			elementName, this.matchString );
+		return allowAdditions ? elementName.startsWith( matchString ) : strict ? elementName.contains( matchString ) : StringUtilities.fuzzyMatches(
+			elementName, matchString );
 	}
 
 	private class NameInputListener
@@ -214,69 +214,69 @@ public class AutoFilterComboBox
 		{
 			if ( e.getKeyCode() == KeyEvent.VK_DOWN )
 			{
-				if ( !AutoFilterComboBox.this.isRecentFocus && AutoFilterComboBox.this.currentIndex + 1 < AutoFilterComboBox.this.model.getSize() )
+				if ( !isRecentFocus && currentIndex + 1 < model.getSize() )
 				{
-					AutoFilterComboBox.this.currentMatch =
-						AutoFilterComboBox.this.model.getElementAt( ++AutoFilterComboBox.this.currentIndex );
+                    currentMatch =
+                            model.getElementAt( ++currentIndex );
 				}
 
-				AutoFilterComboBox.this.isRecentFocus = false;
+                isRecentFocus = false;
 			}
 			else if ( e.getKeyCode() == KeyEvent.VK_UP )
 			{
-				if ( !AutoFilterComboBox.this.isRecentFocus && AutoFilterComboBox.this.model.getSize() > 0 && AutoFilterComboBox.this.currentIndex > 0 )
+				if ( !isRecentFocus && model.getSize() > 0 && currentIndex > 0 )
 				{
-					AutoFilterComboBox.this.currentMatch =
-						AutoFilterComboBox.this.model.getElementAt( --AutoFilterComboBox.this.currentIndex );
+                    currentMatch =
+                            model.getElementAt( --currentIndex );
 				}
 
-				AutoFilterComboBox.this.isRecentFocus = false;
+                isRecentFocus = false;
 			}
 			else if ( e.getKeyCode() == KeyEvent.VK_ENTER || e.getKeyCode() == KeyEvent.VK_TAB )
 			{
-				this.focusLost( null );
+                focusLost( null );
 			}
 			else if ( e.getKeyChar() != KeyEvent.CHAR_UNDEFINED )
 			{
-				AutoFilterComboBox.this.findMatch( e.getKeyCode() );
+                findMatch( e.getKeyCode() );
 			}
 		}
 
 		public final void itemStateChanged( final ItemEvent e )
 		{
-			AutoFilterComboBox.this.currentMatch = AutoFilterComboBox.this.getSelectedItem();
+            currentMatch = getSelectedItem();
 
-			if ( AutoFilterComboBox.this.currentMatch == null )
+			if ( currentMatch == null )
 			{
 				return;
 			}
 
-			AutoFilterComboBox.this.currentName = AutoFilterComboBox.this.currentMatch.toString();
+            currentName = currentMatch.toString();
 
-			if ( !AutoFilterComboBox.this.isPopupVisible() )
+			if ( !isPopupVisible() )
 			{
-				AutoFilterComboBox.this.active = false;
-				AutoFilterComboBox.this.model.updateFilter( false );
+                active = false;
+                model.updateFilter( false );
 			}
 		}
 
 		public final void focusGained( final FocusEvent e )
 		{
-			AutoFilterComboBox.this.getEditor().selectAll();
+            getEditor().selectAll();
 
-			AutoFilterComboBox.this.isRecentFocus = true;
-			AutoFilterComboBox.this.currentIndex = AutoFilterComboBox.this.model.getSelectedIndex();
+            isRecentFocus = true;
+            currentIndex = model.getSelectedIndex();
 		}
 
 		public final void focusLost( final FocusEvent e )
 		{
-			if ( AutoFilterComboBox.this.currentMatch != null )
+			if ( currentMatch != null )
 			{
-				AutoFilterComboBox.this.setSelectedItem( AutoFilterComboBox.this.currentMatch );
+                setSelectedItem( currentMatch );
 			}
-			else if ( AutoFilterComboBox.this.currentName != null && AutoFilterComboBox.this.currentName.trim().length() != 0 )
+			else if ( currentName != null && currentName.trim().length() != 0 )
 			{
-				AutoFilterComboBox.this.forceAddition();
+                forceAddition();
 			}
 		}
 	}

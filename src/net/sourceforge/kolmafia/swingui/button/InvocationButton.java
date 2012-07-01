@@ -60,7 +60,7 @@ public class InvocationButton
 		super( JComponentUtilities.getImage( icon ), new InvocationListener( object, object == null ? null : object.getClass(), methodName ) );
 		JComponentUtilities.setComponentSize( this, 32, 32 );
 
-		this.setToolTipText( tooltip );
+        setToolTipText( tooltip );
 	}
 
 	public InvocationButton( final String tooltip, final String icon, final Class c, final String methodName )
@@ -68,6 +68,6 @@ public class InvocationButton
 		super( JComponentUtilities.getImage( icon ), new InvocationListener( null, c, methodName ) );
 		JComponentUtilities.setComponentSize( this, 32, 32 );
 
-		this.setToolTipText( tooltip );
+        setToolTipText( tooltip );
 	}
 }

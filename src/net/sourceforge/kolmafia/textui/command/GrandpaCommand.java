@@ -42,7 +42,7 @@ public class GrandpaCommand
 {
 	public GrandpaCommand()
 	{
-		this.usage = " <query> - Ask Grandpa about something.";
+        usage = " <query> - Ask Grandpa about something.";
 	}
 
 	@Override

@@ -40,7 +40,7 @@ public class HeapDumpCommand
 {
 	public HeapDumpCommand()
 	{
-		this.usage =
+        usage =
 			" - creates a heap snapshot which is used to help debug memory problems (requires use of the JDK instead of the JRE, requires Java 1.6+). " +
 				"Heap snapshot files are separate from debug logs but will be placed in the same folder. " +
 				"Please note that heap dumps are a KoLmafia memory snapshot so they may contain your KoL passwords. " +

@@ -67,21 +67,21 @@ public class CurseRequest
 	public CurseRequest( final AdventureResult item, final String target, final String message )
 	{
 		super( "curse.php" );
-		this.itemUsed = item;
-		this.addFormField( "action", "use" );
-		this.addFormField( "whichitem", String.valueOf( item.getItemId() ) );
-		this.addFormField( "targetplayer", target );
+        itemUsed = item;
+        addFormField( "action", "use" );
+        addFormField( "whichitem", String.valueOf( item.getItemId() ) );
+        addFormField( "targetplayer", target );
 	}
 
 	@Override
 	public void run()
 	{
-		InventoryManager.retrieveItem( this.itemUsed );
+		InventoryManager.retrieveItem( itemUsed );
 
-		for ( int i = this.itemUsed.getCount(); KoLmafia.permitsContinue() && i > 0; --i )
+		for ( int i = itemUsed.getCount(); KoLmafia.permitsContinue() && i > 0; --i )
 		{
-			KoLmafia.updateDisplay( "Throwing " + this.itemUsed.getName() +
-				" at " + this.getFormField( "targetplayer" ) + "..." );
+			KoLmafia.updateDisplay( "Throwing " + itemUsed.getName() +
+				" at " + getFormField( "targetplayer" ) + "..." );
 			super.run();
 		}
 	}
@@ -89,7 +89,7 @@ public class CurseRequest
 	@Override
 	public void processResults()
 	{
-		CurseRequest.parseResponse( this.getURLString(), this.responseText );
+		CurseRequest.parseResponse( getURLString(), responseText );
 	}
 
 	public static void parseResponse( final String location, final String responseText )

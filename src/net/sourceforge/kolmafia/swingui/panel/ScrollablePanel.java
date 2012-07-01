@@ -82,61 +82,61 @@ public class ScrollablePanel
 	{
 		this.scrollComponent = scrollComponent;
 
-		this.centerPanel = new JPanel( new BorderLayout() );
+        centerPanel = new JPanel( new BorderLayout() );
 
 		if ( !title.equals( "" ) )
 		{
-			this.titleComponent = JComponentUtilities.createLabel(
+            titleComponent = JComponentUtilities.createLabel(
 				title, SwingConstants.CENTER, Color.black, Color.white );
-			this.centerPanel.add( this.titleComponent, BorderLayout.NORTH );
+            centerPanel.add( titleComponent, BorderLayout.NORTH );
 		}
 
-		this.scrollPane = new GenericScrollPane( scrollComponent );
-		this.centerPanel.add( scrollPane, BorderLayout.CENTER );
-		this.actualPanel = new JPanel( new BorderLayout( 20, 10 ) );
-		this.actualPanel.add( this.centerPanel, BorderLayout.CENTER );
+        scrollPane = new GenericScrollPane( scrollComponent );
+        centerPanel.add( scrollPane, BorderLayout.CENTER );
+        actualPanel = new JPanel( new BorderLayout( 20, 10 ) );
+        actualPanel.add( centerPanel, BorderLayout.CENTER );
 
-		this.eastPanel = new JPanel( new BorderLayout() );
+        eastPanel = new JPanel( new BorderLayout() );
 
 		if ( confirmedText != null )
 		{
-			this.buttonPanel = new VerifyButtonPanel( confirmedText, cancelledText, cancelledText, CONFIRM_LISTENER, CANCEL_LISTENER );
-			this.buttonPanel.setBothDisabledOnClick( true );
+            buttonPanel = new VerifyButtonPanel( confirmedText, cancelledText, cancelledText, CONFIRM_LISTENER, CANCEL_LISTENER );
+            buttonPanel.setBothDisabledOnClick( true );
 
-			this.eastPanel.add( this.buttonPanel, BorderLayout.NORTH );
-			this.actualPanel.add( this.eastPanel, BorderLayout.EAST );
+            eastPanel.add( buttonPanel, BorderLayout.NORTH );
+            actualPanel.add( eastPanel, BorderLayout.EAST );
 		}
 
 		JPanel containerPanel = new JPanel( new CardLayout( 10, 10 ) );
-		containerPanel.add( this.actualPanel, "" );
+		containerPanel.add( actualPanel, "" );
 
 		if ( isRootPane )
 		{
-			this.getContentPane().setLayout( new BorderLayout() );
-			this.getContentPane().add( containerPanel, BorderLayout.CENTER );
+            getContentPane().setLayout( new BorderLayout() );
+            getContentPane().add( containerPanel, BorderLayout.CENTER );
 		}
 		else
 		{
-			this.setLayout( new BorderLayout() );
-			this.add( containerPanel, BorderLayout.CENTER );
+            setLayout( new BorderLayout() );
+            add( containerPanel, BorderLayout.CENTER );
 		}
 
-		( (JPanel) this.getContentPane() ).setOpaque( true );
+		( (JPanel) getContentPane() ).setOpaque( true );
 		StaticEntity.registerPanel( this );
 
-		this.contentSet = true;
+        contentSet = true;
 	}
 
 	@Override
 	public void setEnabled( final boolean isEnabled )
 	{
-		if ( this.scrollComponent == null || this.buttonPanel == null )
+		if ( scrollComponent == null || buttonPanel == null )
 		{
 			return;
 		}
 
-		this.scrollComponent.setEnabled( isEnabled );
-		this.buttonPanel.setEnabled( isEnabled );
+        scrollComponent.setEnabled( isEnabled );
+        buttonPanel.setEnabled( isEnabled );
 	}
 
 	@Override
@@ -152,9 +152,9 @@ public class ScrollablePanel
 	@Override
 	public void dispose()
 	{
-		if ( this.buttonPanel != null )
+		if ( buttonPanel != null )
 		{
-			this.buttonPanel.dispose();
+            buttonPanel.dispose();
 		}
 	}
 
@@ -164,9 +164,9 @@ public class ScrollablePanel
 		@Override
 		protected void execute()
 		{
-			if ( ScrollablePanel.this.contentSet )
+			if ( contentSet )
 			{
-				ScrollablePanel.this.actionConfirmed();
+                actionConfirmed();
 			}
 		}
 	}
@@ -177,9 +177,9 @@ public class ScrollablePanel
 		@Override
 		protected void execute()
 		{
-			if ( ScrollablePanel.this.contentSet )
+			if ( contentSet )
 			{
-				ScrollablePanel.this.actionCancelled();
+                actionCancelled();
 			}
 		}
 	}

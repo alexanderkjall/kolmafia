@@ -67,7 +67,7 @@ public class ConditionsCommand
 
 	public ConditionsCommand()
 	{
-		this.usage = " clear | check | add <condition> | remove <condition> | set <condition> - modify your adventuring goals.";
+        usage = " clear | check | add <condition> | remove <condition> | set <condition> - modify your adventuring goals.";
 	}
 
 	@Override

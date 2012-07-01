@@ -573,13 +573,13 @@ public class FightRequest
 
 			if ( FightRequest.ireallymeanit != null )
 			{
-				this.addFormField( "ireallymeanit", FightRequest.ireallymeanit );
+                addFormField( "ireallymeanit", FightRequest.ireallymeanit );
 				FightRequest.ireallymeanit = null;
 			}
 
 			if ( macro != null && macro.length() > 0 && (macro.contains( "\n" ) || macro.contains( ";" )) )
 			{
-				this.handleMacroAction( macro );
+                handleMacroAction( macro );
 			}
 
 			return;
@@ -591,7 +591,7 @@ public class FightRequest
 		{
 			if ( MonsterStatusTracker.getLastMonsterName().contains( FightRequest.RARE_MONSTERS[i] ) )
 			{
-				KoLmafia.updateDisplay( MafiaState.ABORT, "You have encountered the " + this.encounter );
+				KoLmafia.updateDisplay( MafiaState.ABORT, "You have encountered the " + encounter );
 				FightRequest.nextAction = "abort";
 				return;
 			}
@@ -603,7 +603,7 @@ public class FightRequest
 		{
 			if ( CombatActionManager.isMacroAction( desiredAction ) )
 			{
-				this.handleMacroAction( desiredAction );
+                handleMacroAction( desiredAction );
 				return;
 			}
 
@@ -630,7 +630,7 @@ public class FightRequest
 			{
 				if ( macro.contains( "\n" ) || macro.contains( ";" ) )
 				{
-					this.handleMacroAction( macro );
+                    handleMacroAction( macro );
 					return;
 				}
 
@@ -653,14 +653,14 @@ public class FightRequest
 				&& !KoLConstants.activeEffects.contains( FightRequest.BIRDFORM )
 				&& !FightRequest.waitingForSpecial )
 			{
-				this.handleAddingMachine();
+                handleAddingMachine();
 			}
 
 			// Hulking Constructs also require special handling
 
 			else if ( MonsterStatusTracker.getLastMonsterName().equals( "hulking construct" ) )
 			{
-				this.handleHulkingConstruct();
+                handleHulkingConstruct();
 			}
 
 			if ( FightRequest.nextAction == null )
@@ -716,7 +716,7 @@ public class FightRequest
 				}
 
 				// Continue running after the consult script
-				this.responseCode = 200;
+                responseCode = 200;
 				return;
 			}
 
@@ -730,17 +730,17 @@ public class FightRequest
 
 		if ( FightRequest.nextAction.startsWith( "delevel" ) )
 		{
-			FightRequest.nextAction = this.getMonsterWeakenAction();
+			FightRequest.nextAction = getMonsterWeakenAction();
 		}
 
-		this.updateCurrentAction();
+        updateCurrentAction();
 	}
 
 	private void handleMacroAction( String macro )
 	{
 		FightRequest.nextAction = "macro";
 
-		this.addFormField( "action", "macro" );
+        addFormField( "action", "macro" );
 
 		// In case the player continues the script from the relay browser,
 		// insert a jump to the next restart point.
@@ -753,7 +753,7 @@ public class FightRequest
 			StringUtilities.singleStringReplace( macro, "#mafiaheader", "#mafiaheader\ngoto " + label );
 		}
 
-		this.addFormField( "macrotext", FightRequest.MACRO_COMPACT_PATTERN.matcher( macro ).replaceAll( "$1" ) );
+        addFormField( "macrotext", FightRequest.MACRO_COMPACT_PATTERN.matcher( macro ).replaceAll( "$1" ) );
 	}
 
 	public static String getCurrentKey()
@@ -777,7 +777,7 @@ public class FightRequest
 			if ( GenericRequest.passwordHash.equals( "" ) || specialAction == null )
 			{
 				--FightRequest.preparatoryRounds;
-				this.nextRound( null );
+                nextRound( null );
 				return;
 			}
 
@@ -795,14 +795,14 @@ public class FightRequest
 		{
 			KoLmafia.abortAfter( "Aborted by CCS request" );
 			--FightRequest.preparatoryRounds;
-			this.nextRound( null );
+            nextRound( null );
 			return;
 		}
 
 		if ( FightRequest.nextAction.equals( "skip" ) )
 		{
 			--FightRequest.preparatoryRounds;
-			this.nextRound( null );
+            nextRound( null );
 			return;
 		}
 
@@ -823,11 +823,11 @@ public class FightRequest
 			if ( runaway > FightRequest.freeRunawayChance() )
 			{
 				--FightRequest.preparatoryRounds;
-				this.nextRound( null );
+                nextRound( null );
 				return;
 			}
 
-			this.addFormField( "action", FightRequest.nextAction );
+            addFormField( "action", FightRequest.nextAction );
 			return;
 		}
 
@@ -835,7 +835,7 @@ public class FightRequest
 		if ( FightRequest.nextAction.startsWith( "attack" ) )
 		{
 			FightRequest.nextAction = "attack";
-			this.addFormField( "action", FightRequest.nextAction );
+            addFormField( "action", FightRequest.nextAction );
 			return;
 		}
 
@@ -850,7 +850,7 @@ public class FightRequest
 			if ( !MonsterStatusTracker.willUsuallyMiss() )
 			{
 				FightRequest.nextAction = "attack";
-				this.addFormField( "action", FightRequest.nextAction );
+                addFormField( "action", FightRequest.nextAction );
 				return;
 			}
 
@@ -866,12 +866,12 @@ public class FightRequest
 			if ( FightRequest.canStillSteal() && MonsterStatusTracker.shouldSteal() )
 			{
 				FightRequest.nextAction = "steal";
-				this.addFormField( "action", "steal" );
+                addFormField( "action", "steal" );
 				return;
 			}
 
 			--FightRequest.preparatoryRounds;
-			this.nextRound( null );
+            nextRound( null );
 			return;
 		}
 
@@ -881,12 +881,12 @@ public class FightRequest
 		{
 			if ( FightRequest.canStillSummon() )
 			{
-				this.addFormField( "action", "summon" );
+                addFormField( "action", "summon" );
 				return;
 			}
 
 			--FightRequest.preparatoryRounds;
-			this.nextRound( null );
+            nextRound( null );
 			return;
 		}
 
@@ -898,13 +898,13 @@ public class FightRequest
 			if ( !FightRequest.jiggledChefstaff &&
 			     EquipmentManager.usingChefstaff() )
 			{
-				this.addFormField( "action", "chefstaff" );
+                addFormField( "action", "chefstaff" );
 				return;
 			}
 
 			// You can only jiggle once per round.
 			--FightRequest.preparatoryRounds;
-			this.nextRound( null );
+            nextRound( null );
 			return;
 		}
 
@@ -918,7 +918,7 @@ public class FightRequest
 			{
 				KoLmafia.updateDisplay( MafiaState.ABORT, "Invalid combo '" + name + "' requested" );
 				--FightRequest.preparatoryRounds;
-				this.nextRound( null );
+                nextRound( null );
 				return;
 			}
 
@@ -927,8 +927,8 @@ public class FightRequest
 			Macrofier.macroCommon( macro );
 			Macrofier.macroCombo( macro, combo );
 
-			this.addFormField( "action", "macro" );
-			this.addFormField( "macrotext", macro.toString() );
+            addFormField( "action", "macro" );
+            addFormField( "macrotext", macro.toString() );
 
 			FightRequest.preparatoryRounds += combo.length - 1;
 
@@ -941,7 +941,7 @@ public class FightRequest
 			if ( KoLConstants.activeEffects.contains( FightRequest.BIRDFORM ) )
 			{	// Can't use items in Birdform
 				--FightRequest.preparatoryRounds;
-				this.nextRound( null );
+                nextRound( null );
 				return;
 			}
 			int item1, item2;
@@ -988,13 +988,13 @@ public class FightRequest
 				if ( MonsterStatusTracker.getLastMonsterName().equals( "rampaging adding machine" ) )
 				{
 					FightRequest.nextAction = "attack";
-					this.addFormField( "action", FightRequest.nextAction );
+                    addFormField( "action", FightRequest.nextAction );
 					return;
 				}
 			}
 
-			this.addFormField( "action", "useitem" );
-			this.addFormField( "whichitem", String.valueOf( item1 ) );
+            addFormField( "action", "useitem" );
+            addFormField( "whichitem", String.valueOf( item1 ) );
 
 			if ( !KoLCharacter.hasSkill( "Ambidextrous Funkslinging" ) )
 			{
@@ -1008,7 +1008,7 @@ public class FightRequest
 				if ( itemCount > 1 || item1 != item2 && itemCount > 0 )
 				{
 					FightRequest.nextAction += "," + String.valueOf( item2 );
-					this.addFormField( "whichitem2", String.valueOf( item2 ) );
+                    addFormField( "whichitem2", String.valueOf( item2 ) );
 				}
 				else
 				{
@@ -1025,38 +1025,38 @@ public class FightRequest
 				if ( KoLConstants.inventory.contains( FightRequest.MERCENARY ) )
 				{
 					FightRequest.nextAction += "," + FightRequest.MERCENARY_ACTION;
-					this.addFormField( "whichitem2", String.valueOf( FightRequest.MERCENARY.getItemId() ) );
+                    addFormField( "whichitem2", String.valueOf( FightRequest.MERCENARY.getItemId() ) );
 				}
 				else if ( KoLConstants.inventory.contains( FightRequest.DESTROYER ) )
 				{
 					FightRequest.nextAction += "," + FightRequest.DESTROYER_ACTION;
-					this.addFormField( "whichitem2", String.valueOf( FightRequest.DESTROYER.getItemId() ) );
+                    addFormField( "whichitem2", String.valueOf( FightRequest.DESTROYER.getItemId() ) );
 				}
 				else if ( KoLConstants.inventory.contains( FightRequest.LASER ) )
 				{
 					FightRequest.nextAction += "," + FightRequest.LASER_ACTION;
-					this.addFormField( "whichitem2", String.valueOf( FightRequest.LASER.getItemId() ) );
+                    addFormField( "whichitem2", String.valueOf( FightRequest.LASER.getItemId() ) );
 				}
 				else if ( KoLConstants.inventory.contains( FightRequest.STOMPER ) )
 				{
 					FightRequest.nextAction += "," + FightRequest.STOMPER_ACTION;
-					this.addFormField( "whichitem2", String.valueOf( FightRequest.STOMPER.getItemId() ) );
+                    addFormField( "whichitem2", String.valueOf( FightRequest.STOMPER.getItemId() ) );
 				}
 				else if ( KoLConstants.inventory.contains( FightRequest.TOOTH ) )
 				{
 					FightRequest.nextAction += "," + FightRequest.TOOTH_ACTION;
-					this.addFormField( "whichitem2", String.valueOf( FightRequest.TOOTH.getItemId() ) );
+                    addFormField( "whichitem2", String.valueOf( FightRequest.TOOTH.getItemId() ) );
 				}
 				else if ( KoLConstants.inventory.contains( FightRequest.SPICES ) )
 				{
 					FightRequest.nextAction += "," + FightRequest.SPICES_ACTION;
-					this.addFormField( "whichitem2", String.valueOf( FightRequest.SPICES.getItemId() ) );
+                    addFormField( "whichitem2", String.valueOf( FightRequest.SPICES.getItemId() ) );
 				}
 			}
 			else if ( itemCount >= 2 && !soloUseCombatItem( item1 ))
 			{
 				FightRequest.nextAction += "," + FightRequest.nextAction;
-				this.addFormField( "whichitem2", String.valueOf( item1 ) );
+                addFormField( "whichitem2", String.valueOf( item1 ) );
 			}
 
 			return;
@@ -1076,10 +1076,10 @@ public class FightRequest
 
 		if ( skillName == null || !SkillDatabase.isCombat( skillId ) )
 		{
-			if ( this.isAcceptable( 0, 0 ) )
+			if ( isAcceptable( 0, 0 ) )
 			{
 				FightRequest.nextAction = "attack";
-				this.addFormField( "action", FightRequest.nextAction );
+                addFormField( "action", FightRequest.nextAction );
 				return;
 			}
 
@@ -1099,7 +1099,7 @@ public class FightRequest
 			     KoLConstants.activeEffects.contains( EffectPool.get( Effect.ON_THE_TRAIL ) ) )
 			{
 				--FightRequest.preparatoryRounds;
-				this.nextRound( null );
+                nextRound( null );
 				return;
 			}
 		}
@@ -1110,7 +1110,7 @@ public class FightRequest
 			if ( Preferences.getInteger( "burrowgrubSummonsRemaining" ) <= 0 )
 			{
 				--FightRequest.preparatoryRounds;
-				this.nextRound( null );
+                nextRound( null );
 				return;
 			}
 		}
@@ -1120,7 +1120,7 @@ public class FightRequest
 			if ( FightRequest.castNoodles )
 			{
 				--FightRequest.preparatoryRounds;
-				this.nextRound( null );
+                nextRound( null );
 				return;
 			}
 		}
@@ -1130,7 +1130,7 @@ public class FightRequest
 			if ( FightRequest.squeezedStressBall )
 			{
 				--FightRequest.preparatoryRounds;
-				this.nextRound( null );
+                nextRound( null );
 				return;
 			}
 		}
@@ -1142,7 +1142,7 @@ public class FightRequest
 			     KoLCharacter.getEffectiveFamiliar().getId() != FamiliarPool.OBTUSE_ANGEL )
 			{
 				--FightRequest.preparatoryRounds;
-				this.nextRound( null );
+                nextRound( null );
 				return;
 			}
 		}
@@ -1154,7 +1154,7 @@ public class FightRequest
 			     KoLCharacter.getEffectiveFamiliar().getId() != FamiliarPool.OBTUSE_ANGEL )
 			{
 				--FightRequest.preparatoryRounds;
-				this.nextRound( null );
+                nextRound( null );
 				return;
 			}
 		}
@@ -1166,7 +1166,7 @@ public class FightRequest
 			     KoLCharacter.getEffectiveFamiliar().getId() != FamiliarPool.OBTUSE_ANGEL )
 			{
 				--FightRequest.preparatoryRounds;
-				this.nextRound( null );
+                nextRound( null );
 				return;
 			}
 		}
@@ -1178,7 +1178,7 @@ public class FightRequest
 			     KoLCharacter.getEffectiveFamiliar().getId() != FamiliarPool.OBTUSE_ANGEL )
 			{
 				--FightRequest.preparatoryRounds;
-				this.nextRound( null );
+                nextRound( null );
 				return;
 			}
 		}
@@ -1189,7 +1189,7 @@ public class FightRequest
 			if ( !FightRequest.canStomp )
 			{
 				--FightRequest.preparatoryRounds;
-				this.nextRound( null );
+                nextRound( null );
 				return;
 			}
 		}
@@ -1200,7 +1200,7 @@ public class FightRequest
 			if ( !KoLConstants.activeEffects.contains( FightRequest.INFERNO ) )
 			{
 				--FightRequest.preparatoryRounds;
-				this.nextRound( null );
+                nextRound( null );
 				return;
 			}
 		}
@@ -1211,7 +1211,7 @@ public class FightRequest
 			if ( !Preferences.getBoolean( "autoManaRestore" ) )
 			{
 				--FightRequest.preparatoryRounds;
-				this.nextRound( null );
+                nextRound( null );
 				return;
 			}
 
@@ -1228,7 +1228,7 @@ public class FightRequest
 					FightRequest.nextAction = String.valueOf( MPRestoreItemList.CONFIGURES[ i ].getItem().getItemId() );
 
 					++FightRequest.preparatoryRounds;
-					this.updateCurrentAction();
+                    updateCurrentAction();
 					return;
 				}
 			}
@@ -1242,7 +1242,7 @@ public class FightRequest
 			if ( FightRequest.castCleesh )
 			{
 				FightRequest.nextAction = "attack";
-				this.addFormField( "action", FightRequest.nextAction );
+                addFormField( "action", FightRequest.nextAction );
 				return;
 			}
 
@@ -1255,8 +1255,8 @@ public class FightRequest
 			return;
 		}
 
-		this.addFormField( "action", "skill" );
-		this.addFormField( "whichskill", skillIdString );
+        addFormField( "action", "skill" );
+        addFormField( "whichskill", skillIdString );
 	}
 
 	private static boolean problemFamiliar()
@@ -1339,14 +1339,14 @@ public class FightRequest
 
 	public void runOnce( final String desiredAction )
 	{
-		this.clearDataFields();
+        clearDataFields();
 
 		FightRequest.nextAction = null;
 		FightRequest.isUsingConsultScript = false;
 
 		if ( !KoLmafia.refusesContinue() )
 		{
-			this.nextRound( desiredAction );
+            nextRound( desiredAction );
 		}
 
 		if ( !FightRequest.isUsingConsultScript )
@@ -1366,17 +1366,17 @@ public class FightRequest
 	@Override
 	public void run()
 	{
-		this.constructURLString( "fight.php" );
+        constructURLString( "fight.php" );
 
 		FightRequest.isAutomatingFight = true;
 
 		do
 		{
-			this.runOnce( null );
+            runOnce( null );
 		}
-		while ( this.responseCode == 200 && FightRequest.currentRound != 0 && !KoLmafia.refusesContinue() );
+		while ( responseCode == 200 && FightRequest.currentRound != 0 && !KoLmafia.refusesContinue() );
 
-		if ( this.responseCode == 302 )
+		if ( responseCode == 302 )
 		{
 			FightRequest.clearInstanceData();
 		}
@@ -1384,7 +1384,7 @@ public class FightRequest
 		if ( KoLmafia.refusesContinue() && FightRequest.currentRound != 0
 			&& !FightRequest.isTrackingFights() )
 		{
-			this.showInBrowser( true );
+            showInBrowser( true );
 		}
 
 		FightRequest.isAutomatingFight = false;
@@ -1420,31 +1420,31 @@ public class FightRequest
 		}
 		else if ( FightRequest.desiredScroll != null )
 		{
-			this.createAddingScroll( FightRequest.desiredScroll );
+            createAddingScroll( FightRequest.desiredScroll );
 		}
 		else if ( GoalManager.hasGoal( FightRequest.SCROLL_64735 ) )
 		{
-			this.createAddingScroll( FightRequest.SCROLL_64735 );
+            createAddingScroll( FightRequest.SCROLL_64735 );
 		}
 		else if ( GoalManager.hasGoal( FightRequest.SCROLL_64067 ) )
 		{
-			this.createAddingScroll( FightRequest.SCROLL_64067 );
+            createAddingScroll( FightRequest.SCROLL_64067 );
 		}
 		else if ( GoalManager.hasGoal( FightRequest.SCROLL_31337 ) )
 		{
-			this.createAddingScroll( FightRequest.SCROLL_31337 );
+            createAddingScroll( FightRequest.SCROLL_31337 );
 		}
 		else if ( GoalManager.hasGoal( FightRequest.SCROLL_668 ) )
 		{
-			this.createAddingScroll( FightRequest.SCROLL_668 );
+            createAddingScroll( FightRequest.SCROLL_668 );
 		}
 		else if ( action >= 3 )
 		{
-			this.createAddingScroll( FightRequest.SCROLL_31337 );
+            createAddingScroll( FightRequest.SCROLL_31337 );
 		}
 		else if ( action >= 2 )
 		{
-			this.createAddingScroll( FightRequest.SCROLL_668 );
+            createAddingScroll( FightRequest.SCROLL_668 );
 		}
 	}
 
@@ -1505,12 +1505,12 @@ public class FightRequest
 
 		if ( !KoLConstants.inventory.contains( part1 ) )
 		{
-			return this.createAddingScroll( part1 ) || this.createAddingScroll( part2 );
+			return createAddingScroll( part1 ) || createAddingScroll( part2 );
 		}
 
 		if ( !KoLConstants.inventory.contains( part2 ) )
 		{
-			return this.createAddingScroll( part2 );
+			return createAddingScroll( part2 );
 		}
 
 		if ( !KoLCharacter.hasSkill( "Ambidextrous Funkslinging" ) )
@@ -1559,7 +1559,7 @@ public class FightRequest
 
 	private String getMonsterWeakenAction()
 	{
-		if ( this.isAcceptable( 0, 0 ) )
+		if ( isAcceptable( 0, 0 ) )
 		{
 			return "attack";
 		}
@@ -1571,35 +1571,35 @@ public class FightRequest
 		if ( !isAcceptable && KoLCharacter.hasSkill( "Disco Eye-Poke" ) )
 		{
 			desiredSkill = 5003;
-			isAcceptable = this.isAcceptable( -1, -1 );
+			isAcceptable = isAcceptable( -1, -1 );
 		}
 
 		// Disco Dance of Doom
 		if ( !isAcceptable && KoLCharacter.hasSkill( "Disco Dance of Doom" ) )
 		{
 			desiredSkill = 5005;
-			isAcceptable = this.isAcceptable( -3, -3 );
+			isAcceptable = isAcceptable( -3, -3 );
 		}
 
 		// Disco Dance II: Electric Boogaloo
 		if ( !isAcceptable && KoLCharacter.hasSkill( "Disco Dance II: Electric Boogaloo" ) )
 		{
 			desiredSkill = 5008;
-			isAcceptable = this.isAcceptable( -5, -5 );
+			isAcceptable = isAcceptable( -5, -5 );
 		}
 
 		// Tango of Terror
 		if ( !isAcceptable && KoLCharacter.hasSkill( "Tango of Terror" ) )
 		{
 			desiredSkill = 5019;
-			isAcceptable = this.isAcceptable( -6, -6 );
+			isAcceptable = isAcceptable( -6, -6 );
 		}
 
 		// Disco Face Stab
 		if ( !isAcceptable && KoLCharacter.hasSkill( "Disco Face Stab" ) )
 		{
 			desiredSkill = 5012;
-			isAcceptable = this.isAcceptable( -7, -7 );
+			isAcceptable = isAcceptable( -7, -7 );
 		}
 
 		return desiredSkill == 0 ? "attack" : "skill" + desiredSkill;
@@ -3641,33 +3641,33 @@ public class FightRequest
 		public TagStatus()
 		{
 			FamiliarData current = KoLCharacter.getFamiliar();
-			this.familiar = current.getImageLocation();
-			this.doppel =
+            familiar = current.getImageLocation();
+            doppel =
 				( current.getId() == FamiliarPool.DOPPEL ) ||
 				KoLCharacter.hasEquipped( ItemPool.TINY_COSTUME_WARDROBE, EquipmentManager.FAMILIAR );
 
-			this.diceMessage = ( current.getId() == FamiliarPool.DICE ) ? ( current.getName() + " begins to roll." ) : null;
+            diceMessage = ( current.getId() == FamiliarPool.DICE ) ? ( current.getName() + " begins to roll." ) : null;
 
 
 			FamiliarData enthroned = KoLCharacter.getEnthroned();
 			this.enthroned = enthroned.getImageLocation();
-			this.logFamiliar = Preferences.getBoolean( "logFamiliarActions" );
-			this.logMonsterHealth = Preferences.getBoolean( "logMonsterHealth" );
-			this.action = new StringBuffer();
+            logFamiliar = Preferences.getBoolean( "logFamiliarActions" );
+            logMonsterHealth = Preferences.getBoolean( "logMonsterHealth" );
+            action = new StringBuffer();
 
-			this.shouldRefresh = false;
+            shouldRefresh = false;
 
 			// Note if we are fighting The Themthar Hills
-			this.nunnery = MonsterStatusTracker.getLastMonsterName().equals( "dirty thieving brigand" );
+            nunnery = MonsterStatusTracker.getLastMonsterName().equals( "dirty thieving brigand" );
 
 			if ( KoLCharacter.getClassType() == KoLCharacter.PASTAMANCER )
 			{
 				String name = Preferences.getString( "pastamancerGhostName" );
-				this.ghost = name.equals( "" ) ? null : name;
+                ghost = name.equals( "" ) ? null : name;
 			}
 			else
 			{
-				this.ghost = null;
+                ghost = null;
 			}
 		}
 
@@ -3684,8 +3684,8 @@ public class FightRequest
 				KoLCharacter.setEffectiveFamiliar( new FamiliarData( id ) );
 			}
 			FamiliarData effective = KoLCharacter.getEffectiveFamiliar();
-			this.familiar = image;
-			this.diceMessage = ( effective.getId() == FamiliarPool.DICE ) ? ( current.getName() + " begins to roll." ) : null;
+            familiar = image;
+            diceMessage = ( effective.getId() == FamiliarPool.DICE ) ? ( current.getName() + " begins to roll." ) : null;
 		}
 	}
 

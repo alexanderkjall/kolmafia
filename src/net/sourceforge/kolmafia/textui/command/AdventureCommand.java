@@ -52,7 +52,7 @@ public class AdventureCommand
 {
 	public AdventureCommand()
 	{
-		this.usage = "[?] last | [<count>] <location> - spend your turns.";
+        usage = "[?] last | [<count>] <location> - spend your turns.";
 	}
 
 	@Override

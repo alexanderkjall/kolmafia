@@ -59,41 +59,41 @@ public abstract class ThreadedListener
 
 	public void actionPerformed( final ActionEvent e )
 	{
-		if ( !this.isValidEvent( e ) )
+		if ( !isValidEvent( e ) )
 		{
 			return;
 		}
 
-		this.actionEvent = e;
+        actionEvent = e;
 		RequestThread.runInParallel( this );
 	}
 
 	public boolean isAction()
 	{
-		return ( this.actionEvent != null );
+		return (actionEvent != null );
 	}
 
 	public int getKeyCode()
 	{
-		if ( this.keyEvent == null )
+		if ( keyEvent == null )
 		{
 			return 0;
 		}
 
-		return this.keyEvent.getKeyCode();
+		return keyEvent.getKeyCode();
 	}
 
 	public boolean hasShiftModifier()
 	{
 		int modifiers = 0;
 
-		if ( this.actionEvent != null )
+		if ( actionEvent != null )
 		{
-			modifiers = this.actionEvent.getModifiers();
+			modifiers = actionEvent.getModifiers();
 		}
-		else if ( this.keyEvent != null )
+		else if ( keyEvent != null )
 		{
-			modifiers = this.keyEvent.getModifiers();
+			modifiers = keyEvent.getModifiers();
 		}
 
 		return ( modifiers & ActionEvent.SHIFT_MASK ) != 0;
@@ -139,12 +139,12 @@ public abstract class ThreadedListener
 			return;
 		}
 
-		if ( !this.isValidKeyCode( e.getKeyCode() ) )
+		if ( !isValidKeyCode( e.getKeyCode() ) )
 		{
 			return;
 		}
 
-		this.keyEvent = e;
+        keyEvent = e;
 		RequestThread.runInParallel( this );
 
 		e.consume();
@@ -178,7 +178,7 @@ public abstract class ThreadedListener
 
 	public void mouseReleased( MouseEvent e )
 	{
-		this.mouseEvent = e;
+        mouseEvent = e;
 
 		RequestThread.runInParallel( this );
 	}
@@ -193,38 +193,38 @@ public abstract class ThreadedListener
 
 	protected int getMousePositionX()
 	{
-		if ( this.mouseEvent == null )
+		if ( mouseEvent == null )
 		{
 			return -1;
 		}
 
-		return this.mouseEvent.getX();
+		return mouseEvent.getX();
 	}
 
 	protected int getMousePositionY()
 	{
-		if ( this.mouseEvent == null )
+		if ( mouseEvent == null )
 		{
 			return -1;
 		}
 
-		return this.mouseEvent.getY();
+		return mouseEvent.getY();
 	}
 
 	protected MouseEvent getMouseEvent()
 	{
-		return this.mouseEvent;
+		return mouseEvent;
 	}
 
 	protected JComponent getSource()
 	{
-		Object o = 
-			this.actionEvent != null ?
-			this.actionEvent.getSource() :
-			this.keyEvent != null ?
-			this.keyEvent.getSource() :
-			this.mouseEvent != null ?
-			this.mouseEvent.getSource() :
+		Object o =
+                actionEvent != null ?
+                        actionEvent.getSource() :
+                        keyEvent != null ?
+                                keyEvent.getSource() :
+                                mouseEvent != null ?
+                                        mouseEvent.getSource() :
 			null;			
 		return ( o instanceof JComponent ) ? (JComponent) o : null;
 	}
@@ -236,20 +236,20 @@ public abstract class ThreadedListener
 
 	public final void run()
 	{
-		this.execute();
+        execute();
 
-		if ( this.retainFocus() )
+		if ( retainFocus() )
 		{
-			JComponent source = this.getSource();
+			JComponent source = getSource();
 			if ( source != null )
 			{
 				source.grabFocus();
 			}
 		}
 
-		this.actionEvent = null;
-		this.keyEvent = null;
-		this.mouseEvent = null;
+        actionEvent = null;
+        keyEvent = null;
+        mouseEvent = null;
 	}
 
 	protected abstract void execute();

@@ -60,13 +60,13 @@ public class GourdRequest
 	public GourdRequest( boolean trade )
 	{
 		super( "town_right.php");
-		this.addFormField( trade ? "action" : "place", "gourd" );
+        addFormField( trade ? "action" : "place", "gourd" );
 	}
 
 	@Override
 	public void processResults()
 	{
-		GourdRequest.parseResponse( this.getURLString(), this.responseText );
+		GourdRequest.parseResponse( getURLString(), responseText );
 	}
 
 	private static final Pattern GOURD1_PATTERN = Pattern.compile( "Bring back (\\d*)", Pattern.DOTALL );

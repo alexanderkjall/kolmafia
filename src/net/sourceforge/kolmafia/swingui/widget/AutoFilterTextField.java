@@ -92,94 +92,94 @@ public class AutoFilterTextField
 
 	public AutoFilterTextField( final JList list )
 	{
-		this.setList( list );
+        setList( list );
 
-		this.addKeyListener( new FilterListener() );
+        addKeyListener( new FilterListener() );
 		
 		// Make this look like a normal search field on OS X.
 		// Note that the field MUST NOT be forced to a height other than its
 		// preferred height; that produces some ugly visual glitches.
 
-		this.putClientProperty( "JTextField.variant", "search" );
+        putClientProperty( "JTextField.variant", "search" );
 	}
 
 	public AutoFilterTextField( final JList list, Object initial )
 	{
-		this.setList( list );
+        setList( list );
 
-		this.addKeyListener( new FilterListener() );
+        addKeyListener( new FilterListener() );
 
 		// Make this look like a normal search field on OS X.
 		// Note that the field MUST NOT be forced to a height other than its
 		// preferred height; that produces some ugly visual glitches.
 
-		this.putClientProperty( "JTextField.variant", "search" );
+        putClientProperty( "JTextField.variant", "search" );
 
 		if ( initial != null )
 		{
-			this.setText( initial.toString() );
+            setText( initial.toString() );
 		}
 	}
 
 	public AutoFilterTextField( LockableListModel displayModel )
 	{
-		this.addKeyListener( new FilterListener() );
+        addKeyListener( new FilterListener() );
 
-		this.model = displayModel;
-		this.model.setFilter( this );
+        model = displayModel;
+        model.setFilter( this );
 
 		// Make this look like a normal search field on OS X.
 		// Note that the field MUST NOT be forced to a height other than its
 		// preferred height; that produces some ugly visual glitches.
 
-		this.putClientProperty( "JTextField.variant", "search" );
+        putClientProperty( "JTextField.variant", "search" );
 	}
 
 	public void setList( final JList list )
 	{
 		this.list = list;
-		this.model = (LockableListModel) list.getModel();
-		this.model.setFilter( this );
+        model = (LockableListModel) list.getModel();
+        model.setFilter( this );
 		this.list.clearSelection();
 	}
 
 	public void actionPerformed( final ActionEvent e )
 	{
-		this.prepareUpdate();
+        prepareUpdate();
 	}
 
 	@Override
 	public void setText( final String text )
 	{
 		super.setText( text );
-		this.prepareUpdate();
+        prepareUpdate();
 	}
 
 	public boolean isVisible( final Object element )
 	{
-		if ( this.qtyChecked )
+		if ( qtyChecked )
 		{
 			int qty = AutoFilterTextField.getResultQuantity( element );
-			if ( ( qty == this.quantity && !this.qtyEQ ) ||
-			     ( qty < this.quantity && !this.qtyLT ) ||
-			     ( qty > this.quantity && !this.qtyGT ) )
+			if ( ( qty == quantity && !qtyEQ) ||
+			     ( qty < quantity && !qtyLT) ||
+			     ( qty > quantity && !qtyGT) )
 			{
 				return false;
 			}
 		}
 
-		if ( this.asChecked )
+		if ( asChecked )
 		{
 			int as = AutoFilterTextField.getResultPrice( element );
-			if ( ( as == this.price && !this.asEQ ) ||
-			     ( as < this.price && !this.asLT ) ||
-			     ( as > this.price && !this.asGT ) )
+			if ( ( as == price && !asEQ) ||
+			     ( as < price && !asLT) ||
+			     ( as > price && !asGT) )
 			{
 				return false;
 			}
 		}
 
-		if ( this.text == null || this.text.length() == 0 )
+		if ( text == null || text.length() == 0 )
 		{
 			return true;
 		}
@@ -189,13 +189,13 @@ public class AutoFilterTextField
 
 		String elementName = AutoFilterTextField.getResultName( element );
 
-		if ( this.notChecked )
+		if ( notChecked )
 		{
-			return !elementName.contains( this.text );
+			return !elementName.contains( text );
 		}
 
-		return this.strict ? elementName.contains( this.text ) :
-			StringUtilities.fuzzyMatches( elementName, this.text );
+		return strict ? elementName.contains( text ) :
+			StringUtilities.fuzzyMatches( elementName, text );
 	}
 
 	public static String getResultName( final Object element )
@@ -292,92 +292,92 @@ public class AutoFilterTextField
 	{
 		try
 		{
-			AutoFilterTextField.this.model.setFiltering( true );
+            model.setFiltering( true );
 
-			AutoFilterTextField.this.qtyChecked = false;
-			AutoFilterTextField.this.asChecked = false;
-			AutoFilterTextField.this.notChecked = false;
-			AutoFilterTextField.this.text = AutoFilterTextField.this.getText().toLowerCase();
+            qtyChecked = false;
+            asChecked = false;
+            notChecked = false;
+            text = getText().toLowerCase();
 
-			Matcher mqty = AutoFilterTextField.QTYSEARCH_PATTERN.matcher( AutoFilterTextField.this.text );
+			Matcher mqty = AutoFilterTextField.QTYSEARCH_PATTERN.matcher( text );
 			if ( mqty.find() )
 			{
-				AutoFilterTextField.this.qtyChecked = true;
-				AutoFilterTextField.this.quantity = StringUtilities.parseInt( mqty.group( 2 ) );
+                qtyChecked = true;
+                quantity = StringUtilities.parseInt( mqty.group( 2 ) );
 
 				String op = mqty.group( 1 );
 
-				AutoFilterTextField.this.qtyEQ = op.contains( "=" );
-				AutoFilterTextField.this.qtyLT = op.contains( "<" );
-				AutoFilterTextField.this.qtyGT = op.contains( ">" );
-				AutoFilterTextField.this.text = mqty.replaceFirst( "" );
+                qtyEQ = op.contains( "=" );
+                qtyLT = op.contains( "<" );
+                qtyGT = op.contains( ">" );
+                text = mqty.replaceFirst( "" );
 			}
 
-			Matcher mas = AutoFilterTextField.ASSEARCH_PATTERN.matcher( AutoFilterTextField.this.text );
+			Matcher mas = AutoFilterTextField.ASSEARCH_PATTERN.matcher( text );
 			if ( mas.find() )
 			{
-				AutoFilterTextField.this.asChecked = true;
-				AutoFilterTextField.this.price = StringUtilities.parseInt( mas.group( 2 ) );
+                asChecked = true;
+                price = StringUtilities.parseInt( mas.group( 2 ) );
 
 				String op = mas.group( 1 );
 
-				AutoFilterTextField.this.asEQ = op.contains( "=" );
-				AutoFilterTextField.this.asLT = op.contains( "<" );
-				AutoFilterTextField.this.asGT = op.contains( ">" );
-				AutoFilterTextField.this.text = mas.replaceFirst( "" );
+                asEQ = op.contains( "=" );
+                asLT = op.contains( "<" );
+                asGT = op.contains( ">" );
+                text = mas.replaceFirst( "" );
 			}
 
-			Matcher mnot = AutoFilterTextField.NOTSEARCH_PATTERN.matcher( AutoFilterTextField.this.text );
+			Matcher mnot = AutoFilterTextField.NOTSEARCH_PATTERN.matcher( text );
 			if ( mnot.find() )
 			{
-				AutoFilterTextField.this.notChecked = true;
-				AutoFilterTextField.this.text = mnot.group( 1 );
+                notChecked = true;
+                text = mnot.group( 1 );
 			}
 
-			AutoFilterTextField.this.strict = true;
-			AutoFilterTextField.this.model.updateFilter( false );
+            strict = true;
+            model.updateFilter( false );
 
-			if ( AutoFilterTextField.this.model.getSize() == 0 )
+			if ( model.getSize() == 0 )
 			{
-				AutoFilterTextField.this.strict = false;
-				AutoFilterTextField.this.model.updateFilter( false );
+                strict = false;
+                model.updateFilter( false );
 			}
 
-			if ( AutoFilterTextField.this.list != null )
+			if ( list != null )
 			{
-				if ( AutoFilterTextField.this.model.getSize() == 1 )
+				if ( model.getSize() == 1 )
 				{
-					AutoFilterTextField.this.list.setSelectedIndex( 0 );
+                    list.setSelectedIndex( 0 );
 				}
-				else if ( AutoFilterTextField.this.list.getSelectedIndices().length != 1 )
+				else if ( list.getSelectedIndices().length != 1 )
 				{
-					AutoFilterTextField.this.list.clearSelection();
+                    list.clearSelection();
 				}
 			}
 		}
 		finally
 		{
-			AutoFilterTextField.this.model.setFiltering( false );
+            model.setFiltering( false );
 
-			if ( AutoFilterTextField.this.model.size() > 0 )
+			if ( model.size() > 0 )
 			{
-				AutoFilterTextField.this.model.fireContentsChanged(
-					AutoFilterTextField.this.model, 0, AutoFilterTextField.this.model.size() - 1 );
+                model.fireContentsChanged(
+                        model, 0, model.size() - 1 );
 			}
 		}
 	}
 
 	public synchronized void prepareUpdate()
 	{
-		if ( AutoFilterTextField.this.thread != null )
+		if ( thread != null )
 		{
-			AutoFilterTextField.this.thread.prepareUpdate();
+            thread.prepareUpdate();
 			return;
 		}
 
-		AutoFilterTextField.this.thread = new FilterDelayThread();
+        thread = new FilterDelayThread();
 
-		AutoFilterTextField.this.thread.start();
+        thread.start();
 	}
 
 	private class FilterListener
@@ -386,7 +386,7 @@ public class AutoFilterTextField
 		@Override
 		public void keyReleased( final KeyEvent e )
 		{
-			AutoFilterTextField.this.prepareUpdate();
+            prepareUpdate();
 		}
 	}
 
@@ -400,9 +400,9 @@ public class AutoFilterTextField
 		{
 			PauseObject pauser = new PauseObject();
 
-			while ( this.updating )
+			while ( updating )
 			{
-				this.updating = false;
+                updating = false;
 				pauser.pause( 100 );
 			}
 
@@ -411,7 +411,7 @@ public class AutoFilterTextField
 
 		public void prepareUpdate()
 		{
-			this.updating = true;
+            updating = true;
 		}
 	}
 
@@ -420,9 +420,9 @@ public class AutoFilterTextField
 	{
 		public void run()
 		{
-			AutoFilterTextField.this.thread = null;
+            thread = null;
 
-			AutoFilterTextField.this.update();
+            update();
 		}
 	}
 }

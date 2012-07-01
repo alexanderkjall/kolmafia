@@ -197,7 +197,7 @@ public class RequestEditorKit
 		@Override
 		public URL getImageURL()
 		{
-			String src = (String) this.getElement().getAttributes().getAttribute( HTML.Attribute.SRC );
+			String src = (String) getElement().getAttributes().getAttribute( HTML.Attribute.SRC );
 
 			if ( src == null )
 			{
@@ -2312,7 +2312,7 @@ public class RequestEditorKit
 		{
 			// Get the element
 
-			Element inputElement = this.getElement();
+			Element inputElement = getElement();
 
 			if ( inputElement == null )
 			{
@@ -2322,7 +2322,7 @@ public class RequestEditorKit
 			// Retrieve the frame which is being used by this form
 			// viewer.
 
-			RequestFrame frame = this.findFrame();
+			RequestFrame frame = findFrame();
 
 			// If there is no frame, then there's nothing to
 			// refresh, so return.
@@ -2455,7 +2455,7 @@ public class RequestEditorKit
 			// Try 2: enumerate containers to find the RequestPane, enumerate
 			// Frames to find the RequestFrame that owns it.
 
-			Container c = this.getContainer();
+			Container c = getContainer();
 			while ( c != null && !(c instanceof RequestPane) )
 			{
 				c = c.getParent();

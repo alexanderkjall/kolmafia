@@ -66,16 +66,16 @@ public class CollapsibleTextArea
 	{
 		this.label = new JLabel( label );
 
-		this.area = new JTextArea( 1, 30 );
+        area = new JTextArea( 1, 30 );
 		area.setLineWrap( true );
 		area.setFont( KoLConstants.DEFAULT_FONT );
 		area.setBorder( BorderFactory.createLineBorder( Color.black ) );
 		area.setMinimumSize( area.getPreferredSize() );
 
-		this.setLayout( new GridBagLayout() );
+        setLayout( new GridBagLayout() );
 		GridBagConstraints c = new GridBagConstraints();
 
-		Action act = this.getActionMap().get( JXCollapsiblePane.TOGGLE_ACTION );
+		Action act = getActionMap().get( JXCollapsiblePane.TOGGLE_ACTION );
 
 		JButton collapser = new JButton( act );
 		collapser.setText( "" );
@@ -93,15 +93,15 @@ public class CollapsibleTextArea
 		c.gridx = 0;
 		c.gridy = 0;
 		c.fill = GridBagConstraints.NONE;
-		this.add( collapser, c );
+        add( collapser, c );
 
 		c.anchor = GridBagConstraints.EAST;
 		c.gridx = 1;
 		c.gridy = 0;
 		c.fill = GridBagConstraints.HORIZONTAL;
-		this.add( area, c );
+        add( area, c );
 
-		this.setMinimumSize( new Dimension( 1, this.getPreferredSize().height ) );
+        setMinimumSize( new Dimension( 1, getPreferredSize().height ) );
 	}
 
 	public CollapsibleTextArea()
@@ -116,16 +116,16 @@ public class CollapsibleTextArea
 
 	public String getText()
 	{
-		return this.area.getText();
+		return area.getText();
 	}
 
 	public JTextArea getArea()
 	{
-		return this.area;
+		return area;
 	}
 
 	public void setText( String text )
 	{
-		this.area.setText( text );
+        area.setText( text );
 	}
 }

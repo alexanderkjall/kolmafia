@@ -56,7 +56,7 @@ public class DisplayFrameButton
 	{
 		super( JComponentUtilities.getImage( icon ), new DisplayFrameListener( frameClass ) );
 		JComponentUtilities.setComponentSize( this, 32, 32 );
-		this.setToolTipText( tooltip );
+        setToolTipText( tooltip );
 	}
 }
 

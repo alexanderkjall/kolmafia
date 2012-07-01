@@ -111,21 +111,21 @@ public class CompactSidePane
 		int panelCount = -1;
 
 		panels[ ++panelCount ] = new JPanel( new BorderLayout() );
-		this.levelPanel = panels[ 0 ];
+        levelPanel = panels[ 0 ];
 
-		panels[ panelCount ].add( this.levelLabel = new JLabel( " ", JLabel.CENTER ), BorderLayout.NORTH );
+		panels[ panelCount ].add( levelLabel = new JLabel( " ", JLabel.CENTER ), BorderLayout.NORTH );
 
-		panels[ panelCount ].add( this.levelMeter = new JProgressBar(), BorderLayout.CENTER );
-		this.levelMeter.setOpaque( true );
-		this.levelMeter.setStringPainted( true );
-		JComponentUtilities.setComponentSize( this.levelMeter, 40, 6 );
+		panels[ panelCount ].add( levelMeter = new JProgressBar(), BorderLayout.CENTER );
+        levelMeter.setOpaque( true );
+        levelMeter.setStringPainted( true );
+		JComponentUtilities.setComponentSize( levelMeter, 40, 6 );
 		panels[ panelCount ].add( Box.createHorizontalStrut( 10 ), BorderLayout.WEST );
 		panels[ panelCount ].add( Box.createHorizontalStrut( 10 ), BorderLayout.EAST );
 		panels[ panelCount ].setOpaque( false );
 
 		JPanel holderPanel = new JPanel( new GridLayout( 2, 1 ) );
-		holderPanel.add( this.roninLabel = new JLabel( " ", JLabel.CENTER ) );
-		holderPanel.add( this.mcdLabel = new JLabel( " ", JLabel.CENTER ) );
+		holderPanel.add( roninLabel = new JLabel( " ", JLabel.CENTER ) );
+		holderPanel.add( mcdLabel = new JLabel( " ", JLabel.CENTER ) );
 		holderPanel.setOpaque( false );
 		panels[ panelCount ].add( holderPanel, BorderLayout.SOUTH );
 
@@ -142,9 +142,9 @@ public class CompactSidePane
 		valuePanel = new JPanel( new GridLayout( 3, 1 ) );
 		valuePanel.setOpaque( false );
 
-		valuePanel.add( this.musLabel = new JLabel( " ", JLabel.LEFT ) );
-		valuePanel.add( this.mysLabel = new JLabel( " ", JLabel.LEFT ) );
-		valuePanel.add( this.moxLabel = new JLabel( " ", JLabel.LEFT ) );
+		valuePanel.add( musLabel = new JLabel( " ", JLabel.LEFT ) );
+		valuePanel.add( mysLabel = new JLabel( " ", JLabel.LEFT ) );
+		valuePanel.add( moxLabel = new JLabel( " ", JLabel.LEFT ) );
 
 		panels[ panelCount ].add( labelPanel, BorderLayout.WEST );
 		panels[ panelCount ].add( valuePanel, BorderLayout.CENTER );
@@ -163,10 +163,10 @@ public class CompactSidePane
 		valuePanel = new JPanel( new GridLayout( 4, 1 ) );
 		valuePanel.setOpaque( false );
 
-		valuePanel.add( this.hpLabel = new JLabel( " ", JLabel.LEFT ) );
-		valuePanel.add( this.mpLabel = new JLabel( " ", JLabel.LEFT ) );
-		valuePanel.add( this.meatLabel = new JLabel( " ", JLabel.LEFT ) );
-		valuePanel.add( this.advLabel = new JLabel( " ", JLabel.LEFT ) );
+		valuePanel.add( hpLabel = new JLabel( " ", JLabel.LEFT ) );
+		valuePanel.add( mpLabel = new JLabel( " ", JLabel.LEFT ) );
+		valuePanel.add( meatLabel = new JLabel( " ", JLabel.LEFT ) );
+		valuePanel.add( advLabel = new JLabel( " ", JLabel.LEFT ) );
 
 		panels[ panelCount ].add( labelPanel, BorderLayout.WEST );
 		panels[ panelCount ].add( valuePanel, BorderLayout.CENTER );
@@ -184,37 +184,37 @@ public class CompactSidePane
 		valuePanel = new JPanel( new GridLayout( 3, 1 ) );
 		valuePanel.setOpaque( false );
 
-		valuePanel.add( this.fullLabel = new JLabel( " ", JLabel.LEFT ) );
-		valuePanel.add( this.drunkLabel = new JLabel( " ", JLabel.LEFT ) );
-		valuePanel.add( this.spleenLabel = new JLabel( " ", JLabel.LEFT ) );
+		valuePanel.add( fullLabel = new JLabel( " ", JLabel.LEFT ) );
+		valuePanel.add( drunkLabel = new JLabel( " ", JLabel.LEFT ) );
+		valuePanel.add( spleenLabel = new JLabel( " ", JLabel.LEFT ) );
 
 		panels[ panelCount ].add( labelPanel, BorderLayout.WEST );
 		panels[ panelCount ].add( valuePanel, BorderLayout.CENTER );
 
 		panels[ ++panelCount ] = new JPanel( new GridLayout( 1, 1 ) );
-		panels[ panelCount ].add( this.familiarLabel = new UnanimatedLabel() );
+		panels[ panelCount ].add( familiarLabel = new UnanimatedLabel() );
 		panels[ panelCount ].addMouseListener( new FamPopListener() );
 
 		panels[ ++panelCount ] = new JPanel( new GridLayout( 8, 2 ) );
 		panels[ panelCount ].add( new JLabel( "ML: ", JLabel.RIGHT ) );
-		panels[ panelCount ].add( this.mlLabel = new JLabel( " ", JLabel.LEFT ) );
+		panels[ panelCount ].add( mlLabel = new JLabel( " ", JLabel.LEFT ) );
 		panels[ panelCount ].add( new JLabel( "Enc: ", JLabel.RIGHT ) );
-		panels[ panelCount ].add( this.encLabel = new JLabel( " ", JLabel.LEFT ) );
+		panels[ panelCount ].add( encLabel = new JLabel( " ", JLabel.LEFT ) );
 		panels[ panelCount ].add( new JLabel( "Init: ", JLabel.RIGHT ) );
-		panels[ panelCount ].add( this.initLabel = new JLabel( " ", JLabel.LEFT ) );
+		panels[ panelCount ].add( initLabel = new JLabel( " ", JLabel.LEFT ) );
 		panels[ panelCount ].add( new JLabel( "Exp: ", JLabel.RIGHT ) );
-		panels[ panelCount ].add( this.expLabel = new JLabel( " ", JLabel.LEFT ) );
+		panels[ panelCount ].add( expLabel = new JLabel( " ", JLabel.LEFT ) );
 		panels[ panelCount ].add( new JLabel( "Meat: ", JLabel.RIGHT ) );
-		panels[ panelCount ].add( this.meatDropLabel = new JLabel( " ", JLabel.LEFT ) );
+		panels[ panelCount ].add( meatDropLabel = new JLabel( " ", JLabel.LEFT ) );
 		panels[ panelCount ].add( new JLabel( "Item: ", JLabel.RIGHT ) );
-		panels[ panelCount ].add( this.itemDropLabel = new JLabel( " ", JLabel.LEFT ) );
-		panels[ panelCount ].add( this.hoboLabel = new JLabel( " ", JLabel.RIGHT ) );
-		panels[ panelCount ].add( this.hoboPowerLabel = new JLabel( " ", JLabel.LEFT ) );
-		panels[ panelCount ].add( this.beeLabel = new JLabel( " ", JLabel.RIGHT ) );
-		panels[ panelCount ].add( this.beeosityLabel = new JLabel( " ", JLabel.LEFT ) );
-		this.modPopLabel = new JLabel();
-		this.modPopup = new JPopupMenu();
-		this.modPopup.insert( this.modPopLabel, 0 );
+		panels[ panelCount ].add( itemDropLabel = new JLabel( " ", JLabel.LEFT ) );
+		panels[ panelCount ].add( hoboLabel = new JLabel( " ", JLabel.RIGHT ) );
+		panels[ panelCount ].add( hoboPowerLabel = new JLabel( " ", JLabel.LEFT ) );
+		panels[ panelCount ].add( beeLabel = new JLabel( " ", JLabel.RIGHT ) );
+		panels[ panelCount ].add( beeosityLabel = new JLabel( " ", JLabel.LEFT ) );
+        modPopLabel = new JLabel();
+        modPopup = new JPopupMenu();
+        modPopup.insert( modPopLabel, 0 );
 		panels[ panelCount ].addMouseListener( new ModPopListener() );
 
 		JPanel compactContainer = new JPanel();
@@ -236,31 +236,31 @@ public class CompactSidePane
 		refreshPanel.setOpaque( false );
 		refreshPanel.add( new RequestButton( "Refresh Status", "refresh.gif", new ApiRequest() ) );
 
-		this.add( refreshPanel, BorderLayout.SOUTH );
-		this.add( compactCard, BorderLayout.NORTH );
+        add( refreshPanel, BorderLayout.SOUTH );
+        add( compactCard, BorderLayout.NORTH );
 
-		this.levelLabel.setForeground( Color.BLACK );
-		this.roninLabel.setForeground( Color.BLACK );
-		this.mcdLabel.setForeground( Color.BLACK );
-		this.musLabel.setForeground( Color.BLACK );
-		this.mysLabel.setForeground( Color.BLACK );
-		this.moxLabel.setForeground( Color.BLACK );
-		this.fullLabel.setForeground( Color.BLACK );
-		this.drunkLabel.setForeground( Color.BLACK );
-		this.spleenLabel.setForeground( Color.BLACK );
-		this.hpLabel.setForeground( Color.BLACK );
-		this.mpLabel.setForeground( Color.BLACK );
-		this.meatLabel.setForeground( Color.BLACK );
-		this.advLabel.setForeground( Color.BLACK );
-		this.familiarLabel.setForeground( Color.BLACK );
-		this.mlLabel.setForeground( Color.BLACK );
-		this.encLabel.setForeground( Color.BLACK );
-		this.initLabel.setForeground( Color.BLACK );
-		this.expLabel.setForeground( Color.BLACK );
-		this.meatDropLabel.setForeground( Color.BLACK );
-		this.itemDropLabel.setForeground( Color.BLACK );
-		this.hoboPowerLabel.setForeground( Color.BLACK );
-		this.beeosityLabel.setForeground( Color.BLACK );
+        levelLabel.setForeground( Color.BLACK );
+        roninLabel.setForeground( Color.BLACK );
+        mcdLabel.setForeground( Color.BLACK );
+        musLabel.setForeground( Color.BLACK );
+        mysLabel.setForeground( Color.BLACK );
+        moxLabel.setForeground( Color.BLACK );
+        fullLabel.setForeground( Color.BLACK );
+        drunkLabel.setForeground( Color.BLACK );
+        spleenLabel.setForeground( Color.BLACK );
+        hpLabel.setForeground( Color.BLACK );
+        mpLabel.setForeground( Color.BLACK );
+        meatLabel.setForeground( Color.BLACK );
+        advLabel.setForeground( Color.BLACK );
+        familiarLabel.setForeground( Color.BLACK );
+        mlLabel.setForeground( Color.BLACK );
+        encLabel.setForeground( Color.BLACK );
+        initLabel.setForeground( Color.BLACK );
+        expLabel.setForeground( Color.BLACK );
+        meatDropLabel.setForeground( Color.BLACK );
+        itemDropLabel.setForeground( Color.BLACK );
+        hoboPowerLabel.setForeground( Color.BLACK );
+        beeosityLabel.setForeground( Color.BLACK );
 	}
 
 	private class ModPopListener
@@ -269,8 +269,8 @@ public class CompactSidePane
 		@Override
 		public void mousePressed( MouseEvent e )
 		{
-			CompactSidePane.this.modPopup.show( e.getComponent(),
-				e.getX(), e.getY() );
+            modPopup.show( e.getComponent(),
+                    e.getX(), e.getY() );
 		}
 	}
 
@@ -283,11 +283,11 @@ public class CompactSidePane
 			JPopupMenu famPopup = new JPopupMenu();
 			if ( KoLCharacter.inAxecore() )
 			{
-				this.addInstruments( famPopup );
+                addInstruments( famPopup );
 			}
 			else
 			{
-				this.addFamiliars( famPopup );
+                addFamiliars( famPopup );
 			}
 
 			famPopup.show( e.getComponent(), e.getX(), e.getY() );
@@ -435,7 +435,7 @@ public class CompactSidePane
 			if ( fam.getFavorite() )
 			{
 				ImageIcon icon = FamiliarDatabase.getFamiliarImage( fam.getId() );
-				this.setIcon( icon );
+                setIcon( icon );
 				icon.setImageObserver( this );
 			}
 		}
@@ -454,7 +454,7 @@ public class CompactSidePane
 		@Override
 		protected void execute()
 		{
-			CommandDisplayFrame.executeCommand( "familiar " + this.familiar.getRace() );
+			CommandDisplayFrame.executeCommand( "familiar " + familiar.getRace() );
 		}
 	}
 
@@ -465,7 +465,7 @@ public class CompactSidePane
 		{
 			super( item.getName(), new UseItemListener( item ) );
 			ImageIcon icon = ItemDatabase.getItemImage( item.getItemId() );
-			this.setIcon( icon );
+            setIcon( icon );
 			icon.setImageObserver( this );
 		}
 	}
@@ -477,13 +477,13 @@ public class CompactSidePane
 
 		public UseItemListener( AdventureResult item )
 		{
-			this.command = "use " + item.getName();
+            command = "use " + item.getName();
 		}
 
 		@Override
 		protected void execute()
 		{
-			CommandDisplayFrame.executeCommand( this.command );
+			CommandDisplayFrame.executeCommand( command );
 		}
 	}
 
@@ -494,86 +494,86 @@ public class CompactSidePane
 
 	public void run()
 	{
-		this.levelLabel.setText( "Level " + KoLCharacter.getLevel() );
+        levelLabel.setText( "Level " + KoLCharacter.getLevel() );
 
 		if ( CharPaneRequest.inValhalla() )
 		{
-			this.roninLabel.setText( "(Valhalla)" );
+            roninLabel.setText( "(Valhalla)" );
 		}
 		else if ( KoLCharacter.inBadMoon() )
 		{
-			this.roninLabel.setText( "(Bad Moon)" );
+            roninLabel.setText( "(Bad Moon)" );
 		}
 		else if ( KoLCharacter.isHardcore() )
 		{
-			this.roninLabel.setText( "(Hardcore)" );
+            roninLabel.setText( "(Hardcore)" );
 		}
 		else if ( KoLCharacter.canInteract() )
 		{
-			this.roninLabel.setText( "(Ronin Clear)" );
+            roninLabel.setText( "(Ronin Clear)" );
 		}
 		else
 		{
-			this.roninLabel.setText( "(Ronin for " + ( 1000 - KoLCharacter.getCurrentRun() ) + ")" );
+            roninLabel.setText( "(Ronin for " + (1000 - KoLCharacter.getCurrentRun()) + ")" );
 		}
 
-		this.mcdLabel.setText( "ML @ " + KoLCharacter.getMindControlLevel() );
+        mcdLabel.setText( "ML @ " + KoLCharacter.getMindControlLevel() );
 
-		this.musLabel.setText( this.getStatText( KoLCharacter.getAdjustedMuscle(), KoLCharacter.getBaseMuscle() ) );
-		this.mysLabel.setText( this.getStatText(
-			KoLCharacter.getAdjustedMysticality(), KoLCharacter.getBaseMysticality() ) );
-		this.moxLabel.setText( this.getStatText( KoLCharacter.getAdjustedMoxie(), KoLCharacter.getBaseMoxie() ) );
+        musLabel.setText( getStatText( KoLCharacter.getAdjustedMuscle(), KoLCharacter.getBaseMuscle() ) );
+        mysLabel.setText( getStatText(
+                KoLCharacter.getAdjustedMysticality(), KoLCharacter.getBaseMysticality() ) );
+        moxLabel.setText( getStatText( KoLCharacter.getAdjustedMoxie(), KoLCharacter.getBaseMoxie() ) );
 
-		this.fullLabel.setText( KoLCharacter.getFullness() + " / " + KoLCharacter.getFullnessLimit() );
-		this.drunkLabel.setText( KoLCharacter.getInebriety() + " / " + KoLCharacter.getInebrietyLimit() );
-		this.spleenLabel.setText( KoLCharacter.getSpleenUse() + " / " + KoLCharacter.getSpleenLimit() );
+        fullLabel.setText( KoLCharacter.getFullness() + " / " + KoLCharacter.getFullnessLimit() );
+        drunkLabel.setText( KoLCharacter.getInebriety() + " / " + KoLCharacter.getInebrietyLimit() );
+        spleenLabel.setText( KoLCharacter.getSpleenUse() + " / " + KoLCharacter.getSpleenLimit() );
 
-		this.hpLabel.setText( KoLConstants.COMMA_FORMAT.format( KoLCharacter.getCurrentHP() ) + " / " + KoLConstants.COMMA_FORMAT.format( KoLCharacter.getMaximumHP() ) );
-		this.mpLabel.setText( KoLConstants.COMMA_FORMAT.format( KoLCharacter.getCurrentMP() ) + " / " + KoLConstants.COMMA_FORMAT.format( KoLCharacter.getMaximumMP() ) );
-		this.meatLabel.setText( KoLConstants.COMMA_FORMAT.format( KoLCharacter.getAvailableMeat() ) );
-                this.meatLabel.setToolTipText( "Closet: " + KoLConstants.COMMA_FORMAT.format( KoLCharacter.getClosetMeat() ) );
-		this.advLabel.setText( String.valueOf( KoLCharacter.getAdventuresLeft() ) );
+        hpLabel.setText( KoLConstants.COMMA_FORMAT.format( KoLCharacter.getCurrentHP() ) + " / " + KoLConstants.COMMA_FORMAT.format( KoLCharacter.getMaximumHP() ) );
+        mpLabel.setText( KoLConstants.COMMA_FORMAT.format( KoLCharacter.getCurrentMP() ) + " / " + KoLConstants.COMMA_FORMAT.format( KoLCharacter.getMaximumMP() ) );
+        meatLabel.setText( KoLConstants.COMMA_FORMAT.format( KoLCharacter.getAvailableMeat() ) );
+        meatLabel.setToolTipText( "Closet: " + KoLConstants.COMMA_FORMAT.format( KoLCharacter.getClosetMeat() ) );
+        advLabel.setText( String.valueOf( KoLCharacter.getAdventuresLeft() ) );
 
-		this.mlLabel.setText( KoLConstants.MODIFIER_FORMAT.format( KoLCharacter.getMonsterLevelAdjustment() ) );
-		this.encLabel.setText( KoLConstants.ROUNDED_MODIFIER_FORMAT.format( KoLCharacter.getCombatRateAdjustment() ) + "%" );
-		this.initLabel.setText( KoLConstants.ROUNDED_MODIFIER_FORMAT.format( KoLCharacter.getInitiativeAdjustment() ) + "%" );
-		this.expLabel.setText( KoLConstants.ROUNDED_MODIFIER_FORMAT.format( KoLCharacter.getExperienceAdjustment() ) );
-		this.meatDropLabel.setText( KoLConstants.ROUNDED_MODIFIER_FORMAT.format( KoLCharacter.getMeatDropPercentAdjustment() ) + "%" );
-		this.itemDropLabel.setText( KoLConstants.ROUNDED_MODIFIER_FORMAT.format( KoLCharacter.getItemDropPercentAdjustment() ) + "%" );
+        mlLabel.setText( KoLConstants.MODIFIER_FORMAT.format( KoLCharacter.getMonsterLevelAdjustment() ) );
+        encLabel.setText( KoLConstants.ROUNDED_MODIFIER_FORMAT.format( KoLCharacter.getCombatRateAdjustment() ) + "%" );
+        initLabel.setText( KoLConstants.ROUNDED_MODIFIER_FORMAT.format( KoLCharacter.getInitiativeAdjustment() ) + "%" );
+        expLabel.setText( KoLConstants.ROUNDED_MODIFIER_FORMAT.format( KoLCharacter.getExperienceAdjustment() ) );
+        meatDropLabel.setText( KoLConstants.ROUNDED_MODIFIER_FORMAT.format( KoLCharacter.getMeatDropPercentAdjustment() ) + "%" );
+        itemDropLabel.setText( KoLConstants.ROUNDED_MODIFIER_FORMAT.format( KoLCharacter.getItemDropPercentAdjustment() ) + "%" );
 		int hobo = KoLCharacter.getHoboPower();
 		int clown = KoLCharacter.getClownosity();
 		int rave = KoLCharacter.currentBitmapModifier( Modifiers.RAVEOSITY );
 		if ( hobo != 0 )
 		{
-			this.hoboLabel.setText( "Hobo: " );
-			this.hoboPowerLabel.setText( KoLConstants.MODIFIER_FORMAT.format( hobo ) );
+            hoboLabel.setText( "Hobo: " );
+            hoboPowerLabel.setText( KoLConstants.MODIFIER_FORMAT.format( hobo ) );
 		}
 		else if ( rave != 0 )
 		{
-			this.hoboLabel.setText( "Rave: " );
-			this.hoboPowerLabel.setText( rave + "/7" );
+            hoboLabel.setText( "Rave: " );
+            hoboPowerLabel.setText( rave + "/7" );
 		}
 		else if ( clown != 0 )
 		{
-			this.hoboLabel.setText( "Clown: " );
-			this.hoboPowerLabel.setText( clown + "/4" );
+            hoboLabel.setText( "Clown: " );
+            hoboPowerLabel.setText( clown + "/4" );
 		}
 		else
 		{
-			this.hoboLabel.setText( "" );
-			this.hoboPowerLabel.setText( "" );
+            hoboLabel.setText( "" );
+            hoboPowerLabel.setText( "" );
 		}
 
 		if ( KoLCharacter.inBeecore() )
 		{
 			int bee = KoLCharacter.getBeeosity();
-			this.beeLabel.setText( "Bees: " );
-			this.beeosityLabel.setText( bee + "" );
+            beeLabel.setText( "Bees: " );
+            beeosityLabel.setText( bee + "" );
 		}
 		else
 		{
-			this.beeLabel.setText( "" );
-			this.beeosityLabel.setText( "" );
+            beeLabel.setText( "" );
+            beeosityLabel.setText( "" );
 		}
 
 		StringBuffer buf = new StringBuffer( "<html><table border=1>" );
@@ -618,12 +618,12 @@ public class CompactSidePane
 		}
 
 		buf.append( "<tr><td></td><td>Damage</td><td>Spell dmg</td><td>Resistance</td></tr>" );
-		this.addElement( buf, "Hot", Modifiers.HOT_DAMAGE );
-		this.addElement( buf, "Cold", Modifiers.COLD_DAMAGE );
-		this.addElement( buf, "Stench", Modifiers.STENCH_DAMAGE );
-		this.addElement( buf, "Spooky", Modifiers.SPOOKY_DAMAGE );
-		this.addElement( buf, "Sleaze", Modifiers.SLEAZE_DAMAGE );
-		this.addSlime( buf );
+        addElement( buf, "Hot", Modifiers.HOT_DAMAGE );
+        addElement( buf, "Cold", Modifiers.COLD_DAMAGE );
+        addElement( buf, "Stench", Modifiers.STENCH_DAMAGE );
+        addElement( buf, "Spooky", Modifiers.SPOOKY_DAMAGE );
+        addElement( buf, "Sleaze", Modifiers.SLEAZE_DAMAGE );
+        addSlime( buf );
 		buf.append( "<tr><td>Weapon</td><td>" );
 		buf.append( KoLConstants.MODIFIER_FORMAT.format(
 			KoLCharacter.currentNumericModifier( Modifiers.WEAPON_DAMAGE ) ) );
@@ -773,7 +773,7 @@ public class CompactSidePane
 		buf.append( "</table></html>" );
 		try
 		{
-			this.modPopLabel.setText( buf.toString() );
+            modPopLabel.setText( buf.toString() );
 		}
 		catch ( Exception e )
 		{
@@ -785,11 +785,11 @@ public class CompactSidePane
 		long nextLevel = KoLCharacter.calculateNextLevel();
 		long totalPrime = KoLCharacter.getTotalPrime();
 
-		this.levelMeter.setMaximum( (int) (nextLevel - currentLevel) );
-		this.levelMeter.setValue( (int) (totalPrime - currentLevel) );
-		this.levelMeter.setString( " " );
+        levelMeter.setMaximum( (int) (nextLevel - currentLevel) );
+        levelMeter.setValue( (int) (totalPrime - currentLevel) );
+        levelMeter.setString( " " );
 
-		this.levelPanel.setToolTipText( "<html>&nbsp;&nbsp;" + KoLCharacter.getAdvancement() + "&nbsp;&nbsp;<br>&nbsp;&nbsp;(" + KoLConstants.COMMA_FORMAT.format( nextLevel - totalPrime ) + " subpoints needed)&nbsp;&nbsp;</html>" );
+        levelPanel.setToolTipText( "<html>&nbsp;&nbsp;" + KoLCharacter.getAdvancement() + "&nbsp;&nbsp;<br>&nbsp;&nbsp;(" + KoLConstants.COMMA_FORMAT.format( nextLevel - totalPrime ) + " subpoints needed)&nbsp;&nbsp;</html>" );
 
 		if ( KoLCharacter.inAxecore() )
 		{
@@ -797,16 +797,16 @@ public class CompactSidePane
 			if ( item == null )
 			{
 				ImageIcon icon = FamiliarDatabase.getNoFamiliarImage();
-				this.familiarLabel.setIcon( icon );
+                familiarLabel.setIcon( icon );
 			}
 			else
 			{
 				ImageIcon icon = ItemDatabase.getItemImage( item.getItemId() );
-				this.familiarLabel.setIcon( icon );
+                familiarLabel.setIcon( icon );
 				icon.setImageObserver( this );
 			}
 			int level = KoLCharacter.getMinstrelLevel();
-			this.familiarLabel.setText( "Level " + level );
+            familiarLabel.setText( "Level " + level );
 		}
 		else
 		{
@@ -817,24 +817,24 @@ public class CompactSidePane
 			if ( id == -1 )
 			{
 				ImageIcon icon = FamiliarDatabase.getNoFamiliarImage();
-				this.familiarLabel.setIcon( icon );
-				this.familiarLabel.setText( "0 lbs." );
+                familiarLabel.setIcon( icon );
+                familiarLabel.setText( "0 lbs." );
 			}
 			else
 			{
 				StringBuffer anno = CharPaneDecorator.getFamiliarAnnotation();
 				ImageIcon icon = FamiliarDatabase.getCurrentFamiliarImage();
-				this.familiarLabel.setIcon( icon );
+                familiarLabel.setIcon( icon );
 				icon.setImageObserver( this );
 				int weight = current.getModifiedWeight();
-				this.familiarLabel.setText( "<HTML><center>" + weight +
-							    ( weight == 1 ? " lb." : " lbs." ) +
-							    ( anno == null ? "" : ", " + anno.toString() ) + "</center></HTML>" );
+                familiarLabel.setText( "<HTML><center>" + weight +
+                        (weight == 1 ? " lb." : " lbs.") +
+                        (anno == null ? "" : ", " + anno.toString()) + "</center></HTML>" );
 			}
 		}
 
-		this.familiarLabel.setVerticalTextPosition( JLabel.BOTTOM );
-		this.familiarLabel.setHorizontalTextPosition( JLabel.CENTER );
+        familiarLabel.setVerticalTextPosition( JLabel.BOTTOM );
+        familiarLabel.setHorizontalTextPosition( JLabel.CENTER );
 	}
 
 	private int predictStat( int base, int stat_pct, int stat )

@@ -99,7 +99,7 @@ public class HyperlinkAdapter
 		{
 			if ( location.contains( "pics.communityofloathing.com" ) )
 			{
-				HyperlinkAdapter.this.handleInternalLink( location );
+                handleInternalLink( location );
 				return;
 			}
 			else if ( location.startsWith( "http://" ) || location.startsWith( "https://" ) )
@@ -114,7 +114,7 @@ public class HyperlinkAdapter
 			}
 			else if ( !location.contains( "submit()" ) )
 			{
-				HyperlinkAdapter.this.handleInternalLink( location );
+                handleInternalLink( location );
 				return;
 			}
 
@@ -192,7 +192,7 @@ public class HyperlinkAdapter
 			// the appropriate internal link.
 
 			String targetLocation = actionMatcher.group( 1 ) + inputString.toString();
-			HyperlinkAdapter.this.handleInternalLink( targetLocation );
+            handleInternalLink( targetLocation );
 		}
 	}
 

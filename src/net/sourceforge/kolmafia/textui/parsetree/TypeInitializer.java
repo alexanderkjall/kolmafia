@@ -48,13 +48,13 @@ public class TypeInitializer
 	@Override
 	public Type getType()
 	{
-		return this.type;
+		return type;
 	}
 
 	@Override
 	public Value execute( final Interpreter interpreter )
 	{
-		return this.type.initialValue();
+		return type.initialValue();
 	}
 
 	@Override

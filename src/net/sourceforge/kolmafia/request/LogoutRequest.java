@@ -80,7 +80,7 @@ public class LogoutRequest
 	@Override
 	public void processResults()
 	{
-		LogoutRequest.lastResponse = this.responseText;
+		LogoutRequest.lastResponse = responseText;
 	}
 
 	public static String getLastResponse()

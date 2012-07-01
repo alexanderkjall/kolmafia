@@ -53,21 +53,21 @@ public class SortedListModelArray
 			return null;
 		}
 
-		while ( index >= this.internalList.size() )
+		while ( index >= internalList.size() )
 		{
-			this.internalList.add( null );
+            internalList.add( null );
 		}
 
-		return (SortedListModel) this.internalList.get( index );
+		return (SortedListModel) internalList.get( index );
 	}
 
 	public void set( final int index, final SortedListModel value )
 	{
-		while ( index >= this.internalList.size() )
+		while ( index >= internalList.size() )
 		{
-			this.internalList.add( null );
+            internalList.add( null );
 		}
 
-		this.internalList.set( index, value );
+        internalList.set( index, value );
 	}
 }

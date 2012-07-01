@@ -46,38 +46,38 @@ public class StringArray
 
 	public String get( final int index )
 	{
-		return index < 0 || index >= this.internalList.size() ? "" : (String) this.internalList.get( index );
+		return index < 0 || index >= internalList.size() ? "" : (String) internalList.get( index );
 	}
 
 	public void set( final int index, final String value )
 	{
-		while ( index >= this.internalList.size() )
+		while ( index >= internalList.size() )
 		{
-			this.internalList.add( "" );
+            internalList.add( "" );
 		}
 
-		this.internalList.set( index, value );
+        internalList.set( index, value );
 	}
 
 	public void add( final String s )
 	{
-		this.internalList.add( s );
+        internalList.add( s );
 	}
 
 	public void clear()
 	{
-		this.internalList.clear();
+        internalList.clear();
 	}
 
 	public String[] toArray()
 	{
-		String[] array = new String[ this.internalList.size() ];
-		this.internalList.toArray( array );
+		String[] array = new String[internalList.size() ];
+        internalList.toArray( array );
 		return array;
 	}
 
 	public int size()
 	{
-		return this.internalList.size();
+		return internalList.size();
 	}
 }

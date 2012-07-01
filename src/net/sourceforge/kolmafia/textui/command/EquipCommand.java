@@ -52,7 +52,7 @@ public class EquipCommand
 {
 	public EquipCommand()
 	{
-		this.usage = " [list <filter>] | [<slot>] <item> - show equipment, or equip item [in slot].";
+        usage = " [list <filter>] | [<slot>] <item> - show equipment, or equip item [in slot].";
 	}
 
 	@Override

@@ -72,43 +72,43 @@ public class TurnCounter
 		this.value = KoLCharacter.getCurrentRun() + value;
 		this.label = label.replaceAll( ":", "" );
 		this.image = image.replaceAll( ":", "" );
-		this.lastWarned = -1;
-		this.parsedLabel = this.label;
-		int pos = this.parsedLabel.lastIndexOf( " " );
+        lastWarned = -1;
+        parsedLabel = this.label;
+		int pos = parsedLabel.lastIndexOf( " " );
 		while ( pos != -1 )
 		{
-			String word = this.parsedLabel.substring( pos + 1 ).trim();
+			String word = parsedLabel.substring( pos + 1 ).trim();
 			if ( word.equals( "loc=*" ) )
 			{
-				this.exemptions = TurnCounter.ALL_LOCATIONS;
+                exemptions = TurnCounter.ALL_LOCATIONS;
 			}
 			else if ( word.startsWith( "loc=" ) )
 			{
-				if ( this.exemptions == null )
+				if ( exemptions == null )
 				{
-					this.exemptions = new HashSet<String>();
+                    exemptions = new HashSet<String>();
 				}
-				this.exemptions.add( word.substring( 4 ) );
+                exemptions.add( word.substring( 4 ) );
 			}
 			else if ( word.contains( ".php" ) )
 			{
-				this.URL = word;
+                URL = word;
 			}
 			else break;
 
-			this.parsedLabel = this.parsedLabel.substring( 0, pos ).trim();
-			pos = this.parsedLabel.lastIndexOf( " " );
+            parsedLabel = parsedLabel.substring( 0, pos ).trim();
+			pos = parsedLabel.lastIndexOf( " " );
 		}
-		if ( this.parsedLabel.length() == 0 )
+		if ( parsedLabel.length() == 0 )
 		{
-			this.parsedLabel = "Manual";
+            parsedLabel = "Manual";
 		}
 	}
 
 	public boolean isExempt( final String adventureId )
 	{
-		if ( this.exemptions == TurnCounter.ALL_LOCATIONS ||
-			(this.exemptions != null && this.exemptions.contains( adventureId )) )
+		if ( exemptions == TurnCounter.ALL_LOCATIONS ||
+			(exemptions != null && exemptions.contains( adventureId )) )
 		{
 			return true;
 		}
@@ -118,11 +118,11 @@ public class TurnCounter
 
 	public String imageURL()
 	{
-		if ( this.URL != null ) return this.URL;
+		if ( URL != null ) return URL;
 
-		if ( this.exemptions != null && this.exemptions.size() == 1 )
+		if ( exemptions != null && exemptions.size() == 1 )
 		{	// Exactly one exempt location
-			String loc = (String) this.exemptions.iterator().next();
+			String loc = (String) exemptions.iterator().next();
 			return "adventure.php?snarfblat=" + loc;
 		}
 
@@ -131,17 +131,17 @@ public class TurnCounter
 
 	public String getLabel()
 	{
-		return this.parsedLabel;
+		return parsedLabel;
 	}
 
 	public String getImage()
 	{
-		return this.image;
+		return image;
 	}
 
 	public int getTurnsRemaining()
 	{
-		return this.value - KoLCharacter.getCurrentRun();
+		return value - KoLCharacter.getCurrentRun();
 	}
 
 	public static int turnsRemaining( final String label )
@@ -168,7 +168,7 @@ public class TurnCounter
 			return false;
 		}
 
-		return this.label.equals( ( (TurnCounter) o ).label ) && this.value == ( (TurnCounter) o ).value;
+		return label.equals( ((TurnCounter) o).label ) && value == ( (TurnCounter) o ).value;
 	}
 
 	public int compareTo( final Object o )
@@ -178,7 +178,7 @@ public class TurnCounter
 			return -1;
 		}
 
-		return this.value - ( (TurnCounter) o ).value;
+		return value - ( (TurnCounter) o ).value;
 	}
 
 	public static void clearCounters()

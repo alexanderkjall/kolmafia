@@ -92,26 +92,26 @@ public class UntinkerRequest
 	{
 		super( "forestvillage.php" );
 
-		this.addFormField( "action", "untinker" );
-		this.addFormField( "whichitem", String.valueOf( itemId ) );
+        addFormField( "action", "untinker" );
+        addFormField( "whichitem", String.valueOf( itemId ) );
 
 		this.itemId = itemId;
-		this.iterationsNeeded = 1;
+        iterationsNeeded = 1;
 
-		this.item = new AdventureResult( itemId, itemCount );
+        item = new AdventureResult( itemId, itemCount );
 
 		if ( itemCount == Integer.MAX_VALUE )
 		{
-			this.item = this.item.getInstance( this.item.getCount( KoLConstants.inventory ) );
+            item = item.getInstance( item.getCount( KoLConstants.inventory ) );
 		}
 
-		if ( itemCount > 5 || this.item.getCount( KoLConstants.inventory ) == itemCount )
+		if ( itemCount > 5 || item.getCount( KoLConstants.inventory ) == itemCount )
 		{
-			this.addFormField( "untinkerall", "on" );
+            addFormField( "untinkerall", "on" );
 		}
 		else
 		{
-			this.iterationsNeeded = itemCount;
+            iterationsNeeded = itemCount;
 		}
 	}
 
@@ -128,24 +128,24 @@ public class UntinkerRequest
 		// paste, and only execute the request if it is known to be
 		// creatable through combination.
 
-		if ( (ConcoctionDatabase.getMixingMethod( this.itemId ) & KoLConstants.CT_MASK) != KoLConstants.COMBINE )
+		if ( (ConcoctionDatabase.getMixingMethod( itemId ) & KoLConstants.CT_MASK) != KoLConstants.COMBINE )
 		{
 			KoLmafia.updateDisplay( MafiaState.ERROR, "You cannot untinker that item." );
 			return;
 		}
 
-		if ( !InventoryManager.retrieveItem( this.item ) )
+		if ( !InventoryManager.retrieveItem( item ) )
 		{
 			return;
 		}
 
-		KoLmafia.updateDisplay( "Untinkering " + this.item + "..." );
+		KoLmafia.updateDisplay( "Untinkering " + item + "..." );
 
 		super.run();
 
-		if ( !this.responseText.contains( "You acquire" ) )
+		if ( !responseText.contains( "You acquire" ) )
 		{
-			ResultProcessor.processResult( new AdventureResult( this.itemId, 1 ) );
+			ResultProcessor.processResult( new AdventureResult( itemId, 1 ) );
 
 			UntinkerRequest.AVAILABLE_CHECKER.run();
 
@@ -164,18 +164,18 @@ public class UntinkerRequest
 			super.run();
 		}
 
-		for ( int i = 1; i < this.iterationsNeeded; ++i )
+		for ( int i = 1; i < iterationsNeeded; ++i )
 		{
 			super.run();
 		}
 
-		KoLmafia.updateDisplay( "Successfully untinkered " + this.item );
+		KoLmafia.updateDisplay( "Successfully untinkered " + item );
 	}
 
 	@Override
 	public void processResults()
 	{
-		UntinkerRequest.parseResponse( this.getURLString(), this.responseText );
+		UntinkerRequest.parseResponse( getURLString(), responseText );
 	}
 
 	public static void parseResponse( final String location, final String responseText )

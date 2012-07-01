@@ -60,12 +60,12 @@ public class SentMessageEntry
 
 	public boolean isRelayRequest()
 	{
-		return this.isRelayRequest;
+		return isRelayRequest;
 	}
 
 	public void executeAjaxCommand()
 	{
-		if ( this.isRelayRequest )
+		if ( isRelayRequest )
 		{
 			return;
 		}
@@ -98,6 +98,6 @@ public class SentMessageEntry
 
 		content = dojax.replaceAll( "" );
 
-		this.setContent( content );
+        setContent( content );
 	}
 }

@@ -70,10 +70,10 @@ public class SortBy
 		interpreter.traceIndent();
 		if ( interpreter.isTracing() )
 		{
-			interpreter.trace( this.toString() );
+			interpreter.trace( toString() );
 		}
 		
-		AggregateValue map = (AggregateValue) this.aggregate.execute( interpreter );
+		AggregateValue map = (AggregateValue) aggregate.execute( interpreter );
 		interpreter.captureValue( map );
 
 		if ( interpreter.getState() == Interpreter.STATE_EXIT )
@@ -88,14 +88,14 @@ public class SortBy
 		for ( int i = 0; i < keys.length; ++i )
 		{
 			Value index = keys[ i ];
-			this.indexvar.setValue( interpreter, index );
+            indexvar.setValue( interpreter, index );
 			Value value = map.aref( index, interpreter );
-			this.valuevar.setValue( interpreter, value );
+            valuevar.setValue( interpreter, value );
 			if ( interpreter.isTracing() )
 			{
 				interpreter.trace( "Element #" + i + ": " + index + " = " + value );
 			}
-			Value sortkey = this.expr.execute( interpreter );
+			Value sortkey = expr.execute( interpreter );
 			if ( interpreter.getState() == Interpreter.STATE_EXIT )
 			{
 				interpreter.traceUnindent();
@@ -132,8 +132,8 @@ public class SortBy
 	{
 		Interpreter.indentLine( stream, indent );
 		stream.println( "<SORT>" );
-		this.aggregate.print( stream, indent + 1 );
-		this.expr.print( stream, indent + 1 );
+        aggregate.print( stream, indent + 1 );
+        expr.print( stream, indent + 1 );
 	}
 	
 	private static class Pair
@@ -149,7 +149,7 @@ public class SortBy
 		
 		public int compareTo( Object o )
 		{
-			return this.key.compareTo( ((Pair) o).key );
+			return key.compareTo( ((Pair) o).key );
 		}
 	}
 }

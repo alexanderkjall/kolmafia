@@ -164,33 +164,33 @@ public class ConcoctionPool
 			int max = ItemDatabase.maxItemId();
 			for ( int i = 0; i <= max; ++i )
 			{
-				this.internalList.add( null );
+                internalList.add( null );
 			}
 			this.max = max;
 		}
 
 		public Concoction get( final int index )
 		{
-			if ( index < 0 || index > this.max )
+			if ( index < 0 || index > max )
 			{
 				return null;
 			}
 
-			return (Concoction) this.internalList.get( index );
+			return (Concoction) internalList.get( index );
 		}
 
 		public void set( final int index, final Concoction value )
 		{
-			this.internalList.set( index, value );
-			if ( index > this.max )
+            internalList.set( index, value );
+			if ( index > max )
 			{
-				this.max = index;
+                max = index;
 			}
 		}
 
 		public int size()
 		{
-			return this.internalList.size();
+			return internalList.size();
 		}
 	}
 }

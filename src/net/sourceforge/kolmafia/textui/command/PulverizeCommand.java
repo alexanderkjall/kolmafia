@@ -46,7 +46,7 @@ public class PulverizeCommand
 {
 	public PulverizeCommand()
 	{
-		this.usage = " <item> [, <item>]... - pulverize specified items";
+        usage = " <item> [, <item>]... - pulverize specified items";
 	}
 
 	@Override

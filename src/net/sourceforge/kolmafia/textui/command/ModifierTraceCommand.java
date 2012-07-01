@@ -43,7 +43,7 @@ public class ModifierTraceCommand
 {
 	public ModifierTraceCommand()
 	{
-		this.usage = " <filter> - list everything that adds to modifiers matching filter.";
+        usage = " <filter> - list everything that adds to modifiers matching filter.";
 	}
 
 	@Override

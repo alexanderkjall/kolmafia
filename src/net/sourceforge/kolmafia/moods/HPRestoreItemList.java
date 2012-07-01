@@ -217,50 +217,50 @@ public abstract class HPRestoreItemList
 			this.restoreName = restoreName;
 			this.healthPerUse = healthPerUse;
 			this.purchaseCost = purchaseCost;
-			this.spleenHit = 0;
+            spleenHit = 0;
 
 			HPRestoreItemList.restoreByName.put( restoreName, this );
 
 			if ( ItemDatabase.contains( restoreName ) )
 			{
-				this.itemUsed = ItemPool.get( restoreName, 1 );
-				this.spleenHit = ItemDatabase.getSpleenHit( restoreName );
-				this.skillId = -1;
+                itemUsed = ItemPool.get( restoreName, 1 );
+                spleenHit = ItemDatabase.getSpleenHit( restoreName );
+                skillId = -1;
 			}
 			else if ( SkillDatabase.contains( restoreName ) )
 			{
-				this.itemUsed = null;
-				this.skillId = SkillDatabase.getSkillId( restoreName );
+                itemUsed = null;
+                skillId = SkillDatabase.getSkillId( restoreName );
 			}
 			else
 			{
-				this.itemUsed = null;
-				this.skillId = -1;
+                itemUsed = null;
+                skillId = -1;
 			}
 		}
 
 		public boolean isSkill()
 		{
-			return this.skillId != -1;
+			return skillId != -1;
 		}
 
 		public AdventureResult getItem()
 		{
-			return this.itemUsed;
+			return itemUsed;
 		}
 
 		public int getHealthRestored()
 		{
-			return Math.min( this.healthPerUse, KoLCharacter.getMaximumHP() - KoLCharacter.getCurrentHP() );
+			return Math.min( healthPerUse, KoLCharacter.getMaximumHP() - KoLCharacter.getCurrentHP() );
 		}
 
 		public boolean usableInCurrentPath()
 		{
-			if ( this.itemUsed == null || !KoLCharacter.inBeecore() )
+			if ( itemUsed == null || !KoLCharacter.inBeecore() )
 			{
 				return true;
 			}
-			String name = this.itemUsed.getName();
+			String name = itemUsed.getName();
 			return !name.contains( "b" ) && !name.contains( "B" );
 		}
 
@@ -271,34 +271,34 @@ public abstract class HPRestoreItemList
 
 			HPRestoreItem hpi = (HPRestoreItem) o;
 
-			if ( this.itemUsed == null && hpi.itemUsed != null )
+			if ( itemUsed == null && hpi.itemUsed != null )
 			{
 				return -1;
 			}
-			if ( this.itemUsed != null && hpi.itemUsed == null )
+			if ( itemUsed != null && hpi.itemUsed == null )
 			{
 				return 1;
 			}
 
 			float restoreAmount = KoLCharacter.getMaximumHP() - KoLCharacter.getCurrentHP();
-			float leftRatio = restoreAmount / this.getHealthRestored();
+			float leftRatio = restoreAmount / getHealthRestored();
 			float rightRatio = restoreAmount / hpi.getHealthRestored();
 
 			// If you're comparing skills, then you compare MP cost for
 			// casting the skill, with more expensive skills coming later.
 
-			if ( this.itemUsed == null && this.skillId > 0 )
+			if ( itemUsed == null && skillId > 0 )
 			{
 				leftRatio =
-					(float) ( Math.ceil( leftRatio ) * SkillDatabase.getMPConsumptionById( this.skillId ) );
+					(float) ( Math.ceil( leftRatio ) * SkillDatabase.getMPConsumptionById( skillId ) );
 				rightRatio =
 					(float) ( Math.ceil( rightRatio ) * SkillDatabase.getMPConsumptionById( hpi.skillId ) );
 			}
 			else if ( HPRestoreItemList.purchaseBasedSort )
 			{
-				if ( this.purchaseCost != 0 || hpi.purchaseCost != 0 )
+				if ( purchaseCost != 0 || hpi.purchaseCost != 0 )
 				{
-					leftRatio = (float) Math.ceil( leftRatio ) * this.purchaseCost;
+					leftRatio = (float) Math.ceil( leftRatio ) * purchaseCost;
 					rightRatio = (float) Math.ceil( rightRatio ) * hpi.purchaseCost;
 				}
 			}
@@ -382,7 +382,7 @@ public abstract class HPRestoreItemList
 				if ( purchase && needed > KoLCharacter.getCurrentHP() )
 				{
 					RequestThread.postRequest( new GalaktikRequest( GalaktikRequest.HP, Math.min(
-						needed - KoLCharacter.getCurrentHP(), KoLCharacter.getAvailableMeat() / this.purchaseCost ) ) );
+						needed - KoLCharacter.getCurrentHP(), KoLCharacter.getAvailableMeat() / purchaseCost ) ) );
 				}
 
 				return;
@@ -390,8 +390,8 @@ public abstract class HPRestoreItemList
 
 			// Can't use items that consume more spleen than we have left
 
-			if ( this.spleenHit > 0 &&
-			     this.spleenHit > KoLCharacter.getSpleenLimit() - KoLCharacter.getSpleenUse() )
+			if ( spleenHit > 0 &&
+                    spleenHit > KoLCharacter.getSpleenLimit() - KoLCharacter.getSpleenUse() )
 			{
 				return;
 			}
@@ -405,7 +405,7 @@ public abstract class HPRestoreItemList
 				return;
 			}
 
-			int numberToUse = Math.max( (int) Math.floor( (float) hpShort / (float) this.getHealthRestored() ), 1 );
+			int numberToUse = Math.max( (int) Math.floor( (float) hpShort / (float) getHealthRestored() ), 1 );
 
 			if ( this == HPRestoreItemList.SOFA )
 			{
@@ -413,31 +413,31 @@ public abstract class HPRestoreItemList
 				return;
 			}
 
-			else if ( SkillDatabase.contains( this.restoreName ) )
+			else if ( SkillDatabase.contains( restoreName ) )
 			{
-				if ( !KoLCharacter.hasSkill( this.restoreName ) )
+				if ( !KoLCharacter.hasSkill( restoreName ) )
 				{
 					numberToUse = 0;
 				}
 			}
-			else if ( ItemDatabase.contains( this.restoreName ) )
+			else if ( ItemDatabase.contains( restoreName ) )
 			{
 				// In certain instances, you are able to buy
 				// more of the given item from NPC stores, or
 				// from the mall.
 
-				int numberAvailable = this.itemUsed.getCount( KoLConstants.inventory );
+				int numberAvailable = itemUsed.getCount( KoLConstants.inventory );
 
 				if ( purchase && numberAvailable < numberToUse )
 				{
 					int numberToBuy = numberAvailable;
-					int unitPrice = ItemDatabase.getPriceById( this.itemUsed.getItemId() ) * 2;
+					int unitPrice = ItemDatabase.getPriceById( itemUsed.getItemId() ) * 2;
 
-					if ( this == HPRestoreItemList.HERBS && NPCStoreDatabase.contains( this.itemUsed.getName() ) )
+					if ( this == HPRestoreItemList.HERBS && NPCStoreDatabase.contains( itemUsed.getName() ) )
 					{
 						numberToBuy = Math.min( KoLCharacter.getAvailableMeat() / unitPrice, 3 );
 					}
-					else if ( NPCStoreDatabase.contains( this.itemUsed.getName() ) )
+					else if ( NPCStoreDatabase.contains( itemUsed.getName() ) )
 					{
 						numberToBuy = Math.min( KoLCharacter.getAvailableMeat() / unitPrice, numberToUse );
 					}
@@ -447,7 +447,7 @@ public abstract class HPRestoreItemList
 					// our original outfit before consuming it.
 
 					SpecialOutfit.createImplicitCheckpoint();
-					boolean success = InventoryManager.retrieveItem( this.itemUsed.getInstance( numberToBuy ) );
+					boolean success = InventoryManager.retrieveItem( itemUsed.getInstance( numberToBuy ) );
 					SpecialOutfit.restoreImplicitCheckpoint();
 
 					if ( !success )
@@ -455,7 +455,7 @@ public abstract class HPRestoreItemList
 						return;
 					}
 
-					numberAvailable = this.itemUsed.getCount( KoLConstants.inventory );
+					numberAvailable = itemUsed.getCount( KoLConstants.inventory );
 				}
 
 				numberToUse = Math.min( numberToUse, numberAvailable );
@@ -469,20 +469,20 @@ public abstract class HPRestoreItemList
 				return;
 			}
 
-			if ( SkillDatabase.contains( this.restoreName ) )
+			if ( SkillDatabase.contains( restoreName ) )
 			{
-				RequestThread.postRequest( UseSkillRequest.getInstance( this.restoreName, "", numberToUse ) );
+				RequestThread.postRequest( UseSkillRequest.getInstance( restoreName, "", numberToUse ) );
 			}
 			else
 			{
-				RequestThread.postRequest( UseItemRequest.getInstance( this.itemUsed.getInstance( numberToUse ) ) );
+				RequestThread.postRequest( UseItemRequest.getInstance( itemUsed.getInstance( numberToUse ) ) );
 			}
 		}
 
 		@Override
 		public String toString()
 		{
-			return this.restoreName;
+			return restoreName;
 		}
 	}
 }

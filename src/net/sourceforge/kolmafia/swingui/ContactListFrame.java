@@ -78,16 +78,16 @@ public class ContactListFrame
 
 		this.contacts = contacts;
 
-		this.contactsDisplay = new JList( contacts );
-		this.contactsDisplay.setVisibleRowCount( 25 );
-		this.contactsDisplay.setPrototypeCellValue( "ABCDEFGHIJKLMNOPQRSTUVWXYZ" );
-		this.contactsDisplay.addMouseListener( new SendInstantMessageAdapter() );
+        contactsDisplay = new JList( contacts );
+        contactsDisplay.setVisibleRowCount( 25 );
+        contactsDisplay.setPrototypeCellValue( "ABCDEFGHIJKLMNOPQRSTUVWXYZ" );
+        contactsDisplay.addMouseListener( new SendInstantMessageAdapter() );
 
-		this.setCenterComponent( new ContactListPanel( this.contactsDisplay ) );
-		this.getToolbar();
+        setCenterComponent( new ContactListPanel( contactsDisplay ) );
+        getToolbar();
 
 		// Choose an appropriate size based on what is in the contact list
-		this.pack();
+        pack();
 	}
 
 	@Override
@@ -104,7 +104,7 @@ public class ContactListFrame
 	@Override
 	public Component getCenterComponent()
 	{
-		return this.getFramePanel();
+		return getFramePanel();
 	}
 
 	@Override
@@ -115,14 +115,14 @@ public class ContactListFrame
 
 	public String[] getSelectedPlayers()
 	{
-		Object[] selectedValues = this.contactsDisplay.getSelectedValues();
+		Object[] selectedValues = contactsDisplay.getSelectedValues();
 
 		// If no players are selected, and the player uses the
 		// option, assume they want everyone.
 
 		if ( selectedValues.length == 0 )
 		{
-			selectedValues = this.contacts.toArray();
+			selectedValues = contacts.toArray();
 		}
 
 		String[] selectedPlayers = new String[ selectedValues.length ];
@@ -138,7 +138,7 @@ public class ContactListFrame
 	public String convertToCDL()
 	{
 		StringBuilder listCDL = new StringBuilder();
-		String[] selectedPlayers = this.getSelectedPlayers();
+		String[] selectedPlayers = getSelectedPlayers();
 
 		for ( int i = 0; i < selectedPlayers.length; ++i )
 		{
@@ -166,7 +166,7 @@ public class ContactListFrame
 		JComponentUtilities.setComponentSize( scrollCDL, 250, 120 );
 		dialogCDL.getContentPane().add( scrollCDL );
 
-		entryCDL.setText( this.convertToCDL() );
+		entryCDL.setText( convertToCDL() );
 		dialogCDL.pack();
 		dialogCDL.setVisible( true );
 	}
@@ -174,7 +174,7 @@ public class ContactListFrame
 	public void buffSelected()
 	{
 		Object[] parameters = new Object[ 1 ];
-		parameters[ 0 ] = this.convertToCDL();
+		parameters[ 0 ] = convertToCDL();
 
 		GenericFrame.createDisplay( SkillBuffFrame.class, parameters );
 	}
@@ -185,7 +185,7 @@ public class ContactListFrame
 		// selected, since that's the kmail limit.
 
 		Object[] parameters = new Object[ 1 ];
-		parameters[ 0 ] = this.convertToCDL();
+		parameters[ 0 ] = convertToCDL();
 
 		GenericFrame.createDisplay( SendMessageFrame.class, parameters );
 	}
@@ -195,8 +195,8 @@ public class ContactListFrame
 	{
 		public ContactListPanel( JList contactsDisplay )
 		{
-			this.setLayout( new GridLayout( 1, 1 ) );
-			this.add( new GenericScrollPane( contactsDisplay ) );
+            setLayout( new GridLayout( 1, 1 ) );
+            add( new GenericScrollPane( contactsDisplay ) );
 		}
 	}
 
@@ -216,9 +216,9 @@ public class ContactListFrame
 			{
 				int index = list.locationToIndex( e.getPoint() );
 
-				if ( index >= 0 && index < ContactListFrame.this.contacts.size() )
+				if ( index >= 0 && index < contacts.size() )
 				{
-					String contact = getContactName( ContactListFrame.this.contacts.get( index ) );
+					String contact = getContactName( contacts.get( index ) );
 					String bufferKey = ChatManager.getBufferKey( contact );
 
 					ChatManager.openWindow( bufferKey, false );

@@ -57,7 +57,7 @@ public class ChoiceCommand
 {
 	public ChoiceCommand()
 	{
-		this.usage = " [<number>|<text>] - list or choose choice adventure options.";
+        usage = " [<number>|<text>] - list or choose choice adventure options.";
 	}
 
 	@Override

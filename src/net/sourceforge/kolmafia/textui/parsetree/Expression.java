@@ -67,43 +67,43 @@ public class Expression
 	@Override
 	public Type getType()
 	{
-		Type leftType = this.lhs.getType();
+		Type leftType = lhs.getType();
 
 		// Unary operators have no right hand side
-		if ( this.rhs == null )
+		if ( rhs == null )
 		{
 			return leftType;
 		}
 
 		// Ternary expressions have no real operator
-		if ( this.oper == null )
+		if ( oper == null )
 		{
 			return leftType;
 		}
 
-		Type rightType = this.rhs.getType();
+		Type rightType = rhs.getType();
 
 		// String concatenation always yields a string
-		if ( this.oper.equals( "+" ) && ( leftType.equals( DataTypes.TYPE_STRING ) || rightType.equals( DataTypes.TYPE_STRING ) ) )
+		if ( oper.equals( "+" ) && ( leftType.equals( DataTypes.TYPE_STRING ) || rightType.equals( DataTypes.TYPE_STRING ) ) )
 		{
 			return DataTypes.STRING_TYPE;
 		}
 
 		// If it's an integer operator, must be integers
-		if ( this.oper.isInteger() )
+		if ( oper.isInteger() )
 		{
 			return DataTypes.INT_TYPE;
 		}
 
 		// If it's a logical operator, must be both integers or both
 		// booleans
-		if ( this.oper.isLogical() )
+		if ( oper.isLogical() )
 		{
 			return leftType;
 		}
 
 		// If it's not arithmetic, it's boolean
-		if ( !this.oper.isArithmetic() )
+		if ( !oper.isArithmetic() )
 		{
 			return DataTypes.BOOLEAN_TYPE;
 		}
@@ -120,23 +120,23 @@ public class Expression
 
 	public Value getLeftHandSide()
 	{
-		return this.lhs;
+		return lhs;
 	}
 
 	public Value getRightHandSide()
 	{
-		return this.rhs;
+		return rhs;
 	}
 
 	public Operator getOperator()
 	{
-		return this.oper;
+		return oper;
 	}
 
 	@Override
 	public Value execute( final Interpreter interpreter )
 	{
-		if ( this.conditional != null )
+		if ( conditional != null )
 		{
 			interpreter.traceIndent();
 			if ( interpreter.isTracing() )
@@ -149,7 +149,7 @@ public class Expression
 			{
 				interpreter.trace( "Condition: " + conditional );
 			}
-			Value conditionResult = this.conditional.execute( interpreter );
+			Value conditionResult = conditional.execute( interpreter );
 			interpreter.captureValue( conditionResult );
 
 			if ( conditionResult == null )
@@ -207,7 +207,7 @@ public class Expression
 				return null;
 			}
 
-			if ( Operator.isStringLike( this.lhs.getType() ) != Operator.isStringLike( this.rhs.getType() ) )
+			if ( Operator.isStringLike( lhs.getType() ) != Operator.isStringLike( rhs.getType() ) )
 			{
 				executeResult = executeResult.toStringValue();
 			}
@@ -220,48 +220,48 @@ public class Expression
 			return executeResult;
 		}
 
-		return this.oper.applyTo( interpreter, this.lhs, this.rhs );
+		return oper.applyTo( interpreter, lhs, rhs );
 	}
 
 	@Override
 	public String toString()
 	{
-		if ( this.conditional != null )
+		if ( conditional != null )
 		{
-			return "( " + this.conditional.toQuotedString() + " ? " + this.lhs.toQuotedString() + " : " + this.rhs.toQuotedString() + " )";
+			return "( " + conditional.toQuotedString() + " ? " + lhs.toQuotedString() + " : " + rhs.toQuotedString() + " )";
 		}
 
-		if ( this.rhs == null )
+		if ( rhs == null )
 		{
-			return this.oper.toString() + " " + this.lhs.toQuotedString();
+			return oper.toString() + " " + lhs.toQuotedString();
 		}
 
-		return "( " + this.lhs.toQuotedString() + " " + this.oper.toString() + " " + this.rhs.toQuotedString() + " )";
+		return "( " + lhs.toQuotedString() + " " + oper.toString() + " " + rhs.toQuotedString() + " )";
 	}
 
 	@Override
 	public String toQuotedString()
 	{
-		return this.toString();
+		return toString();
 	}
 
 	@Override
 	public void print( final PrintStream stream, final int indent )
 	{
-		if ( this.conditional != null )
+		if ( conditional != null )
 		{
 			Interpreter.indentLine( stream, indent );
 			stream.println( "<OPER ?:>" );
-			this.conditional.print( stream, indent + 1 );
+            conditional.print( stream, indent + 1 );
 		}
 		else
 		{
-			this.getOperator().print( stream, indent );
+            getOperator().print( stream, indent );
 		}
-		this.lhs.print( stream, indent + 1 );
-		if ( this.rhs != null )
+        lhs.print( stream, indent + 1 );
+		if ( rhs != null )
 		{
-			this.rhs.print( stream, indent + 1 );
+            rhs.print( stream, indent + 1 );
 		}
 	}
 }

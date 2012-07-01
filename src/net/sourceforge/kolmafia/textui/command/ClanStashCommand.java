@@ -49,7 +49,7 @@ public class ClanStashCommand
 {
 	public ClanStashCommand()
 	{
-		this.usage = " [put] <item>... | take <item>... - exchange items with clan stash";
+        usage = " [put] <item>... | take <item>... - exchange items with clan stash";
 	}
 
 	@Override

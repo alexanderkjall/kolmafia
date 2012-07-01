@@ -61,7 +61,7 @@ public class SuburbanDisRequest
 	{
 		super( "suburbandis.php");
 		this.action = action;
-		this.addFormField( "action", action );
+        addFormField( "action", action );
 	}
 
 	public SuburbanDisRequest()
@@ -72,21 +72,21 @@ public class SuburbanDisRequest
 	public SuburbanDisRequest( int stone1, int stone2 )
 	{
 		this( "stoned" );
-		this.addFormField( "stone1", String.valueOf( stone1 ) );
-		this.addFormField( "stone2", String.valueOf( stone2 ) );
+        addFormField( "stone1", String.valueOf( stone1 ) );
+        addFormField( "stone2", String.valueOf( stone2 ) );
 
 	}
 
 	@Override
 	public int getAdventuresUsed()
 	{
-		return this.action.equals( "altar" ) ? 1 : 0;
+		return action.equals( "altar" ) ? 1 : 0;
 	}
 
 	@Override
 	public void processResults()
 	{
-		SuburbanDisRequest.parseResponse( this.getURLString(), this.responseText );
+		SuburbanDisRequest.parseResponse( getURLString(), responseText );
 
 	}
 

@@ -45,7 +45,7 @@ public class DebugCreateCommand
 {
 	public DebugCreateCommand()
 	{
-		this.usage = null;
+        usage = null;
 	}
 
 	@Override

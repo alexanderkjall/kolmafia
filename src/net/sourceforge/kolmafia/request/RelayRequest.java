@@ -180,42 +180,42 @@ public class RelayRequest
 	{
 		super.constructURLString( newURLString, usePostMethod, encoded );
 
-		this.rawByteBuffer = null;
-		this.headers.clear();
+        rawByteBuffer = null;
+        headers.clear();
 
-		String path = this.getBasePath();
+		String path = getBasePath();
 
 		if ( path.endsWith( ".css" ) )
 		{
-			this.contentType = "text/css";
+            contentType = "text/css";
 		}
 		else if ( path.endsWith( ".js" ) )
 		{
-			this.contentType = "text/javascript";
+            contentType = "text/javascript";
 		}
 		else if ( path.endsWith( ".gif" ) )
 		{
-			this.contentType = "image/gif";
+            contentType = "image/gif";
 		}
 		else if ( path.endsWith( ".png" ) )
 		{
-			this.contentType = "image/png";
+            contentType = "image/png";
 		}
 		else if ( path.endsWith( ".jpg" ) || path.endsWith( ".jpeg" ) )
 		{
-			this.contentType = "image/jpeg";
+            contentType = "image/jpeg";
 		}
 		else if ( path.endsWith( ".ico" ) )
 		{
-			this.contentType = "image/x-icon";
+            contentType = "image/x-icon";
 		}
 		else if ( path.endsWith( ".php" ) || path.endsWith( ".html" ) || path.endsWith( ".ash" ) )
 		{
-			this.contentType = "text/html";
+            contentType = "text/html";
 		}
 		else
 		{
-			this.contentType = "text/plain";
+            contentType = "text/plain";
 		}
 
 		return this;
@@ -261,9 +261,9 @@ public class RelayRequest
 	@Override
 	public void formatResponse()
 	{
-		this.statusLine = "HTTP/1.1 200 OK";
-		String path = this.getBasePath();
-		StringBuffer responseBuffer = new StringBuffer( this.responseText );
+        statusLine = "HTTP/1.1 200 OK";
+		String path = getBasePath();
+		StringBuffer responseBuffer = new StringBuffer( responseText );
 
 		// Fix KoLmafia getting outdated by events happening
 		// in the browser by using the sidepane.
@@ -296,10 +296,10 @@ public class RelayRequest
 			int searchItemId = -1;
 			int searchPrice = -1;
 
-			searchItemId = StringUtilities.parseInt( this.getFormField( "searchitem" ) );
-			searchPrice = StringUtilities.parseInt( this.getFormField( "searchprice" ) );
+			searchItemId = StringUtilities.parseInt( getFormField( "searchitem" ) );
+			searchPrice = StringUtilities.parseInt( getFormField( "searchprice" ) );
 
-			Matcher itemMatcher = RelayRequest.STORE_PATTERN.matcher( this.responseText );
+			Matcher itemMatcher = RelayRequest.STORE_PATTERN.matcher( responseText );
 
 			while ( itemMatcher.find() )
 			{
@@ -326,10 +326,10 @@ public class RelayRequest
 		}
 		else if ( path.startsWith( "fight.php" ) )
 		{
-			String action = this.getFormField( "action" );
+			String action = getFormField( "action" );
 			if ( action != null && action.equals( "skill" ) )
 			{
-				String skillId = this.getFormField( "whichskill" );
+				String skillId = getFormField( "whichskill" );
 				String category = SkillDatabase.getSkillCategory( StringUtilities.parseInt( skillId ) );
 				if ( !category.equals( "conditional" ) )
 				{
@@ -340,7 +340,7 @@ public class RelayRequest
 
 		try
 		{
-			RequestEditorKit.getFeatureRichHTML( this.getURLString(), responseBuffer );
+			RequestEditorKit.getFeatureRichHTML( getURLString(), responseBuffer );
 		}
 		catch ( Exception e )
 		{
@@ -371,23 +371,23 @@ public class RelayRequest
 		StringUtilities.singleStringReplace( responseBuffer, "frames.length == 0", "frames.length == -1" );
 		StringUtilities.globalStringReplace( responseBuffer, " name=adv ", " name=snarfblat " );
 
-		this.responseText = responseBuffer.toString();
+        responseText = responseBuffer.toString();
 
 		CustomItemDatabase.linkCustomItem( this );
 	}
 
 	public void printHeaders( final PrintStream ostream )
 	{
-		if ( !this.headers.isEmpty() )
+		if ( !headers.isEmpty() )
 		{
-			for ( int i = 0; i < this.headers.size(); ++i )
+			for ( int i = 0; i < headers.size(); ++i )
 			{
-				ostream.println( this.headers.get( i ) );
+				ostream.println( headers.get( i ) );
 			}
 		}
-		else if ( this.formConnection != null )
+		else if ( formConnection != null )
 		{
-			HttpURLConnection connection = this.formConnection;
+			HttpURLConnection connection = formConnection;
 
 			String header;
 
@@ -403,12 +403,12 @@ public class RelayRequest
 				ostream.println( connection.getHeaderField( i ) );
 			}
 
-			if ( this.responseCode == 200 && this.rawByteBuffer != null )
+			if ( responseCode == 200 && rawByteBuffer != null )
 			{
 				ostream.print( "Content-Type: " );
-				ostream.print( this.contentType );
+				ostream.print( contentType );
 
-				if ( this.contentType.startsWith( "text" ) )
+				if ( contentType.startsWith( "text" ) )
 				{
 					ostream.print( "; charset=UTF-8" );
 				}
@@ -416,7 +416,7 @@ public class RelayRequest
 				ostream.println();
 
 				ostream.print( "Content-Length: " );
-				ostream.print( this.rawByteBuffer.length );
+				ostream.print( rawByteBuffer.length );
 				ostream.println();
 
 				ostream.println( "Cache-Control: no-cache, must-revalidate" );
@@ -427,21 +427,21 @@ public class RelayRequest
 
 	public void pseudoResponse( final String status, final String responseText )
 	{
-		this.statusLine = status;
+        statusLine = status;
 
-		this.headers.add( "Date: " + new Date() );
-		this.headers.add( "Server: " + KoLConstants.VERSION_NAME );
+        headers.add( "Date: " + new Date() );
+        headers.add( "Server: " + KoLConstants.VERSION_NAME );
 
 		if ( status.contains( "302" ) )
 		{
-			this.headers.add( "Location: " + responseText );
+            headers.add( "Location: " + responseText );
 
-			this.responseCode = 302;
+            responseCode = 302;
 			this.responseText = "";
 		}
 		else if ( status.contains( "200" ) )
 		{
-			this.responseCode = 200;
+            responseCode = 200;
 
 			if ( responseText == null || responseText.length() == 0 )
 			{
@@ -449,19 +449,19 @@ public class RelayRequest
 			}
 			else
 			{
-				this.rawByteBuffer = null;
+                rawByteBuffer = null;
 				this.responseText = responseText;
 			}
 
-			if ( this.contentType.equals( "text/html" ) )
+			if ( contentType.equals( "text/html" ) )
 			{
-				this.headers.add( "Content-Type: text/html; charset=UTF-8" );
-				this.headers.add( "Cache-Control: no-cache, must-revalidate" );
-				this.headers.add( "Pragma: no-cache" );
+                headers.add( "Content-Type: text/html; charset=UTF-8" );
+                headers.add( "Cache-Control: no-cache, must-revalidate" );
+                headers.add( "Pragma: no-cache" );
 			}
 			else
 			{
-				this.headers.add( "Content-Type: " + this.contentType );
+                headers.add( "Content-Type: " + contentType );
 			}
 		}
 		else
@@ -469,7 +469,7 @@ public class RelayRequest
 			this.responseText = " ";
 		}
 
-		this.headers.add( "Connection: close" );
+        headers.add( "Connection: close" );
 	}
 
 	private StringBuffer readContents( final BufferedReader reader )
@@ -551,7 +551,7 @@ public class RelayRequest
 				}
 			}
 		}
-		this.sendLocalImage( filename );
+        sendLocalImage( filename );
 	}
 
 	private void sendLocalImage( final String filename )
@@ -560,12 +560,12 @@ public class RelayRequest
 
 		if ( imageFile == null )
 		{
-			this.sendNotFound();
+            sendNotFound();
 			return;
 		}
 
-		this.rawByteBuffer = ByteBufferUtilities.read( imageFile );
-		this.pseudoResponse( "HTTP/1.1 200 OK", "" );
+        rawByteBuffer = ByteBufferUtilities.read( imageFile );
+        pseudoResponse( "HTTP/1.1 200 OK", "" );
 	}
 
 	private void sendLocalFile( final String filename )
@@ -579,7 +579,7 @@ public class RelayRequest
 
 		if ( override == null || !override.exists() )
 		{
-			this.sendNotFound();
+            sendNotFound();
 			return;
 		}
 
@@ -590,7 +590,7 @@ public class RelayRequest
 
 			if ( !overridePath.startsWith( relayPath ) )
 			{
-				this.sendNotFound();
+                sendNotFound();
 				return;
 			}
 		}
@@ -599,7 +599,7 @@ public class RelayRequest
 
 		}
 
-		StringBuffer replyBuffer = this.readContents( DataUtilities.getReader( override ) );
+		StringBuffer replyBuffer = readContents( DataUtilities.getReader( override ) );
 
 		if ( filename.equals( "chat.html" ) )
 		{
@@ -613,7 +613,7 @@ public class RelayRequest
 		// Print the reply buffer to the response buffer for the local
 		// relay server.
 
-		if ( this.isChatRequest )
+		if ( isChatRequest )
 		{
 			StringUtilities.globalStringReplace( replyBuffer, "<br>", "</font><br>" );
 		}
@@ -623,7 +623,7 @@ public class RelayRequest
 			RequestEditorKit.addChatFeatures( replyBuffer );
 		}
 
-		this.pseudoResponse( "HTTP/1.1 200 OK", replyBuffer.toString() );
+        pseudoResponse( "HTTP/1.1 200 OK", replyBuffer.toString() );
 	}
 
 	public void insertAfterEnd( final StringBuffer replyBuffer, final String contents )
@@ -642,8 +642,8 @@ public class RelayRequest
 
 	public void sendNotFound()
 	{
-		this.pseudoResponse( "HTTP/1.1 404 Not Found", "" );
-		this.responseCode = 404;
+        pseudoResponse( "HTTP/1.1 404 Not Found", "" );
+        responseCode = 404;
 	}
 
 	private boolean sendBattlefieldWarning( final String urlString, final KoLAdventure adventure )
@@ -736,7 +736,7 @@ public class RelayRequest
 		// This will prompt the final confrontation.
 		// Offer a chance to cash in dimes and quarters.
 
-		return this.sendCoinMasterWarning( data );
+		return sendCoinMasterWarning( data );
 	}
 
 	private boolean checkBattle( final int outfitId )
@@ -746,7 +746,7 @@ public class RelayRequest
 
 		if ( fratboysDefeated == 999 && hippiesDefeated == 999 )
 		{
-			return this.sendCoinMasterWarning( null );
+			return sendCoinMasterWarning( null );
 		}
 
 		if ( fratboysDefeated == 999 && outfitId == 32 )
@@ -755,7 +755,7 @@ public class RelayRequest
 			int factor = IslandDecorator.hippiesDefeatedPerBattle();
 			if ( hippiesDefeated < 999 && ( 999 - hippiesDefeated ) % factor == 0 )
 			{
-				return this.sendWossnameWarning( QuartersmasterRequest.FRATBOY );
+				return sendWossnameWarning( QuartersmasterRequest.FRATBOY );
 			}
 		}
 
@@ -765,7 +765,7 @@ public class RelayRequest
 			int factor = IslandDecorator.fratboysDefeatedPerBattle();
 			if ( fratboysDefeated < 999 && ( 999 - fratboysDefeated ) % factor == 0 )
 			{
-				return this.sendWossnameWarning( DimemasterRequest.HIPPY );
+				return sendWossnameWarning( DimemasterRequest.HIPPY );
 			}
 		}
 
@@ -775,7 +775,7 @@ public class RelayRequest
 	private boolean sendCoinMasterWarning( final CoinmasterData camp )
 	{
 		// If user has already confirmed he wants to go there, accept it
-		if ( this.getFormField( CONFIRM_TOKENS ) != null )
+		if ( getFormField( CONFIRM_TOKENS ) != null )
 		{
 			return false;
 		}
@@ -795,7 +795,7 @@ public class RelayRequest
 		message =
 			message + " Before you do so, you might want to redeem war loot for dimes and quarters and buy equipment. Click on the image to enter battle, once you are ready.";
 
-		this.sendGeneralWarning( "lucre.gif", message, CONFIRM_TOKENS );
+        sendGeneralWarning( "lucre.gif", message, CONFIRM_TOKENS );
 
 		return true;
 	}
@@ -803,7 +803,7 @@ public class RelayRequest
 	private boolean sendInfernalSealWarning( final String urlString )
 	{
 		// If user has already confirmed he wants to do it, accept it
-		if ( this.getFormField( CONFIRM_SEAL ) != null )
+		if ( getFormField( CONFIRM_SEAL ) != null )
 		{
 			return false;
 		}
@@ -837,14 +837,14 @@ public class RelayRequest
 		message =
 			"You are trying to summon an infernal seal, but you are not wielding a club. You are either incredibly puissant or incredibly foolish. If you are sure you want to do this, click on the image and proceed to your doom.";
 
-		this.sendGeneralWarning( "iblubbercandle.gif", message, CONFIRM_SEAL, "checked=1" );
+        sendGeneralWarning( "iblubbercandle.gif", message, CONFIRM_SEAL, "checked=1" );
 
 		return true;
 	}
 
 	private boolean sendWossnameWarning( final CoinmasterData camp )
 	{
-		if ( this.getFormField( CONFIRM_WOSSNAME ) != null )
+		if ( getFormField( CONFIRM_WOSSNAME ) != null )
 		{
 			return false;
 		}
@@ -859,14 +859,14 @@ public class RelayRequest
 		message.append( side2 );
 		message.append( ". If you are sure you don't want the Order of the Silver Wossname, click on the image and proceed." );
 
-		this.sendGeneralWarning( "wossname.gif", message.toString(), CONFIRM_WOSSNAME );
+        sendGeneralWarning( "wossname.gif", message.toString(), CONFIRM_WOSSNAME );
 
 		return true;
 	}
 
 	private boolean sendFamiliarWarning()
 	{
-		if ( this.getFormField( CONFIRM_FAMILIAR ) != null )
+		if ( getFormField( CONFIRM_FAMILIAR ) != null )
 		{
 			return false;
 		}
@@ -900,7 +900,7 @@ public class RelayRequest
 
 		warning.append( "<table><tr>" );
 
-		String url = this.getURLString();
+		String url = getURLString();
 
 		// Proceed with familiar
 		warning.append( "<td align=center valign=center><div id=\"lucky\" style=\"padding: 4px 4px 4px 4px\"><a style=\"text-decoration: none\" href=\"" );
@@ -940,7 +940,7 @@ public class RelayRequest
 		warning.append( "</tr></table></center><blockquote>KoLmafia has detected that you may be doing a 100% familiar run.  If you are sure you wish to deviate from this path, click on the familiar on the left.  If this was an accident, please click on the familiar on the right to switch to your 100% familiar." );
 		warning.append( "</blockquote></td></tr></table></center></td></tr></table></center></body></html>" );
 
-		this.pseudoResponse( "HTTP/1.1 200 OK", warning.toString() );
+        pseudoResponse( "HTTP/1.1 200 OK", warning.toString() );
 
 		return true;
 	}
@@ -957,39 +957,39 @@ public class RelayRequest
 
 			if ( location != null && location.equals( "34" ) && KoLCharacter.mcdAvailable() )
 			{
-				return this.sendBossWarning( "The Boss Bat", "bossbat.gif", 4, "batpants.gif", 8, "batbling.gif" );
+				return sendBossWarning( "The Boss Bat", "bossbat.gif", 4, "batpants.gif", 8, "batbling.gif" );
 			}
 		}
 
 		// This one is for the Knob Goblin King, who has special items at 3 and 7.
 		else if ( path.startsWith( "cobbsknob.php" ) )
 		{
-			String action = this.getFormField( "action" );
+			String action = getFormField( "action" );
 			if ( action != null && action.equals( "throneroom" ) && KoLCharacter.mcdAvailable() )
 			{
-				return this.sendBossWarning( "The Knob Goblin King", "goblinking.gif", 3, "glassballs.gif", 7, "batcape.gif" );
+				return sendBossWarning( "The Knob Goblin King", "goblinking.gif", 3, "glassballs.gif", 7, "batcape.gif" );
 			}
 		}
 
 		// This one is for the Bonerdagon, who has special items at 5 and 10.
 		else if ( path.startsWith( "crypt.php" ) )
 		{
-			String action = this.getFormField( "action" );
+			String action = getFormField( "action" );
 			if ( action != null && action.equals( "heart" ) && KoLCharacter.mcdAvailable() )
 			{
-				return this.sendBossWarning( "The Bonerdagon", "bonedragon.gif", 5, "rib.gif", 10, "vertebra.gif" );
+				return sendBossWarning( "The Bonerdagon", "bonedragon.gif", 5, "rib.gif", 10, "vertebra.gif" );
 			}
 		}
 
 		// This one's for Baron von Ratsworth, who has special items at 2 and 9.
 		else if ( path.startsWith( "cellar.php" ) )
 		{
-			String action = this.getFormField( "action" );
-			String square = this.getFormField( "whichspot" );
+			String action = getFormField( "action" );
+			String square = getFormField( "whichspot" );
 			String baron = TavernManager.baronSquare();
 			if ( action != null && action.equals( "explore" ) && square != null && square.equals( baron ) && KoLCharacter.mcdAvailable() )
 			{
-				return this.sendBossWarning( "Baron von Ratsworth", "ratsworth.gif", 2, "moneyclip.gif", 9, "tophat.gif" );
+				return sendBossWarning( "Baron von Ratsworth", "ratsworth.gif", 2, "moneyclip.gif", 9, "tophat.gif" );
 			}
 		}
 
@@ -1000,7 +1000,7 @@ public class RelayRequest
 					 final int mcd1, final String item1,
 					 final int mcd2, final String item2 )
 	{
-		if ( this.getFormField( CONFIRM_MCD ) != null )
+		if ( getFormField( CONFIRM_MCD ) != null )
 		{
 			return false;
 		}
@@ -1049,7 +1049,7 @@ public class RelayRequest
 		warning.append( "<td>&nbsp;&nbsp;&nbsp;&nbsp;</td>" );
 
 		warning.append( "<td valign=center><a href=\"" );
-		warning.append( this.getURLString() );
+		warning.append( getURLString() );
 		warning.append( "&" );
 		warning.append( CONFIRM_MCD );
 		warning.append( "=on" );
@@ -1080,7 +1080,7 @@ public class RelayRequest
 
 		warning.append( " once you've decided to proceed.</blockquote></td></tr></table></center></td></tr></table></center></body></html>" );
 
-		this.pseudoResponse( "HTTP/1.1 200 OK", warning.toString() );
+        pseudoResponse( "HTTP/1.1 200 OK", warning.toString() );
 
 		return true;
 	}
@@ -1090,7 +1090,7 @@ public class RelayRequest
 		// If the person is visiting the sorceress and they
 		// forgot to make the Wand, remind them.
 
-		if ( this.getFormField( CONFIRM_SORCERESS ) != null )
+		if ( getFormField( CONFIRM_SORCERESS ) != null )
 		{
 			return false;
 		}
@@ -1101,7 +1101,7 @@ public class RelayRequest
 			return false;
 		}
 
-		String place = this.getFormField( "place" );
+		String place = getFormField( "place" );
 		if ( place == null || !place.equals( "5" ) )
 		{
 			return false;
@@ -1119,7 +1119,7 @@ public class RelayRequest
 			}
 
 			warning.append( " <span title=\"Bedroom\">Antique hand mirror</span>" );
-			this.sendGeneralWarning( "handmirror.gif", warning.toString(), CONFIRM_SORCERESS );
+            sendGeneralWarning( "handmirror.gif", warning.toString(), CONFIRM_SORCERESS );
 			return true;
 		}
 
@@ -1163,25 +1163,25 @@ public class RelayRequest
 			}
 		}
 
-		this.sendGeneralWarning( "wand.gif", warning.toString(), CONFIRM_SORCERESS );
+        sendGeneralWarning( "wand.gif", warning.toString(), CONFIRM_SORCERESS );
 		return true;
 	}
 	
 	private boolean sendArcadeWarning()
 	{
 
-		if ( this.getFormField( CONFIRM_ARCADE ) != null )
+		if ( getFormField( CONFIRM_ARCADE ) != null )
 		{
 			return false;
 		}
 
-		String action = this.getFormField( "action" );
+		String action = getFormField( "action" );
 		if ( action == null || !action.equals( "game" ) )
 		{
 			return false;
 		}
 
-		String game = this.getFormField( "whichgame" );
+		String game = getFormField( "whichgame" );
 		if ( game == null || !game.equals( "2" ) )
 		{
 			return false;
@@ -1192,7 +1192,7 @@ public class RelayRequest
 		     EquipmentManager.getEquipment( EquipmentManager.HAT ) == EquipmentRequest.UNEQUIP ||
 		     EquipmentManager.getEquipment( EquipmentManager.PANTS ) == EquipmentRequest.UNEQUIP )
 		{
-			this.sendGeneralWarning( "ggtoken.gif", "You might not be properly equipped to play this game.<br>Click the token if you'd like to continue anyway.", CONFIRM_ARCADE );
+            sendGeneralWarning( "ggtoken.gif", "You might not be properly equipped to play this game.<br>Click the token if you'd like to continue anyway.", CONFIRM_ARCADE );
 			return true;
 		}
 
@@ -1207,13 +1207,13 @@ public class RelayRequest
 		}
 
 		// The player has asked to be protected from himself
-		this.sendGeneralWarning( "shield_stop.gif", "You may not enter the Money Losing Game.", null );
+        sendGeneralWarning( "shield_stop.gif", "You may not enter the Money Losing Game.", null );
 		return true;
 	}
 
 	public void sendGeneralWarning( final String image, final String message, final String confirm )
 	{
-		this.sendGeneralWarning( image, message, confirm, null );
+        sendGeneralWarning( image, message, confirm, null );
 	}
 
 	public void sendGeneralWarning( final String image, final String message, final String confirm, final String extra )
@@ -1224,7 +1224,7 @@ public class RelayRequest
 
 		if ( image != null && !image.equals( "" ) )
 		{
-			String url = this.getURLString();
+			String url = getURLString();
 
 			warning.append( "<center>" );
 			if ( confirm != null )
@@ -1255,7 +1255,7 @@ public class RelayRequest
 		warning.append( message );
 		warning.append( "</blockquote></td></tr></table></center></td></tr></table></center></body></html>" );
 
-		this.pseudoResponse( "HTTP/1.1 200 OK", warning.toString() );
+        pseudoResponse( "HTTP/1.1 200 OK", warning.toString() );
 	}
 
 	public boolean sendCloverWarning( final String adventureName)
@@ -1275,7 +1275,7 @@ public class RelayRequest
 			return false;
 		}
 
-		if ( this.getFormField( CONFIRM_CLOVER ) != null )
+		if ( getFormField( CONFIRM_CLOVER ) != null )
 		{
 			return false;
 		}
@@ -1290,7 +1290,7 @@ public class RelayRequest
 
 		warning.append( "<table><tr>" );
 
-		String url = this.getURLString();
+		String url = getURLString();
 
 		// Proceed with clover
 		warning.append( "<td align=center valign=center><div id=\"lucky\" style=\"padding: 4px 4px 4px 4px\"><a style=\"text-decoration: none\" href=\"" );
@@ -1338,7 +1338,7 @@ public class RelayRequest
 		}
 		warning.append( " your clovers first.  To disable this warning, please check your preferences and disable clover protection.</blockquote></td></tr></table></center></td></tr></table></center></body></html>" );
 
-		this.pseudoResponse( "HTTP/1.1 200 OK", warning.toString() );
+        pseudoResponse( "HTTP/1.1 200 OK", warning.toString() );
 
 		return true;
 	}
@@ -1347,7 +1347,7 @@ public class RelayRequest
 	{
 		if ( RelayRequest.lastSafety == null )
 		{
-			this.pseudoResponse( "HTTP/1.1 200 OK", "" );
+            pseudoResponse( "HTTP/1.1 200 OK", "" );
 			return;
 		}
 
@@ -1355,7 +1355,7 @@ public class RelayRequest
 
 		if ( combat == null )
 		{
-			this.pseudoResponse( "HTTP/1.1 200 OK", "" );
+            pseudoResponse( "HTTP/1.1 200 OK", "" );
 			return;
 		}
 
@@ -1387,7 +1387,7 @@ public class RelayRequest
 		buffer.append( combatData );
 
 		buffer.append( "</font>" );
-		this.pseudoResponse( "HTTP/1.1 200 OK", buffer.toString() );
+        pseudoResponse( "HTTP/1.1 200 OK", buffer.toString() );
 	}
 
 	private void handleCommand()
@@ -1396,26 +1396,26 @@ public class RelayRequest
 		// special handling, catching any exceptions that happen to
 		// popup along the way.
 
-		String path = this.getBasePath();
+		String path = getBasePath();
 		if ( path.endsWith( "submitCommand" ) )
 		{
-			submitCommand( this.getFormField( "cmd" ) );
-			this.pseudoResponse( "HTTP/1.1 200 OK", "" );
+			submitCommand( getFormField( "cmd" ) );
+            pseudoResponse( "HTTP/1.1 200 OK", "" );
 		}
 		else if ( path.endsWith( "redirectedCommand" ) )
 		{
-			submitCommand( this.getFormField( "cmd" ) );
-			this.pseudoResponse( "HTTP/1.1 302 Found", RelayRequest.redirectedCommandURL );
+			submitCommand( getFormField( "cmd" ) );
+            pseudoResponse( "HTTP/1.1 302 Found", RelayRequest.redirectedCommandURL );
 		}
 		else if ( path.endsWith( "sideCommand" ) )
 		{
-			submitCommand( this.getFormField( "cmd" ), true );
-			this.pseudoResponse( "HTTP/1.1 302 Found", "/charpane.php" );
+			submitCommand( getFormField( "cmd" ), true );
+            pseudoResponse( "HTTP/1.1 302 Found", "/charpane.php" );
 		}
 		else if ( path.endsWith( "specialCommand" ) ||
 			  path.endsWith( "parameterizedCommand" ) )
 		{
-			String cmd = this.getFormField( "cmd" );
+			String cmd = getFormField( "cmd" );
 			if ( !cmd.equals( "wait" ) )
 			{
 				RelayRequest.specialCommandIsAdventure = false;
@@ -1424,7 +1424,7 @@ public class RelayRequest
 
 				if ( path.endsWith( "parameterizedCommand" ) )
 				{
-					String commandURL =  this.getURLString();
+					String commandURL = getURLString();
 					int pwdStart = commandURL.indexOf( "pwd" );
 					int pwdEnd = commandURL.indexOf( "&", pwdStart );
 
@@ -1437,7 +1437,7 @@ public class RelayRequest
 				}
 			}
 
-			this.contentType = "text/html";
+            contentType = "text/html";
 			if ( CommandDisplayFrame.hasQueuedCommands() )
 			{
 				String refreshURL = "/KoLmafia/specialCommand?cmd=wait&pwd=" + GenericRequest.passwordHash;
@@ -1456,7 +1456,7 @@ public class RelayRequest
 				buffer.append( RelayRequest.specialCommandStatus );
 				buffer.append( "</p></body></html>" );
 
-				this.pseudoResponse( "HTTP/1.1 200 OK",	 buffer.toString() );
+                pseudoResponse( "HTTP/1.1 200 OK",	 buffer.toString() );
 			}
 			else if ( RelayRequest.specialCommandResponse.length() > 0 )
 			{
@@ -1479,7 +1479,7 @@ public class RelayRequest
 
 				matcher.appendTail( buffer );
 
-				this.pseudoResponse( "HTTP/1.1 200 OK", buffer.toString() );
+                pseudoResponse( "HTTP/1.1 200 OK", buffer.toString() );
 
 				RelayRequest.specialCommandResponse = "";
 				RelayRequest.specialCommandStatus = "";
@@ -1493,33 +1493,33 @@ public class RelayRequest
 			{
 				// specialCommand invoked for command that doesn't
 				// specifically support it - we have no page to display.
-				this.pseudoResponse( "HTTP/1.1 200 OK",
+                pseudoResponse( "HTTP/1.1 200 OK",
 					"<html><body>Automation complete.</body></html>)" );
 			}
 		}
 		else if ( path.endsWith( "logout" ) )
 		{
 			submitCommand( "logout" );
-			this.pseudoResponse( "HTTP/1.1 302 Found", "/loggedout.php" );
+            pseudoResponse( "HTTP/1.1 302 Found", "/loggedout.php" );
 		}
 		else if ( path.endsWith( "messageUpdate" ) )
 		{
-			this.pseudoResponse( "HTTP/1.1 200 OK", RelayServer.getNewStatusMessages() );
+            pseudoResponse( "HTTP/1.1 200 OK", RelayServer.getNewStatusMessages() );
 		}
 		else if ( path.endsWith( "lookupLocation" ) )
 		{
 			RelayRequest.lastSafety =
-				AdventureDatabase.getAdventureByURL( "adventure.php?snarfblat=" + this.getFormField( "snarfblat" ) );
+				AdventureDatabase.getAdventureByURL( "adventure.php?snarfblat=" + getFormField( "snarfblat" ) );
 			AdventureFrame.updateSelectedAdventure( RelayRequest.lastSafety );
-			this.handleSafety();
+            handleSafety();
 		}
 		else if ( path.endsWith( "updateLocation" ) )
 		{
-			this.handleSafety();
+            handleSafety();
 		}
 		else
 		{
-			this.pseudoResponse( "HTTP/1.1 200 OK", "" );
+            pseudoResponse( "HTTP/1.1 200 OK", "" );
 		}
 	}
 
@@ -1538,14 +1538,14 @@ public class RelayRequest
 		// Wait until any restoration scripts finish running before
 		// submitting a command to the CLI
 
-		this.waitForRecoveryToComplete();
+        waitForRecoveryToComplete();
 
 		GenericRequest.suppressUpdate( suppressUpdate );
 		CommandDisplayFrame.executeCommand( GenericRequest.decodeField( command ) );
 
 		while ( waitForCompletion && CommandDisplayFrame.hasQueuedCommands() )
 		{
-			this.pauser.pause( 500 );
+            pauser.pause( 500 );
 		}
 
 		GenericRequest.suppressUpdate( false );
@@ -1554,13 +1554,13 @@ public class RelayRequest
 	private void handleChat()
 	{
 		String chatText;
-		boolean tabbedChat = this.getPath().contains( "j=1" );
+		boolean tabbedChat = getPath().contains( "j=1" );
 
-		if ( this.getPath().startsWith( "newchatmessages.php" ) && !tabbedChat )
+		if ( getPath().startsWith( "newchatmessages.php" ) && !tabbedChat )
 		{
 			StringBuilder chatResponse = new StringBuilder();
 
-			long lastSeen = StringUtilities.parseLong( this.getFormField( "lasttime" ) );
+			long lastSeen = StringUtilities.parseLong( getFormField( "lasttime" ) );
 
 			List chatMessages = ChatPoller.getEntries( lastSeen, true );
 			Iterator messageIterator = chatMessages.iterator();
@@ -1594,21 +1594,21 @@ public class RelayRequest
 
 			chatText = chatResponse.toString();
 		}
-		else if ( this.getPath().startsWith( "newchatmessages.php" ) && tabbedChat )
+		else if ( getPath().startsWith( "newchatmessages.php" ) && tabbedChat )
 		{
 			ChatRequest request = new ChatRequest();
 			request.run();
 			chatText = request.responseText;
 		}
-		else if ( this.getPath().startsWith( "submitnewchat.php" ) && tabbedChat )
+		else if ( getPath().startsWith( "submitnewchat.php" ) && tabbedChat )
 		{
-			ChatRequest request = new ChatRequest( this.getFormField( "graf" ) , true );
+			ChatRequest request = new ChatRequest( getFormField( "graf" ) , true );
 			request.run();
 			chatText = request.responseText;
 		}
 		else
 		{
-			chatText = ChatSender.sendMessage( new LinkedList(), this.getFormField( "graf" ), true, false );
+			chatText = ChatSender.sendMessage( new LinkedList(), getFormField( "graf" ), true, false );
 		}
 
 		if ( Preferences.getBoolean( "relayFormatsChatText" ) )
@@ -1616,7 +1616,7 @@ public class RelayRequest
 			chatText = ChatFormatter.formatExternalMessage( chatText );
 		}
 
-		this.pseudoResponse( "HTTP/1.1 200 OK", chatText );
+        pseudoResponse( "HTTP/1.1 200 OK", chatText );
 	}
 
 	public void handleSimple()
@@ -1625,11 +1625,11 @@ public class RelayRequest
 		// there is an attempt to view the robots file, neither
 		// are available on KoL, so return.
 
-		String path = this.getBasePath();
+		String path = getBasePath();
 
 		if ( path.equals( "missingimage.gif" ) || path.endsWith( "robots.txt" ) || path.endsWith( "favicon.ico" ) )
 		{
-			this.sendNotFound();
+            sendNotFound();
 			return;
 		}
 
@@ -1638,7 +1638,7 @@ public class RelayRequest
 
 		if ( path.startsWith( "KoLmafia/" ) )
 		{
-			this.handleCommand();
+            handleCommand();
 			return;
 		}
 
@@ -1649,14 +1649,14 @@ public class RelayRequest
 		{
 			FileUtilities.downloadImage( "http://pics.communityofloathing.com/albums/" + path.substring( path.indexOf( "playerpics" ) ) );
 
-			this.sendLocalImage( path );
+            sendLocalImage( path );
 			return;
 		}
 
 		if ( path.startsWith( "images/" ) )
 		{
 			// We can override specific images.
-			this.sendOverrideImage( path );
+            sendOverrideImage( path );
 			return;
 		}
 
@@ -1667,7 +1667,7 @@ public class RelayRequest
 			KoLmafia.forceContinue();
 			if ( !KoLmafiaASH.getClientHTML( this ) )
 			{
-				this.sendNotFound();
+                sendNotFound();
 			}
 
 			return;
@@ -1677,14 +1677,14 @@ public class RelayRequest
 		// they're probably just used for data tracking purposes
 		// client-side.
 
-		this.data.clear();
-		this.sendLocalFile( path );
+        data.clear();
+        sendLocalFile( path );
 	}
 
 	@Override
 	public void run()
 	{
-		String path = this.getBasePath();
+		String path = getBasePath();
 
 		if ( path.startsWith( "http" ) )
 		{
@@ -1694,23 +1694,23 @@ public class RelayRequest
 
 		if ( !path.endsWith( ".php" ) )
 		{
-			this.handleSimple();
+            handleSimple();
 			return;
 		}
 
 		// If it's a chat request, handle it right away and return.
 		// Otherwise, continue on.
 
-		if ( this.isChatRequest )
+		if ( isChatRequest )
 		{
-			this.handleChat();
+            handleChat();
 			return;
 		}
 
 		// If it gets this far, consider firing a relay browser
 		// override for it.
 
-		if ( this.allowOverride && KoLmafiaASH.getClientHTML( this ) )
+		if ( allowOverride && KoLmafiaASH.getClientHTML( this ) )
 		{
 			return;
 		}
@@ -1719,7 +1719,7 @@ public class RelayRequest
 		{
 			super.run();
 
-			String mainpane = this.getFormField( "mainpane" );
+			String mainpane = getFormField( "mainpane" );
 
 			if ( mainpane != null )
 			{
@@ -1728,8 +1728,8 @@ public class RelayRequest
 					mainpane = mainpane + ".php";
 				}
 
-				this.responseText = StringUtilities.singleStringReplace(
-					this.responseText, "main.php", mainpane );
+                responseText = StringUtilities.singleStringReplace(
+                        responseText, "main.php", mainpane );
 			}
 
 			return;
@@ -1739,16 +1739,16 @@ public class RelayRequest
 		{
 			super.run();
 
-			this.responseText = StringUtilities.globalStringReplace( this.responseText, "<p>", "<br><br>" );
-			this.responseText = StringUtilities.globalStringReplace( this.responseText, "<P>", "<br><br>" );
-			this.responseText = StringUtilities.singleStringDelete( this.responseText, "</span>" );
+            responseText = StringUtilities.globalStringReplace( responseText, "<p>", "<br><br>" );
+            responseText = StringUtilities.globalStringReplace( responseText, "<P>", "<br><br>" );
+            responseText = StringUtilities.singleStringDelete( responseText, "</span>" );
 
 			return;
 		}
 
 		if ( path.startsWith( "desc_item.php" ) )
 		{
-			String descId = this.getFormField( "whichitem" );
+			String descId = getFormField( "whichitem" );
 
 			if ( descId != null )
 			{
@@ -1756,7 +1756,7 @@ public class RelayRequest
 				// if they are currently being requested.
 				if ( descId.startsWith( "custom" ) )
 				{
-					this.pseudoResponse( "HTTP/1.1 200 OK", CustomItemDatabase.retrieveCustomItem( descId.substring( 6 ) ) );
+                    pseudoResponse( "HTTP/1.1 200 OK", CustomItemDatabase.retrieveCustomItem( descId.substring( 6 ) ) );
 					return;
 				}
 
@@ -1767,7 +1767,7 @@ public class RelayRequest
 					String location = ShowDescriptionList.getWikiLocation( itemName );
 					if ( location != null )
 					{
-						this.pseudoResponse( "HTTP/1.1 302 Found", location );
+                        pseudoResponse( "HTTP/1.1 302 Found", location );
 						return;
 					}
 				}
@@ -1776,21 +1776,21 @@ public class RelayRequest
 
 		if ( path.startsWith( "desc_effect.php" ) && Preferences.getBoolean( "relayAddsWikiLinks" ) )
 		{
-			String descId = this.getFormField( "whicheffect" );
+			String descId = getFormField( "whicheffect" );
 			String effectName = EffectDatabase.getEffectName( descId );
 			AdventureResult effect = new AdventureResult( effectName, 1, true );
 			String location = ShowDescriptionList.getWikiLocation( effect );
 
 			if ( location != null )
 			{
-				this.pseudoResponse( "HTTP/1.1 302 Found", location );
+                pseudoResponse( "HTTP/1.1 302 Found", location );
 				return;
 			}
 		}
 
 		if ( path.startsWith( "peevpee.php" ) )
 		{
-			String action = this.getFormField( "action" );
+			String action = getFormField( "action" );
 			if ( action != null && action.equals( "fight" ) )
 			{
 				RelayRequest.executeBeforePVPScript();
@@ -1856,16 +1856,16 @@ public class RelayRequest
 				msg.append( "<br><br>" );
 				msg.append( EatItemRequest.lastSemirareMessage() );
 			}
-			this.sendGeneralWarning( image, msg.toString(), CONFIRM_COUNTER );
+            sendGeneralWarning( image, msg.toString(), CONFIRM_COUNTER );
 			return;
 		}
 
-		String urlString = this.getURLString();
+		String urlString = getURLString();
 
 		// Do some checks fighting infernal seals
 		// - make sure player is wielding a club
 
-		if ( this.sendInfernalSealWarning( urlString ) )
+		if ( sendInfernalSealWarning( urlString ) )
 		{
 			return;
 		}
@@ -1877,7 +1877,7 @@ public class RelayRequest
 		// - make sure player doesn't lose a Wossname by accident
 		// - give player chance to cash in dimes and quarters
 
-		if ( this.sendBattlefieldWarning( urlString, adventure ) )
+		if ( sendBattlefieldWarning( urlString, adventure ) )
 		{
 			return;
 		}
@@ -1897,7 +1897,7 @@ public class RelayRequest
 			urlString.startsWith( "fight.php" ) ||
 			urlString.startsWith( "choice.php" );
 
-		if ( nextAdventure != null && RecoveryManager.isRecoveryPossible() && this.getFormField( CONFIRM_RECOVERY ) == null )
+		if ( nextAdventure != null && RecoveryManager.isRecoveryPossible() && getFormField( CONFIRM_RECOVERY ) == null )
 		{
 			boolean isScript = !isNonCombatsOnly && Preferences.getBoolean( "relayRunsBeforeBattleScript" );
 			boolean isMood = !isNonCombatsOnly && Preferences.getBoolean( "relayMaintainsEffects" );
@@ -1911,7 +1911,7 @@ public class RelayRequest
 
 			if ( !KoLmafia.permitsContinue() && Preferences.getBoolean( "relayWarnOnRecoverFailure" ) )
 			{
-				this.sendGeneralWarning( "beatenup.gif", "Between battle actions failed. Click the image if you'd like to continue anyway.", CONFIRM_RECOVERY );
+                sendGeneralWarning( "beatenup.gif", "Between battle actions failed. Click the image if you'd like to continue anyway.", CONFIRM_RECOVERY );
 				return;
 			}
 		}
@@ -1921,35 +1921,35 @@ public class RelayRequest
 			// Wait until any restoration scripts finish running
 			// before allowing an adventuring request to continue.
 
-			this.waitForRecoveryToComplete();
+            waitForRecoveryToComplete();
 		}
 
-		if ( adventureName != null && !isNonCombatsOnly && this.sendFamiliarWarning() )
+		if ( adventureName != null && !isNonCombatsOnly && sendFamiliarWarning() )
 		{
 			return;
 		}
 
-		if ( this.sendCloverWarning( adventureName ) )
+		if ( sendCloverWarning( adventureName ) )
 		{
 			return;
 		}
 
-		if ( this.sendBossWarning( path, adventure ) )
+		if ( sendBossWarning( path, adventure ) )
 		{
 			return;
 		}
 
-		if ( path.startsWith( "lair6.php" ) && this.sendSorceressWarning() )
+		if ( path.startsWith( "lair6.php" ) && sendSorceressWarning() )
 		{
 			return;
 		}
 
-		if ( path.startsWith( "arcade.php" ) && this.sendArcadeWarning() )
+		if ( path.startsWith( "arcade.php" ) && sendArcadeWarning() )
 		{
 			return;
 		}
 
-		if ( path.startsWith( "bet.php" ) && this.sendMMGWarning() )
+		if ( path.startsWith( "bet.php" ) && sendMMGWarning() )
 		{
 			return;
 		}
@@ -1959,7 +1959,7 @@ public class RelayRequest
 
 		if ( path.startsWith( "lair2.php" ) )
 		{
-			String key = this.getFormField( "whichkey" );
+			String key = getFormField( "whichkey" );
 
 			if ( key != null && key.equals( "436" ) )
 			{
@@ -1972,13 +1972,13 @@ public class RelayRequest
 
 		super.run();
 
-		if ( this.responseCode == 302 )
+		if ( responseCode == 302 )
 		{
-			this.pseudoResponse( "HTTP/1.1 302 Found", this.redirectLocation );
+            pseudoResponse( "HTTP/1.1 302 Found", redirectLocation );
 		}
-		else if ( this.responseCode != 200 )
+		else if ( responseCode != 200 )
 		{
-			this.sendNotFound();
+            sendNotFound();
 		}
 		else if ( wasAdventure )
 		{
@@ -2006,7 +2006,7 @@ public class RelayRequest
 	{
 		while ( RecoveryManager.isRecoveryActive() || MoodManager.isExecuting() )
 		{
-			this.pauser.pause( 100 );
+            pauser.pause( 100 );
 		}
 	}
 

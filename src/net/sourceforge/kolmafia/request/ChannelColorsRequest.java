@@ -87,7 +87,7 @@ public class ChannelColorsRequest
 	{
 		super.run();
 
-		if ( this.responseText == null )
+		if ( responseText == null )
 		{
 			return;
 		}
@@ -96,32 +96,32 @@ public class ChannelColorsRequest
 		// channel tags (for people using standard KoL
 		// chatting mode).
 
-		Matcher colorMatcher = ChannelColorsRequest.GENERAL_PATTERN.matcher( this.responseText );
+		Matcher colorMatcher = ChannelColorsRequest.GENERAL_PATTERN.matcher( responseText );
 		while ( colorMatcher.find() )
 		{
 			String channel = "/" + colorMatcher.group( 1 ).toLowerCase();
-			this.setColor( channel, StringUtilities.parseInt( colorMatcher.group( 2 ) ) );
+            setColor( channel, StringUtilities.parseInt( colorMatcher.group( 2 ) ) );
 		}
 
 		// Add in other custom colors which are available
 		// in the chat options.
 
-		colorMatcher = ChannelColorsRequest.SELF_PATTERN.matcher( this.responseText );
+		colorMatcher = ChannelColorsRequest.SELF_PATTERN.matcher( responseText );
 		if ( colorMatcher.find() )
 		{
-			this.setColor( "chatcolorself", StringUtilities.parseInt( colorMatcher.group( 1 ) ) );
+            setColor( "chatcolorself", StringUtilities.parseInt( colorMatcher.group( 1 ) ) );
 		}
 
-		colorMatcher = ChannelColorsRequest.CONTACTS_PATTERN.matcher( this.responseText );
+		colorMatcher = ChannelColorsRequest.CONTACTS_PATTERN.matcher( responseText );
 		if ( colorMatcher.find() )
 		{
-			this.setColor( "chatcolorcontacts", StringUtilities.parseInt( colorMatcher.group( 1 ) ) );
+            setColor( "chatcolorcontacts", StringUtilities.parseInt( colorMatcher.group( 1 ) ) );
 		}
 
-		colorMatcher = ChannelColorsRequest.OTHER_PATTERN.matcher( this.responseText );
+		colorMatcher = ChannelColorsRequest.OTHER_PATTERN.matcher( responseText );
 		if ( colorMatcher.find() )
 		{
-			this.setColor( "chatcolorothers", StringUtilities.parseInt( colorMatcher.group( 1 ) ) );
+            setColor( "chatcolorothers", StringUtilities.parseInt( colorMatcher.group( 1 ) ) );
 		}
 	}
 

@@ -153,164 +153,164 @@ public class CoinmastersFrame
 	{
 		super( "Coin Masters" );
 
-		this.selectorPanel = new CardLayoutSelectorPanel( "coinMasterIndex", "ABCDEFGHIJKLMNOPQRSTUVWXYZ" );
+        selectorPanel = new CardLayoutSelectorPanel( "coinMasterIndex", "ABCDEFGHIJKLMNOPQRSTUVWXYZ" );
 		JPanel panel;
 
 		// Always available coinmasters
-		this.selectorPanel.addCategory( "Always Available" );
+        selectorPanel.addCategory( "Always Available" );
 
 		panel = new JPanel( new BorderLayout() );
 		bhhPanel = new BountyHunterHunterPanel();
 		panel.add( bhhPanel );
-		this.selectorPanel.addPanel( bhhPanel.getPanelSelector(), panel );
+        selectorPanel.addPanel( bhhPanel.getPanelSelector(), panel );
 
 		panel = new JPanel( new BorderLayout() );
 		mrStorePanel = new MrStorePanel();
 		panel.add( mrStorePanel );
-		this.selectorPanel.addPanel( mrStorePanel.getPanelSelector(), panel );
+        selectorPanel.addPanel( mrStorePanel.getPanelSelector(), panel );
 
 		panel = new JPanel( new BorderLayout() );
 		hermitPanel = new HermitPanel();
 		panel.add( hermitPanel );
-		this.selectorPanel.addPanel( hermitPanel.getPanelSelector(), panel );
+        selectorPanel.addPanel( hermitPanel.getPanelSelector(), panel );
 
 		panel = new JPanel( new BorderLayout() );
 		tr4pz0rPanel = new Tr4pz0rPanel();
 		panel.add( tr4pz0rPanel );
-		this.selectorPanel.addPanel( tr4pz0rPanel.getPanelSelector(), panel );
+        selectorPanel.addPanel( tr4pz0rPanel.getPanelSelector(), panel );
 
 		panel = new JPanel( new BorderLayout() );
 		vendingMachinePanel = new VendingMachinePanel();
 		panel.add( vendingMachinePanel );
-		this.selectorPanel.addPanel( vendingMachinePanel.getPanelSelector(), panel );
+        selectorPanel.addPanel( vendingMachinePanel.getPanelSelector(), panel );
 
 		panel = new JPanel( new BorderLayout() );
 		swaggerShopPanel = new SwaggerShopPanel();
 		panel.add( swaggerShopPanel );
-		this.selectorPanel.addPanel( swaggerShopPanel.getPanelSelector(), panel );
+        selectorPanel.addPanel( swaggerShopPanel.getPanelSelector(), panel );
 
 		// Ascension coinmasters
-		this.selectorPanel.addSeparator();
-		this.selectorPanel.addCategory( "Ascension" );
+        selectorPanel.addSeparator();
+        selectorPanel.addCategory( "Ascension" );
 
 		panel = new JPanel( new BorderLayout() );
 		dimemasterPanel = new DimemasterPanel();
 		panel.add( dimemasterPanel );
-		this.selectorPanel.addPanel( dimemasterPanel.getPanelSelector(), panel );
+        selectorPanel.addPanel( dimemasterPanel.getPanelSelector(), panel );
 
 		panel = new JPanel( new BorderLayout() );
 		quartersmasterPanel = new QuartersmasterPanel();
 		panel.add( quartersmasterPanel );
-		this.selectorPanel.addPanel( quartersmasterPanel.getPanelSelector(), panel );
+        selectorPanel.addPanel( quartersmasterPanel.getPanelSelector(), panel );
 
 		panel = new JPanel( new BorderLayout() );
 		BURTPanel = new BURTPanel();
 		panel.add( BURTPanel );
-		this.selectorPanel.addPanel( BURTPanel.getPanelSelector(), panel );
+        selectorPanel.addPanel( BURTPanel.getPanelSelector(), panel );
 
 		// Aftercore coinmasters
-		this.selectorPanel.addSeparator();
-		this.selectorPanel.addCategory( "Aftercore" );
+        selectorPanel.addSeparator();
+        selectorPanel.addCategory( "Aftercore" );
 
 		panel = new JPanel( new BorderLayout() );
 		bigBrotherPanel = new BigBrotherPanel();
 		panel.add( bigBrotherPanel );
-		this.selectorPanel.addPanel( bigBrotherPanel.getPanelSelector(), panel );
+        selectorPanel.addPanel( bigBrotherPanel.getPanelSelector(), panel );
 
 		// IOTM coinmasters
-		this.selectorPanel.addSeparator();
-		this.selectorPanel.addCategory( "Item of the Month" );
+        selectorPanel.addSeparator();
+        selectorPanel.addCategory( "Item of the Month" );
 
 		panel = new JPanel( new BorderLayout() );
 		arcadePanel = new TicketCounterPanel();
 		panel.add( arcadePanel );
-		this.selectorPanel.addPanel( arcadePanel.getPanelSelector(), panel );
+        selectorPanel.addPanel( arcadePanel.getPanelSelector(), panel );
 
 		panel = new JPanel( new BorderLayout() );
 		gameShoppePanel = new GameShoppePanel();
 		panel.add( gameShoppePanel );
-		this.selectorPanel.addPanel( gameShoppePanel.getPanelSelector(), panel );
+        selectorPanel.addPanel( gameShoppePanel.getPanelSelector(), panel );
 
 		panel = new JPanel( new BorderLayout() );
 		freeSnackPanel = new SnackVoucherPanel();
 		panel.add( freeSnackPanel );
-		this.selectorPanel.addPanel( freeSnackPanel.getPanelSelector(), panel );
+        selectorPanel.addPanel( freeSnackPanel.getPanelSelector(), panel );
 
 		panel = new JPanel( new BorderLayout() );
 		isotopeSmitheryPanel = new IsotopeSmitheryPanel();
 		panel.add( isotopeSmitheryPanel );
-		this.selectorPanel.addPanel( isotopeSmitheryPanel.getPanelSelector(), panel );
+        selectorPanel.addPanel( isotopeSmitheryPanel.getPanelSelector(), panel );
 
 		panel = new JPanel( new BorderLayout() );
 		dollhawkerPanel = new DollHawkerPanel();
 		panel.add( dollhawkerPanel );
-		this.selectorPanel.addPanel( dollhawkerPanel.getPanelSelector(), panel );
+        selectorPanel.addPanel( dollhawkerPanel.getPanelSelector(), panel );
 
 		panel = new JPanel( new BorderLayout() );
 		lunarLunchPanel = new LunarLunchPanel();
 		panel.add( lunarLunchPanel );
-		this.selectorPanel.addPanel( lunarLunchPanel.getPanelSelector(), panel );
+        selectorPanel.addPanel( lunarLunchPanel.getPanelSelector(), panel );
 
 		// Events coinmasters
-		this.selectorPanel.addSeparator();
-		this.selectorPanel.addCategory( "Special Events" );
+        selectorPanel.addSeparator();
+        selectorPanel.addCategory( "Special Events" );
 
 		panel = new JPanel( new BorderLayout() );
 		awolPanel = new CommendationPanel();
 		panel.add( awolPanel );
-		this.selectorPanel.addPanel( awolPanel.getPanelSelector(), panel );
+        selectorPanel.addPanel( awolPanel.getPanelSelector(), panel );
 
 		panel = new JPanel( new BorderLayout() );
 		fudgeWandPanel = new FudgeWandPanel();
 		panel.add( fudgeWandPanel );
-		this.selectorPanel.addPanel( fudgeWandPanel.getPanelSelector(), panel );
+        selectorPanel.addPanel( fudgeWandPanel.getPanelSelector(), panel );
 
 		panel = new JPanel( new BorderLayout() );
 		travelerPanel = new TravelingTraderPanel();
 		panel.add( travelerPanel );
-		this.selectorPanel.addPanel( travelerPanel.getPanelSelector(), panel );
+        selectorPanel.addPanel( travelerPanel.getPanelSelector(), panel );
 
 		panel = new JPanel( new BorderLayout() );
 		fdkolPanel = new fdkolPanel();
 		panel.add( fdkolPanel );
-		this.selectorPanel.addPanel( fdkolPanel.getPanelSelector(), panel );
+        selectorPanel.addPanel( fdkolPanel.getPanelSelector(), panel );
 
 		// Removed coinmasters
-		this.selectorPanel.addSeparator();
-		this.selectorPanel.addCategory( "Removed" );
+        selectorPanel.addSeparator();
+        selectorPanel.addCategory( "Removed" );
 
 		panel = new JPanel( new BorderLayout() );
 		altarOfBonesPanel = new AltarOfBonesPanel();
 		panel.add( altarOfBonesPanel );
-		this.selectorPanel.addPanel( altarOfBonesPanel.getPanelSelector(), panel );
+        selectorPanel.addPanel( altarOfBonesPanel.getPanelSelector(), panel );
 
 		panel = new JPanel( new BorderLayout() );
 		crimboCartelPanel = new CrimboCartelPanel();
 		panel.add( crimboCartelPanel );
-		this.selectorPanel.addPanel( crimboCartelPanel.getPanelSelector(), panel );
+        selectorPanel.addPanel( crimboCartelPanel.getPanelSelector(), panel );
 
 		panel = new JPanel( new BorderLayout() );
 		CRIMBCOGiftShopPanel = new CRIMBCOGiftShopPanel();
 		panel.add( CRIMBCOGiftShopPanel );
-		this.selectorPanel.addPanel( CRIMBCOGiftShopPanel.getPanelSelector(), panel );
+        selectorPanel.addPanel( CRIMBCOGiftShopPanel.getPanelSelector(), panel );
 
 		panel = new JPanel( new BorderLayout() );
 		crimbo11Panel = new Crimbo11Panel();
 		panel.add( crimbo11Panel );
-		this.selectorPanel.addPanel( crimbo11Panel.getPanelSelector(), panel );
+        selectorPanel.addPanel( crimbo11Panel.getPanelSelector(), panel );
 
-		this.selectorPanel.addChangeListener( this );
-		this.selectorPanel.setSelectedIndex( Preferences.getInteger( "coinMasterIndex" ) );
+        selectorPanel.addChangeListener( this );
+        selectorPanel.setSelectedIndex( Preferences.getInteger( "coinMasterIndex" ) );
 
 		JPanel wrapperPanel = new JPanel( new BorderLayout() );
-		wrapperPanel.add( this.selectorPanel, BorderLayout.CENTER );
+		wrapperPanel.add( selectorPanel, BorderLayout.CENTER );
 		wrapperPanel.add( new StatusPanel(), BorderLayout.SOUTH );
 
-		this.setCenterComponent( wrapperPanel );
+        setCenterComponent( wrapperPanel );
 
 		CoinmastersFrame.INSTANCE = this;
 
-		RequestThread.executeMethodAfterInitialization( this.getClass(), "externalUpdate" );
+		RequestThread.executeMethodAfterInitialization( getClass(), "externalUpdate" );
 	}
 
 	/**
@@ -319,12 +319,12 @@ public class CoinmastersFrame
 
 	public void stateChanged( final ChangeEvent e )
 	{
-		this.setTitle();
+        setTitle();
 	}
 
 	private void setTitle()
 	{
-		JPanel panel = (JPanel) this.selectorPanel.currentPanel();
+		JPanel panel = (JPanel) selectorPanel.currentPanel();
 		Component cm = ( panel instanceof JPanel ) ? panel.getComponent( 0 ) : null;
 		if ( cm instanceof CoinmasterPanel )
 		{
@@ -368,7 +368,7 @@ public class CoinmastersFrame
 		crimboCartelPanel.update();
 		CRIMBCOGiftShopPanel.update();
 		fdkolPanel.update();
-		this.setTitle();
+        setTitle();
 	}
 
 	private class DimemasterPanel
@@ -407,27 +407,27 @@ public class CoinmastersFrame
 		public MrStorePanel()
 		{
 			super( MrStoreRequest.MR_STORE );
-			this.buyPanel.addButton( pull, false );
-			this.storageInTitle = true;
-			this.pullsInTitle = true;
-			this.update();
+            buyPanel.addButton( pull, false );
+            storageInTitle = true;
+            pullsInTitle = true;
+            update();
 		}
 
 		@Override
 		public void setEnabled( final boolean isEnabled )
 		{
 			super.setEnabled( isEnabled );
-			this.pull.setEnabled( isEnabled && this.storageCount > 0 );
+            pull.setEnabled( isEnabled && storageCount > 0 );
 		}
 
 		@Override
 		public void update()
 		{
-			this.storageCount = MrStoreRequest.MR_A.getCount( KoLConstants.storage );
+            storageCount = MrStoreRequest.MR_A.getCount( KoLConstants.storage );
 			boolean canPull =
 				KoLCharacter.isHardcore() ||
 				ConcoctionDatabase.getPullsRemaining() != 0;
-			this.pull.setEnabled( canPull && this.storageCount > 0 );
+            pull.setEnabled( canPull && storageCount > 0 );
 		}
 
 		public void pull()
@@ -447,7 +447,7 @@ public class CoinmastersFrame
 		public HermitPanel()
 		{
 			super( HermitRequest.HERMIT );
-			this.buyPanel.addButton( fish, true );
+            buyPanel.addButton( fish, true );
 		}
 
 		public void fish()
@@ -510,23 +510,23 @@ public class CoinmastersFrame
 		{
 			super();
 
-			this.data = Crimbo11Request.CRIMBO11;
+            data = Crimbo11Request.CRIMBO11;
 
-			this.sellPanel = new SellPanel();
-			this.add( this.sellPanel, BorderLayout.NORTH );
+            sellPanel = new SellPanel();
+            add( sellPanel, BorderLayout.NORTH );
 
 			ActionListener[] listeners = new ActionListener[ 2 ];
 			listeners[ 0 ] = new GiftListener();
 			listeners[ 1 ] = new DonateListener();
 
-			this.buyPanel = new BuyPanel( listeners );
-			this.add( this.buyPanel, BorderLayout.CENTER );
+            buyPanel = new BuyPanel( listeners );
+            add( buyPanel, BorderLayout.CENTER );
 		}
 
 		public Object[] getDesiredItems()
 		{
-			Object[] items = this.buyPanel.elementList.getSelectedValues();
-			return this.getDesiredBuyItems( items, false );
+			Object[] items = buyPanel.elementList.getSelectedValues();
+			return getDesiredBuyItems( items, false );
 		}
 
 		public class GiftListener
@@ -543,7 +543,7 @@ public class CoinmastersFrame
 					return;
 				}
 
-				Object[] items = Crimbo11Panel.this.getDesiredItems();
+				Object[] items = getDesiredItems();
 				if ( items == null )
 				{
 					return;
@@ -579,7 +579,7 @@ public class CoinmastersFrame
 					return;
 				}
 
-				Object[] items = Crimbo11Panel.this.getDesiredItems();
+				Object[] items = getDesiredItems();
 				if ( items == null )
 				{
 					return;
@@ -614,30 +614,30 @@ public class CoinmastersFrame
 		public TicketCounterPanel()
 		{
 			super( TicketCounterRequest.TICKET_COUNTER );
-			this.buyPanel.addButton( skeeball, false );
-			this.update();
+            buyPanel.addButton( skeeball, false );
+            update();
 		}
 
 		@Override
 		public void setEnabled( final boolean isEnabled )
 		{
 			super.setEnabled( isEnabled );
-			this.skeeball.setEnabled( isEnabled && this.gameGridTokens > 0 );
+            skeeball.setEnabled( isEnabled && gameGridTokens > 0 );
 		}
 
 		@Override
 		public void update()
 		{
-			this.gameGridTokens = ArcadeRequest.TOKEN.getCount( KoLConstants.inventory );
-			this.skeeball.setEnabled( this.gameGridTokens > 0 );
+            gameGridTokens = ArcadeRequest.TOKEN.getCount( KoLConstants.inventory );
+            skeeball.setEnabled( gameGridTokens > 0 );
 		}
 
 		@Override
 		public void setTitle( final StringBuffer buffer )
 		{
-			this.standardTitle( buffer );
+            standardTitle( buffer );
 			buffer.append( " (" );
-			buffer.append( String.valueOf( this.gameGridTokens ) );
+			buffer.append( String.valueOf( gameGridTokens ) );
 			buffer.append( " Game Grid tokens)" );
 		}
 
@@ -784,7 +784,7 @@ public class CoinmastersFrame
 		@Override
 		public String lighthouseSide()
 		{
-			return this.side;
+			return side;
 		}
 	}
 
@@ -812,45 +812,45 @@ public class CoinmastersFrame
 			if ( data.getSellPrices() != null )
 			{
 				sellPanel = new SellPanel();
-				this.add( sellPanel, BorderLayout.NORTH );
+                add( sellPanel, BorderLayout.NORTH );
 			}
 
 			if ( data.getBuyPrices() != null )
 			{
 				buyPanel = new BuyPanel();
-				this.add( buyPanel, BorderLayout.CENTER );
+                add( buyPanel, BorderLayout.CENTER );
 			}
 
-			this.storageInTitle = this.data.getStorageAction() != null;
+            storageInTitle = this.data.getStorageAction() != null;
 		}
 
 		public CoinMasterRequest getRequest()
 		{
-			return this.data.getRequest();
+			return data.getRequest();
 		}
 
 		public CoinMasterRequest getRequest( final String action, final AdventureResult it )
 		{
-			return this.data.getRequest( action, it );
+			return data.getRequest( action, it );
 		}
 
 		public final void setTitle()
 		{
 			StringBuffer buffer = new StringBuffer();
-			this.setTitle( buffer );
+            setTitle( buffer );
 			CoinmastersFrame.this.setTitle( buffer.toString() );
 		}
 
 		public void setTitle( final StringBuffer buffer )
 		{
-			this.standardTitle( buffer );
+            standardTitle( buffer );
 		}
 
 		public final void standardTitle( final StringBuffer buffer )
 		{
-			AdventureResult item = this.data.getItem();
-			int count = this.data.availableTokens();
-			String name = ( count != 1 ) ? this.data.getPluralToken() : this.data.getToken();
+			AdventureResult item = data.getItem();
+			int count = data.availableTokens();
+			String name = ( count != 1 ) ? data.getPluralToken() : data.getToken();
 			buffer.append( "Coin Masters (" );
 			buffer.append( String.valueOf( count ) );
 			buffer.append( " " );
@@ -894,12 +894,12 @@ public class CoinmastersFrame
 
 		public String getPanelSelector()
 		{
-			return "- " + this.data.getMaster();
+			return "- " + data.getMaster();
 		}
 
 		public boolean enabled()
 		{
-			return this.data.isAccessible();
+			return data.isAccessible();
 		}
 
 		public String lighthouseSide()
@@ -918,12 +918,12 @@ public class CoinmastersFrame
 
 		public void check()
 		{
-			RequestThread.postRequest( this.getRequest() );
+			RequestThread.postRequest( getRequest() );
 		}
 
 		protected void execute( final String action, final Object [] items )
 		{
-			this.execute( action, items, null );
+            execute( action, items, null );
 		}
 
 		protected void execute( final String action, final Object [] items, final String extraAction )
@@ -936,7 +936,7 @@ public class CoinmastersFrame
 			for ( int i = 0; i < items.length; ++i )
 			{
 				AdventureResult it = (AdventureResult)items[i];
-				CoinMasterRequest request = this.getRequest( action, it );
+				CoinMasterRequest request = getRequest( action, it );
 				if ( extraAction != null )
 				{
 					request.addFormField( extraAction );
@@ -945,7 +945,7 @@ public class CoinmastersFrame
 			}
 
 			// Update our token count in the title
-			this.setTitle();
+            setTitle();
 		}
 
 		public Object[] getDesiredBuyItems( Object[] items, final boolean fromStorage )
@@ -983,7 +983,7 @@ public class CoinmastersFrame
 
 				if ( max > 1 )
 				{
-					int def = CoinmasterPanel.this.buyDefault( max );
+					int def = buyDefault( max );
 					String value = InputFieldUtilities.input( "Buying " + itemName + "...", KoLConstants.COMMA_FORMAT.format( def ) );
 					if ( value == null )
 					{
@@ -1038,21 +1038,21 @@ public class CoinmastersFrame
 			public SellPanel()
 			{
 				super( KoLConstants.inventory );
-				this.setButtons( true, new ActionListener[] {
+                setButtons( true, new ActionListener[] {
 						new SellListener(),
 					} );
 
-				Map sellPrices = CoinmasterPanel.this.data.getSellPrices();
-				this.elementList.setCellRenderer( getCoinmasterRenderer( CoinmasterPanel.this.data, sellPrices, false, null ) );
-				this.setEnabled( true );
-				this.filterItems();
+				Map sellPrices = data.getSellPrices();
+                elementList.setCellRenderer( getCoinmasterRenderer( data, sellPrices, false, null ) );
+                setEnabled( true );
+                filterItems();
 			}
 
 			@Override
 			public void setEnabled( final boolean isEnabled )
 			{
 				super.setEnabled( isEnabled );
-				this.buttons[ 0 ].setEnabled( CoinmasterPanel.this.enabled() );
+                buttons[ 0 ].setEnabled( enabled() );
 			}
 
 			@Override
@@ -1063,7 +1063,7 @@ public class CoinmastersFrame
 			@Override
 			public void addMovers()
 			{
-				if ( CoinmasterPanel.this.addSellMovers() )
+				if ( addSellMovers() )
 				{
 					super.addMovers();
 				}
@@ -1104,7 +1104,7 @@ public class CoinmastersFrame
 						return;
 					}
 
-					Object[] items = SellPanel.this.getDesiredItems( "Selling" );
+					Object[] items = getDesiredItems( "Selling" );
 					if ( items == null )
 					{
 						return;
@@ -1131,7 +1131,7 @@ public class CoinmastersFrame
 						return false;
 					}
 					AdventureResult ar = (AdventureResult)element;
-					int price = CoinmastersDatabase.getPrice( ar.getName(), CoinmasterPanel.this.data.getSellPrices() );
+					int price = CoinmastersDatabase.getPrice( ar.getName(), data.getSellPrices() );
 					return ( price > 0 ) && super.isVisible( element );
 				}
 			}
@@ -1142,27 +1142,27 @@ public class CoinmastersFrame
 		{
 			public BuyPanel( ActionListener[] listeners )
 			{
-				super( CoinmasterPanel.this.data.getBuyItems() );
+				super( data.getBuyItems() );
 
 				if ( listeners != null )
 				{
-					this.setButtons( true, listeners );
+                    setButtons( true, listeners );
 				}
 
-				this.eastPanel.add( new InvocationButton( "visit", CoinmasterPanel.this, "check" ), BorderLayout.SOUTH );
+                eastPanel.add( new InvocationButton( "visit", CoinmasterPanel.this, "check" ), BorderLayout.SOUTH );
 
-				Map buyPrices = CoinmasterPanel.this.data.getBuyPrices();
-				String side = CoinmasterPanel.this.lighthouseSide();
-				this.elementList.setCellRenderer( getCoinmasterRenderer( CoinmasterPanel.this.data, buyPrices, true, side ) );
-				this.elementList.setVisibleRowCount( 6 );
-				this.setEnabled( true );
+				Map buyPrices = data.getBuyPrices();
+				String side = lighthouseSide();
+                elementList.setCellRenderer( getCoinmasterRenderer( data, buyPrices, true, side ) );
+                elementList.setVisibleRowCount( 6 );
+                setEnabled( true );
 			}
 
 			public BuyPanel()
 			{
 				this( null );
 
-				boolean storage = CoinmasterPanel.this.data.getStorageAction() != null;
+				boolean storage = data.getStorageAction() != null;
 				int count = storage ? 2 : 1;
 				ActionListener[] listeners = new ActionListener[ count ];
 				listeners[ 0 ] = new BuyListener();
@@ -1171,15 +1171,15 @@ public class CoinmastersFrame
 					listeners[ 1 ] = new BuyUsingStorageListener();
 				}
 
-				this.setButtons( true, listeners );
-				this.setEnabled( true );
+                setButtons( true, listeners );
+                setEnabled( true );
 			}
 
 			public void addButton( final JButton button, final boolean save )
 			{
 				JButton[] buttons = new JButton[1 ];
 				buttons[ 0 ] = button;
-				this.addButtons( buttons, save );
+                addButtons( buttons, save );
 			}
 
 			@Override
@@ -1192,9 +1192,9 @@ public class CoinmastersFrame
 			public void setEnabled( final boolean isEnabled )
 			{
 				super.setEnabled( isEnabled );
-				for ( int i = 0; this.buttons != null && i < this.buttons.length; ++i )
+				for ( int i = 0; buttons != null && i < buttons.length; ++i )
 				{
-					this.buttons[ i ].setEnabled( CoinmasterPanel.this.enabled() );
+                    buttons[ i ].setEnabled( enabled() );
 				}
 			}
 
@@ -1210,8 +1210,8 @@ public class CoinmastersFrame
 
 			public Object[] getDesiredItems( final boolean fromStorage )
 			{
-				Object[] items = this.elementList.getSelectedValues();
-				return CoinmasterPanel.this.getDesiredBuyItems( items, fromStorage );
+				Object[] items = elementList.getSelectedValues();
+				return getDesiredBuyItems( items, fromStorage );
 			}
 
 			public class BuyListener
@@ -1228,7 +1228,7 @@ public class CoinmastersFrame
 						return;
 					}
 
-					Object[] items = BuyPanel.this.getDesiredItems( false );
+					Object[] items = getDesiredItems( false );
 					if ( items == null )
 					{
 						return;
@@ -1250,15 +1250,15 @@ public class CoinmastersFrame
 				@Override
 				protected void execute()
 				{
-					Object[] items = BuyPanel.this.getDesiredItems( true );
+					Object[] items = getDesiredItems( true );
 					if ( items == null )
 					{
 						return;
 					}
 
-					CoinmasterPanel.this.execute( CoinmasterPanel.this.data.getBuyAction(),
+					CoinmasterPanel.this.execute( data.getBuyAction(),
 						 items,
-						 CoinmasterPanel.this.data.getStorageAction() );
+                            data.getStorageAction() );
 				}
 
 				@Override
@@ -1285,7 +1285,7 @@ public class CoinmastersFrame
 
 		public CoinmasterRenderer( CoinmasterData data, final Map prices, final boolean usesTokens, String side )
 		{
-			this.setOpaque( true );
+            setOpaque( true );
 			this.data = data;
 			this.prices = prices;
 			this.usesTokens = usesTokens;
@@ -1310,7 +1310,7 @@ public class CoinmastersFrame
 
 			if ( value instanceof AdventureResult )
 			{
-				return this.getRenderer( defaultComponent, (AdventureResult) value );
+				return getRenderer( defaultComponent, (AdventureResult) value );
 			}
 
 			return defaultComponent;
@@ -1326,9 +1326,9 @@ public class CoinmastersFrame
 			String name = ar.getName();
 			String canonicalName = StringUtilities.getCanonicalName( name );
 
-			if ( this.side != null &&
+			if ( side != null &&
 			     CoinmastersFrame.lighthouseItems.contains( canonicalName ) &&
-			     !Preferences.getString( "sidequestLighthouseCompleted" ).equals( this.side ) )
+			     !Preferences.getString( "sidequestLighthouseCompleted" ).equals( side ) )
 			{
 				return null;
 			}
@@ -1343,10 +1343,10 @@ public class CoinmastersFrame
 			int price = iprice;
 			boolean show = CoinmastersDatabase.availableItem( canonicalName );
 
-			if ( show && this.usesTokens )
+			if ( show && usesTokens )
 			{
-				int balance1 = this.data.availableTokens();
-				int balance2 = this.data.availableStorageTokens();
+				int balance1 = data.availableTokens();
+				int balance2 = data.availableStorageTokens();
 				if ( price > balance1 && price > balance2 )
 				{
 					show = false;
@@ -1363,7 +1363,7 @@ public class CoinmastersFrame
 			stringForm.append( " (" );
 			stringForm.append( price );
 			stringForm.append( " " );
-			stringForm.append( price != 1 ? this.data.getPluralToken() : this.data.getToken() );
+			stringForm.append( price != 1 ? data.getPluralToken() : data.getToken() );
 			stringForm.append( ")" );
 			int count = ar.getCount();
 			if ( count == -1 )

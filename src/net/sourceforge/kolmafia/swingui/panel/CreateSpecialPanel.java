@@ -95,9 +95,9 @@ public class CreateSpecialPanel
 		filterPanel.add( new CreationSettingCheckBox(
 			"use closet", "autoSatisfyWithCloset", "Look in closet for ingredients" ) );
 
-		this.northPanel.add( filterPanel, BorderLayout.NORTH );
+        northPanel.add( filterPanel, BorderLayout.NORTH );
 
-		this.northPanel.add( new InvSlider(), BorderLayout.EAST );
+        northPanel.add( new InvSlider(), BorderLayout.EAST );
 		Box box = Box.createVerticalBox();
 		Box subbox = Box.createHorizontalBox();
 		subbox.setAlignmentX( 0.0f );
@@ -115,7 +115,7 @@ public class CreateSpecialPanel
 		box.add( new PrefSpinner( "valueOfTome" ) );
 		box.add( Box.createGlue() );
 		box.add( new JLabel( "List below is not implemented yet:" ) );
-		this.northPanel.add( box, BorderLayout.CENTER );
+        northPanel.add( box, BorderLayout.CENTER );
 
 		//this.setFixedFilter( food, booze, equip, other, true );
 
@@ -130,7 +130,7 @@ public class CreateSpecialPanel
 	@Override
 	public void actionConfirmed()
 	{
-		Object[] items = this.elementList.getSelectedValues();
+		Object[] items = elementList.getSelectedValues();
 		// Disabled for now
 		for ( int i = 0; i < 0*items.length; ++i )
 		{
@@ -166,7 +166,7 @@ public class CreateSpecialPanel
 	@Override
 	public void actionCancelled()
 	{
-		Object[] items = this.elementList.getSelectedValues();
+		Object[] items = elementList.getSelectedValues();
 		// Disabled for now
 		for ( int i = 0; i < 0*items.length; ++i )
 		{
@@ -215,31 +215,31 @@ public class CreateSpecialPanel
 		public InvSlider()
 		{
 			super( JSlider.VERTICAL, 0, 30, 18 );
-			this.setMinorTickSpacing( 1 );
-			this.setMajorTickSpacing( 5 );
+            setMinorTickSpacing( 1 );
+            setMajorTickSpacing( 5 );
 			Hashtable h = new Hashtable();
 			h.put( IntegerPool.get( 0 ), new JLabel( "Free" ) );
 			h.put( IntegerPool.get( 10 ), new JLabel( "Autosell price" ) );
 			h.put( IntegerPool.get( 20 ), new JLabel( "Mall (or autosell if min-priced)" ) );
 			h.put( IntegerPool.get( 30 ), new JLabel( "Mall price" ) );
-			this.setLabelTable( h );
-			this.setPaintTicks( true );
-			this.setSnapToTicks( true );
-			this.setPaintLabels( true );
-			this.addChangeListener( this );
+            setLabelTable( h );
+            setPaintTicks( true );
+            setSnapToTicks( true );
+            setPaintLabels( true );
+            addChangeListener( this );
 			PreferenceListenerRegistry.registerListener( "valueOfInventory", this );
-			this.update();
+            update();
 		}
 
 		public void stateChanged( ChangeEvent e )
 		{
 			//if ( this.getValueIsAdjusting() ) return;
-			Preferences.setFloat( "valueOfInventory", this.getValue() / 10.0f );
+			Preferences.setFloat( "valueOfInventory", getValue() / 10.0f );
 		}
 
 		public void update()
 		{
-			this.setValue( (int)
+            setValue( (int)
 				((Preferences.getFloat( "valueOfInventory" ) + 0.05f) * 10.0f) );
 		}
 	}
@@ -254,22 +254,22 @@ public class CreateSpecialPanel
 		{
 			super();
 			this.pref = pref;
-			this.setAlignmentX( 0.0f );
-			this.addChangeListener( this );
+            setAlignmentX( 0.0f );
+            addChangeListener( this );
 			JComponentUtilities.setComponentSize( this, 80, -1 );
 			PreferenceListenerRegistry.registerListener( pref, this );
-			this.update();
+            update();
 		}
 
 		public void stateChanged( ChangeEvent e )
 		{
 			int val = InputFieldUtilities.getValue( this, 0 );
-			Preferences.setInteger( this.pref, val );
+			Preferences.setInteger( pref, val );
 		}
 
 		public void update()
 		{
-			this.setValue( Math.max( 0, Preferences.getInteger( this.pref ) ) );
+            setValue( Math.max( 0, Preferences.getInteger( pref ) ) );
 		}
 	}
 }

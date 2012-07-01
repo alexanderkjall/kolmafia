@@ -44,7 +44,7 @@ public class RepeatLineCommand
 {
 	public RepeatLineCommand()
 	{
-		this.usage = " [<number>] - repeat previous line [number times].";
+        usage = " [<number>] - repeat previous line [number times].";
 	}
 
 	@Override

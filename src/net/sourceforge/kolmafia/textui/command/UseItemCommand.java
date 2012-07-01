@@ -55,7 +55,7 @@ public class UseItemCommand
 {
 	public UseItemCommand()
 	{
-		this.usage = "[?] [either] <item> [, <item>]... - use/consume items";
+        usage = "[?] [either] <item> [, <item>]... - use/consume items";
 	}
 
 	@Override

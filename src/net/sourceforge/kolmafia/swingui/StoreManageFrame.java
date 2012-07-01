@@ -103,12 +103,12 @@ public class StoreManageFrame
 	{
 		super( "Store Manager" );
 
-		this.tabs.add( "Price Setup", new StoreManagePanel() );
-		this.tabs.add( "Additions", new StoreAddPanel() );
-		this.tabs.add( "Removals", new StoreRemovePanel() );
-		this.tabs.add( "Store Log", new StoreLogPanel() );
+        tabs.add( "Price Setup", new StoreManagePanel() );
+        tabs.add( "Additions", new StoreAddPanel() );
+        tabs.add( "Removals", new StoreRemovePanel() );
+        tabs.add( "Store Log", new StoreLogPanel() );
 
-		this.setCenterComponent( this.tabs );
+        setCenterComponent( tabs );
 
 		StoreManageFrame.INSTANCE = this;
 
@@ -140,20 +140,20 @@ public class StoreManageFrame
 		{
 			super( "save prices", "auto reprice", true );
 
-			StoreManageFrame.this.addTable = new StoreAddTable();
-			GenericScrollPane addScroller = new GenericScrollPane( StoreManageFrame.this.addTable );
+            addTable = new StoreAddTable();
+			GenericScrollPane addScroller = new GenericScrollPane( addTable );
 
 			JComponentUtilities.setComponentSize( addScroller, 500, 50 );
 			JPanel addPanel = new JPanel( new BorderLayout() );
 
-			addPanel.add( StoreManageFrame.this.addTable.getTableHeader(), BorderLayout.NORTH );
+			addPanel.add( addTable.getTableHeader(), BorderLayout.NORTH );
 			addPanel.add( addScroller, BorderLayout.CENTER );
 
-			StoreManageFrame.this.manageTable = new StoreManageTable();
-			GenericScrollPane manageScroller = new GenericScrollPane( StoreManageFrame.this.manageTable );
+            manageTable = new StoreManageTable();
+			GenericScrollPane manageScroller = new GenericScrollPane( manageTable );
 
 			JPanel managePanel = new JPanel( new BorderLayout() );
-			managePanel.add( StoreManageFrame.this.manageTable.getTableHeader(), BorderLayout.NORTH );
+			managePanel.add( manageTable.getTableHeader(), BorderLayout.NORTH );
 			managePanel.add( manageScroller, BorderLayout.CENTER );
 
 			JPanel storePanel = new JPanel( new BorderLayout() );
@@ -162,21 +162,21 @@ public class StoreManageFrame
 
 			JPanel searchResults = new SearchResultsPanel();
 
-			this.setContent( this.elements, true );
-			this.eastContainer.add( searchResults, BorderLayout.CENTER );
-			this.container.add( storePanel, BorderLayout.CENTER );
+            setContent( elements, true );
+            eastContainer.add( searchResults, BorderLayout.CENTER );
+            container.add( storePanel, BorderLayout.CENTER );
 		}
 
 		@Override
 		public void actionConfirmed()
 		{
-			if ( !InputFieldUtilities.finalizeTable( StoreManageFrame.this.manageTable ) )
+			if ( !InputFieldUtilities.finalizeTable( manageTable ) )
 			{
 				return;
 			}
 
 			KoLmafia.updateDisplay( "Compiling reprice data..." );
-			int rowCount = StoreManageFrame.this.manageTable.getRowCount();
+			int rowCount = manageTable.getRowCount();
 
 			int[] itemId = new int[ rowCount ];
 			int[] prices = new int[ rowCount ];
@@ -187,11 +187,11 @@ public class StoreManageFrame
 
 			for ( int i = 0; i < rowCount; ++i )
 			{
-				String item = (String) StoreManageFrame.this.manageTable.getValueAt( i, 0 );
+				String item = (String) manageTable.getValueAt( i, 0 );
 				itemId[ i ] = ItemDatabase.getItemId( item );
 
-				prices[ i ] = (Integer) StoreManageFrame.this.manageTable.getValueAt( i, 1 );
-				int cheapest = (Integer) StoreManageFrame.this.manageTable.getValueAt( i, 2 );
+				prices[ i ] = (Integer) manageTable.getValueAt( i, 1 );
+				int cheapest = (Integer) manageTable.getValueAt( i, 2 );
 
 				if ( cheapest >= 1000000 && prices[ i ] < cheapest * 0.15  )
 				{
@@ -214,7 +214,7 @@ public class StoreManageFrame
 				}
 
 				limits[ i ] =
-                        (Boolean) StoreManageFrame.this.manageTable.getValueAt( i, 4 ) ? Math.max(
+                        (Boolean) manageTable.getValueAt( i, 4 ) ? Math.max(
 						1, oldLimit ) : 0;
 			}
 
@@ -251,30 +251,30 @@ public class StoreManageFrame
 
 			if ( sortable )
 			{
-				this.setModel( new TableSorter( this.getModel(), this.getTableHeader() ) );
+                setModel( new TableSorter( getModel(), getTableHeader() ) );
 			}
 
-			this.getTableHeader().setReorderingAllowed( false );
+            getTableHeader().setReorderingAllowed( false );
 
-			this.setRowSelectionAllowed( false );
+            setRowSelectionAllowed( false );
 
-			this.addMouseListener( new TableButtonListener( this ) );
+            addMouseListener( new TableButtonListener( this ) );
 
-			this.setOpaque( false );
-			this.setShowGrid( false );
+            setOpaque( false );
+            setShowGrid( false );
 
-			this.setRowHeight( 28 );
+            setRowHeight( 28 );
 
-			this.getColumnModel().getColumn( 0 ).setMinWidth( 200 );
+            getColumnModel().getColumn( 0 ).setMinWidth( 200 );
 
-			this.getColumnModel().getColumn( 4 ).setMinWidth( 35 );
-			this.getColumnModel().getColumn( 4 ).setMaxWidth( 35 );
+            getColumnModel().getColumn( 4 ).setMinWidth( 35 );
+            getColumnModel().getColumn( 4 ).setMaxWidth( 35 );
 
-			this.getColumnModel().getColumn( 5 ).setMinWidth( 40 );
-			this.getColumnModel().getColumn( 5 ).setMaxWidth( 40 );
+            getColumnModel().getColumn( 5 ).setMinWidth( 40 );
+            getColumnModel().getColumn( 5 ).setMaxWidth( 40 );
 
-			this.getColumnModel().getColumn( 6 ).setMinWidth( 40 );
-			this.getColumnModel().getColumn( 6 ).setMaxWidth( 40 );
+            getColumnModel().getColumn( 6 ).setMinWidth( 40 );
+            getColumnModel().getColumn( 6 ).setMaxWidth( 40 );
 		}
 	}
 
@@ -284,7 +284,7 @@ public class StoreManageFrame
 		public StoreAddTable()
 		{
 			super( new StoreAddTableModel(), false );
-			this.getColumnModel().getColumn( 0 ).setCellEditor( new DefaultCellEditor( StoreManageFrame.this.sellingList ) );
+            getColumnModel().getColumn( 0 ).setCellEditor( new DefaultCellEditor( sellingList ) );
 		}
 	}
 
@@ -300,7 +300,7 @@ public class StoreManageFrame
 				new LockableListModel() );
 
 			LockableListModel dataModel = KoLConstants.inventory.getMirrorImage( new TradeableItemFilter() );
-			StoreManageFrame.this.sellingList = new JComboBox( dataModel );
+            sellingList = new JComboBox( dataModel );
 
 			Vector value = new Vector();
 			value.add( "- select an item -" );
@@ -309,7 +309,7 @@ public class StoreManageFrame
 			value.add( IntegerPool.get( 0 ) );
 			value.add( Boolean.FALSE );
 
-			this.listModel.add( value );
+            listModel.add( value );
 		}
 
 		@Override
@@ -385,31 +385,31 @@ public class StoreManageFrame
 		@Override
 		protected void execute()
 		{
-			if ( !InputFieldUtilities.finalizeTable( StoreManageFrame.this.addTable ) )
+			if ( !InputFieldUtilities.finalizeTable( addTable ) )
 			{
 				return;
 			}
 
-			AdventureResult soldItem = (AdventureResult) StoreManageFrame.this.sellingList.getSelectedItem();
+			AdventureResult soldItem = (AdventureResult) sellingList.getSelectedItem();
 			if ( soldItem == null )
 			{
 				return;
 			}
 
-			int price = (Integer) StoreManageFrame.this.addTable.getValueAt( 0, 1 );
-			int quantity = (Integer) StoreManageFrame.this.addTable.getValueAt( 0, 3 );
+			int price = (Integer) addTable.getValueAt( 0, 1 );
+			int quantity = (Integer) addTable.getValueAt( 0, 3 );
 
 			if ( quantity <= 0 )
 			{
 				quantity = soldItem.getCount() - quantity;
 			}
 
-			int limit = (Boolean) StoreManageFrame.this.addTable.getValueAt( 0, 4 ) ? 1 : 0;
+			int limit = (Boolean) addTable.getValueAt( 0, 4 ) ? 1 : 0;
 			soldItem = new AdventureResult( soldItem.getItemId(), quantity );
 
-			StoreManageFrame.this.addTable.setValueAt( new AdventureResult( "-select an item-", 1, false ), 0, 0 );
-			StoreManageFrame.this.addTable.setValueAt( IntegerPool.get( 0 ), 0, 1 );
-			StoreManageFrame.this.addTable.setValueAt( IntegerPool.get( 0 ), 0, 3 );
+            addTable.setValueAt( new AdventureResult( "-select an item-", 1, false ), 0, 0 );
+            addTable.setValueAt( IntegerPool.get( 0 ), 0, 1 );
+            addTable.setValueAt( IntegerPool.get( 0 ), 0, 3 );
 
 			RequestThread.postRequest( new AutoMallRequest( soldItem, price, limit ) );
 		}
@@ -422,7 +422,7 @@ public class StoreManageFrame
 
 		public SearchItemListener()
 		{
-			this.itemName = null;
+            itemName = null;
 		}
 
 		public SearchItemListener( final String itemName )
@@ -433,10 +433,10 @@ public class StoreManageFrame
 		@Override
 		protected void execute()
 		{
-			String searchName = this.itemName;
+			String searchName = itemName;
 			if ( searchName == null )
 			{
-				AdventureResult item = (AdventureResult) StoreManageFrame.this.sellingList.getSelectedItem();
+				AdventureResult item = (AdventureResult) sellingList.getSelectedItem();
 				if ( item == null )
 				{
 					return;
@@ -459,13 +459,13 @@ public class StoreManageFrame
 
 		public RemoveItemListener( final String itemName )
 		{
-			this.itemId = ItemDatabase.getItemId( itemName );
+            itemId = ItemDatabase.getItemId( itemName );
 		}
 
 		@Override
 		protected void execute()
 		{
-			RequestThread.postRequest( new ManageStoreRequest( this.itemId ) );
+			RequestThread.postRequest( new ManageStoreRequest( itemId ) );
 		}
 	}
 
@@ -475,17 +475,17 @@ public class StoreManageFrame
 		public StoreAddPanel()
 		{
 			super( "mallsell", "autosell", KoLConstants.inventory );
-			this.addFilters();
+            addFilters();
 
-			this.filters[ 4 ].setSelected( false );
-			this.filters[ 4 ].setEnabled( false );
-			this.filterItems();
+            filters[ 4 ].setSelected( false );
+            filters[ 4 ].setEnabled( false );
+            filterItems();
 		}
 
 		@Override
 		public void actionConfirmed()
 		{
-			Object[] items = this.getDesiredItems( "Mallsell" );
+			Object[] items = getDesiredItems( "Mallsell" );
 			if ( items == null )
 			{
 				return;
@@ -498,7 +498,7 @@ public class StoreManageFrame
 		@Override
 		public void actionCancelled()
 		{
-			Object[] items = this.getDesiredItems( "Autosell" );
+			Object[] items = getDesiredItems( "Autosell" );
 			if ( items == null )
 			{
 				return;
@@ -513,29 +513,29 @@ public class StoreManageFrame
 		public StoreRemovePanel()
 		{
 			super( "take all", "take one", StoreManager.getSortedSoldItemList() );
-			this.addFilters();
+            addFilters();
 
-			this.filters[ 4 ].setSelected( false );
-			this.filters[ 4 ].setEnabled( false );
+            filters[ 4 ].setSelected( false );
+            filters[ 4 ].setEnabled( false );
 		}
 
 		@Override
 		public void actionConfirmed()
 		{
-			this.removeItems( true );
+            removeItems( true );
 		}
 
 		@Override
 		public void actionCancelled()
 		{
-			this.removeItems( false );
+            removeItems( false );
 		}
 
 		public void removeItems( final boolean takeAll )
 		{
 			StoreManageFrame.cancelTableEditing();
 
-			Object[] items = this.elementList.getSelectedValues();
+			Object[] items = elementList.getSelectedValues();
 
 			for ( int i = 0; i < items.length; ++i )
 			{
@@ -565,15 +565,15 @@ public class StoreManageFrame
 			container.add( StoreManageFrame.searchLabel, BorderLayout.NORTH );
 			JComponentUtilities.setComponentSize( StoreManageFrame.searchLabel, 150, 16 );
 
-			StoreManageFrame.this.resultsDisplay = new JList( StoreManageFrame.priceSummary );
-			StoreManageFrame.this.resultsDisplay.setPrototypeCellValue( "1234567890ABCDEF" );
-			StoreManageFrame.this.resultsDisplay.setVisibleRowCount( 11 );
-			StoreManageFrame.this.resultsDisplay.setSelectionMode( ListSelectionModel.MULTIPLE_INTERVAL_SELECTION );
-			GenericScrollPane scrollArea = new GenericScrollPane( StoreManageFrame.this.resultsDisplay );
+            resultsDisplay = new JList( StoreManageFrame.priceSummary );
+            resultsDisplay.setPrototypeCellValue( "1234567890ABCDEF" );
+            resultsDisplay.setVisibleRowCount( 11 );
+            resultsDisplay.setSelectionMode( ListSelectionModel.MULTIPLE_INTERVAL_SELECTION );
+			GenericScrollPane scrollArea = new GenericScrollPane( resultsDisplay );
 
 			container.add( scrollArea, BorderLayout.CENTER );
-			this.add( Box.createVerticalStrut( 20 ), BorderLayout.NORTH );
-			this.add( container, BorderLayout.CENTER );
+            add( Box.createVerticalStrut( 20 ), BorderLayout.NORTH );
+            add( container, BorderLayout.CENTER );
 		}
 	}
 

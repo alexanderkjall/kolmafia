@@ -44,8 +44,8 @@ public class EditMoodCommand
 {
 	public EditMoodCommand()
 	{
-		this.usage = " list | clear | autofill | [<type>,] <effect> [, <action>] - edit current mood";
-		this.flags = KoLmafiaCLI.FULL_LINE_CMD;
+        usage = " list | clear | autofill | [<type>,] <effect> [, <action>] - edit current mood";
+        flags = KoLmafiaCLI.FULL_LINE_CMD;
 	}
 
 	@Override

@@ -109,7 +109,7 @@ public class MoneyMakingGameRequest
 	public MoneyMakingGameRequest()
 	{
 		super( "bet.php" );
-		this.action = MoneyMakingGameRequest.VISIT;
+        action = MoneyMakingGameRequest.VISIT;
 	}
 
 	public MoneyMakingGameRequest( final int action, final int arg1 )
@@ -125,8 +125,8 @@ public class MoneyMakingGameRequest
 			// These don't make sense
 			break;
 		case MoneyMakingGameRequest.RETRACT_BET:
-			this.addFormField( "action", "retract" );
-			this.addFormField( "betid", String.valueOf( arg1 ) );
+            addFormField( "action", "retract" );
+            addFormField( "betid", String.valueOf( arg1 ) );
 			break;
 		}
 	}
@@ -142,20 +142,20 @@ public class MoneyMakingGameRequest
 			// These don't make sense
 			break;
 		case MoneyMakingGameRequest.SEARCH:
-			this.addFormField( "action", "search" );
-			this.addFormField( "lower", String.valueOf( arg1 ) );
-			this.addFormField( "higher", String.valueOf( arg2 ) );
+            addFormField( "action", "search" );
+            addFormField( "lower", String.valueOf( arg1 ) );
+            addFormField( "higher", String.valueOf( arg2 ) );
 			break;
 		case MoneyMakingGameRequest.MAKE_BET:
-			this.addFormField( "action", "makebet" );
-			this.addFormField( "howmuch", String.valueOf( arg1 ) );
-			this.addFormField( "from", String.valueOf( arg2 ) );
+            addFormField( "action", "makebet" );
+            addFormField( "howmuch", String.valueOf( arg1 ) );
+            addFormField( "from", String.valueOf( arg2 ) );
 			break;
 		case MoneyMakingGameRequest.TAKE_BET:
-			this.addFormField( "action", "bet" );
-			this.addFormField( "whichbet", String.valueOf( arg1 ) );
-			this.addFormField( "from", String.valueOf( arg2 ) );
-			this.addFormField( "confirm", "on" );
+            addFormField( "action", "bet" );
+            addFormField( "whichbet", String.valueOf( arg1 ) );
+            addFormField( "from", String.valueOf( arg2 ) );
+            addFormField( "confirm", "on" );
 			break;
 		}
 	}
@@ -177,10 +177,10 @@ public class MoneyMakingGameRequest
 			return;
 		}
 
-		MoneyMakingGameRequest.parseResponse( this.getURLString(), responseText, true );
+		MoneyMakingGameRequest.parseResponse( getURLString(), responseText, true );
 
 		String error = null;
-		switch ( this.action )
+		switch ( action )
 		{
 		case MoneyMakingGameRequest.VISIT:
 		case MoneyMakingGameRequest.SEARCH:

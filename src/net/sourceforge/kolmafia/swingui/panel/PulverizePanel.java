@@ -80,7 +80,7 @@ public class PulverizePanel
 	{
 		super( KoLConstants.inventory );
 
-		this.setButtons( true, new ActionListener[] {
+        setButtons( true, new ActionListener[] {
 				new EnqueueListener(),
 				new DequeueListener(),
 				new ClearListener(),
@@ -88,8 +88,8 @@ public class PulverizePanel
 				new WadbotListener(),
 		} );
 
-		this.elementList.setCellRenderer( ListCellRendererFactory.getPulverizationRenderer() );
-		this.movers[ 2 ].setSelected( true );
+        elementList.setCellRenderer( ListCellRendererFactory.getPulverizationRenderer() );
+        movers[ 2 ].setSelected( true );
 	}
 
 	@Override
@@ -99,7 +99,7 @@ public class PulverizePanel
 
 		if ( !KoLCharacter.hasSkill( "Pulverize" ) )
 		{
-			this.buttons[ 3 ].setEnabled( false );
+            buttons[ 3 ].setEnabled( false );
 		}
 	}
 
@@ -131,53 +131,53 @@ public class PulverizePanel
 	public void addFilters()
 	{
 		JPanel filterPanel = new JPanel();
-		this.filters = new JCheckBox[ 7 ];
+        filters = new JCheckBox[ 7 ];
 
-		this.filters[ 0 ] = new JCheckBox( "twinkly", true );
-		this.filters[ 1 ] = new JCheckBox( "<html><font color=red>hot</html>", true );
-		this.filters[ 2 ] = new JCheckBox( "<html><font color=blue>cold</html>", true );
-		this.filters[ 3 ] = new JCheckBox( "<html><font color=green>stench</html>", true );
-		this.filters[ 4 ] = new JCheckBox( "<html><font color=gray>spooky</html>", true );
-		this.filters[ 5 ] = new JCheckBox( "<html><font color=purple>sleaze</html>", true );
-		this.filters[ 6 ] = new JCheckBox( "other" );
+        filters[ 0 ] = new JCheckBox( "twinkly", true );
+        filters[ 1 ] = new JCheckBox( "<html><font color=red>hot</html>", true );
+        filters[ 2 ] = new JCheckBox( "<html><font color=blue>cold</html>", true );
+        filters[ 3 ] = new JCheckBox( "<html><font color=green>stench</html>", true );
+        filters[ 4 ] = new JCheckBox( "<html><font color=gray>spooky</html>", true );
+        filters[ 5 ] = new JCheckBox( "<html><font color=purple>sleaze</html>", true );
+        filters[ 6 ] = new JCheckBox( "other" );
 
 		for ( int i = 0; i < 7; ++i )
 		{
-			filterPanel.add( this.filters[ i ] );
-			this.listenToCheckBox( this.filters[ i ] );
+			filterPanel.add( filters[ i ] );
+            listenToCheckBox( filters[ i ] );
 		}
 
-		this.northPanel.add( filterPanel, BorderLayout.NORTH );
+        northPanel.add( filterPanel, BorderLayout.NORTH );
 
-		this.yields = new JTable( new YieldsModel() );
-		this.yields.setTableHeader( null );
-		this.yields.setShowVerticalLines( true );
-		this.yields.setSelectionMode( ListSelectionModel.SINGLE_INTERVAL_SELECTION );
-		this.yields.setCellSelectionEnabled( true );
-		this.yields.selectAll();
+        yields = new JTable( new YieldsModel() );
+        yields.setTableHeader( null );
+        yields.setShowVerticalLines( true );
+        yields.setSelectionMode( ListSelectionModel.SINGLE_INTERVAL_SELECTION );
+        yields.setCellSelectionEnabled( true );
+        yields.selectAll();
 		DefaultTableCellRenderer tcr = new DefaultTableCellRenderer();
 		tcr.setHorizontalAlignment( DefaultTableCellRenderer.CENTER );
-		this.yields.setDefaultRenderer( Object.class, tcr );
-		Dimension dims = tcr.getTableCellRendererComponent( this.yields,
+        yields.setDefaultRenderer( Object.class, tcr );
+		Dimension dims = tcr.getTableCellRendererComponent( yields,
 			"<html>&nbsp;W+3N&nbsp;<br>&nbsp;N+3P&nbsp;</html>",
 			false, false, 0, 0 ).getPreferredSize();
-		this.yields.setRowHeight( dims.height );
+        yields.setRowHeight( dims.height );
 		dims.width *= 9;
-		this.yields.setPreferredScrollableViewportSize( dims );
-		this.yields.setToolTipText( "Drag to select a range of yields. " +
-			"P = powder, N = nugget, W = wad." );
-		this.yields.getColumnModel().getSelectionModel().addListSelectionListener(
-			(ListSelectionListener) this.filterfield );
+        yields.setPreferredScrollableViewportSize( dims );
+        yields.setToolTipText( "Drag to select a range of yields. " +
+                "P = powder, N = nugget, W = wad." );
+        yields.getColumnModel().getSelectionModel().addListSelectionListener(
+			(ListSelectionListener) filterfield );
 
 		// If the yields list was added directly to northPanel, it would get horizontally
 		// stretched, creating useless blank space inside the list frame.  Having an
 		// intermediate JPanel, with the default FlowLayout, allows the list to take on its
 		// natural width.
 		JPanel panel = new JPanel();
-		panel.add( new JScrollPane( this.yields,
+		panel.add( new JScrollPane( yields,
 			JScrollPane.VERTICAL_SCROLLBAR_NEVER, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER ) );
-		this.northPanel.add( panel, BorderLayout.CENTER );
-		this.filterItems();
+        northPanel.add( panel, BorderLayout.CENTER );
+        filterItems();
 	}
 
 	@Override
@@ -196,37 +196,37 @@ public class PulverizePanel
 
 		public EquipmentFilterField()
 		{
-			super( PulverizePanel.this.elementList );
+			super( elementList );
 		}
 
 		public void valueChanged( ListSelectionEvent e )
 		{
-			this.update();
+            update();
 		}
 
 		@Override
 		public void update()
 		{
-			this.others = PulverizePanel.this.filters[ 6 ].isSelected();
-			this.elemMask =
-				(PulverizePanel.this.filters[ 0 ].isSelected() ?
+            others = filters[ 6 ].isSelected();
+            elemMask =
+				(filters[ 0 ].isSelected() ?
 					EquipmentDatabase.ELEM_TWINKLY : 0) |
-				(PulverizePanel.this.filters[ 1 ].isSelected() ?
+				(filters[ 1 ].isSelected() ?
 					EquipmentDatabase.ELEM_HOT : 0) |
-				(PulverizePanel.this.filters[ 2 ].isSelected() ?
+				(filters[ 2 ].isSelected() ?
 					EquipmentDatabase.ELEM_COLD : 0) |
-				(PulverizePanel.this.filters[ 3 ].isSelected() ?
+				(filters[ 3 ].isSelected() ?
 					EquipmentDatabase.ELEM_STENCH : 0) |
-				(PulverizePanel.this.filters[ 4 ].isSelected() ?
+				(filters[ 4 ].isSelected() ?
 					EquipmentDatabase.ELEM_SPOOKY : 0) |
-				(PulverizePanel.this.filters[ 5 ].isSelected() ?
+				(filters[ 5 ].isSelected() ?
 					EquipmentDatabase.ELEM_SLEAZE : 0) |
-				(this.others ? EquipmentDatabase.ELEM_OTHER : 0);
-			this.yieldMask = 0;
-			int[] indices = PulverizePanel.this.yields.getSelectedColumns();
+				(others ? EquipmentDatabase.ELEM_OTHER : 0);
+            yieldMask = 0;
+			int[] indices = yields.getSelectedColumns();
 			for ( int i = 0; i < indices.length; ++i )
 			{
-				this.yieldMask |= EquipmentDatabase.YIELD_1P << indices[ i ];
+                yieldMask |= EquipmentDatabase.YIELD_1P << indices[ i ];
 			}
 			super.update();
 		}
@@ -254,12 +254,12 @@ public class PulverizePanel
 
 			if ( pulver >= 0 )
 			{
-				isVisibleWithFilter = this.others;
+				isVisibleWithFilter = others;
 			}
 			else
 			{
-				isVisibleWithFilter = ( pulver & this.elemMask ) != 0 &&
-					( pulver & this.yieldMask ) != 0;
+				isVisibleWithFilter = ( pulver & elemMask) != 0 &&
+					( pulver & yieldMask) != 0;
 			}
 
 			return isVisibleWithFilter && super.isVisible( element );
@@ -277,7 +277,7 @@ public class PulverizePanel
 		@Override
 		protected void execute()
 		{
-			Object[] items = this.initialSetup();
+			Object[] items = initialSetup();
 			if ( items == null || items.length == 0 )
 			{
 				return;
@@ -291,7 +291,7 @@ public class PulverizePanel
 					KoLConstants.pulverizeQueue.remove( item );
 					KoLConstants.pulverizeQueue.add( item );
 					LockableListModel inv = (LockableListModel)
-						PulverizePanel.this.elementList.getModel();
+                            elementList.getModel();
 					int index = inv.indexOf( item );
 					inv.fireContentsChanged( inv, index, index );
 				}
@@ -316,7 +316,7 @@ public class PulverizePanel
 		@Override
 		protected void execute()
 		{
-			Object[] items = this.initialSetup( ItemManagePanel.TAKE_ALL );
+			Object[] items = initialSetup( ItemManagePanel.TAKE_ALL );
 			if ( items == null || items.length == 0 )
 			{
 				return;
@@ -329,7 +329,7 @@ public class PulverizePanel
 				{
 					KoLConstants.pulverizeQueue.remove( item );
 					LockableListModel inv = (LockableListModel)
-						PulverizePanel.this.elementList.getModel();
+                            elementList.getModel();
 					int index = inv.indexOf( item );
 					inv.fireContentsChanged( inv, index, index );
 				}
@@ -351,7 +351,7 @@ public class PulverizePanel
 		{
 			KoLConstants.pulverizeQueue.clear();
 			LockableListModel inv = (LockableListModel)
-				PulverizePanel.this.elementList.getModel();
+                    elementList.getModel();
 			inv.fireContentsChanged( inv, 0, inv.size() - 1 );
 		}
 
@@ -384,7 +384,7 @@ public class PulverizePanel
 			KoLConstants.pulverizeQueue.toArray( items );
 			KoLConstants.pulverizeQueue.clear();
 			LockableListModel inv = (LockableListModel)
-				PulverizePanel.this.elementList.getModel();
+                    elementList.getModel();
 			inv.fireContentsChanged( inv, 0, inv.size() - 1 );
 			for ( int i = 0; i < items.length; ++i )
 			{
@@ -413,12 +413,12 @@ public class PulverizePanel
 		@Override
 		public String toString()
 		{
-			return this.asString;
+			return asString;
 		}
 
 		public String toMessage()
 		{
-			return this.asMessage;
+			return asMessage;
 		}
 	}
 
@@ -474,7 +474,7 @@ public class PulverizePanel
 			KoLConstants.pulverizeQueue.toArray( items );
 			KoLConstants.pulverizeQueue.clear();
 			LockableListModel inv = (LockableListModel)
-				PulverizePanel.this.elementList.getModel();
+                    elementList.getModel();
 			inv.fireContentsChanged( inv, 0, inv.size() - 1 );
 			SendMessageCommand.send( "wadbot", selected.toMessage(),
 				items, false, true );

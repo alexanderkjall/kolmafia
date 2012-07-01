@@ -54,7 +54,7 @@ public class FamiliarCommand
 {
 	public FamiliarCommand()
 	{
-		this.usage = "[?] [list <filter>] | lock | unlock | <species> | none - list or change familiar types";
+        usage = "[?] [list <filter>] | lock | unlock | <species> | none - list or change familiar types";
 	}
 
 	@Override

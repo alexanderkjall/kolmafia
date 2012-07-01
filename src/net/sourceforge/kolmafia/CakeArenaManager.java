@@ -196,39 +196,39 @@ public class CakeArenaManager
 			this.name = name;
 			this.race = race;
 			this.weight = weight;
-			this.description = race + " (" + weight + " lbs)";
+            description = race + " (" + weight + " lbs)";
 		}
 
 		public int getId()
 		{
-			return this.id;
+			return id;
 		}
 
 		public String getName()
 		{
-			return this.name;
+			return name;
 		}
 
 		public String getRace()
 		{
-			return this.race;
+			return race;
 		}
 
 		public int getWeight()
 		{
-			return this.weight;
+			return weight;
 		}
 
 		@Override
 		public String toString()
 		{
-			return this.description;
+			return description;
 		}
 
 		@Override
 		public boolean equals( final Object o )
 		{
-			return o != null && o instanceof ArenaOpponent && this.id == ( (ArenaOpponent) o ).id;
+			return o != null && o instanceof ArenaOpponent && id == ( (ArenaOpponent) o ).id;
 		}
 
         public int compareTo(ArenaOpponent arenaOpponent) {

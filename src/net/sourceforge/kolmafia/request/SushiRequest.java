@@ -343,7 +343,7 @@ public class SushiRequest
 	public SushiRequest( Concoction conc )
 	{
 		super( "sushi.php", conc );
-		this.addFormField( "action", "Yep." );
+        addFormField( "action", "Yep." );
 
 		// Lower-case it
 		String name = StringUtilities.getCanonicalName( conc.getName() );
@@ -351,26 +351,26 @@ public class SushiRequest
 		int sushi = SushiRequest.nameToId( name );
 		if ( sushi > 0 )
 		{
-			this.addFormField( "whichsushi", String.valueOf( sushi ) );
+            addFormField( "whichsushi", String.valueOf( sushi ) );
 		}
 
 		int topping = SushiRequest.nameToTopping( name );
 		if ( topping > 0 )
 		{
-			this.addFormField( "whichtopping", String.valueOf( topping ) );
+            addFormField( "whichtopping", String.valueOf( topping ) );
 		}
 
 		int filling1 = SushiRequest.nameToFilling1( name );
 		if ( filling1 > 0 )
 		{
-			this.addFormField( "whichfilling1", String.valueOf( filling1 ) );
+            addFormField( "whichfilling1", String.valueOf( filling1 ) );
 		}
 	}
 
 	@Override
 	public void reconstructFields()
 	{
-		this.constructURLString( this.getURLString() );
+        constructURLString( getURLString() );
 	}
 
 	@Override
@@ -393,16 +393,16 @@ public class SushiRequest
 		// Attempting to make the ingredients will pull the
 		// needed items from the closet if they are missing.
 
-		if ( !this.makeIngredients() )
+		if ( !makeIngredients() )
 		{
 			return;
 		}
 
-		for ( int i = 1; i <= this.getQuantityNeeded(); ++i )
+		for ( int i = 1; i <= getQuantityNeeded(); ++i )
 		{
-			KoLmafia.updateDisplay( "Creating/consuming " + this.getName() + " (" + i + " of " + this.getQuantityNeeded() + ")..." );
+			KoLmafia.updateDisplay( "Creating/consuming " + getName() + " (" + i + " of " + getQuantityNeeded() + ")..." );
 			super.run();
-			SushiRequest.parseConsumption( this.getURLString(), this.responseText );
+			SushiRequest.parseConsumption( getURLString(), responseText );
 		}
 	}
 

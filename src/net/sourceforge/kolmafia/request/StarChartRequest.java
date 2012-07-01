@@ -68,24 +68,24 @@ public class StarChartRequest
 				switch ( ingredients[ i ].getItemId() )
 				{
 				case ItemPool.STAR:
-					this.stars = ingredients[ i ].getCount();
+                    stars = ingredients[ i ].getCount();
 					break;
 				case ItemPool.LINE:
-					this.lines = ingredients[ i ].getCount();
+                    lines = ingredients[ i ].getCount();
 					break;
 				}
 			}
 		}
 
-		this.addFormField( "action", "makesomething" );
-		this.addFormField( "numstars", String.valueOf( this.stars ) );
-		this.addFormField( "numlines", String.valueOf( this.lines ) );
+        addFormField( "action", "makesomething" );
+        addFormField( "numstars", String.valueOf( stars ) );
+        addFormField( "numlines", String.valueOf( lines ) );
 	}
 
 	@Override
 	public void reconstructFields()
 	{
-		this.constructURLString( this.getURLString() );
+        constructURLString( getURLString() );
 	}
 
 	@Override
@@ -94,7 +94,7 @@ public class StarChartRequest
 		// Attempting to make the ingredients will pull the
 		// needed items from the closet if they are missing.
 
-		if ( !this.makeIngredients() )
+		if ( !makeIngredients() )
 		{
 			return;
 		}
@@ -108,7 +108,7 @@ public class StarChartRequest
 		// Since we create one at a time, override processResults so
 		// superclass method doesn't undo ingredient usage.
 
-		if ( StarChartRequest.parseCreation( this.getURLString(), this.responseText ) )
+		if ( StarChartRequest.parseCreation( getURLString(), responseText ) )
 		{
 			KoLmafia.updateDisplay( MafiaState.ERROR, "You can't draw that." );
 		}

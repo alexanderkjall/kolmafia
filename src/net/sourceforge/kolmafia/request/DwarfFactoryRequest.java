@@ -124,13 +124,13 @@ public class DwarfFactoryRequest
 	public DwarfFactoryRequest( final String action)
 	{
 		this();
-		this.addFormField( "action", action );
+        addFormField( "action", action );
 	}
 
 	@Override
 	public void processResults()
 	{
-		DwarfFactoryRequest.parseResponse( this.getURLString(), this.responseText );
+		DwarfFactoryRequest.parseResponse( getURLString(), responseText );
 	}
 
 	public static void parseResponse( final String urlString, final String responseText )
@@ -1213,7 +1213,7 @@ public class DwarfFactoryRequest
 					continue;
 				}
 
-				this.mapCharacter( digit, i );
+                mapCharacter( digit, i );
 			}
 		}
 
@@ -1221,23 +1221,23 @@ public class DwarfFactoryRequest
 		{
 			Character code = Character.toUpperCase( c );
 			Integer val = IntegerPool.get( i );
-			this.mapCharacter( code, val );
+            mapCharacter( code, val );
 		}
 
 		private void mapCharacter( final Character code, final Integer val )
 		{
-			this.digitMap.put( code, val );
-			this.charMap.put( val, code );
+            digitMap.put( code, val );
+            charMap.put( val, code );
 		}
 
 		public Integer getDigit( final Character code )
 		{
-			return (Integer) this.digitMap.get( code );
+			return (Integer) digitMap.get( code );
 		}
 
 		public Integer getDigit( final char c )
 		{
-			return this.getDigit( new Character( c ) );
+			return getDigit( new Character( c ) );
 		}
 
 		public String digitString()
@@ -1245,7 +1245,7 @@ public class DwarfFactoryRequest
 			StringBuilder valueBuilder = new StringBuilder();
 			for ( int i = 0; i < 7; ++i )
 			{
-				Character code = (Character)this.charMap.get( IntegerPool.get( i ) );
+				Character code = (Character) charMap.get( IntegerPool.get( i ) );
 				valueBuilder.append( code == null ? '-' : code );
 			}
 			return valueBuilder.toString();
@@ -1253,7 +1253,7 @@ public class DwarfFactoryRequest
 
 		public boolean valid()
 		{
-			return this.digitMap.size() == 7;
+			return digitMap.size() == 7;
 		}
 
 		public int parseNumber( final String string )
@@ -1261,7 +1261,7 @@ public class DwarfFactoryRequest
 			int number = 0;
 			for ( int i = 0; i < string.length(); ++i )
 			{
-				Integer val = (Integer) this.digitMap.get( new Character( string.charAt( i ) ) );
+				Integer val = (Integer) digitMap.get( new Character( string.charAt( i ) ) );
 				if ( val == null )
 				{
 					return -1;
@@ -1279,18 +1279,18 @@ public class DwarfFactoryRequest
 		private void addNewDigit( final char ch )
 		{
 			Character digit = ch;
-			if ( !this.digits.contains( digit ) )
+			if ( !digits.contains( digit ) )
 			{
-				this.digits.add( digit );
+                digits.add( digit );
 			}
 		}
 
 		public void addNumber( final String number )
 		{
 			// See if it's a new number
-			for ( int i = 0; i < this.numbers.size(); ++i )
+			for ( int i = 0; i < numbers.size(); ++i )
 			{
-				String old = (String)this.numbers.get(i);
+				String old = (String) numbers.get( i );
 				if ( old.equals( number) )
 				{
 					return;
@@ -1298,12 +1298,12 @@ public class DwarfFactoryRequest
 			}
 
 			// Add the new number to the list
-			this.numbers.add( number );
+            numbers.add( number );
 
 			// Add all the digits to the set of digits
 			for ( int i = 0; i < number.length(); ++i )
 			{
-				this.addNewDigit( number.charAt( i ) );
+                addNewDigit( number.charAt( i ) );
 			}
 		}
 
@@ -1317,13 +1317,13 @@ public class DwarfFactoryRequest
 			// If we've already looked at all the numbers in the
 			// array, it's pointless to do it again.
 
-			if ( this.numbers.size() == numberCount )
+			if ( numbers.size() == numberCount )
 			{
 				return;
 			}
 
 			// Save current size of array
-			numberCount = this.numbers.size();
+			numberCount = numbers.size();
 
 			// Gauge numbers encode base-10 numbers from 00 - 99 in
 			// base-7. In base 7, numbers greater than 48 take 3
@@ -1342,9 +1342,9 @@ public class DwarfFactoryRequest
 			char [][] matches = new char[2][8];
 			int [] counts = new int[2];
 
-			for ( int i = 0; i < this.numbers.size(); ++i )
+			for ( int i = 0; i < numbers.size(); ++i )
 			{
-				String val = (String)this.numbers.get(i);
+				String val = (String) numbers.get( i );
 
 				// We only deduce digits from 3-digit numbers.
 				if ( val.length() < 3 )
@@ -1414,7 +1414,7 @@ public class DwarfFactoryRequest
 				return;
 			}
 
-			this.mapCharacter( matches[oneOffset][0], 1 );
+            mapCharacter( matches[oneOffset][0], 1 );
 
 			// If we have identified 1, if we have another initial
 			// digit, it must be 2.
@@ -1425,10 +1425,10 @@ public class DwarfFactoryRequest
 				return;
 			}
 
-			this.mapCharacter( matches[twoOffset][0], 2 );
+            mapCharacter( matches[twoOffset][0], 2 );
 
 			// 2 is always followed by 0
-			this.mapCharacter( matches[twoOffset][1], 0 );
+            mapCharacter( matches[twoOffset][1], 0 );
 		}
 
 		// Step 2: Deduce digits from the dice game
@@ -1444,9 +1444,9 @@ public class DwarfFactoryRequest
 			}
 
 			// See if it's a new roll
-			for ( int i = 0; i < this.rolls.size(); ++i )
+			for ( int i = 0; i < rolls.size(); ++i )
 			{
-				String old = (String)this.rolls.get(i);
+				String old = (String) rolls.get( i );
 				if ( old.equals( roll) )
 				{
 					return;
@@ -1455,13 +1455,13 @@ public class DwarfFactoryRequest
 
 			// We can work even without the laminated items if we
 			// deduce digits from the die rolls.
-			this.addNewDigit( roll.charAt( 0 ) );
-			this.addNewDigit( roll.charAt( 1 ) );
-			this.addNewDigit( roll.charAt( 3 ) );
-			this.addNewDigit( roll.charAt( 4 ) );
+            addNewDigit( roll.charAt( 0 ) );
+            addNewDigit( roll.charAt( 1 ) );
+            addNewDigit( roll.charAt( 3 ) );
+            addNewDigit( roll.charAt( 4 ) );
 
 			// Add the new roll to the list
-			this.rolls.add( roll );
+            rolls.add( roll );
 		}
 
 		private int rollCount = 0;
@@ -1470,17 +1470,17 @@ public class DwarfFactoryRequest
 		{
 			// If we've already looked at all the rolls in the
 			// array, it's pointless to do it again.
-			if ( this.rolls.size() == this.rollCount )
+			if ( rolls.size() == rollCount )
 			{
 				return;
 			}
 
 			// Save current size of array
-			this.rollCount = this.rolls.size();
+            rollCount = rolls.size();
 
 			// Match rolls against set of all possible combinations
 			// and eliminate any which are inconsistent
-			this.matchDigitPermutations();
+            matchDigitPermutations();
 		}
 
 		private HashSet permutations = new HashSet();
@@ -1488,32 +1488,32 @@ public class DwarfFactoryRequest
 		private void matchDigitPermutations()
 		{
 			// Nothing to do if we have identified all the digits
-			if ( this.digitMap.size() == 7 )
+			if ( digitMap.size() == 7 )
 			{
 				return;
 			}
 
 			// We can't do this unless we know all 7 runes that are
 			// used for digits.
-			if ( this.digits.size() != 7 )
+			if ( digits.size() != 7 )
 			{
 				return;
 			}
 
 			// Initialize the set with 5040 permutations of 7 runes.
-			if ( this.permutations.size() == 0 )
+			if ( permutations.size() == 0 )
 			{
-				this.generatePermutations( "" );
-				RequestLogger.printLine( "Initialized " + KoLConstants.COMMA_FORMAT.format( this.permutations.size() ) + " permutations" );
+                generatePermutations( "" );
+				RequestLogger.printLine( "Initialized " + KoLConstants.COMMA_FORMAT.format( permutations.size() ) + " permutations" );
 			}
 
 			// Iterate over all the rolls and eliminate any
 			// permutation which is inconsistent
-			int old_perms = this.permutations.size();
-			for ( int i = 0; i < this.rolls.size() && this.permutations.size() > 1; ++i )
+			int old_perms = permutations.size();
+			for ( int i = 0; i < rolls.size() && permutations.size() > 1; ++i )
 			{
-				this.checkPermutations( (String) this.rolls.get( i ) );
-				int new_perms = this.permutations.size();
+                checkPermutations( (String) rolls.get( i ) );
+				int new_perms = permutations.size();
 
 				if ( old_perms > new_perms )
 				{
@@ -1525,9 +1525,9 @@ public class DwarfFactoryRequest
 
 			// If only a single permutation remains in the set, we
 			// have cracked the digit code.
-			if ( this.permutations.size() == 1 )
+			if ( permutations.size() == 1 )
 			{
-				this.saveSoloPermutation();
+                saveSoloPermutation();
 			}
 		}
 
@@ -1537,23 +1537,23 @@ public class DwarfFactoryRequest
 
 			if ( index == 7 )
 			{
-				this.permutations.add( prefix );
+                permutations.add( prefix );
 				return;
 			}
 
 			// If we know the character that goes in this position,
 			// generate only the permutations that have that
 			// character in that position.
-			Character val = (Character) this.charMap.get( IntegerPool.get( index ) );
+			Character val = (Character) charMap.get( IntegerPool.get( index ) );
 			if ( val != null )
 			{
-				this.generatePermutations( prefix + val );
+                generatePermutations( prefix + val );
 				return;
 			}
 
 			for ( int i = 0; i < 7; ++i )
 			{
-				Character rune = (Character) this.digits.get( i );
+				Character rune = (Character) digits.get( i );
 
 				// If we're already using this character, skip
 				char ch = rune;
@@ -1564,7 +1564,7 @@ public class DwarfFactoryRequest
 
 				// If we know this rune, only use it in the
 				// correct position.
-				Integer j = (Integer) this.digitMap.get( rune );
+				Integer j = (Integer) digitMap.get( rune );
 				if ( j != null && j != index )
 				{
 					continue;
@@ -1572,7 +1572,7 @@ public class DwarfFactoryRequest
 
 				// Otherwise, put this character into position
 				// and recurse.
-				this.generatePermutations( prefix + ch );
+                generatePermutations( prefix + ch );
 			}
 		}
 
@@ -1592,11 +1592,11 @@ public class DwarfFactoryRequest
 			int low = roll.charAt( 7 ) - '0';
 			int val = ( high * 7) + low;
 
-			Iterator it = this.permutations.iterator();
+			Iterator it = permutations.iterator();
 			while ( it.hasNext() )
 			{
 				String permutation = (String) it.next();
-				if ( !this.validPermutation( permutation, d1, d2, d3, d4, val ) )
+				if ( !validPermutation( permutation, d1, d2, d3, d4, val ) )
 				{
 					it.remove();
 				}
@@ -1627,16 +1627,16 @@ public class DwarfFactoryRequest
 
 		private void saveSoloPermutation()
 		{
-			if ( this.permutations.size() != 1 )
+			if ( permutations.size() != 1 )
 			{
 				return;
 			}
 
-			String [] strings = (String []) this.permutations.toArray( new String [ 1 ] );
+			String [] strings = (String []) permutations.toArray( new String[1] );
 			String digits = strings[0];
 			for ( int i = 0; i < 7; ++i )
 			{
-				this.mapCharacter( digits.charAt( i ), i );
+                mapCharacter( digits.charAt( i ), i );
 			}
 		}
 
@@ -2056,27 +2056,27 @@ public class DwarfFactoryRequest
 				{
 					Character rune = value.charAt( 0 );
 					Integer id = IntegerPool.get( itemId );
-					this.itemMap.put( rune, id );
-					this.runeMap.put( id, rune );
+                    itemMap.put( rune, id );
+                    runeMap.put( id, rune );
 				}
 			}
 
 			// Get the 3 pieces of equipment
-			this.equipment[ HAT ] = this.findRune( ItemPool.MINERS_HELMET );
-			this.equipment[ PANTS ] = this.findRune( ItemPool.MINERS_PANTS );
-			this.equipment[ WEAPON ] = this.findRune( ItemPool.MATTOCK );
+            equipment[ HAT ] = findRune( ItemPool.MINERS_HELMET );
+            equipment[ PANTS ] = findRune( ItemPool.MINERS_PANTS );
+            equipment[ WEAPON ] = findRune( ItemPool.MATTOCK );
 
 			// Get the 4 ores in hopper order
-			this.ores[0] = this.findItem( Preferences.getString( "lastDwarfHopper1" ) );
-			this.ores[1] = this.findItem( Preferences.getString( "lastDwarfHopper2" ) );
-			this.ores[2] = this.findItem( Preferences.getString( "lastDwarfHopper3" ) );
-			this.ores[3] = this.findItem( Preferences.getString( "lastDwarfHopper4" ) );
+            ores[0] = findItem( Preferences.getString( "lastDwarfHopper1" ) );
+            ores[1] = findItem( Preferences.getString( "lastDwarfHopper2" ) );
+            ores[2] = findItem( Preferences.getString( "lastDwarfHopper3" ) );
+            ores[3] = findItem( Preferences.getString( "lastDwarfHopper4" ) );
 
 			// Translate the unlaminated items into ore quantities
-			this.getOreQuantities();
+            getOreQuantities();
 
 			// Translate the laminated items into gauge settings
-			this.getGaugeSettings();
+            getGaugeSettings();
 		}
 
 		public String getHopperOre( final int hopper )
@@ -2085,7 +2085,7 @@ public class DwarfFactoryRequest
 			{
 				return "";
 			}
-			return ItemDatabase.getItemName( this.ores[ hopper ] );
+			return ItemDatabase.getItemName( ores[ hopper ] );
 		}
 
 		public void setInventoryCounts()
@@ -2093,7 +2093,7 @@ public class DwarfFactoryRequest
 			// Get the current count of ore in inventory
 			for ( int i = 0; i < 4; ++i )
 			{
-				int itemId = this.ores[ i ];
+				int itemId = ores[ i ];
 				if ( itemId != -1 )
 				{
 					DwarfFactoryRequest.inventoryCount[i ] = InventoryManager.getCount( itemId );
@@ -2125,12 +2125,12 @@ public class DwarfFactoryRequest
 			{
 				return null;
 			}
-			int itemId = this.ores[ hopper ];
+			int itemId = ores[ hopper ];
 			if ( itemId == -1 )
 			{
 				return null;
 			}
-			int count = this.oreQuantities[ item ][ hopper ];
+			int count = oreQuantities[ item ][ hopper ];
 			return new AdventureResult( itemId, count );
 		}
 
@@ -2140,20 +2140,20 @@ public class DwarfFactoryRequest
 			{
 				return 0;
 			}
-			return this.oreQuantities[ item ][ hopper ];
+			return oreQuantities[ item ][ hopper ];
 		}
 
 		public String getOreQuantityString( final int item, final int hopper )
 		{
-			int needed = this.getOreQuantity( item, hopper );
-			int have = this.getOreOnHand( hopper );
+			int needed = getOreQuantity( item, hopper );
+			int have = getOreOnHand( hopper );
 			String color = ( have >= needed ) ? "green" : "red";
 			return "<font color=" + color + ">" + needed + "</font>";
 		}
 
 		private void setOreQuantity( final int item, final int hopper, final int value )
 		{
-			this.oreQuantities[ item ][ hopper ] = value;
+            oreQuantities[ item ][ hopper ] = value;
 		}
 
 		public int getGaugeSetting( final int item, final int hopper )
@@ -2162,12 +2162,12 @@ public class DwarfFactoryRequest
 			{
 				return -1;
 			}
-			return this.gaugeSettings[ item ][ hopper ];
+			return gaugeSettings[ item ][ hopper ];
 		}
 
 		private void setGaugeSetting( final int item, final int hopper, final int value )
 		{
-			this.gaugeSettings[ item ][ hopper ] = value;
+            gaugeSettings[ item ][ hopper ] = value;
 		}
 
 		private int findItem( final String rune )
@@ -2176,24 +2176,24 @@ public class DwarfFactoryRequest
 			{
 				return -1;
 			}
-			return this.findItem( rune.charAt(0) );
+			return findItem( rune.charAt(0) );
 		}
 
 		private int findItem( final char rune )
 		{
-			Integer val = (Integer) this.itemMap.get( new Character( rune ) );
+			Integer val = (Integer) itemMap.get( new Character( rune ) );
 			return val == null ? -1 : val;
 		}
 
 		private char findRune( final int itemId )
 		{
-			Character val = (Character) this.runeMap.get( IntegerPool.get( itemId ) );
+			Character val = (Character) runeMap.get( IntegerPool.get( itemId ) );
 			return val == null ? 0 : val;
 		}
 
 		private int findHopper( final char rune )
 		{
-			int item = this.findItem( rune );
+			int item = findItem( rune );
 
 			if ( item == -1 )
 			{
@@ -2202,7 +2202,7 @@ public class DwarfFactoryRequest
 
 			for ( int i = 0; i < 4; ++i )
 			{
-				if ( item == this.ores[i] )
+				if ( item == ores[i] )
 				{
 					return i;
 				}
@@ -2215,7 +2215,7 @@ public class DwarfFactoryRequest
 		{
 			for ( int i = 0; i < 3; ++i )
 			{
-				if ( rune == this.equipment[i] )
+				if ( rune == equipment[i] )
 				{
 					return i;
 				}
@@ -2225,10 +2225,10 @@ public class DwarfFactoryRequest
 
 		private void getGaugeSettings()
 		{
-			this.getGaugeSetting( Preferences.getString( "lastDwarfOfficeItem3208" ) );
-			this.getGaugeSetting( Preferences.getString( "lastDwarfOfficeItem3209" ) );
-			this.getGaugeSetting( Preferences.getString( "lastDwarfOfficeItem3210" ) );
-			this.getGaugeSetting( Preferences.getString( "lastDwarfOfficeItem3211" ) );
+            getGaugeSetting( Preferences.getString( "lastDwarfOfficeItem3208" ) );
+            getGaugeSetting( Preferences.getString( "lastDwarfOfficeItem3209" ) );
+            getGaugeSetting( Preferences.getString( "lastDwarfOfficeItem3210" ) );
+            getGaugeSetting( Preferences.getString( "lastDwarfOfficeItem3211" ) );
 		}
 
 		private void getGaugeSetting( final String setting )
@@ -2244,7 +2244,7 @@ public class DwarfFactoryRequest
 				return;
 			}
 
-			int hopper = this.findHopper( splits[0].charAt(0) );
+			int hopper = findHopper( splits[0].charAt(0) );
 			if ( hopper < 0 )
 			{
 				return;
@@ -2252,22 +2252,22 @@ public class DwarfFactoryRequest
 
 			for ( int i = 1; i <= 3; ++i )
 			{
-				int item = this.findEquipment( splits[i].charAt(0) );
+				int item = findEquipment( splits[i].charAt(0) );
 				if ( item < 0 )
 				{
 					continue;
 				}
 
-				int number = this.digits.parseNumber( splits[i].substring(1) );
-				this.setGaugeSetting( item, hopper, number );
+				int number = digits.parseNumber( splits[i].substring( 1 ) );
+                setGaugeSetting( item, hopper, number );
 			}
 		}
 
 		private void getOreQuantities(	)
 		{
-			this.getOreQuantity( Preferences.getString( "lastDwarfOfficeItem3212" ) );
-			this.getOreQuantity( Preferences.getString( "lastDwarfOfficeItem3213" ) );
-			this.getOreQuantity( Preferences.getString( "lastDwarfOfficeItem3214" ) );
+            getOreQuantity( Preferences.getString( "lastDwarfOfficeItem3212" ) );
+            getOreQuantity( Preferences.getString( "lastDwarfOfficeItem3213" ) );
+            getOreQuantity( Preferences.getString( "lastDwarfOfficeItem3214" ) );
 		}
 
 		private void getOreQuantity( final String setting )
@@ -2282,7 +2282,7 @@ public class DwarfFactoryRequest
 				return;
 			}
 
-			int item = this.findEquipment( splits[0].charAt(0) );
+			int item = findEquipment( splits[0].charAt(0) );
 			if ( item < 0 )
 			{
 				return;
@@ -2290,14 +2290,14 @@ public class DwarfFactoryRequest
 
 			for ( int i = 1; i <= 4; ++i )
 			{
-				int hopper = this.findHopper( splits[i].charAt(0) );
+				int hopper = findHopper( splits[i].charAt(0) );
 				if ( hopper < 0 )
 				{
 					continue;
 				}
 
-				int number = this.digits.parseNumber( splits[i].substring(1) );
-				this.setOreQuantity( item, hopper, number );
+				int number = digits.parseNumber( splits[i].substring( 1 ) );
+                setOreQuantity( item, hopper, number );
 			}
 		}
 	}

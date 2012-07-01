@@ -37,7 +37,7 @@ public class ValueList extends ParseTreeNodeList
 {
 	public boolean add( final Value n )
 	{
-		this.list.add( n );
+        list.add( n );
 		return true;
 	}
 }

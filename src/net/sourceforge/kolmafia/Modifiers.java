@@ -923,7 +923,7 @@ public class Modifiers
 		int mus = KoLCharacter.getBaseMuscle();
 		int mys = KoLCharacter.getBaseMysticality();
 		int mox = KoLCharacter.getBaseMoxie();
-		String equalize = this.getString( Modifiers.EQUALIZE );
+		String equalize = getString( Modifiers.EQUALIZE );
 		if ( equalize.startsWith( "Mus" ) )
 		{
 			mys = mox = mus;
@@ -937,27 +937,27 @@ public class Modifiers
 			mus = mys = mox;
 		}
 
-		rv[ Modifiers.BUFFED_MUS ] = mus + (int) this.get( Modifiers.MUS ) +
-			(int) Math.ceil( this.get( Modifiers.MUS_PCT ) * mus / 100.0 );
-		rv[ Modifiers.BUFFED_MYS ] = mys + (int) this.get( Modifiers.MYS ) +
-			(int) Math.ceil( this.get( Modifiers.MYS_PCT ) * mys / 100.0 );
-		rv[ Modifiers.BUFFED_MOX ] = mox + (int) this.get( Modifiers.MOX ) +
-			(int) Math.ceil( this.get( Modifiers.MOX_PCT ) * mox / 100.0f);
+		rv[ Modifiers.BUFFED_MUS ] = mus + (int) get( Modifiers.MUS ) +
+			(int) Math.ceil( get( Modifiers.MUS_PCT ) * mus / 100.0 );
+		rv[ Modifiers.BUFFED_MYS ] = mys + (int) get( Modifiers.MYS ) +
+			(int) Math.ceil( get( Modifiers.MYS_PCT ) * mys / 100.0 );
+		rv[ Modifiers.BUFFED_MOX ] = mox + (int) get( Modifiers.MOX ) +
+			(int) Math.ceil( get( Modifiers.MOX_PCT ) * mox / 100.0f);
 
 		int hpbase = rv[ Modifiers.BUFFED_MUS ];
 		double C = KoLCharacter.isMuscleClass() ? 1.5 : 1.0;
-		int hp = (int) Math.ceil( (hpbase + 3) * ( C + this.get( Modifiers.HP_PCT ) / 100.0f ) ) + (int) this.get( Modifiers.HP );
+		int hp = (int) Math.ceil( (hpbase + 3) * ( C + get( Modifiers.HP_PCT ) / 100.0f ) ) + (int) get( Modifiers.HP );
 		rv[ Modifiers.BUFFED_HP ] = Math.max( hp, mus );
 
 		int mpbase = (int) rv[ Modifiers.BUFFED_MYS ];
-		if ( this.getBoolean( Modifiers.MOXIE_CONTROLS_MP ) ||
-			(this.getBoolean( Modifiers.MOXIE_MAY_CONTROL_MP ) && 
+		if ( getBoolean( Modifiers.MOXIE_CONTROLS_MP ) ||
+			(getBoolean( Modifiers.MOXIE_MAY_CONTROL_MP ) &&
 				(int) rv[ Modifiers.BUFFED_MOX ] > mpbase) )
 		{
 			mpbase = (int) rv[ Modifiers.BUFFED_MOX ];
 		}
 		C = KoLCharacter.isMysticalityClass() ? 1.5 : 1.0;
-		int mp = (int) Math.ceil( mpbase * ( C + this.get( Modifiers.MP_PCT ) / 100.0f ) ) + (int) this.get( Modifiers.MP );
+		int mp = (int) Math.ceil( mpbase * ( C + get( Modifiers.MP_PCT ) / 100.0f ) ) + (int) get( Modifiers.MP );
 		rv[ Modifiers.BUFFED_MP ] = Math.max( mp, mys );
 
 		return rv;
@@ -1168,76 +1168,76 @@ public class Modifiers
 
 	public Modifiers()
 	{
-		this.variable = false;
-		this.floats = new float[ Modifiers.FLOAT_MODIFIERS ];
-		this.bitmaps = new int[ Modifiers.BITMAP_MODIFIERS ];
-		this.strings = new String[ Modifiers.STRING_MODIFIERS ];
-		this.reset();
+        variable = false;
+        floats = new float[ Modifiers.FLOAT_MODIFIERS ];
+        bitmaps = new int[ Modifiers.BITMAP_MODIFIERS ];
+        strings = new String[ Modifiers.STRING_MODIFIERS ];
+        reset();
 	};
 
 	public void reset()
 	{
-		Arrays.fill( this.floats, 0.0f );
-		Arrays.fill( this.bitmaps, 0 );
-		Arrays.fill( this.strings, "" );
-		this.expressions = null;
+		Arrays.fill( floats, 0.0f );
+		Arrays.fill( bitmaps, 0 );
+		Arrays.fill( strings, "" );
+        expressions = null;
 	};
 
 	public float get( final int index )
 	{
-		if ( index < 0 || index >= this.floats.length )
+		if ( index < 0 || index >= floats.length )
 		{
 			return 0.0f;
 		}
 
-		return this.floats[ index ];
+		return floats[ index ];
 	};
 
 	public float get( final String name )
 	{
 		int index = Modifiers.findName( Modifiers.floatModifiers, name );
-		if ( index < 0 || index >= this.floats.length )
+		if ( index < 0 || index >= floats.length )
 		{
 			index = Modifiers.findName( Modifiers.derivedModifiers, name );
 			if ( index < 0 || index >= Modifiers.DERIVED_MODIFIERS )
 			{
-				return (float) this.getBitmap( name );
+				return (float) getBitmap( name );
 			}
-			return this.predict()[ index ];
+			return predict()[ index ];
 		}
 
-		return this.floats[ index ];
+		return floats[ index ];
 	};
 
 	public int getRawBitmap( final int index )
 	{
-		if ( index < 0 || index >= this.bitmaps.length )
+		if ( index < 0 || index >= bitmaps.length )
 		{
 			return 0;
 		}
 
-		return this.bitmaps[ index ];
+		return bitmaps[ index ];
 	};
 
 	public int getRawBitmap( final String name )
 	{
 		int index = Modifiers.findName( Modifiers.bitmapModifiers, name );
-		if ( index < 0 || index >= this.bitmaps.length )
+		if ( index < 0 || index >= bitmaps.length )
 		{
 			return 0;
 		}
 
-		return this.bitmaps[ index ];
+		return bitmaps[ index ];
 	};
 
 	public int getBitmap( final int index )
 	{
-		if ( index < 0 || index >= this.bitmaps.length )
+		if ( index < 0 || index >= bitmaps.length )
 		{
 			return 0;
 		}
 
-		int n = this.bitmaps[ index ];
+		int n = bitmaps[ index ];
 		// Count the bits:
 		if ( n == 0 ) return 0;
 		n = ((n & 0xAAAAAAAA) >>>  1) + (n & 0x55555555);
@@ -1250,7 +1250,7 @@ public class Modifiers
 
 	public int getBitmap( final String name )
 	{
-		return this.getBitmap( Modifiers.findName( Modifiers.bitmapModifiers, name ) );
+		return getBitmap( Modifiers.findName( Modifiers.bitmapModifiers, name ) );
 	};
 
 	public boolean getBoolean( final int index )
@@ -1260,7 +1260,7 @@ public class Modifiers
 			return false;
 		}
 
-		return ((this.bitmaps[ 0 ] >>> index) & 1) != 0;
+		return ((bitmaps[ 0 ] >>> index) & 1) != 0;
 	};
 
 	public boolean getBoolean( final String name )
@@ -1271,40 +1271,40 @@ public class Modifiers
 			return false;
 		}
 
-		return ((this.bitmaps[ 0 ] >>> index) & 1) != 0;
+		return ((bitmaps[ 0 ] >>> index) & 1) != 0;
 	};
 
 	public String getString( final int index )
 	{
-		if ( index < 0 || index >= this.strings.length )
+		if ( index < 0 || index >= strings.length )
 		{
 			return "";
 		}
 
-		return this.strings[ index ];
+		return strings[ index ];
 	};
 
 	public String getString( final String name )
 	{
 		int index = Modifiers.findName( Modifiers.stringModifiers, name );
-		if ( index < 0 || index >= this.strings.length )
+		if ( index < 0 || index >= strings.length )
 		{
 			return "";
 		}
 
-		return this.strings[ index ];
+		return strings[ index ];
 	};
 	
 	public boolean set( final int index, final double mod )
 	{
-		if ( index < 0 || index >= this.floats.length )
+		if ( index < 0 || index >= floats.length )
 		{
 			return false;
 		}
 
-		if ( this.floats[ index ] != mod )
+		if ( floats[ index ] != mod )
 		{
-			this.floats[ index ] = (float) mod;
+            floats[ index ] = (float) mod;
 			return true;
 		}
 		return false;
@@ -1312,14 +1312,14 @@ public class Modifiers
 
 	public boolean set( final int index, final int mod )
 	{
-		if ( index < 0 || index >= this.bitmaps.length )
+		if ( index < 0 || index >= bitmaps.length )
 		{
 			return false;
 		}
 
-		if ( this.bitmaps[ index ] != mod )
+		if ( bitmaps[ index ] != mod )
 		{
-			this.bitmaps[ index ] = mod;
+            bitmaps[ index ] = mod;
 			return true;
 		}
 		return false;
@@ -1334,9 +1334,9 @@ public class Modifiers
 
 		int mask = 1 << index;
 		int val = mod ? mask : 0;
-		if ( (this.bitmaps[ 0 ] & mask) != val )
+		if ( (bitmaps[ 0 ] & mask) != val )
 		{
-			this.bitmaps[ 0 ] ^= mask;
+            bitmaps[ 0 ] ^= mask;
 			return true;
 		}
 		return false;
@@ -1344,7 +1344,7 @@ public class Modifiers
 
 	public boolean set( final int index, String mod )
 	{
-		if ( index < 0 || index >= this.strings.length )
+		if ( index < 0 || index >= strings.length )
 		{
 			return false;
 		}
@@ -1354,9 +1354,9 @@ public class Modifiers
 			mod = "";
 		}
 
-		if ( !mod.equals( this.strings[ index ] ) )
+		if ( !mod.equals( strings[ index ] ) )
 		{
-			this.strings[ index ] = mod;
+            strings[ index ] = mod;
 			return true;
 		}
 		return false;
@@ -1370,34 +1370,34 @@ public class Modifiers
 		}
 
 		boolean changed = false;
-		this.name = mods.name;
+        name = mods.name;
 
 		float[] copyFloats = mods.floats;
-		for ( int index = 0; index < this.floats.length; ++index )
+		for ( int index = 0; index < floats.length; ++index )
 		{
-			if ( this.floats[ index ] != copyFloats[ index ] )
+			if ( floats[ index ] != copyFloats[ index ] )
 			{
-				this.floats[ index ] = copyFloats[ index ];
+                floats[ index ] = copyFloats[ index ];
 				changed = true;
 			}
 		}
 
 		int[] copyBitmaps = mods.bitmaps;
-		for ( int index = 0; index < this.bitmaps.length; ++index )
+		for ( int index = 0; index < bitmaps.length; ++index )
 		{
-			if ( this.bitmaps[ index ] != copyBitmaps[ index ] )
+			if ( bitmaps[ index ] != copyBitmaps[ index ] )
 			{
-				this.bitmaps[ index ] = copyBitmaps[ index ];
+                bitmaps[ index ] = copyBitmaps[ index ];
 				changed = true;
 			}
 		}
 
 		String[] copyStrings = mods.strings;
-		for ( int index = 0; index < this.strings.length; ++index )
+		for ( int index = 0; index < strings.length; ++index )
 		{
-			if ( !this.strings[ index ].equals( copyStrings[ index ] ) )
+			if ( !strings[ index ].equals( copyStrings[ index ] ) )
 			{
-				this.strings[ index ] = copyStrings[ index ];
+                strings[ index ] = copyStrings[ index ];
 				changed = true;
 			}
 		}
@@ -1414,7 +1414,7 @@ public class Modifiers
 			
 			// Assume that all the sources of Combat Rate modifiers are of + or - 5%,
 			// and start by obtaining the current value without the diminishing returns taken into account
-			float rate = this.floats[ index ];
+			float rate = floats[ index ];
 			float extra = Math.abs( rate ) - 25.0f;
 			if ( extra > 0.0f )
 			{
@@ -1428,32 +1428,32 @@ public class Modifiers
 			{
 				rate = ( 25.0f + ( float ) Math.ceil( extra / 5.0f ) ) * ( rate < 0.0f ? -1.0f : 1.0f );
 			}
-			this.floats[ index ] = rate;
+            floats[ index ] = rate;
 			break;
 		case CRITICAL:
 			// Critical hit modifier is maximum, not additive
-			if ( mod > this.floats[ index ] )
+			if ( mod > floats[ index ] )
 			{
-				this.floats[ index ] = (float) mod;
+                floats[ index ] = (float) mod;
 			}
 			break;
 		case MANA_COST:
 			// Total Mana Cost reduction cannot exceed 3
-			this.floats[ index ] += mod;
-			if ( this.floats[ index ] < -3 )
+            floats[ index ] += mod;
+			if ( floats[ index ] < -3 )
 			{
-				this.floats[ index ] = -3;
+                floats[ index ] = -3;
 			}
 			break;
 		case FAMILIAR_WEIGHT_PCT:
 			// The three current sources of -wt% do not stack
-			if ( this.floats[ index ] > mod )
+			if ( floats[ index ] > mod )
 			{
-				this.floats[ index ] = (float) mod;
+                floats[ index ] = (float) mod;
 			}
 			break;
 		default:
-			this.floats[ index ] += mod;
+            floats[ index ] += mod;
 			break;
 		}
 	};
@@ -1485,17 +1485,17 @@ public class Modifiers
 
 		float[] addition = mods.floats;
 
-		for ( int i = 0; i < this.floats.length; ++i )
+		for ( int i = 0; i < floats.length; ++i )
 		{
 			if ( addition[ i ] != 0.0f )
 			{
 				if ( i == Modifiers.ADVENTURES &&
-					(mods.bitmaps[ 0 ] & this.bitmaps[ 0 ] &
+					(mods.bitmaps[ 0 ] & bitmaps[ 0 ] &
 						(1 << Modifiers.NONSTACKABLE_WATCH)) != 0 )
 				{
 					continue;
 				}
-				this.add( i, addition[ i ], name );
+                add( i, addition[ i ], name );
 			}
 		}
 		
@@ -1508,40 +1508,40 @@ public class Modifiers
 		
 		String val;
 		val = mods.strings[ Modifiers.EQUALIZE ];
-		if ( val != "" && this.strings[ Modifiers.EQUALIZE ] == "" )
+		if ( val != "" && strings[ Modifiers.EQUALIZE ] == "" )
 		{
-			this.strings[ Modifiers.EQUALIZE ] = val;
+            strings[ Modifiers.EQUALIZE ] = val;
 		}
 		val = mods.strings[ Modifiers.INTRINSIC_EFFECT ];
 		if ( val != "" )
 		{
-			String prev = this.strings[ INTRINSIC_EFFECT ];
+			String prev = strings[ INTRINSIC_EFFECT ];
 			if ( prev == "" )
 			{
-				this.strings[ Modifiers.INTRINSIC_EFFECT ] = val;
+                strings[ Modifiers.INTRINSIC_EFFECT ] = val;
 			}
 			else
 			{
-				this.strings[ Modifiers.INTRINSIC_EFFECT ] = prev + "\t" + val;
+                strings[ Modifiers.INTRINSIC_EFFECT ] = prev + "\t" + val;
 			}
 		}
 		val = mods.strings[ Modifiers.STAT_TUNING ];
 		if ( val != "" )
 		{
-			this.strings[ Modifiers.STAT_TUNING ] = val;
+            strings[ Modifiers.STAT_TUNING ] = val;
 		}
 		val = mods.strings[ Modifiers.FAMILIAR_TUNING ];
 		if ( val != "" )
 		{
-			this.strings[ Modifiers.FAMILIAR_TUNING ] = val;
+            strings[ Modifiers.FAMILIAR_TUNING ] = val;
 		}
 
 		// OR in the bitmap modifiers (including all the boolean modifiers)
-		this.bitmaps[ Modifiers.MUTEX_VIOLATIONS ] |=
-			this.bitmaps[ Modifiers.MUTEX ] & mods.bitmaps[ Modifiers.MUTEX ];
-		for ( int i = 0; i < this.bitmaps.length; ++i )
+        bitmaps[ Modifiers.MUTEX_VIOLATIONS ] |=
+                bitmaps[ Modifiers.MUTEX ] & mods.bitmaps[ Modifiers.MUTEX ];
+		for ( int i = 0; i < bitmaps.length; ++i )
 		{
-			this.bitmaps[ i ] |= mods.bitmaps[ i ];
+            bitmaps[ i ] |= mods.bitmaps[ i ];
 		}
 	}
 
@@ -1701,14 +1701,14 @@ public class Modifiers
 
 	private boolean override( final String name )
 	{
-		if ( this.expressions != null )
+		if ( expressions != null )
 		{
-			for ( int i = 0; i < this.expressions.length; ++i )
+			for ( int i = 0; i < expressions.length; ++i )
 			{
-				ModifierExpression expr = this.expressions[ i ];
+				ModifierExpression expr = expressions[ i ];
 				if ( expr != null )
 				{
-					this.floats[ i ] = expr.eval();
+                    floats[ i ] = expr.eval();
 				}
 			}
 			return true;
@@ -1722,15 +1722,15 @@ public class Modifiers
 		{
 			// Reset to defaults
 
-			this.set( Modifiers.MEATDROP, 0.0 );
-			this.set( Modifiers.ITEMDROP, 0.0 );
-			this.set( Modifiers.MOX_PCT, 0.0 );
-			this.set( Modifiers.MUS_PCT, 0.0 );
-			this.set( Modifiers.MYS_PCT, 0.0 );
-			this.set( Modifiers.HP_REGEN_MIN, 0.0 );
-			this.set( Modifiers.HP_REGEN_MAX, 0.0 );
-			this.set( Modifiers.MP_REGEN_MIN, 0.0 );
-			this.set( Modifiers.MP_REGEN_MAX, 0.0 );
+            set( Modifiers.MEATDROP, 0.0 );
+            set( Modifiers.ITEMDROP, 0.0 );
+            set( Modifiers.MOX_PCT, 0.0 );
+            set( Modifiers.MUS_PCT, 0.0 );
+            set( Modifiers.MYS_PCT, 0.0 );
+            set( Modifiers.HP_REGEN_MIN, 0.0 );
+            set( Modifiers.HP_REGEN_MAX, 0.0 );
+            set( Modifiers.MP_REGEN_MIN, 0.0 );
+            set( Modifiers.MP_REGEN_MAX, 0.0 );
 
 			// Set modifiers depending on what KoL day of the week it is
 
@@ -1739,33 +1739,33 @@ public class Modifiers
 			{
 			case Calendar.SUNDAY:
 				// +5% Meat from Monsters
-				this.set( Modifiers.MEATDROP, 5.0 );
+                set( Modifiers.MEATDROP, 5.0 );
 				break;
 			case Calendar.MONDAY:
 				// Muscle +5%
-				this.set( Modifiers.MUS_PCT, 5.0 );
+                set( Modifiers.MUS_PCT, 5.0 );
 				break;
 			case Calendar.TUESDAY:
 				// Regenerate 3-7 MP per adventure
-				this.set( Modifiers.MP_REGEN_MIN, 3.0 );
-				this.set( Modifiers.MP_REGEN_MAX, 7.0 );
+                set( Modifiers.MP_REGEN_MIN, 3.0 );
+                set( Modifiers.MP_REGEN_MAX, 7.0 );
 				break;
 			case Calendar.WEDNESDAY:
 				// +5% Mysticality
-				this.set( Modifiers.MYS_PCT, 5.0 );
+                set( Modifiers.MYS_PCT, 5.0 );
 				break;
 			case Calendar.THURSDAY:
 				// +5% Item Drops from Monsters
-				this.set( Modifiers.ITEMDROP, 5.0 );
+                set( Modifiers.ITEMDROP, 5.0 );
 				break;
 			case Calendar.FRIDAY:
 				// +5% Moxie
-				this.set( Modifiers.MOX_PCT, 5.0 );
+                set( Modifiers.MOX_PCT, 5.0 );
 				break;
 			case Calendar.SATURDAY:
 				// Regenerate 3-7 HP per adventure
-				this.set( Modifiers.HP_REGEN_MIN, 3.0 );
-				this.set( Modifiers.HP_REGEN_MAX, 7.0 );
+                set( Modifiers.HP_REGEN_MIN, 3.0 );
+                set( Modifiers.HP_REGEN_MAX, 7.0 );
 				break;
 			}
 			return true;
@@ -1775,66 +1775,66 @@ public class Modifiers
 		{
 			Calendar date = Calendar.getInstance( TimeZone.getTimeZone( "GMT-0700" ) );
 			double adventures = date.get( Calendar.MONTH ) == Calendar.DECEMBER ? 9.0 : 6.0;
-			this.set( Modifiers.ADVENTURES, adventures );
+            set( Modifiers.ADVENTURES, adventures );
 			return true;
 		}
 
 		case ItemPool.PATRIOT_SHIELD:
 		{
 			// Muscle classes
-			this.set( Modifiers.HP_REGEN_MIN, 0.0 );
-			this.set( Modifiers.HP_REGEN_MAX, 0.0 );
+            set( Modifiers.HP_REGEN_MIN, 0.0 );
+            set( Modifiers.HP_REGEN_MAX, 0.0 );
 			// Seal clubber
-			this.set( Modifiers.WEAPON_DAMAGE, 0.0 );
-			this.set( Modifiers.DAMAGE_REDUCTION, 0.0 );
+            set( Modifiers.WEAPON_DAMAGE, 0.0 );
+            set( Modifiers.DAMAGE_REDUCTION, 0.0 );
 			// Turtle Tamer
-			this.set( Modifiers.FAMILIAR_WEIGHT, 0.0 );
+            set( Modifiers.FAMILIAR_WEIGHT, 0.0 );
 			// Disco Bandit
-			this.set( Modifiers.RANGED_DAMAGE, 0.0 );
+            set( Modifiers.RANGED_DAMAGE, 0.0 );
 			// Accordion Thief
-			this.set( Modifiers.FOUR_SONGS, false );
+            set( Modifiers.FOUR_SONGS, false );
 			// Mysticality classes
-			this.set( Modifiers.MP_REGEN_MIN, 0.0 );
-			this.set( Modifiers.MP_REGEN_MAX, 0.0 );
+            set( Modifiers.MP_REGEN_MIN, 0.0 );
+            set( Modifiers.MP_REGEN_MAX, 0.0 );
 			// Pastamancer
-			this.set( Modifiers.COMBAT_MANA_COST, 0.0 );
+            set( Modifiers.COMBAT_MANA_COST, 0.0 );
 			// Sauceror
-			this.set( Modifiers.SPELL_DAMAGE, 0.0 );
+            set( Modifiers.SPELL_DAMAGE, 0.0 );
 
 			// Set modifiers depending on Character class
 			String classType = KoLCharacter.getClassType();
 			if ( classType == KoLCharacter.SEAL_CLUBBER )
 			{
-				this.set( Modifiers.HP_REGEN_MIN, 10.0 );
-				this.set( Modifiers.HP_REGEN_MAX, 12.0 );
-				this.set( Modifiers.WEAPON_DAMAGE, 15.0 );
-				this.set( Modifiers.DAMAGE_REDUCTION, 1.0 );
+                set( Modifiers.HP_REGEN_MIN, 10.0 );
+                set( Modifiers.HP_REGEN_MAX, 12.0 );
+                set( Modifiers.WEAPON_DAMAGE, 15.0 );
+                set( Modifiers.DAMAGE_REDUCTION, 1.0 );
 			}
 			else if ( classType == KoLCharacter.TURTLE_TAMER )
 			{
-				this.set( Modifiers.HP_REGEN_MIN, 10.0 );
-				this.set( Modifiers.HP_REGEN_MAX, 12.0 );
-				this.set( Modifiers.FAMILIAR_WEIGHT, 5.0 );
+                set( Modifiers.HP_REGEN_MIN, 10.0 );
+                set( Modifiers.HP_REGEN_MAX, 12.0 );
+                set( Modifiers.FAMILIAR_WEIGHT, 5.0 );
 			}
 			else if ( classType == KoLCharacter.DISCO_BANDIT )
 			{
-				this.set( Modifiers.RANGED_DAMAGE, 20.0 );
+                set( Modifiers.RANGED_DAMAGE, 20.0 );
 			}
 			else if ( classType == KoLCharacter.ACCORDION_THIEF )
 			{
-				this.set( Modifiers.FOUR_SONGS, true );
+                set( Modifiers.FOUR_SONGS, true );
 			}
 			else if ( classType == KoLCharacter.PASTAMANCER )
 			{
-				this.set( Modifiers.MP_REGEN_MIN, 5.0 );
-				this.set( Modifiers.MP_REGEN_MAX, 6.0 );
-				this.set( Modifiers.COMBAT_MANA_COST, -3.0 );
+                set( Modifiers.MP_REGEN_MIN, 5.0 );
+                set( Modifiers.MP_REGEN_MAX, 6.0 );
+                set( Modifiers.COMBAT_MANA_COST, -3.0 );
 			}
 			else if ( classType == KoLCharacter.SAUCEROR )
 			{
-				this.set( Modifiers.MP_REGEN_MIN, 5.0 );
-				this.set( Modifiers.MP_REGEN_MAX, 6.0 );
-				this.set( Modifiers.SPELL_DAMAGE, 20.0 );
+                set( Modifiers.MP_REGEN_MIN, 5.0 );
+                set( Modifiers.MP_REGEN_MAX, 6.0 );
+                set( Modifiers.SPELL_DAMAGE, 20.0 );
 			}
 			return true;
 		}
@@ -1928,19 +1928,19 @@ public class Modifiers
 			UseSkillRequest skill = (UseSkillRequest) Modifiers.passiveSkills.get( i );
 			if ( KoLCharacter.hasSkill( skill ) )
 			{
-				this.add( Modifiers.getModifiers( skill.getSkillName() ) );
+                add( Modifiers.getModifiers( skill.getSkillName() ) );
 			}
 		}
 
 		if ( KoLCharacter.getFamiliar().getId() == FamiliarPool.DODECAPEDE && KoLCharacter.hasAmphibianSympathy() )
 		{
-			this.add( Modifiers.FAMILIAR_WEIGHT, -10, "dodecapede sympathy" );
+            add( Modifiers.FAMILIAR_WEIGHT, -10, "dodecapede sympathy" );
 		}
 	}
 	
 	public void applySynergies()
 	{
-		int synergetic = this.getRawBitmap( Modifiers.SYNERGETIC );
+		int synergetic = getRawBitmap( Modifiers.SYNERGETIC );
 		if ( synergetic == 0 ) return;	// nothing possible
 		Iterator i = Modifiers.synergies.iterator();
 		while ( i.hasNext() )
@@ -1949,7 +1949,7 @@ public class Modifiers
 			int mask = (Integer) i.next();
 			if ( (synergetic & mask) == mask )
 			{
-				this.add( Modifiers.getModifiers( name ) );
+                add( Modifiers.getModifiers( name ) );
 			}
 		}
 	}
@@ -1965,18 +1965,18 @@ public class Modifiers
 		int familiarId = familiar.getId();
 		int weight = familiar.getWeight();
 
-		weight += (int) this.get( Modifiers.FAMILIAR_WEIGHT );
-		weight += (int) this.get( Modifiers.HIDDEN_FAMILIAR_WEIGHT );
+		weight += (int) get( Modifiers.FAMILIAR_WEIGHT );
+		weight += (int) get( Modifiers.HIDDEN_FAMILIAR_WEIGHT );
 		weight += ( familiar.getFeasted() ? 10 : 0 );
 
-		float percent = this.get( Modifiers.FAMILIAR_WEIGHT_PCT ) / 100.0f;
+		float percent = get( Modifiers.FAMILIAR_WEIGHT_PCT ) / 100.0f;
 		if ( percent != 0.0f )
 		{
 			weight = (int) Math.floor( weight + weight * percent );
 		}
 
 		weight = Math.max( 1, weight );
-		this.lookupFamiliarModifiers( familiar, weight, famItem );
+        lookupFamiliarModifiers( familiar, weight, famItem );
 	}
 
 	public void lookupFamiliarModifiers( final FamiliarData familiar, int weight, final AdventureResult famItem )
@@ -1984,83 +1984,83 @@ public class Modifiers
 		int familiarId = familiar.getId();
 		weight = Math.max( 1, weight );
 		Modifiers.currentWeight = weight;
-		
-		this.add( Modifiers.getModifiers( "fam:" + familiar.getRace() ) );
+
+        add( Modifiers.getModifiers( "fam:" + familiar.getRace() ) );
 		if ( famItem != null )
 		{
-			this.add( Modifiers.getModifiers( "fameq:" + famItem.getName() ) );
+            add( Modifiers.getModifiers( "fameq:" + famItem.getName() ) );
 		}
 
-		int cap = (int)this.get( Modifiers.FAMILIAR_WEIGHT_CAP );
+		int cap = (int) get( Modifiers.FAMILIAR_WEIGHT_CAP );
 		int cappedWeight = ( cap == 0 ) ? weight : Math.min( weight, cap );
 
-		double effective = cappedWeight * this.get( Modifiers.VOLLEYBALL_WEIGHT );
+		double effective = cappedWeight * get( Modifiers.VOLLEYBALL_WEIGHT );
 		if ( effective == 0.0 && FamiliarDatabase.isVolleyType( familiarId ) )
 		{
 			effective = weight;
 		}
 		if ( effective != 0.0 )
 		{
-			double factor = this.get( Modifiers.VOLLEYBALL_EFFECTIVENESS );
+			double factor = get( Modifiers.VOLLEYBALL_EFFECTIVENESS );
 			if ( factor == 0.0 ) factor = 1.0;
 			factor = factor * Math.sqrt( effective );
-			String tuning = this.getString( Modifiers.FAMILIAR_TUNING );
+			String tuning = getString( Modifiers.FAMILIAR_TUNING );
 			if ( tuning.equals( "Muscle" ) )
 			{
-				this.add( Modifiers.MUS_EXPERIENCE, factor, "Tuned Volleyball" );
+                add( Modifiers.MUS_EXPERIENCE, factor, "Tuned Volleyball" );
 			}
 			else if ( tuning.equals( "Mysticality" ) )
 			{
-				this.add( Modifiers.MYS_EXPERIENCE, factor, "Tuned Volleyball" );
+                add( Modifiers.MYS_EXPERIENCE, factor, "Tuned Volleyball" );
 			}
 			else if ( tuning.equals( "Moxie" ) )
 			{
-				this.add( Modifiers.MOX_EXPERIENCE, factor, "Tuned Volleyball" );
+                add( Modifiers.MOX_EXPERIENCE, factor, "Tuned Volleyball" );
 			}
 			else
-			{			
-				this.add( Modifiers.EXPERIENCE, factor, "Volleyball" );
+			{
+                add( Modifiers.EXPERIENCE, factor, "Volleyball" );
 			}
 		}
 
-		effective = cappedWeight * this.get( Modifiers.SOMBRERO_WEIGHT );
+		effective = cappedWeight * get( Modifiers.SOMBRERO_WEIGHT );
 		if ( effective == 0.0 && FamiliarDatabase.isSombreroType( familiarId ) )
 		{
 			effective = weight;
 		}
-		effective += this.get( Modifiers.SOMBRERO_BONUS );
+		effective += get( Modifiers.SOMBRERO_BONUS );
 		if ( effective != 0.0 )
 		{
-			double factor = this.get( Modifiers.SOMBRERO_EFFECTIVENESS );
+			double factor = get( Modifiers.SOMBRERO_EFFECTIVENESS );
 			if ( factor == 0.0 ) factor = 1.0;
 			// currentML is always >= 4, so we don't need to check for negatives
-			this.add( Modifiers.EXPERIENCE, factor * Math.sqrt( effective ) *
+            add( Modifiers.EXPERIENCE, factor * Math.sqrt( effective ) *
 				(1.0 + Math.sqrt( Modifiers.currentML - 4.0f )) / 10.0, "Sombrero" );
 		}
 
-		effective = cappedWeight * this.get( Modifiers.LEPRECHAUN_WEIGHT );
+		effective = cappedWeight * get( Modifiers.LEPRECHAUN_WEIGHT );
 		if ( effective == 0.0 && FamiliarDatabase.isMeatDropType( familiarId ) )
 		{
 			effective = weight;
 		}
 		if ( effective != 0.0 )
 		{
-			double factor = this.get( Modifiers.LEPRECHAUN_EFFECTIVENESS );
+			double factor = get( Modifiers.LEPRECHAUN_EFFECTIVENESS );
 			if ( factor == 0.0 ) factor = 1.0;
-			this.add( Modifiers.MEATDROP, factor * (Math.sqrt( 220 * effective ) + 2 * effective - 6),
+            add( Modifiers.MEATDROP, factor * (Math.sqrt( 220 * effective ) + 2 * effective - 6),
 				"Leprechaun" );
 		}
 
-		effective = cappedWeight * this.get( Modifiers.FAIRY_WEIGHT );
+		effective = cappedWeight * get( Modifiers.FAIRY_WEIGHT );
 		if ( effective == 0.0 && FamiliarDatabase.isFairyType( familiarId ) )
 		{
 			effective = weight;
 		}
 		if ( effective != 0.0 )
 		{
-			double factor = this.get( Modifiers.FAIRY_EFFECTIVENESS );
+			double factor = get( Modifiers.FAIRY_EFFECTIVENESS );
 			if ( factor == 0.0 ) factor = 1.0;
-			this.add( Modifiers.ITEMDROP, factor * (Math.sqrt( 55 * effective ) + effective - 3),
+            add( Modifiers.ITEMDROP, factor * (Math.sqrt( 55 * effective ) + effective - 3),
 				"Fairy" );
 		}
 
@@ -2069,13 +2069,13 @@ public class Modifiers
 		case FamiliarPool.HATRACK:
 			if ( famItem == EquipmentRequest.UNEQUIP )
 			{
-				this.add( Modifiers.HATDROP, 50.0, "naked hatrack" );
+                add( Modifiers.HATDROP, 50.0, "naked hatrack" );
 			}
 			break;
 		case FamiliarPool.SCARECROW:
 			if ( famItem == EquipmentRequest.UNEQUIP )
 			{
-				this.add( Modifiers.PANTSDROP, 50.0, "naked scarecrow" );
+                add( Modifiers.PANTSDROP, 50.0, "naked scarecrow" );
 			}
 			break;
 		}
@@ -2096,20 +2096,20 @@ public class Modifiers
 		if ( effective != 0.0 )
 		{
 			double factor = Math.sqrt( effective );
-			this.add( Modifiers.EXPERIENCE, factor, name );
+            add( Modifiers.EXPERIENCE, factor, name );
 		}
 
 		effective = imods.get( Modifiers.FAIRY_WEIGHT );
 		if ( effective != 0.0 )
 		{
 			double factor = Math.sqrt( 55 * effective ) + effective - 3;
-			this.add( Modifiers.ITEMDROP, factor, name );
+            add( Modifiers.ITEMDROP, factor, name );
 		}
 
-		this.add( Modifiers.HP_REGEN_MIN, imods.get( Modifiers.HP_REGEN_MIN ), name );
-		this.add( Modifiers.HP_REGEN_MAX, imods.get( Modifiers.HP_REGEN_MAX ), name );
-		this.add( Modifiers.MP_REGEN_MIN, imods.get( Modifiers.MP_REGEN_MIN ), name );
-		this.add( Modifiers.MP_REGEN_MAX, imods.get( Modifiers.MP_REGEN_MAX ), name );
+        add( Modifiers.HP_REGEN_MIN, imods.get( Modifiers.HP_REGEN_MIN ), name );
+        add( Modifiers.HP_REGEN_MAX, imods.get( Modifiers.HP_REGEN_MAX ), name );
+        add( Modifiers.MP_REGEN_MIN, imods.get( Modifiers.MP_REGEN_MIN ), name );
+        add( Modifiers.MP_REGEN_MAX, imods.get( Modifiers.MP_REGEN_MAX ), name );
 	}
 
 

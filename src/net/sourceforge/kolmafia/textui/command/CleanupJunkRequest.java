@@ -59,7 +59,7 @@ public class CleanupJunkRequest
 	extends AbstractCommand
 {
 	{
-		this.usage = " - use, pulverize, or autosell your junk items.";
+        usage = " - use, pulverize, or autosell your junk items.";
 	}
 
 	@Override

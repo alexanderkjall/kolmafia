@@ -86,13 +86,13 @@ public class VendingMachineRequest
 	public VendingMachineRequest( final String action )
 	{
 		super( VendingMachineRequest.VENDING_MACHINE, action );
-		this.addFormField( "pwd" );
+        addFormField( "pwd" );
 	}
 
 	public VendingMachineRequest( final String action, final int itemId, final int quantity )
 	{
 		super( VendingMachineRequest.VENDING_MACHINE, action, itemId, quantity );
-		this.addFormField( "pwd" );
+        addFormField( "pwd" );
 	}
 
 	public VendingMachineRequest( final String action, final int itemId )
@@ -108,7 +108,7 @@ public class VendingMachineRequest
 	@Override
 	public void processResults()
 	{
-		VendingMachineRequest.parseResponse( this.getURLString(), this.responseText );
+		VendingMachineRequest.parseResponse( getURLString(), responseText );
 	}
 
 	public static void parseResponse( final String location, final String responseText )

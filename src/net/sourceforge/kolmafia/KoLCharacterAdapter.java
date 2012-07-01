@@ -55,14 +55,14 @@ public class KoLCharacterAdapter
 
 	public void updateStatus()
 	{
-		if ( this.statusUpdater != null )
+		if ( statusUpdater != null )
 		{
-			this.statusUpdater.run();
+            statusUpdater.run();
 		}
 	}
 
 	public boolean isStatusListener()
 	{
-		return this.statusUpdater != null;
+		return statusUpdater != null;
 	}
 }

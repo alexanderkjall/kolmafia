@@ -44,7 +44,7 @@ public class WinGameCommand
 {
 	public WinGameCommand()
 	{
-		this.usage = " - I'm as surprised as you!  I didn't think it was possible.";
+        usage = " - I'm as surprised as you!  I didn't think it was possible.";
 	}
 
 	@Override

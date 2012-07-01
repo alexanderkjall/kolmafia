@@ -49,23 +49,23 @@ public class VariableReference
 
 	public VariableReference( final String varName, final BasicScope scope )
 	{
-		this.target = scope.findVariable( varName, true );
+        target = scope.findVariable( varName, true );
 	}
 
 	public boolean valid()
 	{
-		return this.target != null;
+		return target != null;
 	}
 
 	@Override
 	public Type getType()
 	{
-		return this.target.getBaseType();
+		return target.getBaseType();
 	}
 
 	public String getName()
 	{
-		return this.target.getName();
+		return target.getName();
 	}
 
 	public ValueList getIndices()
@@ -76,28 +76,28 @@ public class VariableReference
 	@Override
 	public int compareTo( final Object o )
 	{
-		return this.target.getName().compareTo( ( (VariableReference) o ).target.getName() );
+		return target.getName().compareTo( ( (VariableReference) o ).target.getName() );
 	}
 
 	@Override
 	public Value execute( final Interpreter interpreter )
 	{
-		return this.target.getValue( interpreter );
+		return target.getValue( interpreter );
 	}
 
 	public Value getValue( Interpreter interpreter )
 	{
-		return this.target.getValue( interpreter );
+		return target.getValue( interpreter );
 	}
 
 	public void forceValue( final Value targetValue )
 	{
-		this.target.forceValue( targetValue );
+        target.forceValue( targetValue );
 	}
 
 	public Value setValue( final Interpreter interpreter, final Value targetValue )
 	{
-		return this.setValue( interpreter, targetValue, null );
+		return setValue( interpreter, targetValue, null );
 	}
 
 	public Value setValue( Interpreter interpreter, final Value targetValue, final Operator oper )
@@ -105,12 +105,12 @@ public class VariableReference
 		Value newValue = targetValue;
 		if ( oper != null )
 		{
-			Value currentValue = this.target.getValue( interpreter );
+			Value currentValue = target.getValue( interpreter );
 			newValue = oper.applyTo( interpreter, currentValue, targetValue );
 		}
 		if ( newValue != null )
 		{
-			this.target.setValue( interpreter, newValue );
+            target.setValue( interpreter, newValue );
 		}
 		return newValue;
 	}
@@ -118,13 +118,13 @@ public class VariableReference
 	@Override
 	public String toString()
 	{
-		return this.target.getName();
+		return target.getName();
 	}
 
 	@Override
 	public void print( final PrintStream stream, final int indent )
 	{
 		Interpreter.indentLine( stream, indent );
-		stream.println( "<VARREF> " + this.getName() );
+		stream.println( "<VARREF> " + getName() );
 	}
 }

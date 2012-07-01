@@ -49,7 +49,7 @@ public class ExtendEffectCommand
 {
 	public ExtendEffectCommand()
 	{
-		this.usage = "[?] <effect> [, <effect>]... - extend duration of effects.";
+        usage = "[?] <effect> [, <effect>]... - extend duration of effects.";
 	}
 
 	@Override

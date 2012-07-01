@@ -41,7 +41,7 @@ public class AbortCommand
 {
 	public AbortCommand()
 	{
-		this.usage = " [message] - stop current script or automated task.";
+        usage = " [message] - stop current script or automated task.";
 	}
 
 	@Override

@@ -111,41 +111,41 @@ public class Concoction
 	{
 		this.concoction = concoction;
 
-		this.wasPossible = false;
+        wasPossible = false;
 		this.mixingMethod = mixingMethod;
 
 		if ( concoction == null )
 		{
-			this.yield = 1;
-			this.name = "unknown";
-			this.isReagentPotion = false;
-			this.fullness = 0;
-			this.inebriety = 0;
-			this.spleenhit = 0;
-			this.mainstatGain = 0.0f;
+            yield = 1;
+            name = "unknown";
+            isReagentPotion = false;
+            fullness = 0;
+            inebriety = 0;
+            spleenhit = 0;
+            mainstatGain = 0.0f;
 		}
 		else
 		{
 			int consumeType = ItemDatabase.getConsumptionType( concoction.getItemId() );
-			this.yield = Math.max( concoction.getCount(), 1 );
-			this.name = concoction.getName();
+            yield = Math.max( concoction.getCount(), 1 );
+            name = concoction.getName();
 
-			this.isReagentPotion = (this.mixingMethod & KoLConstants.CF_SX3) != 0;
+            isReagentPotion = (this.mixingMethod & KoLConstants.CF_SX3) != 0;
 
-			this.setConsumptionData();
+            setConsumptionData();
 			if ( CombineMeatRequest.getCost( concoction.getItemId() ) > 0 )
 			{
-				this.request = new CombineMeatRequest( this );
+                request = new CombineMeatRequest( this );
 			}
 		}
 
-		this.ingredients = new ArrayList();
-		this.ingredientArray = new AdventureResult[ 0 ];
+        ingredients = new ArrayList();
+        ingredientArray = new AdventureResult[ 0 ];
 
-		this.price = -1;
-		this.property = null;
+        price = -1;
+        property = null;
 
-		this.resetCalculations();
+        resetCalculations();
 	}
 
 	public Concoction( final String name, final int price )
@@ -155,8 +155,8 @@ public class Concoction
 		this.name = name;
 		this.price = price;
 
-		this.resetCalculations();
-		this.setConsumptionData();
+        resetCalculations();
+        setConsumptionData();
 	}
 
 	public Concoction( final String name, final String property )
@@ -166,22 +166,22 @@ public class Concoction
 		this.name = name;
 		this.property = property;
 
-		this.resetCalculations();
-		this.setConsumptionData();
+        resetCalculations();
+        setConsumptionData();
 	}
 
 	private void setConsumptionData()
 	{
-		this.fullness = ItemDatabase.getFullness( this.name );
-		this.inebriety = ItemDatabase.getInebriety( this.name );
-		this.spleenhit = ItemDatabase.getSpleenHit( this.name );
+        fullness = ItemDatabase.getFullness( name );
+        inebriety = ItemDatabase.getInebriety( name );
+        spleenhit = ItemDatabase.getSpleenHit( name );
 
-		this.sortOrder = this.fullness > 0 ? FOOD_PRIORITY :
-			this.inebriety > 0 ? BOOZE_PRIORITY :
-			this.spleenhit > 0 ? SPLEEN_PRIORITY :
+        sortOrder = fullness > 0 ? FOOD_PRIORITY :
+                inebriety > 0 ? BOOZE_PRIORITY :
+                        spleenhit > 0 ? SPLEEN_PRIORITY :
 			NO_PRIORITY;
 
-		this.setStatGain();
+        setStatGain();
 	}
 
 	public void setStatGain()
@@ -190,23 +190,23 @@ public class Concoction
 		switch ( KoLCharacter.mainStat() )
 		{
 		case KoLConstants.MUSCLE:
-			range = ItemDatabase.getMuscleRange( this.name );
+			range = ItemDatabase.getMuscleRange( name );
 			break;
 		case KoLConstants.MYSTICALITY:
-			range = ItemDatabase.getMysticalityRange( this.name );
+			range = ItemDatabase.getMysticalityRange( name );
 			break;
 		case KoLConstants.MOXIE:
-			range = ItemDatabase.getMoxieRange( this.name );
+			range = ItemDatabase.getMoxieRange( name );
 			break;
 		}
-		this.mainstatGain = StringUtilities.parseFloat( range );
+        mainstatGain = StringUtilities.parseFloat( range );
 	}
 
 	public boolean usesIngredient( int itemId )
 	{
-		for ( int i = 0; i < this.ingredientArray.length; ++i )
+		for ( int i = 0; i < ingredientArray.length; ++i )
 		{
-			if ( this.ingredientArray[ i ].getItemId() == itemId )
+			if ( ingredientArray[ i ].getItemId() == itemId )
 			{
 				return true;
 			}
@@ -217,22 +217,22 @@ public class Concoction
 
 	public boolean usesIngredient( AdventureResult ar )
 	{
-		return this.usesIngredient( ar.getItemId() );
+		return usesIngredient( ar.getItemId() );
 	}
 
 	public int getYield()
 	{
-		if ( KoLCharacter.tripleReagent() && this.isReagentPotion() )
+		if ( KoLCharacter.tripleReagent() && isReagentPotion() )
 		{
-			return 3 * this.yield;
+			return 3 * yield;
 		}
 
-		return this.yield;
+		return yield;
 	}
 
 	public boolean isReagentPotion()
 	{
-		return this.isReagentPotion;
+		return isReagentPotion;
 	}
 
 	public int compareTo( final Object other )
@@ -244,7 +244,7 @@ public class Concoction
 
 		Concoction o = (Concoction) other;
 
-		if ( this.name == null )
+		if ( name == null )
 		{
 			return o.name == null ? 0 : 1;
 		}
@@ -254,12 +254,12 @@ public class Concoction
 			return -1;
 		}
 
-		if ( this.sortOrder !=  o.sortOrder )
+		if ( sortOrder !=  o.sortOrder )
 		{
-			return this.sortOrder - o.sortOrder;
+			return sortOrder - o.sortOrder;
 		}
 
-		if ( this.name.startsWith( "steel" ) )
+		if ( name.startsWith( "steel" ) )
 		{
 			return -1;
 		}
@@ -271,29 +271,29 @@ public class Concoction
 		boolean thisCantConsume = false, oCantConsume = false;
 		int limit;
 
-		switch ( this.sortOrder )
+		switch ( sortOrder )
 		{
 		case NO_PRIORITY:
-			return this.name.compareToIgnoreCase( o.name );
+			return name.compareToIgnoreCase( o.name );
 
 		case FOOD_PRIORITY:
 			limit = KoLCharacter.getFullnessLimit() - KoLCharacter.getFullness()
 				- ConcoctionDatabase.getQueuedFullness();
-			thisCantConsume = this.fullness > limit;
+			thisCantConsume = fullness > limit;
 			oCantConsume = o.fullness > limit;
 			break;
 
 		case BOOZE_PRIORITY:
 			limit = KoLCharacter.getInebrietyLimit() - KoLCharacter.getInebriety()
 				- ConcoctionDatabase.getQueuedInebriety();
-			thisCantConsume = this.inebriety > limit;
+			thisCantConsume = inebriety > limit;
 			oCantConsume = o.inebriety > limit;
 			break;
 
 		case SPLEEN_PRIORITY:
 			limit = KoLCharacter.getSpleenLimit() - KoLCharacter.getSpleenUse()
 				- ConcoctionDatabase.getQueuedSpleenHit();
-			thisCantConsume = this.spleenhit > limit;
+			thisCantConsume = spleenhit > limit;
 			oCantConsume = o.spleenhit > limit;
 		}
 		if ( Preferences.getBoolean( "sortByRoom" ) && (thisCantConsume != oCantConsume) )
@@ -301,7 +301,7 @@ public class Concoction
 			return thisCantConsume ? 1 : -1;
 		}
 
-		float adventures1 = ItemDatabase.getAdventureRange( this.name );
+		float adventures1 = ItemDatabase.getAdventureRange( name );
 		float adventures2 = ItemDatabase.getAdventureRange( o.name );
 
 		if ( adventures1 != adventures2 )
@@ -309,7 +309,7 @@ public class Concoction
 			return adventures2 - adventures1 > 0.0f ? 1 : -1;
 		}
 
-		int fullness1 = this.fullness;
+		int fullness1 = fullness;
 		int fullness2 = o.fullness;
 
 		if ( fullness1 != fullness2 )
@@ -317,7 +317,7 @@ public class Concoction
 			return fullness2 - fullness1;
 		}
 
-		int inebriety1 = this.inebriety;
+		int inebriety1 = inebriety;
 		int inebriety2 = o.inebriety;
 
 		if ( inebriety1 != inebriety2 )
@@ -325,7 +325,7 @@ public class Concoction
 			return inebriety2 - inebriety1;
 		}
 
-		int spleenhit1 = this.spleenhit;
+		int spleenhit1 = spleenhit;
 		int spleenhit2 = o.spleenhit;
 
 		if ( spleenhit1 != spleenhit2 )
@@ -333,7 +333,7 @@ public class Concoction
 			return spleenhit2 - spleenhit1;
 		}
 
-		float gain1 = this.mainstatGain;
+		float gain1 = mainstatGain;
 		float gain2 = o.mainstatGain;
 
 		if ( gain1 != gain2 )
@@ -341,7 +341,7 @@ public class Concoction
 			return gain2 - gain1 > 0.0f ? 1 : -1;
 		}
 
-		return this.name.compareToIgnoreCase( o.name );
+		return name.compareToIgnoreCase( o.name );
 	}
 
 	@Override
@@ -352,7 +352,7 @@ public class Concoction
 			return false;
 		}
 
-		if ( this.name == null )
+		if ( name == null )
 		{
 			return ( (Concoction) o ).name == null;
 		}
@@ -362,85 +362,85 @@ public class Concoction
 			return false;
 		}
 
-		return this.name.equals( ( (Concoction) o ).name );
+		return name.equals( ((Concoction) o).name );
 	}
 
 	public AdventureResult getItem()
 	{
-		return this.concoction;
+		return concoction;
 	}
 
 	public int getItemId()
 	{
-		return this.concoction == null ? -1 : this.concoction.getItemId();
+		return concoction == null ? -1 : concoction.getItemId();
 	}
 
 	public String getName()
 	{
-		return this.name;
+		return name;
 	}
 
 	public int getInitial()
 	{
-		return this.initial;
+		return initial;
 	}
 
 	public int getAvailable()
 	{
-		return this.visibleTotal;
+		return visibleTotal;
 	}
 	
 	public int getTurnFreeAvailable()
 	{
-		return this.freeTotal;
+		return freeTotal;
 	}
 
 	public int getQueued()
 	{
-		return this.queued;
+		return queued;
 	}
 
 	public int getPrice()
 	{
-		return this.price;
+		return price;
 	}
 
 	public int getFullness()
 	{
-		return this.fullness;
+		return fullness;
 	}
 
 	public int getInebriety()
 	{
-		return this.inebriety;
+		return inebriety;
 	}
 
 	public int getSpleenHit()
 	{
-		return this.spleenhit;
+		return spleenhit;
 	}
 
 	public CreateItemRequest getRequest()
 	{
-		if ( this.request == null && this.mixingMethod != 0 )
+		if ( request == null && mixingMethod != 0 )
 		{
-			this.request = CreateItemRequest.constructInstance( this );
+            request = CreateItemRequest.constructInstance( this );
 		}
-		return this.request;
+		return request;
 	}
 
 	public boolean available()
 	{
-		if ( this.mixingMethod == KoLConstants.COINMASTER )
+		if ( mixingMethod == KoLConstants.COINMASTER )
 		{
-			return this.purchaseRequest != null && this.purchaseRequest.isAccessible();
+			return purchaseRequest != null && purchaseRequest.isAccessible();
 		}
 		return true;
 	}
 
 	public PurchaseRequest getPurchaseRequest()
 	{
-		return this.purchaseRequest;
+		return purchaseRequest;
 	}
 
 	public void setPurchaseRequest( final PurchaseRequest purchaseRequest )
@@ -450,7 +450,7 @@ public class Concoction
 
 	public boolean hasIngredients( final AdventureResult[] ingredients )
 	{
-		AdventureResult[] ingredientTest = this.ingredientArray;
+		AdventureResult[] ingredientTest = ingredientArray;
 		if ( ingredientTest.length != ingredients.length )
 		{
 			return false;
@@ -481,7 +481,7 @@ public class Concoction
 
 	public void queue( final LockableListModel globalChanges, final ArrayList localChanges, final int amount )
 	{
-		this.queue( globalChanges, localChanges, amount, true );
+        queue( globalChanges, localChanges, amount, true );
 	}
 
 	public void queue( final LockableListModel globalChanges, final ArrayList localChanges, final int amount, boolean adjust )
@@ -491,21 +491,21 @@ public class Concoction
 			return;
 		}
 
-		if ( this.concoction == null )
+		if ( concoction == null )
 		{
 			if ( adjust )
 			{
-				this.queued += amount;
+                queued += amount;
 			}
 
 			return;
 		}
 
-		int decrementAmount = Math.min( this.initial, amount );
-		int creatableAmount = Math.max( this.creatable, 0 );
+		int decrementAmount = Math.min( initial, amount );
+		int creatableAmount = Math.max( creatable, 0 );
 		int overAmount = Math.min( creatableAmount, amount - decrementAmount );
 		int pullAmount = amount - decrementAmount - overAmount;
-		if ( this.price > 0 || this.property != null )
+		if ( price > 0 || property != null )
 		{
 			pullAmount = 0;
 		}
@@ -518,17 +518,17 @@ public class Concoction
 		// Tiny plastic swords and Legend keys are special in that they
 		// are not used up.
 
-		if ( this.concoction.getItemId() != ItemPool.PLASTIC_SWORD &&
-		     this.concoction.getItemId() != ItemPool.BORIS_KEY &&
-		     this.concoction.getItemId() != ItemPool.JARLSBERG_KEY &&
-		     this.concoction.getItemId() != ItemPool.SNEAKY_PETE_KEY )
+		if ( concoction.getItemId() != ItemPool.PLASTIC_SWORD &&
+                concoction.getItemId() != ItemPool.BORIS_KEY &&
+                concoction.getItemId() != ItemPool.JARLSBERG_KEY &&
+                concoction.getItemId() != ItemPool.SNEAKY_PETE_KEY )
 		{
-			AdventureResult ingredient = this.concoction.getInstance( decrementAmount );
+			AdventureResult ingredient = concoction.getInstance( decrementAmount );
 			AdventureResult.addResultToList( globalChanges, ingredient );
 			AdventureResult.addResultToList( localChanges, ingredient );
 		}
 
-		int method = this.mixingMethod & KoLConstants.CT_MASK;
+		int method = mixingMethod & KoLConstants.CT_MASK;
 		int advs = ConcoctionDatabase.ADVENTURE_USAGE[ method ] * overAmount;
 		if ( advs != 0 )
 		{
@@ -556,18 +556,18 @@ public class Concoction
 
 		if ( adjust )
 		{
-			this.queued += amount;
-			this.queuedPulls += pullAmount;
+            queued += amount;
+            queuedPulls += pullAmount;
 		}
 
-		if ( this.price > 0 )
+		if ( price > 0 )
 		{
-			ConcoctionDatabase.queuedMeatSpent += this.price * ( amount - decrementAmount - overAmount );
+			ConcoctionDatabase.queuedMeatSpent += price * ( amount - decrementAmount - overAmount );
 		}
 
-		if ( this.price > 0 ||
-		     this.property != null ||
-		     !ConcoctionDatabase.isPermittedMethod( this.mixingMethod ) )
+		if ( price > 0 ||
+                property != null ||
+		     !ConcoctionDatabase.isPermittedMethod( mixingMethod ) )
 		{
 			return;
 		}
@@ -575,11 +575,11 @@ public class Concoction
 		// Recipes that yield multiple units require smaller
 		// quantities of ingredients.
 
-		int mult = this.getYield();
+		int mult = getYield();
 		int icount = ( overAmount + ( mult - 1 ) ) / mult;
-		for ( int i = 0; i < this.ingredientArray.length; ++i )
+		for ( int i = 0; i < ingredientArray.length; ++i )
 		{
-			AdventureResult ingredient = this.ingredientArray[ i ];
+			AdventureResult ingredient = ingredientArray[ i ];
 			Concoction c = ConcoctionPool.get( ingredient );
 			if ( c == null )
 			{
@@ -599,32 +599,32 @@ public class Concoction
 
 	public void resetCalculations()
 	{
-		this.initial = -1;
-		this.creatable = 0;
-		this.pullable = 0;
-		this.mallable = 0;
-		this.total = 0;
-		this.visibleTotal = 0;
+        initial = -1;
+        creatable = 0;
+        pullable = 0;
+        mallable = 0;
+        total = 0;
+        visibleTotal = 0;
 
-		this.allocated = 0;
+        allocated = 0;
 
-		if ( this.concoction == null && this.name != null )
+		if ( concoction == null && name != null )
 		{
-			this.initial =
-				this.price > 0 ? KoLCharacter.getAvailableMeat() / this.price :
-				this.property != null ? Preferences.getInteger( property ) :
+            initial =
+                    price > 0 ? KoLCharacter.getAvailableMeat() / price :
+                            property != null ? Preferences.getInteger( property ) :
 				0;
-			this.creatable = 0;
-			this.total = this.initial;
-			this.visibleTotal = this.initial;
+            creatable = 0;
+            total = initial;
+            visibleTotal = initial;
 		}
 	}
 
 	public void setPullable( final int pullable )
 	{
 		this.pullable = pullable;
-		this.total += pullable;
-		this.visibleTotal += pullable;
+        total += pullable;
+        visibleTotal += pullable;
 	}
 
 	public void setPossible( final boolean wasPossible )
@@ -634,13 +634,13 @@ public class Concoction
 
 	public boolean wasPossible()
 	{
-		return this.wasPossible;
+		return wasPossible;
 	}
 
 	public void resetIngredients()
 	{
-		this.ingredients.clear();
-		this.ingredientArray = new AdventureResult[ 0 ];
+        ingredients.clear();
+        ingredientArray = new AdventureResult[ 0 ];
 	}
 
 	public void addIngredient( final AdventureResult ingredient )
@@ -655,13 +655,13 @@ public class Concoction
 				ConcoctionDatabase.knownUses.set( ingredient.getItemId(), uses );
 			}
 
-			uses.add( this.concoction );
+			uses.add( concoction );
 		}
 
-		this.ingredients.add( ingredient );
+        ingredients.add( ingredient );
 
-		this.ingredientArray = new AdventureResult[ this.ingredients.size() ];
-		this.ingredients.toArray( this.ingredientArray );
+        ingredientArray = new AdventureResult[ingredients.size() ];
+        ingredients.toArray( ingredientArray );
 	}
 	
 	// Allow an arbitrary parameter to be set, to indicate creation details
@@ -673,12 +673,12 @@ public class Concoction
 	
 	public int getParam()
 	{
-		return this.param;
+		return param;
 	}
 
 	public int getMixingMethod()
 	{
-		return this.mixingMethod;
+		return mixingMethod;
 	}
 
 	public void setMixingMethod( final int mixingMethod )
@@ -688,18 +688,18 @@ public class Concoction
 
 	public AdventureResult[] getIngredients()
 	{
-		return this.ingredientArray;
+		return ingredientArray;
 	}
 
 	public void calculate2()
 	{
-		int maxSuccess = this.initial;
+		int maxSuccess = initial;
 		int minFailure = Integer.MAX_VALUE;
 		int guess = maxSuccess + 1;
 		ArrayList visited = new ArrayList();
 		Iterator i;
 
-		int id = this.getItemId();
+		int id = getItemId();
 		if ( id == Concoction.debugId )
 		{
 			Concoction.debug = true;
@@ -707,11 +707,11 @@ public class Concoction
 
 		while ( true )
 		{
-			int res = this.canMake( guess, visited );
+			int res = canMake( guess, visited );
 
 			if ( Concoction.debug )
 			{
-				RequestLogger.printLine( this.name + ".canMake(" + guess + ") => " + res );
+				RequestLogger.printLine( name + ".canMake(" + guess + ") => " + res );
 				RequestLogger.printLine();
 			}
 
@@ -752,21 +752,21 @@ public class Concoction
 			Concoction.debug = false;
 		}
 
-		this.total = maxSuccess;
-		this.creatable = this.total - this.initial;
-		if ( this.price > 0 && id != ItemPool.MEAT_PASTE &&
+        total = maxSuccess;
+        creatable = total - initial;
+		if ( price > 0 && id != ItemPool.MEAT_PASTE &&
 		     id != ItemPool.MEAT_STACK && id != ItemPool.DENSE_STACK )
 		{
-			this.creatable -= KoLCharacter.getAvailableMeat() / this.price;
+            creatable -= KoLCharacter.getAvailableMeat() / price;
 		}
-		this.visibleTotal = this.total;
+        visibleTotal = total;
 	}
 	
 	// Like calculate2, but just calculates turn-free creations.
 	
 	public void calculate3()
 	{
-		int maxSuccess = this.initial;
+		int maxSuccess = initial;
 		int minFailure = Integer.MAX_VALUE;
 		int guess = maxSuccess + 1;
 		ArrayList visited = new ArrayList();
@@ -774,7 +774,7 @@ public class Concoction
 
 		while ( true )
 		{
-			int res = this.canMake( guess, visited, true );
+			int res = canMake( guess, visited, true );
 
 			if ( res >= guess )
 			{	
@@ -804,7 +804,7 @@ public class Concoction
 			c.visited = false;
 		}
 
-		this.freeTotal = maxSuccess;
+        freeTotal = maxSuccess;
 	}
 
 	// Determine if the requested amount of this item can be made from
@@ -826,37 +826,37 @@ public class Concoction
 			this.visited = true;
 		}
 
-		int alreadyHave = this.initial - this.allocated;
+		int alreadyHave = initial - allocated;
 		if ( alreadyHave < 0 || requested <= 0 )
 		{	// Already overspent this ingredient - either due to it being
 			// present multiple times in the recipe, or being part of a
 			// creation loop with insufficient initial quantities.
 			return 0;
 		}
-		this.allocated += requested;
+        allocated += requested;
 		int needToMake = requested - alreadyHave;
-		if ( needToMake > 0 && this.price > 0 )
+		if ( needToMake > 0 && price > 0 )
 		{
 			Concoction c = ConcoctionDatabase.meatLimit;
-			int buyable = c.canMake( needToMake * this.price, visited, turnFreeOnly ) / this.price;
+			int buyable = c.canMake( needToMake * price, visited, turnFreeOnly ) / price;
 			if ( Concoction.debug )
 			{
-				RequestLogger.printLine( "- " + this.name + " limited to " +
-					buyable + " by price " + this.price );
+				RequestLogger.printLine( "- " + name + " limited to " +
+					buyable + " by price " + price );
 			}
 			alreadyHave += buyable;
 			buyable = Math.min( buyable, needToMake );
-			this.allocated -= buyable;
+            allocated -= buyable;
 			needToMake -= buyable;
 		}
 
-		if ( this.mixingMethod == KoLConstants.NOCREATE )
+		if ( mixingMethod == KoLConstants.NOCREATE )
 		{	// No recipe for this item - don't bother with checking
 			// ingredients, because there aren't any.
 			return alreadyHave;
 		}
 
-		if ( this.mixingMethod == KoLConstants.COINMASTER )
+		if ( mixingMethod == KoLConstants.COINMASTER )
 		{
 			// Check if Coin Master is available
 			PurchaseRequest purchaseRequest = this.purchaseRequest;
@@ -882,38 +882,38 @@ public class Concoction
 			return alreadyHave;
 		}
 
-		if ( !ConcoctionDatabase.isPermittedMethod( this.mixingMethod ) ||
-		     Preferences.getBoolean( "unknownRecipe" + this.getItemId() ) )
+		if ( !ConcoctionDatabase.isPermittedMethod( mixingMethod ) ||
+		     Preferences.getBoolean( "unknownRecipe" + getItemId() ) )
 		{	// Impossible to create any more of this item.
 			return alreadyHave;
 		}
 
-		int yield = this.getYield();
+		int yield = getYield();
 		needToMake = (needToMake + yield - 1) / yield;
 		int minMake = Integer.MAX_VALUE;
 		int lastMinMake = minMake;
 
-		int len = this.ingredientArray.length;
+		int len = ingredientArray.length;
 		for ( int i = 0; minMake > 0 && i < len; ++i )
 		{
-			AdventureResult ingredient = this.ingredientArray[ i ];
+			AdventureResult ingredient = ingredientArray[ i ];
 			Concoction c = ConcoctionPool.get( ingredient );
 			if ( c == null ) continue;
 			int count = ingredient.getCount();
 
 			if ( i == 0 && len == 2 &&
-				this.ingredientArray[ 1 ].equals( ingredient ) )
+                    ingredientArray[ 1 ].equals( ingredient ) )
 			{	// Two identical ingredients - this is a moderately common
 				// situation, and the algorithm produces better estimates if
 				// it considers both quantities at once.
-				count += this.ingredientArray[ 1 ].getCount();
+				count += ingredientArray[ 1 ].getCount();
 				len = 1;
 			}
 
 			minMake = Math.min( minMake, c.canMake( needToMake * count, visited, turnFreeOnly ) / count );
 			if ( Concoction.debug )
 			{
-				RequestLogger.printLine( "- " + this.name +
+				RequestLogger.printLine( "- " + name +
 					(lastMinMake == minMake ?
 						" not limited" : " limited to " + minMake) +
 					" by " + c.name );
@@ -924,14 +924,14 @@ public class Concoction
 		// Meat paste is an implicit ingredient
 
 		if ( minMake > 0 &&
-		     ( this.mixingMethod == KoLConstants.COMBINE || this.mixingMethod == KoLConstants.ACOMBINE ) &&
+		     (mixingMethod == KoLConstants.COMBINE || mixingMethod == KoLConstants.ACOMBINE ) &&
 		     !KoLCharacter.knollAvailable() )
 		{
 			Concoction c = ConcoctionPool.get( ItemPool.MEAT_PASTE );
 			minMake = Math.min( minMake, c.canMake( needToMake, visited ) );
 			if ( Concoction.debug )
 			{
-				RequestLogger.printLine( "- " + this.name +
+				RequestLogger.printLine( "- " + name +
 					(lastMinMake == minMake ?
 						" not limited" : " limited to " + minMake) +
 					" by implicit meat paste" );
@@ -941,7 +941,7 @@ public class Concoction
 
 		// Adventures are also considered an ingredient
 
-		int method = this.mixingMethod & KoLConstants.CT_MASK;
+		int method = mixingMethod & KoLConstants.CT_MASK;
 		int advs = ConcoctionDatabase.ADVENTURE_USAGE[ method ];
 		if ( minMake > 0 && advs != 0 )
 		{
@@ -950,7 +950,7 @@ public class Concoction
 			minMake = Math.min( minMake, c.canMake( needToMake * advs, visited, turnFreeOnly ) / advs );
 			if ( Concoction.debug )
 			{
-				RequestLogger.printLine( "- " + this.name +
+				RequestLogger.printLine( "- " + name +
 					(lastMinMake == minMake ?
 						" not limited" : " limited to " + minMake) +
 					" by adventures" );
@@ -967,7 +967,7 @@ public class Concoction
 			minMake = Math.min( minMake, c.canMake( needToMake, visited, turnFreeOnly ) );
 			if ( Concoction.debug )
 			{
-				RequestLogger.printLine( "- " + this.name +
+				RequestLogger.printLine( "- " + name +
 					(lastMinMake == minMake ?
 						" not limited" : " limited to " + minMake) +
 					" by stills" );
@@ -983,7 +983,7 @@ public class Concoction
 			minMake = Math.min( minMake, c.canMake( needToMake, visited, turnFreeOnly ) );
 			if ( Concoction.debug )
 			{
-				RequestLogger.printLine( "- " + this.name +
+				RequestLogger.printLine( "- " + name +
 					(lastMinMake == minMake ?
 						" not limited" : " limited to " + minMake) +
 					" by tome summons" );
@@ -991,7 +991,7 @@ public class Concoction
 			}
 		}
 
-		this.allocated -= Math.min( minMake, needToMake ) * yield;
+        allocated -= Math.min( minMake, needToMake ) * yield;
 		return alreadyHave + minMake * yield;
 	}
 
@@ -1000,8 +1000,8 @@ public class Concoction
 	{
 		// Avoid mutual recursion.
 
-		int create = quantityNeeded - this.initial;
-		int method = ( this.mixingMethod & KoLConstants.CT_MASK );
+		int create = quantityNeeded - initial;
+		int method = (mixingMethod & KoLConstants.CT_MASK );
 		if ( create <= 0 ||
 		     (method != KoLConstants.COMBINE && method != KoLConstants.ACOMBINE ) ||
 		     KoLCharacter.knollAvailable() )
@@ -1013,9 +1013,9 @@ public class Concoction
 		// levels in the creation tree.
 
 		int runningTotal = create;
-		for ( int i = 0; i < this.ingredientArray.length; ++i )
+		for ( int i = 0; i < ingredientArray.length; ++i )
 		{
-			Concoction ingredient = ConcoctionPool.get( this.ingredientArray[ i ] );
+			Concoction ingredient = ConcoctionPool.get( ingredientArray[ i ] );
 
 			runningTotal += ingredient.getMeatPasteNeeded( create );
 		}
@@ -1032,12 +1032,12 @@ public class Concoction
 	{
 		// If we can't make this item, it costs no adventures to use
 		// the quantity on hand.
-		if ( !ConcoctionDatabase.isPermittedMethod( this.mixingMethod ) )
+		if ( !ConcoctionDatabase.isPermittedMethod( mixingMethod ) )
 		{
 			return 0;
 		}
 
-		int create = quantityNeeded - this.initial;
+		int create = quantityNeeded - initial;
 		if ( create <= 0 )
 		{
 			return 0;
@@ -1051,7 +1051,7 @@ public class Concoction
 			return 0;
 		}
 
-		int runningTotal = ConcoctionDatabase.ADVENTURE_USAGE[ this.mixingMethod & KoLConstants.CT_MASK ] * create;
+		int runningTotal = ConcoctionDatabase.ADVENTURE_USAGE[mixingMethod & KoLConstants.CT_MASK ] * create;
 
 		// If this creation method takes no adventures, no recursion
 
@@ -1062,9 +1062,9 @@ public class Concoction
 
 		// Count adventures from all levels in the creation tree.
 
-		for ( int i = 0; i < this.ingredientArray.length; ++i )
+		for ( int i = 0; i < ingredientArray.length; ++i )
 		{
-			Concoction ingredient = ConcoctionPool.get( this.ingredientArray[ i ] );
+			Concoction ingredient = ConcoctionPool.get( ingredientArray[ i ] );
 
 			runningTotal += ingredient.getAdventuresNeeded( create );
 		}
@@ -1079,6 +1079,6 @@ public class Concoction
 	@Override
 	public String toString()
 	{
-		return concoction == null ? this.name : this.concoction.getName();
+		return concoction == null ? name : concoction.getName();
 	}
 }

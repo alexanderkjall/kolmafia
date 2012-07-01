@@ -110,7 +110,7 @@ public class FreeSnackRequest
 	@Override
 	public void processResults()
 	{
-		GameShoppeRequest.parseResponse( this.getURLString(), this.responseText );
+		GameShoppeRequest.parseResponse( getURLString(), responseText );
 	}
 
 	public static void parseFreeSnackVisit( final String location, final String responseText )

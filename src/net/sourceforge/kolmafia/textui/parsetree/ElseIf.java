@@ -56,7 +56,7 @@ public class ElseIf
 	{
 		Interpreter.indentLine( stream, indent );
 		stream.println( "<ELSE IF>" );
-		this.getCondition().print( stream, indent + 1 );
-		this.getScope().print( stream, indent + 1 );
+        getCondition().print( stream, indent + 1 );
+        getScope().print( stream, indent + 1 );
 	}
 }

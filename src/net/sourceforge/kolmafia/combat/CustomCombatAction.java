@@ -85,43 +85,43 @@ public class CustomCombatAction
 		
 		if ( this.action.equals( "default" ) )
 		{
-			this.sectionReference = "default";
+            sectionReference = "default";
 		}
 		else if ( this.action.startsWith( "section" ) )
 		{
-			this.sectionReference = CombatActionManager.encounterKey( this.action.substring( 8 ).trim().toLowerCase() );
+            sectionReference = CombatActionManager.encounterKey( this.action.substring( 8 ).trim().toLowerCase() );
 		}
 		else
 		{
-			this.sectionReference = null;
+            sectionReference = null;
 		}
 	}
 
 	public String getAction()
 	{
-		return this.action;
+		return action;
 	}
 
 	public boolean isMacro()
 	{
-		return this.isMacro;
+		return isMacro;
 	}
 	
 	public String getSectionReference()
 	{
-		return this.sectionReference;
+		return sectionReference;
 	}
 
 	@Override
 	public String toString()
 	{
-		return this.actionString;
+		return actionString;
 	}
 
 	public void store( PrintStream writer )
 	{
-		writer.print( this.indent );
-		writer.print( this.action );
+		writer.print( indent );
+		writer.print( action );
 
 		writer.println();
 	}

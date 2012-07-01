@@ -63,7 +63,7 @@ public abstract class ListWrapperTableModel
 
 		for ( int i = 0; i < listModel.size(); ++i )
 		{
-			this.insertRow( i, this.constructVector( listModel.get( i ) ) );
+            insertRow( i, constructVector( listModel.get( i ) ) );
 		}
 
 		this.listModel = listModel;
@@ -73,13 +73,13 @@ public abstract class ListWrapperTableModel
 	@Override
 	public String getColumnName( final int index )
 	{
-		return index < 0 || index >= this.headers.length ? "" : this.headers[ index ];
+		return index < 0 || index >= headers.length ? "" : headers[ index ];
 	}
 
 	@Override
 	public Class getColumnClass( final int column )
 	{
-		return column < 0 || column >= this.types.length ? Object.class : this.types[ column ];
+		return column < 0 || column >= types.length ? Object.class : types[ column ];
 	}
 
 	public abstract Vector constructVector( Object o );
@@ -87,7 +87,7 @@ public abstract class ListWrapperTableModel
 	@Override
 	public boolean isCellEditable( final int row, final int column )
 	{
-		return column < 0 || column >= this.editable.length ? false : this.editable[ column ];
+		return column < 0 || column >= editable.length ? false : editable[ column ];
 	}
 
 	/**
@@ -105,7 +105,7 @@ public abstract class ListWrapperTableModel
 
 		for ( int i = index0; i <= index1; ++i )
 		{
-			this.insertRow( i, this.constructVector( source.get( i ) ) );
+            insertRow( i, constructVector( source.get( i ) ) );
 		}
 	}
 
@@ -124,7 +124,7 @@ public abstract class ListWrapperTableModel
 
 		for ( int i = index1; i >= index0; --i )
 		{
-			this.removeRow( i );
+            removeRow( i );
 		}
 	}
 
@@ -146,22 +146,22 @@ public abstract class ListWrapperTableModel
 			return;
 		}
 
-		int rowCount = this.getRowCount();
+		int rowCount = getRowCount();
 
 		for ( int i = index1; i >= index0; --i )
 		{
 			if ( source.size() < i )
 			{
-				this.removeRow( i );
+                removeRow( i );
 			}
 			else if ( i > rowCount )
 			{
-				this.insertRow( rowCount, this.constructVector( source.get( i ) ) );
+                insertRow( rowCount, constructVector( source.get( i ) ) );
 			}
 			else
 			{
-				this.removeRow( i );
-				this.insertRow( i, this.constructVector( source.get( i ) ) );
+                removeRow( i );
+                insertRow( i, constructVector( source.get( i ) ) );
 			}
 		}
 	}

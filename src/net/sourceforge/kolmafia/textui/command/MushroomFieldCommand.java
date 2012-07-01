@@ -48,7 +48,7 @@ public class MushroomFieldCommand
 	extends AbstractCommand
 {
 	{
-		this.usage = " [ plant <square> <type> | pick <square> | harvest ] - view or use your mushroom plot";
+        usage = " [ plant <square> <type> | pick <square> | harvest ] - view or use your mushroom plot";
 	}
 
 	@Override

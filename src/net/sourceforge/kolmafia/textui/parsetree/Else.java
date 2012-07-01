@@ -62,7 +62,7 @@ public class Else
 		{
 			interpreter.trace( "else" );
 		}
-		Value result = this.scope.execute( interpreter );
+		Value result = scope.execute( interpreter );
 		interpreter.traceUnindent();
 
 		if ( interpreter.getState() != Interpreter.STATE_NORMAL )
@@ -84,6 +84,6 @@ public class Else
 	{
 		Interpreter.indentLine( stream, indent );
 		stream.println( "<ELSE>" );
-		this.getScope().print( stream, indent + 1 );
+        getScope().print( stream, indent + 1 );
 	}
 }

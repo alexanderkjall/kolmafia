@@ -79,28 +79,28 @@ public class CommandDisplayPanel
 		JComponentUtilities.setComponentSize( scrollPane, 400, 300 );
 
 		JPanel entryPanel = new JPanel( new BorderLayout() );
-		this.entryField = new AutoHighlightTextField();
-		this.entryField.addKeyListener( new CommandEntryListener() );
+        entryField = new AutoHighlightTextField();
+        entryField.addKeyListener( new CommandEntryListener() );
 
-		this.entryButton = new JButton( "exec" );
-		this.entryButton.addActionListener( new CommandEntryListener() );
+        entryButton = new JButton( "exec" );
+        entryButton.addActionListener( new CommandEntryListener() );
 
-		entryPanel.add( this.entryField, BorderLayout.CENTER );
-		entryPanel.add( this.entryButton, BorderLayout.EAST );
+		entryPanel.add( entryField, BorderLayout.CENTER );
+		entryPanel.add( entryButton, BorderLayout.EAST );
 
-		this.setLayout( new BorderLayout( 1, 1 ) );
-		this.add( scrollPane, BorderLayout.CENTER );
-		this.add( entryPanel, BorderLayout.SOUTH );
+        setLayout( new BorderLayout( 1, 1 ) );
+        add( scrollPane, BorderLayout.CENTER );
+        add( entryPanel, BorderLayout.SOUTH );
 
-		this.setFocusCycleRoot( true );
-		this.setFocusTraversalPolicy( new DefaultComponentFocusTraversalPolicy( this.entryField ) );
+        setFocusCycleRoot( true );
+        setFocusTraversalPolicy( new DefaultComponentFocusTraversalPolicy( entryField ) );
 
-		this.addFocusListener( this );
+        addFocusListener( this );
 	}
 
 	public void focusGained( FocusEvent e )
 	{
-		this.entryField.requestFocus();
+        entryField.requestFocus();
 	}
 
 	public void focusLost( FocusEvent e )
@@ -119,9 +119,9 @@ public class CommandDisplayPanel
 		@Override
 		protected void execute()
 		{
-			if ( this.isAction() )
+			if ( isAction() )
 			{
-				this.submitCommand();
+                submitCommand();
 				return;
 			}
 
@@ -129,36 +129,36 @@ public class CommandDisplayPanel
 
 			if ( keyCode == KeyEvent.VK_UP )
 			{
-				if ( CommandDisplayPanel.this.commandIndex <= 0 )
+				if ( commandIndex <= 0 )
 				{
 					return;
 				}
 
-				CommandDisplayPanel.this.entryField.setText( (String) CommandDisplayPanel.this.commandHistory.get( --CommandDisplayPanel.this.commandIndex ) );
+                entryField.setText( (String) commandHistory.get( --commandIndex ) );
 			}
 			else if ( keyCode == KeyEvent.VK_DOWN )
 			{
-				if ( CommandDisplayPanel.this.commandIndex + 1 >= CommandDisplayPanel.this.commandHistory.size() )
+				if ( commandIndex + 1 >= commandHistory.size() )
 				{
 					return;
 				}
 
-				CommandDisplayPanel.this.entryField.setText( (String) CommandDisplayPanel.this.commandHistory.get( ++CommandDisplayPanel.this.commandIndex ) );
+                entryField.setText( (String) commandHistory.get( ++commandIndex ) );
 			}
 			else if ( keyCode == KeyEvent.VK_ENTER )
 			{
-				this.submitCommand();
+                submitCommand();
 			}
 		}
 
 		private void submitCommand()
 		{
-			String command = CommandDisplayPanel.this.entryField.getText().trim();
-			CommandDisplayPanel.this.entryField.setText( "" );
+			String command = entryField.getText().trim();
+            entryField.setText( "" );
 
-			CommandDisplayPanel.this.commandHistory.add( command );
+            commandHistory.add( command );
 
-			CommandDisplayPanel.this.commandIndex = CommandDisplayPanel.this.commandHistory.size();
+            commandIndex = commandHistory.size();
 			CommandDisplayFrame.executeCommand( command );
 		}
 	}

@@ -65,7 +65,7 @@ public class CommandDisplayFrame
 	{
 		super( "Graphical CLI" );
 
-		this.setCenterComponent( new CommandDisplayPanel() );
+        setCenterComponent( new CommandDisplayPanel() );
 	}
 
 	@Override
@@ -161,7 +161,7 @@ public class CommandDisplayFrame
 				Integer requestId = RequestThread.openRequestSequence();
 				try
 				{
-					this.handleQueue();
+                    handleQueue();
 				}
 				catch ( Exception e )
 				{
@@ -178,16 +178,16 @@ public class CommandDisplayFrame
 		{
 			while ( !CommandDisplayFrame.commandQueue.isEmpty() )
 			{
-				this.command = (String) CommandDisplayFrame.commandQueue.get( 0 );
+                command = (String) CommandDisplayFrame.commandQueue.get( 0 );
 
 				RequestLogger.printLine();
-				RequestLogger.printLine( " > " + StringUtilities.globalStringReplace( this.command, "<", "&lt;" ) );
+				RequestLogger.printLine( " > " + StringUtilities.globalStringReplace( command, "<", "&lt;" ) );
 				RequestLogger.printLine();
 
 				try
 				{
 					KoLmafia.forceContinue();
-					KoLmafiaCLI.DEFAULT_SHELL.executeLine( this.command );
+					KoLmafiaCLI.DEFAULT_SHELL.executeLine( command );
 				}
 				catch ( Exception e )
 				{

@@ -67,7 +67,7 @@ public class CreateItemPanel
 	{
 		super( "create item", "create & use", ConcoctionDatabase.getCreatables(), equip && !other );
 
-		if ( this.isEquipmentOnly )
+		if ( isEquipmentOnly )
 		{
 			super.addFilters();
 		}
@@ -95,9 +95,9 @@ public class CreateItemPanel
 			filterPanel.add( new CreationSettingCheckBox(
 						 "use closet", "autoSatisfyWithCloset", "Look in closet for ingredients" ) );
 
-			this.northPanel.add( filterPanel, BorderLayout.NORTH );
+            northPanel.add( filterPanel, BorderLayout.NORTH );
 
-			this.setFixedFilter( food, booze, equip, other, true );
+            setFixedFilter( food, booze, equip, other, true );
 		}
 
 		ConcoctionDatabase.getCreatables().updateFilter( false );
@@ -111,7 +111,7 @@ public class CreateItemPanel
 	@Override
 	public void actionConfirmed()
 	{
-		Object[] items = this.elementList.getSelectedValues();
+		Object[] items = elementList.getSelectedValues();
 		for ( int i = 0; i < items.length; ++i )
 		{
 			CreateItemRequest selection = (CreateItemRequest) items[ i ];
@@ -146,7 +146,7 @@ public class CreateItemPanel
 	@Override
 	public void actionCancelled()
 	{
-		Object[] items = this.elementList.getSelectedValues();
+		Object[] items = elementList.getSelectedValues();
 		for ( int i = 0; i < items.length; ++i )
 		{
 			CreateItemRequest selection = (CreateItemRequest) items[ i ];

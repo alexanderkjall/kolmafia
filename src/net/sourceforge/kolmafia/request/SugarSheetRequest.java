@@ -53,14 +53,14 @@ public class SugarSheetRequest
 	public SugarSheetRequest( final Concoction conc )
 	{
 		super( "sugarsheets.php", conc );
-		this.addFormField( "action", "fold" );
-		this.addFormField( "whichitem", String.valueOf( this.getItemId() ) );
+        addFormField( "action", "fold" );
+        addFormField( "whichitem", String.valueOf( getItemId() ) );
 	}
 
 	@Override
 	public void reconstructFields()
 	{
-		this.constructURLString( this.getURLString() );
+        constructURLString( getURLString() );
 	}
 
 	@Override
@@ -69,7 +69,7 @@ public class SugarSheetRequest
 		// Attempting to make the ingredients will pull the
 		// needed items from the closet if they are missing.
 
-		if ( !this.makeIngredients() )
+		if ( !makeIngredients() )
 		{
 			return;
 		}
@@ -83,7 +83,7 @@ public class SugarSheetRequest
 		// Since we create one at a time, override processResults so
 		// superclass method doesn't undo ingredient usage.
 
-		if ( SugarSheetRequest.parseCreation( this.getURLString(), this.responseText ) )
+		if ( SugarSheetRequest.parseCreation( getURLString(), responseText ) )
 		{
 			KoLmafia.updateDisplay( MafiaState.ERROR, "You can't fold that." );
 		}

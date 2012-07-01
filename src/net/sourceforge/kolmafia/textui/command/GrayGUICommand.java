@@ -40,7 +40,7 @@ public class GrayGUICommand
 {
 	public GrayGUICommand()
 	{
-		this.usage = " - print out a stack trace to help figure out why the UI might be gray/stuck (requires use of the JDK instead of the JRE).";
+        usage = " - print out a stack trace to help figure out why the UI might be gray/stuck (requires use of the JDK instead of the JRE).";
 	}
 
 	@Override

@@ -75,11 +75,11 @@ public class LoadScriptMenuItem
 		@Override
 		protected void execute()
 		{
-			String executePath = this.scriptPath;
+			String executePath = scriptPath;
 
 			try
 			{
-				if ( this.scriptPath == null )
+				if ( scriptPath == null )
 				{
 					JFileChooser chooser = new JFileChooser( KoLConstants.SCRIPT_LOCATION.getCanonicalPath() );
 					int returnVal = chooser.showOpenDialog( null );
@@ -107,7 +107,7 @@ public class LoadScriptMenuItem
 
 			KoLmafia.forceContinue();
 
-			if ( this.hasShiftModifier() )
+			if ( hasShiftModifier() )
 			{
 				CommandDisplayFrame.executeCommand( "edit " + executePath );
 			}

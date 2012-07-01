@@ -46,21 +46,21 @@ public class BooleanArray
 
 	public boolean get( final int index )
 	{
-		return index < 0 || index >= this.internalList.size() ? false : (Boolean) this.internalList.get( index );
+		return index < 0 || index >= internalList.size() ? false : (Boolean) internalList.get( index );
 	}
 
 	public void set( final int index, final boolean value )
 	{
-		while ( index >= this.internalList.size() )
+		while ( index >= internalList.size() )
 		{
-			this.internalList.add( Boolean.FALSE );
+            internalList.add( Boolean.FALSE );
 		}
 
-		this.internalList.set( index, value ? Boolean.TRUE : Boolean.FALSE );
+        internalList.set( index, value ? Boolean.TRUE : Boolean.FALSE );
 	}
 
 	public int size()
 	{
-		return this.internalList.size();
+		return internalList.size();
 	}
 }

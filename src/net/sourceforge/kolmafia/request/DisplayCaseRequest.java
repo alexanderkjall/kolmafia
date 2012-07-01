@@ -54,55 +54,55 @@ public class DisplayCaseRequest
 	{
 		super( "managecollectionshelves.php" );
 
-		this.isDeposit = false;
-		this.isWithdrawal = false;
+        isDeposit = false;
+        isWithdrawal = false;
 	}
 
 	public DisplayCaseRequest( final Object[] attachments, boolean isDeposit )
 	{
 		super( "managecollection.php", attachments );
-		this.addFormField( "action", isDeposit ? "put" : "take" );
+        addFormField( "action", isDeposit ? "put" : "take" );
 
 		this.isDeposit = isDeposit;
-		this.isWithdrawal = !isDeposit;
+        isWithdrawal = !isDeposit;
 
-		this.source = isDeposit ? KoLConstants.inventory : KoLConstants.collection;
-		this.destination = isDeposit ? KoLConstants.collection : KoLConstants.inventory;
+        source = isDeposit ? KoLConstants.inventory : KoLConstants.collection;
+        destination = isDeposit ? KoLConstants.collection : KoLConstants.inventory;
 	}
 
 	public DisplayCaseRequest( final AdventureResult[] items, final int[] shelves )
 	{
 		this();
-		this.addFormField( "action", "arrange" );
+        addFormField( "action", "arrange" );
 
 		for ( int i = 0; i < items.length; ++i )
 		{
-			this.addFormField( "whichshelf" + items[ i ].getItemId(), String.valueOf( shelves[ i ] ) );
+            addFormField( "whichshelf" + items[ i ].getItemId(), String.valueOf( shelves[ i ] ) );
 		}
 
-		this.isDeposit = false;
-		this.isWithdrawal = false;
+        isDeposit = false;
+        isWithdrawal = false;
 	}
 
 	public DisplayCaseRequest( final AdventureResult[] items, final int shelf )
 	{
 		this();
-		this.addFormField( "action", "arrange" );
+        addFormField( "action", "arrange" );
 
 		String shelfString = String.valueOf( shelf );
 		for ( int i = 0; i < items.length; ++i )
 		{
-			this.addFormField( "whichshelf" + items[ i ].getItemId(), shelfString );
+            addFormField( "whichshelf" + items[ i ].getItemId(), shelfString );
 		}
 
-		this.isDeposit = false;
-		this.isWithdrawal = false;
+        isDeposit = false;
+        isWithdrawal = false;
 	}
 
 	@Override
 	protected boolean retryOnTimeout()
 	{
-		return !this.isDeposit && !this.isWithdrawal;
+		return !isDeposit && !isWithdrawal;
 	}
 
 	@Override
@@ -114,7 +114,7 @@ public class DisplayCaseRequest
 	@Override
 	public TransferItemRequest getSubInstance( final Object[] attachments )
 	{
-		return new DisplayCaseRequest( attachments, this.isDeposit );
+		return new DisplayCaseRequest( attachments, isDeposit );
 	}
 
 	public String getSuccessMessage()
@@ -143,7 +143,7 @@ public class DisplayCaseRequest
 	@Override
 	public boolean parseTransfer()
 	{
-		return DisplayCaseRequest.parseTransfer( this.getURLString(), this.responseText );
+		return DisplayCaseRequest.parseTransfer( getURLString(), responseText );
 	}
 
 	public static boolean parseTransfer( final String urlString, final String responseText )
@@ -247,7 +247,7 @@ public class DisplayCaseRequest
 	@Override
 	public String getStatusMessage()
 	{
-		return this.isDeposit ? "Placing items in display case" : this.isWithdrawal ? "Removing items from display case" : "Updating display case";
+		return isDeposit ? "Placing items in display case" : isWithdrawal ? "Removing items from display case" : "Updating display case";
 	}
 
 	public static boolean registerRequest( final String urlString )

@@ -59,7 +59,7 @@ public class SendMessageCommand
 {
 	public SendMessageCommand()
 	{
-		this.usage = " <item> [, <item>]... to <recipient> [ || <message> ] - send kmail";
+        usage = " <item> [, <item>]... to <recipient> [ || <message> ] - send kmail";
 	}
 
 	@Override

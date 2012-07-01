@@ -70,14 +70,14 @@ public abstract class BasicScope
 		this.types = ( types == null ) ? new TypeList() : types;
 		this.variables = ( variables == null ) ? new VariableList() : variables;
 		this.parentScope = parentScope;
-		this.nestedScopes = new ArrayList();
-		this.nestedScopes.add( this );
+        nestedScopes = new ArrayList();
+        nestedScopes.add( this );
 		while ( parentScope != null )
 		{
 			parentScope.nestedScopes.add( this );
 			parentScope = parentScope.parentScope;
 		}
-		this.executed = false;
+        executed = false;
 	}
 
 	public BasicScope( VariableList variables, final BasicScope parentScope )
@@ -92,104 +92,104 @@ public abstract class BasicScope
 
 	public BasicScope getParentScope()
 	{
-		return this.parentScope;
+		return parentScope;
 	}
 
 	public Iterator getTypes()
 	{
-		return this.types.iterator();
+		return types.iterator();
 	}
 
 	public boolean addType( final Type t )
 	{
-		return this.types.add( t );
+		return types.add( t );
 	}
 
 	public Type findType( final String name )
 	{
-		Type current = this.types.find( name );
+		Type current = types.find( name );
 		if ( current != null )
 		{
 			return current;
 		}
-		if ( this.parentScope != null )
+		if ( parentScope != null )
 		{
-			return this.parentScope.findType( name );
+			return parentScope.findType( name );
 		}
 		return null;
 	}
 
 	public Iterator getScopes()
 	{
-		return this.nestedScopes.iterator();
+		return nestedScopes.iterator();
 	}
 
 	public Iterator getVariables()
 	{
-		return this.variables.iterator();
+		return variables.iterator();
 	}
 
 	public boolean addVariable( final Variable v )
 	{
-		return this.variables.add( v );
+		return variables.add( v );
 	}
 
 	public Variable findVariable( final String name )
 	{
-		return this.findVariable( name, false );
+		return findVariable( name, false );
 	}
 
 	public Variable findVariable( final String name, final boolean recurse )
 	{
-		Variable current = this.variables.find( name );
+		Variable current = variables.find( name );
 		if ( current != null )
 		{
 			return current;
 		}
-		if ( recurse && this.parentScope != null )
+		if ( recurse && parentScope != null )
 		{
-			return this.parentScope.findVariable( name, true );
+			return parentScope.findVariable( name, true );
 		}
 		return null;
 	}
 
 	public Iterator getFunctions()
 	{
-		return this.functions.iterator();
+		return functions.iterator();
 	}
 
 	public FunctionList getFunctionList()
 	{
-		return this.functions;
+		return functions;
 	}
 
 	public boolean addFunction( final Function f )
 	{
-		return this.functions.add( f );
+		return functions.add( f );
 	}
 
 	public boolean removeFunction( final Function f )
 	{
-		return this.functions.remove( f );
+		return functions.remove( f );
 	}
 
 	public Function findFunction( final String name, final ValueList params )
 	{
-		Function result = this.findFunction( this.functions, name, params, true );
+		Function result = findFunction( functions, name, params, true );
 
 		if ( result == null )
 		{
-			result = this.findFunction( RuntimeLibrary.functions, name, params, true );
+			result = findFunction( RuntimeLibrary.functions, name, params, true );
 		}
 
 		if ( result == null )
 		{
-			result = this.findFunction( this.functions, name, params, false );
+			result = findFunction( functions, name, params, false );
 		}
 
 		if ( result == null )
 		{
-			result = this.findFunction( RuntimeLibrary.functions, name, params, false );
+			result = findFunction( RuntimeLibrary.functions, name, params, false );
 		}
 
 		return result;
@@ -208,9 +208,9 @@ public abstract class BasicScope
 			}
 		}
 
-		if ( !exact && this.parentScope != null )
+		if ( !exact && parentScope != null )
 		{
-			return this.parentScope.findFunction( name, params );
+			return parentScope.findFunction( name, params );
 		}
 
 		return null;
@@ -253,14 +253,14 @@ public abstract class BasicScope
 			return f;
 		}
 
-		Function[] options = this.functions.findFunctions( f.getName() );
+		Function[] options = functions.findFunctions( f.getName() );
 
 		for ( int i = 0; i < options.length; ++i )
 		{
 			if ( options[ i ] instanceof UserDefinedFunction )
 			{
 				UserDefinedFunction existing = (UserDefinedFunction) options[ i ];
-				if ( this.isMatchingFunction( existing, f ) )
+				if ( isMatchingFunction( existing, f ) )
 				{
 					return existing;
 				}
@@ -285,13 +285,13 @@ public abstract class BasicScope
 			return existing;
 		}
 
-		this.addFunction( f );
+        addFunction( f );
 		return f;
 	}
 
 	public Function findFunction( final String name, boolean hasParameters )
 	{
-		Function function = findFunction( name, this.functions, hasParameters );
+		Function function = findFunction( name, functions, hasParameters );
 		
 		if ( function != null )
 		{
@@ -397,7 +397,7 @@ public abstract class BasicScope
 		Interpreter.indentLine( stream, indent + 1 );
 		stream.println( "<TYPES>" );
 
-		it = this.getTypes();
+		it = getTypes();
 		while ( it.hasNext() )
 		{
 			Type currentType = (Type) it.next();
@@ -407,7 +407,7 @@ public abstract class BasicScope
 		Interpreter.indentLine( stream, indent + 1 );
 		stream.println( "<VARIABLES>" );
 
-		it = this.getVariables();
+		it = getVariables();
 		while ( it.hasNext() )
 		{
 			Variable currentVar = (Variable) it.next();
@@ -417,7 +417,7 @@ public abstract class BasicScope
 		Interpreter.indentLine( stream, indent + 1 );
 		stream.println( "<FUNCTIONS>" );
 
-		it = this.getFunctions();
+		it = getFunctions();
 		while ( it.hasNext() )
 		{
 			Function currentFunc = (Function) it.next();
@@ -427,7 +427,7 @@ public abstract class BasicScope
 		Interpreter.indentLine( stream, indent + 1 );
 		stream.println( "<COMMANDS>" );
 
-		it = this.getCommands();
+		it = getCommands();
 		while ( it.hasNext() )
 		{
 			ParseTreeNode currentCommand = (ParseTreeNode) it.next();
@@ -450,7 +450,7 @@ public abstract class BasicScope
 		if ( t >= BasicScope.nextPause )
 		{
 			BasicScope.nextPause = t + 100L;
-			this.pauser.pause( 1 );
+            pauser.pause( 1 );
 		}
 
 		try
@@ -458,7 +458,7 @@ public abstract class BasicScope
 			Value result = DataTypes.VOID_VALUE;
 			interpreter.traceIndent();
 
-			Iterator it = this.getCommands();
+			Iterator it = getCommands();
 			while ( it.hasNext() )
 			{
 				ParseTreeNode current = (ParseTreeNode) it.next();
@@ -491,7 +491,7 @@ public abstract class BasicScope
 		}
 		finally
 		{
-			this.executed = true;
+            executed = true;
 		}
 	}
 

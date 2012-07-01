@@ -1168,36 +1168,36 @@ public abstract class WumpusManager
 		public Room( final String name )
 		{
 			this.name = name;
-			this.code = Character.toString( Character.toUpperCase( name.charAt(0) ) );
-			this.reset();
+            code = Character.toString( Character.toUpperCase( name.charAt(0) ) );
+            reset();
 		}
 
 		public void reset()
 		{
-			this.visited = false;
-			this.exits[ 0 ] = null;
-			this.exits[ 1 ] = null;
-			this.exits[ 2 ] = null;
-			this.listen = WARN_INDEFINITE;
-			this.hazards = WARN_ALL;
-			this.pit = 0;
-			this.bat = 0;
-			this.wumpus = 0;
+            visited = false;
+            exits[ 0 ] = null;
+            exits[ 1 ] = null;
+            exits[ 2 ] = null;
+            listen = WARN_INDEFINITE;
+            hazards = WARN_ALL;
+            pit = 0;
+            bat = 0;
+            wumpus = 0;
 		}
 
 		public String getName()
 		{
-			return this.name;
+			return name;
 		}
 
 		public String getCode()
 		{
-			return this.code;
+			return code;
 		}
 
 		public int getListen()
 		{
-			return this.listen;
+			return listen;
 		}
 
 		public void setListen( final int listen )
@@ -1207,31 +1207,31 @@ public abstract class WumpusManager
 
 		public Room[] getExits()
 		{
-			return this.exits;
+			return exits;
 		}
 
 		public Room getExit( final int index )
 		{
-			return this.exits[ index ];
+			return exits[ index ];
 		}
 
 		public void setExit( final int index, final Room room )
 		{
-			this.exits[ index ] = room;
+            exits[ index ] = room;
 		}
 
 		public void addExit( final Room room )
 		{
 			for ( int index = 0; index < 3; ++index )
 			{
-				Room exit = this.exits[ index ];
+				Room exit = exits[ index ];
 				if ( exit == room )
 				{
 					return;
 				}
 				if ( exit == null )
 				{
-					this.exits[ index ] = room;
+                    exits[ index ] = room;
 					return;
 				}
 			}
@@ -1241,7 +1241,7 @@ public abstract class WumpusManager
 		{
 			for ( int index = 0; index < 3; ++index )
 			{
-				if ( this.exits[ index ] == room )
+				if ( exits[ index ] == room )
 				{
 					return true;
 				}
@@ -1252,23 +1252,23 @@ public abstract class WumpusManager
 
 		public String  exitString()
 		{
-			String exit1 = this.exits[0] == null ? "unknown" : this.exits[0].toString();
-			String exit2 = this.exits[1] == null ? "unknown" : this.exits[1].toString();
-			String exit3 = this.exits[2] == null ? "unknown" : this.exits[2].toString();
+			String exit1 = exits[0] == null ? "unknown" : exits[0].toString();
+			String exit2 = exits[1] == null ? "unknown" : exits[1].toString();
+			String exit3 = exits[2] == null ? "unknown" : exits[2].toString();
 			return exit1 + ", " + exit2 + ", " + exit3;
 		}
 
 		public String  shortExitString()
 		{
-			String exit1 = this.exits[0] == null ? "unknown" : this.exits[0].getName();
-			String exit2 = this.exits[1] == null ? "unknown" : this.exits[1].getName();
-			String exit3 = this.exits[2] == null ? "unknown" : this.exits[2].getName();
+			String exit1 = exits[0] == null ? "unknown" : exits[0].getName();
+			String exit2 = exits[1] == null ? "unknown" : exits[1].getName();
+			String exit3 = exits[2] == null ? "unknown" : exits[2].getName();
 			return exit1 + ", " + exit2 + ", " + exit3;
 		}
 
 		public int getHazards()
 		{
-			return this.hazards;
+			return hazards;
 		}
 
 		public int setHazards( final int hazards )
@@ -1286,7 +1286,7 @@ public abstract class WumpusManager
 		@Override
 		public String toString()
 		{
-			return "the " + this.name + " chamber";
+			return "the " + name + " chamber";
 		}
 	}
 }

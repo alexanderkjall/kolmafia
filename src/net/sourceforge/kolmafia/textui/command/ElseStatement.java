@@ -42,7 +42,7 @@ public class ElseStatement
 {
 	public ElseStatement()
 	{
-		this.usage = " ; <commands> - do commands if preceding if/while/try didn't execute.";
+        usage = " ; <commands> - do commands if preceding if/while/try didn't execute.";
 	}
 
 	@Override
@@ -56,7 +56,7 @@ public class ElseStatement
 		KoLmafiaCLI CLI = this.CLI;
 		if ( CLI.elseRuns() )
 		{
-			CLI.executeLine( this.continuation );
+			CLI.executeLine( continuation );
 		}
 	}
 }

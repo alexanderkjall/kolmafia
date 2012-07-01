@@ -65,13 +65,13 @@ public class CallScriptCommand
 
 	public CallScriptCommand()
 	{
-		this.usage = " [<number>x] <filename> | <function> [<parameters>] - check/run script.";
+        usage = " [<number>x] <filename> | <function> [<parameters>] - check/run script.";
 	}
 
 	@Override
 	public void run( final String command, final String parameters )
 	{
-		CallScriptCommand.call( command, parameters, this.interpreter );
+		CallScriptCommand.call( command, parameters, interpreter );
 	}
 
 	public static void call( final String command, String parameters, Interpreter caller )

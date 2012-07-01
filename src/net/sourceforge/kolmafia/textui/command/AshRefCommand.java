@@ -40,7 +40,7 @@ public class AshRefCommand
 {
 	public AshRefCommand()
 	{
-		this.usage = " [<filter>] - summarize ASH built-in functions [matching filter].";
+        usage = " [<filter>] - summarize ASH built-in functions [matching filter].";
 	}
 
 	@Override

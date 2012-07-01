@@ -64,7 +64,7 @@ public class QuarkCommand
 {
 	public QuarkCommand()
 	{
-		this.usage =
+        usage =
 			"[?] [<itemList>...] - gain MP by pasting unstable quark with best item from itemList (or your junk list).";
 	}
 
@@ -111,7 +111,7 @@ public class QuarkCommand
 			{
 				continue;
 			}
-			if ( this.isPasteable( item ) )
+			if ( isPasteable( item ) )
 			{
 				usables.add( item.getInstance( price ) );
 			}

@@ -60,11 +60,11 @@ public class FriarRequest
 	{
 		super( "friars.php" );
 
-		this.addFormField( "action", "buffs" );
+        addFormField( "action", "buffs" );
 		if ( option >= 1 && option <= 3 )
 		{
 			this.option = option;
-			this.addFormField( "bro", String.valueOf( option ) );
+            addFormField( "bro", String.valueOf( option ) );
 		}
 	}
 
@@ -77,7 +77,7 @@ public class FriarRequest
 	@Override
 	public void run()
 	{
-		if ( this.option == 0 )
+		if ( option == 0 )
 		{
 			KoLmafia.updateDisplay( MafiaState.ERROR, "Decide which friar to visit." );
 			return;
@@ -90,15 +90,15 @@ public class FriarRequest
 	@Override
 	public void processResults()
 	{
-		if ( this.responseText == null || this.responseText.equals( "" ) )
+		if ( responseText == null || responseText.equals( "" ) )
 		{
 			KoLmafia.updateDisplay( MafiaState.ERROR, "You can't find the Deep Fat Friars." );
 			return;
 		}
 
-		FriarRequest.parseResponse( this.getURLString(), this.responseText );
+		FriarRequest.parseResponse( getURLString(), responseText );
 
-		if ( this.responseText.contains( "one of those per day." ) )
+		if ( responseText.contains( "one of those per day." ) )
 		{
 			KoLmafia.updateDisplay( "You can only get one blessing a day from the Deep Fat Friars." );
 			return;

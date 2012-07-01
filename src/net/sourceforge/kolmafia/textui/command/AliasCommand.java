@@ -44,8 +44,8 @@ public class AliasCommand
 	extends AbstractCommand
 {
 	{
-		this.usage = " [ <filter> ] | [ <word> => <expansion> ] - list aliases [matching <filter>] or create CLI abbreviations.";
-		this.flags = KoLmafiaCLI.FULL_LINE_CMD;
+        usage = " [ <filter> ] | [ <word> => <expansion> ] - list aliases [matching <filter>] or create CLI abbreviations.";
+        flags = KoLmafiaCLI.FULL_LINE_CMD;
 	}
 
 	@Override

@@ -40,7 +40,7 @@ public class LogoutCommand
 {
 	public LogoutCommand()
 	{
-		this.usage = " - logout and return to login window.";
+        usage = " - logout and return to login window.";
 	}
 
 	@Override

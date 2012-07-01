@@ -88,7 +88,7 @@ public class CouncilFrame
 		if ( isVisible )
 		{
 			CouncilFrame.COUNCIL_VISIT.responseText = null;
-			this.displayRequest( CouncilFrame.COUNCIL_VISIT );
+            displayRequest( CouncilFrame.COUNCIL_VISIT );
 		}
 	}
 

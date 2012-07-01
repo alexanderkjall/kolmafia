@@ -111,7 +111,7 @@ public class RelayLoader
 			currentBrowser = preferredBrowser;
 		}
 
-		if ( this.location.startsWith( "/" ) )
+		if ( location.startsWith( "/" ) )
 		{
 			RelayLoader.startRelayServer();
 
@@ -125,11 +125,11 @@ public class RelayLoader
 				pauser.pause( 200 );
 			}
 
-			BrowserLauncher.openURL( "http://127.0.0.1:" + RelayServer.getPort() + this.location );
+			BrowserLauncher.openURL( "http://127.0.0.1:" + RelayServer.getPort() + location );
 		}
 		else
 		{
-			BrowserLauncher.openURL( this.location );
+			BrowserLauncher.openURL( location );
 		}
 	}
 

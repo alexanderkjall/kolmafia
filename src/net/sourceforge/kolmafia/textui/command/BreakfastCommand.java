@@ -40,7 +40,7 @@ public class BreakfastCommand
 {
 	public BreakfastCommand()
 	{
-		this.usage = " - perform start-of-day activities.";
+        usage = " - perform start-of-day activities.";
 	}
 
 	@Override

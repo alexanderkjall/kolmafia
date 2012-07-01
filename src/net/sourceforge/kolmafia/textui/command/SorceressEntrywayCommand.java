@@ -40,7 +40,7 @@ public class SorceressEntrywayCommand
 {
 	public SorceressEntrywayCommand()
 	{
-		this.usage = " [clover] - automatically complete quest [using a clover].";
+        usage = " [clover] - automatically complete quest [using a clover].";
 	}
 
 	@Override

@@ -93,21 +93,21 @@ public class ProfileRequest
 
 		if ( playerName.startsWith( "#" ) )
 		{
-			this.playerId = playerName.substring( 1 );
-			this.playerName = ContactManager.getPlayerName( this.playerId );
+            playerId = playerName.substring( 1 );
+			this.playerName = ContactManager.getPlayerName( playerId );
 		}
 		else
 		{
 			this.playerName = playerName;
-			this.playerId = ContactManager.getPlayerId( playerName );
+            playerId = ContactManager.getPlayerId( playerName );
 		}
 
-		this.addFormField( "who", this.playerId );
+        addFormField( "who", playerId );
 
-		this.muscle = IntegerPool.get( 0 );
-		this.mysticism = IntegerPool.get( 0 );
-		this.moxie = IntegerPool.get( 0 );
-		this.karma = IntegerPool.get( 0 );
+        muscle = IntegerPool.get( 0 );
+        mysticism = IntegerPool.get( 0 );
+        moxie = IntegerPool.get( 0 );
+        karma = IntegerPool.get( 0 );
 	}
 
 	@Override
@@ -124,31 +124,31 @@ public class ProfileRequest
 	private void refreshFields()
 	{
 		// Nothing to refresh if no text
-		if ( this.responseText == null || this.responseText.length() == 0 )
+		if ( responseText == null || responseText.length() == 0 )
 		{
 			return;
 		}
 
-		this.isHardcore = this.responseText.contains( "<b>(Hardcore)</b></td>" );
+        isHardcore = responseText.contains( "<b>(Hardcore)</b></td>" );
 
 		// This is a massive replace which makes the profile easier to
 		// parse and re-represent inside of editor panes.
 
-		String cleanHTML = this.responseText.replaceAll( "><", "" ).replaceAll( "<.*?>", "\n" );
+		String cleanHTML = responseText.replaceAll( "><", "" ).replaceAll( "<.*?>", "\n" );
 		StringTokenizer st = new StringTokenizer( cleanHTML, "\n" );
 
 		String token = st.nextToken();
 
-		this.playerLevel = IntegerPool.get( 0 );
-		this.classType = "Recent Ascension";
-		this.currentMeat = IntegerPool.get( 0 );
-		this.ascensionCount = IntegerPool.get( 0 );
-		this.turnsPlayed = IntegerPool.get( 0 );
-		this.created = new Date();
-		this.lastLogin = new Date();
-		this.food = "none";
-		this.drink = "none";
-		this.pvpRank = IntegerPool.get( 0 );
+        playerLevel = IntegerPool.get( 0 );
+        classType = "Recent Ascension";
+        currentMeat = IntegerPool.get( 0 );
+        ascensionCount = IntegerPool.get( 0 );
+        turnsPlayed = IntegerPool.get( 0 );
+        created = new Date();
+        lastLogin = new Date();
+        food = "none";
+        drink = "none";
+        pvpRank = IntegerPool.get( 0 );
 
 		if ( cleanHTML.contains( "\nClass:" ) )
 		{	// has custom title
@@ -163,7 +163,7 @@ public class ProfileRequest
 			token = st.nextToken();
 			if ( token.startsWith( "(Level" ) )
 			{
-				this.playerLevel = IntegerPool.get(
+                playerLevel = IntegerPool.get(
 					StringUtilities.parseInt( token.substring( 6 ).trim() ) );
 			}
 			else
@@ -173,7 +173,7 @@ public class ProfileRequest
 				Matcher m = ProfileRequest.NUMERIC_PATTERN.matcher( title );
 				if ( m.find() && m.group().length() < 5 )
 				{
-					this.playerLevel = IntegerPool.get(
+                    playerLevel = IntegerPool.get(
 						StringUtilities.parseInt( m.group() ) );
 				}
 			}
@@ -182,7 +182,7 @@ public class ProfileRequest
 			{
 				token = st.nextToken();
 			}
-			this.classType = KoLCharacter.getClassType( st.nextToken().trim() );
+            classType = KoLCharacter.getClassType( st.nextToken().trim() );
 		}
 		else
 		{	// no custom title
@@ -195,10 +195,10 @@ public class ProfileRequest
 			{
 				token = st.nextToken();
 			}
-	
-			this.playerLevel = IntegerPool.get( 
+
+            playerLevel = IntegerPool.get(
 				StringUtilities.parseInt( token.substring( 5 ).trim() ) );
-			this.classType = KoLCharacter.getClassType( st.nextToken().trim() );
+            classType = KoLCharacter.getClassType( st.nextToken().trim() );
 		}
 		
 		if ( cleanHTML.contains( "\nAscensions" ) && cleanHTML.contains( "\nPath" ) )
@@ -207,11 +207,11 @@ public class ProfileRequest
 			{
 				;
 			}
-			this.restriction = st.nextToken().trim();
+            restriction = st.nextToken().trim();
 		}
 		else
 		{
-			this.restriction = "No-Path";
+            restriction = "No-Path";
 		}
 
 		if ( cleanHTML.contains( "\nMeat:" ) )
@@ -220,7 +220,7 @@ public class ProfileRequest
 			{
 				;
 			}
-			this.currentMeat = IntegerPool.get( StringUtilities.parseInt( st.nextToken().trim() ) );
+            currentMeat = IntegerPool.get( StringUtilities.parseInt( st.nextToken().trim() ) );
 		}
 
 		if ( cleanHTML.contains( "\nAscensions" ) )
@@ -230,18 +230,18 @@ public class ProfileRequest
 				;
 			}
 			st.nextToken();
-			this.ascensionCount = IntegerPool.get( StringUtilities.parseInt( st.nextToken().trim() ) );
+            ascensionCount = IntegerPool.get( StringUtilities.parseInt( st.nextToken().trim() ) );
 		}
 		else
 		{
-			this.ascensionCount = IntegerPool.get( 0 );
+            ascensionCount = IntegerPool.get( 0 );
 		}
 
 		while ( !st.nextToken().startsWith( "Turns" ) )
 		{
 			;
 		}
-		this.turnsPlayed = IntegerPool.get( StringUtilities.parseInt( st.nextToken().trim() ) );
+        turnsPlayed = IntegerPool.get( StringUtilities.parseInt( st.nextToken().trim() ) );
 
 		if ( cleanHTML.contains( "\nAscensions" ) )
 		{
@@ -249,11 +249,11 @@ public class ProfileRequest
 			{
 				;
 			}
-			this.currentRun = IntegerPool.get( StringUtilities.parseInt( st.nextToken().trim() ) );
+            currentRun = IntegerPool.get( StringUtilities.parseInt( st.nextToken().trim() ) );
 		}
 		else
 		{
-			this.currentRun = this.turnsPlayed;
+            currentRun = turnsPlayed;
 		}
 
 		String dateString = null;
@@ -264,12 +264,12 @@ public class ProfileRequest
 		try
 		{
 			dateString = st.nextToken().trim();
-			this.created = ProfileRequest.INPUT_FORMAT.parse( dateString );
+            created = ProfileRequest.INPUT_FORMAT.parse( dateString );
 		}
 		catch ( Exception e )
 		{
 			StaticEntity.printStackTrace( e, "Could not parse date \"" + dateString + "\"" );
-			this.created = new Date();
+            created = new Date();
 		}
 
 		while ( !st.nextToken().startsWith( "Last" ) )
@@ -280,12 +280,12 @@ public class ProfileRequest
 		try
 		{
 			dateString = st.nextToken().trim();
-			this.lastLogin = ProfileRequest.INPUT_FORMAT.parse( dateString );
+            lastLogin = ProfileRequest.INPUT_FORMAT.parse( dateString );
 		}
 		catch ( Exception e )
 		{
 			StaticEntity.printStackTrace( e, "Could not parse date \"" + dateString + "\"" );
-			this.lastLogin = this.created;
+            lastLogin = created;
 		}
 
 		if ( cleanHTML.contains( "\nFavorite Food" ) )
@@ -294,11 +294,11 @@ public class ProfileRequest
 			{
 				;
 			}
-			this.food = st.nextToken().trim();
+            food = st.nextToken().trim();
 		}
 		else
 		{
-			this.food = "none";
+            food = "none";
 		}
 
 		if ( cleanHTML.contains( "\nFavorite Booze" ) )
@@ -307,11 +307,11 @@ public class ProfileRequest
 			{
 				;
 			}
-			this.drink = st.nextToken().trim();
+            drink = st.nextToken().trim();
 		}
 		else
 		{
-			this.drink = "none";
+            drink = "none";
 		}
 
 		if ( cleanHTML.contains( "\nFame" ) )
@@ -320,14 +320,14 @@ public class ProfileRequest
 			{
 				;
 			}
-			this.pvpRank = IntegerPool.get( StringUtilities.parseInt( st.nextToken().trim() ) );
+            pvpRank = IntegerPool.get( StringUtilities.parseInt( st.nextToken().trim() ) );
 		}
 		else
 		{
-			this.pvpRank = IntegerPool.get( 0 );
+            pvpRank = IntegerPool.get( 0 );
 		}
 
-		this.equipmentPower = 0;
+        equipmentPower = 0;
 		if ( cleanHTML.contains( "\nEquipment" ) )
 		{
 			while ( !st.nextToken().startsWith( "Equipment" ) )
@@ -343,7 +343,7 @@ public class ProfileRequest
 				case KoLConstants.EQUIP_PANTS:
 				case KoLConstants.EQUIP_SHIRT:
 
-					this.equipmentPower += EquipmentDatabase.getPower( token );
+                    equipmentPower += EquipmentDatabase.getPower( token );
 					break;
 				}
 			}
@@ -356,12 +356,12 @@ public class ProfileRequest
 				token = st.nextToken();
 			}
 
-			this.clanName = st.nextToken();
+            clanName = st.nextToken();
 
-			Matcher m = CLAN_ID_PATTERN.matcher( this.responseText );
+			Matcher m = CLAN_ID_PATTERN.matcher( responseText );
 			if ( m.find() )
 			{
-				this.clanId = StringUtilities.parseInt( m.group( 1 ) );
+                clanId = StringUtilities.parseInt( m.group( 1 ) );
 			}
 		}
 
@@ -372,7 +372,7 @@ public class ProfileRequest
 				token = st.nextToken();
 			}
 
-			this.title = st.nextToken();
+            title = st.nextToken();
 		}
 	}
 
@@ -496,7 +496,7 @@ public class ProfileRequest
 
 	public void initialize()
 	{
-		if ( this.responseText == null )
+		if ( responseText == null )
 		{
 			RequestThread.postRequest( this );
 		}
@@ -504,174 +504,174 @@ public class ProfileRequest
 
 	public String getPlayerName()
 	{
-		return this.playerName;
+		return playerName;
 	}
 
 	public String getPlayerId()
 	{
-		return this.playerId;
+		return playerId;
 	}
 
 	public String getClanName()
 	{
-		this.initialize();
-		return this.clanName;
+        initialize();
+		return clanName;
 	}
 
 	public int getClanId()
 	{
-		this.initialize();
-		return this.clanId;
+        initialize();
+		return clanId;
 	}
 
 	public boolean isHardcore()
 	{
-		this.initialize();
-		return this.isHardcore;
+        initialize();
+		return isHardcore;
 	}
 
 	public String getRestriction()
 	{
-		this.initialize();
-		return this.restriction;
+        initialize();
+		return restriction;
 	}
 
 	public String getClassType()
 	{
-		if ( this.classType == null )
+		if ( classType == null )
 		{
-			this.initialize();
+            initialize();
 		}
 
-		return this.classType;
+		return classType;
 	}
 
 	public Integer getPlayerLevel()
 	{
-		if ( this.playerLevel == null || this.playerLevel == 0 )
+		if ( playerLevel == null || playerLevel == 0 )
 		{
-			this.initialize();
+            initialize();
 		}
 
-		return this.playerLevel;
+		return playerLevel;
 	}
 
 	public Integer getCurrentMeat()
 	{
-		this.initialize();
-		return this.currentMeat;
+        initialize();
+		return currentMeat;
 	}
 
 	public Integer getTurnsPlayed()
 	{
-		this.initialize();
-		return this.turnsPlayed;
+        initialize();
+		return turnsPlayed;
 	}
 
 	public Integer getCurrentRun()
 	{
-		this.initialize();
-		return this.currentRun;
+        initialize();
+		return currentRun;
 	}
 
 	public Date getLastLogin()
 	{
-		this.initialize();
-		return this.lastLogin;
+        initialize();
+		return lastLogin;
 	}
 
 	public Date getCreation()
 	{
-		this.initialize();
-		return this.created;
+        initialize();
+		return created;
 	}
 
 	public String getCreationAsString()
 	{
-		this.initialize();
-		return ProfileRequest.OUTPUT_FORMAT.format( this.created );
+        initialize();
+		return ProfileRequest.OUTPUT_FORMAT.format( created );
 	}
 
 	public String getLastLoginAsString()
 	{
-		this.initialize();
-		return ProfileRequest.OUTPUT_FORMAT.format( this.lastLogin );
+        initialize();
+		return ProfileRequest.OUTPUT_FORMAT.format( lastLogin );
 	}
 
 	public String getFood()
 	{
-		this.initialize();
-		return this.food;
+        initialize();
+		return food;
 	}
 
 	public String getDrink()
 	{
-		this.initialize();
-		return this.drink;
+        initialize();
+		return drink;
 	}
 
 	public Integer getPvpRank()
 	{
-		if ( this.pvpRank == null || this.pvpRank == 0 )
+		if ( pvpRank == null || pvpRank == 0 )
 		{
-			this.initialize();
+            initialize();
 		}
 
-		return this.pvpRank;
+		return pvpRank;
 	}
 
 	public Integer getMuscle()
 	{
-		this.initialize();
-		return this.muscle;
+        initialize();
+		return muscle;
 	}
 
 	public Integer getMysticism()
 	{
-		this.initialize();
-		return this.mysticism;
+        initialize();
+		return mysticism;
 	}
 
 	public Integer getMoxie()
 	{
-		this.initialize();
-		return this.moxie;
+        initialize();
+		return moxie;
 	}
 
 	public Integer getPower()
 	{
-		this.initialize();
-		return IntegerPool.get( this.muscle + this.mysticism + this.moxie );
+        initialize();
+		return IntegerPool.get( muscle + mysticism + moxie );
 	}
 
 	public Integer getEquipmentPower()
 	{
-		this.initialize();
-		return IntegerPool.get( this.equipmentPower );
+        initialize();
+		return IntegerPool.get( equipmentPower );
 	}
 
 	public String getTitle()
 	{
-		this.initialize();
-		return this.title != null ? this.title : ClanManager.getTitle( this.playerName );
+        initialize();
+		return title != null ? title : ClanManager.getTitle( playerName );
 	}
 
 	public String getRank()
 	{
-		this.initialize();
-		return this.rank;
+        initialize();
+		return rank;
 	}
 
 	public Integer getKarma()
 	{
-		this.initialize();
-		return this.karma;
+        initialize();
+		return karma;
 	}
 
 	public Integer getAscensionCount()
 	{
-		this.initialize();
-		return this.ascensionCount;
+        initialize();
+		return ascensionCount;
 	}
 
 	private static final Pattern GOBACK_PATTERN =
@@ -680,14 +680,14 @@ public class ProfileRequest
 	@Override
 	public void processResults()
 	{
-		Matcher dataMatcher = ProfileRequest.GOBACK_PATTERN.matcher( this.responseText );
+		Matcher dataMatcher = ProfileRequest.GOBACK_PATTERN.matcher( responseText );
 		if ( dataMatcher.find() )
 		{
-			this.responseText =
+            responseText =
 				dataMatcher.replaceFirst( "../ascensions/" + ClanManager.getURLName( ContactManager.getPlayerName( dataMatcher.group( 1 ) ) ) );
 		}
 
-		this.refreshFields();
+        refreshFields();
 	}
 
 	public int compareTo( final Object o )
@@ -699,11 +699,11 @@ public class ProfileRequest
 
 		ProfileRequest pr = (ProfileRequest) o;
 
-		if ( this.getPvpRank().intValue() != pr.getPvpRank().intValue() )
+		if ( getPvpRank().intValue() != pr.getPvpRank().intValue() )
 		{
-			return this.getPvpRank() - pr.getPvpRank();
+			return getPvpRank() - pr.getPvpRank();
 		}
 
-		return this.getPlayerLevel() - pr.getPlayerLevel();
+		return getPlayerLevel() - pr.getPlayerLevel();
 	}
 }

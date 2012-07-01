@@ -1728,23 +1728,23 @@ public abstract class InventoryManager
 			int max = ItemDatabase.maxItemId();
 			for ( int i = 0; i <= max; ++i )
 			{
-				this.internalList.add( null );
+                internalList.add( null );
 			}
 		}
 
 		public ArrayList get( final int index )
 		{
-			if ( index < 0 || index >= this.internalList.size() )
+			if ( index < 0 || index >= internalList.size() )
 			{
 				return null;
 			}
 
-			return (ArrayList) this.internalList.get( index );
+			return (ArrayList) internalList.get( index );
 		}
 
 		public void set( final int index, final ArrayList value )
 		{
-			this.internalList.set( index, value );
+            internalList.set( index, value );
 		}
 	}
 

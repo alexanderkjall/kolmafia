@@ -40,7 +40,7 @@ public class BadMoonCommand
 {
 	public BadMoonCommand()
 	{
-		this.usage = " - List status of special bad moon adventure.";
+        usage = " - List status of special bad moon adventure.";
 	}
 
 	@Override

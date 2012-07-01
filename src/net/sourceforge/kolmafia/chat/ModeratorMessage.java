@@ -40,10 +40,10 @@ public class ModeratorMessage
 
 	public ModeratorMessage( String channel, String messageType, String playerId, String content )
 	{
-		this.setRecipient( channel );
-		this.setSender( messageType );
+        setRecipient( channel );
+        setSender( messageType );
 		this.playerId = playerId;
-		this.setContent( content );
+        setContent( content );
 	}
 
 	public String getModeratorId()

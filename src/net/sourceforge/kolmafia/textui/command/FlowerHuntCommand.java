@@ -40,7 +40,7 @@ public class FlowerHuntCommand
 {
 	public FlowerHuntCommand()
 	{
-		this.usage = " - commit random acts of PvP.";
+        usage = " - commit random acts of PvP.";
 	}
 
 	@Override

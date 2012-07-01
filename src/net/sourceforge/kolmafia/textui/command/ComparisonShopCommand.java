@@ -60,8 +60,8 @@ public class ComparisonShopCommand
 {
 	public ComparisonShopCommand()
 	{
-		this.usage = "[?] [+]<item> [,[-]item]... [; <cmds>] - compare prices, do cmds with \"it\" replaced with best.";
-		this.flags = KoLmafiaCLI.FULL_LINE_CMD;
+        usage = "[?] [+]<item> [,[-]item]... [; <cmds>] - compare prices, do cmds with \"it\" replaced with best.";
+        flags = KoLmafiaCLI.FULL_LINE_CMD;
 	}
 
 	@Override
@@ -135,7 +135,7 @@ public class ComparisonShopCommand
 		}
 		if ( commands != null )
 		{
-			this.CLI.executeLine( commands.replaceAll( "\\bit\\b", ( (AdventureResult) results.get( 0 ) ).getName() ) );
+            CLI.executeLine( commands.replaceAll( "\\bit\\b", ((AdventureResult) results.get( 0 )).getName() ) );
 			return;
 		}
 		i = results.iterator();

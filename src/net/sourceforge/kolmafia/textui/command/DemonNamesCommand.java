@@ -42,7 +42,7 @@ public class DemonNamesCommand
 	extends AbstractCommand
 {
 	{
-		this.usage = " - list the demon names you know.";
+        usage = " - list the demon names you know.";
 	}
 
 	@Override

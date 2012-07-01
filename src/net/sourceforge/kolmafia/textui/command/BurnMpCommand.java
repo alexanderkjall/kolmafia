@@ -48,7 +48,7 @@ public class BurnMpCommand
 {
 	public BurnMpCommand()
 	{
-		this.usage =
+        usage =
 			" extra | * | <num> | -num - use excess/all/specified/all but specified MP for buff extension and summons.";
 	}
 

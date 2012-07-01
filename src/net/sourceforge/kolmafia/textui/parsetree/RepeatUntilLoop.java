@@ -53,7 +53,7 @@ public class RepeatUntilLoop
 
 	public Value getCondition()
 	{
-		return this.condition;
+		return condition;
 	}
 
 	@Override
@@ -68,7 +68,7 @@ public class RepeatUntilLoop
 		interpreter.traceIndent();
 		if (interpreter.isTracing() )
 		{
-			interpreter.trace( this.toString() );
+			interpreter.trace( toString() );
 		}
 
 		Value conditionResult;
@@ -92,10 +92,10 @@ public class RepeatUntilLoop
 
 			if ( interpreter.isTracing() )
 			{
-				interpreter.trace( "Test: " + this.condition );
+				interpreter.trace( "Test: " + condition );
 			}
 
-			conditionResult = this.condition.execute( interpreter );
+			conditionResult = condition.execute( interpreter );
 			interpreter.captureValue( conditionResult );
 
 			if ( interpreter.isTracing() )
@@ -118,8 +118,8 @@ public class RepeatUntilLoop
 	@Override
 	public boolean assertBarrier()
 	{
-		return this.condition == DataTypes.FALSE_VALUE &&
-			!this.getScope().assertBreakable();
+		return condition == DataTypes.FALSE_VALUE &&
+			!getScope().assertBreakable();
 	}
 
 	@Override
@@ -133,7 +133,7 @@ public class RepeatUntilLoop
 	{
 		Interpreter.indentLine( stream, indent );
 		stream.println( "<REPEAT>" );
-		this.getScope().print( stream, indent + 1 );
-		this.getCondition().print( stream, indent + 1 );
+        getScope().print( stream, indent + 1 );
+        getCondition().print( stream, indent + 1 );
 	}
 }

@@ -58,10 +58,10 @@ public class CoinMasterPurchaseRequest
 
 		this.data = data;
 
-		this.isMallStore = false;
-		this.item = new AdventureResult( itemId, 1 );
+        isMallStore = false;
+        item = new AdventureResult( itemId, 1 );
 
-		this.shopName = data.getMaster();
+        shopName = data.getMaster();
 
 		this.quantity = quantity;
 		this.price = price;
@@ -69,32 +69,32 @@ public class CoinMasterPurchaseRequest
 		AdventureResult item = data.getItem();
 		String token = item != null ? item.getName() : data.getToken();
 		String name = ( price != 1 ) ? data.getPluralToken() : token;
-		this.priceString = KoLConstants.COMMA_FORMAT.format( this.price ) + " " + name;
-		this.cost = AdventureResult.tallyItem( token, price, true );
+        priceString = KoLConstants.COMMA_FORMAT.format( this.price ) + " " + name;
+        cost = AdventureResult.tallyItem( token, price, true );
 
-		this.limit = this.quantity;
-		this.canPurchase = true;
+        limit = this.quantity;
+        canPurchase = true;
 
-		this.timestamp = 0L;
+        timestamp = 0L;
 
-		this.request = data.getRequest( data.getBuyAction(), this.item );
+        request = data.getRequest( data.getBuyAction(), this.item );
 	}
 
 	public CoinmasterData getData()
 	{
-		return this.data;
+		return data;
 	}
 
 	@Override
 	public String getPriceString()
 	{
-		return this.priceString;
+		return priceString;
 	}
 
 	@Override
 	public AdventureResult getCost()
 	{
-		return this.cost;
+		return cost;
 	}
 
 	@Override
@@ -113,7 +113,7 @@ public class CoinMasterPurchaseRequest
 	@Override
 	public int affordableCount()
 	{
-		int tokens = this.data.affordableTokens();
+		int tokens = data.affordableTokens();
 		int price = this.price;
 		return tokens / price;
 	}
@@ -121,43 +121,43 @@ public class CoinMasterPurchaseRequest
 	@Override
 	public boolean canPurchase()
 	{
-		return this.canPurchase && this.affordableCount() > 0;
+		return canPurchase && affordableCount() > 0;
 	}
 
 	@Override
 	public void setCanPurchase()
 	{
-		this.setCanPurchase( this.data.isAccessible() && this.affordableCount() > 0 );
+        setCanPurchase( data.isAccessible() && affordableCount() > 0 );
 	}
 
 	@Override
 	public boolean isAccessible()
 	{
-		return this.data.isAccessible();
+		return data.isAccessible();
 	}
 
 	@Override
 	public void run()
 	{
-		if ( this.request == null )
+		if ( request == null )
 		{
 			return;
 		}
 
-		if ( this.limit < 1 )
+		if ( limit < 1 )
 		{
 			return;
 		}
 
 		// Make sure we have enough tokens to buy what we want.
-		if ( this.data.availableTokens() < this.limit * this.price )
+		if ( data.availableTokens() < limit * price )
 		{
 			KoLmafia.updateDisplay( MafiaState.ERROR, "You can't afford that." );
 			return;
 		}
 
 		// Make sure the Coin Master is accessible
-		String message = this.data.accessible();
+		String message = data.accessible();
 		if ( message != null )
 		{
 			KoLmafia.updateDisplay( MafiaState.ERROR, message );
@@ -166,11 +166,11 @@ public class CoinMasterPurchaseRequest
 
 		// Now that we're ready, make the purchase!
 
-		KoLmafia.updateDisplay( "Purchasing " + this.item.getName() + " (" + KoLConstants.COMMA_FORMAT.format( this.limit ) + " @ " + this.getPriceString() + ")..." );
+		KoLmafia.updateDisplay( "Purchasing " + item.getName() + " (" + KoLConstants.COMMA_FORMAT.format( limit ) + " @ " + getPriceString() + ")..." );
 
-		this.initialCount = this.item.getCount( KoLConstants.inventory );
-		this.request.setQuantity( this.limit );
+        initialCount = item.getCount( KoLConstants.inventory );
+        request.setQuantity( limit );
 
-		RequestThread.postRequest( this.request );
+		RequestThread.postRequest( request );
 	}
 }

@@ -85,7 +85,7 @@ public class NemesisRequest
 	@Override
 	public void processResults()
 	{
-		NemesisRequest.parseResponse( this.getURLString(), this.responseText );
+		NemesisRequest.parseResponse( getURLString(), responseText );
 	}
 
 	public static void parseResponse( final String location, final String responseText )

@@ -59,37 +59,37 @@ public class SingleUseRequest
 	public SingleUseRequest( final Concoction conc )
 	{
 		super( "inv_use.php", conc );
-		this.ingredients = conc.getIngredients();
+        ingredients = conc.getIngredients();
 	}
 
 	@Override
 	public void reconstructFields()
 	{
-		if ( this.ingredients == null )
+		if ( ingredients == null )
 		{
 			return;
 		}
 
-		int use = this.ingredients[ 0 ].getItemId();
+		int use = ingredients[ 0 ].getItemId();
 		int type = ItemDatabase.getConsumptionType( use );
-		int count = this.getQuantityNeeded();
+		int count = getQuantityNeeded();
 
 		if ( type == KoLConstants.CONSUME_USE ||
 			ItemDatabase.getAttribute( use, ItemDatabase.ATTR_USABLE ) ||
 			count == 1 )
 		{
-			this.constructURLString( "inv_use.php" );
-			this.addFormField( "which", "3" );
-			this.addFormField( "whichitem", String.valueOf( use ) );
-			this.addFormField( "ajax", "1" );
+            constructURLString( "inv_use.php" );
+            addFormField( "which", "3" );
+            addFormField( "whichitem", String.valueOf( use ) );
+            addFormField( "ajax", "1" );
 		}
 		else if ( type == KoLConstants.CONSUME_MULTIPLE ||
 			ItemDatabase.getAttribute( use, ItemDatabase.ATTR_MULTIPLE ) )
 		{
-			this.constructURLString( "multiuse.php" );
-			this.addFormField( "action", "useitem" );
-			this.addFormField( "quantity", String.valueOf( count ) );
-			this.addFormField( "whichitem", String.valueOf( use ) );
+            constructURLString( "multiuse.php" );
+            addFormField( "action", "useitem" );
+            addFormField( "quantity", String.valueOf( count ) );
+            addFormField( "whichitem", String.valueOf( use ) );
 		}
 		else
 		{
@@ -104,14 +104,14 @@ public class SingleUseRequest
 		// Attempting to make the ingredients will pull the
 		// needed items from the closet if they are missing.
 
-		if ( !this.makeIngredients() )
+		if ( !makeIngredients() )
 		{
 			return;
 		}
 
-		int use = this.ingredients[ 0 ].getItemId();
+		int use = ingredients[ 0 ].getItemId();
 		int type = ItemDatabase.getConsumptionType( use );
-		int count = this.getQuantityNeeded();
+		int count = getQuantityNeeded();
 
 		if ( count > 1 && (type == KoLConstants.CONSUME_USE ||
 			ItemDatabase.getAttribute( use, ItemDatabase.ATTR_USABLE )) )
@@ -119,14 +119,14 @@ public class SingleUseRequest
 			// We have to create one at a time.
 			for ( int i = 1; i <= count; ++i )
 			{
-				KoLmafia.updateDisplay( "Creating " + this.getName() + " (" + i + " of " + count + ")..." );
+				KoLmafia.updateDisplay( "Creating " + getName() + " (" + i + " of " + count + ")..." );
 				super.run();
 			}
 		}
 		else
 		{
 			// We create all at once.
-			KoLmafia.updateDisplay( "Creating " + this.getName() + " (" + count + ")..." );
+			KoLmafia.updateDisplay( "Creating " + getName() + " (" + count + ")..." );
 			super.run();
 		}
 	}

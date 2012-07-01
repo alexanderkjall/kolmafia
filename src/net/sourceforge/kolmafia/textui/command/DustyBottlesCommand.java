@@ -42,7 +42,7 @@ public class DustyBottlesCommand
 {
 	public DustyBottlesCommand()
 	{
-		this.usage = " - list the dusty bottles of wine you've identified.";
+        usage = " - list the dusty bottles of wine you've identified.";
 	}
 
 	@Override

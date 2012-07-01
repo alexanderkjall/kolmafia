@@ -91,7 +91,7 @@ public class Crimbo11Request
 		super( Crimbo11Request.CRIMBO11 );
 
 		// Visit Uncle Crimbo to get Candy Credit balance
-		this.addFormField( "place", "tradeincandy" );
+        addFormField( "place", "tradeincandy" );
 	}
 
 	public Crimbo11Request( final String action )
@@ -144,7 +144,7 @@ public class Crimbo11Request
 	@Override
 	public void processResults()
 	{
-		Crimbo11Request.parseResponse( this.getURLString(), this.responseText );
+		Crimbo11Request.parseResponse( getURLString(), responseText );
 	}
 
 	private static final Pattern ITEM_PATTERN = Pattern.compile( "name=whichitem value=([\\d]+)>.*?descitem.([\\d]+).*?<b>([^<&]*)(?:&nbsp;)*</td>.*?<b>([\\d,]+) credit</b>", Pattern.DOTALL );

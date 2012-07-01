@@ -45,7 +45,7 @@ public class ModifierMaximizeCommand
 {
 	public ModifierMaximizeCommand()
 	{
-		this.usage = "[?] [+|-|<weight>] <keyword>, ... - run the Modifier Maximizer.";
+        usage = "[?] [+|-|<weight>] <keyword>, ... - run the Modifier Maximizer.";
 	}
 
 	@Override

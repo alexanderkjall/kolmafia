@@ -178,12 +178,12 @@ public class FaxBotDatabase
 
 		public String getName()
 		{
-			return this.name;
+			return name;
 		}
 
 		public int getPlayerId()
 		{
-			return this.playerId;
+			return playerId;
 		}
 
 		@Override
@@ -195,7 +195,7 @@ public class FaxBotDatabase
 			}
 
 			FaxBot that = (FaxBot) o;
-			return this.name.equals( that.name );
+			return name.equals( that.name );
 		}
 
 		public int compareTo( final Object o )
@@ -206,7 +206,7 @@ public class FaxBotDatabase
 			}
 
 			FaxBot that = (FaxBot) o;
-			return this.name.compareTo( that.name );
+			return name.compareTo( that.name );
 		}
 	}
 
@@ -225,34 +225,34 @@ public class FaxBotDatabase
 			this.name = name;
 			this.command = command;
 			this.category = category;
-			this.stringForm = name + " [" + command + "]";
-			this.lowerCaseStringForm = this.stringForm.toLowerCase();
+            stringForm = name + " [" + command + "]";
+            lowerCaseStringForm = stringForm.toLowerCase();
 		}
 
 		public String getName()
 		{
-			return this.name;
+			return name;
 		}
 
 		public String getCommand()
 		{
-			return this.command;
+			return command;
 		}
 
 		public String getCategory()
 		{
-			return this.category;
+			return category;
 		}
 
 		@Override
 		public String toString()
 		{
-			return this.stringForm;
+			return stringForm;
 		}
 
 		public String toLowerCaseString()
 		{
-			return this.lowerCaseStringForm;
+			return lowerCaseStringForm;
 		}
 
 		@Override
@@ -264,7 +264,7 @@ public class FaxBotDatabase
 			}
 
 			Monster that = (Monster) o;
-			return this.name.equals( that.name );
+			return name.equals( that.name );
 		}
 
 		public int compareTo( final Object o )
@@ -275,7 +275,7 @@ public class FaxBotDatabase
 			}
 
 			Monster that = (Monster) o;
-			return this.name.compareTo( that.name );
+			return name.compareTo( that.name );
 		}
 	}
 
@@ -310,7 +310,7 @@ public class FaxBotDatabase
 
 				// Parse using builder to get DOM
 				// representation of the XML file
-				dom = db.parse( this.location );
+				dom = db.parse( location );
 			}
 			catch (ParserConfigurationException pce)
 			{
@@ -324,7 +324,7 @@ public class FaxBotDatabase
 
 			if ( dom == null )
 			{
-				KoLmafia.updateDisplay( MafiaState.ABORT, "Could not load faxbot configuration from " + this.location );
+				KoLmafia.updateDisplay( MafiaState.ABORT, "Could not load faxbot configuration from " + location );
 				FaxBotDatabase.faxBotError = true;
 				return;
 			}

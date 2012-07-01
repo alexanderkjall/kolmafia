@@ -51,31 +51,31 @@ public class Value
 
 	public Value()
 	{
-		this.type = DataTypes.VOID_TYPE;
+        type = DataTypes.VOID_TYPE;
 	}
 
 	public Value( final long value )
 	{
-		this.type = DataTypes.INT_TYPE;
-		this.contentLong = value;
+        type = DataTypes.INT_TYPE;
+        contentLong = value;
 	}
 
 	public Value( final boolean value )
 	{
-		this.type = DataTypes.BOOLEAN_TYPE;
-		this.contentLong = value ? 1 : 0;
+        type = DataTypes.BOOLEAN_TYPE;
+        contentLong = value ? 1 : 0;
 	}
 
 	public Value( final String value )
 	{
-		this.type = DataTypes.STRING_TYPE;
-		this.contentString = value == null ? "" : value;
+        type = DataTypes.STRING_TYPE;
+        contentString = value == null ? "" : value;
 	}
 
 	public Value( final double value )
 	{
-		this.type = DataTypes.FLOAT_TYPE;
-		this.contentLong = Double.doubleToRawLongBits( value );
+        type = DataTypes.FLOAT_TYPE;
+        contentLong = Double.doubleToRawLongBits( value );
 	}
 
 	public Value( final Type type )
@@ -99,114 +99,114 @@ public class Value
 
 	public Value( final Value original )
 	{
-		this.type = original.type;
-		this.contentLong = original.contentLong;
-		this.contentString = original.contentString;
-		this.content = original.content;
+        type = original.type;
+        contentLong = original.contentLong;
+        contentString = original.contentString;
+        content = original.content;
 	}
 
 	public Value toFloatValue()
 	{
-		if ( this.type.equals( DataTypes.TYPE_FLOAT ) )
+		if ( type.equals( DataTypes.TYPE_FLOAT ) )
 		{
 			return this;
 		}
-		return DataTypes.makeFloatValue( (double) this.contentLong );
+		return DataTypes.makeFloatValue( (double) contentLong );
 	}
 
 	public Value toIntValue()
 	{
-		if ( this.type.equals( DataTypes.TYPE_INT ) )
+		if ( type.equals( DataTypes.TYPE_INT ) )
 		{
 			return this;
 		}
-		if ( this.type.equals( DataTypes.TYPE_BOOLEAN ) )
+		if ( type.equals( DataTypes.TYPE_BOOLEAN ) )
 		{
-			return DataTypes.makeIntValue( this.contentLong != 0 );
+			return DataTypes.makeIntValue( contentLong != 0 );
 		}
-		return DataTypes.makeIntValue( (long) this.floatValue() );
+		return DataTypes.makeIntValue( (long) floatValue() );
 	}
 
 	public Value toBooleanValue()
 	{
-		if ( this.type.equals( DataTypes.TYPE_BOOLEAN ) )
+		if ( type.equals( DataTypes.TYPE_BOOLEAN ) )
 		{
 			return this;
 		}
-		return DataTypes.makeBooleanValue( this.contentLong != 0 );
+		return DataTypes.makeBooleanValue( contentLong != 0 );
 	}
 
 	public Type getType()
 	{
-		return this.type.getBaseType();
+		return type.getBaseType();
 	}
 
 	@Override
 	public String toString()
 	{
-		if ( this.content instanceof StringBuffer )
+		if ( content instanceof StringBuffer )
 		{
-			return ( (StringBuffer) this.content ).toString();
+			return ( (StringBuffer) content).toString();
 		}
 
-		if ( this.type.equals( DataTypes.TYPE_VOID ) )
+		if ( type.equals( DataTypes.TYPE_VOID ) )
 		{
 			return "void";
 		}
 
-		if ( this.contentString != null )
+		if ( contentString != null )
 		{
-			return this.contentString;
+			return contentString;
 		}
 
-		if ( this.type.equals( DataTypes.TYPE_BOOLEAN ) )
+		if ( type.equals( DataTypes.TYPE_BOOLEAN ) )
 		{
-			return String.valueOf( this.contentLong != 0 );
+			return String.valueOf( contentLong != 0 );
 		}
 
-		if ( this.type.equals( DataTypes.TYPE_FLOAT ) )
+		if ( type.equals( DataTypes.TYPE_FLOAT ) )
 		{
-			return KoLConstants.NONSCIENTIFIC_FORMAT.format( this.floatValue() );
+			return KoLConstants.NONSCIENTIFIC_FORMAT.format( floatValue() );
 		}
 
-		return String.valueOf( this.contentLong );
+		return String.valueOf( contentLong );
 	}
 
 	public String toQuotedString()
 	{
-		if ( this.contentString != null )
+		if ( contentString != null )
 		{
-			return "\"" + this.contentString + "\"";
+			return "\"" + contentString + "\"";
 		}
-		return this.toString();
+		return toString();
 	}
 
 	public Value toStringValue()
 	{
-		return new Value( this.toString() );
+		return new Value( toString() );
 	}
 
 	public Object rawValue()
 	{
-		return this.content;
+		return content;
 	}
 
 	public long intValue()
 	{
-		if ( this.type.equals( DataTypes.TYPE_FLOAT ) )
+		if ( type.equals( DataTypes.TYPE_FLOAT ) )
 		{
-			return (long) Double.longBitsToDouble( this.contentLong );
+			return (long) Double.longBitsToDouble( contentLong );
 		}
-		return this.contentLong;
+		return contentLong;
 	}
 
 	public double floatValue()
 	{
-		if ( !this.type.equals( DataTypes.TYPE_FLOAT ) )
+		if ( !type.equals( DataTypes.TYPE_FLOAT ) )
 		{
-			return (double) this.contentLong;
+			return (double) contentLong;
 		}
-		return Double.longBitsToDouble( this.contentLong );
+		return Double.longBitsToDouble( contentLong );
 	}
 
 	@Override
@@ -217,29 +217,29 @@ public class Value
 	
 	public Value asProxy()
 	{
-		if ( this.type == DataTypes.CLASS_TYPE )
+		if ( type == DataTypes.CLASS_TYPE )
 		{
 			return new ProxyRecordValue.ClassProxy( this );
 		}
-		if ( this.type == DataTypes.ITEM_TYPE )
+		if ( type == DataTypes.ITEM_TYPE )
 		{
 			return new ProxyRecordValue.ItemProxy( this );
 		}
-		if ( this.type == DataTypes.FAMILIAR_TYPE )
+		if ( type == DataTypes.FAMILIAR_TYPE )
 		{
 			return new ProxyRecordValue.FamiliarProxy( this );
 		}
-		if ( this.type == DataTypes.SKILL_TYPE )
+		if ( type == DataTypes.SKILL_TYPE )
 		{
 			return new ProxyRecordValue.SkillProxy( this );
 		}
-		if ( this.type == DataTypes.EFFECT_TYPE )
+		if ( type == DataTypes.EFFECT_TYPE )
 		{
 			return new ProxyRecordValue.EffectProxy( this );
 		}
-		if ( this.type == DataTypes.LOCATION_TYPE )
+		if ( type == DataTypes.LOCATION_TYPE )
 		{
-			if ( this.content == null )
+			if ( content == null )
 			{	// All attribute lookups on $location[none] would generate NPEs,
 				// so instead of adding a null check to each attribute, just
 				// return a normal record with default values.
@@ -247,18 +247,18 @@ public class Value
 			}
 			return new ProxyRecordValue.LocationProxy( this );
 		}
-		if ( this.type == DataTypes.MONSTER_TYPE )
+		if ( type == DataTypes.MONSTER_TYPE )
 		{
-			if ( this.content == null )
+			if ( content == null )
 			{
 				// Ditto
 				return new RecordValue( ProxyRecordValue.MonsterProxy._type );
 			}
 			return new ProxyRecordValue.MonsterProxy( this );
 		}
-		if ( this.type == DataTypes.COINMASTER_TYPE )
+		if ( type == DataTypes.COINMASTER_TYPE )
 		{
-			if ( this.content == null )
+			if ( content == null )
 			{
 				// Ditto
 				return new RecordValue( ProxyRecordValue.CoinmasterProxy._type );
@@ -287,21 +287,21 @@ public class Value
 
 		Value it = (Value) o;
 
-		if ( this.type == DataTypes.BOOLEAN_TYPE || this.type == DataTypes.INT_TYPE )
+		if ( type == DataTypes.BOOLEAN_TYPE || type == DataTypes.INT_TYPE )
 		{
-			return this.contentLong < it.contentLong ? -1 : this.contentLong == it.contentLong ? 0 : 1;
+			return contentLong < it.contentLong ? -1 : contentLong == it.contentLong ? 0 : 1;
 		}
 
-		if ( this.type == DataTypes.FLOAT_TYPE )
+		if ( type == DataTypes.FLOAT_TYPE )
 		{
-			double tcf = Double.longBitsToDouble( this.contentLong );
+			double tcf = Double.longBitsToDouble( contentLong );
 			double icf = Double.longBitsToDouble( it.contentLong );
 			return tcf < icf ? -1 : tcf == icf ? 0 : 1;
 		}
 
-		if ( this.contentString != null && it.contentString != null )
+		if ( contentString != null && it.contentString != null )
 		{
-			return this.contentString.compareToIgnoreCase( it.contentString );
+			return contentString.compareToIgnoreCase( it.contentString );
 		}
 
 		return -1;
@@ -324,23 +324,23 @@ public class Value
 	@Override
 	public boolean equals( final Object o )
 	{
-		return o == null || !( o instanceof Value ) ? false : this.compareTo( (Comparable) o ) == 0;
+		return o == null || !( o instanceof Value ) ? false : compareTo( (Comparable) o ) == 0;
 	}
 
 	public void dumpValue( final PrintStream writer )
 	{
-		writer.print( this.toStringValue().toString() );
+		writer.print( toStringValue().toString() );
 	}
 
 	public void dump( final PrintStream writer, final String prefix, final boolean compact )
 	{
-		writer.println( prefix + this.toStringValue().toString() );
+		writer.println( prefix + toStringValue().toString() );
 	}
 
 	@Override
 	public void print( final PrintStream stream, final int indent )
 	{
 		Interpreter.indentLine( stream, indent );
-		stream.println( "<VALUE " + this.getType() + " [" + this.toString() + "]>" );
+		stream.println( "<VALUE " + getType() + " [" + toString() + "]>" );
 	}
 }

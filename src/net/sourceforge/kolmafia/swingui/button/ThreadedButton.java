@@ -53,8 +53,8 @@ public class ThreadedButton
 	public ThreadedButton( final String label, Runnable action )
 	{
 		super( label );
-		this.addActionListener( this );
-		this.setOpaque( true );
+        addActionListener( this );
+        setOpaque( true );
 
 		this.action = action;
 	}
@@ -62,8 +62,8 @@ public class ThreadedButton
 	public ThreadedButton( final ImageIcon icon, Runnable action )
 	{
 		super( icon );
-		this.addActionListener( this );
-		this.setOpaque( true );
+        addActionListener( this );
+        setOpaque( true );
 
 		this.action = action;
 	}
@@ -75,7 +75,7 @@ public class ThreadedButton
 
 	public void actionPerformed( final ActionEvent e )
 	{
-		if ( !this.isValidEvent( e ) )
+		if ( !isValidEvent( e ) )
 		{
 			return;
 		}

@@ -46,7 +46,7 @@ public class RaffleCommand
 {
 	public RaffleCommand()
 	{
-		this.usage = " <ticketsToBuy> [ inventory | storage ] - buy raffle tickets";
+        usage = " <ticketsToBuy> [ inventory | storage ] - buy raffle tickets";
 	}
 
 	@Override

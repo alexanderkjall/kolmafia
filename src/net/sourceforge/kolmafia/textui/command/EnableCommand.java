@@ -40,7 +40,7 @@ public class EnableCommand
 {
 	public EnableCommand()
 	{
-		this.usage = " all | <command> [, <command>]... - allow/deny CLI commands.";
+        usage = " all | <command> [, <command>]... - allow/deny CLI commands.";
 	}
 
 	@Override

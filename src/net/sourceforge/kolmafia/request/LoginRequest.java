@@ -113,7 +113,7 @@ public class LoginRequest
 	{
 		// If this is a devster, login to the dev server.
 
-		String lowercase = this.username.toLowerCase();
+		String lowercase = username.toLowerCase();
 
 		if ( lowercase.startsWith( "devster" ) )
 		{
@@ -135,7 +135,7 @@ public class LoginRequest
 
 		GenericRequest.reset();
 
-		this.clearDataFields();
+        clearDataFields();
 
 		super.run();
 
@@ -147,7 +147,7 @@ public class LoginRequest
 		// If the pattern is not found, then do not submit
 		// the challenge version.
 
-		Matcher challengeMatcher = LoginRequest.CHALLENGE_PATTERN.matcher( this.responseText );
+		Matcher challengeMatcher = LoginRequest.CHALLENGE_PATTERN.matcher( responseText );
 		if ( !challengeMatcher.find() )
 		{
 			return false;
@@ -156,7 +156,7 @@ public class LoginRequest
 		// We got this far, so that means we now have a challenge
 		// pattern.
 
-		Matcher playersMatcher = LoginRequest.PLAYERS_PATTERN.matcher( this.responseText );
+		Matcher playersMatcher = LoginRequest.PLAYERS_PATTERN.matcher( responseText );
 		if ( playersMatcher.find() )
 		{
 			LoginRequest.playersOnline = StringUtilities.parseInt( playersMatcher.group( 1 ) );
@@ -178,12 +178,12 @@ public class LoginRequest
 			return false;
 		}
 
-		this.constructURLString( "login.php" );
+        constructURLString( "login.php" );
 
-		this.addFormField( "password", "" );
-		this.addFormField( "challenge", challenge );
-		this.addFormField( "response", response );
-		this.addFormField( "secure", "1" );
+        addFormField( "password", "" );
+        addFormField( "challenge", challenge );
+        addFormField( "response", response );
+        addFormField( "secure", "1" );
 
 		return true;
 	}
@@ -241,7 +241,7 @@ public class LoginRequest
 
 		if ( Preferences.getBoolean( "saveStateActive" ) )
 		{
-			KoLmafia.addSaveState( this.username, this.password );
+			KoLmafia.addSaveState( username, password );
 		}
 
 		LoginRequest.lastRequest = this;
@@ -249,39 +249,39 @@ public class LoginRequest
 
 		KoLmafia.forceContinue();
 
-		if ( !this.detectChallenge() )
+		if ( !detectChallenge() )
 		{
-			this.constructURLString( "login.php" );
-			this.clearDataFields();
+            constructURLString( "login.php" );
+            clearDataFields();
 
-			this.addFormField( "password", this.password );
-			this.addFormField( "secure", "0" );
+            addFormField( "password", password );
+            addFormField( "secure", "0" );
 		}
 
-		this.addFormField( "loginname", Preferences.getBoolean( "stealthLogin" ) ? this.username + "/q" : this.username );
-		this.addFormField( "loggingin", "Yup." );
+        addFormField( "loginname", Preferences.getBoolean( "stealthLogin" ) ? username + "/q" : username );
+        addFormField( "loggingin", "Yup." );
 
 		KoLmafia.updateDisplay( "Sending login request..." );
 
 		super.run();
 
-		if ( this.responseCode != 200 )
+		if ( responseCode != 200 )
 		{
 			return;
 		}
 
 		LoginRequest.lastLoginAttempt = 0;
 
-		if ( this.responseText.contains( "Bad password" ) )
+		if ( responseText.contains( "Bad password" ) )
 		{
 			KoLmafia.updateDisplay( MafiaState.ABORT, "Bad password." );
 			return;
 		}
 
-		if ( this.responseText.contains( "wait fifteen minutes" ) )
+		if ( responseText.contains( "wait fifteen minutes" ) )
 		{
 			StaticEntity.executeCountdown( "Login reattempt in ", 15 * 60 );
-			this.run();
+            run();
 			return;
 		}
 
@@ -294,28 +294,28 @@ public class LoginRequest
 		// inconvenience, but you'll need to wait a couple of minutes
 		// before you can log in again.
 
-		if ( this.responseText.contains( "wait a minute" ) ||
-                this.responseText.contains( "wait a couple of minutes" ) )
+		if ( responseText.contains( "wait a minute" ) ||
+                responseText.contains( "wait a couple of minutes" ) )
 		{
 			StaticEntity.executeCountdown( "Login reattempt in ", 75 );
-			this.run();
+            run();
 			return;
 		}
 
-		if ( this.responseText.contains( "Too many" ) )
+		if ( responseText.contains( "Too many" ) )
 		{
 			// Too many bad logins in too short a time span.
-			int pos = this.responseText.indexOf("Too many");
-			int pos2 = this.responseText.indexOf("<",pos+1);
-			KoLmafia.updateDisplay( MafiaState.ABORT, this.responseText.substring(pos,pos2));
+			int pos = responseText.indexOf( "Too many" );
+			int pos2 = responseText.indexOf( "<", pos + 1 );
+			KoLmafia.updateDisplay( MafiaState.ABORT, responseText.substring( pos, pos2 ));
 			return;
 		}
 
-		if ( this.responseText.contains( "do not have the privileges" ) )
+		if ( responseText.contains( "do not have the privileges" ) )
 		{
 			// Can't use dev server without permission. Skip it.
 			Preferences.setBoolean( "useDevProxyServer", false );
-			this.run();
+            run();
 			return;
 		}
 

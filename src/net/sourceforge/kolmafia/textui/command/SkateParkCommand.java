@@ -44,7 +44,7 @@ public class SkateParkCommand
 {
 	public SkateParkCommand()
 	{
-		this.usage = " lutz | comet | band shell | merry-go-round | eels - get daily Skate Park buff.";
+        usage = " lutz | comet | band shell | merry-go-round | eels - get daily Skate Park buff.";
 	}
 
 	@Override

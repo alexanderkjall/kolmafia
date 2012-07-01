@@ -46,7 +46,7 @@ public class FriarBlessingCommand
 {
 	public FriarBlessingCommand()
 	{
-		this.usage = " [blessing] food | familiar | booze - get daily blessing.";
+        usage = " [blessing] food | familiar | booze - get daily blessing.";
 	}
 
 	@Override

@@ -62,23 +62,23 @@ public class ForEachLoop
 		super( scope );
 		this.variableReferences = variableReferences;
 		this.aggregate = aggregate;
-		this.fileName = parser.getShortFileName();
-		this.lineNumber = parser.getLineNumber();
+        fileName = parser.getShortFileName();
+        lineNumber = parser.getLineNumber();
 	}
 
 	public VariableReferenceList getVariableReferences()
 	{
-		return this.variableReferences;
+		return variableReferences;
 	}
 
 	public ListIterator getReferences()
 	{
-		return this.variableReferences.listIterator();
+		return variableReferences.listIterator();
 	}
 
 	public Value getAggregate()
 	{
-		return this.aggregate;
+		return aggregate;
 	}
 
 	@Override
@@ -93,11 +93,11 @@ public class ForEachLoop
 		interpreter.traceIndent();
 		if ( interpreter.isTracing() )
 		{
-			interpreter.trace( this.toString() );
+			interpreter.trace( toString() );
 		}
 
 		// Evaluate the aggref to get the slice
-		AggregateValue slice = (AggregateValue) this.aggregate.execute( interpreter );
+		AggregateValue slice = (AggregateValue) aggregate.execute( interpreter );
 		interpreter.captureValue( slice );
 		if ( interpreter.getState() == Interpreter.STATE_EXIT )
 		{
@@ -107,8 +107,8 @@ public class ForEachLoop
 
 		// Iterate over the slice with bound keyvar
 
-		ListIterator it = this.getReferences();
-		return this.executeSlice( interpreter, slice, it, (VariableReference) it.next() );
+		ListIterator it = getReferences();
+		return executeSlice( interpreter, slice, it, (VariableReference) it.next() );
 	}
 
 	private Value executeSlice( final Interpreter interpreter, final AggregateValue slice, final ListIterator it,
@@ -138,7 +138,7 @@ public class ForEachLoop
 			}
 			catch ( ConcurrentModificationException e )
 			{
-				interpreter.setLineAndFile( this.fileName, this.lineNumber );
+				interpreter.setLineAndFile( fileName, lineNumber );
 				throw interpreter.runtimeException( "Map modified within foreach" );
 			}
 
@@ -158,7 +158,7 @@ public class ForEachLoop
 				if ( nextSlice instanceof AggregateValue )
 				{
 					interpreter.traceIndent();
-					result = this.executeSlice( interpreter, (AggregateValue) nextSlice, it, nextVariable );
+					result = executeSlice( interpreter, (AggregateValue) nextSlice, it, nextVariable );
 				}
 				else	// value var instead of key var
 				{
@@ -216,14 +216,14 @@ public class ForEachLoop
 		Interpreter.indentLine( stream, indent );
 		stream.println( "<FOREACH>" );
 
-		Iterator it = this.getReferences();
+		Iterator it = getReferences();
 		while ( it.hasNext() )
 		{
 			VariableReference current = (VariableReference) it.next();
 			current.print( stream, indent + 1 );
 		}
 
-		this.getAggregate().print( stream, indent + 1 );
-		this.getScope().print( stream, indent + 1 );
+        getAggregate().print( stream, indent + 1 );
+        getScope().print( stream, indent + 1 );
 	}
 }

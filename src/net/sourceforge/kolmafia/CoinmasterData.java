@@ -128,7 +128,7 @@ public class CoinmasterData
 		this.canPurchase = canPurchase;
 
 		// Derived fields
-		this.plural = item != null ? ItemDatabase.getPluralName( token ) : token + "s";
+        plural = item != null ? ItemDatabase.getPluralName( token ) : token + "s";
 	}
 
 	public CoinmasterData( 
@@ -194,27 +194,27 @@ public class CoinmasterData
 
 	public final String getMaster()
 	{
-		return this.master;
+		return master;
 	}
 
 	public final Class getRequestClass()
 	{
-		return this.requestClass;
+		return requestClass;
 	}
 
 	public final String getURL()
 	{
-		return this.URL;
+		return URL;
 	}
 
 	public final String getToken()
 	{
-		return this.token;
+		return token;
 	}
 
 	public final String getPluralToken()
 	{
-		return this.plural;
+		return plural;
 	}
 
 	public final void setToken( final String token )
@@ -238,37 +238,37 @@ public class CoinmasterData
 
 	public final int availableStorageTokens()
 	{
-		return this.storageAction != null ? this.item.getCount( KoLConstants.storage ) : 0;
+		return storageAction != null ? item.getCount( KoLConstants.storage ) : 0;
 	}
 
 	public final int affordableTokens()
 	{
 		// Special handling for acquiring worthless items
-		if ( this.item != null && this.item.getItemId() == ItemPool.WORTHLESS_ITEM )
+		if ( item != null && item.getItemId() == ItemPool.WORTHLESS_ITEM )
 		{
 			return HermitRequest.getAcquirableWorthlessItemCount();
 		}
-		return this.availableTokens();
+		return availableTokens();
 	}
 
 	public final String getTokenTest()
 	{
-		return this.tokenTest;
+		return tokenTest;
 	}
 
 	public final boolean getPositiveTest()
 	{
-		return this.positiveTest;
+		return positiveTest;
 	}
 
 	public final Pattern getTokenPattern()
 	{
-		return this.tokenPattern;
+		return tokenPattern;
 	}
 
 	public final AdventureResult getItem()
 	{
-		return this.item;
+		return item;
 	}
 
 	public final void setItem( final AdventureResult item )
@@ -278,71 +278,71 @@ public class CoinmasterData
 
 	public final String getProperty()
 	{
-		return this.property;
+		return property;
 	}
 
 	public final String getItemField()
 	{
-		return this.itemField;
+		return itemField;
 	}
 
 	public final Pattern getItemPattern()
 	{
-		return this.itemPattern;
+		return itemPattern;
 	}
 
 	public final Matcher getItemMatcher( final String string )
 	{
-		return this.itemPattern == null ? null : this.itemPattern.matcher( string );
+		return itemPattern == null ? null : itemPattern.matcher( string );
 	}
 
 	public final String getCountField()
 	{
-		return this.countField;
+		return countField;
 	}
 
 	public final Pattern getCountPattern()
 	{
-		return this.countPattern;
+		return countPattern;
 	}
 
 	public final Matcher getCountMatcher( final String string )
 	{
-		return this.countPattern == null ? null : this.countPattern.matcher( string );
+		return countPattern == null ? null : countPattern.matcher( string );
 	}
 
 	public final String getBuyAction()
 	{
-		return this.buyAction;
+		return buyAction;
 	}
 
 	public final LockableListModel getBuyItems()
 	{
-		return this.buyItems;
+		return buyItems;
 	}
 
 	public final Map getBuyPrices()
 	{
-		return this.buyPrices;
+		return buyPrices;
 	}
 
 	public final boolean canBuyItem( final String itemName )
 	{
-		if ( this.buyItems == null )
+		if ( buyItems == null )
 		{
 			return false;
 		}
 
 		AdventureResult item = new AdventureResult( itemName, 1, false );
-		return item.getCount( this.buyItems ) > 0;
+		return item.getCount( buyItems ) > 0;
 	}
 
 	public final int getBuyPrice( final String itemName )
 	{
-		if ( this.buyPrices != null )
+		if ( buyPrices != null )
 		{
 			String name = StringUtilities.getCanonicalName( itemName );
-			Integer price = (Integer) this.buyPrices.get( name );
+			Integer price = (Integer) buyPrices.get( name );
 			return price != null ? price : 0;
 		}
 		return 0;
@@ -350,35 +350,35 @@ public class CoinmasterData
 
 	public final int getBuyPrice( final int itemId )
 	{
-		return this.getBuyPrice( ItemDatabase.getItemName( itemId ) );
+		return getBuyPrice( ItemDatabase.getItemName( itemId ) );
 	}
 
 	public final String getSellAction()
 	{
-		return this.sellAction;
+		return sellAction;
 	}
 
 	public final Map getSellPrices()
 	{
-		return this.sellPrices;
+		return sellPrices;
 	}
 
 	public final boolean canSellItem( final String itemName )
 	{
-		if ( this.sellPrices != null )
+		if ( sellPrices != null )
 		{
 			String name = StringUtilities.getCanonicalName( itemName );
-			return this.sellPrices.containsKey( name );
+			return sellPrices.containsKey( name );
 		}
 		return false;
 	}
 
 	public final int getSellPrice( final String itemName )
 	{
-		if ( this.sellPrices != null )
+		if ( sellPrices != null )
 		{
 			String name = StringUtilities.getCanonicalName( itemName );
-			Integer price = (Integer) this.sellPrices.get( name );
+			Integer price = (Integer) sellPrices.get( name );
 			return price != null ? price : 0;
 		}
 		return 0;
@@ -386,19 +386,19 @@ public class CoinmasterData
 
 	public final String getStorageAction()
 	{
-		return this.storageAction;
+		return storageAction;
 	}
 
 	public final String getTradeAllAction()
 	{
-		return this.tradeAllAction;
+		return tradeAllAction;
 	}
 
 	public void registerPurchaseRequests()
 	{
 		// If this Coin Master doesn't sell anything that goes into
 		// your inventory, nothing to register
-		if ( !this.canPurchase )
+		if ( !canPurchase )
 		{
 			return;
 		}
@@ -407,13 +407,13 @@ public class CoinmasterData
 		CoinmastersDatabase.clearPurchaseRequests( this );
 
 		// For each item you can buy from this Coin Master, create a purchase request
-		Iterator it = this.buyItems.iterator();
+		Iterator it = buyItems.iterator();
 		while ( it.hasNext() )
 		{
 			AdventureResult item = (AdventureResult) it.next();
 			int itemId = item.getItemId();
 			String itemName = item.getName();
-			int price = CoinmastersDatabase.getPrice( itemName, this.buyPrices );
+			int price = CoinmastersDatabase.getPrice( itemName, buyPrices );
 			int quantity = item.getCount();
 			CoinmastersDatabase.registerPurchaseRequest( this, itemId, price, quantity );
 		}
@@ -422,28 +422,28 @@ public class CoinmasterData
 	@Override
 	public String toString()
 	{
-		return this.master;
+		return master;
 	}
 
 	@Override
 	public boolean equals( final Object o )
 	{
-		return o != null && o instanceof CoinmasterData && this.master == ( (CoinmasterData) o ).master;
+		return o != null && o instanceof CoinmasterData && master == ( (CoinmasterData) o ).master;
 	}
 
 	public int compareTo( final Object o )
 	{
-		return o == null || !( o instanceof CoinmasterData ) ? 1 : this.compareTo( (CoinmasterData) o );
+		return o == null || !( o instanceof CoinmasterData ) ? 1 : compareTo( (CoinmasterData) o );
 	}
 
 	public int compareTo( final CoinmasterData cd )
 	{
-		return this.master.compareToIgnoreCase( cd.master );
+		return master.compareToIgnoreCase( cd.master );
 	}
 
 	public CoinMasterRequest getRequest()
 	{
-		Class requestClass = this.getRequestClass();
+		Class requestClass = getRequestClass();
 		Class [] parameters = new Class[ 0 ] ;
 
 		try
@@ -460,7 +460,7 @@ public class CoinmasterData
 
 	public CoinMasterRequest getRequest( final String action, final AdventureResult it )
 	{
-		Class requestClass = this.getRequestClass();
+		Class requestClass = getRequestClass();
 		Class [] parameters = new Class[ 2 ] ;
 		parameters[ 0 ] = String.class;
 		parameters[ 1 ] = AdventureResult.class;
@@ -481,14 +481,14 @@ public class CoinmasterData
 
 	public boolean isAccessible()
 	{
-		return this.accessible() == null;
+		return accessible() == null;
 	}
 
 	public String accessible()
 	{
 		// Returns an error reason or null
 
-		Class requestClass = this.getRequestClass();
+		Class requestClass = getRequestClass();
 		Class [] parameters = new Class[ 0 ] ;
 
 		try
@@ -507,7 +507,7 @@ public class CoinmasterData
 	{
 		// Returns an error reason or null
 
-		Class requestClass = this.getRequestClass();
+		Class requestClass = getRequestClass();
 		Class [] parameters = new Class[ 0 ] ;
 
 		try
@@ -526,7 +526,7 @@ public class CoinmasterData
 	{
 		// Returns an error reason or null
 
-		Class requestClass = this.getRequestClass();
+		Class requestClass = getRequestClass();
 		Class [] parameters = new Class[ 0 ] ;
 
 		try

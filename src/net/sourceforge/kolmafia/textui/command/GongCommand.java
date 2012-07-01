@@ -53,7 +53,7 @@ public class GongCommand
 {
 	public GongCommand()
 	{
-		this.usage = " [buy | set] manual | bird | mole | roach [<effect> [<stat> [<stat>]]]";
+        usage = " [buy | set] manual | bird | mole | roach [<effect> [<stat> [<stat>]]]";
 	}
 
 	// These are all the possible paths that start with The Gong Has Been Bung.
@@ -213,7 +213,7 @@ public class GongCommand
 
 		if ( pos >= len || parameterList[ pos ].equals( "" ) )
 		{
-			RequestLogger.printLine( "Usage: gong" + this.usage );
+			RequestLogger.printLine( "Usage: gong" + usage );
 			RequestLogger.printLine( "buy - use a gong even if you have to buy one." );
 			RequestLogger.printLine( "set - don't use a gong, just set choices." );
 			RequestLogger.printLine( "manual - show choices in browser." );

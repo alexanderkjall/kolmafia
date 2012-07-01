@@ -151,7 +151,7 @@ public class OptionsFrame
 		selectorPanel.addPanel( "Script Buttons", new ScriptButtonPanel(), true );
 		selectorPanel.addPanel( "Bookmarks", new BookmarkManagePanel(), true );
 
-		this.setCenterComponent( selectorPanel );
+        setCenterComponent( selectorPanel );
 
 		if ( !Preferences.getBoolean( "customizedTabs" ) )
 		{
@@ -194,7 +194,7 @@ public class OptionsFrame
 				{ "logStatusEffects", "Session log records status effects gained" }
 			};
 
-			this.setOptions( options );
+            setOptions( options );
 		}
 	}
 
@@ -250,7 +250,7 @@ public class OptionsFrame
 				{ "relayShowSpoilers", "Show blatant spoilers for choices and puzzles" },
 			};
 
-			this.setOptions( options );
+            setOptions( options );
 		}
 
 		@Override
@@ -260,10 +260,10 @@ public class OptionsFrame
 
 			System.arraycopy( elements, 0, newElements, 0, elements.length );
 
-			this.colorChanger = new ColorChooser( "defaultBorderColor" );
+            colorChanger = new ColorChooser( "defaultBorderColor" );
 
 			newElements[ elements.length ] = new VerifiableElement(
-				"Change the color for tables in the browser interface", SwingConstants.LEFT, this.colorChanger );
+				"Change the color for tables in the browser interface", SwingConstants.LEFT, colorChanger );
 
 			super.setContent( newElements );
 		}
@@ -288,11 +288,11 @@ public class OptionsFrame
 
 			if ( color.equals( "blue" ) )
 			{
-				this.colorChanger.setBackground( Color.blue );
+                colorChanger.setBackground( Color.blue );
 			}
 			else
 			{
-				this.colorChanger.setBackground( DataUtilities.toColor( color ) );
+                colorChanger.setBackground( DataUtilities.toColor( color ) );
 			}
 
 			super.actionCancelled();
@@ -340,7 +340,7 @@ public class OptionsFrame
 				{ "sharePriceData", "Share recent Mall price data with other users" },
 			};
 
-			this.setOptions( options );
+            setOptions( options );
 		}
 	}
 
@@ -375,7 +375,7 @@ public class OptionsFrame
 				{ "autoSatisfyWithStash", "Take items from the clan stash whenever needed" },
 			};
 
-			this.setOptions( options );
+            setOptions( options );
 		}
 	}
 
@@ -400,7 +400,7 @@ public class OptionsFrame
 				{ "logReadableHTML", "Include line breaks in logged HTML" },
 			};
 
-			this.setOptions( options );
+            setOptions( options );
 		}
 	}
 
@@ -415,8 +415,8 @@ public class OptionsFrame
 		{
 			super( title, "move up", "move down", new JList( list ) );
 
-			this.elementList = (JList) this.scrollComponent;
-			this.elementList.setSelectionMode( ListSelectionModel.SINGLE_SELECTION );
+            elementList = (JList) scrollComponent;
+            elementList.setSelectionMode( ListSelectionModel.SINGLE_SELECTION );
 
 			this.list = list;
 			list.addListDataListener( this );
@@ -425,51 +425,51 @@ public class OptionsFrame
 		@Override
 		public void dispose()
 		{
-			this.list.removeListDataListener( this );
+            list.removeListDataListener( this );
 			super.dispose();
 		}
 
 		@Override
 		public final void actionConfirmed()
 		{
-			int index = this.elementList.getSelectedIndex();
+			int index = elementList.getSelectedIndex();
 			if ( index == -1 )
 			{
 				return;
 			}
 
-			Comparable<?> value = this.list.remove( index );
-			this.list.add( index - 1, value );
-			this.elementList.setSelectedIndex( index - 1 );
+			Comparable<?> value = list.remove( index );
+            list.add( index - 1, value );
+            elementList.setSelectedIndex( index - 1 );
 		}
 
 		@Override
 		public final void actionCancelled()
 		{
-			int index = this.elementList.getSelectedIndex();
+			int index = elementList.getSelectedIndex();
 			if ( index == -1 )
 			{
 				return;
 			}
 
-			Comparable<?> value = this.list.remove( index );
-			this.list.add( index + 1, value );
-			this.elementList.setSelectedIndex( index + 1 );
+			Comparable<?> value = list.remove( index );
+            list.add( index + 1, value );
+            elementList.setSelectedIndex( index + 1 );
 		}
 
 		public void intervalAdded( final ListDataEvent e )
 		{
-			this.saveSettings();
+            saveSettings();
 		}
 
 		public void intervalRemoved( final ListDataEvent e )
 		{
-			this.saveSettings();
+            saveSettings();
 		}
 
 		public void contentsChanged( final ListDataEvent e )
 		{
-			this.saveSettings();
+            saveSettings();
 		}
 
 		public abstract void saveSettings();
@@ -485,14 +485,14 @@ public class OptionsFrame
 
 			for ( int i = 0; i < scriptList.length; ++i )
 			{
-				this.list.add( scriptList[ i ] );
+                list.add( scriptList[i] );
 			}
 
 			JPanel extraButtons = new JPanel( new BorderLayout( 2, 2 ) );
 			extraButtons.add( new ThreadedButton( "script file", new AddScriptRunnable() ), BorderLayout.NORTH );
 			extraButtons.add( new ThreadedButton( "cli command", new AddCommandRunnable() ), BorderLayout.CENTER );
 			extraButtons.add( new ThreadedButton( "delete", new DeleteListingRunnable() ), BorderLayout.SOUTH );
-			this.buttonPanel.add( extraButtons, BorderLayout.SOUTH );
+            buttonPanel.add( extraButtons, BorderLayout.SOUTH );
 		}
 
 		private class AddScriptRunnable
@@ -520,14 +520,14 @@ public class OptionsFrame
 							scriptPath = scriptPath.substring( rootPath.length() + 1 );
 						}
 
-						ScriptButtonPanel.this.list.add( "call " + scriptPath );
+                        list.add( "call " + scriptPath );
 					}
 				}
 				catch ( IOException e )
 				{
 				}
 
-				ScriptButtonPanel.this.saveSettings();
+                saveSettings();
 			}
 		}
 
@@ -539,10 +539,10 @@ public class OptionsFrame
 				String currentValue = InputFieldUtilities.input( "Enter the desired CLI Command" );
 				if ( currentValue != null && currentValue.length() != 0 )
 				{
-					ScriptButtonPanel.this.list.add( currentValue );
+                    list.add( currentValue );
 				}
 
-				ScriptButtonPanel.this.saveSettings();
+                saveSettings();
 			}
 		}
 
@@ -551,14 +551,14 @@ public class OptionsFrame
 		{
 			public void run()
 			{
-				int index = ScriptButtonPanel.this.elementList.getSelectedIndex();
+				int index = elementList.getSelectedIndex();
 				if ( index == -1 )
 				{
 					return;
 				}
 
-				ScriptButtonPanel.this.list.remove( index );
-				ScriptButtonPanel.this.saveSettings();
+                list.remove( index );
+                saveSettings();
 			}
 		}
 
@@ -566,15 +566,15 @@ public class OptionsFrame
 		public void saveSettings()
 		{
 			StringBuilder settingString = new StringBuilder();
-			if ( this.list.size() != 0 )
+			if ( list.size() != 0 )
 			{
-				settingString.append( (String) this.list.getElementAt( 0 ) );
+				settingString.append( (String) list.getElementAt( 0 ) );
 			}
 
-			for ( int i = 1; i < this.list.getSize(); ++i )
+			for ( int i = 1; i < list.getSize(); ++i )
 			{
 				settingString.append( " | " );
-				settingString.append( (String) this.list.getElementAt( i ) );
+				settingString.append( (String) list.getElementAt( i ) );
 			}
 
 			Preferences.setString( "scriptList", settingString.toString() );
@@ -612,28 +612,28 @@ public class OptionsFrame
 				{ "logChatMessages", "Log chats when using KoLmafia (requires restart)" },
 			};
 
-			this.setOptions( options );
+            setOptions( options );
 		}
 
 		@Override
 		public void setContent( VerifiableElement[] elements )
 		{
-			this.fontSizeGroup = new ButtonGroup();
-			this.fontSizes = new JRadioButton[ 3 ];
+            fontSizeGroup = new ButtonGroup();
+            fontSizes = new JRadioButton[ 3 ];
 			for ( int i = 0; i < 3; ++i )
 			{
-				this.fontSizes[ i ] = new JRadioButton();
-				this.fontSizeGroup.add( this.fontSizes[ i ] );
+                fontSizes[ i ] = new JRadioButton();
+                fontSizeGroup.add( fontSizes[i] );
 			}
 
 			VerifiableElement[] newElements = new VerifiableElement[ elements.length + 7 ];
 
 			newElements[ 0 ] = new VerifiableElement(
-				"Use small fonts in hypertext displays", SwingConstants.LEFT, this.fontSizes[ 0 ] );
+				"Use small fonts in hypertext displays", SwingConstants.LEFT, fontSizes[ 0 ] );
 			newElements[ 1 ] = new VerifiableElement(
-				"Use medium fonts in hypertext displays", SwingConstants.LEFT, this.fontSizes[ 1 ] );
+				"Use medium fonts in hypertext displays", SwingConstants.LEFT, fontSizes[ 1 ] );
 			newElements[ 2 ] = new VerifiableElement(
-				"Use large fonts in hypertext displays", SwingConstants.LEFT, this.fontSizes[ 2 ] );
+				"Use large fonts in hypertext displays", SwingConstants.LEFT, fontSizes[ 2 ] );
 
 			newElements[ 3 ] = new VerifiableElement();
 
@@ -643,13 +643,13 @@ public class OptionsFrame
 
 			newElements[ tabCount++ ] = new VerifiableElement();
 
-			this.outerGradient = new TabColorChanger( "outerChatColor" );
+            outerGradient = new TabColorChanger( "outerChatColor" );
 			newElements[ tabCount++ ] = new VerifiableElement(
-				"Change the outer portion of highlighted tab gradient", SwingConstants.LEFT, this.outerGradient );
+				"Change the outer portion of highlighted tab gradient", SwingConstants.LEFT, outerGradient );
 
-			this.innerGradient = new TabColorChanger( "innerChatColor" );
+            innerGradient = new TabColorChanger( "innerChatColor" );
 			newElements[ tabCount++ ] = new VerifiableElement(
-				"Change the inner portion of highlighted tab gradient", SwingConstants.LEFT, this.innerGradient );
+				"Change the inner portion of highlighted tab gradient", SwingConstants.LEFT, innerGradient );
 
 			super.setContent( newElements );
 		}
@@ -659,15 +659,15 @@ public class OptionsFrame
 		{
 			super.actionConfirmed();
 
-			if ( this.fontSizes[ 0 ].isSelected() )
+			if ( fontSizes[ 0 ].isSelected() )
 			{
 				Preferences.setString( "chatFontSize", "small" );
 			}
-			else if ( this.fontSizes[ 1 ].isSelected() )
+			else if ( fontSizes[ 1 ].isSelected() )
 			{
 				Preferences.setString( "chatFontSize", "medium" );
 			}
-			else if ( this.fontSizes[ 2 ].isSelected() )
+			else if ( fontSizes[ 2 ].isSelected() )
 			{
 				Preferences.setString( "chatFontSize", "large" );
 			}
@@ -680,11 +680,11 @@ public class OptionsFrame
 		{
 			super.actionCancelled();
 
-			this.innerGradient.setBackground( tab.CloseTabPaneEnhancedUI.notifiedA );
-			this.outerGradient.setBackground( tab.CloseTabPaneEnhancedUI.notifiedB );
+            innerGradient.setBackground( tab.CloseTabPaneEnhancedUI.notifiedA );
+            outerGradient.setBackground( tab.CloseTabPaneEnhancedUI.notifiedB );
 
 			String fontSize = Preferences.getString( "chatFontSize" );
-			this.fontSizes[ fontSize.equals( "large" ) ? 2 : fontSize.equals( "medium" ) ? 1 : 0 ].setSelected( true );
+            fontSizes[ fontSize.equals( "large" ) ? 2 : fontSize.equals( "medium" ) ? 1 : 0 ].setSelected( true );
 		}
 
 		private class TabColorChanger
@@ -698,13 +698,13 @@ public class OptionsFrame
 			@Override
 			public void applyChanges()
 			{
-				if ( this.property.equals( "innerChatColor" ) )
+				if ( property.equals( "innerChatColor" ) )
 				{
-					CloseTabPaneEnhancedUI.notifiedA = ChatOptionsPanel.this.innerGradient.getBackground();
+					CloseTabPaneEnhancedUI.notifiedA = innerGradient.getBackground();
 				}
 				else
 				{
-					CloseTabPaneEnhancedUI.notifiedB = ChatOptionsPanel.this.outerGradient.getBackground();
+					CloseTabPaneEnhancedUI.notifiedB = outerGradient.getBackground();
 				}
 			}
 		}
@@ -725,7 +725,7 @@ public class OptionsFrame
 			extraButtons.add( new ThreadedButton( "add", new AddBookmarkRunnable() ), BorderLayout.NORTH );
 			extraButtons.add( new ThreadedButton( "rename", new RenameBookmarkRunnable() ), BorderLayout.CENTER );
 			extraButtons.add( new ThreadedButton( "delete", new DeleteBookmarkRunnable() ), BorderLayout.SOUTH );
-			this.buttonPanel.add( extraButtons, BorderLayout.SOUTH );
+            buttonPanel.add( extraButtons, BorderLayout.SOUTH );
 		}
 
 		@Override
@@ -755,13 +755,13 @@ public class OptionsFrame
 		{
 			public void run()
 			{
-				int index = BookmarkManagePanel.this.elementList.getSelectedIndex();
+				int index = elementList.getSelectedIndex();
 				if ( index == -1 )
 				{
 					return;
 				}
 
-				String currentItem = (String) BookmarkManagePanel.this.elementList.getSelectedValue();
+				String currentItem = (String) elementList.getSelectedValue();
 				if ( currentItem == null )
 				{
 					return;
@@ -790,7 +790,7 @@ public class OptionsFrame
 		{
 			public void run()
 			{
-				int index = BookmarkManagePanel.this.elementList.getSelectedIndex();
+				int index = elementList.getSelectedIndex();
 				if ( index == -1 )
 				{
 					return;
@@ -814,17 +814,17 @@ public class OptionsFrame
 		public StartupFramesPanel()
 		{
 			super();
-			this.setContent( null );
+            setContent( null );
 
 			for ( int i = 0; i < KoLConstants.FRAME_NAMES.length; ++i )
 			{
-				this.completeList.add( KoLConstants.FRAME_NAMES[ i ][ 0 ] );
+                completeList.add( KoLConstants.FRAME_NAMES[i][0] );
 			}
 
 			JPanel optionPanel = new JPanel( new GridLayout( 1, 3 ) );
-			optionPanel.add( new ScrollablePanel( "Complete List", new JDnDList( this.completeList ) ) );
-			optionPanel.add( new ScrollablePanel( "Startup as Window", new JDnDList( this.startupList ) ) );
-			optionPanel.add( new ScrollablePanel( "Startup in Tabs", new JDnDList( this.desktopList ) ) );
+			optionPanel.add( new ScrollablePanel( "Complete List", new JDnDList( completeList ) ) );
+			optionPanel.add( new ScrollablePanel( "Startup as Window", new JDnDList( startupList ) ) );
+			optionPanel.add( new ScrollablePanel( "Startup in Tabs", new JDnDList( desktopList ) ) );
 
 			JTextArea message =
 				new JTextArea(
@@ -839,21 +839,21 @@ public class OptionsFrame
 			message.setOpaque( false );
 			message.setFont( KoLConstants.DEFAULT_FONT );
 
-			this.container.add( message, BorderLayout.NORTH );
-			this.container.add( optionPanel, BorderLayout.SOUTH );
-			this.actionCancelled();
+            container.add( message, BorderLayout.NORTH );
+            container.add( optionPanel, BorderLayout.SOUTH );
+            actionCancelled();
 
-			this.completeList.addListDataListener( this );
-			this.startupList.addListDataListener( this );
-			this.desktopList.addListDataListener( this );
+            completeList.addListDataListener( this );
+            startupList.addListDataListener( this );
+            desktopList.addListDataListener( this );
 		}
 
 		@Override
 		public void dispose()
 		{
-			this.completeList.removeListDataListener( this );
-			this.startupList.removeListDataListener( this );
-			this.desktopList.removeListDataListener( this );
+            completeList.removeListDataListener( this );
+            startupList.removeListDataListener( this );
+            desktopList.removeListDataListener( this );
 
 			super.dispose();
 		}
@@ -861,13 +861,13 @@ public class OptionsFrame
 		@Override
 		public void actionConfirmed()
 		{
-			this.actionCancelled();
+            actionCancelled();
 		}
 
 		@Override
 		public void actionCancelled()
 		{
-			this.isRefreshing = true;
+            isRefreshing = true;
 
 			String username = (String) KoLConstants.saveStateNames.getSelectedItem();
 			if ( username == null )
@@ -875,8 +875,8 @@ public class OptionsFrame
 				username = "";
 			}
 
-			this.startupList.clear();
-			this.desktopList.clear();
+            startupList.clear();
+            desktopList.clear();
 
 			KoLmafiaGUI.checkFrameSettings();
 
@@ -890,9 +890,9 @@ public class OptionsFrame
 			{
 				for ( int j = 0; j < KoLConstants.FRAME_NAMES.length; ++j )
 				{
-					if ( !this.startupList.contains( KoLConstants.FRAME_NAMES[ j ][ 0 ] ) && KoLConstants.FRAME_NAMES[ j ][ 1 ].equals( pieces[ i ] ) )
+					if ( !startupList.contains( KoLConstants.FRAME_NAMES[j][0] ) && KoLConstants.FRAME_NAMES[ j ][ 1 ].equals( pieces[ i ] ) )
 					{
-						this.startupList.add( KoLConstants.FRAME_NAMES[ j ][ 0 ] );
+                        startupList.add( KoLConstants.FRAME_NAMES[j][0] );
 					}
 				}
 			}
@@ -902,15 +902,15 @@ public class OptionsFrame
 			{
 				for ( int j = 0; j < KoLConstants.FRAME_NAMES.length; ++j )
 				{
-					if ( !this.desktopList.contains( KoLConstants.FRAME_NAMES[ j ][ 0 ] ) && KoLConstants.FRAME_NAMES[ j ][ 1 ].equals( pieces[ i ] ) )
+					if ( !desktopList.contains( KoLConstants.FRAME_NAMES[j][0] ) && KoLConstants.FRAME_NAMES[ j ][ 1 ].equals( pieces[ i ] ) )
 					{
-						this.desktopList.add( KoLConstants.FRAME_NAMES[ j ][ 0 ] );
+                        desktopList.add( KoLConstants.FRAME_NAMES[j][0] );
 					}
 				}
 			}
 
-			this.isRefreshing = false;
-			this.saveLayoutSettings();
+            isRefreshing = false;
+            saveLayoutSettings();
 		}
 
 		public boolean shouldAddStatusLabel( final VerifiableElement[] elements )
@@ -926,27 +926,27 @@ public class OptionsFrame
 		public void intervalAdded( final ListDataEvent e )
 		{
 			Object src = e.getSource();
-			if ( src == this.startupList )
+			if ( src == startupList )
 			{
-				this.desktopList.removeAll( this.startupList );
+                desktopList.removeAll( startupList );
 			}
-			else if ( src == this.desktopList )
+			else if ( src == desktopList )
 			{
-				this.startupList.removeAll( this.desktopList );
+                startupList.removeAll( desktopList );
 			}
-			else if ( src == this.completeList )
+			else if ( src == completeList )
 			{
-				Object item = this.completeList.get( e.getIndex0() );
-				this.desktopList.remove( item );
-				this.startupList.remove( item );
+				Object item = completeList.get( e.getIndex0() );
+                desktopList.remove( item );
+                startupList.remove( item );
 			}
 
-			this.saveLayoutSettings();
+            saveLayoutSettings();
 		}
 
 		public void intervalRemoved( final ListDataEvent e )
 		{
-			this.saveLayoutSettings();
+            saveLayoutSettings();
 		}
 
 		public void contentsChanged( final ListDataEvent e )
@@ -955,7 +955,7 @@ public class OptionsFrame
 
 		public void saveLayoutSettings()
 		{
-			if ( this.isRefreshing )
+			if ( isRefreshing )
 			{
 				return;
 			}
@@ -963,11 +963,11 @@ public class OptionsFrame
 			StringBuilder frameString = new StringBuilder();
 			StringBuilder desktopString = new StringBuilder();
 
-			for ( int i = 0; i < this.startupList.getSize(); ++i )
+			for ( int i = 0; i < startupList.getSize(); ++i )
 			{
 				for ( int j = 0; j < KoLConstants.FRAME_NAMES.length; ++j )
 				{
-					if ( this.startupList.getElementAt( i ).equals( KoLConstants.FRAME_NAMES[ j ][ 0 ] ) )
+					if ( startupList.getElementAt( i ).equals( KoLConstants.FRAME_NAMES[ j ][ 0 ] ) )
 					{
 						if ( frameString.length() != 0 )
 						{
@@ -978,11 +978,11 @@ public class OptionsFrame
 				}
 			}
 
-			for ( int i = 0; i < this.desktopList.getSize(); ++i )
+			for ( int i = 0; i < desktopList.getSize(); ++i )
 			{
 				for ( int j = 0; j < KoLConstants.FRAME_NAMES.length; ++j )
 				{
-					if ( this.desktopList.getElementAt( i ).equals( KoLConstants.FRAME_NAMES[ j ][ 0 ] ) )
+					if ( desktopList.getElementAt( i ).equals( KoLConstants.FRAME_NAMES[ j ][ 0 ] ) )
 					{
 						if ( desktopString.length() != 0 )
 						{
@@ -1006,7 +1006,7 @@ public class OptionsFrame
 		{
 			super( title, "add custom", "reset deeds", new JDnDList( builtIns ) );
 
-			this.buttonPanel.add( new ThreadedButton( "help", new HelpRunnable() ), BorderLayout.CENTER );
+            buttonPanel.add( new ThreadedButton( "help", new HelpRunnable() ), BorderLayout.CENTER );
 		}
 
 		@Override
@@ -1042,17 +1042,17 @@ public class OptionsFrame
 
 		public void intervalAdded( final ListDataEvent e )
 		{
-			this.saveSettings();
+            saveSettings();
 		}
 
 		public void intervalRemoved( final ListDataEvent e )
 		{
-			this.saveSettings();
+            saveSettings();
 		}
 
 		public void contentsChanged( final ListDataEvent e )
 		{
-			this.saveSettings();
+            saveSettings();
 		}
 
 		private class HelpRunnable
@@ -1117,12 +1117,12 @@ public class OptionsFrame
 				scrollPane.setPreferredSize( new Dimension( 800, 550 ) );
 				scrollPane.setHorizontalScrollBarPolicy( ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER );
 
-				this.pane = new JOptionPane( scrollPane, JOptionPane.PLAIN_MESSAGE );
+                pane = new JOptionPane( scrollPane, JOptionPane.PLAIN_MESSAGE );
 			}
 
 			public void run()
 			{
-				JDialog dialog = this.pane.createDialog( null, "Daily Deeds Help" );
+				JDialog dialog = pane.createDialog( null, "Daily Deeds Help" );
 				dialog.setModal( false );
 				dialog.setVisible( true );
 			}
@@ -1146,32 +1146,32 @@ public class OptionsFrame
 		public CustomizeDailyDeedsPanel()
 		{
 			super( new Dimension( 2, 2 ), new Dimension( 2, 2 ) );
-			this.setContent( null );
+            setContent( null );
 
 			JPanel botPanel = new JPanel( new GridLayout( 1, 0, 10, 0 ) );
 			JPanel centerPanel = new JPanel( new GridLayout( 1, 2, 0, 0 ) );
 
 			for ( int i = 0; i < DailyDeedsPanel.BUILTIN_DEEDS.length; ++i )
 			{
-				this.builtInsList.add( DailyDeedsPanel.BUILTIN_DEEDS[ i ][ 1 ] );
+                builtInsList.add( DailyDeedsPanel.BUILTIN_DEEDS[i][1] );
 			}
 
-			centerPanel.add( new DeedsButtonPanel( "Built-In Deeds", this.builtInsList ) );
-			botPanel.add( new ScrollablePanel( "Current Deeds", new JDnDList( this.deedsList ) ) );
+			centerPanel.add( new DeedsButtonPanel( "Built-In Deeds", builtInsList ) );
+			botPanel.add( new ScrollablePanel( "Current Deeds", new JDnDList( deedsList ) ) );
 
-			this.container.add( centerPanel, BorderLayout.PAGE_START );
-			this.container.add( botPanel, BorderLayout.PAGE_END );
-			this.actionCancelled();
+            container.add( centerPanel, BorderLayout.PAGE_START );
+            container.add( botPanel, BorderLayout.PAGE_END );
+            actionCancelled();
 
-			this.builtInsList.addListDataListener( this );
-			this.deedsList.addListDataListener( this );
+            builtInsList.addListDataListener( this );
+            deedsList.addListDataListener( this );
 			PreferenceListenerRegistry.registerListener( "dailyDeedsOptions", this );
 		}
 
 		public CustomizeDailyDeedsPanel( final String string )
 		{
 			super( new Dimension( 2, 2 ), new Dimension( 2, 2 ) );
-			this.setContent( null );
+            setContent( null );
 
 			JTextArea message = new JTextArea(
 				"Edit the appearance of your daily deeds panel.\n\n"
@@ -1188,14 +1188,14 @@ public class OptionsFrame
 			message.setOpaque( false );
 			message.setFont( KoLConstants.DEFAULT_FONT );
 
-			this.container.add( message, BorderLayout.NORTH );
+            container.add( message, BorderLayout.NORTH );
 		}
 
 		@Override
 		public void dispose()
 		{
-			this.builtInsList.removeListDataListener( this );
-			this.deedsList.removeListDataListener( this );
+            builtInsList.removeListDataListener( this );
+            deedsList.removeListDataListener( this );
 
 			super.dispose();
 		}
@@ -1203,19 +1203,19 @@ public class OptionsFrame
 		@Override
 		public void actionConfirmed()
 		{
-			this.actionCancelled();
+            actionCancelled();
 		}
 
 		@Override
 		public void actionCancelled()
 		{
-			this.isRefreshing = true;
+            isRefreshing = true;
 			String deedsString = Preferences.getString( "dailyDeedsOptions" );
 			String[] pieces;
 
 			pieces = deedsString.split( ",(?!\\|)" );
 
-			this.deedsList.clear();
+            deedsList.clear();
 
 			KoLmafiaGUI.checkFrameSettings();
 
@@ -1223,20 +1223,20 @@ public class OptionsFrame
 			{
 				for ( int j = 0; j < DailyDeedsPanel.BUILTIN_DEEDS.length; ++j )
 				{
-					if ( !this.deedsList.contains( DailyDeedsPanel.BUILTIN_DEEDS[ j ][ 1 ] )
+					if ( !deedsList.contains( DailyDeedsPanel.BUILTIN_DEEDS[j][1] )
 						&& DailyDeedsPanel.BUILTIN_DEEDS[ j ][ 1 ].equals( pieces[ i ] ) )
 					{
-						this.deedsList.add( DailyDeedsPanel.BUILTIN_DEEDS[ j ][ 1 ] );
+                        deedsList.add( DailyDeedsPanel.BUILTIN_DEEDS[j][1] );
 					}
 				}
 				if ( pieces[ i ].split( "\\|" )[ 0 ].equals( "$CUSTOM" ) )
 				{
-					this.deedsList.add( pieces[ i ] );
+                    deedsList.add( pieces[i] );
 				}
 			}
 
-			this.isRefreshing = false;
-			this.saveLayoutSettings();
+            isRefreshing = false;
+            saveLayoutSettings();
 		}
 
 		public boolean shouldAddStatusLabel( final VerifiableElement[] elements )
@@ -1253,19 +1253,19 @@ public class OptionsFrame
 		{
 			Object src = e.getSource();
 
-			if ( src == this.builtInsList )
+			if ( src == builtInsList )
 			{
-				Object item = this.builtInsList.get( e.getIndex0() );
+				Object item = builtInsList.get( e.getIndex0() );
 
-				this.deedsList.remove( item );
+                deedsList.remove( item );
 			}
 
-			this.saveLayoutSettings();
+            saveLayoutSettings();
 		}
 
 		public void intervalRemoved( final ListDataEvent e )
 		{
-			this.saveLayoutSettings();
+            saveLayoutSettings();
 		}
 
 		public void contentsChanged( final ListDataEvent e )
@@ -1274,18 +1274,18 @@ public class OptionsFrame
 
 		public void saveLayoutSettings()
 		{
-			if ( this.isRefreshing )
+			if ( isRefreshing )
 			{
 				return;
 			}
 
 			StringBuilder frameString = new StringBuilder();
 
-			for ( int i = 0; i < this.deedsList.getSize(); ++i )
+			for ( int i = 0; i < deedsList.getSize(); ++i )
 			{
 				for ( int j = 0; j < DailyDeedsPanel.BUILTIN_DEEDS.length; ++j )
 				{
-					if ( this.deedsList.getElementAt( i ).equals(
+					if ( deedsList.getElementAt( i ).equals(
 						DailyDeedsPanel.BUILTIN_DEEDS[ j ][ 1 ] ) )
 					{
 						if ( frameString.length() != 0 )
@@ -1295,13 +1295,13 @@ public class OptionsFrame
 						frameString.append( DailyDeedsPanel.BUILTIN_DEEDS[ j ][ 1 ] );
 					}
 				}
-				if ( this.deedsList.getElementAt( i ).toString().split( "\\|" )[ 0 ].equals( "$CUSTOM" ) )
+				if ( deedsList.getElementAt( i ).toString().split( "\\|" )[ 0 ].equals( "$CUSTOM" ) )
 				{
 					if ( frameString.length() != 0 )
 					{
 						frameString.append( "," );
 					}
-					frameString.append( this.deedsList.getElementAt( i ) );
+					frameString.append( deedsList.getElementAt( i ) );
 				}
 			}
 
@@ -1310,7 +1310,7 @@ public class OptionsFrame
 
 		public void update()
 		{
-			this.actionCancelled();
+            actionCancelled();
 		}
 	}
 
@@ -1382,27 +1382,27 @@ public class OptionsFrame
 				installedLooks[ i + 1 ] = installed[ i ].getClassName();
 			}
 
-			this.looks = new JComboBox( installedLooks );
+            looks = new JComboBox( installedLooks );
 
-			this.toolbars = new JComboBox();
-			this.toolbars.addItem( "Show global menus only" );
-			this.toolbars.addItem( "Put toolbar along top of panel" );
-			this.toolbars.addItem( "Put toolbar along bottom of panel" );
-			this.toolbars.addItem( "Put toolbar along left of panel" );
+            toolbars = new JComboBox();
+            toolbars.addItem( "Show global menus only" );
+            toolbars.addItem( "Put toolbar along top of panel" );
+            toolbars.addItem( "Put toolbar along bottom of panel" );
+            toolbars.addItem( "Put toolbar along left of panel" );
 
-			this.scripts = new JComboBox();
-			this.scripts.addItem( "Do not show script bar on main interface" );
-			this.scripts.addItem( "Put script bar after normal toolbar" );
-			this.scripts.addItem( "Put script bar along right of panel" );
+            scripts = new JComboBox();
+            scripts.addItem( "Do not show script bar on main interface" );
+            scripts.addItem( "Put script bar after normal toolbar" );
+            scripts.addItem( "Put script bar along right of panel" );
 
 			VerifiableElement[] elements = new VerifiableElement[ 3 ];
 
-			elements[ 0 ] = new VerifiableElement( "Java L&F: ", this.looks );
-			elements[ 1 ] = new VerifiableElement( "Toolbar: ", this.toolbars );
-			elements[ 2 ] = new VerifiableElement( "Scripts: ", this.scripts );
+			elements[ 0 ] = new VerifiableElement( "Java L&F: ", looks );
+			elements[ 1 ] = new VerifiableElement( "Toolbar: ", toolbars );
+			elements[ 2 ] = new VerifiableElement( "Scripts: ", scripts );
 
-			this.actionCancelled();
-			this.setContent( elements );
+            actionCancelled();
+            setContent( elements );
 		}
 
 		public boolean shouldAddStatusLabel( final VerifiableElement[] elements )
@@ -1414,7 +1414,7 @@ public class OptionsFrame
 		public void setContent( final VerifiableElement[] elements )
 		{
 			super.setContent( elements );
-			this.add( new InterfaceCheckboxPanel(), BorderLayout.CENTER );
+            add( new InterfaceCheckboxPanel(), BorderLayout.CENTER );
 		}
 
 		@Override
@@ -1427,16 +1427,16 @@ public class OptionsFrame
 		{
 			String lookAndFeel = "";
 
-			if ( this.looks.getSelectedIndex() > 0 )
+			if ( looks.getSelectedIndex() > 0 )
 			{
-				lookAndFeel = (String) this.looks.getSelectedItem();
+				lookAndFeel = (String) looks.getSelectedItem();
 			}
 
 			Preferences.setString( "swingLookAndFeel", lookAndFeel );
 
-			Preferences.setBoolean( "useToolbars", this.toolbars.getSelectedIndex() != 0 );
-			Preferences.setInteger( "scriptButtonPosition", this.scripts.getSelectedIndex() );
-			Preferences.setInteger( "toolbarPosition", this.toolbars.getSelectedIndex() );
+			Preferences.setBoolean( "useToolbars", toolbars.getSelectedIndex() != 0 );
+			Preferences.setInteger( "scriptButtonPosition", scripts.getSelectedIndex() );
+			Preferences.setInteger( "toolbarPosition", toolbars.getSelectedIndex() );
 		}
 
 		@Override
@@ -1446,15 +1446,15 @@ public class OptionsFrame
 
 			if ( lookAndFeel.equals( "" ) )
 			{
-				this.looks.setSelectedIndex( 0 );
+                looks.setSelectedIndex( 0 );
 			}
 			else
 			{
-				this.looks.setSelectedItem( lookAndFeel );
+                looks.setSelectedItem( lookAndFeel );
 			}
 
-			this.toolbars.setSelectedIndex( Preferences.getInteger( "toolbarPosition" ) );
-			this.scripts.setSelectedIndex( Preferences.getInteger( "scriptButtonPosition" ) );
+            toolbars.setSelectedIndex( Preferences.getInteger( "toolbarPosition" ) );
+            scripts.setSelectedIndex( Preferences.getInteger( "scriptButtonPosition" ) );
 		}
 
 		private class InterfaceCheckboxPanel
@@ -1482,20 +1482,20 @@ public class OptionsFrame
 
 				elements[ UserInterfacePanel.this.options.length ] = new VerifiableElement();
 
-				this.outerGradient = new TabColorChanger( "outerTabColor" );
+                outerGradient = new TabColorChanger( "outerTabColor" );
 				elements[ UserInterfacePanel.this.options.length + 1 ] =
 					new VerifiableElement(
 						"Change the outer portion of the tab gradient (shiny tabs)", SwingConstants.LEFT,
-						this.outerGradient );
+                            outerGradient );
 
-				this.innerGradient = new TabColorChanger( "innerTabColor" );
+                innerGradient = new TabColorChanger( "innerTabColor" );
 				elements[ UserInterfacePanel.this.options.length + 2 ] =
 					new VerifiableElement(
 						"Change the inner portion of the tab gradient (shiny tabs)", SwingConstants.LEFT,
-						this.innerGradient );
+                            innerGradient );
 
-				this.actionCancelled();
-				this.setContent( elements );
+                actionCancelled();
+                setContent( elements );
 			}
 
 			@Override
@@ -1527,8 +1527,8 @@ public class OptionsFrame
 					optionBox.setSelected( Preferences.getBoolean( option[ 0 ] ) );
 				}
 
-				this.innerGradient.setBackground( tab.CloseTabPaneEnhancedUI.selectedA );
-				this.outerGradient.setBackground( tab.CloseTabPaneEnhancedUI.selectedB );
+                innerGradient.setBackground( tab.CloseTabPaneEnhancedUI.selectedA );
+                outerGradient.setBackground( tab.CloseTabPaneEnhancedUI.selectedB );
 			}
 
 			@Override
@@ -1547,13 +1547,13 @@ public class OptionsFrame
 				@Override
 				public void applyChanges()
 				{
-					if ( this.property.equals( "innerTabColor" ) )
+					if ( property.equals( "innerTabColor" ) )
 					{
-						CloseTabPaneEnhancedUI.selectedA = InterfaceCheckboxPanel.this.innerGradient.getBackground();
+						CloseTabPaneEnhancedUI.selectedA = innerGradient.getBackground();
 					}
 					else
 					{
-						CloseTabPaneEnhancedUI.selectedB = InterfaceCheckboxPanel.this.outerGradient.getBackground();
+						CloseTabPaneEnhancedUI.selectedB = outerGradient.getBackground();
 					}
 				}
 			}
@@ -1595,16 +1595,16 @@ public class OptionsFrame
 					"If KoLmafia opens a browser other than your default, enter the name of your preferred browser here. If that doesn't work, click the button and browse to the location of your browser.";
 			}
 
-			this.preferredWebBrowser = new FileSelectPanel( textField, button );
+            preferredWebBrowser = new FileSelectPanel( textField, button );
 			if ( button )
 			{
-				this.preferredWebBrowser.setPath( new File( path ) );
+                preferredWebBrowser.setPath( new File( path ) );
 			}
 
 			VerifiableElement[] elements = new VerifiableElement[ 1 ];
-			elements[ 0 ] = new VerifiableElement( "Browser: ", this.preferredWebBrowser );
+			elements[ 0 ] = new VerifiableElement( "Browser: ", preferredWebBrowser );
 
-			this.setContent( elements );
+            setContent( elements );
 
 			JTextArea message = new JTextArea( helpText );
 			message.setColumns( 40 );
@@ -1614,21 +1614,21 @@ public class OptionsFrame
 			message.setOpaque( false );
 			message.setFont( KoLConstants.DEFAULT_FONT );
 
-			this.container.add( message, BorderLayout.SOUTH );
+            container.add( message, BorderLayout.SOUTH );
 
-			this.actionCancelled();
+            actionCancelled();
 		}
 
 		@Override
 		public void actionConfirmed()
 		{
-			Preferences.setString( "preferredWebBrowser", this.preferredWebBrowser.getText() );
+			Preferences.setString( "preferredWebBrowser", preferredWebBrowser.getText() );
 		}
 
 		@Override
 		public void actionCancelled()
 		{
-			this.preferredWebBrowser.setText( Preferences.getString( "preferredWebBrowser" ) );
+            preferredWebBrowser.setText( Preferences.getString( "preferredWebBrowser" ) );
 		}
 	}
 
@@ -1650,16 +1650,16 @@ public class OptionsFrame
 				helpText = "The command will be invoked with the full path to the script as its only parameter.";
 			}
 
-			this.preferredEditor = new FileSelectPanel( textField, button );
+            preferredEditor = new FileSelectPanel( textField, button );
 			if ( button )
 			{
-				this.preferredEditor.setPath( new File( path ) );
+                preferredEditor.setPath( new File( path ) );
 			}
 
 			VerifiableElement[] elements = new VerifiableElement[ 1 ];
-			elements[ 0 ] = new VerifiableElement( "Editor command: ", this.preferredEditor );
+			elements[ 0 ] = new VerifiableElement( "Editor command: ", preferredEditor );
 
-			this.setContent( elements );
+            setContent( elements );
 
 			JTextArea message = new JTextArea( helpText );
 			message.setColumns( 40 );
@@ -1669,21 +1669,21 @@ public class OptionsFrame
 			message.setOpaque( false );
 			message.setFont( KoLConstants.DEFAULT_FONT );
 
-			this.container.add( message, BorderLayout.SOUTH );
+            container.add( message, BorderLayout.SOUTH );
 
-			this.actionCancelled();
+            actionCancelled();
 		}
 
 		@Override
 		public void actionConfirmed()
 		{
-			Preferences.setString( "externalEditor", this.preferredEditor.getText() );
+			Preferences.setString( "externalEditor", preferredEditor.getText() );
 		}
 
 		@Override
 		public void actionCancelled()
 		{
-			this.preferredEditor.setText( Preferences.getString( "externalEditor" ) );
+            preferredEditor.setText( Preferences.getString( "externalEditor" ) );
 		}
 	}
 
@@ -1709,35 +1709,35 @@ public class OptionsFrame
 
 		public ScriptPanel()
 		{
-			this.loginScript = new ScriptSelectPanel( new CollapsibleTextArea( "On Login: " ) );
-			this.logoutScript = new ScriptSelectPanel( new CollapsibleTextArea( "On Logout: " ) );
-			this.recoveryScript = new ScriptSelectPanel( new CollapsibleTextArea( "Recovery: " ) );
-			this.betweenBattleScript = new ScriptSelectPanel( new CollapsibleTextArea( "Before Adventure: " ) );
-			this.afterAdventureScript = new ScriptSelectPanel( new CollapsibleTextArea( "After Adventure: " ) );
-			this.counterScript = new ScriptSelectPanel( new CollapsibleTextArea( "Counter Script: " ) );
-			this.kingLiberatedScript = new ScriptSelectPanel( new CollapsibleTextArea( "King Freed: " ) );
-			this.preAscensionScript = new ScriptSelectPanel( new CollapsibleTextArea( "Pre-Ascension: " ) );
-			this.postAscensionScript = new ScriptSelectPanel( new CollapsibleTextArea( "Post-Ascension: " ) );
-			this.beforePVPScript = new ScriptSelectPanel( new CollapsibleTextArea( "Before PvP: " ) );
-			this.buyScript = new ScriptSelectPanel( new CollapsibleTextArea( "Buy Script: " ) );
-			this.plantingScript = new ScriptSelectPanel( new CollapsibleTextArea( "Planting: " ) );
-			this.chatBotScript = new ScriptSelectPanel( new CollapsibleTextArea( "Chatbot Script: " ) );
+            loginScript = new ScriptSelectPanel( new CollapsibleTextArea( "On Login: " ) );
+            logoutScript = new ScriptSelectPanel( new CollapsibleTextArea( "On Logout: " ) );
+            recoveryScript = new ScriptSelectPanel( new CollapsibleTextArea( "Recovery: " ) );
+            betweenBattleScript = new ScriptSelectPanel( new CollapsibleTextArea( "Before Adventure: " ) );
+            afterAdventureScript = new ScriptSelectPanel( new CollapsibleTextArea( "After Adventure: " ) );
+            counterScript = new ScriptSelectPanel( new CollapsibleTextArea( "Counter Script: " ) );
+            kingLiberatedScript = new ScriptSelectPanel( new CollapsibleTextArea( "King Freed: " ) );
+            preAscensionScript = new ScriptSelectPanel( new CollapsibleTextArea( "Pre-Ascension: " ) );
+            postAscensionScript = new ScriptSelectPanel( new CollapsibleTextArea( "Post-Ascension: " ) );
+            beforePVPScript = new ScriptSelectPanel( new CollapsibleTextArea( "Before PvP: " ) );
+            buyScript = new ScriptSelectPanel( new CollapsibleTextArea( "Buy Script: " ) );
+            plantingScript = new ScriptSelectPanel( new CollapsibleTextArea( "Planting: " ) );
+            chatBotScript = new ScriptSelectPanel( new CollapsibleTextArea( "Chatbot Script: " ) );
 
 			ArrayList<ScriptSelectPanel> list = new ArrayList<ScriptSelectPanel>();
 
-			list.add( this.loginScript );
-			list.add( this.logoutScript );
-			list.add( this.recoveryScript );
-			list.add( this.betweenBattleScript );
-			list.add( this.afterAdventureScript );
-			list.add( this.counterScript );
-			list.add( this.kingLiberatedScript );
-			list.add( this.preAscensionScript );
-			list.add( this.postAscensionScript );
-			list.add( this.beforePVPScript );
-			list.add( this.buyScript );
-			list.add( this.plantingScript );
-			list.add( this.chatBotScript );
+			list.add( loginScript );
+			list.add( logoutScript );
+			list.add( recoveryScript );
+			list.add( betweenBattleScript );
+			list.add( afterAdventureScript );
+			list.add( counterScript );
+			list.add( kingLiberatedScript );
+			list.add( preAscensionScript );
+			list.add( postAscensionScript );
+			list.add( beforePVPScript );
+			list.add( buyScript );
+			list.add( plantingScript );
+			list.add( chatBotScript );
 
 			JPanel layoutPanel = new JPanel();
 			layoutPanel.setLayout( new BoxLayout( layoutPanel, BoxLayout.Y_AXIS ) );
@@ -1756,25 +1756,25 @@ public class OptionsFrame
 			JScrollPane scrollPane = new JScrollPane( layoutPanel );
 			scrollPane.setViewportView( layoutPanel );
 
-			this.contentPane.add( scrollPane );
-			this.actionCancelled();
+            contentPane.add( scrollPane );
+            actionCancelled();
 		}
 
 		@Override
 		public void actionConfirmed()
 		{
-			Preferences.setString( "loginScript", this.loginScript.getText() );
-			Preferences.setString( "logoutScript", this.logoutScript.getText() );
-			Preferences.setString( "recoveryScript", this.recoveryScript.getText() );
-			Preferences.setString( "betweenBattleScript", this.betweenBattleScript.getText() );
-			Preferences.setString( "afterAdventureScript", this.afterAdventureScript.getText() );
-			Preferences.setString( "kingLiberatedScript", this.kingLiberatedScript.getText() );
-			Preferences.setString( "preAscensionScript", this.preAscensionScript.getText() );
-			Preferences.setString( "postAscensionScript", this.postAscensionScript.getText() );
-			Preferences.setString( "beforePVPScript", this.beforePVPScript.getText() );
-			Preferences.setString( "buyScript", this.buyScript.getText() );
-			Preferences.setString( "plantingScript", this.plantingScript.getText() );
-			Preferences.setString( "chatBotScript", this.chatBotScript.getText() );
+			Preferences.setString( "loginScript", loginScript.getText() );
+			Preferences.setString( "logoutScript", logoutScript.getText() );
+			Preferences.setString( "recoveryScript", recoveryScript.getText() );
+			Preferences.setString( "betweenBattleScript", betweenBattleScript.getText() );
+			Preferences.setString( "afterAdventureScript", afterAdventureScript.getText() );
+			Preferences.setString( "kingLiberatedScript", kingLiberatedScript.getText() );
+			Preferences.setString( "preAscensionScript", preAscensionScript.getText() );
+			Preferences.setString( "postAscensionScript", postAscensionScript.getText() );
+			Preferences.setString( "beforePVPScript", beforePVPScript.getText() );
+			Preferences.setString( "buyScript", buyScript.getText() );
+			Preferences.setString( "plantingScript", plantingScript.getText() );
+			Preferences.setString( "chatBotScript", chatBotScript.getText() );
 		}
 
 		@Override
@@ -1856,83 +1856,83 @@ public class OptionsFrame
 
 			JPanel centerPanel = new JPanel( new GridLayout( rows, 2 ) );
 
-			this.loginRecovery = new JCheckBox( "enable auto-recovery" );
-			this.loginRecovery.addActionListener( this );
-			centerPanel.add( this.loginRecovery );
+            loginRecovery = new JCheckBox( "enable auto-recovery" );
+            loginRecovery.addActionListener( this );
+			centerPanel.add( loginRecovery );
 
-			this.pathedSummons = new JCheckBox( "honor path restrictions" );
-			this.pathedSummons.addActionListener( this );
-			centerPanel.add( this.pathedSummons );
+            pathedSummons = new JCheckBox( "honor path restrictions" );
+            pathedSummons.addActionListener( this );
+			centerPanel.add( pathedSummons );
 
-			this.rumpusRoom = new JCheckBox( "visit clan rumpus room" );
-			this.rumpusRoom.addActionListener( this );
-			centerPanel.add( this.rumpusRoom );
+            rumpusRoom = new JCheckBox( "visit clan rumpus room" );
+            rumpusRoom.addActionListener( this );
+			centerPanel.add( rumpusRoom );
 
-			this.clanLounge = new JCheckBox( "visit clan VIP lounge" );
-			this.clanLounge.addActionListener( this );
-			centerPanel.add( this.clanLounge );
+            clanLounge = new JCheckBox( "visit clan VIP lounge" );
+            clanLounge.addActionListener( this );
+			centerPanel.add( clanLounge );
 
 			this.breakfastType = breakfastType;
-			this.skillOptions = new JCheckBox[ UseSkillRequest.BREAKFAST_SKILLS.length ];
+            skillOptions = new JCheckBox[ UseSkillRequest.BREAKFAST_SKILLS.length ];
 			for ( int i = 0; i < UseSkillRequest.BREAKFAST_SKILLS.length; ++i )
 			{
-				this.skillOptions[ i ] = new JCheckBox( UseSkillRequest.BREAKFAST_SKILLS[ i ].toLowerCase() );
-				this.skillOptions[ i ].addActionListener( this );
-				centerPanel.add( this.skillOptions[ i ] );
+                skillOptions[ i ] = new JCheckBox( UseSkillRequest.BREAKFAST_SKILLS[ i ].toLowerCase() );
+                skillOptions[ i ].addActionListener( this );
+				centerPanel.add( skillOptions[ i ] );
 			}
 
-			this.mushroomPlot = new JCheckBox( "plant mushrooms" );
-			this.mushroomPlot.addActionListener( this );
-			centerPanel.add( this.mushroomPlot );
+            mushroomPlot = new JCheckBox( "plant mushrooms" );
+            mushroomPlot.addActionListener( this );
+			centerPanel.add( mushroomPlot );
 
-			this.grabClovers = new JCheckBox( "get hermit clovers" );
-			this.grabClovers.addActionListener( this );
-			centerPanel.add( this.grabClovers );
+            grabClovers = new JCheckBox( "get hermit clovers" );
+            grabClovers.addActionListener( this );
+			centerPanel.add( grabClovers );
 
-			this.readManual = new JCheckBox( "read guild manual" );
-			this.readManual.addActionListener( this );
-			centerPanel.add( this.readManual );
+            readManual = new JCheckBox( "read guild manual" );
+            readManual.addActionListener( this );
+			centerPanel.add( readManual );
 
-			this.useCrimboToys = new JCheckBox( "use once-a-day items" );
-			this.useCrimboToys.addActionListener( this );
-			centerPanel.add( this.useCrimboToys );
+            useCrimboToys = new JCheckBox( "use once-a-day items" );
+            useCrimboToys.addActionListener( this );
+			centerPanel.add( useCrimboToys );
 
 			centerContainer.add( centerPanel );
 			centerContainer.add( Box.createVerticalStrut( 10 ) );
 
 			centerPanel = new JPanel( new GridLayout( 4, 1 ) );
 
-			this.tomeSkills =
+            tomeSkills =
 				new SkillMenu( "Tome Skills", UseSkillRequest.TOME_SKILLS, "tomeSkills" + this.breakfastType );
-			this.tomeSkills.addActionListener( this );
-			centerPanel.add( this.tomeSkills );
+            tomeSkills.addActionListener( this );
+			centerPanel.add( tomeSkills );
 
-			this.libramSkills =
+            libramSkills =
 				new SkillMenu( "Libram Skills", UseSkillRequest.LIBRAM_SKILLS, "libramSkills" + this.breakfastType );
-			this.libramSkills.addActionListener( this );
-			centerPanel.add( this.libramSkills );
+            libramSkills.addActionListener( this );
+			centerPanel.add( libramSkills );
 
-			this.grimoireSkills =
+            grimoireSkills =
 				new SkillMenu(
 					"Grimoire Skills", UseSkillRequest.GRIMOIRE_SKILLS, "grimoireSkills" + this.breakfastType );
-			this.grimoireSkills.addActionListener( this );
-			centerPanel.add( this.grimoireSkills );
+            grimoireSkills.addActionListener( this );
+			centerPanel.add( grimoireSkills );
 
-			this.cropsMenu = new CropMenu( CampgroundRequest.CROPS, "harvestGarden" + this.breakfastType );
-			this.cropsMenu.addActionListener( this );
-			centerPanel.add( this.cropsMenu );
+            cropsMenu = new CropMenu( CampgroundRequest.CROPS, "harvestGarden" + this.breakfastType );
+            cropsMenu.addActionListener( this );
+			centerPanel.add( cropsMenu );
 
 			centerContainer.add( centerPanel );
 			centerContainer.add( Box.createVerticalGlue() );
 
-			this.add( centerContainer, "" );
+            add( centerContainer, "" );
 
-			this.actionCancelled();
+            actionCancelled();
 		}
 
 		public void actionPerformed( final ActionEvent e )
 		{
-			this.actionConfirmed();
+            actionConfirmed();
 		}
 
 		public void actionConfirmed()
@@ -1941,7 +1941,7 @@ public class OptionsFrame
 
 			for ( int i = 0; i < UseSkillRequest.BREAKFAST_SKILLS.length; ++i )
 			{
-				if ( this.skillOptions[ i ].isSelected() )
+				if ( skillOptions[ i ].isSelected() )
 				{
 					if ( skillString.length() != 0 )
 					{
@@ -1952,46 +1952,46 @@ public class OptionsFrame
 				}
 			}
 
-			Preferences.setString( "breakfast" + this.breakfastType, skillString.toString() );
+			Preferences.setString( "breakfast" + breakfastType, skillString.toString() );
 			Preferences.setBoolean(
-				"loginRecovery" + this.breakfastType, this.loginRecovery.isSelected() );
+				"loginRecovery" + breakfastType, loginRecovery.isSelected() );
 			Preferences.setBoolean(
-				"pathedSummons" + this.breakfastType, this.pathedSummons.isSelected() );
+				"pathedSummons" + breakfastType, pathedSummons.isSelected() );
 			Preferences.setBoolean(
-				"visitRumpus" + this.breakfastType, this.rumpusRoom.isSelected() );
+				"visitRumpus" + breakfastType, rumpusRoom.isSelected() );
 			Preferences.setBoolean(
-				"visitLounge" + this.breakfastType, this.clanLounge.isSelected() );
+				"visitLounge" + breakfastType, clanLounge.isSelected() );
 			Preferences.setBoolean(
-				"autoPlant" + this.breakfastType, this.mushroomPlot.isSelected() );
+				"autoPlant" + breakfastType, mushroomPlot.isSelected() );
 			Preferences.setBoolean(
-				"grabClovers" + this.breakfastType, this.grabClovers.isSelected() );
+				"grabClovers" + breakfastType, grabClovers.isSelected() );
 			Preferences.setBoolean(
-				"readManual" + this.breakfastType, this.readManual.isSelected() );
+				"readManual" + breakfastType, readManual.isSelected() );
 			Preferences.setBoolean(
-				"useCrimboToys" + this.breakfastType, this.useCrimboToys.isSelected() );
+				"useCrimboToys" + breakfastType, useCrimboToys.isSelected() );
 
-			this.tomeSkills.setPreference();
-			this.libramSkills.setPreference();
-			this.grimoireSkills.setPreference();
-			this.cropsMenu.setPreference();
+            tomeSkills.setPreference();
+            libramSkills.setPreference();
+            grimoireSkills.setPreference();
+            cropsMenu.setPreference();
 		}
 
 		public void actionCancelled()
 		{
-			String skillString = Preferences.getString( "breakfast" + this.breakfastType );
+			String skillString = Preferences.getString( "breakfast" + breakfastType );
 			for ( int i = 0; i < UseSkillRequest.BREAKFAST_SKILLS.length; ++i )
 			{
-				this.skillOptions[ i ].setSelected( skillString.contains( UseSkillRequest.BREAKFAST_SKILLS[i] ) );
+                skillOptions[ i ].setSelected( skillString.contains( UseSkillRequest.BREAKFAST_SKILLS[i] ) );
 			}
 
-			this.loginRecovery.setSelected( Preferences.getBoolean( "loginRecovery" + this.breakfastType ) );
-			this.pathedSummons.setSelected( Preferences.getBoolean( "pathedSummons" + this.breakfastType ) );
-			this.rumpusRoom.setSelected( Preferences.getBoolean( "visitRumpus" + this.breakfastType ) );
-			this.clanLounge.setSelected( Preferences.getBoolean( "visitLounge" + this.breakfastType ) );
-			this.mushroomPlot.setSelected( Preferences.getBoolean( "autoPlant" + this.breakfastType ) );
-			this.grabClovers.setSelected( Preferences.getBoolean( "grabClovers" + this.breakfastType ) );
-			this.readManual.setSelected( Preferences.getBoolean( "readManual" + this.breakfastType ) );
-			this.useCrimboToys.setSelected( Preferences.getBoolean( "useCrimboToys" + this.breakfastType ) );
+            loginRecovery.setSelected( Preferences.getBoolean( "loginRecovery" + breakfastType ) );
+            pathedSummons.setSelected( Preferences.getBoolean( "pathedSummons" + breakfastType ) );
+            rumpusRoom.setSelected( Preferences.getBoolean( "visitRumpus" + breakfastType ) );
+            clanLounge.setSelected( Preferences.getBoolean( "visitLounge" + breakfastType ) );
+            mushroomPlot.setSelected( Preferences.getBoolean( "autoPlant" + breakfastType ) );
+            grabClovers.setSelected( Preferences.getBoolean( "grabClovers" + breakfastType ) );
+            readManual.setSelected( Preferences.getBoolean( "readManual" + breakfastType ) );
+            useCrimboToys.setSelected( Preferences.getBoolean( "useCrimboToys" + breakfastType ) );
 		}
 
 		@Override
@@ -2008,43 +2008,43 @@ public class OptionsFrame
 		public SkillMenu( final String name, final String[] skills, final String preference )
 		{
 			super();
-			this.addItem( "No " + name );
-			this.addItem( "All " + name );
+            addItem( "No " + name );
+            addItem( "All " + name );
 			for ( int i = 0; i < skills.length; ++i )
 			{
-				this.addItem( skills[ i ] );
+                addItem( skills[ i ] );
 			}
 
 			this.preference = preference;
-			this.getPreference();
+            getPreference();
 		}
 
 		public void getPreference()
 		{
-			String skill = Preferences.getString( this.preference );
+			String skill = Preferences.getString( preference );
 			if ( skill.equals( "none" ) )
 			{
-				this.setSelectedIndex( 0 );
+                setSelectedIndex( 0 );
 			}
 			else if ( skill.equals( "all" ) )
 			{
-				this.setSelectedIndex( 1 );
+                setSelectedIndex( 1 );
 			}
 			else
 			{
-				this.setSelectedItem( skill );
+                setSelectedItem( skill );
 			}
 
-			if ( this.getSelectedIndex() < 0 )
+			if ( getSelectedIndex() < 0 )
 			{
-				this.setSelectedIndex( 0 );
+                setSelectedIndex( 0 );
 			}
 		}
 
 		public void setPreference()
 		{
 			String skill = null;
-			int index = this.getSelectedIndex();
+			int index = getSelectedIndex();
 			switch ( index )
 			{
 			case -1:
@@ -2055,10 +2055,10 @@ public class OptionsFrame
 				skill = "all";
 				break;
 			default:
-				skill = (String) this.getItemAt( index );
+				skill = (String) getItemAt( index );
 				break;
 			}
-			Preferences.setString( this.preference, skill );
+			Preferences.setString( preference, skill );
 		}
 	}
 
@@ -2070,43 +2070,43 @@ public class OptionsFrame
 		public CropMenu( final AdventureResult[] crops, final String preference )
 		{
 			super();
-			this.addItem( "Harvest Nothing" );
-			this.addItem( "Harvest Anything" );
+            addItem( "Harvest Nothing" );
+            addItem( "Harvest Anything" );
 			for ( int i = 0; i < crops.length; ++i )
 			{
-				this.addItem( crops[ i ].getName() );
+                addItem( crops[ i ].getName() );
 			}
 
 			this.preference = preference;
-			this.getPreference();
+            getPreference();
 		}
 
 		public void getPreference()
 		{
-			String crop = Preferences.getString( this.preference );
+			String crop = Preferences.getString( preference );
 			if ( crop.equals( "none" ) )
 			{
-				this.setSelectedIndex( 0 );
+                setSelectedIndex( 0 );
 			}
 			else if ( crop.equals( "any" ) )
 			{
-				this.setSelectedIndex( 1 );
+                setSelectedIndex( 1 );
 			}
 			else
 			{
-				this.setSelectedItem( crop );
+                setSelectedItem( crop );
 			}
 
-			if ( this.getSelectedIndex() < 0 )
+			if ( getSelectedIndex() < 0 )
 			{
-				this.setSelectedIndex( 0 );
+                setSelectedIndex( 0 );
 			}
 		}
 
 		public void setPreference()
 		{
 			String crop = null;
-			int index = this.getSelectedIndex();
+			int index = getSelectedIndex();
 			switch ( index )
 			{
 			case -1:
@@ -2117,10 +2117,10 @@ public class OptionsFrame
 				crop = "any";
 				break;
 			default:
-				crop = (String) this.getItemAt( index );
+				crop = (String) getItemAt( index );
 				break;
 			}
-			Preferences.setString( this.preference, crop );
+			Preferences.setString( preference, crop );
 		}
 	}
 
@@ -2134,7 +2134,7 @@ public class OptionsFrame
 		{
 			super( new Dimension( 16, 16 ), new Dimension( 370, 16 ) );
 
-			this.setContent();
+            setContent();
 		}
 
 		private void setContent()
@@ -2148,31 +2148,31 @@ public class OptionsFrame
 
 			newElements[ 2 ] = new VerifiableElement( "Item Quality Colors:", SwingConstants.LEFT,
 				new JLabel() );
-			this.crappy = new FontColorChooser( "crappy" );
-			newElements[ 3 ] = new VerifiableElement( "Crappy", SwingConstants.LEFT, this.crappy );
-			this.decent = new FontColorChooser( "decent" );
-			newElements[ 4 ] = new VerifiableElement( "Decent", SwingConstants.LEFT, this.decent );
-			this.good = new FontColorChooser( "good" );
-			newElements[ 5 ] = new VerifiableElement( "Good", SwingConstants.LEFT, this.good );
-			this.awesome = new FontColorChooser( "awesome" );
-			newElements[ 6 ] = new VerifiableElement( "Awesome", SwingConstants.LEFT, this.awesome );
-			this.epic = new FontColorChooser( "epic" );
-			newElements[ 7 ] = new VerifiableElement( "EPIC", SwingConstants.LEFT, this.epic );
+            crappy = new FontColorChooser( "crappy" );
+			newElements[ 3 ] = new VerifiableElement( "Crappy", SwingConstants.LEFT, crappy );
+            decent = new FontColorChooser( "decent" );
+			newElements[ 4 ] = new VerifiableElement( "Decent", SwingConstants.LEFT, decent );
+            good = new FontColorChooser( "good" );
+			newElements[ 5 ] = new VerifiableElement( "Good", SwingConstants.LEFT, good );
+            awesome = new FontColorChooser( "awesome" );
+			newElements[ 6 ] = new VerifiableElement( "Awesome", SwingConstants.LEFT, awesome );
+            epic = new FontColorChooser( "epic" );
+			newElements[ 7 ] = new VerifiableElement( "EPIC", SwingConstants.LEFT, epic );
 
 			newElements[ 8 ] = new VerifiableElement();
 
 			newElements[ 9 ] = new VerifiableElement( "Other Font Colors:", SwingConstants.LEFT,
 				new JLabel() );
-			this.junk = new FontColorChooser( "junk" );
-			newElements[ 10 ] = new VerifiableElement( "Junk Items", SwingConstants.LEFT, this.junk );
-			this.memento = new FontColorChooser( "memento" );
-			newElements[ 11 ] = new VerifiableElement( "Mementos", SwingConstants.LEFT, this.memento );
-			this.notavailable = new FontColorChooser( "notavailable" );
+            junk = new FontColorChooser( "junk" );
+			newElements[ 10 ] = new VerifiableElement( "Junk Items", SwingConstants.LEFT, junk );
+            memento = new FontColorChooser( "memento" );
+			newElements[ 11 ] = new VerifiableElement( "Mementos", SwingConstants.LEFT, memento );
+            notavailable = new FontColorChooser( "notavailable" );
 			newElements[ 12 ] = new VerifiableElement( "Not Equippable/Creatable/Available",
-				SwingConstants.LEFT, this.notavailable );
+				SwingConstants.LEFT, notavailable );
 
 			super.setContent( newElements );
-			this.readFromPref();
+            readFromPref();
 		}
 
 		private void readFromPref()
@@ -2187,35 +2187,35 @@ public class OptionsFrame
 				{
 					if ( it[ 0 ].equals( "crappy" ) )
 					{
-						decodeColor( it[ 1 ], this.crappy );
+						decodeColor( it[ 1 ], crappy );
 					}
 					else if ( it[ 0 ].equals( "decent" ) )
 					{
-						decodeColor( it[ 1 ], this.decent );
+						decodeColor( it[ 1 ], decent );
 					}
 					else if ( it[ 0 ].equals( "good" ) )
 					{
-						decodeColor( it[ 1 ], this.good );
+						decodeColor( it[ 1 ], good );
 					}
 					else if ( it[ 0 ].equals( "awesome" ) )
 					{
-						decodeColor( it[ 1 ], this.awesome );
+						decodeColor( it[ 1 ], awesome );
 					}
 					else if ( it[ 0 ].equals( "epic" ) )
 					{
-						decodeColor( it[ 1 ], this.epic );
+						decodeColor( it[ 1 ], epic );
 					}
 					else if ( it[ 0 ].equals( "memento" ) )
 					{
-						decodeColor( it[ 1 ], this.memento );
+						decodeColor( it[ 1 ], memento );
 					}
 					else if ( it[ 0 ].equals( "junk" ) )
 					{
-						decodeColor( it[ 1 ], this.junk );
+						decodeColor( it[ 1 ], junk );
 					}
 					else if ( it[ 0 ].equals( "notavailable" ) )
 					{
-						decodeColor( it[ 1 ], this.notavailable );
+						decodeColor( it[ 1 ], notavailable );
 					}
 				}
 			}
@@ -2225,37 +2225,37 @@ public class OptionsFrame
 
 		private void fillDefaults()
 		{
-			if ( this.crappy.getClientProperty( "set" ) == null )
+			if ( crappy.getClientProperty( "set" ) == null )
 			{
-				this.crappy.setBackground( Color.gray );
+                crappy.setBackground( Color.gray );
 			}
-			if ( this.decent.getClientProperty( "set" ) == null )
+			if ( decent.getClientProperty( "set" ) == null )
 			{
-				this.decent.setBackground( Color.black );
+                decent.setBackground( Color.black );
 			}
-			if ( this.good.getClientProperty( "set" ) == null )
+			if ( good.getClientProperty( "set" ) == null )
 			{
-				this.good.setBackground( Color.green );
+                good.setBackground( Color.green );
 			}
-			if ( this.awesome.getClientProperty( "set" ) == null )
+			if ( awesome.getClientProperty( "set" ) == null )
 			{
-				this.awesome.setBackground( Color.blue );
+                awesome.setBackground( Color.blue );
 			}
-			if ( this.epic.getClientProperty( "set" ) == null )
+			if ( epic.getClientProperty( "set" ) == null )
 			{
-				this.epic.setBackground( DataUtilities.toColor( "#8a2be2" ) ); // purple..ish
+                epic.setBackground( DataUtilities.toColor( "#8a2be2" ) ); // purple..ish
 			}
-			if ( this.memento.getClientProperty( "set" ) == null )
+			if ( memento.getClientProperty( "set" ) == null )
 			{
-				this.memento.setBackground( DataUtilities.toColor( "#808000" ) ); // olive
+                memento.setBackground( DataUtilities.toColor( "#808000" ) ); // olive
 			}
-			if ( this.junk.getClientProperty( "set" ) == null )
+			if ( junk.getClientProperty( "set" ) == null )
 			{
-				this.junk.setBackground( Color.gray );
+                junk.setBackground( Color.gray );
 			}
-			if ( this.notavailable.getClientProperty( "set" ) == null )
+			if ( notavailable.getClientProperty( "set" ) == null )
 			{
-				this.notavailable.setBackground( Color.gray );
+                notavailable.setBackground( Color.gray );
 			}
 		}
 
@@ -2298,20 +2298,20 @@ public class OptionsFrame
 			public FontColorChooser( final String property )
 			{
 				this.property = property;
-				this.setOpaque( true );
-				this.addMouseListener( this );
+                setOpaque( true );
+                addMouseListener( this );
 			}
 
 			public void mousePressed( final MouseEvent e )
 			{
-				Color c = JColorChooser.showDialog( null, "Choose a color:", this.getBackground() );
+				Color c = JColorChooser.showDialog( null, "Choose a color:", getBackground() );
 				if ( c == null )
 				{
 					return;
 				}
 
-				updatePref( this.property, DataUtilities.toHexString( c ) );
-				this.setBackground( c );
+				updatePref( property, DataUtilities.toHexString( c ) );
+                setBackground( c );
 			}
 
 			public void updatePref( String property, String hexString )

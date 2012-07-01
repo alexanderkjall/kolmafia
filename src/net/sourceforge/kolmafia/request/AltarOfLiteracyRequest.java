@@ -48,7 +48,7 @@ public class AltarOfLiteracyRequest
 	@Override
 	public void processResults()
 	{
-		AltarOfLiteracyRequest.parseResponse( this.getURLString(), this.responseText );
+		AltarOfLiteracyRequest.parseResponse( getURLString(), responseText );
 	}
 
 	public static void parseResponse( final String location, final String responseText )

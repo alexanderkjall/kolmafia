@@ -58,7 +58,7 @@ public class InterruptableDialog
 
 		public InterruptableDialogBox( String mes )
 		{
-			this.message = mes;
+            message = mes;
 
 			SwingUtilities.invokeLater( this );
 		}
@@ -70,12 +70,12 @@ public class InterruptableDialog
 
 		public void setResult( boolean b )
 		{
-			this.result = b;
+            result = b;
 		}
 
 		public void run()
 		{
-			this.setResult( JOptionPane.YES_OPTION == JOptionPane.showConfirmDialog( null,
+            setResult( JOptionPane.YES_OPTION == JOptionPane.showConfirmDialog( null,
 				StringUtilities.basicTextWrap( message ), "", JOptionPane.YES_NO_OPTION ) );
 
 			synchronized ( InterruptableDialog.pauser )

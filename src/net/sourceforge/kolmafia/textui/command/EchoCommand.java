@@ -46,7 +46,7 @@ public class EchoCommand
 {
 	public EchoCommand()
 	{
-		this.usage = " timestamp | <text> - include timestamp or text in the session log.";
+        usage = " timestamp | <text> - include timestamp or text in the session log.";
 	}
 
 	@Override

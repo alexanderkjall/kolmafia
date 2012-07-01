@@ -57,16 +57,16 @@ public abstract class MenuItemList
 		super( title );
 
 		this.model = model;
-		this.dataValues = new ArrayList();
+        dataValues = new ArrayList();
 
 		// Add the headers to the list of items which
 		// need to be added.
 
-		JComponent[] headers = this.getHeaders();
+		JComponent[] headers = getHeaders();
 
 		for ( int i = 0; i < headers.length; ++i )
 		{
-			this.add( headers[ i ] );
+            add( headers[ i ] );
 		}
 
 		// Add a separator between the headers and the
@@ -75,12 +75,12 @@ public abstract class MenuItemList
 
 		if ( headers.length == 0 )
 		{
-			this.headerCount = 0;
+            headerCount = 0;
 		}
 		else
 		{
-			this.add( new JSeparator() );
-			this.headerCount = headers.length + 1;
+            add( new JSeparator() );
+            headerCount = headers.length + 1;
 		}
 
 		// Now, add everything that's contained inside of
@@ -88,8 +88,8 @@ public abstract class MenuItemList
 
 		for ( int i = 0; i < model.size(); ++i )
 		{
-			this.dataValues.add( model.get( i ) );
-			this.add( this.constructMenuItem( model.get( i ) ) );
+            dataValues.add( model.get( i ) );
+            add( constructMenuItem( model.get( i ) ) );
 		}
 
 		// Add this as a listener to the list so that the menu gets
@@ -100,16 +100,16 @@ public abstract class MenuItemList
 
 	public void dispose()
 	{
-		if ( this.dataValues != null )
+		if ( dataValues != null )
 		{
-			this.dataValues.clear();
-			this.dataValues = null;
+            dataValues.clear();
+            dataValues = null;
 		}
 
-		if ( this.model != null )
+		if ( model != null )
 		{
-			this.model.removeListDataListener( this );
-			this.model = null;
+            model.removeListDataListener( this );
+            model = null;
 		}
 	}
 
@@ -134,11 +134,11 @@ public abstract class MenuItemList
 		{
 			Object item = source.get( i );
 
-			this.dataValues.add( i, item );
-			this.add( this.constructMenuItem( item ), i + this.headerCount );
+            dataValues.add( i, item );
+            add( constructMenuItem( item ), i + headerCount );
 		}
 
-		this.validate();
+        validate();
 	}
 
 	/**
@@ -155,11 +155,11 @@ public abstract class MenuItemList
 
 		for ( int i = index1; i >= index0; --i )
 		{
-			this.dataValues.remove( i );
-			this.remove( i + this.headerCount );
+            dataValues.remove( i );
+            remove( i + headerCount );
 		}
 
-		this.validate();
+        validate();
 	}
 
 	/**
@@ -171,18 +171,18 @@ public abstract class MenuItemList
 
 	public void contentsChanged( final ListDataEvent e )
 	{
-		for ( int i = 0; i < this.dataValues.size(); ++i )
+		for ( int i = 0; i < dataValues.size(); ++i )
 		{
-			this.remove( this.headerCount );
+            remove( headerCount );
 		}
 
-		this.dataValues.clear();
+        dataValues.clear();
 		LockableListModel source = (LockableListModel) e.getSource();
 
 		for ( int i = 0; i < source.size(); ++i )
 		{
-			this.dataValues.add( i, source.get( i ) );
-			this.add( this.constructMenuItem( source.get( i ) ), i + this.headerCount );
+            dataValues.add( i, source.get( i ) );
+            add( constructMenuItem( source.get( i ) ), i + headerCount );
 		}
 	}
 }

@@ -74,27 +74,27 @@ public class AreaCombatData
 
 	public AreaCombatData( final int combats )
 	{
-		this.monsters = new ArrayList<MonsterData>();
-		this.weightings = new ArrayList<Integer>();
+        monsters = new ArrayList<MonsterData>();
+        weightings = new ArrayList<Integer>();
 		this.combats = combats;
-		this.weights = 0;
-		this.minHit = Integer.MAX_VALUE;
-		this.maxHit = 0;
-		this.minEvade = Integer.MAX_VALUE;
-		this.maxEvade = 0;
-		this.poison = Integer.MAX_VALUE;
+        weights = 0;
+        minHit = Integer.MAX_VALUE;
+        maxHit = 0;
+        minEvade = Integer.MAX_VALUE;
+        maxEvade = 0;
+        poison = Integer.MAX_VALUE;
 	}
 
 	public void recalculate()
 	{
-		this.minHit = Integer.MAX_VALUE;
-		this.maxHit = 0;
-		this.minEvade = Integer.MAX_VALUE;
-		this.maxEvade = 0;
+        minHit = Integer.MAX_VALUE;
+        maxHit = 0;
+        minEvade = Integer.MAX_VALUE;
+        maxEvade = 0;
 
-		for ( int i = 0; i < this.monsters.size(); ++i )
+		for ( int i = 0; i < monsters.size(); ++i )
 		{
-			int weighting = this.getWeighting( i );
+			int weighting = getWeighting( i );
 
 			// Omit impossible (-2) and ultra-rare (-1) monsters
 			if ( weighting < 0 )
@@ -102,8 +102,8 @@ public class AreaCombatData
 				continue;
 			}
 
-			MonsterData monster = this.getMonster( i );
-			this.addMonsterStats( monster );
+			MonsterData monster = getMonster( i );
+            addMonsterStats( monster );
 		}
 	}
 
@@ -112,23 +112,23 @@ public class AreaCombatData
 		// These include current monster level and Beeosity
 
 		int attack = monster.getAttack();
-		if ( attack < this.minEvade )
+		if ( attack < minEvade )
 		{
-			this.minEvade = attack;
+            minEvade = attack;
 		}
-		if ( attack > this.maxEvade )
+		if ( attack > maxEvade )
 		{
-			this.maxEvade = attack;
+            maxEvade = attack;
 		}
 
 		int defense = monster.getDefense();
-		if ( defense < this.minHit )
+		if ( defense < minHit )
 		{
-			this.minHit = defense;
+            minHit = defense;
 		}
-		if ( defense > this.maxHit )
+		if ( defense > maxHit )
 		{
-			this.maxHit = defense;
+            maxHit = defense;
 		}
 	}
 
@@ -170,9 +170,9 @@ public class AreaCombatData
 			return false;
 		}
 
-		this.monsters.add( monster );
-		this.poison = Math.min( this.poison, monster.getPoison() );
-		this.weightings.add( IntegerPool.get( (weighting << WEIGHT_SHIFT) | flags ) );
+        monsters.add( monster );
+        poison = Math.min( poison, monster.getPoison() );
+        weightings.add( IntegerPool.get( (weighting << WEIGHT_SHIFT) | flags ) );
 
 		// Don't let ultra-rare monsters skew hit and evade numbers -
 		// or anything else.
@@ -188,10 +188,10 @@ public class AreaCombatData
 		// odd-ascension-only monsters are equal.
 		if ( weighting > 0 && flags != ASCENSION_ODD )
 		{
-			this.weights += weighting;
+            weights += weighting;
 		}
 
-		this.addMonsterStats( monster );
+        addMonsterStats( monster );
 
 		return true;
 	}
@@ -229,16 +229,16 @@ public class AreaCombatData
 
 	public int getMonsterCount()
 	{
-		return this.monsters.size();
+		return monsters.size();
 	}
 
 	public int getAvailableMonsterCount()
 	{
 		int count = 0;
-		int size = this.monsters.size();
+		int size = monsters.size();
 		for ( int i = 0; i < size; ++i )
 		{
-			int weighting = this.getWeighting( i );
+			int weighting = getWeighting( i );
 			if ( weighting > 0 )
 			{
 				count++;
@@ -249,7 +249,7 @@ public class AreaCombatData
 
 	public MonsterData getMonster( final int i )
 	{
-		return (MonsterData) this.monsters.get( i );
+		return (MonsterData) monsters.get( i );
 	}
 
 	public boolean hasMonster( final MonsterData m )
@@ -258,12 +258,12 @@ public class AreaCombatData
 		{
 			return false;
 		}
-		return this.monsters.contains( m );
+		return monsters.contains( m );
 	}
 
 	public int getWeighting( final int i )
 	{
-		int raw = this.weightings.get( i );
+		int raw = weightings.get( i );
 		if ( ((raw >> (KoLCharacter.getAscensions() & 1)) & 1) == 0 )
 		{
 			return -2;	// impossible this ascension
@@ -273,52 +273,52 @@ public class AreaCombatData
 
 	public int totalWeighting()
 	{
-		return this.weights;
+		return weights;
 	}
 
 	public int combats()
 	{
-		return this.combats;
+		return combats;
 	}
 
 	public int minHit()
 	{
-		return this.minHit == Integer.MAX_VALUE ? 0 : this.minHit;
+		return minHit == Integer.MAX_VALUE ? 0 : minHit;
 	}
 
 	public int maxHit()
 	{
-		return this.maxHit;
+		return maxHit;
 	}
 
 	public int minEvade()
 	{
-		return this.minEvade == Integer.MAX_VALUE ? 0 : this.minEvade;
+		return minEvade == Integer.MAX_VALUE ? 0 : minEvade;
 	}
 
 	public int maxEvade()
 	{
-		return this.maxEvade;
+		return maxEvade;
 	}
 
 	public int poison()
 	{
-		return this.poison;
+		return poison;
 	}
 
 	public boolean willHitSomething()
 	{
 		int hitStat = EquipmentManager.getAdjustedHitStat();
-		return AreaCombatData.hitPercent( hitStat, this.minHit() ) > 0.0f;
+		return AreaCombatData.hitPercent( hitStat, minHit() ) > 0.0f;
 	}
 
 	public float getAverageML()
 	{
 		float averageML = 0.0f;
 
-		for ( int i = 0; i < this.monsters.size(); ++i )
+		for ( int i = 0; i < monsters.size(); ++i )
 		{
-			int weighting = this.getWeighting( i );
+			int weighting = getWeighting( i );
 
 			// Omit impossible (-2), ultra-rare (-1) and special (0) monsters
 			if ( weighting < 1 )
@@ -326,8 +326,8 @@ public class AreaCombatData
 				continue;
 			}
 
-			MonsterData monster = this.getMonster( i );
-			float weight = (float) weighting / (float) this.weights;
+			MonsterData monster = getMonster( i );
+			float weight = (float) weighting / (float) weights;
 			averageML += weight * monster.getAttack();
 		}
 
@@ -337,7 +337,7 @@ public class AreaCombatData
 	@Override
 	public String toString()
 	{
-		return this.toString( false );
+		return toString( false );
 	}
 
 	public String toString( final boolean fullString )
@@ -355,9 +355,9 @@ public class AreaCombatData
 
 		buffer.append( "</head><body>" );
 
-		this.getSummary( buffer, fullString );
+        getSummary( buffer, fullString );
 		buffer.append( "<br><br>" );
-		this.getMonsterData( buffer, fullString );
+        getMonsterData( buffer, fullString );
 
 		buffer.append( "</body></html>" );
 		return buffer.toString();
@@ -366,34 +366,34 @@ public class AreaCombatData
 	public void getSummary( final StringBuffer buffer, final boolean fullString )
 	{
 		// Get up-to-date monster stats in area summary
-		this.recalculate();
+        recalculate();
 
 		int moxie = KoLCharacter.getAdjustedMoxie();
 
 		String statName = EquipmentManager.getHitStatType() == KoLConstants.MOXIE ? "Mox" : "Mus";
 		int hitstat = EquipmentManager.getAdjustedHitStat();
 
-		float minHitPercent = AreaCombatData.hitPercent( hitstat, this.minHit() );
-		float maxHitPercent = AreaCombatData.hitPercent( hitstat, this.maxHit );
-		int minPerfectHit = AreaCombatData.perfectHit( hitstat, this.minHit() );
-		int maxPerfectHit = AreaCombatData.perfectHit( hitstat, this.maxHit );
-		float minEvadePercent = AreaCombatData.hitPercent( moxie, this.minEvade() );
-		float maxEvadePercent = AreaCombatData.hitPercent( moxie, this.maxEvade );
-		int minPerfectEvade = AreaCombatData.perfectHit( moxie, this.minEvade() );
-		int maxPerfectEvade = AreaCombatData.perfectHit( moxie, this.maxEvade );
+		float minHitPercent = AreaCombatData.hitPercent( hitstat, minHit() );
+		float maxHitPercent = AreaCombatData.hitPercent( hitstat, maxHit );
+		int minPerfectHit = AreaCombatData.perfectHit( hitstat, minHit() );
+		int maxPerfectHit = AreaCombatData.perfectHit( hitstat, maxHit );
+		float minEvadePercent = AreaCombatData.hitPercent( moxie, minEvade() );
+		float maxEvadePercent = AreaCombatData.hitPercent( moxie, maxEvade );
+		int minPerfectEvade = AreaCombatData.perfectHit( moxie, minEvade() );
+		int maxPerfectEvade = AreaCombatData.perfectHit( moxie, maxEvade );
 
 		// statGain constants
 		float experienceAdjustment = KoLCharacter.getExperienceAdjustment();
 
 		// Area Combat percentage
-		float combatFactor = this.areaCombatPercent() / 100.0f;
+		float combatFactor = areaCombatPercent() / 100.0f;
 
 		// Iterate once through monsters to calculate average statGain
 		float averageExperience = 0.0f;
 
-		for ( int i = 0; i < this.monsters.size(); ++i )
+		for ( int i = 0; i < monsters.size(); ++i )
 		{
-			int weighting = this.getWeighting( i );
+			int weighting = getWeighting( i );
 
 			// Omit impossible (-2), ultra-rare (-1) and special (0) monsters
 			if ( weighting < 1 )
@@ -401,26 +401,26 @@ public class AreaCombatData
 				continue;
 			}
 
-			MonsterData monster = this.getMonster( i );
-			float weight = (float) weighting / (float) this.weights;
+			MonsterData monster = getMonster( i );
+			float weight = (float) weighting / (float) weights;
 			averageExperience += weight * (monster.getExperience() + experienceAdjustment);
 		}
 
 		buffer.append( "<b>Hit</b>: " );
-		buffer.append( this.getRateString(
+		buffer.append( getRateString(
 			minHitPercent, minPerfectHit, maxHitPercent, maxPerfectHit, statName, fullString ) );
 
 		buffer.append( "<br><b>Evade</b>: " );
-		buffer.append( this.getRateString(
+		buffer.append( getRateString(
 			minEvadePercent, minPerfectEvade, maxEvadePercent, maxPerfectEvade, "Mox", fullString ) );
 		buffer.append( "<br><b>Combat Rate</b>: " );
 
-		if ( this.combats > 0 )
+		if ( combats > 0 )
 		{
-			buffer.append( this.format( combatFactor * 100.0f ) + "%" );
+			buffer.append( format( combatFactor * 100.0f ) + "%" );
 			buffer.append( "<br><b>Combat XP</b>: " + KoLConstants.FLOAT_FORMAT.format( averageExperience * combatFactor ) );
 		}
-		else if ( this.combats == 0 )
+		else if ( combats == 0 )
 		{
 			buffer.append( "0%" );
 		}
@@ -434,11 +434,11 @@ public class AreaCombatData
 	{
 		int moxie = KoLCharacter.getAdjustedMoxie();
 		int hitstat = EquipmentManager.getAdjustedHitStat();
-		float combatFactor = this.areaCombatPercent() / 100.0f;
+		float combatFactor = areaCombatPercent() / 100.0f;
 
-		for ( int i = 0; i < this.monsters.size(); ++i )
+		for ( int i = 0; i < monsters.size(); ++i )
 		{
-			int weighting = this.getWeighting( i );
+			int weighting = getWeighting( i );
 			if ( weighting == -2 )
 			{
 				continue;
@@ -449,8 +449,8 @@ public class AreaCombatData
 				buffer.append( "<br><br>" );
 			}
 
-			buffer.append( this.getMonsterString(
-				this.getMonster( i ), moxie, hitstat, weighting, combatFactor, fullString ) );
+			buffer.append( getMonsterString(
+                    getMonster( i ), moxie, hitstat, weighting, combatFactor, fullString ) );
 		}
 	}
 
@@ -462,18 +462,18 @@ public class AreaCombatData
 	public float areaCombatPercent()
 	{
 		// If we don't have the data, pretend it's all combat
-		if ( this.combats < 0 )
+		if ( combats < 0 )
 		{
 			return 100.0f;
 		}
 
 		// Some areas are inherently all combat or no combat
-		if ( this.combats == 0 || this.combats == 100 )
+		if ( combats == 0 || combats == 100 )
 		{
-			return this.combats;
+			return combats;
 		}
 
-		float pct = this.combats + KoLCharacter.getCombatRateAdjustment();
+		float pct = combats + KoLCharacter.getCombatRateAdjustment();
 		return Math.max( 0.0f, Math.min( 100.0f, pct ) );
 	}
 
@@ -482,10 +482,10 @@ public class AreaCombatData
 	{
 		StringBuilder buffer = new StringBuilder();
 
-		buffer.append( this.format( minPercent ) );
+		buffer.append( format( minPercent ) );
 		buffer.append( "%/" );
 
-		buffer.append( this.format( maxPercent ) );
+		buffer.append( format( maxPercent ) );
 		buffer.append( "%" );
 
 		if ( !fullString )
@@ -554,21 +554,21 @@ public class AreaCombatData
 		}
 		else
 		{
-			buffer.append( this.format( 100.0f * combatFactor * weighting / this.weights ) + "%" );
+			buffer.append( format( 100.0f * combatFactor * weighting / weights ) + "%" );
 		}
 
 		buffer.append( ")<br>Hit: <font color=" + AreaCombatData.elementColor( ed ) + ">" );
-		buffer.append( this.format( hitPercent ) );
+		buffer.append( format( hitPercent ) );
 		buffer.append( "%</font>, Evade: <font color=" + AreaCombatData.elementColor( ea ) + ">" );
-		buffer.append( this.format( evadePercent ) );
+		buffer.append( format( evadePercent ) );
 		buffer.append( "%</font><br>HP: " + health + ", XP: " + KoLConstants.FLOAT_FORMAT.format( statGain ) );
 
 		if ( fullString )
 		{
-			this.appendMeatDrop( buffer, monster );
+            appendMeatDrop( buffer, monster );
 		}
 
-		this.appendItemList( buffer, monster.getItems(), monster.getPocketRates(), fullString );
+        appendItemList( buffer, monster.getItems(), monster.getPocketRates(), fullString );
 
 		return buffer.toString();
 	}
@@ -583,7 +583,7 @@ public class AreaCombatData
 		}
 
 		float modifier = Math.max( 0.0f, ( KoLCharacter.getMeatDropPercentAdjustment() + 100.0f ) / 100.0f );
-		buffer.append( "<br>Meat: " + this.format( minMeat * modifier ) + "-" + this.format( maxMeat * modifier ) + " (" + this.format( ( minMeat + maxMeat ) * modifier / 2.0f ) + " average)" );
+		buffer.append( "<br>Meat: " + format( minMeat * modifier ) + "-" + format( maxMeat * modifier ) + " (" + format( ( minMeat + maxMeat ) * modifier / 2.0f ) + " average)" );
 	}
 
 	private void appendItemList( final StringBuffer buffer, final List items, final List pocketRates, boolean fullString )
@@ -623,9 +623,9 @@ public class AreaCombatData
 			float dropRate = Math.min( rawDropRate * itemModifier, 100.0f );
 			float effectiveDropRate = stealRate * 100.0f + ( 1.0f - stealRate ) * dropRate;
 
-			String rateRaw = this.format( rawDropRate );
-			String rate1 = this.format( dropRate );
-			String rate2 = this.format( effectiveDropRate );
+			String rateRaw = format( rawDropRate );
+			String rate1 = format( dropRate );
+			String rate2 = format( effectiveDropRate );
 
 			buffer.append( item.getName() );
 			switch ( (char) item.getCount() & 0xFFFF )
@@ -675,7 +675,7 @@ public class AreaCombatData
 					buffer.append( " " );
 					buffer.append( rate2 );
 					buffer.append( "% (" );
-					buffer.append( this.format( stealRate * 100.0f ) );
+					buffer.append( format( stealRate * 100.0f ) );
 					buffer.append( "% steal, " );
 					buffer.append( rate1 );
 					buffer.append( "% drop)" );

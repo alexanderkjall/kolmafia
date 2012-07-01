@@ -113,7 +113,7 @@ public class DebugModifiers
 		DebugModifiers.currentDesc = desc;
 		DebugModifiers.adjustments.put( key, "<td>" +
 			KoLConstants.ROUNDED_MODIFIER_FORMAT.format( mod ) + "</td><td>=&nbsp;" +
-			this.get( index ) + "</td>" );
+                get( index ) + "</td>" );
 	}
 
 	public static void finish()
@@ -207,17 +207,17 @@ public class DebugModifiers
 		@Override
 		public String toString()
 		{
-			return "<td>" + this.name + "</td><td>" +
-				KoLConstants.ROUNDED_MODIFIER_FORMAT.format( this.value ) +
-				( this.variable? "v" : "" ) + "</td>";
+			return "<td>" + name + "</td><td>" +
+				KoLConstants.ROUNDED_MODIFIER_FORMAT.format( value ) +
+				(variable ? "v" : "" ) + "</td>";
 		}
 	
 		public int compareTo( Object o )
 		{
 			Change other = (Change) o;
-			if ( this.value < other.value ) return 1;
-			if ( this.value > other.value ) return -1;
-			return this.name.compareTo( other.name );
+			if ( value < other.value ) return 1;
+			if ( value > other.value ) return -1;
+			return name.compareTo( other.name );
 		}
 	}
 }

@@ -62,7 +62,7 @@ public class TestCommand
 
 	public TestCommand()
 	{
-		this.usage = " 1, 2, 3...";
+        usage = " 1, 2, 3...";
 	}
 
 	@Override

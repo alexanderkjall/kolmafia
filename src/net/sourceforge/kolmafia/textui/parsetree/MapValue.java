@@ -46,33 +46,33 @@ public class MapValue
 	public MapValue( final AggregateType type )
 	{
 		super( type );
-		this.content = new TreeMap();
+        content = new TreeMap();
 	}
 
 	@Override
 	public Value aref( final Value key, final Interpreter interpreter )
 	{
-		TreeMap map = (TreeMap) this.content;
+		TreeMap map = (TreeMap) content;
 		return (Value) map.get( key );
 	}
 
 	@Override
 	public void aset( final Value key, Value val, final Interpreter interpreter )
 	{
-		TreeMap map = (TreeMap) this.content;
+		TreeMap map = (TreeMap) content;
 
-		if ( !this.getDataType().equals( val.getType() ) )
+		if ( !getDataType().equals( val.getType() ) )
 		{
-			if ( this.getDataType().equals( DataTypes.TYPE_STRING ) )
+			if ( getDataType().equals( DataTypes.TYPE_STRING ) )
 			{
 				val = val.toStringValue();
 			}
-			else if ( this.getDataType().equals( DataTypes.TYPE_INT ) && val.getType().equals(
+			else if ( getDataType().equals( DataTypes.TYPE_INT ) && val.getType().equals(
 				DataTypes.TYPE_FLOAT ) )
 			{
 				val = val.toIntValue();
 			}
-			else if ( this.getDataType().equals( DataTypes.TYPE_FLOAT ) && val.getType().equals(
+			else if ( getDataType().equals( DataTypes.TYPE_FLOAT ) && val.getType().equals(
 				DataTypes.TYPE_INT ) )
 			{
 				val = val.toFloatValue();
@@ -90,7 +90,7 @@ public class MapValue
 			if ( interpreter.iterators.get( i + 1 ) == this &&
 				key.equals( (Value) interpreter.iterators.get( i ) ) )
 			{
-				Value rv = this.aref( key, interpreter );
+				Value rv = aref( key, interpreter );
 				((Iterator) interpreter.iterators.get( i + 2 )).remove();
 				// The following is needed in case remove is used more than
 				// once on the same key:
@@ -99,35 +99,35 @@ public class MapValue
 			}
 		}
 		
-		TreeMap map = (TreeMap) this.content;
+		TreeMap map = (TreeMap) content;
 		return (Value) map.remove( key );
 	}
 
 	@Override
 	public void clear()
 	{
-		TreeMap map = (TreeMap) this.content;
+		TreeMap map = (TreeMap) content;
 		map.clear();
 	}
 
 	@Override
 	public int count()
 	{
-		TreeMap map = (TreeMap) this.content;
+		TreeMap map = (TreeMap) content;
 		return map.size();
 	}
 
 	@Override
 	public boolean contains( final Value key )
 	{
-		TreeMap map = (TreeMap) this.content;
+		TreeMap map = (TreeMap) content;
 		return map.containsKey( key );
 	}
 
 	@Override
 	public Value[] keys()
 	{
-		Set set = ( (TreeMap) this.content ).keySet();
+		Set set = ( (TreeMap) content).keySet();
 		Value[] keys = new Value[ set.size() ];
 		set.toArray( keys );
 		return keys;
@@ -136,7 +136,7 @@ public class MapValue
 	@Override
 	public Iterator iterator()
 	{
-		Set set = ( (TreeMap) this.content ).keySet();
+		Set set = ( (TreeMap) content).keySet();
 		return set.iterator();
 	}
 }

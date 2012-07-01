@@ -93,49 +93,49 @@ public abstract class GenericPanel
 	public GenericPanel()
 	{
 		super();
-		this.setListeners( CONFIRM_LISTENER, CANCEL_LISTENER );
+        setListeners( CONFIRM_LISTENER, CANCEL_LISTENER );
 		StaticEntity.registerPanel( this );
 	}
 
 	public GenericPanel( final Dimension left, final Dimension right )
 	{
 		super( left, right );
-		this.setListeners( CONFIRM_LISTENER, CANCEL_LISTENER );
+        setListeners( CONFIRM_LISTENER, CANCEL_LISTENER );
 		StaticEntity.registerPanel( this );
 	}
 
 	public GenericPanel( final Dimension left, final Dimension right, final boolean isCenterPanel )
 	{
 		super( left, right, isCenterPanel );
-		this.setListeners( CONFIRM_LISTENER, CANCEL_LISTENER );
+        setListeners( CONFIRM_LISTENER, CANCEL_LISTENER );
 		StaticEntity.registerPanel( this );
 	}
 
 	public GenericPanel( final String confirmedText )
 	{
 		super( confirmedText );
-		this.setListeners( CONFIRM_LISTENER, CANCEL_LISTENER );
+        setListeners( CONFIRM_LISTENER, CANCEL_LISTENER );
 		StaticEntity.registerPanel( this );
 	}
 
 	public GenericPanel( final String confirmedText, final boolean isCenterPanel )
 	{
 		super( confirmedText, isCenterPanel );
-		this.setListeners( CONFIRM_LISTENER, CANCEL_LISTENER );
+        setListeners( CONFIRM_LISTENER, CANCEL_LISTENER );
 		StaticEntity.registerPanel( this );
 	}
 
 	public GenericPanel( final String confirmedText, final String cancelledText )
 	{
 		super( confirmedText, cancelledText );
-		this.setListeners( CONFIRM_LISTENER, CANCEL_LISTENER );
+        setListeners( CONFIRM_LISTENER, CANCEL_LISTENER );
 		StaticEntity.registerPanel( this );
 	}
 
 	public GenericPanel( final String confirmedText, final String cancelledText, final boolean isCenterPanel )
 	{
 		super( confirmedText, cancelledText, isCenterPanel );
-		this.setListeners( CONFIRM_LISTENER, CANCEL_LISTENER );
+        setListeners( CONFIRM_LISTENER, CANCEL_LISTENER );
 		StaticEntity.registerPanel( this );
 	}
 
@@ -143,21 +143,21 @@ public abstract class GenericPanel
 		final boolean isCenterPanel )
 	{
 		super( confirmedText, left, right, isCenterPanel );
-		this.setListeners( CONFIRM_LISTENER, CANCEL_LISTENER );
+        setListeners( CONFIRM_LISTENER, CANCEL_LISTENER );
 		StaticEntity.registerPanel( this );
 	}
 
 	public GenericPanel( final String confirmedText, final String cancelledText1, final String cancelledText2 )
 	{
 		super( confirmedText, cancelledText1, cancelledText2 );
-		this.setListeners( CONFIRM_LISTENER, CANCEL_LISTENER );
+        setListeners( CONFIRM_LISTENER, CANCEL_LISTENER );
 		StaticEntity.registerPanel( this );
 	}
 
 	public GenericPanel( final String confirmedText, final String cancelledText, final Dimension left, final Dimension right )
 	{
 		super( confirmedText, cancelledText, left, right );
-		this.setListeners( CONFIRM_LISTENER, CANCEL_LISTENER );
+        setListeners( CONFIRM_LISTENER, CANCEL_LISTENER );
 		StaticEntity.registerPanel( this );
 	}
 
@@ -165,7 +165,7 @@ public abstract class GenericPanel
 		final Dimension left, final Dimension right )
 	{
 		super( confirmedText, cancelledText1, cancelledText2, left, right );
-		this.setListeners( CONFIRM_LISTENER, CANCEL_LISTENER );
+        setListeners( CONFIRM_LISTENER, CANCEL_LISTENER );
 		StaticEntity.registerPanel( this );
 	}
 
@@ -173,7 +173,7 @@ public abstract class GenericPanel
 		final Dimension right, final boolean isCenterPanel )
 	{
 		super( confirmedText, cancelledText, left, right, isCenterPanel );
-		this.setListeners( CONFIRM_LISTENER, CANCEL_LISTENER );
+        setListeners( CONFIRM_LISTENER, CANCEL_LISTENER );
 		StaticEntity.registerPanel( this );
 	}
 
@@ -181,7 +181,7 @@ public abstract class GenericPanel
 		final Dimension left, final Dimension right, final boolean isCenterPanel )
 	{
 		super( confirmedText, cancelledText1, cancelledText2, left, right, isCenterPanel );
-		this.setListeners( CONFIRM_LISTENER, CANCEL_LISTENER );
+        setListeners( CONFIRM_LISTENER, CANCEL_LISTENER );
 		StaticEntity.registerPanel( this );
 	}
 
@@ -195,35 +195,35 @@ public abstract class GenericPanel
 
 		this.elements = elements;
 
-		this.addListeners();
-		this.addStatusLabel();
+        addListeners();
+        addStatusLabel();
 	}
 
 	public void addListeners()
 	{
-		if ( this.elements == null )
+		if ( elements == null )
 		{
 			return;
 		}
 
 		ActionConfirmListener listener = new ActionConfirmListener();
-		for ( int i = 0; i < this.elements.length; ++i )
+		for ( int i = 0; i < elements.length; ++i )
 		{
-			this.addListener( this.elements[ i ].getInputField(), listener );
+            addListener( elements[ i ].getInputField(), listener );
 		}
 	}
 
 	private void addListener( final Object component, final ActionConfirmListener listener )
 	{
-		if ( this.listenerMap == null )
+		if ( listenerMap == null )
 		{
-			this.listenerMap = new HashMap();
+            listenerMap = new HashMap();
 		}
 
 		if ( component instanceof JTextField )
 		{
 			( (JTextField) component ).addKeyListener( listener );
-			this.listenerMap.put( component, new WeakReference( listener ) );
+            listenerMap.put( component, new WeakReference( listener ) );
 		}
 
 		if ( component instanceof AutoFilterComboBox )
@@ -231,30 +231,30 @@ public abstract class GenericPanel
 			JTextComponent editor = (JTextComponent) ( (AutoFilterComboBox) component ).getEditor().getEditorComponent();
 
 			editor.addKeyListener( listener );
-			this.listenerMap.put( editor, new WeakReference( listener ) );
+            listenerMap.put( editor, new WeakReference( listener ) );
 		}
 		else if ( component instanceof JComboBox && ((JComboBox) component).isEditable() )
 		{
 			JTextComponent editor = (JTextComponent) ( (JComboBox) component ).getEditor().getEditorComponent();
 
 			editor.addKeyListener( listener );
-			this.listenerMap.put( editor, new WeakReference( listener ) );
+            listenerMap.put( editor, new WeakReference( listener ) );
 		}
 	}
 
 	@Override
 	public void dispose()
 	{
-		if ( this.listenerMap == null )
+		if ( listenerMap == null )
 		{
 			super.dispose();
 			return;
 		}
 
-		Object[] keys = this.listenerMap.keySet().toArray();
+		Object[] keys = listenerMap.keySet().toArray();
 		for ( int i = 0; i < keys.length; ++i )
 		{
-			WeakReference ref = (WeakReference) this.listenerMap.get( keys[ i ] );
+			WeakReference ref = (WeakReference) listenerMap.get( keys[i] );
 			if ( ref == null )
 			{
 				continue;
@@ -266,15 +266,15 @@ public abstract class GenericPanel
 				continue;
 			}
 
-			this.removeListener( keys[ i ], (ActionConfirmListener) listener );
+            removeListener( keys[ i ], (ActionConfirmListener) listener );
 		}
 
-		this.listenerMap.clear();
-		this.listenerMap = null;
+        listenerMap.clear();
+        listenerMap = null;
 
-		this.southContainer = null;
-		this.actionStatusPanel = null;
-		this.actionStatusLabel = null;
+        southContainer = null;
+        actionStatusPanel = null;
+        actionStatusLabel = null;
 
 		super.dispose();
 	}
@@ -304,19 +304,19 @@ public abstract class GenericPanel
 	public void setEnabled( final boolean isEnabled )
 	{
 		super.setEnabled( isEnabled );
-		if ( this.elements == null || this.elements.length == 0 )
+		if ( elements == null || elements.length == 0 )
 		{
 			return;
 		}
 
-		for ( int i = 0; i < this.elements.length; ++i )
+		for ( int i = 0; i < elements.length; ++i )
 		{
-			if ( this.elements[ i ] == null )
+			if ( elements[ i ] == null )
 			{
 				continue;
 			}
 
-			JComponent inputField = this.elements[ i ].getInputField();
+			JComponent inputField = elements[ i ].getInputField();
 
 			if ( inputField == null )
 			{
@@ -329,15 +329,15 @@ public abstract class GenericPanel
 
 	public void setStatusMessage( final String message )
 	{
-		if ( this.actionStatusLabel != null )
+		if ( actionStatusLabel != null )
 		{
-			this.actionStatusLabel.setStatusMessage( message );
+            actionStatusLabel.setStatusMessage( message );
 		}
 	}
 
 	public void addStatusLabel()
 	{
-		if ( !this.shouldAddStatusLabel() )
+		if ( !shouldAddStatusLabel() )
 		{
 			return;
 		}
@@ -345,29 +345,29 @@ public abstract class GenericPanel
 		JPanel statusContainer = new JPanel();
 		statusContainer.setLayout( new BoxLayout( statusContainer, BoxLayout.Y_AXIS ) );
 
-		this.actionStatusPanel = new JPanel( new BorderLayout() );
-		this.actionStatusLabel = new StatusLabel();
-		this.actionStatusPanel.add( this.actionStatusLabel, BorderLayout.SOUTH );
+        actionStatusPanel = new JPanel( new BorderLayout() );
+        actionStatusLabel = new StatusLabel();
+        actionStatusPanel.add( actionStatusLabel, BorderLayout.SOUTH );
 
-		statusContainer.add( this.actionStatusPanel );
+		statusContainer.add( actionStatusPanel );
 		statusContainer.add( Box.createVerticalStrut( 20 ) );
 
-		this.southContainer = new JPanel( new BorderLayout() );
-		this.southContainer.add( statusContainer, BorderLayout.NORTH );
-		this.container.add( this.southContainer, BorderLayout.SOUTH );
+        southContainer = new JPanel( new BorderLayout() );
+        southContainer.add( statusContainer, BorderLayout.NORTH );
+        container.add( southContainer, BorderLayout.SOUTH );
 	}
 
 	public boolean shouldAddStatusLabel()
 	{
-		if ( this.elements == null )
+		if ( elements == null )
 		{
 			return false;
 		}
 
-		boolean shouldAddStatusLabel = this.elements != null && this.elements.length != 0;
-		for ( int i = 0; shouldAddStatusLabel && i < this.elements.length; ++i )
+		boolean shouldAddStatusLabel = elements != null && elements.length != 0;
+		for ( int i = 0; shouldAddStatusLabel && i < elements.length; ++i )
 		{
-			shouldAddStatusLabel &= !( this.elements[ i ].getInputField() instanceof JScrollPane );
+			shouldAddStatusLabel &= !(elements[ i ].getInputField() instanceof JScrollPane );
 		}
 
 		return shouldAddStatusLabel;
@@ -383,7 +383,7 @@ public abstract class GenericPanel
 
 		public void setStatusMessage( final String message )
 		{
-			String label = this.getText();
+			String label = getText();
 
 			// If the current text or the string you're using is
 			// null, then do nothing.
@@ -396,7 +396,7 @@ public abstract class GenericPanel
 			// If the string which you're trying to set is blank,
 			// then you don't have to update the status message.
 
-			this.setText( message );
+            setText( message );
 		}
 	}
 
@@ -411,7 +411,7 @@ public abstract class GenericPanel
 		public ScriptSelectPanel( final JComponent textField )
 		{
 			super( textField, true );
-			this.setPath( KoLConstants.SCRIPT_LOCATION );
+            setPath( KoLConstants.SCRIPT_LOCATION );
 		}
 	}
 
@@ -426,7 +426,7 @@ public abstract class GenericPanel
 
 		public FileSelectPanel( final JComponent textField, final boolean button )
 		{
-			this.setLayout( new BorderLayout( 0, 0 ) );
+            setLayout( new BorderLayout( 0, 0 ) );
 
 			if ( textField instanceof JTextComponent )
 			{
@@ -435,7 +435,7 @@ public abstract class GenericPanel
 			else if ( textField instanceof CollapsibleTextArea )
 			{
 				this.textField = ( (CollapsibleTextArea) textField ).getArea();
-				this.label = ( (CollapsibleTextArea) textField ).getLabel();
+                label = ( (CollapsibleTextArea) textField ).getLabel();
 			}
 			else
 			{
@@ -443,28 +443,28 @@ public abstract class GenericPanel
 			}
 
 			this.textField.addFocusListener( this );
-			this.add( textField, BorderLayout.CENTER );
+            add( textField, BorderLayout.CENTER );
 
 			if ( button )
 			{
-				this.fileButton = new JButton( "..." );
-				JComponentUtilities.setComponentSize( this.fileButton, 20, 20 );
-				this.fileButton.addActionListener( this );
-				this.add( this.fileButton, BorderLayout.EAST );
+                fileButton = new JButton( "..." );
+				JComponentUtilities.setComponentSize( fileButton, 20, 20 );
+                fileButton.addActionListener( this );
+                add( fileButton, BorderLayout.EAST );
 			}
 			else
 			{
-				this.fileButton = null;
+                fileButton = null;
 			}
 		}
 
 		@Override
 		public void setEnabled( final boolean isEnabled )
 		{
-			this.textField.setEnabled( isEnabled );
-			if ( this.fileButton != null )
+            textField.setEnabled( isEnabled );
+			if ( fileButton != null )
 			{
-				this.fileButton.setEnabled( isEnabled );
+                fileButton.setEnabled( isEnabled );
 			}
 		}
 
@@ -475,21 +475,21 @@ public abstract class GenericPanel
 
 		public String getText()
 		{
-			return this.textField.getText();
+			return textField.getText();
 		}
 
 		public void setText( String text )
 		{
 			try
 			{
-				text = this.getRelativePath( text );
+				text = getRelativePath( text );
 			}
 			catch ( IOException e )
 			{
 
 			}
 
-			this.textField.setText( text );
+            textField.setText( text );
 		}
 
 		private String getRelativePath( final String text )
@@ -567,7 +567,7 @@ public abstract class GenericPanel
 
 		public void focusLost( final FocusEvent e )
 		{
-			GenericPanel.this.actionConfirmed();
+            actionConfirmed();
 		}
 
 		public void focusGained( final FocusEvent e )
@@ -576,11 +576,11 @@ public abstract class GenericPanel
 
 		public void actionPerformed( final ActionEvent e )
 		{
-			if ( this.path != null )
+			if ( path != null )
 			{
 				try
 				{
-					JFileChooser chooser = new JFileChooser( this.path.getCanonicalPath() );
+					JFileChooser chooser = new JFileChooser( path.getCanonicalPath() );
 					chooser.showOpenDialog( null );
 
 					if ( chooser.getSelectedFile() == null )
@@ -588,7 +588,7 @@ public abstract class GenericPanel
 						return;
 					}
 
-					this.setText( chooser.getSelectedFile().getCanonicalPath() );
+                    setText( chooser.getSelectedFile().getCanonicalPath() );
 				}
 				catch ( IOException e1 )
 				{
@@ -596,12 +596,12 @@ public abstract class GenericPanel
 				}
 			}
 
-			GenericPanel.this.actionConfirmed();
+            actionConfirmed();
 		}
 
 		public JLabel getLabel()
 		{
-			return this.label;
+			return label;
 		}
 	}
 
@@ -616,7 +616,7 @@ public abstract class GenericPanel
 				return;
 			}
 
-			GenericPanel.this.actionConfirmed();
+            actionConfirmed();
 		}
 	}
 
@@ -626,9 +626,9 @@ public abstract class GenericPanel
 		@Override
 		protected void execute()
 		{
-			if ( GenericPanel.this.contentSet )
+			if ( contentSet )
 			{
-				GenericPanel.this.actionConfirmed();
+                actionConfirmed();
 			}
 		}
 	}
@@ -639,9 +639,9 @@ public abstract class GenericPanel
 		@Override
 		protected void execute()
 		{
-			if ( GenericPanel.this.contentSet )
+			if ( contentSet )
 			{
-				GenericPanel.this.actionCancelled();
+                actionCancelled();
 			}
 		}
 	}

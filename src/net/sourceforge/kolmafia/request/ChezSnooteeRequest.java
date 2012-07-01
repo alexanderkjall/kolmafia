@@ -73,7 +73,7 @@ public class ChezSnooteeRequest
 	public ChezSnooteeRequest( final String name )
 	{
 		super( "Chez Snoot&eacute;e", "1" );
-		this.isPurchase = true;
+        isPurchase = true;
 
 		int itemId = 0;
 		int price = 0;
@@ -101,7 +101,7 @@ public class ChezSnooteeRequest
 			break;
 		}
 
-		this.setItem( name, itemId, price );
+        setItem( name, itemId, price );
 	}
 
 	@Override
@@ -109,7 +109,7 @@ public class ChezSnooteeRequest
 	{
 		if ( !KoLCharacter.canadiaAvailable() )
 		{
-			KoLmafia.updateDisplay( MafiaState.ERROR, "You can't find " + this.name );
+			KoLmafia.updateDisplay( MafiaState.ERROR, "You can't find " + name );
 			return;
 		}
 
@@ -119,13 +119,13 @@ public class ChezSnooteeRequest
 	@Override
 	public void processResults()
 	{
-		if ( this.isPurchase )
+		if ( isPurchase )
 		{
 			super.processResults();
 			return;
 		}
 
-		Matcher specialMatcher = ChezSnooteeRequest.SPECIAL_PATTERN.matcher( this.responseText );
+		Matcher specialMatcher = ChezSnooteeRequest.SPECIAL_PATTERN.matcher( responseText );
 		if ( specialMatcher.find() )
 		{
 			int itemId = StringUtilities.parseInt( specialMatcher.group( 1 ) );

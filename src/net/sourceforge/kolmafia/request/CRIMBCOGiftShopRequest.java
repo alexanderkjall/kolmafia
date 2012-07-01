@@ -105,7 +105,7 @@ public class CRIMBCOGiftShopRequest
 	@Override
 	public void processResults()
 	{
-		CRIMBCOGiftShopRequest.parseResponse( this.getURLString(), this.responseText );
+		CRIMBCOGiftShopRequest.parseResponse( getURLString(), responseText );
 	}
 
 	public static void parseResponse( final String location, final String responseText )

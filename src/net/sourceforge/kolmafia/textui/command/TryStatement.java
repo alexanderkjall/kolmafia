@@ -42,7 +42,7 @@ public class TryStatement
 {
 	public TryStatement()
 	{
-		this.usage = " ; <commands> - do commands, and continue even if an error occurs.";
+        usage = " ; <commands> - do commands, and continue even if an error occurs.";
 	}
 
 	@Override
@@ -55,7 +55,7 @@ public class TryStatement
 		}
 		KoLmafiaCLI CLI = this.CLI;
 		CLI.elseInvalid();
-		CLI.executeLine( this.continuation );
+		CLI.executeLine( continuation );
 		if ( KoLmafia.permitsContinue() )
 		{
 			CLI.elseRuns( false );

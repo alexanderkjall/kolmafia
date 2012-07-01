@@ -55,7 +55,7 @@ public class DisplayFrameListener
 	@Override
 	protected void execute()
 	{
-		 if ( this.frameClass == null )	 
+		 if ( frameClass == null )
 		 {	 
 			 String interfaceSetting = Preferences.getString( "initialDesktop" );	 
 	 
@@ -81,7 +81,7 @@ public class DisplayFrameListener
 		 }	 
 		 else	 
 		 {	 
-			 KoLmafiaGUI.constructFrame( this.frameClass );	 
+			 KoLmafiaGUI.constructFrame( frameClass );
 		 }
 	}
 }

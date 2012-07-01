@@ -43,7 +43,7 @@ public class DebugLogMenuItem
 	public DebugLogMenuItem()
 	{
 		super( RequestLogger.isDebugging() ? "Stop Debug Log" : "Start Debug Log", null );
-		this.setAction( new DebugLogListener() );
+        setAction( new DebugLogListener() );
 	}
 
 	private class DebugLogListener
@@ -55,12 +55,12 @@ public class DebugLogMenuItem
 			if ( RequestLogger.isDebugging() )
 			{
 				RequestLogger.closeDebugLog();
-				DebugLogMenuItem.this.setText( "Start Debug Log" );
+                setText( "Start Debug Log" );
 			}
 			else
 			{
 				RequestLogger.openDebugLog();
-				DebugLogMenuItem.this.setText( "Stop Debug Log" );
+                setText( "Stop Debug Log" );
 			}
 		}
 	}

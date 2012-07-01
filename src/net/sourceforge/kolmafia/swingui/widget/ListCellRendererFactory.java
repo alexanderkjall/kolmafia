@@ -75,7 +75,7 @@ public class ListCellRendererFactory
 	{
 		public DefaultRenderer()
 		{
-			this.setOpaque( true );
+            setOpaque( true );
 		}
 
 		public boolean allowHighlight()
@@ -102,17 +102,17 @@ public class ListCellRendererFactory
 
 			if ( value instanceof AdventureResult )
 			{
-				return this.getRenderer( defaultComponent, (AdventureResult) value, isSelected );
+				return getRenderer( defaultComponent, (AdventureResult) value, isSelected );
 			}
 
 			if ( value instanceof CreateItemRequest )
 			{
-				return this.getRenderer( defaultComponent, (CreateItemRequest) value, isSelected );
+				return getRenderer( defaultComponent, (CreateItemRequest) value, isSelected );
 			}
 
 			if ( value instanceof Concoction )
 			{
-				return this.getRenderer( defaultComponent, (Concoction) value,
+				return getRenderer( defaultComponent, (Concoction) value,
 					list.getWidth(), isSelected );
 			}
 
@@ -309,7 +309,7 @@ public class ListCellRendererFactory
 			stringForm.append( item.toString() );
 
 			stringForm.append( " (" );
-			boolean pulling = this.appendAmount( stringForm, item );
+			boolean pulling = appendAmount( stringForm, item );
 
 			stringForm.append( ")" );
 			stringForm.append( "</b></nobr><br><nobr>&nbsp;" );
@@ -368,8 +368,8 @@ public class ListCellRendererFactory
 					stringForm.append( spleenhit );
 					stringForm.append( " spleen" );
 				}
-	
-				this.appendRange( stringForm, ItemDatabase.getAdventureRange( name ), "adv" );
+
+                appendRange( stringForm, ItemDatabase.getAdventureRange( name ), "adv" );
 	
 				if ( Preferences.getBoolean( "showGainsPerUnit" ) )
 				{
@@ -386,10 +386,10 @@ public class ListCellRendererFactory
 						stringForm.append( " / spleen" );
 					}
 				}
-	
-				this.appendRange( stringForm, ItemDatabase.getMuscleRange( name ), "mus" );
-				this.appendRange( stringForm, ItemDatabase.getMysticalityRange( name ), "mys" );
-				this.appendRange( stringForm, ItemDatabase.getMoxieRange( name ), "mox" );
+
+                appendRange( stringForm, ItemDatabase.getMuscleRange( name ), "mus" );
+                appendRange( stringForm, ItemDatabase.getMysticalityRange( name ), "mys" );
+                appendRange( stringForm, ItemDatabase.getMoxieRange( name ), "mox" );
 				String notes = ItemDatabase.getNotes( name );
 				if ( notes != null )
 				{
@@ -491,7 +491,7 @@ public class ListCellRendererFactory
 		protected void appendRange( final StringBuffer stringForm, final float range, final String suffix )
 		{
 			String val = ( range == 0.0f ) ? "+0.00" : KoLConstants.ROUNDED_MODIFIER_FORMAT.format( range );
-			this.appendRange( stringForm, val, suffix );
+            appendRange( stringForm, val, suffix );
 		}
 
 		protected void appendRange( final StringBuffer stringForm, final String range, final String suffix )
@@ -518,7 +518,7 @@ public class ListCellRendererFactory
 	{
 		public EquipmentPowerRenderer()
 		{
-			this.setOpaque( true );
+            setOpaque( true );
 		}
 
 		@Override
@@ -649,7 +649,7 @@ public class ListCellRendererFactory
 	{
 		public CreationQueueRenderer()
 		{
-			this.setOpaque( true );
+            setOpaque( true );
 		}
 
 		@Override
@@ -694,7 +694,7 @@ public class ListCellRendererFactory
 	{
 		public UsableEquipmentRenderer()
 		{
-			this.setOpaque( true );
+            setOpaque( true );
 		}
 
 		@Override
@@ -829,7 +829,7 @@ public class ListCellRendererFactory
 	{
 		public StorageRenderer()
 		{
-			this.setOpaque( true );
+            setOpaque( true );
 		}
 
 		@Override
@@ -901,8 +901,8 @@ public class ListCellRendererFactory
 					{
 						stringForm.append( inebriety );
 					}
-	
-					this.appendRange( stringForm,
+
+                    appendRange( stringForm,
 						ItemDatabase.getAdventureRange( ar.getName() ), "adv" );
 	
 					if ( Preferences.getBoolean( "showGainsPerUnit" ) )
@@ -941,7 +941,7 @@ public class ListCellRendererFactory
 	{
 		public FreePullsRenderer()
 		{
-			this.setOpaque( true );
+            setOpaque( true );
 		}
 
 		@Override
@@ -979,7 +979,7 @@ public class ListCellRendererFactory
 	{
 		public PulverizationRenderer()
 		{
-			this.setOpaque( true );
+            setOpaque( true );
 		}
 
 		@Override

@@ -43,7 +43,7 @@ public class PirateInsultsCommand
 	extends AbstractCommand
 {
 	{
-		this.usage = " - list the pirate insult comebacks you know.";
+        usage = " - list the pirate insult comebacks you know.";
 	}
 
 	@Override

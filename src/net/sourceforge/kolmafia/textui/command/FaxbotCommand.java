@@ -42,7 +42,7 @@ public class FaxbotCommand
 {
 	public FaxbotCommand()
 	{
-		this.usage = " [command] - send the command to faxbot";
+        usage = " [command] - send the command to faxbot";
 	}
 	
 	@Override

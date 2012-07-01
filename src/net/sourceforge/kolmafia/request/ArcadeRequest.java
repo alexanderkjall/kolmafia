@@ -73,7 +73,7 @@ public class ArcadeRequest
 	{
 		super( "arcade.php" );
 		this.action = action;
-		this.addFormField( "action", action );
+        addFormField( "action", action );
 	}
 
 	public static int getTurnsUsed( GenericRequest request )
@@ -109,20 +109,20 @@ public class ArcadeRequest
 	@Override
 	public void processResults()
 	{
-		ArcadeRequest.parseResponse( this.getURLString(), this.responseText );
+		ArcadeRequest.parseResponse( getURLString(), responseText );
 
-		if ( this.action == null )
+		if ( action == null )
 		{
 			return;
 		}
 
-		if ( this.action.equals( "skeeball" ) )
+		if ( action.equals( "skeeball" ) )
 		{
 			// You don't have any Game Grid tokens, so you can't
 			// play Skee-Ball. But don't feel bad. The Skee-Ball
 			// machine is broken, so you wouldn't have been able to
 			// play Skee-Ball anyway.
-			if ( this.responseText.contains( "You don't have any Game Grid tokens" ) )
+			if ( responseText.contains( "You don't have any Game Grid tokens" ) )
 			{
 				KoLmafia.updateDisplay( MafiaState.ERROR, "You don't have any Game Grid tokens." );
 			}

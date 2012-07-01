@@ -40,7 +40,7 @@ public class CondRefCommand
 {
 	public CondRefCommand()
 	{
-		this.usage = " - list <condition>s usable with if/while commands.";
+        usage = " - list <condition>s usable with if/while commands.";
 	}
 
 	@Override

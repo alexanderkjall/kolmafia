@@ -87,18 +87,18 @@ public class Expression
 
 		// Let subclass initialize variables needed for
 		// compilation and evaluation 
-		this.initialize();
+        initialize();
 
 		// Compile the expression into byte code
-		this.bytecode = this.validBytecodes().toCharArray();
-		Arrays.sort( this.bytecode );
-		String compiled = this.expr() + "r";
+        bytecode = validBytecodes().toCharArray();
+		Arrays.sort( bytecode );
+		String compiled = expr() + "r";
 		//if ( name.length() > 0 && name.equalsIgnoreCase(
 		//	Preferences.getString( "debugEval" ) ) )
 		//{
 		//	compiled = compiled.replaceAll( ".", "?$0" );
 		//}
-		this.bytecode = compiled.toCharArray();
+        bytecode = compiled.toCharArray();
 		if ( this.text.length() > 0 )
 		{
 			KoLmafia.updateDisplay( "Expression syntax error for '" + name + "': expected end, found " + this.text );
@@ -114,12 +114,12 @@ public class Expression
 	{
 		try
 		{
-			return this.evalInternal();
+			return evalInternal();
 		}
 		catch ( ArrayIndexOutOfBoundsException e )
 		{
-			KoLmafia.updateDisplay( "Unreasonably complex expression for " + 
-				this.name + ": " + e );
+			KoLmafia.updateDisplay( "Unreasonably complex expression for " +
+                    name + ": " + e );
 			return 0.0f;
 		}
 	}
@@ -133,7 +133,7 @@ public class Expression
 
 		while ( true )
 		{
-			char inst = this.bytecode[ pc++ ];
+			char inst = bytecode[ pc++ ];
 			switch ( inst )
 			{
 // 			case '?':	// temporary instrumentation
@@ -203,7 +203,7 @@ public class Expression
 				v = (float) Math.sqrt( s[ --sp ] );
 				break;
 			case 'p':
-				v = StringUtilities.parseFloat( Preferences.getString( (String) this.literals.get( (int) s[ --sp ] ) ) );
+				v = StringUtilities.parseFloat( Preferences.getString( (String) literals.get( (int) s[--sp] ) ) );
 				break;
 			case 'm':
 				v = Math.min( s[ --sp ], s[ --sp ] );
@@ -213,29 +213,29 @@ public class Expression
 				break;
 
 			case '#':
-				v = (Float) this.literals.get( (int) s[--sp] );
+				v = (Float) literals.get( (int) s[--sp] );
 				break;
 				
 			// Valid with ModifierExpression:
 			case 'l':
-				v = !Modifiers.currentLocation.contains( (String) this.literals.get( (int) s[--sp] ) ) ? 0.0f : 1.0f;
+				v = !Modifiers.currentLocation.contains( (String) literals.get( (int) s[--sp] ) ) ? 0.0f : 1.0f;
 				break;
 			case 'z':
-				v = !Modifiers.currentZone.contains( (String) this.literals.get( (int) s[--sp] ) ) ? 0.0f : 1.0f;
+				v = !Modifiers.currentZone.contains( (String) literals.get( (int) s[--sp] ) ) ? 0.0f : 1.0f;
 				break;
 			case 'w':
-				v = !Modifiers.currentFamiliar.contains( (String) this.literals.get( (int) s[--sp] ) ) ? 0.0f : 1.0f;
+				v = !Modifiers.currentFamiliar.contains( (String) literals.get( (int) s[--sp] ) ) ? 0.0f : 1.0f;
 				break;
 			case 'h':
-				v = !Modifiers.mainhandClass.contains( (String) this.literals.get( (int) s[--sp] ) ) ? 0.0f : 1.0f;
+				v = !Modifiers.mainhandClass.contains( (String) literals.get( (int) s[--sp] ) ) ? 0.0f : 1.0f;
 				break;
 			case 'e':
-				AdventureResult eff = new AdventureResult( (String) this.literals.get( (int) s[ --sp ] ), 1, true );
+				AdventureResult eff = new AdventureResult( (String) literals.get( (int) s[--sp] ), 1, true );
 				v = eff == null ? 0.0f :
 					Math.max( 0, eff.getCount( KoLConstants.activeEffects ) );
 				break;
 			case 'b':
-				String elem = (String) this.literals.get( (int) s[ --sp ] );
+				String elem = (String) literals.get( (int) s[--sp] );
 				int element = elem.equals( "cold" ) ? Modifiers.COLD_RESISTANCE :
 							  elem.equals( "hot" ) ? Modifiers.HOT_RESISTANCE :
 							  elem.equals( "sleaze" ) ? Modifiers.SLEAZE_RESISTANCE :
@@ -300,8 +300,8 @@ public class Expression
 				v = KoLCharacter.getSpleenUse();
 				break;
 			case 'T':
-				v = this.effect == null ? 0.0f :
-					Math.max( 1, this.effect.getCount( KoLConstants.activeEffects ) );
+				v = effect == null ? 0.0f :
+					Math.max( 1, effect.getCount( KoLConstants.activeEffects ) );
 				break;
 			case 'U':
 				v = KoLCharacter.getTelescopeUpgrades();
@@ -343,7 +343,7 @@ public class Expression
 					break;
 				}
 				KoLmafia.updateDisplay( "Evaluator bytecode invalid at " +
-							(pc - 1) + ": " + String.valueOf( this.bytecode ) );
+							(pc - 1) + ": " + String.valueOf( bytecode ) );
 				return 0.0f;
 			}
 			s[ sp++ ] = v;
@@ -357,34 +357,34 @@ public class Expression
 
 	protected void expect( String token )
 	{
-		if ( this.text.startsWith( token ) )
+		if ( text.startsWith( token ) )
 		{
-			this.text = this.text.substring( token.length() );
+            text = text.substring( token.length() );
 			return;
 		}
 		KoLmafia.updateDisplay( "Evaluator syntax error: expected " + token +
-					", found " + this.text );
+					", found " + text );
 	}
 
 	protected String until( String token )
 	{
-		int pos = this.text.indexOf( token );
+		int pos = text.indexOf( token );
 		if ( pos == -1 )
 		{
 			KoLmafia.updateDisplay( "Evaluator syntax error: expected " + token +
-						", found " + this.text );
+						", found " + text );
 			return "";
 		}
-		String rv = this.text.substring( 0, pos );
-		this.text = this.text.substring( pos + token.length() );
+		String rv = text.substring( 0, pos );
+        text = text.substring( pos + token.length() );
 		return rv;
 	}
 
 	protected boolean optional( String token )
 	{
-		if ( this.text.startsWith( token ) )
+		if ( text.startsWith( token ) )
 		{
-			this.text = this.text.substring( token.length() );
+            text = text.substring( token.length() );
 			return true;
 		}
 		return false;
@@ -392,14 +392,14 @@ public class Expression
 
 	protected char optional( String token1, String token2 )
 	{
-		if ( this.text.startsWith( token1 ) )
+		if ( text.startsWith( token1 ) )
 		{
-			this.text = this.text.substring( token1.length() );
+            text = text.substring( token1.length() );
 			return token1.charAt( 0 );
 		}
-		if ( this.text.startsWith( token2 ) )
+		if ( text.startsWith( token2 ) )
 		{
-			this.text = this.text.substring( token2.length() );
+            text = text.substring( token2.length() );
 			return token2.charAt( 0 );
 		}
 		return '\0';
@@ -407,26 +407,26 @@ public class Expression
 
 	protected String literal( Object value, char op )
 	{
-		if ( this.literals == null )
+		if ( literals == null )
 		{
-			this.literals = new ArrayList();
+            literals = new ArrayList();
 		}
-		this.literals.add( value == null ? "" : value );
-		return String.valueOf( (char)( this.literals.size() - 1 + 0x8000 ) ) + op;
+        literals.add( value == null ? "" : value );
+		return String.valueOf( (char)(literals.size() - 1 + 0x8000 ) ) + op;
 	}
 
 	protected String expr()
 	{
-		String rv = this.term();
+		String rv = term();
 		while ( true )
 		{
-			switch ( this.optional( "+", "-" ) )
+			switch ( optional( "+", "-" ) )
 			{
 			case '+':
-				rv = this.term() + rv + "+";
+				rv = term() + rv + "+";
 				break;
 			case '-':
-				rv = this.term() + rv + "-";
+				rv = term() + rv + "-";
 				break;
 			default:
 				return rv;
@@ -436,16 +436,16 @@ public class Expression
 
 	protected String term()
 	{
-		String rv = this.factor();
+		String rv = factor();
 		while ( true )
 		{
-			switch ( this.optional( "*", "/" ) )
+			switch ( optional( "*", "/" ) )
 			{
 			case '*':
-				rv = this.factor() + rv + "*";
+				rv = factor() + rv + "*";
 				break;
 			case '/':
-				rv = this.factor() + rv + "/";
+				rv = factor() + rv + "/";
 				break;
 			default:
 				return rv;
@@ -455,10 +455,10 @@ public class Expression
 
 	protected String factor()
 	{
-		String rv = this.value();
-		while ( this.optional( "^", "**" ) != '\0' )
+		String rv = value();
+		while ( optional( "^", "**" ) != '\0' )
 		{
-			rv = this.value() + rv + "^";
+			rv = value() + rv + "^";
 		}
 		return rv;
 	}
@@ -466,67 +466,67 @@ public class Expression
 	protected String value()
 	{
 		String rv;
-		if ( this.optional( "(" ) )
+		if ( optional( "(" ) )
 		{
-			rv = this.expr();
-			this.expect( ")" );
+			rv = expr();
+            expect( ")" );
 			return rv;
 		}
-		if ( this.optional( "ceil(" ) )
+		if ( optional( "ceil(" ) )
 		{
-			rv = this.expr();
-			this.expect( ")" );
+			rv = expr();
+            expect( ")" );
 			return rv + "c";
 		}
-		if ( this.optional( "floor(" ) )
+		if ( optional( "floor(" ) )
 		{
-			rv = this.expr();
-			this.expect( ")" );
+			rv = expr();
+            expect( ")" );
 			return rv + "f";
 		}
-		if ( this.optional( "sqrt(" ) )
+		if ( optional( "sqrt(" ) )
 		{
-			rv = this.expr();
-			this.expect( ")" );
+			rv = expr();
+            expect( ")" );
 			return rv + "s";
 		}
-		if ( this.optional( "min(" ) )
+		if ( optional( "min(" ) )
 		{
-			rv = this.expr();
-			this.expect( "," );
-			rv = rv + this.expr() + "m";
-			this.expect( ")" );
+			rv = expr();
+            expect( "," );
+			rv = rv + expr() + "m";
+            expect( ")" );
 			return rv;
 		}
-		if ( this.optional( "max(" ) )
+		if ( optional( "max(" ) )
 		{
-			rv = this.expr();
-			this.expect( "," );
-			rv = rv + this.expr() + "x";
-			this.expect( ")" );
+			rv = expr();
+            expect( "," );
+			rv = rv + expr() + "x";
+            expect( ")" );
 			return rv;
 		}
-		if ( this.optional( "pref(" ) )
+		if ( optional( "pref(" ) )
 		{
-			return this.literal( this.until( ")" ), 'p' );
+			return literal( until( ")" ), 'p' );
 		}
 
-		rv = this.function();
+		rv = function();
 		if ( rv != null )
 		{
 			return rv;
 		}
 
-		if ( this.text.length() == 0 )
+		if ( text.length() == 0 )
 		{
 			KoLmafia.updateDisplay( "Evaluator syntax error: unexpected end of expr" );
 			return "\u8000";	
 		}
-		rv = this.text.substring( 0, 1 );
+		rv = text.substring( 0, 1 );
 		if ( rv.charAt( 0 ) >= 'A' && rv.charAt( 0 ) <= 'Z' )
 		{
-			this.text = this.text.substring( 1 );
-			if ( Arrays.binarySearch( this.bytecode, rv.charAt( 0 ) ) < 0 )
+            text = text.substring( 1 );
+			if ( Arrays.binarySearch( bytecode, rv.charAt( 0 ) ) < 0 )
 			{
 				KoLmafia.updateDisplay( "Evaluator syntax error: '" + rv +
 					"' is not valid in this context" );
@@ -534,26 +534,26 @@ public class Expression
 			}
 			return rv;
 		}
-		Matcher m = NUM_PATTERN.matcher( this.text );
+		Matcher m = NUM_PATTERN.matcher( text );
 		if ( m.matches() )
 		{
 			float v = Float.parseFloat( m.group( 1 ) );
-			this.text = m.group( 2 );
+            text = m.group( 2 );
 			if ( v % 1.0f == 0.0f && v >= -0x7F00 && v < 0x8000 )
 			{
 				return String.valueOf( (char)((int)v + 0x8000) );
 			}
 			else
 			{
-				return this.literal( v, '#' );
+				return literal( v, '#' );
 			}
 		}
-		if ( this.optional( "-" ) )
+		if ( optional( "-" ) )
 		{
-			return this.value() + "\u8000-";
+			return value() + "\u8000-";
 		}
-		KoLmafia.updateDisplay( "Evaluator syntax error: can't understand " + this.text );
-		this.text = "";
+		KoLmafia.updateDisplay( "Evaluator syntax error: can't understand " + text );
+        text = "";
 		return "\u8000";
 	}
 

@@ -67,10 +67,10 @@ public class CardLayoutSelectorPanel
 	private final String indexPreference;
 
 	public final LockableListModel panelNames = new LockableListModel();
-	private final JList panelList = new JList( this.panelNames );
+	private final JList panelList = new JList( panelNames );
 	public final ArrayList panels = new ArrayList();
 	private final CardLayout panelCards = new CardLayout();
-	private final JPanel mainPanel = new JPanel( this.panelCards );
+	private final JPanel mainPanel = new JPanel( panelCards );
 	protected ChangeListener changeListener = null;
 
 	public CardLayoutSelectorPanel()
@@ -89,15 +89,15 @@ public class CardLayoutSelectorPanel
 
 		this.indexPreference = indexPreference;
 
-		this.panelList.addListSelectionListener( new CardSwitchListener() );
-		this.panelList.setPrototypeCellValue( prototype );
-		this.panelList.setCellRenderer( new OptionRenderer() );
+        panelList.addListSelectionListener( new CardSwitchListener() );
+        panelList.setPrototypeCellValue( prototype );
+        panelList.setCellRenderer( new OptionRenderer() );
 
 		JPanel listHolder = new JPanel( new CardLayout( 10, 10 ) );
-		listHolder.add( new GenericScrollPane( this.panelList ), "" );
+		listHolder.add( new GenericScrollPane( panelList ), "" );
 
-		this.add( listHolder, BorderLayout.WEST );
-		this.add( this.mainPanel, BorderLayout.CENTER );
+        add( listHolder, BorderLayout.WEST );
+        add( mainPanel, BorderLayout.CENTER );
 	}
 
 	public void addChangeListener( final ChangeListener changeListener )
@@ -107,17 +107,17 @@ public class CardLayoutSelectorPanel
 
 	public void setSelectedIndex( final int selectedIndex )
 	{
-		this.panelList.setSelectedIndex( selectedIndex );
+        panelList.setSelectedIndex( selectedIndex );
 	}
 
 	public void addPanel( final String name, final JComponent panel )
 	{
-		this.addPanel( name, panel, false );
+        addPanel( name, panel, false );
 	}
 
 	public void addPanel( final String name, JComponent panel, boolean addScrollPane )
 	{
-		this.panelNames.add( name );
+        panelNames.add( name );
 
 		if ( addScrollPane )
 		{
@@ -125,8 +125,8 @@ public class CardLayoutSelectorPanel
 			JComponentUtilities.setComponentSize( panel, 500, 400 );
 		}
 
-		this.panels.add( panel );
-		this.mainPanel.add( panel, String.valueOf( this.panelNames.size() ) );
+        panels.add( panel );
+        mainPanel.add( panel, String.valueOf( panelNames.size() ) );
 	}
 
 	public void addSeparator()
@@ -137,8 +137,8 @@ public class CardLayoutSelectorPanel
 
 		separator.add( Box.createVerticalGlue() );
 		separator.add( new JSeparator() );
-		this.panelNames.add( separator );
-		this.panels.add( separator );
+        panelNames.add( separator );
+        panels.add( separator );
 	}
 
 	public void addCategory( final String name )
@@ -147,14 +147,14 @@ public class CardLayoutSelectorPanel
 		category.setOpaque( false );
 		category.setLayout( new BoxLayout( category, BoxLayout.Y_AXIS ) );
 		category.add( new JLabel( name ) );
-		this.panelNames.add( category );
-		this.panels.add( category );
+        panelNames.add( category );
+        panels.add( category );
 	}
 
 	public JComponent currentPanel()
 	{
-		int cardIndex = CardLayoutSelectorPanel.this.panelList.getSelectedIndex();
-		return (JComponent) this.panels.get( cardIndex );
+		int cardIndex = panelList.getSelectedIndex();
+		return (JComponent) panels.get( cardIndex );
 	}
 
 	private class CardSwitchListener
@@ -162,24 +162,24 @@ public class CardLayoutSelectorPanel
 	{
 		public void valueChanged( final ListSelectionEvent e )
 		{
-			int cardIndex = CardLayoutSelectorPanel.this.panelList.getSelectedIndex();
+			int cardIndex = panelList.getSelectedIndex();
 
-			if ( CardLayoutSelectorPanel.this.panelNames.get( cardIndex ) instanceof JComponent )
+			if ( panelNames.get( cardIndex ) instanceof JComponent )
 			{
 				return;
 			}
 
-			if ( CardLayoutSelectorPanel.this.indexPreference != null )
+			if ( indexPreference != null )
 			{
-				Preferences.setInteger( CardLayoutSelectorPanel.this.indexPreference, cardIndex );
+				Preferences.setInteger( indexPreference, cardIndex );
 			}
 
-			CardLayoutSelectorPanel.this.panelCards.show(
-				CardLayoutSelectorPanel.this.mainPanel, String.valueOf( cardIndex + 1 ) );
+            panelCards.show(
+                    mainPanel, String.valueOf( cardIndex + 1 ) );
 
-			if ( CardLayoutSelectorPanel.this.changeListener != null )
+			if ( changeListener != null )
 			{
-				CardLayoutSelectorPanel.this.changeListener.stateChanged( new ChangeEvent( CardLayoutSelectorPanel.this ) );
+                changeListener.stateChanged( new ChangeEvent( CardLayoutSelectorPanel.this ) );
 			}
 		}
 	}
@@ -189,7 +189,7 @@ public class CardLayoutSelectorPanel
 	{
 		public OptionRenderer()
 		{
-			this.setOpaque( true );
+            setOpaque( true );
 		}
 
 		@Override

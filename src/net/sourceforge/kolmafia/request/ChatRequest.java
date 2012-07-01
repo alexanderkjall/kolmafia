@@ -50,9 +50,9 @@ public class ChatRequest
 	{
 		super( "newchatmessages.php" );
 
-		this.graf = "";
+        graf = "";
 
-		this.addFormField( "j", "1" );
+        addFormField( "j", "1" );
 	}
 
 	/**
@@ -65,9 +65,9 @@ public class ChatRequest
 	{
 		super( "newchatmessages.php" );
 
-		this.graf = "";
+        graf = "";
 
-		this.addFormField( "lasttime", String.valueOf( lastSeen ) );
+        addFormField( "lasttime", String.valueOf( lastSeen ) );
 	}
 
 	/**
@@ -94,18 +94,18 @@ public class ChatRequest
 
 		this.graf = graf;
 
-		this.addFormField( "playerid", String.valueOf( KoLCharacter.getUserId() ) );
-		this.addFormField( "graf", graf );
+        addFormField( "playerid", String.valueOf( KoLCharacter.getUserId() ) );
+        addFormField( "graf", graf );
 
 		if( tabbedChat )
 		{
-			this.addFormField( "j", "1" );
+            addFormField( "j", "1" );
 		}
 	}
 
 	public String getGraf()
 	{
-		return this.graf;
+		return graf;
 	}
 
 	@Override
@@ -117,7 +117,7 @@ public class ChatRequest
 		}
 
 		// Force GET method, just like the browser
-		this.constructURLString( this.getFullURLString(), false );
+        constructURLString( getFullURLString(), false );
 
 		super.run();
 	}

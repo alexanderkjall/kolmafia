@@ -69,11 +69,11 @@ public class Try
 		
 		try
 		{
-			result = this.body.execute( interpreter );
+			result = body.execute( interpreter );
 		}
 		finally
 		{
-			if ( this.finalClause != null )
+			if ( finalClause != null )
 			{
 				String oldState = interpreter.getState();
 				interpreter.setState( Interpreter.STATE_NORMAL );
@@ -82,7 +82,7 @@ public class Try
 				{
 					interpreter.trace( "Entering finally, saved state: " + interpreter.getState() );
 				}
-				Value newResult = this.finalClause.execute( interpreter );
+				Value newResult = finalClause.execute( interpreter );
 				if ( interpreter.getState() == Interpreter.STATE_NORMAL )
 				{
 					interpreter.setState( oldState );
@@ -101,15 +101,15 @@ public class Try
 	@Override
 	public boolean assertBarrier()
 	{
-		return this.body.assertBarrier() ||
-			this.finalClause.assertBarrier();
+		return body.assertBarrier() ||
+                finalClause.assertBarrier();
 	}
 	
 	@Override
 	public boolean assertBreakable()
 	{
-		return this.body.assertBreakable() ||
-			this.finalClause.assertBreakable();
+		return body.assertBreakable() ||
+                finalClause.assertBreakable();
 	}
 
 	@Override
@@ -124,14 +124,14 @@ public class Try
 		Interpreter.indentLine( stream, indent );
 		stream.println( "<TRY>" );
 
-		this.body.print( stream, indent + 1 );
+        body.print( stream, indent + 1 );
 		
-		if ( this.finalClause != null )
+		if ( finalClause != null )
 		{
 			Interpreter.indentLine( stream, indent );
 			stream.println( "<FINALLY>" );
 
-			this.finalClause.print( stream, indent + 1 );
+            finalClause.print( stream, indent + 1 );
 		}
 	}
 }

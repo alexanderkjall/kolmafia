@@ -78,7 +78,7 @@ public class CreateFrameRunnable
 			parameterTypes[ i ] = parameters[ i ] == null ? null : parameters[ i ].getClass();
 		}
 
-		this.creator = null;
+        creator = null;
 		boolean isValidConstructor;
 
 		Class[] constructorParameterTypes;
@@ -103,19 +103,19 @@ public class CreateFrameRunnable
 
 			if ( isValidConstructor )
 			{
-				this.creator = constructors[ i ];
+                creator = constructors[ i ];
 			}
 		}
 	}
 
 	public void run()
 	{
-		if ( KoLmafia.isSessionEnding() && this.creationType != LoginFrame.class )
+		if ( KoLmafia.isSessionEnding() && creationType != LoginFrame.class )
 		{
 			return;
 		}
 
-		String searchString = this.creationType.toString();
+		String searchString = creationType.toString();
 		searchString = searchString.substring( searchString.lastIndexOf( "." ) + 1 );
 
 		if ( searchString.endsWith( "ChatFrame" ) )
@@ -135,9 +135,9 @@ public class CreateFrameRunnable
 			KoLDesktop.getInstance();
 		}
 
-		if ( this.creator == null )
+		if ( creator == null )
 		{
-			KoLmafia.updateDisplay( MafiaState.ERROR, this.creationType.getName() + " could not be loaded" );
+			KoLmafia.updateDisplay( MafiaState.ERROR, creationType.getName() + " could not be loaded" );
 			return;
 		}
 
@@ -153,7 +153,7 @@ public class CreateFrameRunnable
 				// This should not happen.  Therefore, print
 				// a stack trace for debug purposes.
 
-				StaticEntity.printStackTrace( e, this.creationType.getName() + " could not be loaded" );
+				StaticEntity.printStackTrace( e, creationType.getName() + " could not be loaded" );
 				return;
 			}
 		}
@@ -161,14 +161,14 @@ public class CreateFrameRunnable
 		try
 		{
 			RequestLogger.updateDebugLog( "Loading window: " + searchString );
-			this.createFrame( appearsInTab );
+            createFrame( appearsInTab );
 		}
 		catch ( Exception e )
 		{
 			// This should not happen.  Therefore, print
 			// a stack trace for debug purposes.
 
-			StaticEntity.printStackTrace( e, this.creationType.getName() + " could not be loaded" );
+			StaticEntity.printStackTrace( e, creationType.getName() + " could not be loaded" );
 			return;
 		}
 	}
@@ -177,12 +177,12 @@ public class CreateFrameRunnable
 	{
 		// Make the frame for the first time
 
-		if ( !this.loadPreviousFrame() )
+		if ( !loadPreviousFrame() )
 		{
-			this.runConstruction( appearsInTab );
+            runConstruction( appearsInTab );
 		}
 
-		if ( this.creation == null )
+		if ( creation == null )
 		{
 			return null;
 		}
@@ -190,32 +190,32 @@ public class CreateFrameRunnable
 		// Some frames have a recipient parameter that
 		// should be passed around.
 
-		if ( this.creationType == SkillBuffFrame.class && this.parameters.length == 1 )
+		if ( creationType == SkillBuffFrame.class && parameters.length == 1 )
 		{
-			( (SkillBuffFrame) this.creation ).setRecipient( (String) this.parameters[ 0 ] );
+			( (SkillBuffFrame) creation).setRecipient( (String) parameters[ 0 ] );
 		}
 
-		if ( this.creationType == SendMessageFrame.class )
+		if ( creationType == SendMessageFrame.class )
 		{
-			( (SendMessageFrame) this.creation ).setRecipient( this.parameters.length == 0 ? "" : (String) this.parameters[ 0 ] );
-			( (SendMessageFrame) this.creation ).setMessageText( this.parameters.length < 2 ? "" : (String) this.parameters[ 1 ] );
+			( (SendMessageFrame) creation).setRecipient( parameters.length == 0 ? "" : (String) parameters[ 0 ] );
+			( (SendMessageFrame) creation).setMessageText( parameters.length < 2 ? "" : (String) parameters[ 1 ] );
 		}
 
 		if ( !appearsInTab )
 		{
-			this.creation.pack();
+            creation.pack();
 		}
 
-		if ( this.creation instanceof GenericFrame )
+		if ( creation instanceof GenericFrame )
 		{
-			GenericFrame gframe = (GenericFrame) this.creation;
+			GenericFrame gframe = (GenericFrame) creation;
 
 			gframe.setStatusMessage( KoLmafia.getLastMessage() );
 		}
 		else
 		{
-			this.creation.setLocationRelativeTo( null );
-			this.creation.setEnabled( true );
+            creation.setLocationRelativeTo( null );
+            creation.setEnabled( true );
 		}
 
 		// With the location set set on screen, make sure
@@ -224,22 +224,22 @@ public class CreateFrameRunnable
 
 		if ( appearsInTab )
 		{
-			KoLDesktop.addTab( (GenericFrame) this.creation );
-			KoLDesktop.showComponent( (GenericFrame) this.creation );
+			KoLDesktop.addTab( (GenericFrame) creation );
+			KoLDesktop.showComponent( (GenericFrame) creation );
 		}
 		else
 		{
-			this.creation.setVisible( true );
+            creation.setVisible( true );
 		}
 
-		JFrame frame = this.creation;
-		this.creation = null;
+		JFrame frame = creation;
+        creation = null;
 		return frame;
 	}
 
 	private boolean loadPreviousFrame()
 	{
-		if ( this.creationType == ChatFrame.class || this.creationType == ContactListFrame.class )
+		if ( creationType == ChatFrame.class || creationType == ContactListFrame.class )
 		{
 			return false;
 		}
@@ -250,7 +250,7 @@ public class CreateFrameRunnable
 		{
 			Frame frame = frames[ i ];
 
-			if ( frame.getClass() == this.creationType )
+			if ( frame.getClass() == creationType )
 			{
 				if ( frame instanceof GenericFrame )
 				{
@@ -262,7 +262,7 @@ public class CreateFrameRunnable
 					}
 				}
 
-				this.creation = (JFrame) frame;
+                creation = (JFrame) frame;
 				return true;
 			}
 		}
@@ -274,7 +274,7 @@ public class CreateFrameRunnable
 	{
 		if ( Preferences.getBoolean( "guiUsesOneWindow" ) )
 		{
-			if ( this.creationType != LoginFrame.class && this.creationType != ChatFrame.class && this.creationType != TabbedChatFrame.class )
+			if ( creationType != LoginFrame.class && creationType != ChatFrame.class && creationType != TabbedChatFrame.class )
 			{
 				KoLDesktop.removeExtraTabs();
 				appearsInTab = true;
@@ -283,14 +283,14 @@ public class CreateFrameRunnable
 
 		try
 		{
-			this.creation = (JFrame) this.creator.newInstance( this.parameters );
+            creation = (JFrame) creator.newInstance( parameters );
 		}
 		catch ( Exception e )
 		{
 			// This should not happen.  Therefore, print
 			// a stack trace for debug purposes.
 
-			StaticEntity.printStackTrace( e, this.creationType.getName() + " could not be loaded" );
+			StaticEntity.printStackTrace( e, creationType.getName() + " could not be loaded" );
 			return;
 		}
 
@@ -299,7 +299,7 @@ public class CreateFrameRunnable
 			return;
 		}
 
-		CreateFrameRunnable.decorate( this.creation );
+		CreateFrameRunnable.decorate( creation );
 	}
 
 	public static void decorate( final JFrame frame )

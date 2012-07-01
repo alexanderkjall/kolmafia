@@ -40,7 +40,7 @@ public class ClearBufferCommand
 {
 	public ClearBufferCommand()
 	{
-		this.usage = " - clear CLI window.";
+        usage = " - clear CLI window.";
 	}
 
 	@Override

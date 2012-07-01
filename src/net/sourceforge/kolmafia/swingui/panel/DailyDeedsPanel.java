@@ -436,11 +436,11 @@ public class DailyDeedsPanel
 
 		if ( isMulti )
 		{
-			this.add( new ComboDaily( displayText, pref, packedDeed, maxUses ) );
+            add( new ComboDaily( displayText, pref, packedDeed, maxUses ) );
 		}
 		else
 		{
-			this.add( new ComboDaily( displayText, pref, packedDeed ) );
+            add( new ComboDaily( displayText, pref, packedDeed ) );
 		}
 	}
 
@@ -449,7 +449,7 @@ public class DailyDeedsPanel
 		// No error handling here, really.  0-length strings don't do anything;
 		// blank strings end up working like a \n
 
-		this.add( new TextDeed( deedsString ) );
+        add( new TextDeed( deedsString ) );
 	}
 
 	private void parseCommandDeed( String[] deedsString )
@@ -472,7 +472,7 @@ public class DailyDeedsPanel
 			// Use the display text for the command if none was specified
 			String command = deedsString[ 1 ];
 
-			this.add( new CommandDaily( pref, command ) );
+            add( new CommandDaily( pref, command ) );
 		}
 		else if ( deedsString.length == 4 )
 		{
@@ -482,7 +482,7 @@ public class DailyDeedsPanel
 			String displayText = deedsString[ 1 ];
 			String command = deedsString[ 3 ];
 
-			this.add( new CommandDaily( displayText, pref, command ) );
+            add( new CommandDaily( displayText, pref, command ) );
 		}
 		else if ( deedsString.length == 5 )
 		{
@@ -496,7 +496,7 @@ public class DailyDeedsPanel
 			{
 				int maxPref = Integer.parseInt( deedsString[ 4 ] );
 
-				this.add( new CommandDaily( displayText, pref, command, maxPref ) );
+                add( new CommandDaily( displayText, pref, command, maxPref ) );
 			}
 			catch ( NumberFormatException e )
 			{
@@ -517,7 +517,7 @@ public class DailyDeedsPanel
 			{
 				int maxPref = Integer.parseInt( deedsString[ 4 ] );
 
-				this.add( new CommandDaily( displayText, pref, command, maxPref, toolTip ) );
+                add( new CommandDaily( displayText, pref, command, maxPref, toolTip ) );
 			}
 			catch ( NumberFormatException e )
 			{
@@ -554,7 +554,7 @@ public class DailyDeedsPanel
 				return;
 			}
 
-			this.add( new ItemDaily( pref, itemId, "use " + item ) );
+            add( new ItemDaily( pref, itemId, "use " + item ) );
 		}
 
 		else if ( deedsString.length == 4 )
@@ -584,7 +584,7 @@ public class DailyDeedsPanel
 				return;
 			}
 
-			this.add( new ItemDaily( displayText, pref, itemId, "use " + item ) );
+            add( new ItemDaily( displayText, pref, itemId, "use " + item ) );
 		}
 		else if ( deedsString.length == 5 )
 		{
@@ -616,7 +616,7 @@ public class DailyDeedsPanel
 			{
 				int maxUses = Integer.parseInt( deedsString[ 4 ] );
 
-				this.add( new ItemDaily( displayText, pref, itemId, "use " + item, maxUses ) );
+                add( new ItemDaily( displayText, pref, itemId, "use " + item, maxUses ) );
 			}
 			catch ( NumberFormatException e )
 			{
@@ -655,7 +655,7 @@ public class DailyDeedsPanel
 			{
 				int maxUses = Integer.parseInt( deedsString[ 4 ] );
 
-				this.add( new ItemDaily( displayText, pref, itemId, "use " + item, maxUses, toolTip ) );
+                add( new ItemDaily( displayText, pref, itemId, "use " + item, maxUses, toolTip ) );
 			}
 			catch ( NumberFormatException e )
 			{
@@ -691,7 +691,7 @@ public class DailyDeedsPanel
 				return;
 			}
 
-			this.add( new SkillDaily( pref, (String) skillNames.get( 0 ), "cast " + skillNames.get( 0 ) ) );
+            add( new SkillDaily( pref, (String) skillNames.get( 0 ), "cast " + skillNames.get( 0 ) ) );
 		}
 		else if ( deedsString.length == 4 )
 		{
@@ -707,7 +707,7 @@ public class DailyDeedsPanel
 					+ deedsString[ 3 ] );
 				return;
 			}
-			this.add( new SkillDaily( displayText, pref, (String) skillNames.get( 0 ), "cast "
+            add( new SkillDaily( displayText, pref, (String) skillNames.get( 0 ), "cast "
 				+ skillNames.get( 0 ) ) );
 		}
 		else if ( deedsString.length == 5)
@@ -725,7 +725,7 @@ public class DailyDeedsPanel
 						+ deedsString[ 3 ] );
 					return;
 				}
-				this.add( new SkillDaily( displayText, pref, (String) skillNames.get( 0 ), "cast "
+                add( new SkillDaily( displayText, pref, (String) skillNames.get( 0 ), "cast "
 					+ skillNames.get( 0 ), maxCasts ) );
 			}
 			catch ( NumberFormatException e )
@@ -750,7 +750,7 @@ public class DailyDeedsPanel
 						+ deedsString[ 3 ] );
 					return;
 				}
-				this.add( new SkillDaily( displayText, pref, (String) skillNames.get( 0 ), "cast "
+                add( new SkillDaily( displayText, pref, (String) skillNames.get( 0 ), "cast "
 					+ skillNames.get( 0 ), maxCasts, toolTip ) );
 			}
 			catch ( NumberFormatException e )
@@ -778,7 +778,7 @@ public class DailyDeedsPanel
 			// Use the display text for the command if none was specified
 			String command = deedsString[ 1 ];
 
-			this.add( new SimpleDaily( command, sCount ) );
+            add( new SimpleDaily( command, sCount ) );
 		}
 		else if ( deedsString.length == 3 )
 		{
@@ -788,7 +788,7 @@ public class DailyDeedsPanel
 			String displayText = deedsString[ 1 ];
 			String command = deedsString[ 2 ];
 
-			this.add( new SimpleDaily( displayText, command, sCount ) );
+            add( new SimpleDaily( displayText, command, sCount ) );
 		}
 		else if ( deedsString.length == 4 )
 		{
@@ -802,7 +802,7 @@ public class DailyDeedsPanel
 			{
 				int maxPref = Integer.parseInt( deedsString[ 3 ] );
 
-				this.add( new SimpleDaily( displayText, command, maxPref, sCount ) );
+                add( new SimpleDaily( displayText, command, maxPref, sCount ) );
 			}
 			catch ( NumberFormatException e )
 			{
@@ -816,136 +816,136 @@ public class DailyDeedsPanel
 	{
 		if ( deedsString[ 1 ].equals( "Submit Spading Data" ) )
 		{
-			this.add( new SpadeDaily() );
+            add( new SpadeDaily() );
 		}
 		else if ( deedsString[ 1 ].equals( "Crimbo Tree" ) )
 		{
-			this.add( new CrimboTreeDaily() );
+            add( new CrimboTreeDaily() );
 		}
 		else if ( deedsString[ 1 ].equals( "Chips" ) )
 		{
-			this.add( new ChipsDaily() );
+            add( new ChipsDaily() );
 		}
 		else if ( deedsString[ 1 ].equals( "Telescope" ) )
 		{
-			this.add( new TelescopeDaily() );
+            add( new TelescopeDaily() );
 		}
 		else if ( deedsString[ 1 ].equals( "Ball Pit" ) )
 		{
-			this.add( new PitDaily() );
+            add( new PitDaily() );
 		}
 		else if ( deedsString[ 1 ].equals( "Styx Pixie" ) )
 		{
-			this.add( new StyxDaily() );
+            add( new StyxDaily() );
 		}
 		else if ( deedsString[ 1 ].equals( "VIP Pool" ) )
 		{
-			this.add( new PoolDaily() );
+            add( new PoolDaily() );
 		}
 		else if ( deedsString[ 1 ].equals( "April Shower" ) )
 		{
-			this.add( new ShowerCombo() );
+            add( new ShowerCombo() );
 		}
 		else if ( deedsString[ 1 ].equals( "Friars" ) )
 		{
-			this.add( new FriarsDaily() );
+            add( new FriarsDaily() );
 		}
 		else if ( deedsString[ 1 ].equals( "Skate Park" ) )
 		{
-			this.add( new SkateDaily( "lutz", "ice", "_skateBuff1", "Fishy" ) );
-			this.add( new SkateDaily( "comet", "roller", "_skateBuff2", "-30% to Sea penalties" ) );
-			this.add( new SkateDaily( "band shell", "peace", "_skateBuff3", "+sand dollars" ) );
-			this.add( new SkateDaily( "eels", "peace", "_skateBuff4", "+10 lbs. underwater" ) );
-			this.add( new SkateDaily( "merry-go-round", "peace", "_skateBuff5", "+25% items underwater" ) );
+            add( new SkateDaily( "lutz", "ice", "_skateBuff1", "Fishy" ) );
+            add( new SkateDaily( "comet", "roller", "_skateBuff2", "-30% to Sea penalties" ) );
+            add( new SkateDaily( "band shell", "peace", "_skateBuff3", "+sand dollars" ) );
+            add( new SkateDaily( "eels", "peace", "_skateBuff4", "+10 lbs. underwater" ) );
+            add( new SkateDaily( "merry-go-round", "peace", "_skateBuff5", "+25% items underwater" ) );
 
 		}
 		else if ( deedsString[ 1 ].equals( "Concert" ) )
 		{
-			this.add( new ConcertDaily() );
+            add( new ConcertDaily() );
 		}
 		else if ( deedsString[ 1 ].equals( "Demon Summoning" ) )
 		{
-			this.add( new DemonCombo() );
+            add( new DemonCombo() );
 		}
 		else if ( deedsString[ 1 ].equals( "Free Rests" ) )
 		{
-			this.add( new RestsDaily() );
+            add( new RestsDaily() );
 		}
 		else if ( deedsString[ 1 ].equals( "Hot Tub" ) )
 		{
-			this.add( new HotTubDaily() );
+            add( new HotTubDaily() );
 		}
 		else if ( deedsString[ 1 ].equals( "Nuns" ) )
 		{
-			this.add( new NunsDaily() );
+            add( new NunsDaily() );
 		}
 		else if ( deedsString[ 1 ].equals( "Flush Mojo" ) )
 		{
-			this.add( new MojoDaily() );
+            add( new MojoDaily() );
 		}
 		else if ( deedsString[ 1 ].equals( "Feast" ) )
 		{
-			this.add( new FeastDaily() );
+            add( new FeastDaily() );
 		}
 		else if ( deedsString[ 1 ].equals( "Pudding" ) )
 		{
-			this.add( new PuddingDaily() );
+            add( new PuddingDaily() );
 		}
 		else if ( deedsString[ 1 ].equals( "Melange" ) )
 		{
-			this.add( new MelangeDaily() );
+            add( new MelangeDaily() );
 		}
 		else if ( deedsString[ 1 ].equals( "Stills" ) )
 		{
-			this.add( new StillsDaily() );
+            add( new StillsDaily() );
 		}
 		else if ( deedsString[ 1 ].equals( "Tea Party" ) )
 		{
-			this.add( new TeaPartyDaily() );
+            add( new TeaPartyDaily() );
 		}
 		else if ( deedsString[ 1 ].equals( "Photocopy" ) )
 		{
-			this.add( new PhotocopyDaily() );
+            add( new PhotocopyDaily() );
 		}
 		else if ( deedsString[ 1 ].equals( "Putty" ) )
 		{
-			this.add( new PuttyDaily() );
+            add( new PuttyDaily() );
 		}
 		else if ( deedsString[ 1 ].equals( "Camera" ) )
 		{
-			this.add( new CameraDaily() );
+            add( new CameraDaily() );
 		}
 		else if ( deedsString[ 1 ].equals( "Romantic Arrow" ) )
 		{
-			this.add( new RomanticDaily() );
+            add( new RomanticDaily() );
 		}
 		else if ( deedsString[ 1 ].equals( "Bonus Adventures" ) )
 		{
-			this.add( new AdvsDaily() );
+            add( new AdvsDaily() );
 		}
 		else if ( deedsString[ 1 ].equals( "Familiar Drops" ) )
 		{
-			this.add( new DropsDaily() );
+            add( new DropsDaily() );
 		}
 		else if ( deedsString[ 1 ].equals( "Free Fights" ) )
 		{
-			this.add( new FreeFightsDaily() );
+            add( new FreeFightsDaily() );
 		}
 		else if ( deedsString[ 1 ].equals( "Free Runaways" ) )
 		{
-			this.add( new RunawaysDaily() );
+            add( new RunawaysDaily() );
 		}
 		else if ( deedsString[ 1 ].equals( "Hatter" ) )
 		{
-			this.add( new HatterDaily() );
+            add( new HatterDaily() );
 		}
 		else if ( deedsString[ 1 ].equals( "Banished Monsters" ) )
 		{
-			this.add( new BanishedDaily() );
+            add( new BanishedDaily() );
 		}
 		else if ( deedsString[ 1 ].equals( "Swimming Pool" ) )
 		{
-			this.add( new SwimmingPoolDaily() );
+            add( new SwimmingPoolDaily() );
 		}
 		else
 		// you added a special deed to BUILTIN_DEEDS but didn't add a method call.
@@ -958,10 +958,10 @@ public class DailyDeedsPanel
 	public void update()
 	{
 		// Called whenever the dailyDeedsOptions preference is changed.
-		this.removeAll();
-		this.populate();
-		this.revalidate();
-		this.repaint();
+        removeAll();
+        populate();
+        revalidate();
+        repaint();
 	}
 
 	public void add( Daily daily )
@@ -1014,30 +1014,30 @@ public class DailyDeedsPanel
 			JButton button = new JButton( command );
 			button.setActionCommand( command );
 			button.addActionListener( this );
-			button.setBackground( this.getBackground() );
+			button.setBackground( getBackground() );
 			button.setDefaultCapable( false );
 			button.putClientProperty( "JButton.buttonType", "segmented" );
 
-			if ( this.buttons == null )
+			if ( buttons == null )
 			{
-				this.buttons = new ArrayList<JButton>();
+                buttons = new ArrayList<JButton>();
 				button.putClientProperty( "JButton.segmentPosition", "only" );
 			}
 			else
 			{
 				button.putClientProperty( "JButton.segmentPosition", "last" );
-				int last = this.buttons.size() - 1;
-				this.buttons.get( last ).putClientProperty(
+				int last = buttons.size() - 1;
+                buttons.get( last ).putClientProperty(
 					"JButton.segmentPosition", last == 0 ? "first" : "middle" );
 			}
-			this.buttons.add( button );
-			this.add( button );
+            buttons.add( button );
+            add( button );
 			return button;
 		}
 
 		public void addButton( String command, String tip )
 		{
-			this.addButton( command ).setToolTipText( tip );
+            addButton( command ).setToolTipText( tip );
 		}
 
 		public JButton addComboButton( String command, String displaytext )
@@ -1046,29 +1046,29 @@ public class DailyDeedsPanel
 			button.setActionCommand( command );
 			button.setText( displaytext );
 			button.addActionListener( this );
-			button.setBackground( this.getBackground() );
+			button.setBackground( getBackground() );
 			button.setDefaultCapable( false );
 			button.putClientProperty( "JButton.buttonType", "segmented" );
-			if ( this.buttons == null )
+			if ( buttons == null )
 			{
-				this.buttons = new ArrayList<JButton>();
+                buttons = new ArrayList<JButton>();
 				button.putClientProperty( "JButton.segmentPosition", "only" );
 			}
 			else
 			{
 				button.putClientProperty( "JButton.segmentPosition", "last" );
-				int last = this.buttons.size() - 1;
-				this.buttons.get( last ).putClientProperty(
+				int last = buttons.size() - 1;
+                buttons.get( last ).putClientProperty(
 					"JButton.segmentPosition", last == 0 ? "first" : "middle" );
 			}
-			this.buttons.add( button );
-			this.add( button );
+            buttons.add( button );
+            add( button );
 			return button;
 		}
 
 		public void addComboButton( String command, String displaytext, String tip )
 		{
-			this.addComboButton( command, displaytext ).setToolTipText( tip );
+            addComboButton( command, displaytext ).setToolTipText( tip );
 		}
 
 		public DisabledItemsComboBox addComboBox( Object choice[], ArrayList<Object> tooltips, String lengthString )
@@ -1091,7 +1091,7 @@ public class DailyDeedsPanel
 			}
 
 			comboBox.setTooltips( tooltips );
-			this.add( comboBox );
+            add( comboBox );
 			return comboBox;
 		}
 
@@ -1102,7 +1102,7 @@ public class DailyDeedsPanel
 
 		public JButton buttonText( int idx, String command )
 		{
-			JButton button = this.buttons.get( idx );
+			JButton button = buttons.get( idx );
 			button.setText( command );
 			button.setActionCommand( command );
 			return button;
@@ -1110,26 +1110,26 @@ public class DailyDeedsPanel
 
 		public void buttonText( int idx, String command, String tip )
 		{
-			this.buttonText( idx, command ).setToolTipText( tip );
+            buttonText( idx, command ).setToolTipText( tip );
 		}
 
 		public void addLabel( String text )
 		{
-			this.label = new JLabel( text );
-			this.add( this.label );
+            label = new JLabel( text );
+            add( label );
 		}
 
 		public void setText( String text )
 		{
-			this.label.setText( text );
+            label.setText( text );
 		}
 
 		@Override
 		public void setEnabled( boolean enabled )
 		{
-			if ( this.buttons != null )
+			if ( buttons != null )
 			{
-				Iterator<JButton> i = this.buttons.iterator();
+				Iterator<JButton> i = buttons.iterator();
 
 				while ( i.hasNext() )
 				{
@@ -1142,15 +1142,15 @@ public class DailyDeedsPanel
 
 		public void setEnabled( int index, boolean enabled )
 		{
-			this.buttons.get( index ).setEnabled( enabled );
+            buttons.get( index ).setEnabled( enabled );
 		}
 
 		public void setShown( boolean shown )
 		{
-			if ( shown != this.isVisible() )
+			if ( shown != isVisible() )
 			{
-				this.setVisible( shown );
-				this.revalidate();
+                setVisible( shown );
+                revalidate();
 			}
 		}
 
@@ -1196,16 +1196,16 @@ public class DailyDeedsPanel
 
 			ttips.addAll(Arrays.asList(tips));
 
-			this.addItem( ItemPool.VIP_LOUNGE_KEY );
-			this.addListener( "_aprilShower" );
-			this.addListener( "kingLiberated" );
+            addItem( ItemPool.VIP_LOUNGE_KEY );
+            addListener( "_aprilShower" );
+            addListener( "kingLiberated" );
 
 			//the string is used to set the combobox width. pick the largest, add a space
-			box = this.addComboBox( choices, ttips, "April Shower " );
+			box = addComboBox( choices, ttips, "April Shower " );
 			box.addActionListener(new ShowerComboListener() );
-			this.add( Box.createRigidArea(new Dimension(5,1) ) );//small 5px spacer
+            add( Box.createRigidArea(new Dimension(5,1) ) );//small 5px spacer
 
-			btn = this.addComboButton( "" , "Go!"); //initialize GO button to do nothing
+			btn = addComboButton( "" , "Go!"); //initialize GO button to do nothing
 		}
 
 		@Override
@@ -1216,8 +1216,8 @@ public class DailyDeedsPanel
 			boolean have = InventoryManager.getCount( ItemPool.VIP_LOUNGE_KEY ) > 0;
 			boolean as = Preferences.getBoolean( "_aprilShower" );
 			boolean trendy = !KoLCharacter.isTrendy() || TrendyRequest.isTrendy( "Clan Item", "April Shower" );
-			this.setShown( ( !bm || kf ) && ( have || as ) && trendy );
-			this.setEnabled( !as );
+            setShown( ( !bm || kf ) && ( have || as ) && trendy );
+            setEnabled( !as );
 			box.setEnabled( !as );
 		}
 
@@ -1276,25 +1276,25 @@ public class DailyDeedsPanel
 
 			for ( int i=1; i <= len ; ++i )
 			{
-				this.addListener( "demonName" + i );
+                addListener( "demonName" + i );
 				choices[i] =  (String)KoLAdventure.DEMON_TYPES[ i - 1 ][ 1 ] ;
 			}
 
 			ttips.addAll(Arrays.asList(tips));
 
-			this.addListener( "(character)" );
-			this.addListener( "demonSummoned" );
+            addListener( "(character)" );
+            addListener( "demonSummoned" );
 
-			this.addItem( ItemPool.EYE_OF_ED );
-			this.addItem( ItemPool.HEADPIECE_OF_ED );
-			this.addItem( ItemPool.STAFF_OF_ED );
+            addItem( ItemPool.EYE_OF_ED );
+            addItem( ItemPool.HEADPIECE_OF_ED );
+            addItem( ItemPool.STAFF_OF_ED );
 
-			box = this.addComboBox( choices, ttips, "Summoning Chamber " );
+			box = addComboBox( choices, ttips, "Summoning Chamber " );
 			box.addActionListener(new DemonComboListener() );
-			this.add( Box.createRigidArea(new Dimension(5,1) ) );
+            add( Box.createRigidArea(new Dimension(5,1) ) );
 
 			// Initialize the GO button to do nothing.
-			btn = this.addComboButton( "", "Go!");
+			btn = addComboButton( "", "Go!");
 		}
 
 		@Override
@@ -1304,8 +1304,8 @@ public class DailyDeedsPanel
 			boolean have = InventoryManager.getCount( ItemPool.EYE_OF_ED ) > 0
 				|| InventoryManager.getCount( ItemPool.HEADPIECE_OF_ED ) > 0
 				|| InventoryManager.getCount( ItemPool.STAFF_OF_ED ) > 0;
-			this.setShown( have );
-			this.setEnabled( !summoned );
+            setShown( have );
+            setEnabled( !summoned );
 			box.setEnabled( !summoned ); // this.setEnabled will not disable the combo box, for whatever reason
 
 			// Disable individual choices if we don't have the demon names
@@ -1352,7 +1352,7 @@ public class DailyDeedsPanel
 		public ComboDaily( String displayText, String pref, ArrayList<String[]> packedDeed )
 		{
 			this.packedDeed = packedDeed;
-			this.preference = pref;
+            preference = pref;
 
 			int len = packedDeed.size();
 			ArrayList<Object> ttips = new ArrayList<Object>();
@@ -1367,7 +1367,7 @@ public class DailyDeedsPanel
 				String[] item = packedDeed.get( i - 1 );
 
 				tips[ i ] = item[ 3 ];
-				this.addListener( item[ 2 ] );
+                addListener( item[ 2 ] );
 				choices[ i ] = item[ 1 ];
 
 				if ( item[ 1 ].length() > lengthString.length() )
@@ -1377,26 +1377,26 @@ public class DailyDeedsPanel
 			}
 			ttips.addAll( Arrays.asList( tips ) );
 
-			this.addListener( pref );
-			this.box = this.addComboBox( choices, ttips, lengthString + " " );
-			this.box.addActionListener( new ComboListener() );
-			this.add( Box.createRigidArea( new Dimension( 5, 1 ) ) );
+            addListener( pref );
+            box = addComboBox( choices, ttips, lengthString + " " );
+            box.addActionListener( new ComboListener() );
+            add( Box.createRigidArea( new Dimension( 5, 1 ) ) );
 
-			btn = this.addComboButton( "", "Go!" );
+			btn = addComboButton( "", "Go!" );
 		}
 
 		public ComboDaily( String displayText, String pref, ArrayList<String[]> packedDeed, int maxUses )
 		{
 			this( displayText, pref, packedDeed);
-			this.maxPref = maxUses;
-			this.addLabel( "" );
+            maxPref = maxUses;
+            addLabel( "" );
 		}
 
 		@Override
 		public void update()
 		{
 			int prefToInt = 1;
-			String pref = Preferences.getString( this.preference );
+			String pref = Preferences.getString( preference );
 			if ( pref.equalsIgnoreCase( "true" ) || pref.equalsIgnoreCase( "false" )
 				|| pref.equalsIgnoreCase( "" ) )
 			{
@@ -1412,13 +1412,13 @@ public class DailyDeedsPanel
 				{
 				}
 			}
-			this.setEnabled( prefToInt < this.maxPref );
-			this.box.setEnabled( prefToInt < this.maxPref );
-			if ( this.maxPref > 1 )
+            setEnabled( prefToInt < maxPref );
+            box.setEnabled( prefToInt < maxPref );
+			if ( maxPref > 1 )
 			{
-				this.setText( prefToInt + "/" + this.maxPref );
+                setText( prefToInt + "/" + maxPref );
 			}
-			this.setShown( true );
+            setShown( true );
 
 			for ( int i = 1; i <= packedDeed.size(); ++i )
 			{
@@ -1440,7 +1440,7 @@ public class DailyDeedsPanel
 					{
 					}
 				}
-				this.box.setDisabledIndex( i, prefToInt > 0 );
+                box.setDisabledIndex( i, prefToInt > 0 );
 			}
 		}
 
@@ -1478,10 +1478,10 @@ public class DailyDeedsPanel
 
 		public SimpleDaily( String command, int sCount )
 		{
-			this.preference = "_simpleDeed" + sCount;
-			this.addListener( preference );
-			JButton button = this.addButton( command );
-			button.addActionListener( new SimpleListener( this.preference ) );
+            preference = "_simpleDeed" + sCount;
+            addListener( preference );
+			JButton button = addButton( command );
+			button.addActionListener( new SimpleListener( preference ) );
 		}
 
 		/**
@@ -1494,10 +1494,10 @@ public class DailyDeedsPanel
 
 		public SimpleDaily( String displayText, String command, int sCount )
 		{
-			this.preference = "_simpleDeed" + sCount;
-			this.addListener( preference );
-			JButton button = this.addComboButton( command, displayText );
-			button.addActionListener( new SimpleListener( this.preference ) );
+            preference = "_simpleDeed" + sCount;
+            addListener( preference );
+			JButton button = addComboButton( command, displayText );
+			button.addActionListener( new SimpleListener( preference ) );
 		}
 
 		/**
@@ -1511,19 +1511,19 @@ public class DailyDeedsPanel
 		 */
 		public SimpleDaily( String displayText, String command, int maxPref, int sCount )
 		{
-			this.preference = "_simpleDeed" + sCount;
+            preference = "_simpleDeed" + sCount;
 			this.maxPref = maxPref;
-			this.addListener( preference );
-			JButton button = this.addComboButton( command, displayText );
-			button.addActionListener( new SimpleListener( this.preference ) );
-			this.addLabel( "" );
+            addListener( preference );
+			JButton button = addComboButton( command, displayText );
+			button.addActionListener( new SimpleListener( preference ) );
+            addLabel( "" );
 		}
 
 		@Override
 		public void update()
 		{
 			int prefToInt = 1;
-			String pref = Preferences.getString( this.preference );
+			String pref = Preferences.getString( preference );
 			if ( pref.equalsIgnoreCase( "true" ) || pref.equalsIgnoreCase( "false" )
 				|| pref.equalsIgnoreCase( "" ) )
 			{
@@ -1539,10 +1539,10 @@ public class DailyDeedsPanel
 				{
 				}
 			}
-			this.setEnabled( prefToInt < this.maxPref );
-			if ( this.maxPref > 1 )
+            setEnabled( prefToInt < maxPref );
+			if ( maxPref > 1 )
 			{
-				this.setText( prefToInt + "/" + this.maxPref );
+                setText( prefToInt + "/" + maxPref );
 			}
 		}
 
@@ -1553,12 +1553,12 @@ public class DailyDeedsPanel
 
 			public SimpleListener( String pref )
 			{
-				this.preference = pref;
+                preference = pref;
 			}
 
 			public void actionPerformed( ActionEvent arg0 )
 			{
-				String pref = this.preference;
+				String pref = preference;
 				int value = Preferences.getInteger( pref );
 				Preferences.setInteger( pref, ++value );
 			}
@@ -1582,8 +1582,8 @@ public class DailyDeedsPanel
 		public CommandDaily( String preference, String command )
 		{
 			this.preference = preference;
-			this.addListener( preference );
-			this.addButton( command );
+            addListener( preference );
+            addButton( command );
 		}
 
 		/**
@@ -1599,8 +1599,8 @@ public class DailyDeedsPanel
 		public CommandDaily( String displayText, String preference, String command )
 		{
 			this.preference = preference;
-			this.addListener( preference );
-			this.addComboButton( command, displayText );
+            addListener( preference );
+            addComboButton( command, displayText );
 		}
 
 		/**
@@ -1618,9 +1618,9 @@ public class DailyDeedsPanel
 		{
 			this.preference = preference;
 			this.maxPref = maxPref;
-			this.addListener( preference );
-			this.addComboButton( command, displayText );
-			this.addLabel( "" );
+            addListener( preference );
+            addComboButton( command, displayText );
+            addLabel( "" );
 		}
 
 		/**
@@ -1640,16 +1640,16 @@ public class DailyDeedsPanel
 		{
 			this.preference = preference;
 			this.maxPref = maxPref;
-			this.addListener( preference );
-			this.addComboButton( command, displayText, toolTip );
-			this.addLabel( "" );
+            addListener( preference );
+            addComboButton( command, displayText, toolTip );
+            addLabel( "" );
 		}
 
 		@Override
 		public void update()
 		{
 			int prefToInt = 1;
-			String pref = Preferences.getString( this.preference );
+			String pref = Preferences.getString( preference );
 			if ( pref.equalsIgnoreCase( "true" ) || pref.equalsIgnoreCase( "false" )
 				|| pref.equalsIgnoreCase( "" ) )
 			{
@@ -1665,10 +1665,10 @@ public class DailyDeedsPanel
 				{
 				}
 			}
-			this.setEnabled( prefToInt < this.maxPref );
-			if ( this.maxPref > 1 )
+            setEnabled( prefToInt < maxPref );
+			if ( maxPref > 1 )
 			{
-				this.setText( prefToInt + "/" + this.maxPref );
+                setText( prefToInt + "/" + maxPref );
 			}
 		}
 	}
@@ -1693,9 +1693,9 @@ public class DailyDeedsPanel
 		{
 			this.preference = preference;
 			this.itemId = itemId;
-			this.addItem( itemId );
-			this.addListener( preference );
-			this.addButton( command );
+            addItem( itemId );
+            addListener( preference );
+            addButton( command );
 		}
 
 		/**
@@ -1713,9 +1713,9 @@ public class DailyDeedsPanel
 		{
 			this.preference = preference;
 			this.itemId = itemId;
-			this.addItem( itemId );
-			this.addListener( preference );
-			this.addComboButton( command, displayText );
+            addItem( itemId );
+            addListener( preference );
+            addComboButton( command, displayText );
 		}
 
 		/**
@@ -1736,10 +1736,10 @@ public class DailyDeedsPanel
 			this.preference = preference;
 			this.itemId = itemId;
 			this.maxUses = maxUses;
-			this.addItem( itemId );
-			this.addListener( preference );
-			this.addComboButton( command, displayText );
-			this.addLabel( "" );
+            addItem( itemId );
+            addListener( preference );
+            addComboButton( command, displayText );
+            addLabel( "" );
 		}
 
 		/**
@@ -1762,10 +1762,10 @@ public class DailyDeedsPanel
 			this.preference = preference;
 			this.itemId = itemId;
 			this.maxUses = maxUses;
-			this.addItem( itemId );
-			this.addListener( preference );
-			this.addComboButton( command, displayText, toolTip );
-			this.addLabel( "" );
+            addItem( itemId );
+            addListener( preference );
+            addComboButton( command, displayText, toolTip );
+            addLabel( "" );
 		}
 
 		@Override
@@ -1773,8 +1773,8 @@ public class DailyDeedsPanel
 		{
 
 			int prefToInt = 1;
-			String pref = Preferences.getString( this.preference );
-			boolean haveItem = InventoryManager.getCount( this.itemId ) > 0;
+			String pref = Preferences.getString( preference );
+			boolean haveItem = InventoryManager.getCount( itemId ) > 0;
 
 			if ( pref.equalsIgnoreCase( "true" ) || pref.equalsIgnoreCase( "false" )
 				|| pref.equalsIgnoreCase( "" ) )
@@ -1791,12 +1791,12 @@ public class DailyDeedsPanel
 				{
 				}
 			}
-			this.setShown( prefToInt > 0 || haveItem );
+            setShown( prefToInt > 0 || haveItem );
 
-			this.setEnabled( haveItem && prefToInt < this.maxUses );
-			if ( this.maxUses > 1 )
+            setEnabled( haveItem && prefToInt < maxUses );
+			if ( maxUses > 1 )
 			{
-				this.setText( prefToInt + "/" + this.maxUses );
+                setText( prefToInt + "/" + maxUses );
 			}
 		}
 	}
@@ -1821,9 +1821,9 @@ public class DailyDeedsPanel
 		{
 			this.preference = preference;
 			this.skill = skill;
-			this.addListener( preference );
-			this.addListener( "(skill)" );
-			this.addButton( command );
+            addListener( preference );
+            addListener( "(skill)" );
+            addButton( command );
 		}
 
 		/**
@@ -1841,9 +1841,9 @@ public class DailyDeedsPanel
 		{
 			this.preference = preference;
 			this.skill = skill;
-			this.addListener( preference );
-			this.addListener( "(skill)" );
-			this.addComboButton( command, displayText );
+            addListener( preference );
+            addListener( "(skill)" );
+            addComboButton( command, displayText );
 		}
 
 		/**
@@ -1864,10 +1864,10 @@ public class DailyDeedsPanel
 			this.preference = preference;
 			this.skill = skill;
 			this.maxCasts = maxCasts;
-			this.addListener( preference );
-			this.addListener( "(skill)" );
-			this.addComboButton( command, displayText );
-			this.addLabel( "" );
+            addListener( preference );
+            addListener( "(skill)" );
+            addComboButton( command, displayText );
+            addLabel( "" );
 		}
 
 		/**
@@ -1890,17 +1890,17 @@ public class DailyDeedsPanel
 			this.preference = preference;
 			this.skill = skill;
 			this.maxCasts = maxCasts;
-			this.addListener( preference );
-			this.addListener( "(skill)" );
-			this.addComboButton( command, displayText, toolTip );
-			this.addLabel( "" );
+            addListener( preference );
+            addListener( "(skill)" );
+            addComboButton( command, displayText, toolTip );
+            addLabel( "" );
 		}
 
 		@Override
 		public void update()
 		{
 			int prefToInt = 1;
-			String pref = Preferences.getString( this.preference );
+			String pref = Preferences.getString( preference );
 			if ( pref.equalsIgnoreCase( "true" ) || pref.equalsIgnoreCase( "false" )
 				|| pref.equalsIgnoreCase( "" ) )
 			{
@@ -1916,11 +1916,11 @@ public class DailyDeedsPanel
 				{
 				}
 			}
-			this.setShown( KoLCharacter.hasSkill( this.skill ) );
-			this.setEnabled( prefToInt < this.maxCasts );
-			if ( this.maxCasts > 1 )
+            setShown( KoLCharacter.hasSkill( skill ) );
+            setEnabled( prefToInt < maxCasts );
+			if ( maxCasts > 1 )
 			{
-				this.setText( prefToInt + "/" + this.maxCasts );
+                setText( prefToInt + "/" + maxCasts );
 			}
 		}
 	}
@@ -1936,11 +1936,11 @@ public class DailyDeedsPanel
 				if ( !KoLCharacter.baseUserName().equals( "GLOBAL" )
 						&& !Preferences.getString( deedString[ i ] ).equals( "" ) )
 				{
-					this.addListener( deedString[ i ] );
+                    addListener( deedString[ i ] );
 				}
 			}
-			this.deedsString = deedString;
-			this.addLabel( "" );
+            deedsString = deedString;
+            addLabel( "" );
 		}
 
 		@Override
@@ -1960,7 +1960,7 @@ public class DailyDeedsPanel
 					text += deedsString[ i ];
 				}
 			}
-			this.setText( text );
+            setText( text );
 		}
 	}
 
@@ -1969,10 +1969,10 @@ public class DailyDeedsPanel
 	{
 		public NunsDaily()
 		{
-			this.addListener( "nunsVisits" );
-			this.addListener( "sidequestNunsCompleted" );
-			this.addButton( "Nuns" );
-			this.addLabel( "" );
+            addListener( "nunsVisits" );
+            addListener( "sidequestNunsCompleted" );
+            addButton( "Nuns" );
+            addLabel( "" );
 		}
 
 		@Override
@@ -1980,9 +1980,9 @@ public class DailyDeedsPanel
 		{
 			int nv = Preferences.getInteger( "nunsVisits" );
 			boolean snc = Preferences.getString( "sidequestNunsCompleted" ).equals( "none" );
-			this.setShown( !snc );
-			this.setEnabled( nv < 3 && !snc );
-			this.setText( nv + "/3" );
+            setShown( !snc );
+            setEnabled( nv < 3 && !snc );
+            setText( nv + "/3" );
 		}
 	}
 
@@ -1995,17 +1995,17 @@ public class DailyDeedsPanel
 		{
 			this.state = state;
 			this.visited = visited;
-			this.addListener( "skateParkStatus" );
-			this.addListener( visited );
-			this.addButton( "skate " + name );
-			this.addLabel( desc );
+            addListener( "skateParkStatus" );
+            addListener( visited );
+            addButton( "skate " + name );
+            addLabel( desc );
 		}
 
 		@Override
 		public void update()
 		{
-			this.setShown( Preferences.getString( "skateParkStatus" ).equals( this.state ) );
-			this.setEnabled( !Preferences.getBoolean( this.visited ) );
+            setShown( Preferences.getString( "skateParkStatus" ).equals( state ) );
+            setEnabled( !Preferences.getBoolean( visited ) );
 		}
 	}
 
@@ -2014,17 +2014,17 @@ public class DailyDeedsPanel
 	{
 		public SpadeDaily()
 		{
-			this.addListener( "spadingData" );
-			this.addButton( "spade" );
-			this.addLabel( "" );
+            addListener( "spadingData" );
+            addButton( "spade" );
+            addLabel( "" );
 		}
 
 		@Override
 		public void update()
 		{
 			int ns = Preferences.getString( "spadingData" ).split( "\\|" ).length / 3;
-			this.setShown( ns > 0 );
-			this.setText( ns == 1 ? "one item to submit" : (ns + " items to submit") );
+            setShown( ns > 0 );
+            setText( ns == 1 ? "one item to submit" : (ns + " items to submit") );
 		}
 	}
 
@@ -2033,11 +2033,11 @@ public class DailyDeedsPanel
 	{
 		public TelescopeDaily()
 		{
-			this.addListener( "telescopeLookedHigh" );
-			this.addListener( "telescopeUpgrades" );
-			this.addListener( "kingLiberated" );
-			this.addButton( "telescope high" );
-			this.addLabel( "" );
+            addListener( "telescopeLookedHigh" );
+            addListener( "telescopeUpgrades" );
+            addListener( "kingLiberated" );
+            addButton( "telescope high" );
+            addLabel( "" );
 		}
 
 		@Override
@@ -2046,9 +2046,9 @@ public class DailyDeedsPanel
 			boolean bm = KoLCharacter.inBadMoon();
 			boolean kf = KoLCharacter.kingLiberated();
 			int nu = Preferences.getInteger( "telescopeUpgrades" );
-			this.setShown( ( !bm || kf ) && ( nu > 0 ) );
-			this.setEnabled( nu > 0 && !Preferences.getBoolean( "telescopeLookedHigh" ) );
-			this.setText( nu == 0 ? "" : ("+" + nu*5 + "% all, 10 turns") );
+            setShown( ( !bm || kf ) && ( nu > 0 ) );
+            setEnabled( nu > 0 && !Preferences.getBoolean( "telescopeLookedHigh" ) );
+            setText( nu == 0 ? "" : ("+" + nu*5 + "% all, 10 turns") );
 		}
 	}
 
@@ -2057,11 +2057,11 @@ public class DailyDeedsPanel
 	{
 		public ConcertDaily()
 		{
-			this.addListener( "concertVisited" );
-			this.addListener( "sidequestArenaCompleted" );
-			this.addButton( "concert ?" );
-			this.addButton( "concert ?" );
-			this.addButton( "concert ?" );
+            addListener( "concertVisited" );
+            addListener( "sidequestArenaCompleted" );
+            addButton( "concert ?" );
+            addButton( "concert ?" );
+            addButton( "concert ?" );
 		}
 
 		@Override
@@ -2071,23 +2071,23 @@ public class DailyDeedsPanel
 			String side = Preferences.getString( "sidequestArenaCompleted" );
 			if ( side.equals( "fratboy" ) )
 			{
-				this.setShown( true );
-				this.setEnabled( !cv );
-				this.buttonText( 0, "concert Elvish", "+10% all stats, 20 turns" );
-				this.buttonText( 1, "concert Winklered", "+40% meat, 20 turns" );
-				this.buttonText( 2, "concert White-boy Angst", "+50% initiative, 20 turns" );
+                setShown( true );
+                setEnabled( !cv );
+                buttonText( 0, "concert Elvish", "+10% all stats, 20 turns" );
+                buttonText( 1, "concert Winklered", "+40% meat, 20 turns" );
+                buttonText( 2, "concert White-boy Angst", "+50% initiative, 20 turns" );
 			}
 			else if ( side.equals( "hippy" ) )
 			{
-				this.setShown( true );
-				this.setEnabled( !cv );
-				this.buttonText( 0, "concert Moon'd", "+5 stats per fight, 20 turns" );
-				this.buttonText( 1, "concert Dilated Pupils", "+20% items, 20 turns" );
-				this.buttonText( 2, "concert Optimist Primal", "+5 lbs., 20 turns" );
+                setShown( true );
+                setEnabled( !cv );
+                buttonText( 0, "concert Moon'd", "+5 stats per fight, 20 turns" );
+                buttonText( 1, "concert Dilated Pupils", "+20% items, 20 turns" );
+                buttonText( 2, "concert Optimist Primal", "+5 lbs., 20 turns" );
 			}
 			else {
-				this.setShown( false );
-				this.setEnabled( false );
+                setShown( false );
+                setEnabled( false );
 			}
 		}
 	}
@@ -2097,11 +2097,11 @@ public class DailyDeedsPanel
 	{
 		public RestsDaily()
 		{
-			this.addListener( "timesRested" );
-			this.addListener( "(skill)" );
-			this.addListener( "kingLiberated" );
-			this.addButton( "rest" );
-			this.addLabel( "" );
+            addListener( "timesRested" );
+            addListener( "(skill)" );
+            addListener( "kingLiberated" );
+            addButton( "rest" );
+            addLabel( "" );
 		}
 
 		@Override
@@ -2112,9 +2112,9 @@ public class DailyDeedsPanel
 			if ( KoLCharacter.hasSkill( "Disco Nap" ) ) ++fr;
 			if ( KoLCharacter.hasSkill( "Disco Power Nap" ) ) fr += 2;
 			if ( KoLCharacter.hasSkill( "Executive Narcolepsy" ) ) ++fr;
-			this.setShown( fr > 0 );
-			this.setEnabled( nr < fr );
-			this.setText( nr + " (" + fr + " free)" );
+            setShown( fr > 0 );
+            setEnabled( nr < fr );
+            setText( nr + " (" + fr + " free)" );
 		}
 	}
 
@@ -2123,13 +2123,13 @@ public class DailyDeedsPanel
 	{
 		public FriarsDaily()
 		{
-			this.addListener( "friarsBlessingReceived" );
-			this.addListener( "lastFriarCeremonyAscension" );
-			this.addListener( "kingLiberated" );
-			this.addListener( "(character)" );
-			this.addButton( "friars food", "+30% food drops, 20 turns" );
-			this.addButton( "friars familiar", "+2 familiar exp per fight, 20 turns" );
-			this.addButton( "friars booze", "+30% booze drops, 20 turns" );
+            addListener( "friarsBlessingReceived" );
+            addListener( "lastFriarCeremonyAscension" );
+            addListener( "kingLiberated" );
+            addListener( "(character)" );
+            addButton( "friars food", "+30% food drops, 20 turns" );
+            addButton( "friars familiar", "+2 familiar exp per fight, 20 turns" );
+            addButton( "friars booze", "+30% booze drops, 20 turns" );
 		}
 
 		@Override
@@ -2138,8 +2138,8 @@ public class DailyDeedsPanel
 			boolean kf = KoLCharacter.kingLiberated();
 			int lfc = Preferences.getInteger( "lastFriarCeremonyAscension" );
 			int ka = Preferences.getInteger( "knownAscensions" );
-			this.setShown( kf || lfc == ka );
-			this.setEnabled( !Preferences.getBoolean( "friarsBlessingReceived" ) );
+            setShown( kf || lfc == ka );
+            setEnabled( !Preferences.getBoolean( "friarsBlessingReceived" ) );
 		}
 	}
 
@@ -2148,18 +2148,18 @@ public class DailyDeedsPanel
 	{
 		public StyxDaily()
 		{
-			this.addListener( "styxPixieVisited" );
-			this.addButton( "styx muscle", "+25% musc, +10 weapon dmg, +5 DR, 10 turns" );
-			this.addButton( "styx mysticality", "+25% myst, +15 spell dmg, 10-15 MP regen, 10 turns" );
-			this.addButton( "styx moxie", "+25% mox, +40% meat, +20% item, 10 turns" );
+            addListener( "styxPixieVisited" );
+            addButton( "styx muscle", "+25% musc, +10 weapon dmg, +5 DR, 10 turns" );
+            addButton( "styx mysticality", "+25% myst, +15 spell dmg, 10-15 MP regen, 10 turns" );
+            addButton( "styx moxie", "+25% mox, +40% meat, +20% item, 10 turns" );
 		}
 
 		@Override
 		public void update()
 		{
 			boolean bm = KoLCharacter.inBadMoon();
-			this.setShown( bm );
-			this.setEnabled( !Preferences.getBoolean( "styxPixieVisited" ) &&
+            setShown( bm );
+            setEnabled( !Preferences.getBoolean( "styxPixieVisited" ) &&
 				bm );
 		}
 	}
@@ -2169,11 +2169,11 @@ public class DailyDeedsPanel
 	{
 		public MojoDaily()
 		{
-			this.addListener( "currentMojoFilters" );
-			this.addListener( "kingLiberated" );
-			this.addItem( ItemPool.MOJO_FILTER );
-			this.addButton( "use mojo filter" );
-			this.addLabel( "" );
+            addListener( "currentMojoFilters" );
+            addListener( "kingLiberated" );
+            addItem( ItemPool.MOJO_FILTER );
+            addButton( "use mojo filter" );
+            addLabel( "" );
 		}
 
 		@Override
@@ -2181,9 +2181,9 @@ public class DailyDeedsPanel
 		{
 			boolean have = InventoryManager.getCount( ItemPool.MOJO_FILTER ) > 0;
 			int nf = Preferences.getInteger( "currentMojoFilters" );
-			this.setShown( have || nf > 0 );
-			this.setEnabled( have && nf < 3 );
-			this.setText( nf + "/3" );
+            setShown( have || nf > 0 );
+            setEnabled( have && nf < 3 );
+            setText( nf + "/3" );
 		}
 	}
 
@@ -2192,11 +2192,11 @@ public class DailyDeedsPanel
 	{
 		public HotTubDaily()
 		{
-			this.addItem( ItemPool.VIP_LOUNGE_KEY );
-			this.addListener( "_hotTubSoaks" );
-			this.addListener( "kingLiberated" );
-			this.addButton( "hottub" );
-			this.addLabel( "" );
+            addItem( ItemPool.VIP_LOUNGE_KEY );
+            addListener( "_hotTubSoaks" );
+            addListener( "kingLiberated" );
+            addButton( "hottub" );
+            addLabel( "" );
 		}
 
 		@Override
@@ -2206,9 +2206,9 @@ public class DailyDeedsPanel
 			boolean kf = KoLCharacter.kingLiberated();
 			boolean have = InventoryManager.getCount( ItemPool.VIP_LOUNGE_KEY ) > 0;
 			int nf = Preferences.getInteger( "_hotTubSoaks" );
-			this.setShown( ( !bm || kf ) && ( have || nf > 0 ) );
-			this.setEnabled( nf < 5 );
-			this.setText( nf + "/5" );
+            setShown( ( !bm || kf ) && ( have || nf > 0 ) );
+            setEnabled( nf < 5 );
+            setText( nf + "/5" );
 		}
 	}
 
@@ -2217,13 +2217,13 @@ public class DailyDeedsPanel
 	{
 		public PoolDaily()
 		{
-			this.addItem( ItemPool.VIP_LOUNGE_KEY );
-			this.addListener( "_poolGames" );
-			this.addListener( "kingLiberated" );
-			this.addButton( "pool 1", "weapon dmg +50%, +5 lbs, 10 turns" );
-			this.addButton( "pool 2", "spell dmg +50%, 10 MP per Adv, 10 turns" );
-			this.addButton( "pool 3", "init +50%, +10% item, 10 turns" );
-			this.addLabel( "" );
+            addItem( ItemPool.VIP_LOUNGE_KEY );
+            addListener( "_poolGames" );
+            addListener( "kingLiberated" );
+            addButton( "pool 1", "weapon dmg +50%, +5 lbs, 10 turns" );
+            addButton( "pool 2", "spell dmg +50%, 10 MP per Adv, 10 turns" );
+            addButton( "pool 3", "init +50%, +10% item, 10 turns" );
+            addLabel( "" );
 		}
 
 		@Override
@@ -2234,9 +2234,9 @@ public class DailyDeedsPanel
 			boolean have = InventoryManager.getCount( ItemPool.VIP_LOUNGE_KEY ) > 0;
 			boolean trendy = !KoLCharacter.isTrendy() || TrendyRequest.isTrendy( "Clan Item", "Pool Table" );
 			int nf = Preferences.getInteger( "_poolGames" );
-			this.setShown( ( !bm || kf ) && ( have || nf > 0 ) && trendy );
-			this.setEnabled( nf < 3 );
-			this.setText( nf + "/3" );
+            setShown( ( !bm || kf ) && ( have || nf > 0 ) && trendy );
+            setEnabled( nf < 3 );
+            setText( nf + "/3" );
 		}
 	}
 
@@ -2245,11 +2245,11 @@ public class DailyDeedsPanel
 	{
 		public CrimboTreeDaily()
 		{
-			this.addListener( "_crimboTree" );
-			this.addListener( "crimboTreeDays" );
-			this.addListener( "kingLiberated" );
-			this.addButton( "crimbotree get" );
-			this.addLabel( "" );
+            addListener( "_crimboTree" );
+            addListener( "crimboTreeDays" );
+            addListener( "kingLiberated" );
+            addButton( "crimbotree get" );
+            addLabel( "" );
 		}
 
 		@Override
@@ -2260,9 +2260,9 @@ public class DailyDeedsPanel
 			boolean tree = Preferences.getBoolean( "_crimboTree" );
 			boolean trendy = !KoLCharacter.isTrendy() || TrendyRequest.isTrendy( "Clan Item", "Crimbo Tree" );
 			int ctd = Preferences.getInteger( "crimboTreeDays" );
-			this.setShown( ( !bm || kf ) && tree && trendy );
-			this.setEnabled( ctd == 0 );
-			this.setText( ctd + " days to go." );
+            setShown( ( !bm || kf ) && tree && trendy );
+            setEnabled( ctd == 0 );
+            setText( ctd + " days to go." );
 		}
 	}
 
@@ -2271,9 +2271,9 @@ public class DailyDeedsPanel
 	{
 		public MelangeDaily()
 		{
-			this.addItem( ItemPool.SPICE_MELANGE );
-			this.addListener( "spiceMelangeUsed" );
-			this.addLabel( "" );
+            addItem( ItemPool.SPICE_MELANGE );
+            addListener( "spiceMelangeUsed" );
+            addLabel( "" );
 		}
 
 		@Override
@@ -2282,13 +2282,13 @@ public class DailyDeedsPanel
 			int have = InventoryManager.getCount( ItemPool.SPICE_MELANGE );
 			if ( Preferences.getBoolean( "spiceMelangeUsed" ) )
 			{
-				this.setShown( true );
-				this.setText( "SPICE MELANGE USED, have " + have );
+                setShown( true );
+                setText( "SPICE MELANGE USED, have " + have );
 			}
 			else
 			{
-				this.setShown( have > 0 );
-				this.setText( "spice melange not used, have " + have );
+                setShown( have > 0 );
+                setText( "spice melange not used, have " + have );
 			}
 		}
 	}
@@ -2298,19 +2298,19 @@ public class DailyDeedsPanel
 	{
 		public StillsDaily()
 		{
-			this.addListener( "(stills)" );
-			this.addListener( "kingLiberated" );
-			this.addListener( "lastGuildStoreOpen" );
-			this.addLabel( "" );
+            addListener( "(stills)" );
+            addListener( "kingLiberated" );
+            addListener( "lastGuildStoreOpen" );
+            addLabel( "" );
 		}
 
 		@Override
 		public void update()
 		{
 			boolean unlocked = KoLCharacter.getGuildStoreOpen();
-			this.setShown( KoLCharacter.isMoxieClass() &&
+            setShown( KoLCharacter.isMoxieClass() &&
 				KoLCharacter.hasSkill( "Superhuman Cocktailcrafting" ) && unlocked );
-			this.setText( (10 - KoLCharacter.getStillsAvailable()) +
+            setText( (10 - KoLCharacter.getStillsAvailable()) +
 				"/10 stills used" );
 		}
 	}
@@ -2320,10 +2320,10 @@ public class DailyDeedsPanel
 	{
 		public TeaPartyDaily()
 		{
-			this.addItem( ItemPool.DRINK_ME_POTION );
-			this.addListener( "_madTeaParty" );
-			this.addListener( "kingLiberated" );
-			this.addLabel( "" );
+            addItem( ItemPool.DRINK_ME_POTION );
+            addListener( "_madTeaParty" );
+            addListener( "kingLiberated" );
+            addLabel( "" );
 		}
 
 		@Override
@@ -2334,26 +2334,26 @@ public class DailyDeedsPanel
 			int have = InventoryManager.getCount( ItemPool.DRINK_ME_POTION );
 			if ( Preferences.getBoolean( "_madTeaParty" ) )
 			{
-				this.setShown( !bm || kf );
+                setShown( !bm || kf );
 				if ( have == 1 )
 				{
-					this.setText( "Mad Tea Party used, have " + have + " potion");
+                    setText( "Mad Tea Party used, have " + have + " potion");
 				}
 				else
 				{
-					this.setText( "Mad Tea Party used, have " + have + " potions");
+                    setText( "Mad Tea Party used, have " + have + " potions");
 				}
 			}
 			else
 			{
-				this.setShown( have > 0 );
+                setShown( have > 0 );
 				if ( have == 1 )
 				{
-					this.setText( "Mad Tea Party not used, have " + have + " potion" );
+                    setText( "Mad Tea Party not used, have " + have + " potion" );
 				}
 				else
 				{
-					this.setText( "Mad Tea Party not used, have " + have + " potions" );
+                    setText( "Mad Tea Party not used, have " + have + " potions" );
 				}
 			}
 		}
@@ -2364,10 +2364,10 @@ public class DailyDeedsPanel
 	{
 		public FreeFightsDaily()
 		{
-			this.addListener( "_brickoFights" );
-			this.addListener( "_hipsterAdv" );
-			this.addListener( "_sealsSummoned" );
-			this.addLabel( "" );
+            addListener( "_brickoFights" );
+            addListener( "_hipsterAdv" );
+            addListener( "_sealsSummoned" );
+            addLabel( "" );
 		}
 
 		@Override
@@ -2379,7 +2379,7 @@ public class DailyDeedsPanel
 			boolean hh = hipster != null && hipster.canEquip() ;
 			boolean sc = KoLCharacter.getClassType().equals(KoLCharacter.SEAL_CLUBBER);
 
-			this.setShown( bf || hh || sc );
+            setShown( bf || hh || sc );
 			int maxSummons = 5;
 			if ( KoLCharacter.hasEquipped( DailyDeedsPanel.INFERNAL_SEAL_CLAW ) ||
 			     DailyDeedsPanel.INFERNAL_SEAL_CLAW.getCount( KoLConstants.inventory ) > 0 )
@@ -2392,7 +2392,7 @@ public class DailyDeedsPanel
 			if( hh ) text = text + Preferences.getInteger( "_hipsterAdv" ) + "/7 hipster";
 			if( hh && sc ) text = text + ", ";
 			if( sc ) text = text + Preferences.getInteger( "_sealsSummoned" ) + "/" + maxSummons + " seals summoned";
-			this.setText( text );
+            setText( text );
 		}
 	}
 
@@ -2402,9 +2402,9 @@ public class DailyDeedsPanel
 		public RunawaysDaily()
 		{
 //			this.addItem( ItemPool.NAVEL_RING );
-			this.addListener( "_banderRunaways" );
-			this.addListener( "_navelRunaways" );
-			this.addLabel( "" );
+            addListener( "_banderRunaways" );
+            addListener( "_navelRunaways" );
+            addLabel( "" );
 		}
 
 		@Override
@@ -2420,7 +2420,7 @@ public class DailyDeedsPanel
 			boolean nr = InventoryManager.getCount( ItemPool.NAVEL_RING ) > 0
 				|| KoLCharacter.hasEquipped( DailyDeedsPanel.NAVEL_RING );
 			boolean pp = InventoryManager.getCount( ItemPool.PEPPERMINT_PARASOL ) > 0;
-			this.setShown( hba || hbo || gp || nr || pp );
+            setShown( hba || hbo || gp || nr || pp );
 			String text = "Runaways: ";
 			if( hba && !hbo ) text = text + Preferences.getInteger( "_banderRunaways" ) + " bandersnatch" ;
 			if( hba && hbo ) text = text + Preferences.getInteger( "_banderRunaways" ) + " bandersnatch+boots" ;
@@ -2434,7 +2434,7 @@ public class DailyDeedsPanel
 			if( !nr && gp && !pp ) text = text + Preferences.getInteger( "_navelRunaways" ) + " gap pants";
 			if( !nr && gp && pp ) text = text + Preferences.getInteger( "_navelRunaways" ) + " gap+parasol";
 			if( !nr && !gp && pp  ) text = text + Preferences.getInteger( "_navelRunaways" ) + " peppermint parasol";
-			this.setText( text );
+            setText( text );
 		}
 	}
 
@@ -2443,19 +2443,19 @@ public class DailyDeedsPanel
 	{
 		public DropsDaily()
 		{
-			this.addListener( "_absintheDrops" );
-			this.addListener( "_aguaDrops" );
-			this.addListener( "_astralDrops" );
-			this.addListener( "_gongDrops" );
-			this.addListener( "_grooseDrops" );
-			this.addListener( "_kloopDrops" );
-			this.addListener( "_pieDrops" );
-			this.addListener( "_piePartsCount" );
-			this.addListener( "_tokenDrops" );
-			this.addListener( "_transponderDrops" );
-			this.addListener( "_bootStomps" );
-			this.addListener( "bootsCharged" );
-			this.addLabel( "" );
+            addListener( "_absintheDrops" );
+            addListener( "_aguaDrops" );
+            addListener( "_astralDrops" );
+            addListener( "_gongDrops" );
+            addListener( "_grooseDrops" );
+            addListener( "_kloopDrops" );
+            addListener( "_pieDrops" );
+            addListener( "_piePartsCount" );
+            addListener( "_tokenDrops" );
+            addListener( "_transponderDrops" );
+            addListener( "_bootStomps" );
+            addListener( "bootsCharged" );
+            addLabel( "" );
 		}
 
 		@Override
@@ -2595,8 +2595,8 @@ public class DailyDeedsPanel
 				shown = true;
 			}
 
-			this.setShown(shown);
-			this.setText( buffer.toString() );
+            setShown(shown);
+            setText( buffer.toString() );
 		}
 	}
 
@@ -2607,12 +2607,12 @@ public class DailyDeedsPanel
 		{
 			// this.addItem( ItemPool.TIME_HELMET );
 			// this.addItem( ItemPool.V_MASK );
-			this.addListener( "_gibbererAdv" );
-			this.addListener( "_hareAdv" );
-			this.addListener( "_riftletAdv" );
-			this.addListener( "_timeHelmetAdv" );
-			this.addListener( "_vmaskAdv" );
-			this.addLabel( "" );
+            addListener( "_gibbererAdv" );
+            addListener( "_hareAdv" );
+            addListener( "_riftletAdv" );
+            addListener( "_timeHelmetAdv" );
+            addListener( "_vmaskAdv" );
+            addLabel( "" );
 		}
 
 		@Override
@@ -2638,8 +2638,8 @@ public class DailyDeedsPanel
 			if( hf4 ) text = text + Preferences.getInteger( "_timeHelmetAdv" ) + " time helmet";
 			if( hf4 && hf5 ) text = text + ", ";
 			if( hf5 ) text = text + Preferences.getInteger( "_vmaskAdv" ) + " V mask";
-			this.setShown( hf1 || hf2 || hf3 || hf4 || hf5 );
-			this.setText( text );
+            setShown( hf1 || hf2 || hf3 || hf4 || hf5 );
+            setText( text );
 		}
 	}
 
@@ -2648,14 +2648,14 @@ public class DailyDeedsPanel
 	{
 		public PuttyDaily()
 		{
-			this.addListener( "spookyPuttyCopiesMade" );
-			this.addListener( "spookyPuttyMonster" );
-			this.addListener( "_raindohCopiesMade" );
-			this.addListener( "rainDohMonster" );
-			this.addListener( "kingLiberated" );
-			this.addItem( ItemPool.SPOOKY_PUTTY_SHEET );
-			this.addItem( ItemPool.RAIN_DOH_BOX );
-			this.addLabel( "" );
+            addListener( "spookyPuttyCopiesMade" );
+            addListener( "spookyPuttyMonster" );
+            addListener( "_raindohCopiesMade" );
+            addListener( "rainDohMonster" );
+            addListener( "kingLiberated" );
+            addItem( ItemPool.SPOOKY_PUTTY_SHEET );
+            addItem( ItemPool.RAIN_DOH_BOX );
+            addLabel( "" );
 		}
 
 		@Override
@@ -2705,8 +2705,8 @@ public class DailyDeedsPanel
 					text += ", now " + monster;
 				}
 			}
-			this.setShown( ( kf || !hc ) && ( hadPutty || havePutty || haveRainDoh || hadRainDoh ) );
-			this.setText( text );
+            setShown( ( kf || !hc ) && ( hadPutty || havePutty || haveRainDoh || hadRainDoh ) );
+            setText( text );
 		}
 	}
 
@@ -2715,9 +2715,9 @@ public class DailyDeedsPanel
 	{
 		public CameraDaily()
 		{
-			this.addListener( "_cameraUsed" );
-			this.addListener( "cameraMonster" );
-			this.addLabel( "" );
+            addListener( "_cameraUsed" );
+            addListener( "cameraMonster" );
+            addLabel( "" );
 		}
 
 		@Override
@@ -2731,7 +2731,7 @@ public class DailyDeedsPanel
 			{
 				text = text + ", now " + monster;
 			}
-			this.setText( text );
+            setText( text );
 		}
 	}
 
@@ -2740,10 +2740,10 @@ public class DailyDeedsPanel
 	{
 		public RomanticDaily()
 		{
-			this.addListener( "_badlyRomanticArrows" );
-			this.addListener( "_romanticFightsLeft" );
-			this.addListener( "romanticTarget" );
-			this.addLabel( "" );
+            addListener( "_badlyRomanticArrows" );
+            addListener( "_romanticFightsLeft" );
+            addListener( "romanticTarget" );
+            addLabel( "" );
 		}
 
 		@Override
@@ -2760,8 +2760,8 @@ public class DailyDeedsPanel
 			{
 				text = text + ", now " + monster + " (" + left + " left)";
 			}
-			this.setText( text );
-			this.setShown( oa );
+            setText( text );
+            setShown( oa );
 		}
 	}
 
@@ -2770,13 +2770,13 @@ public class DailyDeedsPanel
 	{
 		public PhotocopyDaily()
 		{
-			this.addItem( ItemPool.VIP_LOUNGE_KEY );
-			this.addItem( ItemPool.PHOTOCOPIER );
-			this.addItem( ItemPool.PHOTOCOPIED_MONSTER );
-			this.addListener( "_photocopyUsed" );
-			this.addListener( "photocopyMonster" );
-			this.addListener( "kingLiberated" );
-			this.addLabel( "" );
+            addItem( ItemPool.VIP_LOUNGE_KEY );
+            addItem( ItemPool.PHOTOCOPIER );
+            addItem( ItemPool.PHOTOCOPIED_MONSTER );
+            addListener( "_photocopyUsed" );
+            addListener( "photocopyMonster" );
+            addListener( "kingLiberated" );
+            addLabel( "" );
 		}
 
 		@Override
@@ -2797,8 +2797,8 @@ public class DailyDeedsPanel
 			{
 				text = text + ", now " + monster;
 			}
-			this.setText( text );
-			this.setShown( photo || (!bm || kf) && have && trendy );
+            setText( text );
+            setShown( photo || (!bm || kf) && have && trendy );
 		}
 	}
 
@@ -2807,11 +2807,11 @@ public class DailyDeedsPanel
 	{
 		public FeastDaily()
 		{
-			this.addItem( ItemPool.MOVEABLE_FEAST );
-			this.addListener( "_feastUsed" );
-			this.addListener( "_feastedFamiliars" );
-			this.addButton( "use moveable feast" );
-			this.addLabel( "" );
+            addItem( ItemPool.MOVEABLE_FEAST );
+            addListener( "_feastUsed" );
+            addListener( "_feastedFamiliars" );
+            addButton( "use moveable feast" );
+            addLabel( "" );
 		}
 
 		@Override
@@ -2828,10 +2828,10 @@ public class DailyDeedsPanel
 					have = true;
 				}
 			}
-			this.buttonText( 0, "use moveable feast", fu + "/5" );
-			this.setText( list );
-			this.setShown( have );
-			this.setEnabled( ( fu < 5 ) );
+            buttonText( 0, "use moveable feast", fu + "/5" );
+            setText( list );
+            setShown( have );
+            setEnabled( ( fu < 5 ) );
 		}
 	}
 
@@ -2840,17 +2840,17 @@ public class DailyDeedsPanel
 	{
 		public PuddingDaily()
 		{
-			this.addListener( "blackPuddingsDefeated" );
-			this.addButton( "eat black pudding" );
-			this.addLabel( "" );
+            addListener( "blackPuddingsDefeated" );
+            addButton( "eat black pudding" );
+            addLabel( "" );
 		}
 
 		@Override
 		public void update()
 		{
 			int bpd = Preferences.getInteger( "blackPuddingsDefeated" );
-			this.setText( bpd + " defeated!" );
-			this.setShown( bpd < 240 && KoLCharacter.canEat() );
+            setText( bpd + " defeated!" );
+            setShown( bpd < 240 && KoLCharacter.canEat() );
 		}
 	}
 
@@ -2859,21 +2859,21 @@ public class DailyDeedsPanel
 	{
 		public ChipsDaily()
 		{
-			this.addListener( "_chipBags" );
-			this.addButton( "chips radium", "moxie +30 for 10" );
-			this.addButton( "chips wintergreen", "muscle +30 for 10" );
-			this.addButton( "chips ennui", "mysticality +30 for 10" );
-			this.addLabel( "" );
+            addListener( "_chipBags" );
+            addButton( "chips radium", "moxie +30 for 10" );
+            addButton( "chips wintergreen", "muscle +30 for 10" );
+            addButton( "chips ennui", "mysticality +30 for 10" );
+            addLabel( "" );
 		}
 
 		@Override
 		public void update()
 		{
 			int nf = Preferences.getInteger( "_chipBags" );
-			this.setShown( KoLCharacter.hasClan() &&
+            setShown( KoLCharacter.hasClan() &&
 				KoLCharacter.canInteract() );
-			this.setEnabled( nf < 3 );
-			this.setText( nf + "/3" );
+            setEnabled( nf < 3 );
+            setText( nf + "/3" );
 		}
 	}
 
@@ -2882,18 +2882,18 @@ public class DailyDeedsPanel
 	{
 		public PitDaily()
 		{
-			this.addListener( "_ballpit" );
-			this.addListener( "kingLiberated" );
-			this.addButton( "ballpit", "stat boost for 20" );
+            addListener( "_ballpit" );
+            addListener( "kingLiberated" );
+            addButton( "ballpit", "stat boost for 20" );
 		}
 
 		@Override
 		public void update()
 		{
 			boolean dun = Preferences.getBoolean( "_ballpit" );
-			this.setShown( KoLCharacter.hasClan() &&
+            setShown( KoLCharacter.hasClan() &&
 				KoLCharacter.canInteract());
-			this.setEnabled( !dun );
+            setEnabled( !dun );
 		}
 	}
 
@@ -2911,20 +2911,20 @@ public class DailyDeedsPanel
 
 		public HatterDaily()
 		{
-			this.modifiers.add( null );
+            modifiers.add( null );
 
-			this.addListener( "_madTeaParty" );
-			this.addListener( "(hats)" );
-			this.addListener( "kingLiberated" );
+            addListener( "_madTeaParty" );
+            addListener( "(hats)" );
+            addListener( "kingLiberated" );
 
-			this.addItem( ItemPool.DRINK_ME_POTION );
-			this.addItem( ItemPool.VIP_LOUNGE_KEY );
+            addItem( ItemPool.DRINK_ME_POTION );
+            addItem( ItemPool.VIP_LOUNGE_KEY );
 
-			box = this.addComboBox( this.effects.toArray(), this.modifiers, "Available Hatter Buffs: BLAH" );
-			this.add( Box.createRigidArea( new Dimension( 5, 1 ) ) );
+			box = addComboBox( effects.toArray(), modifiers, "Available Hatter Buffs: BLAH" );
+            add( Box.createRigidArea( new Dimension( 5, 1 ) ) );
 
 			// Initialize the GO button to do nothing.
-			btn = this.addComboButton( "", "Go!" );
+			btn = addComboButton( "", "Go!" );
 			update();
 		}
 
@@ -2932,14 +2932,14 @@ public class DailyDeedsPanel
 		public void update()
 		{
 			box.removeActionListener( listener );
-			this.box.removeAllItems();
+            box.removeAllItems();
 			box.addActionListener( listener );
 			
 			HatterDaily.effectHats = new ArrayList<String>();
-			this.modifiers = new ArrayList<Object>();
+            modifiers = new ArrayList<Object>();
 			box.addItem( "Available Hatter Buffs: " );
 			HatterDaily.effectHats.add( null );
-			this.modifiers.add( null );
+            modifiers.add( null );
 			
 			//build hat options here
 			List<AdventureResult> hats = EquipmentManager.getEquipmentLists()[ EquipmentManager.HAT ];
@@ -2985,10 +2985,10 @@ public class DailyDeedsPanel
 				|| ( InventoryManager.getCount( ItemPool.DRINK_ME_POTION ) > 0 );
 			boolean active = KoLConstants.activeEffects.contains( EffectPool.get( Effect.DOWN_THE_RABBIT_HOLE ) );
 
-			this.setEnabled( !Preferences.getBoolean( "_madTeaParty" ) );
+            setEnabled( !Preferences.getBoolean( "_madTeaParty" ) );
 			box.setEnabled( !Preferences.getBoolean( "_madTeaParty" ) );
 
-			this.setShown( !KoLCharacter.isTrendy() && ( have || active ) && ( !bm || kf ) );
+            setShown( !KoLCharacter.isTrendy() && ( have || active ) && ( !bm || kf ) );
 			
 			setComboTarget(btn, "");
 		}
@@ -3034,8 +3034,8 @@ public class DailyDeedsPanel
 	{
 		public BanishedDaily()
 		{
-			this.addListener( "banishingShoutMonsters" );
-			this.addLabel( "" );
+            addListener( "banishingShoutMonsters" );
+            addLabel( "" );
 		}
 
 		@Override
@@ -3043,8 +3043,8 @@ public class DailyDeedsPanel
 		{
 			boolean ban = KoLCharacter.hasSkill( "Banishing Shout" );
 			String text = "Banished monsters: " + Preferences.getString( "banishingShoutMonsters" ).replaceAll( "\\|", ", " );
-			this.setText( text );
-			this.setShown( ban );
+            setText( text );
+            setShown( ban );
 		}
 	}
 
@@ -3053,12 +3053,12 @@ public class DailyDeedsPanel
 	{
 		public SwimmingPoolDaily()
 		{
-			this.addItem( ItemPool.VIP_LOUNGE_KEY );
-			this.addListener( "_olympicSwimmingPool" );
-			this.addListener( "kingLiberated" );
-			this.addButton( "swim laps", "init +30%, +25 stench dmg, +20 ml, 50 turns" );
-			this.addButton( "swim sprints", "-5% combat, 50 turns" );
-			this.addLabel( "" );
+            addItem( ItemPool.VIP_LOUNGE_KEY );
+            addListener( "_olympicSwimmingPool" );
+            addListener( "kingLiberated" );
+            addButton( "swim laps", "init +30%, +25 stench dmg, +20 ml, 50 turns" );
+            addButton( "swim sprints", "-5% combat, 50 turns" );
+            addLabel( "" );
 		}
 
 		@Override
@@ -3069,8 +3069,8 @@ public class DailyDeedsPanel
 			boolean have = InventoryManager.getCount( ItemPool.VIP_LOUNGE_KEY ) > 0;
 			boolean sp = Preferences.getBoolean( "_olympicSwimmingPool" );
 			boolean trendy = !KoLCharacter.isTrendy() || TrendyRequest.isTrendy( "Clan Item", "Swimming Pool" );
-			this.setShown( ( !bm || kf ) && ( have || sp ) && trendy );
-			this.setEnabled( !sp );
+            setShown( ( !bm || kf ) && ( have || sp ) && trendy );
+            setEnabled( !sp );
 		}
 	}
 }

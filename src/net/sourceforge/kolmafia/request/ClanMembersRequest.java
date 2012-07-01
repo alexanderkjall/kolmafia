@@ -76,20 +76,20 @@ public class ClanMembersRequest
 	{
 		super( isDetailLookup ? "clan_detailedroster.php" : "showclan.php" );
 
-		this.isLookup = true;
+        isLookup = true;
 		this.isDetailLookup = isDetailLookup;
-		this.rankList = null;
+        rankList = null;
 
-		this.clanId = "";
-		this.clanName = "";
+        clanId = "";
+        clanName = "";
 	}
 
 	public ClanMembersRequest( final LockableListModel rankList )
 	{
 		super( "clan_members.php" );
 
-		this.isLookup = false;
-		this.isDetailLookup = false;
+        isLookup = false;
+        isDetailLookup = false;
 		this.rankList = rankList;
 	}
 
@@ -97,11 +97,11 @@ public class ClanMembersRequest
 	{
 		super( "clan_members.php" );
 
-		this.isLookup = false;
-		this.isDetailLookup = false;
-		this.rankList = new LockableListModel();
+        isLookup = false;
+        isDetailLookup = false;
+        rankList = new LockableListModel();
 
-		this.addFormField( "action", "modify" );
+        addFormField( "action", "modify" );
 
 		ArrayList fields = new ArrayList();
 
@@ -109,7 +109,7 @@ public class ClanMembersRequest
 		for ( int i = 0; i < titleChange.length; ++i )
 		{
 			currentId = ContactManager.getPlayerId( (String) titleChange[ i ] );
-			this.addFormField( "title" + currentId, (String) newTitles[ i ] );
+            addFormField( "title" + currentId, (String) newTitles[ i ] );
 
 			if ( !fields.contains( currentId ) )
 			{
@@ -121,7 +121,7 @@ public class ClanMembersRequest
 		{
 			currentId = ContactManager.getPlayerId( (String) boots[ i ] );
 			ClanManager.unregisterMember( currentId );
-			this.addFormField( "boot" + currentId, "on" );
+            addFormField( "boot" + currentId, "on" );
 
 			if ( !fields.contains( currentId ) )
 			{
@@ -134,7 +134,7 @@ public class ClanMembersRequest
 
 		for ( int i = 0; i < changedIds.length; ++i )
 		{
-			this.addFormField( "pids[]", changedIds[ i ], true );
+            addFormField( "pids[]", changedIds[ i ], true );
 		}
 	}
 
@@ -147,7 +147,7 @@ public class ClanMembersRequest
 	@Override
 	public void run()
 	{
-		if ( !this.isLookup || this.isDetailLookup )
+		if ( !isLookup || isDetailLookup )
 		{
 			KoLmafia.updateDisplay( "Retrieving clan member list..." );
 			super.run();
@@ -162,13 +162,13 @@ public class ClanMembersRequest
 
 		do
 		{
-			this.responseText = null;
+            responseText = null;
 
-			this.constructURLString( "showclan.php?whichclan=" + this.clanId + "&page=" + (page++), false );
+            constructURLString( "showclan.php?whichclan=" + clanId + "&page=" + (page++), false );
 
 			super.run();
 		}
-		while ( this.responseText != null && this.responseText.contains( "next page &gt;&gt;" ) );
+		while ( responseText != null && responseText.contains( "next page &gt;&gt;" ) );
 	}
 
 	private void retrieveClanId()
@@ -192,31 +192,31 @@ public class ClanMembersRequest
 		// to, you can do a clan lookup to get a
 		// complete list of clan members in one hit
 
-		this.clanId = clanIdMatcher.group( 1 );
-		this.clanName = clanIdMatcher.group( 2 );
+        clanId = clanIdMatcher.group( 1 );
+        clanName = clanIdMatcher.group( 2 );
 	}
 
 	@Override
 	public void processResults()
 	{
-		if ( !this.isLookup )
+		if ( !isLookup )
 		{
-			this.parseRanks();
+            parseRanks();
 		}
-		else if ( this.isDetailLookup )
+		else if ( isDetailLookup )
 		{
-			this.parseDetail();
+            parseDetail();
 		}
 		else
 		{
-			this.parseSparse();
+            parseSparse();
 		}
 	}
 
 	private void parseRanks()
 	{
-        this.rankList.clear();
-		Matcher ranklistMatcher = ClanMembersRequest.RANK_PATTERN.matcher( this.responseText );
+        rankList.clear();
+		Matcher ranklistMatcher = ClanMembersRequest.RANK_PATTERN.matcher( responseText );
 
 		if ( ranklistMatcher.find() )
 		{
@@ -224,7 +224,7 @@ public class ClanMembersRequest
 
 			while ( rankMatcher.find() )
 			{
-				this.rankList.add( rankMatcher.group( 1 ).toLowerCase() );
+                rankList.add( rankMatcher.group( 1 ).toLowerCase() );
 			}
 		}
 	}
@@ -232,7 +232,7 @@ public class ClanMembersRequest
 	private void parseDetail()
 	{
 		Matcher rowMatcher =
-			ClanMembersRequest.ROW_PATTERN.matcher( this.responseText.substring( this.responseText.lastIndexOf( "clan_detailedroster.php" ) ) );
+			ClanMembersRequest.ROW_PATTERN.matcher( responseText.substring( responseText.lastIndexOf( "clan_detailedroster.php" ) ) );
 
 		String currentRow;
 		String currentName;
@@ -265,7 +265,7 @@ public class ClanMembersRequest
 	private void parseSparse()
 	{
 		int lastMatchIndex = 0;
-		Matcher memberMatcher = ClanMembersRequest.MEMBER_PATTERN.matcher( this.responseText );
+		Matcher memberMatcher = ClanMembersRequest.MEMBER_PATTERN.matcher( responseText );
 
 		while ( memberMatcher.find( lastMatchIndex ) )
 		{
@@ -283,11 +283,11 @@ public class ClanMembersRequest
 
 	public String getClanId()
 	{
-		return this.clanId;
+		return clanId;
 	}
 
 	public String getClanName()
 	{
-		return this.clanName;
+		return clanName;
 	}
 }

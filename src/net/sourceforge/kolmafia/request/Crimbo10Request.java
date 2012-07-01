@@ -46,7 +46,7 @@ public class Crimbo10Request
 	@Override
 	public void processResults()
 	{
-		Crimbo10Request.parseResponse( this.getURLString(), this.responseText );
+		Crimbo10Request.parseResponse( getURLString(), responseText );
 	}
 
 	public static void parseResponse( final String location, final String responseText )

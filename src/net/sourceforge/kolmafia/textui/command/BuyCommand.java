@@ -54,7 +54,7 @@ public class BuyCommand
 {
 	public BuyCommand()
 	{
-		this.usage = " <item> [@ <limit>] [, <another>]... - buy from NPC store or the Mall.";
+        usage = " <item> [@ <limit>] [, <another>]... - buy from NPC store or the Mall.";
 	}
 
 	@Override

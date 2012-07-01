@@ -43,7 +43,7 @@ public class LoadScriptButton extends ThreadedButton {
 
 		super( String.valueOf( scriptId ), new LoadScriptRunnable( scriptPath ) );
 
-		this.setToolTipText( scriptPath );
+        setToolTipText( scriptPath );
 
 		JComponentUtilities.setComponentSize( this, 30, 30 );
 	}
@@ -60,7 +60,7 @@ public class LoadScriptButton extends ThreadedButton {
 
 		public void run() {
 
-			KoLmafiaCLI.DEFAULT_SHELL.executeLine( this.scriptPath );
+			KoLmafiaCLI.DEFAULT_SHELL.executeLine( scriptPath );
 		}
 	}
 }

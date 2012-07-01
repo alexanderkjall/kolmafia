@@ -61,61 +61,61 @@ public class CombatEncounterKey
 	public CombatEncounterKey( String encounterKey )
 	{
 		this.encounterKey = encounterKey.trim();
-		this.monsterName = this.encounterKey;
+        monsterName = this.encounterKey;
 
-		this.elementNumber = -1;
-		this.phylumNumber = -1;
-		this.itemId = -1;
+        elementNumber = -1;
+        phylumNumber = -1;
+        itemId = -1;
 
-		Matcher elementMatcher = ELEMENT_PATTERN.matcher( this.monsterName );
+		Matcher elementMatcher = ELEMENT_PATTERN.matcher( monsterName );
 
 		if ( elementMatcher.find() )
 		{
 			String elementName = elementMatcher.group( 1 );
 
-			this.elementNumber = MonsterDatabase.elementNumber( elementName );
+            elementNumber = MonsterDatabase.elementNumber( elementName );
 		}
 
-		this.monsterName = elementMatcher.replaceAll( "" ).trim();
+        monsterName = elementMatcher.replaceAll( "" ).trim();
 
-		Matcher phylumMatcher = PHYLUM_PATTERN.matcher( this.monsterName );
+		Matcher phylumMatcher = PHYLUM_PATTERN.matcher( monsterName );
 
 		if ( phylumMatcher.find() )
 		{
 			String phylumName = phylumMatcher.group( 1 );
 
-			this.phylumNumber = MonsterDatabase.phylumNumber( phylumName );
+            phylumNumber = MonsterDatabase.phylumNumber( phylumName );
 		}
 
-		this.monsterName = phylumMatcher.replaceAll( "" ).trim();
+        monsterName = phylumMatcher.replaceAll( "" ).trim();
 
-		Matcher itemMatcher = ITEM_PATTERN.matcher( this.monsterName );
+		Matcher itemMatcher = ITEM_PATTERN.matcher( monsterName );
 
 		if ( itemMatcher.find() )
 		{
 			String itemName = itemMatcher.group( 1 );
 
-			this.itemId = ItemDatabase.getItemId( itemName );
+            itemId = ItemDatabase.getItemId( itemName );
 		}
 
-		this.monsterName = itemMatcher.replaceAll( "" ).trim();
+        monsterName = itemMatcher.replaceAll( "" ).trim();
 	}
 
 	public boolean matches( String monsterName, MonsterData monsterData )
 	{
 		if ( monsterData != null )
 		{
-			if ( this.elementNumber != -1 && monsterData.getDefenseElement() != this.elementNumber )
+			if ( elementNumber != -1 && monsterData.getDefenseElement() != elementNumber )
 			{
 				return false;
 			}
 
-			if ( this.phylumNumber != -1 && monsterData.getPhylum() != this.phylumNumber )
+			if ( phylumNumber != -1 && monsterData.getPhylum() != phylumNumber )
 			{
 				return false;
 			}
 
-			if ( this.itemId != -1 )
+			if ( itemId != -1 )
 			{
 				boolean foundItem = false;
 
@@ -127,7 +127,7 @@ public class CombatEncounterKey
 				{
 					AdventureResult item = (AdventureResult) itemIterator.next();
 
-					if ( item.getItemId() == this.itemId )
+					if ( item.getItemId() == itemId )
 					{
 						foundItem = true;
 					}

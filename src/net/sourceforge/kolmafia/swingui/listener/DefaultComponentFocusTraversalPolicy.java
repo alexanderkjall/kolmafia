@@ -51,7 +51,7 @@ public class DefaultComponentFocusTraversalPolicy
 	{
 		this.component = new WeakReference( component );
 
-		this.setComparator( getComparator() );
+        setComparator( getComparator() );
 	}
 
 	@Override
@@ -88,15 +88,15 @@ public class DefaultComponentFocusTraversalPolicy
 
 		public int compare( Object o1, Object o2 )
 		{
-			Component defaultComponent = (Component) DefaultComponentFocusTraversalPolicy.this.component.get();
+			Component defaultComponent = (Component) component.get();
 
 			if ( defaultComponent == null )
 			{
-				return this.parent.compare( o1, o2 );
+				return parent.compare( o1, o2 );
 			}
 
-			int compare1 = this.parent.compare( o1, defaultComponent );
-			int compare2 = this.parent.compare( o2, defaultComponent );
+			int compare1 = parent.compare( o1, defaultComponent );
+			int compare2 = parent.compare( o2, defaultComponent );
 
 			// If either o1 or o2 is the default component, that
 			// comes first
@@ -114,7 +114,7 @@ public class DefaultComponentFocusTraversalPolicy
 			// Otherwise, they both occur in the same direction relative
 			// to the default component, just compare them.
 
-			return this.parent.compare( o1, o2 );
+			return parent.compare( o1, o2 );
 		}
 	}
 }

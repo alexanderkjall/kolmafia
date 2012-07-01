@@ -40,7 +40,7 @@ public class ElseIfStatement
 {
 	public ElseIfStatement()
 	{
-		this.usage = " <condition>; <commands> - do if condition is true but preceding condition was false.";
+        usage = " <condition>; <commands> - do if condition is true but preceding condition was false.";
 	}
 
 	@Override
@@ -53,7 +53,7 @@ public class ElseIfStatement
 		}
 		else if ( ConditionalStatement.test( parameters ) )
 		{
-			CLI.executeLine( this.continuation );
+			CLI.executeLine( continuation );
 			CLI.elseRuns( false );
 		}
 		else

@@ -57,11 +57,11 @@ public class SendMailRequest
 		this.recipient = recipient;
 		this.message = message;
 
-		this.addFormField( "action", "send" );
-		this.addFormField( "towho", ContactManager.getPlayerId( this.recipient ) );
-		this.addFormField( "message", this.message );
+        addFormField( "action", "send" );
+        addFormField( "towho", ContactManager.getPlayerId( this.recipient ) );
+        addFormField( "message", this.message );
 
-		this.isInternal = true;
+        isInternal = true;
 	}
 
 	public SendMailRequest( final String recipient, final Interpreter script )
@@ -69,14 +69,14 @@ public class SendMailRequest
 		super( "sendmessage.php" );
 
 		this.recipient = recipient;
-		this.message =
+        message =
 			"I have opted to let you know that I have chosen to run <" + script.getParser().getScriptName() + ">.  Thanks for writing this script!";
 
-		this.addFormField( "action", "send" );
-		this.addFormField( "towho", ContactManager.getPlayerId( this.recipient ) );
-		this.addFormField( "message", this.message );
+        addFormField( "action", "send" );
+        addFormField( "towho", ContactManager.getPlayerId( this.recipient ) );
+        addFormField( "message", message );
 
-		this.isInternal = true;
+        isInternal = true;
 	}
 
 	public SendMailRequest( final String recipient, final String message, final AdventureResult attachment )
@@ -86,11 +86,11 @@ public class SendMailRequest
 		this.recipient = recipient;
 		this.message = CharacterEntities.unescape( message );
 
-		this.addFormField( "action", "send" );
-		this.addFormField( "towho", ContactManager.getPlayerId( this.recipient ) );
-		this.addFormField( "message", this.message );
+        addFormField( "action", "send" );
+        addFormField( "towho", ContactManager.getPlayerId( this.recipient ) );
+        addFormField( "message", this.message );
 
-		this.isInternal = true;
+        isInternal = true;
 	}
 
 	public SendMailRequest( final String recipient, final String message, final Object[] attachments,
@@ -101,13 +101,13 @@ public class SendMailRequest
 		this.recipient = recipient;
 		this.message = CharacterEntities.unescape( message );
 
-		this.addFormField( "action", "send" );
-		this.addFormField( "towho", ContactManager.getPlayerId( this.recipient ) );
-		this.addFormField( "message", this.message );
+        addFormField( "action", "send" );
+        addFormField( "towho", ContactManager.getPlayerId( this.recipient ) );
+        addFormField( "message", this.message );
 
 		if ( !isInternal )
 		{
-			this.addFormField( "savecopy", "on" );
+            addFormField( "savecopy", "on" );
 		}
 
 		this.isInternal = isInternal;
@@ -115,7 +115,7 @@ public class SendMailRequest
 
 	public String getRecipient()
 	{
-		return this.recipient;
+		return recipient;
 	}
 
 	@Override
@@ -127,13 +127,13 @@ public class SendMailRequest
 	@Override
 	public TransferItemRequest getSubInstance( final Object[] attachments )
 	{
-		return new SendMailRequest( this.recipient, this.message, attachments, this.isInternal );
+		return new SendMailRequest( recipient, message, attachments, isInternal );
 	}
 
 	@Override
 	public String getStatusMessage()
 	{
-		return "Sending kmail to " + ContactManager.getPlayerName( this.recipient );
+		return "Sending kmail to " + ContactManager.getPlayerName( recipient );
 	}
 
 	@Override
@@ -169,7 +169,7 @@ public class SendMailRequest
         @Override
 	public boolean parseTransfer()
 	{
-                return SendMailRequest.parseTransfer( this.getURLString(), this.responseText );
+                return SendMailRequest.parseTransfer( getURLString(), responseText );
         }
 
 	public static boolean parseTransfer( final String urlString, final String responseText )

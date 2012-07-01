@@ -49,33 +49,33 @@ public class IntegerArray
 
 	public void add( final int value )
 	{
-		this.set( this.internalList.size(), value );
+        set( internalList.size(), value );
 	}
 
 	public int get( final int index )
 	{
-		return index < 0 || index >= this.internalList.size() ? 0 : (Integer) this.internalList.get( index );
+		return index < 0 || index >= internalList.size() ? 0 : (Integer) internalList.get( index );
 	}
 
 	public void set( final int index, final int value )
 	{
-		while ( index >= this.internalList.size() )
+		while ( index >= internalList.size() )
 		{
-			this.internalList.add( IntegerPool.get( 0 ) );
+            internalList.add( IntegerPool.get( 0 ) );
 		}
 
-		this.internalList.set( index, IntegerPool.get( value ) );
+        internalList.set( index, IntegerPool.get( value ) );
 	}
 
 	public int size()
 	{
-		return this.internalList.size();
+		return internalList.size();
 	}
 
 	public int[] toArray()
 	{
-		int[] array = new int[ this.internalList.size() ];
-		Iterator iterator = this.internalList.iterator();
+		int[] array = new int[internalList.size() ];
+		Iterator iterator = internalList.iterator();
 
 		for ( int i = 0; i < array.length; ++i )
 		{

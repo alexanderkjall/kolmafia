@@ -68,12 +68,12 @@ public class Switch
 
 	public Value getCondition()
 	{
-		return this.condition;
+		return condition;
 	}
 
 	public SwitchScope getScope()
 	{
-		return this.scope;
+		return scope;
 	}
 
 	@Override
@@ -88,15 +88,15 @@ public class Switch
 		interpreter.traceIndent();
 		if ( interpreter.isTracing() )
 		{
-			interpreter.trace( this.toString() );
+			interpreter.trace( toString() );
 		}
 
 		if ( interpreter.isTracing() )
 		{
-			interpreter.trace( "Value: " + this.condition );
+			interpreter.trace( "Value: " + condition );
 		}
 
-		Value value = this.condition.execute( interpreter );
+		Value value = condition.execute( interpreter );
 		interpreter.captureValue( value );
 
 		if ( interpreter.isTracing() )
@@ -110,7 +110,7 @@ public class Switch
 			return null;
 		}
 
-		int offset = this.defaultIndex;
+		int offset = defaultIndex;
 
 		if ( labels != null )
 		{
@@ -152,10 +152,10 @@ public class Switch
 			}
 		}
 
-		if ( offset >= 0 && offset < this.scope.commandCount() )
+		if ( offset >= 0 && offset < scope.commandCount() )
 		{
-			this.scope.setOffset( offset );
-			Value result = this.scope.execute( interpreter );
+            scope.setOffset( offset );
+			Value result = scope.execute( interpreter );
 
 			if ( interpreter.getState() == Interpreter.STATE_BREAK )
 			{
@@ -186,15 +186,15 @@ public class Switch
 	{
 		Interpreter.indentLine( stream, indent );
 		stream.println( "<SWITCH" + (labels != null ? " (OPTIMIZED)" : "" ) + ">" );
-		this.getCondition().print( stream, indent + 1 );
-		this.getScope().print( stream, indent + 1, tests, offsets, defaultIndex );
+        getCondition().print( stream, indent + 1 );
+        getScope().print( stream, indent + 1, tests, offsets, defaultIndex );
 	}
 	
 	@Override
 	public boolean assertBarrier()
 	{
-		return this.defaultIndex != -1 &&
-			this.scope.assertBarrier() &&
-			!this.scope.assertBreakable();
+		return defaultIndex != -1 &&
+                scope.assertBarrier() &&
+			!scope.assertBreakable();
 	}
 }

@@ -234,10 +234,10 @@ public class ClanRumpusRequest
 
 	private void visitEquipment( final int spot, final int furniture )
 	{
-		this.clearDataFields();
-		this.addFormField( "action", "click" );
-		this.addFormField( "spot", String.valueOf( spot ) );
-		this.addFormField( "furni", String.valueOf( furniture ) );
+        clearDataFields();
+        addFormField( "action", "click" );
+        addFormField( "spot", String.valueOf( spot ) );
+        addFormField( "furni", String.valueOf( furniture ) );
 	}
 
 	public static String equipmentName( final int spot, final int furniture )
@@ -275,13 +275,13 @@ public class ClanRumpusRequest
 	@Override
 	public int getAdventuresUsed()
 	{
-		return this.turnCount;
+		return turnCount;
 	}
 
 	@Override
 	public void run()
 	{
-		switch ( this.action )
+		switch ( action )
 		{
 		case SEARCH:
 			break;
@@ -290,15 +290,15 @@ public class ClanRumpusRequest
 			// If we can do inside Degrassi Knollm use the gym.
 			if ( KoLCharacter.knollAvailable() )
 			{
-				this.constructURLString( "knoll.php" );
-				this.addFormField( "action", "gym" );
+                constructURLString( "knoll.php" );
+                addFormField( "action", "gym" );
 			}
 			// Otherwise, use the one in our clan - if we're in one.
 			else
 			{
-				this.constructURLString( "clan_rumpus.php" );
-				this.addFormField( "preaction", "gym" );
-				this.addFormField( "whichgym", "3" );
+                constructURLString( "clan_rumpus.php" );
+                addFormField( "preaction", "gym" );
+                addFormField( "whichgym", "3" );
 			}
 			break;
 
@@ -306,15 +306,15 @@ public class ClanRumpusRequest
 			// If we can go to Little Canadia, use the gym.
 			if ( KoLCharacter.canadiaAvailable() )
 			{
-				this.constructURLString( "canadia.php" );
-				this.addFormField( "action", "institute" );
+                constructURLString( "canadia.php" );
+                addFormField( "action", "institute" );
 			}
 			// Otherwise, use the one in our clan - if we're in one.
 			else
 			{
-				this.constructURLString( "clan_rumpus.php" );
-				this.addFormField( "preaction", "gym" );
-				this.addFormField( "whichgym", "1" );
+                constructURLString( "clan_rumpus.php" );
+                addFormField( "preaction", "gym" );
+                addFormField( "whichgym", "1" );
 			}
 			break;
 
@@ -322,56 +322,56 @@ public class ClanRumpusRequest
 			// If we can go to the Gnomish Gnomads Camp, use the gym
 			if ( KoLCharacter.gnomadsAvailable() )
 			{
-				this.constructURLString( "gnomes.php" );
-				this.addFormField( "action", "train" );
+                constructURLString( "gnomes.php" );
+                addFormField( "action", "train" );
 			}
 			// Otherwise, use the one in our clan - if we're in one.
 			else
 			{
-				this.constructURLString( "clan_rumpus.php" );
-				this.addFormField( "preaction", "gym" );
-				this.addFormField( "whichgym", "2" );
+                constructURLString( "clan_rumpus.php" );
+                addFormField( "preaction", "gym" );
+                addFormField( "whichgym", "2" );
 			}
 			break;
 
 		case SOFA:
-			this.constructURLString( "clan_rumpus.php" );
-			this.addFormField( "preaction", "nap" );
+            constructURLString( "clan_rumpus.php" );
+            addFormField( "preaction", "nap" );
 			break;
 
 		case CHIPS:
-			this.constructURLString( "clan_rumpus.php" );
-			this.addFormField( "preaction", "buychips" );
-			this.addFormField( "whichbag", String.valueOf( this.option ) );
+            constructURLString( "clan_rumpus.php" );
+            addFormField( "preaction", "buychips" );
+            addFormField( "whichbag", String.valueOf( option ) );
 			break;
 
 		case BALLS:
-			this.constructURLString( "clan_rumpus.php" );
-			this.addFormField( "preaction", "ballpit" );
+            constructURLString( "clan_rumpus.php" );
+            addFormField( "preaction", "ballpit" );
 			break;
 
 		case JUKEBOX:
-			this.constructURLString( "clan_rumpus.php" );
-			this.addFormField( "preaction", "jukebox" );
-			this.addFormField( "whichsong", String.valueOf( this.option ) );
+            constructURLString( "clan_rumpus.php" );
+            addFormField( "preaction", "jukebox" );
+            addFormField( "whichsong", String.valueOf( option ) );
 			break;
 
 		default:
 			break;
 		}
 
-		if ( this.turnCount > 0 )
+		if ( turnCount > 0 )
 		{
-			this.addFormField( "numturns", String.valueOf( this.turnCount ) );
+            addFormField( "numturns", String.valueOf( turnCount ) );
 
-			if ( KoLCharacter.getAdventuresLeft() < this.turnCount )
+			if ( KoLCharacter.getAdventuresLeft() < turnCount )
 			{
 				KoLmafia.updateDisplay( MafiaState.ERROR, "Insufficient adventures." );
 				return;
 			}
 		}
 
-		if ( this.action != ClanRumpusRequest.SEARCH )
+		if ( action != ClanRumpusRequest.SEARCH )
 		{
 			KoLmafia.updateDisplay( "Executing request..." );
 		}
@@ -382,7 +382,7 @@ public class ClanRumpusRequest
 	@Override
 	public void processResults()
 	{
-		switch ( this.action )
+		switch ( action )
 		{
 		case MUSCLE:
 		case MYSTICALITY:
@@ -395,7 +395,7 @@ public class ClanRumpusRequest
 			return;
 		}
 
-		ClanRumpusRequest.parseResponse( this.getURLString(), this.responseText );
+		ClanRumpusRequest.parseResponse( getURLString(), responseText );
 	}
 
 	public static void parseResponse( final String urlString, final String responseText )

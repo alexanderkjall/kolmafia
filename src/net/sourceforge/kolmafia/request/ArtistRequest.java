@@ -57,17 +57,17 @@ public class ArtistRequest
 	public ArtistRequest( boolean whiskers )
 	{
 		super( "town_wrong.php" );
-		this.addFormField( "place", "artist" );
+        addFormField( "place", "artist" );
 		if ( whiskers )
 		{
-			this.addFormField( "action", "whisker" );
+            addFormField( "action", "whisker" );
 		}
 	}
 
 	@Override
 	public void processResults()
 	{
-		ArtistRequest.parseResponse( this.getURLString(), this.responseText );
+		ArtistRequest.parseResponse( getURLString(), responseText );
 	}
 
 	public static void parseResponse( final String location, final String responseText )

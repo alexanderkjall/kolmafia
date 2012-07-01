@@ -47,25 +47,25 @@ public class AutoHighlightTextField
 	public AutoHighlightTextField()
 	{
 		super();
-		this.addFocusListener( this );
+        addFocusListener( this );
 	}
 
 	public AutoHighlightTextField( final String text )
 	{
 		super( text );
-		this.addFocusListener( this );
+        addFocusListener( this );
 	}
 
 	@Override
 	public void setText( final String text )
 	{
 		super.setText( text );
-		this.selectAll();
+        selectAll();
 	}
 
 	public void focusGained( final FocusEvent e )
 	{
-		this.selectAll();
+        selectAll();
 	}
 
 	public void focusLost( final FocusEvent e )

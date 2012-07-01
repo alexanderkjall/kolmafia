@@ -44,7 +44,7 @@ public class BuffbotCommand
 {
 	public BuffbotCommand()
 	{
-		this.usage = " <number> - run buffbot for number iterations.";
+        usage = " <number> - run buffbot for number iterations.";
 	}
 
 	@Override

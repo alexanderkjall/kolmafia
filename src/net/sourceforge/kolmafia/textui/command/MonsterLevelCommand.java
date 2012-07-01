@@ -44,7 +44,7 @@ public class MonsterLevelCommand
 {
 	public MonsterLevelCommand()
 	{
-		this.usage = " <number> - set mind control device (or equivalent) to new value.";
+        usage = " <number> - set mind control device (or equivalent) to new value.";
 	}
 
 	@Override

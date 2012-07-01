@@ -48,13 +48,13 @@ public class RelayBrowserListener
 	@Override
 	protected void execute()
 	{
-		if ( this.location == null )
+		if ( location == null )
 		{
 			RelayLoader.openRelayBrowser();
 		}
 		else
 		{
-			RelayLoader.openSystemBrowser( this.location );
+			RelayLoader.openSystemBrowser( location );
 		}
 	}
 }

@@ -52,7 +52,7 @@ public class Assignment
 	{
 		this.lhs = lhs;
 		this.rhs = rhs;
-		this.oper = null;
+        oper = null;
 	}
 
 	public Assignment( final VariableReference lhs, final Value rhs, final Operator oper )
@@ -64,17 +64,17 @@ public class Assignment
 
 	public VariableReference getLeftHandSide()
 	{
-		return this.lhs;
+		return lhs;
 	}
 
 	public Value getRightHandSide()
 	{
-		return this.rhs == null ? this.lhs.getType().initialValueExpression() : this.rhs;
+		return rhs == null ? lhs.getType().initialValueExpression() : rhs;
 	}
 
 	public Type getType()
 	{
-		return this.lhs.getType();
+		return lhs.getType();
 	}
 
 	@Override
@@ -88,19 +88,19 @@ public class Assignment
 
 		Value value;
 
-		if ( this.rhs == null )
+		if ( rhs == null )
 		{
-			value = this.lhs.getType().initialValue();
+			value = lhs.getType().initialValue();
 		}
 		else
 		{
 			interpreter.traceIndent();
 			if ( interpreter.isTracing() )
 			{
-				interpreter.trace( "Eval: " + this.rhs );
+				interpreter.trace( "Eval: " + rhs );
 			}
 
-			value = this.rhs.execute( interpreter );
+			value = rhs.execute( interpreter );
 			interpreter.captureValue( value );
 
 			if ( interpreter.isTracing() )
@@ -116,25 +116,25 @@ public class Assignment
 		}
 
 		Value newValue;
-		if ( this.lhs.getType().equals( DataTypes.TYPE_STRING ) )
+		if ( lhs.getType().equals( DataTypes.TYPE_STRING ) )
 		{
-			newValue = this.lhs.setValue( interpreter, value.toStringValue(), oper );
+			newValue = lhs.setValue( interpreter, value.toStringValue(), oper );
 		}
-		else if ( this.lhs.getType().equals( DataTypes.TYPE_INT ) )
+		else if ( lhs.getType().equals( DataTypes.TYPE_INT ) )
 		{
-			newValue = this.lhs.setValue( interpreter, value.toIntValue(), oper );
+			newValue = lhs.setValue( interpreter, value.toIntValue(), oper );
 		}
-		else if ( this.lhs.getType().equals( DataTypes.TYPE_FLOAT ) )
+		else if ( lhs.getType().equals( DataTypes.TYPE_FLOAT ) )
 		{
-			newValue = this.lhs.setValue( interpreter, value.toFloatValue(), oper );
+			newValue = lhs.setValue( interpreter, value.toFloatValue(), oper );
 		}
-		else if ( this.lhs.getType().equals( DataTypes.TYPE_BOOLEAN ) )
+		else if ( lhs.getType().equals( DataTypes.TYPE_BOOLEAN ) )
 		{
-			newValue = this.lhs.setValue( interpreter, value.toBooleanValue(), oper );
+			newValue = lhs.setValue( interpreter, value.toBooleanValue(), oper );
 		}
 		else
 		{
-			newValue = this.lhs.setValue( interpreter, value );
+			newValue = lhs.setValue( interpreter, value );
 		}
 
 		return newValue;
@@ -143,20 +143,20 @@ public class Assignment
 	@Override
 	public String toString()
 	{
-		return this.rhs == null ? this.lhs.getName() : this.lhs.getName() + " = " + this.rhs;
+		return rhs == null ? lhs.getName() : lhs.getName() + " = " + rhs;
 	}
 
 	@Override
 	public void print( final PrintStream stream, final int indent )
 	{
 		Interpreter.indentLine( stream, indent );
-		stream.println( "<ASSIGN " + this.lhs.getName() + ">" );
-		VariableReference lhs = this.getLeftHandSide();
+		stream.println( "<ASSIGN " + lhs.getName() + ">" );
+		VariableReference lhs = getLeftHandSide();
 		Parser.printIndices( lhs.getIndices(), stream, indent + 1 );
-		if ( this.oper != null )
+		if ( oper != null )
 		{
 			oper.print( stream, indent + 1 );
 		}
-		this.getRightHandSide().print( stream, indent + 1 );
+        getRightHandSide().print( stream, indent + 1 );
 	}
 }

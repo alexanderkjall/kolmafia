@@ -43,7 +43,7 @@ public class ChessCommand
 {
 	public ChessCommand()
 	{
-		this.usage = " load config | board | test | solve - play on the Great Big Chessboard.";
+        usage = " load config | board | test | solve - play on the Great Big Chessboard.";
 	}
 
 	@Override

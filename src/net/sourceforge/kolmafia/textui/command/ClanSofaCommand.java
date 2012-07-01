@@ -44,7 +44,7 @@ public class ClanSofaCommand
 {
 	public ClanSofaCommand()
 	{
-		this.usage = " <number> - rest on your clan sofa for number turns.";
+        usage = " <number> - rest on your clan sofa for number turns.";
 	}
 
 	@Override

@@ -40,7 +40,7 @@ public class PlayerSnapshotCommand
 {
 	public PlayerSnapshotCommand()
 	{
-		this.usage = " [status],[equipment],[effects],[<etc>.] - record data, \"log snapshot\" for all common data.";
+        usage = " [status],[equipment],[effects],[<etc>.] - record data, \"log snapshot\" for all common data.";
 	}
 
 	@Override
@@ -48,11 +48,11 @@ public class PlayerSnapshotCommand
 	{
 		if ( parameters.equals( "snapshot" ) )
 		{
-			this.snapshot( "moon, status, equipment, skills, effects, modifiers" );
+            snapshot( "moon, status, equipment, skills, effects, modifiers" );
 			return;
 		}
 
-		this.snapshot( parameters );
+        snapshot( parameters );
 	}
 
 	private void snapshot( final String parameters )

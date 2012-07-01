@@ -41,7 +41,7 @@ public class MirrorLogCommand
 {
 	public MirrorLogCommand()
 	{
-		this.usage = " [<filename>] - stop [or start] logging to an additional file.";
+        usage = " [<filename>] - stop [or start] logging to an additional file.";
 	}
 
 	@Override

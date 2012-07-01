@@ -70,7 +70,7 @@ public class AutoMallRequest
 		this.prices = new int[ prices.length ];
 		this.limits = new int[ limits.length ];
 
-		this.addFormField( "action", "additem" );
+        addFormField( "action", "additem" );
 
 		for ( int i = 0; i < prices.length; ++i )
 		{
@@ -104,17 +104,17 @@ public class AutoMallRequest
 	@Override
 	public void attachItem( final AdventureResult item, final int index )
 	{
-		this.addFormField( "item" + index, String.valueOf( item.getItemId() ) );
-		this.addFormField( this.getQuantityField() + index, String.valueOf( item.getCount() ) );
+        addFormField( "item" + index, String.valueOf( item.getItemId() ) );
+        addFormField( getQuantityField() + index, String.valueOf( item.getCount() ) );
 
-		int pos = Arrays.asList( this.attachments ).indexOf( item ) & 0xFFFF;
+		int pos = Arrays.asList( attachments ).indexOf( item ) & 0xFFFF;
 
-		this.addFormField(
+        addFormField(
 				"price" + index,
-				pos >= this.prices.length || this.prices[ pos ] == 0 ? "" : String.valueOf( this.prices[ pos ] ) );
-		this.addFormField(
+				pos >= prices.length || prices[ pos ] == 0 ? "" : String.valueOf( prices[ pos ] ) );
+        addFormField(
 				"limit" + index,
-				pos >= this.limits.length || this.limits[ pos ] == 0 ? "" : String.valueOf( this.limits[ pos ] ) );
+				pos >= limits.length || limits[ pos ] == 0 ? "" : String.valueOf( limits[ pos ] ) );
 	}
 
 	@Override
@@ -150,7 +150,7 @@ public class AutoMallRequest
 		super.processResults();
 
 		// We placed stuff in the mall.
-		if ( this.responseText.contains( "You don't have a store." ) )
+		if ( responseText.contains( "You don't have a store." ) )
 		{
 			KoLmafia.updateDisplay( MafiaState.ERROR, "You don't have a store." );
 			return;
@@ -162,7 +162,7 @@ public class AutoMallRequest
 	@Override
 	public boolean parseTransfer()
 	{
-		return AutoMallRequest.parseTransfer( this.getURLString(), this.responseText );
+		return AutoMallRequest.parseTransfer( getURLString(), responseText );
     }
 
 	public static boolean parseTransfer( final String urlString, final String responseText )

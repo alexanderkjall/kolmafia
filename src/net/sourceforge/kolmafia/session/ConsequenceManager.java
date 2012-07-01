@@ -242,42 +242,42 @@ public abstract class ConsequenceManager
 	
 		public String getType()
 		{
-			return this.data[ 0 ];
+			return data[ 0 ];
 		}
 
 		public String getSpec()
 		{
-			return this.data[ 1 ];
+			return data[ 1 ];
 		}
 
 		public Matcher matcher( CharSequence text )
 		{
-			return this.patt.matcher( text );
+			return patt.matcher( text );
 		}
 		
 		public void register( Map map, Object key )
 		{
-			this.next = (Consequence) map.get( key );
+            next = (Consequence) map.get( key );
 			map.put( key, this );
 		}
 		
 		@Override
 		public String toString()
 		{
-			return "consequence " + this.getType() + "/" + this.getSpec();
+			return "consequence " + getType() + "/" + getSpec();
 		}
 		
 		public void test( CharSequence text )
 		{
-			this.test( text, true );
+            test( text, true );
 		}
 		
 		public String test( CharSequence text, boolean printText )
 		{
 			String rv = null;
-			if ( this.next != null )
+			if ( next != null )
 			{
-				rv = this.next.test( text, printText );
+				rv = next.test( text, printText );
 				if ( rv != null && !printText )
 				{
 					return rv;
@@ -288,12 +288,12 @@ public abstract class ConsequenceManager
 				RequestLogger.printLine( "Testing " + this );
 			}
 		
-			Matcher m = this.matcher( text );
+			Matcher m = matcher( text );
 			if ( m.find() )
 			{
-				for ( int i = 3; i < this.data.length; ++i )
+				for ( int i = 3; i < data.length; ++i )
 				{
-					String res = this.fireAction( data[ i ], m );
+					String res = fireAction( data[ i ], m );
 					if ( res != null )
 					{
 						rv = res;

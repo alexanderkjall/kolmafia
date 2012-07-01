@@ -48,7 +48,7 @@ public class FaxCommand
 {
 	public FaxCommand()
 	{
-		this.usage = " send | put | receive | get - use the fax machine in your clan's VIP lounge";
+        usage = " send | put | receive | get - use the fax machine in your clan's VIP lounge";
 	}
 
 	@Override

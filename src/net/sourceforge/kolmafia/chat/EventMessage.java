@@ -43,20 +43,20 @@ public class EventMessage
 
 	public EventMessage( String content, String color )
 	{
-		this.setContent( content );
+        setContent( content );
 
 		this.color = color;
-		this.hidden = false;
+        hidden = false;
 	}
 
 	public String getColor()
 	{
-		return this.color;
+		return color;
 	}
 
 	public boolean isHidden()
 	{
-		return this.hidden;
+		return hidden;
 	}
 
 	public void setHidden( boolean hidden )

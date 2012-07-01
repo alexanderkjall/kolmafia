@@ -43,7 +43,7 @@ public class MacroTestCommand
 {
 	public MacroTestCommand()
 	{
-		this.usage = " [monster] - turns on macro debug and generates a macro for the given monster";
+        usage = " [monster] - turns on macro debug and generates a macro for the given monster";
 	}
 
 	@Override

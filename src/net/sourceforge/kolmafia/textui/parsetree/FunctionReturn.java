@@ -54,22 +54,22 @@ public class FunctionReturn
 
 	public Type getType()
 	{
-		if ( this.expectedType != null )
+		if ( expectedType != null )
 		{
-			return this.expectedType;
+			return expectedType;
 		}
 
-		if ( this.returnValue == null )
+		if ( returnValue == null )
 		{
 			return DataTypes.VOID_TYPE;
 		}
 
-		return this.returnValue.getType();
+		return returnValue.getType();
 	}
 
 	public Value getExpression()
 	{
-		return this.returnValue;
+		return returnValue;
 	}
 
 	@Override
@@ -85,7 +85,7 @@ public class FunctionReturn
 			return null;
 		}
 
-		if ( this.returnValue == null )
+		if ( returnValue == null )
 		{
 			interpreter.setState( Interpreter.STATE_RETURN );
 			return null;
@@ -94,10 +94,10 @@ public class FunctionReturn
 		interpreter.traceIndent();
 		if ( interpreter.isTracing() )
 		{
-			interpreter.trace( "Eval: " + this.returnValue );
+			interpreter.trace( "Eval: " + returnValue );
 		}
 
-		Value result = this.returnValue.execute( interpreter );
+		Value result = returnValue.execute( interpreter );
 		interpreter.captureValue( result );
 
 		if ( interpreter.isTracing() )
@@ -116,22 +116,22 @@ public class FunctionReturn
 			interpreter.setState( Interpreter.STATE_RETURN );
 		}
 		
-		if ( this.expectedType == null )
+		if ( expectedType == null )
 		{
 			return result;
 		}
 
-		if ( this.expectedType.equals( DataTypes.TYPE_STRING ) )
+		if ( expectedType.equals( DataTypes.TYPE_STRING ) )
 		{
 			return result.toStringValue();
 		}
 
-		if ( this.expectedType.equals( DataTypes.TYPE_FLOAT ) )
+		if ( expectedType.equals( DataTypes.TYPE_FLOAT ) )
 		{
 			return result.toFloatValue();
 		}
 
-		if ( this.expectedType.equals( DataTypes.TYPE_INT ) )
+		if ( expectedType.equals( DataTypes.TYPE_INT ) )
 		{
 			return result.toIntValue();
 		}
@@ -142,17 +142,17 @@ public class FunctionReturn
 	@Override
 	public String toString()
 	{
-		return "return " + this.returnValue;
+		return "return " + returnValue;
 	}
 
 	@Override
 	public void print( final PrintStream stream, final int indent )
 	{
 		Interpreter.indentLine( stream, indent );
-		stream.println( "<RETURN " + this.getType() + ">" );
-		if ( !this.getType().equals( DataTypes.TYPE_VOID ) )
+		stream.println( "<RETURN " + getType() + ">" );
+		if ( !getType().equals( DataTypes.TYPE_VOID ) )
 		{
-			this.returnValue.print( stream, indent + 1 );
+            returnValue.print( stream, indent + 1 );
 		}
 	}
 	

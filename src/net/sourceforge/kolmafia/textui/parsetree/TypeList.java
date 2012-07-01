@@ -42,7 +42,7 @@ public class TypeList
 
 	public boolean add( final Type n )
 	{
-		if ( this.find( n.getName() ) != null )
+		if ( find( n.getName() ) != null )
 		{
 			return false;
 		}

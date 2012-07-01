@@ -42,7 +42,7 @@ public class CountersCommand
 {
 	public CountersCommand()
 	{
-		this.usage = " [ clear | add <number> [<title> <img>] ] - show, clear, or add to current turn counters.";
+        usage = " [ clear | add <number> [<title> <img>] ] - show, clear, or add to current turn counters.";
 	}
 
 	@Override

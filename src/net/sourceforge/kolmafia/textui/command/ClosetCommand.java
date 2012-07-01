@@ -52,7 +52,7 @@ public class ClosetCommand
 {
 	public ClosetCommand()
 	{
-		this.usage = " list <filter> | empty | put <item>... | take <item>... - list or manipulate your closet.";
+        usage = " list <filter> | empty | put <item>... | take <item>... - list or manipulate your closet.";
 	}
 
 	@Override

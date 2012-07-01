@@ -100,16 +100,16 @@ public class KoLDesktop
 
 		if ( StaticEntity.usesSystemTray() )
 		{
-			this.addWindowListener( minimizeListener );
+            addWindowListener( minimizeListener );
 		}
 
-		this.tabs.setTabPlacement( SwingConstants.TOP );
-		this.setCenterComponent( this.tabs );
+        tabs.setTabPlacement( SwingConstants.TOP );
+        setCenterComponent( tabs );
 
-		this.addCompactPane();
+        addCompactPane();
 
-		this.getToolbar();
-		this.addScriptPane();
+        getToolbar();
+        addScriptPane();
 
 		KoLDesktop.INSTANCE = this;
 		new MemoryUsageMonitor().start();
@@ -153,10 +153,10 @@ public class KoLDesktop
 			return;
 		}
 
-		GenericFrame gframe = (GenericFrame) this.tabListing.remove( overTabIndex );
+		GenericFrame gframe = (GenericFrame) tabListing.remove( overTabIndex );
 		gframe.dispose();
 
-		this.tabs.removeTabAt( overTabIndex );
+        tabs.removeTabAt( overTabIndex );
 	}
 
 	public void initializeTabs()
@@ -189,9 +189,9 @@ public class KoLDesktop
 			}
 		}
 
-		this.pack();
+        pack();
 
-		this.tabs.addChangeListener( new TabFocusingListener() );
+        tabs.addChangeListener( new TabFocusingListener() );
 
 		KoLDesktop.isInitializing = false;
 	}
@@ -204,18 +204,18 @@ public class KoLDesktop
 	@Override
 	public void dispose()
 	{
-		StaticEntity.unregisterPanels( this.tabs );
+		StaticEntity.unregisterPanels( tabs );
 
-		this.removeWindowListener( minimizeListener );
+        removeWindowListener( minimizeListener );
 
 		if ( Preferences.getBoolean( "rememberDesktopSize" ) )
 		{
-			Dimension tempDim = this.getSize();
+			Dimension tempDim = getSize();
 			Preferences.setInteger( "desktopHeight", (int) tempDim.getHeight() );
 			Preferences.setInteger( "desktopWidth", (int) tempDim.getWidth() );
 		}
 
-		Iterator tabIterator = this.tabListing.iterator();
+		Iterator tabIterator = tabListing.iterator();
 
 		while ( tabIterator.hasNext() )
 		{
@@ -226,7 +226,7 @@ public class KoLDesktop
 			tabIterator.remove();
 		}
 
-		this.tabs.removeAll();
+        tabs.removeAll();
 
 		KoLDesktop.INSTANCE = null;
 
@@ -401,10 +401,10 @@ public class KoLDesktop
 		toolbarPanel.add( Box.createHorizontalStrut( 10 ) );
 		toolbarPanel.add( Box.createHorizontalGlue() );
 
-		this.memoryUsageLabel = new JProgressBar( JProgressBar.HORIZONTAL );
-		this.memoryUsageLabel.setStringPainted( true );
+        memoryUsageLabel = new JProgressBar( JProgressBar.HORIZONTAL );
+        memoryUsageLabel.setStringPainted( true );
 
-		toolbarPanel.add( this.memoryUsageLabel );
+		toolbarPanel.add( memoryUsageLabel );
 		toolbarPanel.add( Box.createHorizontalStrut( 10 ) );
 		toolbarPanel.add( new InvocationButton( "Collect Garbage", "trashield.gif", StaticEntity.getClient(), "gc" ) );
 
@@ -437,7 +437,7 @@ public class KoLDesktop
 		@Override
 		public void windowIconified( final WindowEvent e )
 		{
-			KoLDesktop.this.setVisible( false );
+            setVisible( false );
 		}
 	}
 
@@ -458,9 +458,9 @@ public class KoLDesktop
 
 		public MemoryUsageMonitor()
 		{
-			this.pauser = new PauseObject();
+            pauser = new PauseObject();
 
-			this.setDaemon( true );
+            setDaemon( true );
 		}
 
 		@Override
@@ -468,7 +468,7 @@ public class KoLDesktop
 		{
 			while ( KoLDesktop.INSTANCE == KoLDesktop.this )
 			{
-				this.pauser.pause( 2000 );
+                pauser.pause( 2000 );
 
 				Runtime runtime = Runtime.getRuntime();
 
@@ -476,10 +476,10 @@ public class KoLDesktop
 				int heapMemory = (int) ( runtime.totalMemory() >> 10 );
 				int usedMemory = (int) ( heapMemory - ( runtime.freeMemory() >> 10 ) );
 
-				KoLDesktop.this.memoryUsageLabel.setMaximum( maxMemory );
-				KoLDesktop.this.memoryUsageLabel.setValue( usedMemory );
+                memoryUsageLabel.setMaximum( maxMemory );
+                memoryUsageLabel.setValue( usedMemory );
 
-				KoLDesktop.this.memoryUsageLabel.setString( usedMemory + " KB / " + maxMemory + " KB" );
+                memoryUsageLabel.setString( usedMemory + " KB / " + maxMemory + " KB" );
 			}
 		}
 	}

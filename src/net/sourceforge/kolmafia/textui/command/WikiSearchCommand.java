@@ -42,7 +42,7 @@ public class WikiSearchCommand
 {
 	public WikiSearchCommand()
 	{
-		this.usage = " <searchText> - perform search on KoL Wiki.";
+        usage = " <searchText> - perform search on KoL Wiki.";
 	}
 
 	@Override

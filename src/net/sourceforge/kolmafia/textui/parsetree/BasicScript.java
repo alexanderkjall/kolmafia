@@ -60,7 +60,7 @@ public class BasicScript
 	@Override
 	public Value execute( final Interpreter interpreter )
 	{
-		KoLmafiaCLI script = new KoLmafiaCLI( this.data.getByteArrayInputStream() );
+		KoLmafiaCLI script = new KoLmafiaCLI( data.getByteArrayInputStream() );
 		script.listenForCommands();
 		return DataTypes.VOID_VALUE;
 	}

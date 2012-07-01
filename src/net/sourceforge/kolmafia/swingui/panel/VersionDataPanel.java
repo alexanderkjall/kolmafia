@@ -78,10 +78,10 @@ public class VersionDataPanel
 		versionPanel.add(
 			new JLabel( JComponentUtilities.getImage( "penguin.gif" ), JLabel.CENTER ), BorderLayout.NORTH );
 
-		JPanel labelPanel = new JPanel( new GridLayout( this.versionData.length, 1 ) );
-		for ( int i = 0; i < this.versionData.length; ++i )
+		JPanel labelPanel = new JPanel( new GridLayout( versionData.length, 1 ) );
+		for ( int i = 0; i < versionData.length; ++i )
 		{
-			labelPanel.add( new JLabel( this.versionData[ i ], JLabel.CENTER ) );
+			labelPanel.add( new JLabel( versionData[ i ], JLabel.CENTER ) );
 		}
 
 		versionPanel.add( labelPanel, BorderLayout.CENTER );
@@ -97,7 +97,7 @@ public class VersionDataPanel
 		centerPanel.add( versionPanel, BorderLayout.CENTER );
 		centerPanel.add( donatePanel, BorderLayout.SOUTH );
 
-		this.setLayout( new CardLayout( 20, 20 ) );
-		this.add( centerPanel, "" );
+        setLayout( new CardLayout( 20, 20 ) );
+        add( centerPanel, "" );
 	}
 }

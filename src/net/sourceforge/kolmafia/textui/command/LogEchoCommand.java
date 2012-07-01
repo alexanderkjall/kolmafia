@@ -46,7 +46,7 @@ public class LogEchoCommand
 {
 	public LogEchoCommand()
 	{
-		this.usage = " timestamp | <text> - include timestamp or text in the session log only.";
+        usage = " timestamp | <text> - include timestamp or text in the session log only.";
 	}
 
 	@Override

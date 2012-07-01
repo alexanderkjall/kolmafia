@@ -40,13 +40,13 @@ public class LoginCommand
 {
 	public LoginCommand()
 	{
-		this.usage = " <username> - logout then log back in as username.";
+        usage = " <username> - logout then log back in as username.";
 	}
 
 	@Override
 	public void run( final String cmd, final String parameters )
 	{
 		LogoutManager.logout();
-		this.CLI.attemptLogin( parameters );
+        CLI.attemptLogin( parameters );
 	}
 }

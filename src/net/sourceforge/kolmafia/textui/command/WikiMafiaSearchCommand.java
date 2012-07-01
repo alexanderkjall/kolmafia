@@ -42,7 +42,7 @@ public class WikiMafiaSearchCommand
 {
 	public WikiMafiaSearchCommand()
 	{
-		this.usage = " <searchText> - perform search on KoLmafia Wiki.";
+        usage = " <searchText> - perform search on KoLmafia Wiki.";
 	}
 
 	@Override

@@ -54,21 +54,21 @@ public class ColorChooser
 	public ColorChooser( final String property )
 	{
 		this.property = property;
-		this.setOpaque( true );
-		this.addMouseListener( this );
+        setOpaque( true );
+        addMouseListener( this );
 	}
 
 	public void mousePressed( final MouseEvent e )
 	{
-		Color c = JColorChooser.showDialog( null, "Choose a color:", this.getBackground() );
+		Color c = JColorChooser.showDialog( null, "Choose a color:", getBackground() );
 		if ( c == null )
 		{
 			return;
 		}
 
-		Preferences.setString( this.property, DataUtilities.toHexString( c ) );
-		this.setBackground( c );
-		this.applyChanges();
+		Preferences.setString( property, DataUtilities.toHexString( c ) );
+        setBackground( c );
+        applyChanges();
 	}
 
 	public void mouseReleased( final MouseEvent e )

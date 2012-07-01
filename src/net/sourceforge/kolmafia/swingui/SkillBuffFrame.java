@@ -93,29 +93,29 @@ public class SkillBuffFrame
 		JPanel skillWrapper = new JPanel( new BorderLayout() );
 		skillWrapper.add( new SkillBuffPanel(), BorderLayout.NORTH );
 
-		this.effectList = new ShowDescriptionList( KoLConstants.activeEffects, 12 );
-		this.effectList.addListSelectionListener( new SkillReselector() );
+        effectList = new ShowDescriptionList( KoLConstants.activeEffects, 12 );
+        effectList.addListSelectionListener( new SkillReselector() );
 
-		this.tabs.addTab( "Active Effects", new StatusEffectPanel( this.effectList ) );
-		this.tabs.addTab( "Recovery Items", new RestorativeItemPanel() );
+        tabs.addTab( "Active Effects", new StatusEffectPanel( effectList ) );
+        tabs.addTab( "Recovery Items", new RestorativeItemPanel() );
 
-		skillWrapper.add( this.tabs, BorderLayout.CENTER );
+		skillWrapper.add( tabs, BorderLayout.CENTER );
 
-		this.setCenterComponent( skillWrapper );
+        setCenterComponent( skillWrapper );
 
-		this.setRecipient( recipient );
+        setRecipient( recipient );
 	}
 
 	public void setRecipient( String recipient )
 	{
-		if ( !this.contacts.contains( recipient ) )
+		if ( !contacts.contains( recipient ) )
 		{
 			recipient = ContactManager.getPlayerName( recipient );
-			this.contacts.add( 0, recipient );
+            contacts.add( 0, recipient );
 		}
 
-		this.targetSelect.getEditor().setItem( recipient );
-		this.targetSelect.setSelectedItem( recipient );
+        targetSelect.getEditor().setItem( recipient );
+        targetSelect.setSelectedItem( recipient );
 	}
 
 	private class SkillReselector
@@ -123,13 +123,13 @@ public class SkillBuffFrame
 	{
 		public void valueChanged( final ListSelectionEvent e )
 		{
-			AdventureResult effect = (AdventureResult) SkillBuffFrame.this.effectList.getSelectedValue();
+			AdventureResult effect = (AdventureResult) effectList.getSelectedValue();
 			if ( effect == null )
 			{
 				return;
 			}
 
-			SkillBuffFrame.this.skillSelect.setSelectedItem( UseSkillRequest.getInstance( UneffectRequest.effectToSkill( effect.getName() ) ) );
+            skillSelect.setSelectedItem( UseSkillRequest.getInstance( UneffectRequest.effectToSkill( effect.getName() ) ) );
 		}
 	}
 
@@ -140,51 +140,51 @@ public class SkillBuffFrame
 		{
 			super( "cast", "maxcast", new Dimension( 80, 20 ), new Dimension( 240, 20 ) );
 
-			SkillBuffFrame.this.typeSelect = new SkillTypeComboBox();
-			SkillBuffFrame.this.skillSelect = new AutoFilterComboBox( KoLConstants.usableSkills, false );
-			SkillBuffFrame.this.amountField = new AutoHighlightTextField();
+            typeSelect = new SkillTypeComboBox();
+            skillSelect = new AutoFilterComboBox( KoLConstants.usableSkills, false );
+            amountField = new AutoHighlightTextField();
 
-			SkillBuffFrame.this.contacts = (LockableListModel) ContactManager.getMailContacts().getMirrorImage();
-			SkillBuffFrame.this.targetSelect = new AutoFilterComboBox( SkillBuffFrame.this.contacts, true );
+            contacts = (LockableListModel) ContactManager.getMailContacts().getMirrorImage();
+            targetSelect = new AutoFilterComboBox( contacts, true );
 
 			VerifiableElement[] elements = new VerifiableElement[ 4 ];
-			elements[ 0 ] = new VerifiableElement( "Skill Type: ", SkillBuffFrame.this.typeSelect );
-			elements[ 1 ] = new VerifiableElement( "Skill Name: ", SkillBuffFrame.this.skillSelect );
-			elements[ 2 ] = new VerifiableElement( "# of Casts: ", SkillBuffFrame.this.amountField );
-			elements[ 3 ] = new VerifiableElement( "The Victim: ", SkillBuffFrame.this.targetSelect );
+			elements[ 0 ] = new VerifiableElement( "Skill Type: ", typeSelect );
+			elements[ 1 ] = new VerifiableElement( "Skill Name: ", skillSelect );
+			elements[ 2 ] = new VerifiableElement( "# of Casts: ", amountField );
+			elements[ 3 ] = new VerifiableElement( "The Victim: ", targetSelect );
 
-			this.setContent( elements );
+            setContent( elements );
 		}
 
 		@Override
 		public void setEnabled( final boolean isEnabled )
 		{
-			if ( SkillBuffFrame.this.skillSelect == null || SkillBuffFrame.this.targetSelect == null )
+			if ( skillSelect == null || targetSelect == null )
 			{
 				return;
 			}
 
 			super.setEnabled( isEnabled );
 
-			SkillBuffFrame.this.skillSelect.setEnabled( isEnabled );
-			SkillBuffFrame.this.targetSelect.setEnabled( isEnabled );
+            skillSelect.setEnabled( isEnabled );
+            targetSelect.setEnabled( isEnabled );
 		}
 
 		@Override
 		public void actionConfirmed()
 		{
-			this.buff( false );
+            buff( false );
 		}
 
 		@Override
 		public void actionCancelled()
 		{
-			this.buff( true );
+            buff( true );
 		}
 
 		private void buff( boolean maxBuff )
 		{
-			UseSkillRequest request = (UseSkillRequest) SkillBuffFrame.this.skillSelect.getSelectedItem();
+			UseSkillRequest request = (UseSkillRequest) skillSelect.getSelectedItem();
 			if ( request == null )
 			{
 				return;
@@ -197,9 +197,9 @@ public class SkillBuffFrame
 			}
 
 			String[] targets =
-				StaticEntity.getClient().extractTargets( (String) SkillBuffFrame.this.targetSelect.getSelectedItem() );
+				StaticEntity.getClient().extractTargets( (String) targetSelect.getSelectedItem() );
 
-			int buffCount = !maxBuff ? InputFieldUtilities.getValue( SkillBuffFrame.this.amountField, 1 ) : Integer.MAX_VALUE;
+			int buffCount = !maxBuff ? InputFieldUtilities.getValue( amountField, 1 ) : Integer.MAX_VALUE;
 			if ( buffCount == 0 )
 			{
 				return;
@@ -245,28 +245,28 @@ public class SkillBuffFrame
 		{
 			public void actionPerformed( final ActionEvent e )
 			{
-				int index = SkillTypeComboBox.this.getSelectedIndex();
+				int index = getSelectedIndex();
 				switch ( index )
 				{
 				case 0:
 					// All skills
-					SkillBuffFrame.this.skillSelect.setModel( KoLConstants.usableSkills );
+                    skillSelect.setModel( KoLConstants.usableSkills );
 					break;
 				case 1:
 					// Summoning skills
-					SkillBuffFrame.this.skillSelect.setModel( KoLConstants.summoningSkills );
+                    skillSelect.setModel( KoLConstants.summoningSkills );
 					break;
 				case 2:
 					// Remedy skills
-					SkillBuffFrame.this.skillSelect.setModel( KoLConstants.remedySkills );
+                    skillSelect.setModel( KoLConstants.remedySkills );
 					break;
 				case 3:
 					// Self-only skills
-					SkillBuffFrame.this.skillSelect.setModel( KoLConstants.selfOnlySkills );
+                    skillSelect.setModel( KoLConstants.selfOnlySkills );
 					break;
 				case 4:
 					// Buff skills
-					SkillBuffFrame.this.skillSelect.setModel( KoLConstants.buffSkills );
+                    skillSelect.setModel( KoLConstants.buffSkills );
 					break;
 				}
 			}

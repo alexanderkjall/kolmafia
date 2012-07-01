@@ -41,7 +41,7 @@ public class BacktraceCommand
 {
 	public BacktraceCommand()
 	{
-		this.usage = " <text> | off - dump stack when a gCLI message or page URL matches text (case-sensitive).";
+        usage = " <text> | off - dump stack when a gCLI message or page URL matches text (case-sensitive).";
 	}
 
 	@Override

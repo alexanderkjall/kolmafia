@@ -44,7 +44,7 @@ public class ConcertCommand
 {
 	public ConcertCommand()
 	{
-		this.usage = " m[oon'd] | d[ilated pupils] | o[ptimist primal] | e[lvish] | wi[nklered] | wh[ite-boy angst]";
+        usage = " m[oon'd] | d[ilated pupils] | o[ptimist primal] | e[lvish] | wi[nklered] | wh[ite-boy angst]";
 	}
 
 	@Override

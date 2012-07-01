@@ -65,41 +65,41 @@ public class TrophyRequest
 	@Override
 	public void run()
 	{
-		if ( this.trophies == null )
+		if ( trophies == null )
 		{
 			super.run();
-			this.trophies = new ArrayList();
+            trophies = new ArrayList();
 
-			if ( this.responseText == null )
+			if ( responseText == null )
 			{
 				return;
 			}
 
-			Matcher m = TrophyRequest.TROPHY_PATTERN.matcher( this.responseText );
+			Matcher m = TrophyRequest.TROPHY_PATTERN.matcher( responseText );
 			while ( m.find() )
 			{
-				this.trophies.add( new Trophy( m.group( 1 ), m.group( 2 ),
-					StringUtilities.parseInt( m.group( 3 ) ),
-					m.group( 4 ) != null ) );
+                trophies.add( new Trophy( m.group( 1 ), m.group( 2 ),
+                        StringUtilities.parseInt( m.group( 3 ) ),
+                        m.group( 4 ) != null ) );
 			}
 			return;
 		}
 
-		this.addFormField( "action", "Yup." );
-		Iterator i = this.trophies.iterator();
+        addFormField( "action", "Yup." );
+		Iterator i = trophies.iterator();
 		while ( i.hasNext() )
 		{
 			Trophy t = (Trophy) i.next();
 			if ( t.visible )
 			{
-				this.addFormField( "public" + t.id, "on" );
+                addFormField( "public" + t.id, "on" );
 			}
 		}
 		super.run();
 
 		// Multiple trophy moving only works via GET, not POST.
 		StringBuilder buf = new StringBuilder( "trophies.php?moveall=yes" );
-		i = this.trophies.iterator();
+		i = trophies.iterator();
 		int pos = 1;
 		while ( i.hasNext() )
 		{
@@ -110,15 +110,15 @@ public class TrophyRequest
 			buf.append( pos++ );
 		}
 
-		this.constructURLString( "blah", false );	// clear out cached URL data
-		this.constructURLString( buf.toString(), false );
+        constructURLString( "blah", false );	// clear out cached URL data
+        constructURLString( buf.toString(), false );
 
 		super.run();
 	}
 
 	public ArrayList getTrophies()
 	{
-		return this.trophies;
+		return trophies;
 	}
 
 	public static class Trophy

@@ -44,7 +44,7 @@ public class ShowerCommand
 {
 	public ShowerCommand()
 	{
-		this.usage = " type - take a shower in your clan's VIP lounge";
+        usage = " type - take a shower in your clan's VIP lounge";
 	}
 
 	@Override

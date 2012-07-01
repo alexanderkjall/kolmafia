@@ -50,31 +50,31 @@ public class MonsterExpression
 	@Override
 	protected String function()
 	{
-		if ( this.optional( "MUS" ) )
+		if ( optional( "MUS" ) )
 		{
 			return "\u0080";
 		}
-		if ( this.optional( "MYS" ) )
+		if ( optional( "MYS" ) )
 		{
 			return "\u0081";
 		}
-		if ( this.optional( "MOX" ) )
+		if ( optional( "MOX" ) )
 		{
 			return "\u0082";
 		}
-		if ( this.optional( "ML" ) )
+		if ( optional( "ML" ) )
 		{
 			return "\u0083";
 		}
-		if ( this.optional( "MCD" ) )
+		if ( optional( "MCD" ) )
 		{
 			return "\u0084";
 		}
-		if ( this.optional( "HP" ) )
+		if ( optional( "HP" ) )
 		{
 			return "\u0085";
 		}
-		if ( this.optional( "BL" ) )
+		if ( optional( "BL" ) )
 		{
 			return "\u0086";
 		}

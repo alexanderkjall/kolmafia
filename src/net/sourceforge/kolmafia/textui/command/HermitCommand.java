@@ -52,7 +52,7 @@ public class HermitCommand
 {
 	public HermitCommand()
 	{
-		this.usage = "[?] [<item>] - get clover status, or trade for item.";
+        usage = "[?] [<item>] - get clover status, or trade for item.";
 	}
 
 	@Override

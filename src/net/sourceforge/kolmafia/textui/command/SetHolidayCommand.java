@@ -39,7 +39,7 @@ public class SetHolidayCommand
 	extends AbstractCommand
 {
 	{
-		this.usage = " <HolidayName> - enable special processing for unpredicted holidays.";
+        usage = " <HolidayName> - enable special processing for unpredicted holidays.";
 	}
 
 	@Override

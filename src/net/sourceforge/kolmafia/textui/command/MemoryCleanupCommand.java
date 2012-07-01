@@ -38,7 +38,7 @@ public class MemoryCleanupCommand
 {
 	public MemoryCleanupCommand()
 	{
-		this.usage = " - force Java garbage collection.";
+        usage = " - force Java garbage collection.";
 	}
 
 	@Override

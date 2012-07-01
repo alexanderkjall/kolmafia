@@ -42,7 +42,7 @@ public class PripheaCommand
 {
 	public PripheaCommand()
 	{
-		this.usage = " - launch KoLmafia GUI.";
+        usage = " - launch KoLmafia GUI.";
 	}
 
 	@Override

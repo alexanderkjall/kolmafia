@@ -912,37 +912,37 @@ public abstract class VolcanoMazeManager
 				}
 				Integer ival = new Integer( coord );
 				list.add( ival );
-				this.board[ival] = true;
+                board[ival] = true;
 			}
-			this.platforms = (Integer []) list.toArray( new Integer[ list.size() ] );
+            platforms = (Integer []) list.toArray( new Integer[ list.size() ] );
 
 			// Every board has the goal platform
-			this.board[ VolcanoMazeManager.goal ] = true;
+            board[ VolcanoMazeManager.goal ] = true;
 		}
 
 		public String getCoordinates()
 		{
-			return this.coordinates;
+			return coordinates;
 		}
 
 		public Integer [] getPlatforms()
 		{
-			return this.platforms;
+			return platforms;
 		}
 
 		public boolean [] getBoard()
 		{
-			return this.board;
+			return board;
 		}
 
 		public boolean inMap( final int row, final int col )
 		{
-			return this.inMap( pos( row, col ) );
+			return inMap( pos( row, col ) );
 		}
 
 		public boolean inMap( final int square )
 		{
-			return this.board[ square ];
+			return board[ square ];
 		}
 
 		public Neighbors neighbors( final int square )
@@ -952,7 +952,7 @@ public abstract class VolcanoMazeManager
 
 		public int pickNeighbor( final int square )
 		{
-			Neighbors neighbors = this.neighbors( square );
+			Neighbors neighbors = neighbors( square );
 			Integer [] platforms = neighbors.getPlatforms();
 
 			// We might be stuck
@@ -1090,13 +1090,13 @@ public abstract class VolcanoMazeManager
 			Neighbors.addSquare( list, map, row + 1, col );
 			Neighbors.addSquare( list, map, row + 1, col + 1 );
 
-			this.platforms = new Integer[ list.size() ];
-			list.toArray( this.platforms );
+            platforms = new Integer[ list.size() ];
+			list.toArray( platforms );
 		}
 
 		public Integer [] getPlatforms()
 		{
-			return this.platforms;
+			return platforms;
 		}
 
 		private static void addSquare( List list, final VolcanoMap map, int row, int col )

@@ -125,86 +125,86 @@ public class ChoiceOptionsPanel
 	public ChoiceOptionsPanel()
 	{
 		super( JTabbedPane.LEFT );
-		this.choiceCards = new CardLayout( 10, 10 );
+        choiceCards = new CardLayout( 10, 10 );
 
-		this.choiceMap = new TreeMap();
-		this.selectMap = new HashMap();
+        choiceMap = new TreeMap();
+        selectMap = new HashMap();
 
-		this.choicePanel = new JPanel( this.choiceCards );
-		this.choicePanel.add( new JPanel(), "" );
-		this.addTab( "Zone", new GenericScrollPane( this.choicePanel ) );
-		this.setToolTipTextAt( 0, "Choices specific to the current adventure zone" );
+        choicePanel = new JPanel( choiceCards );
+        choicePanel.add( new JPanel(), "" );
+        addTab( "Zone", new GenericScrollPane( choicePanel ) );
+        setToolTipTextAt( 0, "Choices specific to the current adventure zone" );
 
 		String[] options;
 
-		this.optionSelects = new JComboBox[ ChoiceManager.CHOICE_ADVS.length ];
+        optionSelects = new JComboBox[ ChoiceManager.CHOICE_ADVS.length ];
 		for ( int i = 0; i < ChoiceManager.CHOICE_ADVS.length; ++i )
 		{
-			this.optionSelects[ i ] = new JComboBox();
-			this.optionSelects[ i ].addItem( "show in browser" );
+            optionSelects[ i ] = new JComboBox();
+            optionSelects[ i ].addItem( "show in browser" );
 			options = ChoiceManager.CHOICE_ADVS[ i ].getOptions();
 			for ( int j = 0; j < options.length; ++j )
 			{
-				this.optionSelects[ i ].addItem( options[ j ] );
+                optionSelects[ i ].addItem( options[ j ] );
 			}
 		}
 
-		this.castleWheelSelect = new JComboBox();
-		this.castleWheelSelect.addItem( "Turn to map quest position (via moxie)" );
-		this.castleWheelSelect.addItem( "Turn to map quest position (via mysticality)" );
-		this.castleWheelSelect.addItem( "Turn to muscle position" );
-		this.castleWheelSelect.addItem( "Turn to mysticality position" );
-		this.castleWheelSelect.addItem( "Turn to moxie position" );
-		this.castleWheelSelect.addItem( "Turn clockwise" );
-		this.castleWheelSelect.addItem( "Turn counterclockwise" );
-		this.castleWheelSelect.addItem( "Ignore this adventure" );
+        castleWheelSelect = new JComboBox();
+        castleWheelSelect.addItem( "Turn to map quest position (via moxie)" );
+        castleWheelSelect.addItem( "Turn to map quest position (via mysticality)" );
+        castleWheelSelect.addItem( "Turn to muscle position" );
+        castleWheelSelect.addItem( "Turn to mysticality position" );
+        castleWheelSelect.addItem( "Turn to moxie position" );
+        castleWheelSelect.addItem( "Turn clockwise" );
+        castleWheelSelect.addItem( "Turn counterclockwise" );
+        castleWheelSelect.addItem( "Ignore this adventure" );
 
-		this.palindomePapayaSelect = new JComboBox();
-		this.palindomePapayaSelect.addItem( "3 papayas" );
-		this.palindomePapayaSelect.addItem( "Trade papayas for stats" );
-		this.palindomePapayaSelect.addItem( "Fewer stats" );
-		this.palindomePapayaSelect.addItem( "Stats until out of papayas then papayas" );
-		this.palindomePapayaSelect.addItem( "Stats until out of papayas then fewer stats" );
+        palindomePapayaSelect = new JComboBox();
+        palindomePapayaSelect.addItem( "3 papayas" );
+        palindomePapayaSelect.addItem( "Trade papayas for stats" );
+        palindomePapayaSelect.addItem( "Fewer stats" );
+        palindomePapayaSelect.addItem( "Stats until out of papayas then papayas" );
+        palindomePapayaSelect.addItem( "Stats until out of papayas then fewer stats" );
 
-		this.spookyForestSelect = new JComboBox();
-		this.spookyForestSelect.addItem( "show in browser" );
-		this.spookyForestSelect.addItem( "mosquito larva or spooky mushrooms" );
-		this.spookyForestSelect.addItem( "Spooky-Gro fertilizer" );
-		this.spookyForestSelect.addItem( "spooky sapling & sell bar skins" );
-		this.spookyForestSelect.addItem( "Spooky Temple map then skip adventure" );
-		this.spookyForestSelect.addItem( "meet vampire hunter" );
-		this.spookyForestSelect.addItem( "meet vampire" );
-		this.spookyForestSelect.addItem( "gain meat" );
-		this.spookyForestSelect.addItem( "loot Seal Clubber corpse" );
-		this.spookyForestSelect.addItem( "loot Turtle Tamer corpse" );
-		this.spookyForestSelect.addItem( "loot Pastamancer corpse" );
-		this.spookyForestSelect.addItem( "loot Sauceror corpse" );
-		this.spookyForestSelect.addItem( "loot Disco Bandit corpse" );
-		this.spookyForestSelect.addItem( "loot Accordion Thief corpse" );
+        spookyForestSelect = new JComboBox();
+        spookyForestSelect.addItem( "show in browser" );
+        spookyForestSelect.addItem( "mosquito larva or spooky mushrooms" );
+        spookyForestSelect.addItem( "Spooky-Gro fertilizer" );
+        spookyForestSelect.addItem( "spooky sapling & sell bar skins" );
+        spookyForestSelect.addItem( "Spooky Temple map then skip adventure" );
+        spookyForestSelect.addItem( "meet vampire hunter" );
+        spookyForestSelect.addItem( "meet vampire" );
+        spookyForestSelect.addItem( "gain meat" );
+        spookyForestSelect.addItem( "loot Seal Clubber corpse" );
+        spookyForestSelect.addItem( "loot Turtle Tamer corpse" );
+        spookyForestSelect.addItem( "loot Pastamancer corpse" );
+        spookyForestSelect.addItem( "loot Sauceror corpse" );
+        spookyForestSelect.addItem( "loot Disco Bandit corpse" );
+        spookyForestSelect.addItem( "loot Accordion Thief corpse" );
 
-		this.violetFogSelect = new JComboBox();
+        violetFogSelect = new JComboBox();
 		for ( int i = 0; i < VioletFogManager.FogGoals.length; ++i )
 		{
-			this.violetFogSelect.addItem( VioletFogManager.FogGoals[ i ] );
+            violetFogSelect.addItem( VioletFogManager.FogGoals[i] );
 		}
 
-		this.louvreSelect = new JComboBox();
-		this.louvreSelect.addItem( "Ignore this adventure" );
+        louvreSelect = new JComboBox();
+        louvreSelect.addItem( "Ignore this adventure" );
 		for ( int i = 0; i < LouvreManager.LouvreGoals.length - 3; ++i )
 		{
-			this.louvreSelect.addItem( LouvreManager.LouvreGoals[ i ] );
+            louvreSelect.addItem( LouvreManager.LouvreGoals[i] );
 		}
 		for ( int i = LouvreManager.LouvreGoals.length - 3; i < LouvreManager.LouvreGoals.length; ++i )
 		{
-			this.louvreSelect.addItem( "Boost " + LouvreManager.LouvreGoals[ i ] );
+            louvreSelect.addItem( "Boost " + LouvreManager.LouvreGoals[i] );
 		}
 
-		this.louvreSelect.addItem( "Boost Prime Stat" );
-		this.louvreSelect.addItem( "Boost Lowest Stat" );
+        louvreSelect.addItem( "Boost Prime Stat" );
+        louvreSelect.addItem( "Boost Lowest Stat" );
 
 		LockableListModel overrideList = new LockableListModel();
 
-		this.manualLouvre = new AutoFilterComboBox( overrideList, true );
+        manualLouvre = new AutoFilterComboBox( overrideList, true );
 		overrideList.add( "Use specified goal" );
 
 		for ( int i = 1; i <= 3; ++i )
@@ -213,7 +213,7 @@ public class ChoiceOptionsPanel
 			{
 				for ( int k = 1; k <= 3; ++k )
 				{
-					overrideList.add( this.getLouvreDirection( i ) + ", " + this.getLouvreDirection( j ) + ", " + this.getLouvreDirection( k ) );
+					overrideList.add( getLouvreDirection( i ) + ", " + getLouvreDirection( j ) + ", " + getLouvreDirection( k ) );
 				}
 			}
 		}
@@ -224,173 +224,173 @@ public class ChoiceOptionsPanel
 			overrideList.add( 1, overrideSetting );
 		}
 
-		this.maidenSelect = new JComboBox();
-		this.maidenSelect.addItem( "Ignore this adventure" );
-		this.maidenSelect.addItem( "Fight a random knight" );
-		this.maidenSelect.addItem( "Only fight the wolf knight" );
-		this.maidenSelect.addItem( "Only fight the snake knight" );
-		this.maidenSelect.addItem( "Maidens, then fight a random knight" );
-		this.maidenSelect.addItem( "Maidens, then fight the wolf knight" );
-		this.maidenSelect.addItem( "Maidens, then fight the snake knight" );
+        maidenSelect = new JComboBox();
+        maidenSelect.addItem( "Ignore this adventure" );
+        maidenSelect.addItem( "Fight a random knight" );
+        maidenSelect.addItem( "Only fight the wolf knight" );
+        maidenSelect.addItem( "Only fight the snake knight" );
+        maidenSelect.addItem( "Maidens, then fight a random knight" );
+        maidenSelect.addItem( "Maidens, then fight the wolf knight" );
+        maidenSelect.addItem( "Maidens, then fight the snake knight" );
 
-		this.billiardRoomSelect = new JComboBox();
-		this.billiardRoomSelect.addItem( "ignore this adventure" );
-		this.billiardRoomSelect.addItem( "muscle substats" );
-		this.billiardRoomSelect.addItem( "mysticality substats" );
-		this.billiardRoomSelect.addItem( "moxie substats" );
-		this.billiardRoomSelect.addItem( "Spookyraven Library Key" );
+        billiardRoomSelect = new JComboBox();
+        billiardRoomSelect.addItem( "ignore this adventure" );
+        billiardRoomSelect.addItem( "muscle substats" );
+        billiardRoomSelect.addItem( "mysticality substats" );
+        billiardRoomSelect.addItem( "moxie substats" );
+        billiardRoomSelect.addItem( "Spookyraven Library Key" );
 
-		this.riseSelect = new JComboBox();
-		this.riseSelect.addItem( "ignore this adventure" );
-		this.riseSelect.addItem( "boost mysticality substats" );
-		this.riseSelect.addItem( "boost moxie substats" );
-		this.riseSelect.addItem( "acquire mysticality skill" );
-		this.riseSelect.addItem( "unlock second floor stairs" );
+        riseSelect = new JComboBox();
+        riseSelect.addItem( "ignore this adventure" );
+        riseSelect.addItem( "boost mysticality substats" );
+        riseSelect.addItem( "boost moxie substats" );
+        riseSelect.addItem( "acquire mysticality skill" );
+        riseSelect.addItem( "unlock second floor stairs" );
 
-		this.fallSelect = new JComboBox();
-		this.fallSelect.addItem( "ignore this adventure" );
-		this.fallSelect.addItem( "boost muscle substats" );
-		this.fallSelect.addItem( "reveal key in conservatory" );
-		this.fallSelect.addItem( "unlock second floor stairs" );
+        fallSelect = new JComboBox();
+        fallSelect.addItem( "ignore this adventure" );
+        fallSelect.addItem( "boost muscle substats" );
+        fallSelect.addItem( "reveal key in conservatory" );
+        fallSelect.addItem( "unlock second floor stairs" );
 
-		this.oceanDestSelect = new OceanDestinationComboBox();
+        oceanDestSelect = new OceanDestinationComboBox();
 
-		this.oceanActionSelect = new JComboBox();
-		this.oceanActionSelect.addItem( "continue" );
-		this.oceanActionSelect.addItem( "show" );
-		this.oceanActionSelect.addItem( "stop" );
-		this.oceanActionSelect.addItem( "save and continue" );
-		this.oceanActionSelect.addItem( "save and show" );
-		this.oceanActionSelect.addItem( "save and stop" );
+        oceanActionSelect = new JComboBox();
+        oceanActionSelect.addItem( "continue" );
+        oceanActionSelect.addItem( "show" );
+        oceanActionSelect.addItem( "stop" );
+        oceanActionSelect.addItem( "save and continue" );
+        oceanActionSelect.addItem( "save and show" );
+        oceanActionSelect.addItem( "save and stop" );
 
-		this.barrelSelect = new JComboBox();
-		this.barrelSelect.addItem( "top rows (mixed drinks)" );
-		this.barrelSelect.addItem( "middle rows (basic booze)" );
-		this.barrelSelect.addItem( "top & middle rows" );
-		this.barrelSelect.addItem( "bottom rows (schnapps, fine wine)" );
-		this.barrelSelect.addItem( "top & bottom rows" );
-		this.barrelSelect.addItem( "middle & bottom rows" );
-		this.barrelSelect.addItem( "all available drinks" );
+        barrelSelect = new JComboBox();
+        barrelSelect.addItem( "top rows (mixed drinks)" );
+        barrelSelect.addItem( "middle rows (basic booze)" );
+        barrelSelect.addItem( "top & middle rows" );
+        barrelSelect.addItem( "bottom rows (schnapps, fine wine)" );
+        barrelSelect.addItem( "top & bottom rows" );
+        barrelSelect.addItem( "middle & bottom rows" );
+        barrelSelect.addItem( "all available drinks" );
 
-		this.darkAtticSelect = new JComboBox();
-		this.darkAtticSelect.addItem( "show in browser" );
-		this.darkAtticSelect.addItem( "staff guides" );
-		this.darkAtticSelect.addItem( "ghost trap" );
-		this.darkAtticSelect.addItem( "mass kill werewolves with silver shotgun shell" );
-		this.darkAtticSelect.addItem( "raise area ML, then staff guides" );
-		this.darkAtticSelect.addItem( "raise area ML, then ghost trap" );
-		this.darkAtticSelect.addItem( "raise area ML, then mass kill werewolves" );
-		this.darkAtticSelect.addItem( "raise area ML, then mass kill werewolves or ghost trap" );
-		this.darkAtticSelect.addItem( "lower area ML, then staff guides" );
-		this.darkAtticSelect.addItem( "lower area ML, then ghost trap" );
-		this.darkAtticSelect.addItem( "lower area ML, then mass kill werewolves" );
-		this.darkAtticSelect.addItem( "lower area ML, then mass kill werewolves or ghost trap" );
+        darkAtticSelect = new JComboBox();
+        darkAtticSelect.addItem( "show in browser" );
+        darkAtticSelect.addItem( "staff guides" );
+        darkAtticSelect.addItem( "ghost trap" );
+        darkAtticSelect.addItem( "mass kill werewolves with silver shotgun shell" );
+        darkAtticSelect.addItem( "raise area ML, then staff guides" );
+        darkAtticSelect.addItem( "raise area ML, then ghost trap" );
+        darkAtticSelect.addItem( "raise area ML, then mass kill werewolves" );
+        darkAtticSelect.addItem( "raise area ML, then mass kill werewolves or ghost trap" );
+        darkAtticSelect.addItem( "lower area ML, then staff guides" );
+        darkAtticSelect.addItem( "lower area ML, then ghost trap" );
+        darkAtticSelect.addItem( "lower area ML, then mass kill werewolves" );
+        darkAtticSelect.addItem( "lower area ML, then mass kill werewolves or ghost trap" );
 
-		this.unlivingRoomSelect = new JComboBox();
-		this.unlivingRoomSelect.addItem( "show in browser" );
-		this.unlivingRoomSelect.addItem( "mass kill zombies with chainsaw chain" );
-		this.unlivingRoomSelect.addItem( "mass kill skeletons with funhouse mirror" );
-		this.unlivingRoomSelect.addItem( "get costume item" );
-		this.unlivingRoomSelect.addItem( "raise area ML, then mass kill zombies" );
-		this.unlivingRoomSelect.addItem( "raise area ML, then mass kill skeletons" );
-		this.unlivingRoomSelect.addItem( "raise area ML, then mass kill zombies/skeletons" );
-		this.unlivingRoomSelect.addItem( "raise area ML, then get costume item" );
-		this.unlivingRoomSelect.addItem( "lower area ML, then mass kill zombies" );
-		this.unlivingRoomSelect.addItem( "lower area ML, then mass kill skeletons" );
-		this.unlivingRoomSelect.addItem( "lower area ML, then get costume item" );
-		this.unlivingRoomSelect.addItem( "lower area ML, then mass kill zombies/skeletons" );
+        unlivingRoomSelect = new JComboBox();
+        unlivingRoomSelect.addItem( "show in browser" );
+        unlivingRoomSelect.addItem( "mass kill zombies with chainsaw chain" );
+        unlivingRoomSelect.addItem( "mass kill skeletons with funhouse mirror" );
+        unlivingRoomSelect.addItem( "get costume item" );
+        unlivingRoomSelect.addItem( "raise area ML, then mass kill zombies" );
+        unlivingRoomSelect.addItem( "raise area ML, then mass kill skeletons" );
+        unlivingRoomSelect.addItem( "raise area ML, then mass kill zombies/skeletons" );
+        unlivingRoomSelect.addItem( "raise area ML, then get costume item" );
+        unlivingRoomSelect.addItem( "lower area ML, then mass kill zombies" );
+        unlivingRoomSelect.addItem( "lower area ML, then mass kill skeletons" );
+        unlivingRoomSelect.addItem( "lower area ML, then get costume item" );
+        unlivingRoomSelect.addItem( "lower area ML, then mass kill zombies/skeletons" );
 
-		this.debasementSelect = new JComboBox();
-		this.debasementSelect.addItem( "show in browser" );
-		this.debasementSelect.addItem( "Prop Deportment" );
-		this.debasementSelect.addItem( "mass kill vampires with plastic vampire fangs" );
-		this.debasementSelect.addItem( "raise area ML, then Prop Deportment" );
-		this.debasementSelect.addItem( "raise area ML, then mass kill vampires" );
-		this.debasementSelect.addItem( "lower area ML, then Prop Deportment" );
-		this.debasementSelect.addItem( "lower area ML, then mass kill vampires" );
+        debasementSelect = new JComboBox();
+        debasementSelect.addItem( "show in browser" );
+        debasementSelect.addItem( "Prop Deportment" );
+        debasementSelect.addItem( "mass kill vampires with plastic vampire fangs" );
+        debasementSelect.addItem( "raise area ML, then Prop Deportment" );
+        debasementSelect.addItem( "raise area ML, then mass kill vampires" );
+        debasementSelect.addItem( "lower area ML, then Prop Deportment" );
+        debasementSelect.addItem( "lower area ML, then mass kill vampires" );
 
-		this.propDeportmentSelect = new JComboBox();
-		this.propDeportmentSelect.addItem( "show in browser" );
-		this.propDeportmentSelect.addItem( "chainsaw chain" );
-		this.propDeportmentSelect.addItem( "silver item" );
-		this.propDeportmentSelect.addItem( "funhouse mirror" );
-		this.propDeportmentSelect.addItem( "chainsaw/mirror" );
+        propDeportmentSelect = new JComboBox();
+        propDeportmentSelect.addItem( "show in browser" );
+        propDeportmentSelect.addItem( "chainsaw chain" );
+        propDeportmentSelect.addItem( "silver item" );
+        propDeportmentSelect.addItem( "funhouse mirror" );
+        propDeportmentSelect.addItem( "chainsaw/mirror" );
 
-		this.reloadedSelect = new JComboBox();
-		this.reloadedSelect.addItem( "show in browser" );
-		this.reloadedSelect.addItem( "melt Maxwell's Silver Hammer" );
-		this.reloadedSelect.addItem( "melt silver tongue charrrm bracelet" );
-		this.reloadedSelect.addItem( "melt silver cheese-slicer" );
-		this.reloadedSelect.addItem( "melt silver shrimp fork" );
-		this.reloadedSelect.addItem( "melt silver pat� knife" );
-		this.reloadedSelect.addItem( "don't melt anything" );
+        reloadedSelect = new JComboBox();
+        reloadedSelect.addItem( "show in browser" );
+        reloadedSelect.addItem( "melt Maxwell's Silver Hammer" );
+        reloadedSelect.addItem( "melt silver tongue charrrm bracelet" );
+        reloadedSelect.addItem( "melt silver cheese-slicer" );
+        reloadedSelect.addItem( "melt silver shrimp fork" );
+        reloadedSelect.addItem( "melt silver pat� knife" );
+        reloadedSelect.addItem( "don't melt anything" );
 
-		this.sororityGuideSelect = new JComboBox();
-		this.sororityGuideSelect.addItem( "show in browser" );
-		this.sororityGuideSelect.addItem( "attic" );
-		this.sororityGuideSelect.addItem( "main floor" );
-		this.sororityGuideSelect.addItem( "basement" );
+        sororityGuideSelect = new JComboBox();
+        sororityGuideSelect.addItem( "show in browser" );
+        sororityGuideSelect.addItem( "attic" );
+        sororityGuideSelect.addItem( "main floor" );
+        sororityGuideSelect.addItem( "basement" );
 
-		this.gongSelect = new JComboBox();
+        gongSelect = new JComboBox();
 		for ( int i = 0; i < GongCommand.GONG_PATHS.length; ++i )
 		{
-			this.gongSelect.addItem( GongCommand.GONG_PATHS[ i ] );
+            gongSelect.addItem( GongCommand.GONG_PATHS[i] );
 		}
 
-		this.basementMallSelect = new JComboBox();
-		this.basementMallSelect.addItem( "do not show Mall prices" );
-		this.basementMallSelect.addItem( "show Mall prices for items you don't have" );
-		this.basementMallSelect.addItem( "show Mall prices for all items" );
+        basementMallSelect = new JComboBox();
+        basementMallSelect.addItem( "do not show Mall prices" );
+        basementMallSelect.addItem( "show Mall prices for items you don't have" );
+        basementMallSelect.addItem( "show Mall prices for all items" );
 
-		this.breakableSelect = new JComboBox();
-		this.breakableSelect.addItem( "abort on breakage" );
-		this.breakableSelect.addItem( "equip previous" );
-		this.breakableSelect.addItem( "re-equip from inventory, or abort" );
-		this.breakableSelect.addItem( "re-equip from inventory, or previous" );
-		this.breakableSelect.addItem( "acquire & re-equip" );
+        breakableSelect = new JComboBox();
+        breakableSelect.addItem( "abort on breakage" );
+        breakableSelect.addItem( "equip previous" );
+        breakableSelect.addItem( "re-equip from inventory, or abort" );
+        breakableSelect.addItem( "re-equip from inventory, or previous" );
+        breakableSelect.addItem( "acquire & re-equip" );
 
-		this.addingSelect = new JComboBox();
-		this.addingSelect.addItem( "show in browser" );
-		this.addingSelect.addItem( "create goal scrolls only" );
-		this.addingSelect.addItem( "create goal & 668 scrolls" );
-		this.addingSelect.addItem( "create goal, 31337, 668 scrolls" );
+        addingSelect = new JComboBox();
+        addingSelect.addItem( "show in browser" );
+        addingSelect.addItem( "create goal scrolls only" );
+        addingSelect.addItem( "create goal & 668 scrolls" );
+        addingSelect.addItem( "create goal, 31337, 668 scrolls" );
 
-		this.addChoiceSelect( "Item-Driven", "Llama Gong", this.gongSelect );
-		this.addChoiceSelect( "Item-Driven", "Breakable Equipment", this.breakableSelect );
-		this.addChoiceSelect( "Plains", "Castle Wheel", this.castleWheelSelect );
-		this.addChoiceSelect( "Plains", "Papaya War", this.palindomePapayaSelect );
-		this.addChoiceSelect( "Plains", "Ferny's Basement", this.basementMallSelect );
-		this.addChoiceSelect( "Woods", "Spooky Forest", this.spookyForestSelect );
-		this.addChoiceSelect( "Item-Driven", "Violet Fog", this.violetFogSelect );
-		this.addChoiceSelect( "Manor1", "Billiard Room", this.billiardRoomSelect );
-		this.addChoiceSelect( "Manor1", "Rise of Spookyraven", this.riseSelect );
-		this.addChoiceSelect( "Manor1", "Fall of Spookyraven", this.fallSelect );
-		this.addChoiceSelect( "Manor1", "Louvre Goal", this.louvreSelect );
-		this.addChoiceSelect( "Manor1", "Louvre Override", this.manualLouvre );
-		this.addChoiceSelect( "Manor1", "The Maidens", this.maidenSelect );
-		this.addChoiceSelect( "Island", "Ocean Destination", this.oceanDestSelect );
-		this.addChoiceSelect( "Island", "Ocean Action", this.oceanActionSelect );
-		this.addChoiceSelect( "Mountain", "Barrel full of Barrels", this.barrelSelect );
-		this.addChoiceSelect( "Mountain", "Orc Chasm", this.addingSelect );
-		this.addChoiceSelect( "Events", "Sorority House Attic", this.darkAtticSelect );
-		this.addChoiceSelect( "Events", "Sorority House Unliving Room", this.unlivingRoomSelect );
-		this.addChoiceSelect( "Events", "Sorority House Debasement", this.debasementSelect );
-		this.addChoiceSelect( "Events", "Sorority House Prop Deportment", this.propDeportmentSelect );
-		this.addChoiceSelect( "Events", "Sorority House Relocked and Reloaded", this.reloadedSelect );
-		this.addChoiceSelect( "Item-Driven", "Sorority Staff Guide", this.sororityGuideSelect );
+        addChoiceSelect( "Item-Driven", "Llama Gong", gongSelect );
+        addChoiceSelect( "Item-Driven", "Breakable Equipment", breakableSelect );
+        addChoiceSelect( "Plains", "Castle Wheel", castleWheelSelect );
+        addChoiceSelect( "Plains", "Papaya War", palindomePapayaSelect );
+        addChoiceSelect( "Plains", "Ferny's Basement", basementMallSelect );
+        addChoiceSelect( "Woods", "Spooky Forest", spookyForestSelect );
+        addChoiceSelect( "Item-Driven", "Violet Fog", violetFogSelect );
+        addChoiceSelect( "Manor1", "Billiard Room", billiardRoomSelect );
+        addChoiceSelect( "Manor1", "Rise of Spookyraven", riseSelect );
+        addChoiceSelect( "Manor1", "Fall of Spookyraven", fallSelect );
+        addChoiceSelect( "Manor1", "Louvre Goal", louvreSelect );
+        addChoiceSelect( "Manor1", "Louvre Override", manualLouvre );
+        addChoiceSelect( "Manor1", "The Maidens", maidenSelect );
+        addChoiceSelect( "Island", "Ocean Destination", oceanDestSelect );
+        addChoiceSelect( "Island", "Ocean Action", oceanActionSelect );
+        addChoiceSelect( "Mountain", "Barrel full of Barrels", barrelSelect );
+        addChoiceSelect( "Mountain", "Orc Chasm", addingSelect );
+        addChoiceSelect( "Events", "Sorority House Attic", darkAtticSelect );
+        addChoiceSelect( "Events", "Sorority House Unliving Room", unlivingRoomSelect );
+        addChoiceSelect( "Events", "Sorority House Debasement", debasementSelect );
+        addChoiceSelect( "Events", "Sorority House Prop Deportment", propDeportmentSelect );
+        addChoiceSelect( "Events", "Sorority House Relocked and Reloaded", reloadedSelect );
+        addChoiceSelect( "Item-Driven", "Sorority Staff Guide", sororityGuideSelect );
 
-		for ( int i = 0; i < this.optionSelects.length; ++i )
+		for ( int i = 0; i < optionSelects.length; ++i )
 		{
-			this.addChoiceSelect(
+            addChoiceSelect(
 				ChoiceManager.CHOICE_ADVS[ i ].getZone(), ChoiceManager.CHOICE_ADVS[ i ].getName(),
-				this.optionSelects[ i ] );
+                    optionSelects[ i ] );
 		}
 
-		this.addChoiceSelect( "Item-Driven", "Item",
+        addChoiceSelect( "Item-Driven", "Item",
 			new CommandButton( "use 1 llama lama gong" ) );
-		this.addChoiceSelect( "Item-Driven", "Item",
+        addChoiceSelect( "Item-Driven", "Item",
 			new CommandButton( "use 1 tiny bottle of absinthe" ) );
-		this.addChoiceSelect( "Item-Driven", "Item",
+        addChoiceSelect( "Item-Driven", "Item",
 			new CommandButton( "use 1 haunted sorority house staff guide" ) );
 
 		PreferenceListenerRegistry.registerListener( "choiceAdventure*", this );
@@ -405,23 +405,23 @@ public class ChoiceOptionsPanel
 		PreferenceListenerRegistry.registerListener( "breakableHandling", this );
 		PreferenceListenerRegistry.registerListener( "addingScrolls", this );
 
-		this.loadSettings();
+        loadSettings();
 
 		ArrayList optionsList;
-		Object[] keys = this.choiceMap.keySet().toArray();
+		Object[] keys = choiceMap.keySet().toArray();
 
 		for ( int i = 0; i < keys.length; ++i )
 		{
-			optionsList = (ArrayList) this.choiceMap.get( keys[ i ] );
+			optionsList = (ArrayList) choiceMap.get( keys[i] );
 			if ( keys[ i ].equals( "Item-Driven" ) )
 			{
-				this.addTab( "Item",
+                addTab( "Item",
 					new GenericScrollPane( new ChoicePanel( optionsList ) ) );
-				this.setToolTipTextAt( 1, "Choices related to the use of an item" );
+                setToolTipTextAt( 1, "Choices related to the use of an item" );
 			}
 			else
 			{
-				this.choicePanel.add( new ChoicePanel( optionsList ), keys[ i ] );
+                choicePanel.add( new ChoicePanel( optionsList ), keys[i] );
 			}
 		}
 	}
@@ -451,20 +451,20 @@ public class ChoiceOptionsPanel
 			return;
 		}
 
-		if ( !this.choiceMap.containsKey( zone ) )
+		if ( !choiceMap.containsKey( zone ) )
 		{
-			this.choiceMap.put( zone, new ArrayList() );
+            choiceMap.put( zone, new ArrayList() );
 		}
 
-		ArrayList options = (ArrayList) this.choiceMap.get( zone );
+		ArrayList options = (ArrayList) choiceMap.get( zone );
 
 		if ( !options.contains( name ) )
 		{
 			options.add( name );
-			this.selectMap.put( name, new ArrayList() );
+            selectMap.put( name, new ArrayList() );
 		}
 
-		options = (ArrayList) this.selectMap.get( name );
+		options = (ArrayList) selectMap.get( name );
 		options.add( option );
 	}
 
@@ -483,7 +483,7 @@ public class ChoiceOptionsPanel
 			for ( int i = 0; i < options.size(); ++i )
 			{
 				key = options.get( i );
-				value = (ArrayList) ChoiceOptionsPanel.this.selectMap.get( key );
+				value = (ArrayList) selectMap.get( key );
 
 				if ( value.size() == 1 )
 				{
@@ -502,13 +502,13 @@ public class ChoiceOptionsPanel
 			VerifiableElement[] elements = new VerifiableElement[ elementList.size() ];
 			elementList.toArray( elements );
 
-			this.setContent( elements );
+            setContent( elements );
 		}
 
 		@Override
 		public void actionConfirmed()
 		{
-			ChoiceOptionsPanel.this.saveSettings();
+            saveSettings();
 		}
 
 		@Override
@@ -534,30 +534,30 @@ public class ChoiceOptionsPanel
 		public OceanDestinationComboBox()
 		{
 			super();
-			this.createMenu( Preferences.getString( "oceanDestination" ) );
-			this.addActionListener( this );
+            createMenu( Preferences.getString( "oceanDestination" ) );
+            addActionListener( this );
 		}
 
 		private void createMenu( String dest )
 		{
-			this.addItem( "ignore adventure" );
-			this.addItem( "manual control" );
-			this.addItem( "muscle" );
-			this.addItem( "mysticality" );
-			this.addItem( "moxie" );
-			this.addItem( "El Vibrato power sphere" );
-			this.addItem( "the plinth" );
-			this.addItem( "random choice" );
+            addItem( "ignore adventure" );
+            addItem( "manual control" );
+            addItem( "muscle" );
+            addItem( "mysticality" );
+            addItem( "moxie" );
+            addItem( "El Vibrato power sphere" );
+            addItem( "the plinth" );
+            addItem( "random choice" );
 			if ( dest.contains( "," ) )
 			{
-				this.addItem( "go to " + dest );
+                addItem( "go to " + dest );
 			}
-			this.addItem( "choose destination..." );
+            addItem( "choose destination..." );
 		}
 
 		public void loadSettings()
 		{
-			this.loadSettings( Preferences.getString( "oceanDestination" ) );
+            loadSettings( Preferences.getString( "oceanDestination" ) );
 		}
 
 		private void loadSettings( String dest )
@@ -602,12 +602,12 @@ public class ChoiceOptionsPanel
 				index = 8;
 			}
 
-			this.setSelectedIndex( index );
+            setSelectedIndex( index );
 		}
 
 		public void saveSettings()
 		{
-			String dest = (String) this.getSelectedItem();
+			String dest = (String) getSelectedItem();
 			if ( dest == null )
 			{
 				return;
@@ -668,7 +668,7 @@ public class ChoiceOptionsPanel
 		@Override
 		public void actionPerformed( final ActionEvent e )
 		{
-			String dest = (String) this.getSelectedItem();
+			String dest = (String) getSelectedItem();
 			if ( dest == null )
 			{
 				return;
@@ -685,16 +685,16 @@ public class ChoiceOptionsPanel
 			if ( coords == null )
 			{
 				// Restore previous selection
-				this.loadSettings();
+                loadSettings();
 				return;
 			}
 
 			// Rebuild combo box
-			this.removeAllItems();
-			this.createMenu( coords );
+            removeAllItems();
+            createMenu( coords );
 
 			// Select the "go to" menu item
-			this.setSelectedIndex( 8 );
+            setSelectedIndex( 8 );
 
 			// Request that the settings be saved in a different thread.
 			RequestThread.runInParallel( new SaveOceanDestinationSettingsRunnable( this ) );
@@ -742,7 +742,7 @@ public class ChoiceOptionsPanel
 
 		public void run()
 		{
-			this.dest.saveSettings();
+            dest.saveSettings();
 		}
 	}
 
@@ -760,16 +760,16 @@ public class ChoiceOptionsPanel
 			String zone = location.getParentZone();
 			if ( zone.equals( "Item-Driven" ) )
 			{
-				ChoiceOptionsPanel.this.setSelectedIndex( 1 );
-				ChoiceOptionsPanel.this.choiceCards.show(
-					ChoiceOptionsPanel.this.choicePanel, "" );
+                setSelectedIndex( 1 );
+                choiceCards.show(
+                        choicePanel, "" );
 			}
 			else
 			{
-				ChoiceOptionsPanel.this.setSelectedIndex( 0 );
-				ChoiceOptionsPanel.this.choiceCards.show(
-					ChoiceOptionsPanel.this.choicePanel,
-					ChoiceOptionsPanel.this.choiceMap.containsKey( zone ) ? zone : "" );
+                setSelectedIndex( 0 );
+                choiceCards.show(
+                        choicePanel,
+                        choiceMap.containsKey( zone ) ? zone : "" );
 			}
 			KoLCharacter.updateSelectedLocation( location );
 		}
@@ -779,55 +779,55 @@ public class ChoiceOptionsPanel
 
 	public synchronized void update()
 	{
-		if ( !this.isAdjusting )
+		if ( !isAdjusting )
 		{
-			this.loadSettings();
+            loadSettings();
 		}
 	}
 
 	public synchronized void saveSettings()
 	{
-		if ( this.isAdjusting )
+		if ( isAdjusting )
 		{
 			return;
 		}
-		this.isAdjusting = true;
+        isAdjusting = true;
 
-		Object override = this.manualLouvre.getSelectedItem();
-		int overrideIndex = this.manualLouvre.getSelectedIndex();
+		Object override = manualLouvre.getSelectedItem();
+		int overrideIndex = manualLouvre.getSelectedIndex();
 		Preferences.setString( "louvreOverride",
 			overrideIndex == 0 || override == null ? "" : (String) override );
 
-		Preferences.setInteger( "violetFogGoal", this.violetFogSelect.getSelectedIndex() );
+		Preferences.setInteger( "violetFogGoal", violetFogSelect.getSelectedIndex() );
 		Preferences.setString( "choiceAdventure127",
-			String.valueOf( this.palindomePapayaSelect.getSelectedIndex() + 1 ) );
-		Preferences.setInteger( "barrelGoal", this.barrelSelect.getSelectedIndex() + 1 );
+			String.valueOf( palindomePapayaSelect.getSelectedIndex() + 1 ) );
+		Preferences.setInteger( "barrelGoal", barrelSelect.getSelectedIndex() + 1 );
 		Preferences.setString( "choiceAdventure549",
-			String.valueOf( this.darkAtticSelect.getSelectedIndex() ) );
+			String.valueOf( darkAtticSelect.getSelectedIndex() ) );
 		Preferences.setString( "choiceAdventure550",
-			String.valueOf( this.unlivingRoomSelect.getSelectedIndex() ) );
+			String.valueOf( unlivingRoomSelect.getSelectedIndex() ) );
 		Preferences.setString( "choiceAdventure551",
-			String.valueOf( this.debasementSelect.getSelectedIndex() ) );
+			String.valueOf( debasementSelect.getSelectedIndex() ) );
 		Preferences.setString( "choiceAdventure552",
-			String.valueOf( this.propDeportmentSelect.getSelectedIndex() ) );
+			String.valueOf( propDeportmentSelect.getSelectedIndex() ) );
 		Preferences.setString( "choiceAdventure553",
-			String.valueOf( this.reloadedSelect.getSelectedIndex() ) );
+			String.valueOf( reloadedSelect.getSelectedIndex() ) );
 		Preferences.setString( "choiceAdventure554",
-			String.valueOf( this.sororityGuideSelect.getSelectedIndex() ) );
-		Preferences.setInteger( "basementMallPrices", this.basementMallSelect.getSelectedIndex() );
-		Preferences.setInteger( "breakableHandling", this.breakableSelect.getSelectedIndex() + 1 );
-		Preferences.setInteger( "addingScrolls", this.addingSelect.getSelectedIndex() );
-		Preferences.setInteger( "gongPath", this.gongSelect.getSelectedIndex() );
-		GongCommand.setPath( this.gongSelect.getSelectedIndex() );
+			String.valueOf( sororityGuideSelect.getSelectedIndex() ) );
+		Preferences.setInteger( "basementMallPrices", basementMallSelect.getSelectedIndex() );
+		Preferences.setInteger( "breakableHandling", breakableSelect.getSelectedIndex() + 1 );
+		Preferences.setInteger( "addingScrolls", addingSelect.getSelectedIndex() );
+		Preferences.setInteger( "gongPath", gongSelect.getSelectedIndex() );
+		GongCommand.setPath( gongSelect.getSelectedIndex() );
 
-		int louvreGoal = this.louvreSelect.getSelectedIndex();
+		int louvreGoal = louvreSelect.getSelectedIndex();
 		Preferences.setString( "choiceAdventure91",
 			String.valueOf( overrideIndex > 0 || louvreGoal > 0 ? "1" : "2" ) );
 		Preferences.setInteger( "louvreDesiredGoal", louvreGoal );
 
-		for ( int i = 0; i < this.optionSelects.length; ++i )
+		for ( int i = 0; i < optionSelects.length; ++i )
 		{
-			int index = this.optionSelects[ i ].getSelectedIndex();
+			int index = optionSelects[ i ].getSelectedIndex();
 			String choice = ChoiceManager.CHOICE_ADVS[ i ].getSetting();
 			Preferences.setString( choice, String.valueOf( index ) );
 		}
@@ -842,7 +842,7 @@ public class ChoiceOptionsPanel
 		// Option 2: Turn the wheel counterclockwise
 		// Option 3: Leave the wheel alone
 
-		switch ( this.castleWheelSelect.getSelectedIndex() )
+		switch ( castleWheelSelect.getSelectedIndex() )
 		{
 		case 0: // Map quest position (choice adventure 11)
 			// Muscle goes through moxie
@@ -903,7 +903,7 @@ public class ChoiceOptionsPanel
 			break;
 		}
 
-		switch ( this.spookyForestSelect.getSelectedIndex() )
+		switch ( spookyForestSelect.getSelectedIndex() )
 		{
 		case 0:		// Manual Control
 			Preferences.setString( "choiceAdventure502", "0" );
@@ -985,7 +985,7 @@ public class ChoiceOptionsPanel
 			break;
 		}
 
-		switch ( this.billiardRoomSelect.getSelectedIndex() )
+		switch ( billiardRoomSelect.getSelectedIndex() )
 		{
 		case 0: // Ignore this adventure
 			Preferences.setString( "choiceAdventure77", "3" );
@@ -1018,7 +1018,7 @@ public class ChoiceOptionsPanel
 			break;
 		}
 
-		switch ( this.riseSelect.getSelectedIndex() )
+		switch ( riseSelect.getSelectedIndex() )
 		{
 		case 0: // Ignore this adventure
 			Preferences.setString( "choiceAdventure80", "4" );
@@ -1044,7 +1044,7 @@ public class ChoiceOptionsPanel
 			break;
 		}
 
-		switch ( this.fallSelect.getSelectedIndex() )
+		switch ( fallSelect.getSelectedIndex() )
 		{
 		case 0: // Ignore this adventure
 			Preferences.setString( "choiceAdventure81", "4" );
@@ -1065,7 +1065,7 @@ public class ChoiceOptionsPanel
 		}
 
 		// necessary for backwards-compatibility
-		switch ( this.maidenSelect.getSelectedIndex() )
+		switch ( maidenSelect.getSelectedIndex() )
 		{
 		case 0: // Ignore this adventure
 			Preferences.setString( "choiceAdventure89", "6" );
@@ -1078,14 +1078,14 @@ public class ChoiceOptionsPanel
 		case 5: // Maidens, then fight the wolf knight
 		case 6: // Maidens, then fight the snake knight
 			Preferences.setString( "choiceAdventure89",
-				String.valueOf( this.maidenSelect.getSelectedIndex() - 1 ) );
+				String.valueOf( maidenSelect.getSelectedIndex() - 1 ) );
 			break;
 		}
 
 		// OceanDestinationComboBox handles its own settings.
-		this.oceanDestSelect.saveSettings();
+        oceanDestSelect.saveSettings();
 
-		switch ( this.oceanActionSelect.getSelectedIndex() )
+		switch ( oceanActionSelect.getSelectedIndex() )
 		{
 		case 0:
 			Preferences.setString( "oceanAction", "continue" );
@@ -1107,46 +1107,46 @@ public class ChoiceOptionsPanel
 			break;
 		}
 
-		this.isAdjusting = false;
+        isAdjusting = false;
 	}
 
 	public synchronized void loadSettings()
 	{
-		this.isAdjusting = true;
+        isAdjusting = true;
 		ActionPanel.enableActions( false );	// prevents recursive actions from being triggered
 
 		int index = Preferences.getInteger( "violetFogGoal" );
 		if ( index >= 0 )
 		{
-			this.violetFogSelect.setSelectedIndex( index );
+            violetFogSelect.setSelectedIndex( index );
 		}
 
 		String setting = Preferences.getString( "louvreOverride" );
 		if ( setting.equals( "" ) )
 		{
-			this.manualLouvre.setSelectedIndex( 0 );
+            manualLouvre.setSelectedIndex( 0 );
 		}
 		else
 		{
-			this.manualLouvre.setSelectedItem( setting );
+            manualLouvre.setSelectedItem( setting );
 		}
 
 		index = Preferences.getInteger( "louvreDesiredGoal" );
 		if ( index >= 0 )
 		{
-			this.louvreSelect.setSelectedIndex( index );
+            louvreSelect.setSelectedIndex( index );
 		}
 
-		this.palindomePapayaSelect.setSelectedIndex( Math.max( 0, Preferences.getInteger( "choiceAdventure127" ) - 1 ) );
-		this.barrelSelect.setSelectedIndex( Math.max( 0, Preferences.getInteger( "barrelGoal" ) - 1 ) );
-		this.darkAtticSelect.setSelectedIndex( Preferences.getInteger( "choiceAdventure549" ) );
-		this.unlivingRoomSelect.setSelectedIndex( Preferences.getInteger( "choiceAdventure550" ) );
-		this.debasementSelect.setSelectedIndex( Preferences.getInteger( "choiceAdventure551" ) );
-		this.propDeportmentSelect.setSelectedIndex( Preferences.getInteger( "choiceAdventure552" ) );
-		this.reloadedSelect.setSelectedIndex( Preferences.getInteger( "choiceAdventure553" ) );
-		this.sororityGuideSelect.setSelectedIndex( Preferences.getInteger( "choiceAdventure554" ) );
-		this.basementMallSelect.setSelectedIndex( Preferences.getInteger( "basementMallPrices" ) );
-		this.breakableSelect.setSelectedIndex( Math.max( 0, Preferences.getInteger( "breakableHandling" ) - 1 ) );
+        palindomePapayaSelect.setSelectedIndex( Math.max( 0, Preferences.getInteger( "choiceAdventure127" ) - 1 ) );
+        barrelSelect.setSelectedIndex( Math.max( 0, Preferences.getInteger( "barrelGoal" ) - 1 ) );
+        darkAtticSelect.setSelectedIndex( Preferences.getInteger( "choiceAdventure549" ) );
+        unlivingRoomSelect.setSelectedIndex( Preferences.getInteger( "choiceAdventure550" ) );
+        debasementSelect.setSelectedIndex( Preferences.getInteger( "choiceAdventure551" ) );
+        propDeportmentSelect.setSelectedIndex( Preferences.getInteger( "choiceAdventure552" ) );
+        reloadedSelect.setSelectedIndex( Preferences.getInteger( "choiceAdventure553" ) );
+        sororityGuideSelect.setSelectedIndex( Preferences.getInteger( "choiceAdventure554" ) );
+        basementMallSelect.setSelectedIndex( Preferences.getInteger( "basementMallPrices" ) );
+        breakableSelect.setSelectedIndex( Math.max( 0, Preferences.getInteger( "breakableHandling" ) - 1 ) );
 
 		int adding = Preferences.getInteger( "addingScrolls" );
 		if ( adding == -1 )
@@ -1154,22 +1154,22 @@ public class ChoiceOptionsPanel
 			adding = Preferences.getBoolean( "createHackerSummons" ) ? 3 : 2;
 			Preferences.setInteger( "addingScrolls", adding );
 		}
-		this.addingSelect.setSelectedIndex( adding );
+        addingSelect.setSelectedIndex( adding );
 
-		this.gongSelect.setSelectedIndex( Preferences.getInteger( "gongPath" ) );
+        gongSelect.setSelectedIndex( Preferences.getInteger( "gongPath" ) );
 
-		for ( int i = 0; i < this.optionSelects.length; ++i )
+		for ( int i = 0; i < optionSelects.length; ++i )
 		{
 			index = Preferences.getInteger( ChoiceManager.CHOICE_ADVS[ i ].getSetting() );
 			if ( index >= 0 )
 			{
-				if ( index >= this.optionSelects[ i ].getItemCount() )
+				if ( index >= optionSelects[ i ].getItemCount() )
 				{
 					System.out.println( "Invalid setting " + index + " for "
 						+ ChoiceManager.CHOICE_ADVS[ i ].getSetting() );
 					index = 0;
 				}
-				this.optionSelects[ i ].setSelectedIndex( index );
+                optionSelects[ i ].setSelectedIndex( index );
 			}
 		}
 
@@ -1239,7 +1239,7 @@ public class ChoiceOptionsPanel
 
 		if ( index >= 0 )
 		{
-			this.castleWheelSelect.setSelectedIndex( index );
+            castleWheelSelect.setSelectedIndex( index );
 		}
 
 		// Figure out what to do in the spooky forest
@@ -1295,7 +1295,7 @@ public class ChoiceOptionsPanel
 			}
 		}
 
-		this.spookyForestSelect.setSelectedIndex( index < 0 || index > 13 ? 0 : index );
+        spookyForestSelect.setSelectedIndex( index < 0 || index > 13 ? 0 : index );
 
 		// Figure out what to do in the billiard room
 
@@ -1337,7 +1337,7 @@ public class ChoiceOptionsPanel
 
 		if ( index >= 0 )
 		{
-			this.billiardRoomSelect.setSelectedIndex( index );
+            billiardRoomSelect.setSelectedIndex( index );
 		}
 
 		// Figure out what to do at the bookcases
@@ -1345,33 +1345,33 @@ public class ChoiceOptionsPanel
 		index = Preferences.getInteger( "choiceAdventure80" );
 		if ( index == 4 )
 		{
-			this.riseSelect.setSelectedIndex( 0 );
+            riseSelect.setSelectedIndex( 0 );
 		}
 		else if ( index == 99 )
 		{
-			this.riseSelect.setSelectedIndex( 4 );
+            riseSelect.setSelectedIndex( 4 );
 		}
 		else
 		{
-			this.riseSelect.setSelectedIndex( Preferences.getInteger( "choiceAdventure88" ) );
+            riseSelect.setSelectedIndex( Preferences.getInteger( "choiceAdventure88" ) );
 		}
 
 		index = Preferences.getInteger( "choiceAdventure81" );
 		if ( index == 4 )
 		{
-			this.fallSelect.setSelectedIndex( 0 );
+            fallSelect.setSelectedIndex( 0 );
 		}
 		else if ( index == 3 )
 		{
-			this.fallSelect.setSelectedIndex( 1 );
+            fallSelect.setSelectedIndex( 1 );
 		}
 		else if ( index == 99 )
 		{
-			this.riseSelect.setSelectedIndex( 3 );
+            riseSelect.setSelectedIndex( 3 );
 		}
 		else
 		{
-			this.fallSelect.setSelectedIndex( 2 );
+            fallSelect.setSelectedIndex( 2 );
 		}
 
 		// Figure out what to do at the maidens
@@ -1380,43 +1380,43 @@ public class ChoiceOptionsPanel
 		index = Preferences.getInteger( "choiceAdventure89" );
 		if ( index == 6 )
 		{
-			this.maidenSelect.setSelectedIndex( 0 );
+            maidenSelect.setSelectedIndex( 0 );
 		}
 		else
 		{
-			this.maidenSelect.setSelectedIndex( index + 1 );
+            maidenSelect.setSelectedIndex( index + 1 );
 		}
 
 		// OceanDestinationComboBox handles its own settings.
-		this.oceanDestSelect.loadSettings();
+        oceanDestSelect.loadSettings();
 
 		String action = Preferences.getString( "oceanAction" );
 		if ( action.equals( "continue" ) )
 		{
-			this.oceanActionSelect.setSelectedIndex( 0 );
+            oceanActionSelect.setSelectedIndex( 0 );
 		}
 		else if ( action.equals( "show" ) )
 		{
-			this.oceanActionSelect.setSelectedIndex( 1 );
+            oceanActionSelect.setSelectedIndex( 1 );
 		}
 		else if ( action.equals( "stop" ) )
 		{
-			this.oceanActionSelect.setSelectedIndex( 2 );
+            oceanActionSelect.setSelectedIndex( 2 );
 		}
 		else if ( action.equals( "savecontinue" ) )
 		{
-			this.oceanActionSelect.setSelectedIndex( 3 );
+            oceanActionSelect.setSelectedIndex( 3 );
 		}
 		else if ( action.equals( "saveshow" ) )
 		{
-			this.oceanActionSelect.setSelectedIndex( 4 );
+            oceanActionSelect.setSelectedIndex( 4 );
 		}
 		else if ( action.equals( "savestop" ) )
 		{
-			this.oceanActionSelect.setSelectedIndex( 5 );
+            oceanActionSelect.setSelectedIndex( 5 );
 		}
 
-		this.isAdjusting = false;
+        isAdjusting = false;
 		ActionPanel.enableActions( true );
 	}
 
@@ -1428,10 +1428,10 @@ public class ChoiceOptionsPanel
 		{
 			super( cmd );
 
-			this.setHorizontalAlignment( SwingConstants.LEFT );
+            setHorizontalAlignment( SwingConstants.LEFT );
 
-			this.setActionCommand( cmd );
-			this.addActionListener( this );
+            setActionCommand( cmd );
+            addActionListener( this );
 		}
 
 		public void actionPerformed( ActionEvent e )

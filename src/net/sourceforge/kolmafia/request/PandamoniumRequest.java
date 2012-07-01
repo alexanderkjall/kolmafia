@@ -148,24 +148,24 @@ public class PandamoniumRequest
 
 		if ( action != null )
 		{
-			this.addFormField( "action", action );
+            addFormField( "action", action );
 		}
 	}
 
 	public PandamoniumRequest( final String comedy )
 	{
 		super( "pandamonium.php" );
-		this.addFormField( "action", "mourn" );
-		this.addFormField( "preaction", comedy );
+        addFormField( "action", "mourn" );
+        addFormField( "preaction", comedy );
 	}
 
 	public PandamoniumRequest( final String bandMember, final int itemId )
 	{
 		super( "pandamonium.php" );
-		this.addFormField( "action", "sven" );
-		this.addFormField( "bandmember", bandMember );
-		this.addFormField( "togive", String.valueOf( itemId ) );
-		this.addFormField( "preaction", "try" );
+        addFormField( "action", "sven" );
+        addFormField( "bandmember", bandMember );
+        addFormField( "togive", String.valueOf( itemId ) );
+        addFormField( "preaction", "try" );
 	}
 
 	private static String subvisitPlace( final String action, final String urlString )
@@ -254,7 +254,7 @@ public class PandamoniumRequest
 	@Override
 	public void processResults()
 	{
-		PandamoniumRequest.parseResponse( this.getURLString(), this.responseText );
+		PandamoniumRequest.parseResponse( getURLString(), responseText );
 	}
 
 	public static boolean parseResponse( final String urlString, final String responseText )

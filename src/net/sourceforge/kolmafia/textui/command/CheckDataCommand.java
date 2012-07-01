@@ -55,7 +55,7 @@ public class CheckDataCommand
 	extends AbstractCommand
 {
 	{
-		this.usage = null;
+        usage = null;
 	}
 
 	@Override

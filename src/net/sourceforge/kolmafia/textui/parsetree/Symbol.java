@@ -50,7 +50,7 @@ public abstract class Symbol
 
 	public String getName()
 	{
-		return this.name;
+		return name;
 	}
 
 	public int compareTo( final Object o )
@@ -59,10 +59,10 @@ public abstract class Symbol
 		{
 			throw new ClassCastException();
 		}
-		if ( this.name == null )
+		if ( name == null )
 		{
 			return 1;
 		}
-		return this.name.compareToIgnoreCase( ( (Symbol) o ).name );
+		return name.compareToIgnoreCase( ((Symbol) o).name );
 	}
 }

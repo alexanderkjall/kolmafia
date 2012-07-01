@@ -132,8 +132,8 @@ public class CalendarFrame
 		predictDisplay = new RequestPane();
 		JComponentUtilities.setComponentSize( predictDisplay, 400, 335 );
 
-		this.tabs.addTab( "KoL One-a-Day", dailyDisplay );
-		this.tabs.addTab( "Upcoming Events", predictDisplay );
+        tabs.addTab( "KoL One-a-Day", dailyDisplay );
+        tabs.addTab( "Upcoming Events", predictDisplay );
 
 		CalendarFrame.calendar = new JCalendar( OracleTable.class );
 		CalendarFrame.oracleTable = (OracleTable) CalendarFrame.calendar.getTable();
@@ -141,12 +141,12 @@ public class CalendarFrame
 		CalendarFrame.oracleTable.getColumnModel().getSelectionModel().addListSelectionListener( this );
 
 		JPanel calendarPanel = new JPanel( new BorderLayout() );
-		calendarPanel.add( this.tabs, BorderLayout.CENTER );
+		calendarPanel.add( tabs, BorderLayout.CENTER );
 		calendarPanel.add( CalendarFrame.calendar, BorderLayout.EAST );
 
-		this.setCenterComponent( calendarPanel );
+        setCenterComponent( calendarPanel );
 
-		this.updateTabs();
+        updateTabs();
 	}
 
 	/**
@@ -181,7 +181,7 @@ public class CalendarFrame
 						CalendarFrame.selectedRow, CalendarFrame.selectedColumn ) ) );
 
 				CalendarFrame.calculatePhases( CalendarFrame.selectedDate.getTime() );
-				this.updateTabs();
+                updateTabs();
 			}
 			catch ( Exception e1 )
 			{
@@ -436,32 +436,32 @@ public class CalendarFrame
 			super( model );
 			this.model = model;
 
-			this.dateCalculator = Calendar.getInstance( TimeZone.getTimeZone( "GMT-0330" ), Locale.US );
-			this.normalRenderer = new DefaultTableCellRenderer();
+            dateCalculator = Calendar.getInstance( TimeZone.getTimeZone( "GMT-0330" ), Locale.US );
+            normalRenderer = new DefaultTableCellRenderer();
 
-			this.todayRenderer = new DefaultTableCellRenderer();
-			this.todayRenderer.setForeground( new Color( 255, 255, 255 ) );
-			this.todayRenderer.setBackground( new Color( 128, 128, 128 ) );
+            todayRenderer = new DefaultTableCellRenderer();
+            todayRenderer.setForeground( new Color( 255, 255, 255 ) );
+            todayRenderer.setBackground( new Color( 128, 128, 128 ) );
 
-			this.specialRenderer = new DefaultTableCellRenderer();
-			this.specialRenderer.setForeground( new Color( 255, 255, 255 ) );
-			this.specialRenderer.setBackground( new Color( 0, 0, 0 ) );
+            specialRenderer = new DefaultTableCellRenderer();
+            specialRenderer.setForeground( new Color( 255, 255, 255 ) );
+            specialRenderer.setBackground( new Color( 0, 0, 0 ) );
 
-			this.holidayRenderer = new DefaultTableCellRenderer();
-			this.holidayRenderer.setForeground( new Color( 0, 0, 0 ) );
-			this.holidayRenderer.setBackground( new Color( 255, 255, 204 ) );
+            holidayRenderer = new DefaultTableCellRenderer();
+            holidayRenderer.setForeground( new Color( 0, 0, 0 ) );
+            holidayRenderer.setBackground( new Color( 255, 255, 204 ) );
 
-			this.muscleRenderer = new DefaultTableCellRenderer();
-			this.muscleRenderer.setForeground( new Color( 0, 0, 0 ) );
-			this.muscleRenderer.setBackground( new Color( 255, 204, 204 ) );
+            muscleRenderer = new DefaultTableCellRenderer();
+            muscleRenderer.setForeground( new Color( 0, 0, 0 ) );
+            muscleRenderer.setBackground( new Color( 255, 204, 204 ) );
 
-			this.mysticalityRenderer = new DefaultTableCellRenderer();
-			this.mysticalityRenderer.setForeground( new Color( 0, 0, 0 ) );
-			this.mysticalityRenderer.setBackground( new Color( 204, 204, 255 ) );
+            mysticalityRenderer = new DefaultTableCellRenderer();
+            mysticalityRenderer.setForeground( new Color( 0, 0, 0 ) );
+            mysticalityRenderer.setBackground( new Color( 204, 204, 255 ) );
 
-			this.moxieRenderer = new DefaultTableCellRenderer();
-			this.moxieRenderer.setForeground( new Color( 0, 0, 0 ) );
-			this.moxieRenderer.setBackground( new Color( 204, 255, 204 ) );
+            moxieRenderer = new DefaultTableCellRenderer();
+            moxieRenderer.setForeground( new Color( 0, 0, 0 ) );
+            moxieRenderer.setBackground( new Color( 204, 255, 204 ) );
 		}
 
 		@Override
@@ -472,29 +472,29 @@ public class CalendarFrame
 				// First, if the date today is equal to the
 				// date selected, highlight it.
 
-				String dayString = (String) this.model.getValueAt( row, column );
+				String dayString = (String) model.getValueAt( row, column );
 				if ( dayString.equals( "" ) )
 				{
-					return this.normalRenderer;
+					return normalRenderer;
 				}
 
-				this.dateCalculator.set(
-					this.model.getCurrentYear(), this.model.getCurrentMonth(), StringUtilities.parseInt( dayString ) );
-				Date selectedTime = this.dateCalculator.getTime();
+                dateCalculator.set(
+                        model.getCurrentYear(), model.getCurrentMonth(), StringUtilities.parseInt( dayString ) );
+				Date selectedTime = dateCalculator.getTime();
 
 				if ( CalendarFrame.SHORT_FORMAT.format( new Date() ).equals(
-					CalendarFrame.SHORT_FORMAT.format( this.dateCalculator.getTime() ) ) )
+					CalendarFrame.SHORT_FORMAT.format( dateCalculator.getTime() ) ) )
 				{
-					return this.todayRenderer;
+					return todayRenderer;
 				}
 
 				// White wednesday special highlighting.
 				// But, because white doesn't show up,
 				// make it black instead.
 
-				if ( KoLConstants.DAILY_FORMAT.format( this.dateCalculator.getTime() ).equals( "20051027" ) )
+				if ( KoLConstants.DAILY_FORMAT.format( dateCalculator.getTime() ).equals( "20051027" ) )
 				{
-					return this.specialRenderer;
+					return specialRenderer;
 				}
 
 				// Otherwise, if the date selected is equal
@@ -502,27 +502,27 @@ public class CalendarFrame
 
 				if ( HolidayDatabase.isRealLifeHoliday( selectedTime ) )
 				{
-					return this.holidayRenderer;
+					return holidayRenderer;
 				}
 
 				if ( HolidayDatabase.isHoliday( selectedTime ) )
 				{
-					return this.holidayRenderer;
+					return holidayRenderer;
 				}
 
 				if ( HolidayDatabase.isMuscleDay( selectedTime ) )
 				{
-					return this.muscleRenderer;
+					return muscleRenderer;
 				}
 
 				if ( HolidayDatabase.isMysticalityDay( selectedTime ) )
 				{
-					return this.mysticalityRenderer;
+					return mysticalityRenderer;
 				}
 
 				if ( HolidayDatabase.isMoxieDay( selectedTime ) )
 				{
-					return this.moxieRenderer;
+					return moxieRenderer;
 				}
 			}
 			catch ( Exception e )
@@ -533,7 +533,7 @@ public class CalendarFrame
 				StaticEntity.printStackTrace( e );
 			}
 
-			return this.normalRenderer;
+			return normalRenderer;
 		}
 	}
 

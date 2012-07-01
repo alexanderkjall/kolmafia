@@ -97,14 +97,14 @@ public class AdventureFrame
 
 		JPanel adventurePanel = new JPanel( new BorderLayout( 20, 20 ) );
 		adventurePanel.add( adventureDetails, BorderLayout.NORTH );
-		adventurePanel.add( this.getSouthernTabs(), BorderLayout.CENTER );
+		adventurePanel.add( getSouthernTabs(), BorderLayout.CENTER );
 
 		AdventureFrame.updateSelectedAdventure( AdventureDatabase.getAdventure( Preferences.getString( "lastAdventure" ) ) );
 		AdventureFrame.adventureSelector.fillCurrentConditions();
 
 		JComponentUtilities.setComponentSize( adventurePanel, 640, 480 );
 
-		this.setCenterComponent( adventurePanel );
+        setCenterComponent( adventurePanel );
 	}
 
 	@Override
@@ -201,23 +201,23 @@ public class AdventureFrame
 		// Components of custom combat and choice adventuring,
 		// combined into one friendly panel.
 
-		this.tabs.addTab( "Overview", this.getAdventureSummary() );
+        tabs.addTab( "Overview", getAdventureSummary() );
 		AdventureFrame.choiceOptionsPanel = new ChoiceOptionsPanel();
 
-		this.tabs.addTab( "Choice Advs", AdventureFrame.choiceOptionsPanel );
+        tabs.addTab( "Choice Advs", AdventureFrame.choiceOptionsPanel );
 
 		AdventureFrame.restoreOptionsPanel = new RestoreOptionsPanel();
 		GenericScrollPane restoreScroller = new GenericScrollPane( AdventureFrame.restoreOptionsPanel );
 		JComponentUtilities.setComponentSize( restoreScroller, 560, 400 );
-		this.tabs.addTab( "HP/MP Usage", restoreScroller );
+        tabs.addTab( "HP/MP Usage", restoreScroller );
 
-		this.tabs.addTab( "Mood Setup", new MoodOptionsPanel() );
+        tabs.addTab( "Mood Setup", new MoodOptionsPanel() );
 
 		AdventureFrame.customCombatPanel = new CustomCombatPanel();
-		this.tabs.addTab( "Custom Combat", AdventureFrame.customCombatPanel );
+        tabs.addTab( "Custom Combat", AdventureFrame.customCombatPanel );
 
 		AdventureFrame.adventureSelector.addSelectedLocationListener( AdventureFrame.choiceOptionsPanel.getUpdateListener() );
-		return this.tabs;
+		return tabs;
 	}
 
 	private JSplitPane getAdventureSummary()
@@ -245,7 +245,7 @@ public class AdventureFrame
 	@Override
 	public void dispose()
 	{
-		Preferences.setInteger( "defaultDropdownSplit", this.sessionGrid.getLastDividerLocation() );
+		Preferences.setInteger( "defaultDropdownSplit", sessionGrid.getLastDividerLocation() );
 		super.dispose();
 	}
 }

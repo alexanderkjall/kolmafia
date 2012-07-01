@@ -102,7 +102,7 @@ public class CharSheetRequest
 	@Override
 	public void processResults()
 	{
-		CharSheetRequest.parseStatus( this.responseText );
+		CharSheetRequest.parseStatus( responseText );
 	}
 
 	public static void parseStatus( final String responseText )

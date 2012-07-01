@@ -82,50 +82,50 @@ public class SpleenItemRequest
 	@Override
 	public void run()
 	{
-		if ( !ItemDatabase.meetsLevelRequirement( this.itemUsed.getName() ) )
+		if ( !ItemDatabase.meetsLevelRequirement( itemUsed.getName() ) )
 		{
-			UseItemRequest.lastUpdate = "Insufficient level to consume " + this.itemUsed;
+			UseItemRequest.lastUpdate = "Insufficient level to consume " + itemUsed;
 			KoLmafia.updateDisplay( MafiaState.ERROR, UseItemRequest.lastUpdate );
 			return;
 		}
 
-		int itemId = this.itemUsed.getItemId();
+		int itemId = itemUsed.getItemId();
 		UseItemRequest.lastUpdate = "";
 
 		int maximumUses = UseItemRequest.maximumUses( itemId );
-		if ( maximumUses < this.itemUsed.getCount() )
+		if ( maximumUses < itemUsed.getCount() )
 		{
-			KoLmafia.updateDisplay( "(usable quantity of " + this.itemUsed +
+			KoLmafia.updateDisplay( "(usable quantity of " + itemUsed +
 				" is limited to " + maximumUses + " by " +
 				UseItemRequest.limiter + ")" );
-			this.itemUsed = this.itemUsed.getInstance( maximumUses );
+            itemUsed = itemUsed.getInstance( maximumUses );
 		}
 
-		if ( this.itemUsed.getCount() < 1 )
+		if ( itemUsed.getCount() < 1 )
 		{
 			return;
 		}
 
 		int iterations = 1;
-		int origCount = this.itemUsed.getCount();
+		int origCount = itemUsed.getCount();
 
-		if ( origCount > 1 && this.singleConsume( itemId ) )
+		if ( origCount > 1 && singleConsume( itemId ) )
 		{
 			iterations = origCount;
-			this.itemUsed = this.itemUsed.getInstance( 1 );
+            itemUsed = itemUsed.getInstance( 1 );
 		}
 
-		String originalURLString = this.getURLString();
+		String originalURLString = getURLString();
 
 		for ( int i = 1; i <= iterations && KoLmafia.permitsContinue(); ++i )
 		{
-			this.constructURLString( originalURLString );
-			this.useOnce( i, iterations, "Using" );
+            constructURLString( originalURLString );
+            useOnce( i, iterations, "Using" );
 		}
 
 		if ( KoLmafia.permitsContinue() )
 		{
-			KoLmafia.updateDisplay( "Finished using " + origCount + " " + this.itemUsed.getName() + "." );
+			KoLmafia.updateDisplay( "Finished using " + origCount + " " + itemUsed.getName() + "." );
 		}
 	}
 
@@ -138,26 +138,26 @@ public class SpleenItemRequest
 		// inventory first - if not, report the error message and
 		// return from the method.
 
-		if ( !InventoryManager.retrieveItem( this.itemUsed ) )
+		if ( !InventoryManager.retrieveItem( itemUsed ) )
 		{
 			UseItemRequest.lastUpdate = "Insufficient items to use.";
 			return;
 		}
 
-		switch ( this.consumptionType )
+		switch ( consumptionType )
 		{
 		case KoLConstants.CONSUME_MULTIPLE:
 		case KoLConstants.HP_RESTORE:
 		case KoLConstants.MP_RESTORE:
 		case KoLConstants.HPMP_RESTORE:
-			if ( this.itemUsed.getCount() > 1 )
+			if ( itemUsed.getCount() > 1 )
 			{
-				this.addFormField( "action", "useitem" );
-				this.addFormField( "quantity", String.valueOf( this.itemUsed.getCount() ) );
+                addFormField( "action", "useitem" );
+                addFormField( "quantity", String.valueOf( itemUsed.getCount() ) );
 			}
 			// Fall through
 		default:
-			this.addFormField( "ajax", "1" );
+            addFormField( "ajax", "1" );
 			break;
 		}
 
@@ -166,7 +166,7 @@ public class SpleenItemRequest
 
 	private boolean singleConsume( final int itemId )
 	{
-		return this.consumptionType == KoLConstants.CONSUME_USE;
+		return consumptionType == KoLConstants.CONSUME_USE;
 	}
 
 	public static void parseConsumption( final AdventureResult item, final AdventureResult helper, final String responseText )

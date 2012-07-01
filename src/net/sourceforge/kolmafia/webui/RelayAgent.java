@@ -104,18 +104,18 @@ public class RelayAgent
 	public RelayAgent( final int id )
 	{
 		super( "LocalRelayAgent" + id );
-		this.request = new RelayRequest( true );
+        request = new RelayRequest( true );
 	}
 
 	public boolean isWaiting()
 	{
-		return this.socket == null;
+		return socket == null;
 	}
 
 	public void setSocket( final Socket socket )
 	{
 		this.socket = socket;
-		this.pauser.unpause();
+        pauser.unpause();
 	}
 
 	@Override
@@ -123,42 +123,42 @@ public class RelayAgent
 	{
 		while ( true )
 		{
-			if ( this.socket == null )
+			if ( socket == null )
 			{
-				this.pauser.pause();
+                pauser.pause();
 			}
 
 			try
 			{
-				this.performRelay();
+                performRelay();
 			}
 			finally
 			{
-				this.closeRelay();
+                closeRelay();
 			}
 		}
 	}
 
 	public void performRelay()
 	{
-		if ( this.socket == null )
+		if ( socket == null )
 		{
 			return;
 		}
 
-		this.path = null;
-		this.reader = null;
-		this.writer = null;
+        path = null;
+        reader = null;
+        writer = null;
 
 		try
 		{
-			if ( !this.readBrowserRequest() )
+			if ( !readBrowserRequest() )
 			{
 				return;
 			}
 
-			this.readServerResponse();
-			this.sendServerResponse();
+            readServerResponse();
+            sendServerResponse();
 		}
 		catch ( IOException e )
 		{
@@ -174,9 +174,9 @@ public class RelayAgent
 	{
 		boolean debugging = RequestLogger.isDebugging() && Preferences.getBoolean( "logBrowserInteractions" );
 
-		this.reader = new BufferedReader( new InputStreamReader( this.socket.getInputStream() ) );
+        reader = new BufferedReader( new InputStreamReader( socket.getInputStream() ) );
 
-		String requestLine = this.reader.readLine();
+		String requestLine = reader.readLine();
 
 		if ( debugging )
 		{
@@ -191,19 +191,19 @@ public class RelayAgent
 
 		int spaceIndex = requestLine.indexOf( " " );
 
-		this.requestMethod = requestLine.substring( 0, spaceIndex );
-		boolean usePostMethod = this.requestMethod.equals( "POST" );
-		this.path = requestLine.substring( spaceIndex + 1, requestLine.lastIndexOf( " " ) );
+        requestMethod = requestLine.substring( 0, spaceIndex );
+		boolean usePostMethod = requestMethod.equals( "POST" );
+        path = requestLine.substring( spaceIndex + 1, requestLine.lastIndexOf( " " ) );
 
-		if ( this.path.startsWith( "//" ) )
+		if ( path.startsWith( "//" ) )
 		{
 			// A current KoL bug causes URLs to gain an unnecessary
 			// leading slash after certain chat right-click
 			// commands are used.
-			this.path = this.path.substring( 1 );
+            path = path.substring( 1 );
 		}
 
-		this.request.constructURLString( this.path, usePostMethod );
+        request.constructURLString( path, usePostMethod );
 
 		String currentLine;
 		int contentLength = 0;
@@ -211,7 +211,7 @@ public class RelayAgent
 		String host = null;
 		String referer = null;
 
-		while ( ( currentLine = this.reader.readLine() ) != null && !currentLine.equals( "" ) )
+		while ( ( currentLine = reader.readLine() ) != null && !currentLine.equals( "" ) )
 		{
 			if ( debugging )
 			{
@@ -232,7 +232,7 @@ public class RelayAgent
 
 			if ( currentLine.startsWith( "If-Modified-Since" ) )
 			{
-				this.isCheckingModified = true;
+                isCheckingModified = true;
 				continue;
 			}
 
@@ -250,7 +250,7 @@ public class RelayAgent
 
 			if ( currentLine.startsWith( "Cookie" ) )
 			{
-				if ( this.path.startsWith( "/inventory" ) )
+				if ( path.startsWith( "/inventory" ) )
 				{
 					String[] cookieList = currentLine.substring( 8 ).split( "\\s*;\\s*" );
 					for ( int i = 0; i < cookieList.length; ++i )
@@ -281,20 +281,20 @@ public class RelayAgent
 
 			while ( remaining > 0 )
 			{
-				int current = this.reader.read( this.data );
-				this.buffer.append( this.data, 0, current );
+				int current = reader.read( data );
+                buffer.append( data, 0, current );
 				remaining -= current;
 			}
 
-			String fields = this.buffer.toString();
-			this.buffer.setLength( 0 );
+			String fields = buffer.toString();
+            buffer.setLength( 0 );
 
 			if ( debugging )
 			{
 				RequestLogger.updateDebugLog( fields );
 			}
 
-			this.request.addFormFields( fields, true );
+            request.addFormFields( fields, true );
 		}
 
 		if ( debugging )
@@ -303,17 +303,17 @@ public class RelayAgent
 		}
 
 		// Validate supplied password hashes
-		String pwd = this.request.getFormField( "pwd" );
+		String pwd = request.getFormField( "pwd" );
 		if ( pwd == null )
 		{
 			// KoLmafia internal pages use only "pwd"
-			if ( this.path.startsWith( "/KoLmafia" ) )
+			if ( path.startsWith( "/KoLmafia" ) )
 			{
 				RequestLogger.printLine( "Missing password hash" );
-				RequestLogger.printLine( "Path: \"" + this.path + "\"" );
+				RequestLogger.printLine( "Path: \"" + path + "\"" );
 				return false;
 			}
-			pwd = this.request.getFormField( "phash" );
+			pwd = request.getFormField( "phash" );
 		}
 
 		// All other pages need either no password hash
@@ -321,7 +321,7 @@ public class RelayAgent
 		if ( pwd != null && !pwd.equals( GenericRequest.passwordHash ) )
 		{
 			RequestLogger.printLine( "Password hash mismatch" );
-			RequestLogger.printLine( "Path: \"" + this.path + "\"" );
+			RequestLogger.printLine( "Path: \"" + path + "\"" );
 			return false;
 		}
 
@@ -398,27 +398,27 @@ public class RelayAgent
 
 	private boolean shouldSendNotModified()
 	{
-		if ( this.path.startsWith( "/images" ) )
+		if ( path.startsWith( "/images" ) )
 		{
 			return true;
 		}
 
-		if ( this.path.contains( "?" ) )
+		if ( path.contains( "?" ) )
 		{
 			return false;
 		}
 
-		if ( !this.path.endsWith( ".js" ) && !this.path.endsWith( ".html" ) )
+		if ( !path.endsWith( ".js" ) && !path.endsWith( ".html" ) )
 		{
 			return false;
 		}
 
-		if ( RelayAgent.lastModified.containsKey( this.path ) )
+		if ( RelayAgent.lastModified.containsKey( path ) )
 		{
 			return true;
 		}
 
-		RelayAgent.lastModified.put( this.path, Boolean.TRUE );
+		RelayAgent.lastModified.put( path, Boolean.TRUE );
 		return false;
 	}
 
@@ -428,27 +428,27 @@ public class RelayAgent
 		// If not requesting a server-side page, then it is safe
 		// to assume that no changes have been made (save time).
 
-		if ( this.isCheckingModified && this.shouldSendNotModified() )
+		if ( isCheckingModified && shouldSendNotModified() )
 		{
-			this.request.pseudoResponse( "HTTP/1.1 304 Not Modified", "" );
-			this.request.responseCode = 304;
-			this.request.rawByteBuffer = this.request.responseText.getBytes( "UTF-8" );
+            request.pseudoResponse( "HTTP/1.1 304 Not Modified", "" );
+            request.responseCode = 304;
+            request.rawByteBuffer = request.responseText.getBytes( "UTF-8" );
 
 			return;
 		}
 
 		if ( errorRequest != null )
 		{
-			if ( this.path.startsWith( "/main.php" ) )
+			if ( path.startsWith( "/main.php" ) )
 			{
-				this.request.pseudoResponse( "HTTP/1.1 302 Found", RelayAgent.errorRequestPath );
+                request.pseudoResponse( "HTTP/1.1 302 Found", RelayAgent.errorRequestPath );
 				return;
 			}
 
-			if ( this.path.equals( RelayAgent.errorRequestPath ) )
+			if ( path.equals( RelayAgent.errorRequestPath ) )
 			{
-				this.request.pseudoResponse( "HTTP/1.1 200 OK", errorRequest.responseText );
-				this.request.formatResponse();
+                request.pseudoResponse( "HTTP/1.1 200 OK", errorRequest.responseText );
+                request.formatResponse();
 
 				RelayAgent.errorRequest = null;
 				RelayAgent.errorRequestPath = null;
@@ -457,31 +457,31 @@ public class RelayAgent
 			}
 		}
 
-		if ( this.path.equals( "/fight.php?action=custom" ) )
+		if ( path.equals( "/fight.php?action=custom" ) )
 		{
 			RelayAgent.COMBAT_THREAD.wake( null );
-			this.request.pseudoResponse( "HTTP/1.1 302 Found", "/fight.php?action=script" );
+            request.pseudoResponse( "HTTP/1.1 302 Found", "/fight.php?action=script" );
 		}
-		else if ( this.path.equals( "/fight.php?action=script" ) )
+		else if ( path.equals( "/fight.php?action=script" ) )
 		{
 			String fightResponse = FightRequest.getNextTrackedRound();
 			if ( FightRequest.isTrackingFights() )
 			{
 				fightResponse = KoLConstants.SCRIPT_PATTERN.matcher( fightResponse ).replaceAll( "" );
-				this.request.headers.add( "Refresh: 1" );
+                request.headers.add( "Refresh: 1" );
 			}
-			this.request.pseudoResponse( "HTTP/1.1 200 OK", fightResponse );
+            request.pseudoResponse( "HTTP/1.1 200 OK", fightResponse );
 			RelayRequest.executeAfterAdventureScript();
 		}
-		else if ( this.path.equals( "/fight.php?action=abort" ) )
+		else if ( path.equals( "/fight.php?action=abort" ) )
 		{
 			FightRequest.stopTrackingFights();
-			this.request.pseudoResponse( "HTTP/1.1 200 OK", FightRequest.getNextTrackedRound() );
+            request.pseudoResponse( "HTTP/1.1 200 OK", FightRequest.getNextTrackedRound() );
 			RelayRequest.executeAfterAdventureScript();
 		}
-		else if ( this.path.startsWith( "/fight.php?hotkey=" ) )
+		else if ( path.startsWith( "/fight.php?hotkey=" ) )
 		{
-			String hotkey = this.request.getFormField( "hotkey" );
+			String hotkey = request.getFormField( "hotkey" );
 
 			if ( hotkey.equals( "11" ) )
 			{
@@ -492,31 +492,31 @@ public class RelayAgent
 				RelayAgent.COMBAT_THREAD.wake( Preferences.getString( "combatHotkey" + hotkey ) );
 			}
 
-			this.request.pseudoResponse( "HTTP/1.1 302 Found", "/fight.php?action=script" );
+            request.pseudoResponse( "HTTP/1.1 302 Found", "/fight.php?action=script" );
 		}
-		else if ( this.path.equals( "/choice.php?action=auto" ) )
+		else if ( path.equals( "/choice.php?action=auto" ) )
 		{
-			ChoiceManager.processChoiceAdventure( this.request, ChoiceManager.lastResponseText );
+			ChoiceManager.processChoiceAdventure( request, ChoiceManager.lastResponseText );
 		}
-		else if ( this.path.equals( "/leaflet.php?action=auto" ) )
+		else if ( path.equals( "/leaflet.php?action=auto" ) )
 		{
-			this.request.pseudoResponse( "HTTP/1.1 200 OK", LeafletManager.leafletWithMagic() );
+            request.pseudoResponse( "HTTP/1.1 200 OK", LeafletManager.leafletWithMagic() );
 		}
-		else if ( this.path.startsWith( "/loggedout.php" ) )
+		else if ( path.startsWith( "/loggedout.php" ) )
 		{
-			this.request.pseudoResponse( "HTTP/1.1 200 OK", LogoutRequest.getLastResponse() );
+            request.pseudoResponse( "HTTP/1.1 200 OK", LogoutRequest.getLastResponse() );
 		}
-		else if ( this.path.startsWith( "/actionbar.php" ) )
+		else if ( path.startsWith( "/actionbar.php" ) )
 		{
-			ActionBarManager.updateJSONString( this.request );
+			ActionBarManager.updateJSONString( request );
 		}
 		else
 		{
-			RequestThread.postRequest( this.request );
+			RequestThread.postRequest( request );
 
-			if ( this.path.startsWith( "/afterlife.php" ) && this.request.responseCode == 302 )
+			if ( path.startsWith( "/afterlife.php" ) && request.responseCode == 302 )
 			{
-				if ( this.path.contains( "asctype=1" ) )
+				if ( path.contains( "asctype=1" ) )
 				{
 					KoLmafia.resetCounters();
 				}
@@ -531,22 +531,22 @@ public class RelayAgent
 	private void sendServerResponse()
 		throws IOException
 	{
-		if ( this.request.rawByteBuffer == null )
+		if ( request.rawByteBuffer == null )
 		{
-			if ( this.request.responseText == null )
+			if ( request.responseText == null )
 			{
 				return;
 			}
 
-			this.request.rawByteBuffer = this.request.responseText.getBytes( "UTF-8" );
+            request.rawByteBuffer = request.responseText.getBytes( "UTF-8" );
 		}
 
-		this.writer = new PrintStream( this.socket.getOutputStream(), false );
-		this.writer.println( this.request.statusLine );
-		this.request.printHeaders( this.writer );
-		this.writer.println();
-		this.writer.write( this.request.rawByteBuffer );
-		this.writer.flush();
+        writer = new PrintStream( socket.getOutputStream(), false );
+        writer.println( request.statusLine );
+        request.printHeaders( writer );
+        writer.println();
+        writer.write( request.rawByteBuffer );
+        writer.flush();
 
 		if ( !RequestLogger.isDebugging() )
 		{
@@ -558,13 +558,13 @@ public class RelayAgent
 		if ( interactions )
 		{
 			RequestLogger.updateDebugLog( "-----To Browser-----" );
-			RequestLogger.updateDebugLog( this.request.statusLine );
-			this.request.printHeaders( RequestLogger.getDebugStream() );
+			RequestLogger.updateDebugLog( request.statusLine );
+            request.printHeaders( RequestLogger.getDebugStream() );
 		}
 
 		if ( Preferences.getBoolean( "logDecoratedResponses" ) )
 		{
-			String text = this.request.responseText;
+			String text = request.responseText;
 			if ( !Preferences.getBoolean( "logReadableHTML" ) )
 			{
 				text = KoLConstants.LINE_BREAK_PATTERN.matcher( text ).replaceAll( "" );
@@ -582,10 +582,10 @@ public class RelayAgent
 	{
 		try
 		{
-			if ( this.reader != null )
+			if ( reader != null )
 			{
-				this.reader.close();
-				this.reader = null;
+                reader.close();
+                reader = null;
 			}
 		}
 		catch ( IOException e )
@@ -594,18 +594,18 @@ public class RelayAgent
 			// input is already closed.  Ignore.
 		}
 
-		if ( this.writer != null )
+		if ( writer != null )
 		{
-			this.writer.close();
-			this.writer = null;
+            writer.close();
+            writer = null;
 		}
 
 		try
 		{
-			if ( this.socket != null )
+			if ( socket != null )
 			{
-				this.socket.close();
-				this.socket = null;
+                socket.close();
+                socket = null;
 			}
 		}
 		catch ( IOException e )

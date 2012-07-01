@@ -40,7 +40,7 @@ public class RelayBrowserCommand
 {
 	public RelayBrowserCommand()
 	{
-		this.usage = " - open the relay browser.";
+        usage = " - open the relay browser.";
 	}
 
 	@Override

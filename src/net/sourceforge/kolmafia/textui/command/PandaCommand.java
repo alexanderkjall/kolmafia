@@ -54,7 +54,7 @@ public class PandaCommand
 
 	public PandaCommand()
 	{
-		this.usage = " moan | temple | comedy <type> | arena <bandmember> <item> - interact with NPCs in Pandamonium";
+        usage = " moan | temple | comedy <type> | arena <bandmember> <item> - interact with NPCs in Pandamonium";
 	}
 
 	@Override

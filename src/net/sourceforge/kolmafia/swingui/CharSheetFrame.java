@@ -69,10 +69,10 @@ public class CharSheetFrame
 
 		JPanel statusPanel = new JPanel( new BorderLayout( 10, 10 ) );
 
-		this.avatar = new JLabel( JComponentUtilities.getImage( KoLCharacter.getAvatar() ) );
+        avatar = new JLabel( JComponentUtilities.getImage( KoLCharacter.getAvatar() ) );
 
-		statusPanel.add( this.createStatusPanel(), BorderLayout.CENTER );
-		statusPanel.add( this.avatar, BorderLayout.WEST );
+		statusPanel.add( createStatusPanel(), BorderLayout.CENTER );
+		statusPanel.add( avatar, BorderLayout.WEST );
 
 		JPanel statusContainer = new JPanel( new CardLayout( 10, 10 ) );
 		statusContainer.add( statusPanel, "" );
@@ -84,19 +84,19 @@ public class CharSheetFrame
 		charSheetPanel.add( statusContainer, BorderLayout.NORTH );
 		charSheetPanel.add( summaryContainer, BorderLayout.CENTER );
 
-		this.statusRefresher = new KoLCharacterAdapter( new StatusRefreshRunnable() );
-		KoLCharacter.addCharacterListener( this.statusRefresher );
+        statusRefresher = new KoLCharacterAdapter( new StatusRefreshRunnable() );
+		KoLCharacter.addCharacterListener( statusRefresher );
 
-		this.statusRefresher.updateStatus();
+        statusRefresher.updateStatus();
 		JComponentUtilities.setComponentSize( charSheetPanel, -1, 480 );
 
-		this.setCenterComponent( charSheetPanel );
+        setCenterComponent( charSheetPanel );
 	}
 
 	@Override
 	public void dispose()
 	{
-		KoLCharacter.removeCharacterListener( this.statusRefresher );
+		KoLCharacter.removeCharacterListener( statusRefresher );
 		super.dispose();
 	}
 
@@ -113,7 +113,7 @@ public class CharSheetFrame
 	private void refreshValuePanel( final int displayIndex, final int baseValue,
 		final int tillNextPoint, final String label )
 	{
-		JProgressBar tnp = this.tnpDisplay[ displayIndex ];
+		JProgressBar tnp = tnpDisplay[ displayIndex ];
 
 		if ( baseValue == KoLCharacter.MAX_BASEPOINTS )
 		{
@@ -160,13 +160,13 @@ public class CharSheetFrame
 		Box statusPanel = Box.createVerticalBox();
 		statusPanel.add( Box.createVerticalGlue() );
 
-		this.tnpDisplay = new JProgressBar[ 3 ];
+        tnpDisplay = new JProgressBar[ 3 ];
 		for ( int i = 0; i < 3; ++i )
 		{
-			this.tnpDisplay[ i ] = new JProgressBar();
-			this.tnpDisplay[ i ].setValue( 0 );
-			this.tnpDisplay[ i ].setStringPainted( true );
-			statusPanel.add( this.tnpDisplay[ i ] );
+            tnpDisplay[ i ] = new JProgressBar();
+            tnpDisplay[ i ].setValue( 0 );
+            tnpDisplay[ i ].setStringPainted( true );
+			statusPanel.add( tnpDisplay[ i ] );
 			statusPanel.add( Box.createVerticalGlue() );
 		}
 
@@ -180,17 +180,17 @@ public class CharSheetFrame
 	{
 		public void run()
 		{
-			CharSheetFrame.this.refreshValuePanel(
+            refreshValuePanel(
 				0, KoLCharacter.getBaseMuscle(),
 				KoLCharacter.getMuscleTNP(), "Mus: " );
-			CharSheetFrame.this.refreshValuePanel(
+            refreshValuePanel(
 				1, KoLCharacter.getBaseMysticality(), KoLCharacter.getMysticalityTNP(), "Mys: " );
-			CharSheetFrame.this.refreshValuePanel(
+            refreshValuePanel(
 				2, KoLCharacter.getBaseMoxie(),
 				KoLCharacter.getMoxieTNP(), "Mox: " );
 
 			// Set the current avatar
-			CharSheetFrame.this.avatar.setIcon( JComponentUtilities.getImage( KoLCharacter.getAvatar() ) );
+            avatar.setIcon( JComponentUtilities.getImage( KoLCharacter.getAvatar() ) );
 		}
 	}
 }

@@ -43,7 +43,7 @@ public class HTMLListEntry
 	public HTMLListEntry( Comparable value, String color )
 	{
 		this.value = value;
-		this.setColor( color );
+        setColor( color );
 	}
 
 	public int compareTo( Object o )
@@ -59,12 +59,12 @@ public class HTMLListEntry
 			compareValue = o;
 		}
 
-		return this.value.compareTo( compareValue );
+		return value.compareTo( compareValue );
 	}
 	
 	public Comparable getValue()
 	{
-		return this.value;
+		return value;
 	}
 
 	public void updateColor()
@@ -79,13 +79,13 @@ public class HTMLListEntry
 		}
 	
 		this.color = color;
-		this.htmlText = "<html><font color=\"" + color + "\">" + value + "</font></html>";
+        htmlText = "<html><font color=\"" + color + "\">" + value + "</font></html>";
 	}
 
 	@Override
 	public String toString()
 	{
-		this.updateColor();
+        updateColor();
 
 		return htmlText;
 	}

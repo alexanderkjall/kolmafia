@@ -42,7 +42,7 @@ public class ClanCommand
 {
 	public ClanCommand()
 	{
-		this.usage = " [ snapshot | stashlog ] - clan management.";
+        usage = " [ snapshot | stashlog ] - clan management.";
 	}
 
 	@Override

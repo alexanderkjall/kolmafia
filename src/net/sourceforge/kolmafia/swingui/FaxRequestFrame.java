@@ -98,7 +98,7 @@ public class FaxRequestFrame
 	public FaxRequestFrame()
 	{
 		super( "Request a Fax" );
-		this.setCenterComponent( new FaxRequestPanel() );
+        setCenterComponent( new FaxRequestPanel() );
 	}
 
 	private class FaxRequestPanel
@@ -110,17 +110,17 @@ public class FaxRequestFrame
 		{
 			super( "request", "online?", new Dimension( 75, 24 ), new Dimension( 200, 24) );
 
-			FaxRequestFrame.this.categorySelect = new MonsterCategoryComboBox();
-			FaxRequestFrame.this.monsterIndex = 0;
-			FaxRequestFrame.this.monsterSelect = new MonsterSelectPanel( FaxRequestFrame.monsterLists[0] );
+            categorySelect = new MonsterCategoryComboBox();
+            monsterIndex = 0;
+            monsterSelect = new MonsterSelectPanel( FaxRequestFrame.monsterLists[0] );
 
 			VerifiableElement[] elements = new VerifiableElement[ 1 ];
-			elements[ 0 ] = new VerifiableElement( "Category: ", FaxRequestFrame.this.categorySelect );
+			elements[ 0 ] = new VerifiableElement( "Category: ", categorySelect );
 
 
-			this.setContent( elements );
-			this.add( FaxRequestFrame.this.monsterSelect, BorderLayout.CENTER );
-			this.add( new StatusPanel(), BorderLayout.SOUTH );
+            setContent( elements );
+            add( monsterSelect, BorderLayout.CENTER );
+            add( new StatusPanel(), BorderLayout.SOUTH );
 		}
 
 		@Override
@@ -133,20 +133,20 @@ public class FaxRequestFrame
 		public void setEnabled( final boolean isEnabled )
 		{
 			super.setEnabled( isEnabled );
-			if ( FaxRequestFrame.this.categorySelect != null )
+			if ( categorySelect != null )
 			{
-				FaxRequestFrame.this.categorySelect.setEnabled( isEnabled );
+                categorySelect.setEnabled( isEnabled );
 			}
-			if ( FaxRequestFrame.this.monsterSelect != null )
+			if ( monsterSelect != null )
 			{
-				FaxRequestFrame.this.monsterSelect.setEnabled( isEnabled );
+                monsterSelect.setEnabled( isEnabled );
 			}
 		}
 
 		@Override
 		public void actionConfirmed()
 		{
-			int list = FaxRequestFrame.this.monsterIndex;
+			int list = monsterIndex;
 			Object value = FaxRequestFrame.monsterLists[ list ].getSelectedValue();
 			if ( value == null )
 			{
@@ -410,9 +410,9 @@ public class FaxRequestFrame
 		{
 			public void actionPerformed( final ActionEvent e )
 			{
-				int index = MonsterCategoryComboBox.this.getSelectedIndex();
-				FaxRequestFrame.this.monsterIndex = index;
-				FaxRequestFrame.this.monsterSelect.setElementList( FaxRequestFrame.monsterLists[ index ] );
+				int index = getSelectedIndex();
+                monsterIndex = index;
+                monsterSelect.setElementList( FaxRequestFrame.monsterLists[index] );
 			}
 		}
 	}
@@ -427,19 +427,19 @@ public class FaxRequestFrame
 		{
 			super( "", null, null, list, false );
 
-			this.elementList = list;
-			this.elementList.setSelectionMode( ListSelectionModel.SINGLE_SELECTION );
-			this.elementList.setVisibleRowCount( 8 );
+            elementList = list;
+            elementList.setSelectionMode( ListSelectionModel.SINGLE_SELECTION );
+            elementList.setVisibleRowCount( 8 );
 
-			this.filterfield = new AutoFilterTextField( this.elementList );
-			this.centerPanel.add( this.filterfield, BorderLayout.NORTH );
+            filterfield = new AutoFilterTextField( elementList );
+            centerPanel.add( filterfield, BorderLayout.NORTH );
 		}
 
 		public void setElementList( final ShowDescriptionList list )
 		{
-			this.elementList = list;
-			this.scrollPane.getViewport().setView( list );
-			this.filterfield.setList( list );
+            elementList = list;
+            scrollPane.getViewport().setView( list );
+            filterfield.setList( list );
 		}
 	}
 }

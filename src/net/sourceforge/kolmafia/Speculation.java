@@ -62,26 +62,26 @@ public class Speculation
 
 	public Speculation()
 	{
-		this.MCD = KoLCharacter.getMindControlLevel();
-		this.equipment = EquipmentManager.allEquipment();			
-		this.effects = new ArrayList();
-		this.effects.addAll( KoLConstants.activeEffects );
+        MCD = KoLCharacter.getMindControlLevel();
+        equipment = EquipmentManager.allEquipment();
+        effects = new ArrayList();
+        effects.addAll( KoLConstants.activeEffects );
 		// Strip out intrinsic effects granted by equipment - they will
 		// be readded if appropriate via Intrinsic Effect modifiers.
 		// We used to just strip out all intrinsics, back when non-equipment
 		// intrinsics were all just flavor rather than possibly significant.
-		for ( int i = this.equipment.length - 1; i >= 0; --i )
+		for ( int i = equipment.length - 1; i >= 0; --i )
 		{
-			if ( this.equipment[ i ] == null ) continue;
-			String name = this.equipment[ i ].getName();
+			if ( equipment[ i ] == null ) continue;
+			String name = equipment[ i ].getName();
 			Modifiers mods = Modifiers.getModifiers( name );
 			if ( mods == null ) continue;
 			name = mods.getString( Modifiers.INTRINSIC_EFFECT );
 			if ( name.length() == 0 ) continue;
-			this.effects.remove( new AdventureResult( name, 1, true ) );
+            effects.remove( new AdventureResult( name, 1, true ) );
 		}
-		this.familiar = KoLCharacter.currentFamiliar;
-		this.enthroned = KoLCharacter.currentEnthroned;
+        familiar = KoLCharacter.currentFamiliar;
+        enthroned = KoLCharacter.currentEnthroned;
 	}
 	
 	public void setMindControlLevel( int MCD )
@@ -96,61 +96,61 @@ public class Speculation
 	
 	public void setEnthroned( FamiliarData familiar )
 	{
-		this.enthroned = familiar;
+        enthroned = familiar;
 	}
 	
 	public FamiliarData getFamiliar()
 	{
-		return this.familiar;
+		return familiar;
 	}
 	
 	public void equip( int slot, AdventureResult item )
 	{
 		if ( slot < 0 || slot >= EquipmentManager.ALL_SLOTS ) return;
-		this.equipment[ slot ] = item;
+        equipment[ slot ] = item;
 		if ( slot == EquipmentManager.WEAPON &&
 			EquipmentDatabase.getHands( item.getItemId() ) > 1 )
 		{
-			this.equipment[ EquipmentManager.OFFHAND ] = EquipmentRequest.UNEQUIP;
+            equipment[ EquipmentManager.OFFHAND ] = EquipmentRequest.UNEQUIP;
 		}
 	}
 	
 	public boolean hasEffect( AdventureResult effect )
 	{
-		return this.effects.contains( effect );
+		return effects.contains( effect );
 	}
 
 	public void addEffect( AdventureResult effect )
 	{
-		if ( !this.effects.contains( effect ) )
+		if ( !effects.contains( effect ) )
 		{
-			this.effects.add( effect );
+            effects.add( effect );
 		}
 	}
 
 	public void removeEffect( AdventureResult effect )
 	{
-		this.effects.remove( effect );
+        effects.remove( effect );
 	}
 	
 	public Modifiers calculate()
 	{
-		this.mods = KoLCharacter.recalculateAdjustments(
+        mods = KoLCharacter.recalculateAdjustments(
 			false,
-			this.MCD,
-			this.equipment,
-			this.effects,
-			this.familiar,
-			this.enthroned,
+                MCD,
+                equipment,
+                effects,
+                familiar,
+                enthroned,
 			true );
-		this.calculated = true;
-		return this.mods;
+        calculated = true;
+		return mods;
 	}
 	
 	public Modifiers getModifiers()
 	{
-		if ( !this.calculated ) this.calculate();
-		return this.mods;
+		if ( !calculated ) calculate();
+		return mods;
 	}
 	
 	public boolean parse( String text )
@@ -166,7 +166,7 @@ public class Speculation
 			if ( cmd.equals( "" ) ) continue;
 			else if ( cmd.equals( "mcd" ) )
 			{
-				this.setMindControlLevel( StringUtilities.parseInt( params ) );
+                setMindControlLevel( StringUtilities.parseInt( params ) );
 			}
 			else if ( cmd.equals( "equip" ) )
 			{
@@ -194,7 +194,7 @@ public class Speculation
 						return true;
 					}
 				}
-				this.equip( slot, match );
+                equip( slot, match );
 			}
 			else if ( cmd.equals( "unequip" ) )
 			{
@@ -205,7 +205,7 @@ public class Speculation
 						"Unknown slot: " + params );
 					return true;
 				}
-				this.equip( slot, EquipmentRequest.UNEQUIP );
+                equip( slot, EquipmentRequest.UNEQUIP );
 			}
 			else if ( cmd.equals( "familiar" ) )
 			{
@@ -217,7 +217,7 @@ public class Speculation
 					return true;
 				}
 				FamiliarData fam = new FamiliarData( id );
-				this.setFamiliar( fam );
+                setFamiliar( fam );
 			}
 			else if ( cmd.equals( "enthrone" ) )
 			{
@@ -229,8 +229,8 @@ public class Speculation
 					return true;
 				}
 				FamiliarData fam = new FamiliarData( id );
-				this.setEnthroned( fam );
-				this.equip( EquipmentManager.HAT,
+                setEnthroned( fam );
+                equip( EquipmentManager.HAT,
 					ItemPool.get( ItemPool.HATSEAT, 1 ) );
 			}
 			else if ( cmd.equals( "up" ) )
@@ -244,9 +244,9 @@ public class Speculation
 				}
 
 				AdventureResult effect = new AdventureResult( (String) effects.get( 0 ), 1, true );
-				if ( !this.hasEffect( effect ) )
+				if ( !hasEffect( effect ) )
 				{
-					this.addEffect( effect );
+                    addEffect( effect );
 				}
 			}
 			else if ( cmd.equals( "uneffect" ) )
@@ -260,7 +260,7 @@ public class Speculation
 				}
 
 				AdventureResult effect = new AdventureResult( (String) effects.get( 0 ), 1, true );
-				this.removeEffect( effect );
+                removeEffect( effect );
 			}
 			else if ( cmd.equals( "quiet" ) )
 			{

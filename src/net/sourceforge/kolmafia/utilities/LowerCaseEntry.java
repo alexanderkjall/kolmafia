@@ -49,10 +49,10 @@ public class LowerCaseEntry implements Entry, Comparable<LowerCaseEntry>
 	private LowerCaseEntry( final Entry original )
 	{
 		this.original = original;
-		this.key = original.getKey();
-		this.value = original.getValue();
-		this.pairString = this.value + " (" + this.key + ")";
-		this.lowercase = this.value.toString().toLowerCase();
+        key = original.getKey();
+        value = original.getValue();
+        pairString = value + " (" + key + ")";
+        lowercase = value.toString().toLowerCase();
 	}
 
 	@Override
@@ -60,48 +60,48 @@ public class LowerCaseEntry implements Entry, Comparable<LowerCaseEntry>
 	{
 		if ( o instanceof LowerCaseEntry )
 		{
-			return this.original.equals( ( (LowerCaseEntry) o ).original );
+			return original.equals( ((LowerCaseEntry) o).original );
 		}
 
-		return this.original.equals( o );
+		return original.equals( o );
 	}
 
 	public Object getKey()
 	{
-		return this.key;
+		return key;
 	}
 
 	public Object getValue()
 	{
-		return this.value;
+		return value;
 	}
 
 	@Override
 	public String toString()
 	{
-		return this.pairString;
+		return pairString;
 	}
 
 	@Override
 	public int hashCode()
 	{
-		return this.original.hashCode();
+		return original.hashCode();
 	}
 
 	public Object setValue( final Object newValue )
 	{
-		Object returnValue = this.original.setValue( newValue );
+		Object returnValue = original.setValue( newValue );
 
-		this.value = newValue;
-		this.pairString = this.value + " (" + this.key + ")";
-		this.lowercase = this.value.toString().toLowerCase();
+        value = newValue;
+        pairString = value + " (" + key + ")";
+        lowercase = value.toString().toLowerCase();
 
 		return returnValue;
 	}
 
 	public String getLowerCase()
 	{
-		return this.lowercase;
+		return lowercase;
 	}
 
 	public static LockableListModel createListModel( final Set entries )

@@ -73,7 +73,7 @@ public class InventoryPanel
 	public InventoryPanel( final LockableListModel elementModel, final boolean[] flags )
 	{
 		super( elementModel, flags );
-		this.isEquipmentOnly = flags[0];
+        isEquipmentOnly = flags[0];
 
 		boolean isCloset = elementModel == KoLConstants.closet;
 		ActionListener useListener = isEquipmentOnly ?
@@ -90,20 +90,20 @@ public class InventoryPanel
 		listeners.add( new GiveToClanListener( isCloset ) );
 		if ( isEquipmentOnly )
 			listeners.add( new FamiliarFeedListener() );
-		this.setButtons( true, listeners.toArray( new ActionListener[ listeners.size() ] ));
+        setButtons( true, listeners.toArray( new ActionListener[ listeners.size() ] ));
 
-		if ( this.isEquipmentOnly )
+		if ( isEquipmentOnly )
 		{
-			this.elementList.setCellRenderer( ListCellRendererFactory.getEquipmentPowerRenderer() );
+            elementList.setCellRenderer( ListCellRendererFactory.getEquipmentPowerRenderer() );
 		}
 		else
 		{
-			this.elementList.setCellRenderer( ListCellRendererFactory.getDefaultRenderer() );
+            elementList.setCellRenderer( ListCellRendererFactory.getDefaultRenderer() );
 		}
 
-		if ( this.movers != null )
+		if ( movers != null )
 		{
-			this.movers[ 2 ].setSelected( true );
+            movers[ 2 ].setSelected( true );
 		}
 	}
 
@@ -113,47 +113,47 @@ public class InventoryPanel
 		super( confirmText, cancelText, model );
 		this.isEquipmentOnly = isEquipmentOnly;
 
-		this.addFilters();
+        addFilters();
 
 		if ( this.isEquipmentOnly )
 		{
-			this.elementList.setCellRenderer( ListCellRendererFactory.getEquipmentPowerRenderer() );
+            elementList.setCellRenderer( ListCellRendererFactory.getEquipmentPowerRenderer() );
 		}
 		else
 		{
-			this.elementList.setCellRenderer( ListCellRendererFactory.getDefaultRenderer() );
+            elementList.setCellRenderer( ListCellRendererFactory.getDefaultRenderer() );
 		}
 	}
 
 	@Override
 	public void addFilters()
 	{
-		if ( !this.isEquipmentOnly )
+		if ( !isEquipmentOnly )
 		{
 			super.addFilters();
 			return;
 		}
 
-		this.equipmentFilters = new FilterRadioButton[ 7 ];
-		this.equipmentFilters[ 0 ] = new FilterRadioButton( "weapons", true );
-		this.equipmentFilters[ 1 ] = new FilterRadioButton( "offhand" );
-		this.equipmentFilters[ 2 ] = new FilterRadioButton( "hats" );
-		this.equipmentFilters[ 3 ] = new FilterRadioButton( "shirts" );
-		this.equipmentFilters[ 4 ] = new FilterRadioButton( "pants" );
-		this.equipmentFilters[ 5 ] = new FilterRadioButton( "accessories" );
-		this.equipmentFilters[ 6 ] = new FilterRadioButton( "familiar" );
+        equipmentFilters = new FilterRadioButton[ 7 ];
+        equipmentFilters[ 0 ] = new FilterRadioButton( "weapons", true );
+        equipmentFilters[ 1 ] = new FilterRadioButton( "offhand" );
+        equipmentFilters[ 2 ] = new FilterRadioButton( "hats" );
+        equipmentFilters[ 3 ] = new FilterRadioButton( "shirts" );
+        equipmentFilters[ 4 ] = new FilterRadioButton( "pants" );
+        equipmentFilters[ 5 ] = new FilterRadioButton( "accessories" );
+        equipmentFilters[ 6 ] = new FilterRadioButton( "familiar" );
 
 		ButtonGroup filterGroup = new ButtonGroup();
 		JPanel filterPanel = new JPanel();
 
 		for ( int i = 0; i < 7; ++i )
 		{
-			filterGroup.add( this.equipmentFilters[ i ] );
-			filterPanel.add( this.equipmentFilters[ i ] );
+			filterGroup.add( equipmentFilters[ i ] );
+			filterPanel.add( equipmentFilters[ i ] );
 		}
 
-		this.northPanel.add( filterPanel, BorderLayout.NORTH );
-		this.filterItems();
+        northPanel.add( filterPanel, BorderLayout.NORTH );
+        filterItems();
 	}
 
 	@Override
@@ -173,7 +173,7 @@ public class InventoryPanel
 		public FilterRadioButton( final String label, final boolean isSelected )
 		{
 			super( label, isSelected );
-			InventoryPanel.this.listenToRadioButton( this );
+            listenToRadioButton( this );
 		}
 	}
 
@@ -183,7 +183,7 @@ public class InventoryPanel
 		@Override
 		public boolean isVisible( final Object element )
 		{
-			if ( InventoryPanel.this.equipmentFilters == null )
+			if ( equipmentFilters == null )
 			{
 				return super.isVisible( element );
 			}
@@ -211,31 +211,31 @@ public class InventoryPanel
 			switch ( ItemDatabase.getConsumptionType( name ) )
 			{
 			case KoLConstants.EQUIP_WEAPON:
-				isVisibleWithFilter = InventoryPanel.this.equipmentFilters[ 0 ].isSelected();
+				isVisibleWithFilter = equipmentFilters[ 0 ].isSelected();
 				break;
 
 			case KoLConstants.EQUIP_OFFHAND:
-				isVisibleWithFilter = InventoryPanel.this.equipmentFilters[ 1 ].isSelected();
+				isVisibleWithFilter = equipmentFilters[ 1 ].isSelected();
 				break;
 
 			case KoLConstants.EQUIP_HAT:
-				isVisibleWithFilter = InventoryPanel.this.equipmentFilters[ 2 ].isSelected();
+				isVisibleWithFilter = equipmentFilters[ 2 ].isSelected();
 				break;
 
 			case KoLConstants.EQUIP_SHIRT:
-				isVisibleWithFilter = InventoryPanel.this.equipmentFilters[ 3 ].isSelected();
+				isVisibleWithFilter = equipmentFilters[ 3 ].isSelected();
 				break;
 
 			case KoLConstants.EQUIP_PANTS:
-				isVisibleWithFilter = InventoryPanel.this.equipmentFilters[ 4 ].isSelected();
+				isVisibleWithFilter = equipmentFilters[ 4 ].isSelected();
 				break;
 
 			case KoLConstants.EQUIP_ACCESSORY:
-				isVisibleWithFilter = InventoryPanel.this.equipmentFilters[ 5 ].isSelected();
+				isVisibleWithFilter = equipmentFilters[ 5 ].isSelected();
 				break;
 
 			case KoLConstants.EQUIP_FAMILIAR:
-				isVisibleWithFilter = InventoryPanel.this.equipmentFilters[ 6 ].isSelected();
+				isVisibleWithFilter = equipmentFilters[ 6 ].isSelected();
 				break;
 
 			default:
@@ -256,7 +256,7 @@ public class InventoryPanel
 		@Override
 		protected void execute()
 		{
-			Object [] items = InventoryPanel.this.getDesiredItems( "Feed" );
+			Object [] items = getDesiredItems( "Feed" );
 
 			if ( items == null )
 			{

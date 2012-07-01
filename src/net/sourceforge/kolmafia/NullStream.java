@@ -52,13 +52,13 @@ public class NullStream
 	public NullStream()
 	{
 		super( System.out );
-		this.errorState = false;
+        errorState = false;
 	}
 
 	@Override
 	public boolean checkError()
 	{
-		return this.errorState;
+		return errorState;
 	}
 
 	@Override
@@ -164,7 +164,7 @@ public class NullStream
 	@Override
 	public void setError()
 	{
-		this.errorState = true;
+        errorState = true;
 	}
 
 	@Override

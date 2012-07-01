@@ -59,21 +59,21 @@ public class WineCellarRequest
 	public WineCellarRequest( final String demon)
 	{
 		super( "manor3.php" );
-		this.addFormField( "action", "summon" );
-		this.addFormField( "demonname", demon );
+        addFormField( "action", "summon" );
+        addFormField( "demonname", demon );
 	}
 
 	public WineCellarRequest( final int bottle)
 	{
 		super( "manor3.php" );
-		this.addFormField( "action", "pourwine" );
-		this.addFormField( "whichwine", String.valueOf( bottle ) );
+        addFormField( "action", "pourwine" );
+        addFormField( "whichwine", String.valueOf( bottle ) );
 	}
 
 	@Override
 	public void processResults()
 	{
-		WineCellarRequest.parseResponse( this.getURLString(), this.responseText );
+		WineCellarRequest.parseResponse( getURLString(), responseText );
 	}
 
 	public static void parseResponse( final String location, final String responseText )

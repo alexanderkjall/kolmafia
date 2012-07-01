@@ -44,7 +44,7 @@ public class BudgetCommand
 {
 	public BudgetCommand()
 	{
-		this.usage = " [<number>] - show [or set] the number of budgeted Hagnk's pulls.";
+        usage = " [<number>] - show [or set] the number of budgeted Hagnk's pulls.";
 	}
 
 	@Override

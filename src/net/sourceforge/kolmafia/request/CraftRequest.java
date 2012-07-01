@@ -56,58 +56,58 @@ public class CraftRequest
 	{
 		super( "craft.php" );
 
-		this.addFormField( "action", "craft" );
-		this.setMixingMethod( mode );
-		this.addFormField( "a", String.valueOf( itemId1 ) );
-		this.addFormField( "b", String.valueOf( itemId2 ) );
+        addFormField( "action", "craft" );
+        setMixingMethod( mode );
+        addFormField( "a", String.valueOf( itemId1 ) );
+        addFormField( "b", String.valueOf( itemId2 ) );
 
 		this.quantity = quantity;
-		this.remaining = quantity;
-		this.item1 = ItemPool.get( itemId1, quantity );
-		this.item2 = ItemPool.get( itemId2, quantity );
+        remaining = quantity;
+        item1 = ItemPool.get( itemId1, quantity );
+        item2 = ItemPool.get( itemId2, quantity );
 	}
 
 	private void setMixingMethod( final String mode )
 	{
 		if ( mode.equals( "combine" ) )
 		{
-			this.mixingMethod = KoLConstants.COMBINE;
+            mixingMethod = KoLConstants.COMBINE;
 		}
 		else if ( mode.equals( "cocktail" ) )
 		{
-			this.mixingMethod = KoLConstants.MIX;
+            mixingMethod = KoLConstants.MIX;
 		}
 		else if ( mode.equals( "cook" ) )
 		{
-			this.mixingMethod = KoLConstants.COOK;
+            mixingMethod = KoLConstants.COOK;
 		}
 		else if ( mode.equals( "smith" ) )
 		{
-			this.mixingMethod = KoLConstants.SMITH;
+            mixingMethod = KoLConstants.SMITH;
 		}
 		else if ( mode.equals( "jewelry" ) )
 		{
-			this.mixingMethod = KoLConstants.JEWELRY;
+            mixingMethod = KoLConstants.JEWELRY;
 		}
 		else
 		{
-			this.mixingMethod = KoLConstants.NOCREATE;
+            mixingMethod = KoLConstants.NOCREATE;
 			return;
 		}
 
-		this.addFormField( "mode", mode );
+        addFormField( "mode", mode );
 	}
 
 	public int created()
 	{
-		return this.quantity - this.remaining;
+		return quantity - remaining;
 	}
 
 	@Override
 	public void run()
 	{
-		if ( this.mixingMethod == KoLConstants.NOCREATE ||
-		     this.quantity <= 0 ||
+		if ( mixingMethod == KoLConstants.NOCREATE ||
+                quantity <= 0 ||
 		     !KoLmafia.permitsContinue() )
 		{
 			return;
@@ -115,48 +115,48 @@ public class CraftRequest
 
 		// Get all the ingredients up front
 
-		if ( !InventoryManager.retrieveItem( this.item1 ) ||
-		     !InventoryManager.retrieveItem( this.item2 ) )
+		if ( !InventoryManager.retrieveItem( item1 ) ||
+		     !InventoryManager.retrieveItem( item2 ) )
 		{
 			return;
 		}
 
-		this.remaining = this.quantity;
+        remaining = quantity;
 
-		while ( this.remaining > 0 && KoLmafia.permitsContinue() )
+		while ( remaining > 0 && KoLmafia.permitsContinue() )
 		{
-			if ( !CreateItemRequest.autoRepairBoxServant( this.mixingMethod ) )
+			if ( !CreateItemRequest.autoRepairBoxServant( mixingMethod ) )
 			{
 				KoLmafia.updateDisplay( MafiaState.ERROR, "Auto-repair was unsuccessful." );
 				return;
 			}
 
-			this.addFormField( "qty", String.valueOf( this.remaining ) );
-			this.created = 0;
+            addFormField( "qty", String.valueOf( remaining ) );
+            created = 0;
 
 			super.run();
 
-			if ( this.responseCode == 302 && this.redirectLocation.startsWith( "inventory" ) )
+			if ( responseCode == 302 && redirectLocation.startsWith( "inventory" ) )
 			{
-				CreateItemRequest.REDIRECT_REQUEST.constructURLString( this.redirectLocation ).run();
+				CreateItemRequest.REDIRECT_REQUEST.constructURLString( redirectLocation ).run();
 			}
 
-			if ( this.created == 0 )
+			if ( created == 0 )
 			{
 				KoLmafia.updateDisplay( MafiaState.ERROR, "Creation failed, no results detected." );
 				return;
 			}
 
-			this.remaining -= this.created;
+            remaining -= created;
 		}
 	}
 
 	@Override
 	public void processResults()
 	{
-		this.created = CreateItemRequest.parseCrafting( this.getURLString(), this.responseText );
+        created = CreateItemRequest.parseCrafting( getURLString(), responseText );
 
-		if ( this.responseText.contains( "Smoke" ) )
+		if ( responseText.contains( "Smoke" ) )
 		{
 			KoLmafia.updateDisplay( "Your box servant has escaped!" );
 		}

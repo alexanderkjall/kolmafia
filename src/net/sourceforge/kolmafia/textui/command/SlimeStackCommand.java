@@ -43,7 +43,7 @@ public class SlimeStackCommand
 {
 	public SlimeStackCommand()
 	{
-		this.usage = " - show details of slime stacks disgorged by Slimeling";
+        usage = " - show details of slime stacks disgorged by Slimeling";
 	}
 	
 	@Override

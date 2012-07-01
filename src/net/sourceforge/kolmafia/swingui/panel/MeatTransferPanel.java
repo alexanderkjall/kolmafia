@@ -66,17 +66,17 @@ public class MeatTransferPanel
 		super( MeatTransferPanel.getTitle( transferType ),
 			"transfer", "transfer all", new Dimension( 80, 20 ), new Dimension( 240, 20 ) );
 
-		this.amountField = new AutoHighlightTextField();
-		this.closetField = new JLabel( " " );
+        amountField = new AutoHighlightTextField();
+        closetField = new JLabel( " " );
 
 		VerifiableElement[] elements = new VerifiableElement[ 2 ];
-		elements[ 0 ] = new VerifiableElement( "Amount: ", this.amountField );
-		elements[ 1 ] = new VerifiableElement( "Available: ", this.closetField );
+		elements[ 0 ] = new VerifiableElement( "Amount: ", amountField );
+		elements[ 1 ] = new VerifiableElement( "Available: ", closetField );
 
-		this.setContent( elements );
+        setContent( elements );
 
 		this.transferType = transferType;
-		this.refreshCurrentAmount();
+        refreshCurrentAmount();
 
 		KoLCharacter.addCharacterListener( new KoLCharacterAdapter( new AmountRefresher() ) );
 	}
@@ -111,7 +111,7 @@ public class MeatTransferPanel
 
 	private int currentAvailable()
 	{
-		switch ( this.transferType )
+		switch ( transferType )
 		{
 		case MeatTransferPanel.MEAT_TO_CLOSET:
 			return KoLCharacter.getAvailableMeat();
@@ -126,17 +126,17 @@ public class MeatTransferPanel
 
 	private void refreshCurrentAmount()
 	{
-		switch ( this.transferType )
+		switch ( transferType )
 		{
 		case MeatTransferPanel.MEAT_TO_CLOSET:
 		case MeatTransferPanel.MEAT_TO_INVENTORY:
 		case MeatTransferPanel.PULL_MEAT_FROM_STORAGE:
-			int amount = this.currentAvailable();
-			this.closetField.setText( KoLConstants.COMMA_FORMAT.format( amount ) + " meat" );
+			int amount = currentAvailable();
+            closetField.setText( KoLConstants.COMMA_FORMAT.format( amount ) + " meat" );
 			break;
 
 		default:
-			this.closetField.setText( "Information not available" );
+            closetField.setText( "Information not available" );
 			break;
 		}
 	}
@@ -144,15 +144,15 @@ public class MeatTransferPanel
 	@Override
 	public void actionConfirmed()
 	{
-		int amountToTransfer = InputFieldUtilities.getValue( this.amountField );
+		int amountToTransfer = InputFieldUtilities.getValue( amountField );
 
-		RequestThread.postRequest( this.getRequest( amountToTransfer ) );
+		RequestThread.postRequest( getRequest( amountToTransfer ) );
 	}
 
 	@Override
 	public void actionCancelled()
 	{
-		RequestThread.postRequest( this.getRequest( this.currentAvailable() ) );
+		RequestThread.postRequest( getRequest( currentAvailable() ) );
 	}
 
 	public boolean shouldAddStatusLabel( final VerifiableElement[] elements )
@@ -165,7 +165,7 @@ public class MeatTransferPanel
 	{
 		public void run()
 		{
-			MeatTransferPanel.this.refreshCurrentAmount();
+            refreshCurrentAmount();
 		}
 	}
 }

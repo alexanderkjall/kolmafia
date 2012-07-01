@@ -42,7 +42,7 @@ public class WindowOpenCommand
 {
 	public WindowOpenCommand()
 	{
-		this.usage = " - switch to tab or open window";
+        usage = " - switch to tab or open window";
 	}
 
 	@Override

@@ -64,7 +64,7 @@ public class GuildRequest
 	public GuildRequest( final String place)
 	{
 		this();
-		this.addFormField( "place", place );
+        addFormField( "place", place );
 	}
 
 	public static String whichGuild()
@@ -257,7 +257,7 @@ public class GuildRequest
 	@Override
 	public void processResults()
 	{
-		GuildRequest.parseResponse( this.getURLString(), this.responseText );
+		GuildRequest.parseResponse( getURLString(), responseText );
 	}
 
 	public static int findSkill( final String urlString )

@@ -66,7 +66,7 @@ public abstract class OptionsPanel
 	{
 		super( left, right );
 
-		this.refreshConcoctions = false;
+        refreshConcoctions = false;
 	}
 
 	public void setOptions( String[][] options )
@@ -75,7 +75,7 @@ public abstract class OptionsPanel
 
 		VerifiableElement[] elements = new VerifiableElement[ this.options.length ];
 
-		this.optionBoxes = new JCheckBox[ this.options.length ];
+        optionBoxes = new JCheckBox[ this.options.length ];
 
 		for ( int i = 0; i < this.options.length; ++i )
 		{
@@ -87,19 +87,19 @@ public abstract class OptionsPanel
 			}
 			else if ( option.length < 3 )
 			{
-				this.optionBoxes[ i ] = new JCheckBox();
-				elements[ i ] = new VerifiableElement( option[ 1 ], SwingConstants.LEFT, this.optionBoxes[ i ] );
+                optionBoxes[ i ] = new JCheckBox();
+				elements[ i ] = new VerifiableElement( option[ 1 ], SwingConstants.LEFT, optionBoxes[ i ] );
 			}
 			else
 			{
-				this.refreshConcoctions = true;
-				this.optionBoxes[ i ] = new CreationSettingCheckBox( option[ 0 ] );
-				elements[ i ] = new VerifiableElement( option[ 1 ], SwingConstants.LEFT, this.optionBoxes[ i ] );
+                refreshConcoctions = true;
+                optionBoxes[ i ] = new CreationSettingCheckBox( option[ 0 ] );
+				elements[ i ] = new VerifiableElement( option[ 1 ], SwingConstants.LEFT, optionBoxes[ i ] );
 			}
 		}
 
-		this.setContent( elements );
-		this.actionCancelled();
+        setContent( elements );
+        actionCancelled();
 	}
 
 	@Override
@@ -116,25 +116,25 @@ public abstract class OptionsPanel
 	@Override
 	public void actionConfirmed()
 	{
-		if ( this.optionBoxes == null )
+		if ( optionBoxes == null )
 		{
 			return;
 		}
 
-		for ( int i = 0; i < this.options.length; ++i )
+		for ( int i = 0; i < options.length; ++i )
 		{
-			String[] option = this.options[ i ];
+			String[] option = options[ i ];
 
 			if ( option.length == 0 )
 			{
 				continue;
 			}
 
-			JCheckBox optionBox = this.optionBoxes[ i ];
+			JCheckBox optionBox = optionBoxes[ i ];
 			Preferences.setBoolean( option[ 0 ], optionBox.isSelected() );
 		}
 
-		if ( this.refreshConcoctions )
+		if ( refreshConcoctions )
 		{
 			ConcoctionDatabase.refreshConcoctions( true );
 		}
@@ -143,21 +143,21 @@ public abstract class OptionsPanel
 	@Override
 	public void actionCancelled()
 	{
-		if ( this.optionBoxes == null )
+		if ( optionBoxes == null )
 		{
 			return;
 		}
 
-		for ( int i = 0; i < this.options.length; ++i )
+		for ( int i = 0; i < options.length; ++i )
 		{
-			String[] option = this.options[ i ];
+			String[] option = options[ i ];
 
 			if ( option.length == 0 )
 			{
 				continue;
 			}
 
-			JCheckBox optionBox = this.optionBoxes[ i ];
+			JCheckBox optionBox = optionBoxes[ i ];
 			optionBox.setSelected( Preferences.getBoolean( option[ 0 ] ) );
 		}
 	}

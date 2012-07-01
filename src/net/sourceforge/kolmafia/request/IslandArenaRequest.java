@@ -72,28 +72,28 @@ public class IslandArenaRequest
 	public IslandArenaRequest( final int option )
 	{
 		super( chooseUrl() );
-		if ( this.getPath().equals( "bogus.php" ) )
+		if ( getPath().equals( "bogus.php" ) )
 		{
 			setError();
 			return;
 		}
 
-		this.addFormField( "action", "concert" );
+        addFormField( "action", "concert" );
 
 		if ( option < 0 || option > 3 )
 		{
-			this.error = "Invalid concert selected";
+            error = "Invalid concert selected";
 			return;
 		}
 
 		this.option = option;
-		this.addFormField( "option", String.valueOf( option ) );
+        addFormField( "option", String.valueOf( option ) );
 	}
 
 	public IslandArenaRequest( final String effect )
 	{
 		super( chooseUrl() );
-		if ( this.getPath().equals( "bogus.php" ) )
+		if ( getPath().equals( "bogus.php" ) )
 		{
 			setError();
 			return;
@@ -105,19 +105,19 @@ public class IslandArenaRequest
 		{
 			if ( array[i][0].toLowerCase().startsWith( effect.toLowerCase() ) )
 			{
-				this.option = i + 1;
+                option = i + 1;
 				break;
 			}
 		}
 
-		if ( this.option == 0 )
+		if ( option == 0 )
 		{
-			this.error = "That effect not available to " + IslandArenaRequest.quest;
+            error = "That effect not available to " + IslandArenaRequest.quest;
 			return;
 		}
 
-		this.addFormField( "action", "concert" );
-		this.addFormField( "option", String.valueOf( this.option ) );
+        addFormField( "action", "concert" );
+        addFormField( "option", String.valueOf( option ) );
 	}
 
 	private static String chooseUrl()
@@ -140,12 +140,12 @@ public class IslandArenaRequest
 		// If he has not yet finished the sidequest, say so
 		if ( IslandArenaRequest.quest.equals( "none" ) )
 		{
-			this.error = "Arena not open";
+            error = "Arena not open";
 		}
 		else
 		{
 			// Otherwise, he won the war for the wrong side
-			this.error = "Arena's fans defeated in war";
+            error = "Arena's fans defeated in war";
 		}
 	}
 
@@ -158,9 +158,9 @@ public class IslandArenaRequest
 	@Override
 	public void run()
 	{
-		if ( this.error != null )
+		if ( error != null )
 		{
-			KoLmafia.updateDisplay( MafiaState.ERROR, this.error );
+			KoLmafia.updateDisplay( MafiaState.ERROR, error );
 			return;
 		}
 
@@ -171,21 +171,21 @@ public class IslandArenaRequest
 	@Override
 	public void processResults()
 	{
-		if ( this.responseText == null || this.responseText.equals( "" ) )
+		if ( responseText == null || responseText.equals( "" ) )
 		{
 			KoLmafia.updateDisplay( MafiaState.ERROR, "You can't find the Mysterious Island Arena." );
 			return;
 		}
 
-		IslandArenaRequest.parseResponse( this.getURLString(), this.responseText );
+		IslandArenaRequest.parseResponse( getURLString(), responseText );
 
 		// Unfortunately, you think you've pretty much tapped out this
 		// event's entertainment potential for today
 		//
 		// You're all rocked out.
 
-		if ( this.responseText.contains( "pretty much tapped out" ) ||
-                this.responseText.contains( "You're all rocked out" ) )
+		if ( responseText.contains( "pretty much tapped out" ) ||
+                responseText.contains( "You're all rocked out" ) )
 		{
 			KoLmafia.updateDisplay( "You can only visit the Mysterious Island Arena once a day." );
 			return;

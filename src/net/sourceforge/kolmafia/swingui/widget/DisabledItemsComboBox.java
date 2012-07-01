@@ -57,7 +57,7 @@ public class DisabledItemsComboBox
 		super();
 		//need to use a custom renderer in order to disable
 		//individual items within a JComboBox.
-		super.setRenderer( this.itemRenderer );
+		super.setRenderer( itemRenderer );
 	}
 
 	public void addItem( Object object, boolean disabled ) 
@@ -66,7 +66,7 @@ public class DisabledItemsComboBox
 
 		if ( disabled )
 		{
-			this.disabledItems.add( object.toString() );
+            disabledItems.add( object.toString() );
 		}
 	}
 
@@ -74,7 +74,7 @@ public class DisabledItemsComboBox
 	public void removeAllItems() 
 	{
 		super.removeAllItems();
-		this.disabledItems.clear();
+        disabledItems.clear();
 	}
 
 	@Override
@@ -86,7 +86,7 @@ public class DisabledItemsComboBox
 		}
 
 		Object object = super.getItemAt( index );
-		this.removeItem( object );
+        removeItem( object );
 	}
 
 	@Override
@@ -94,7 +94,7 @@ public class DisabledItemsComboBox
 	{
 		if ( object != null )
 		{
-			this.disabledItems.remove( object.toString() );
+            disabledItems.remove( object.toString() );
 			super.removeItem( object );
 		}
 	}
@@ -109,7 +109,7 @@ public class DisabledItemsComboBox
 		}
 
 		Object object = super.getItemAt( index );
-		if ( !this.disabledItems.contains( object.toString() ) )
+		if ( !disabledItems.contains( object.toString() ) )
 		{
 			super.setSelectedIndex( index );
 		}
@@ -128,11 +128,11 @@ public class DisabledItemsComboBox
 
 		if ( disabled )
 		{
-			this.disabledItems.add( object.toString() );
+            disabledItems.add( object.toString() );
 		}
 		else
 		{
-			this.disabledItems.remove( object.toString() );
+            disabledItems.remove( object.toString() );
 		}
 	}
       

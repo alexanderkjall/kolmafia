@@ -47,7 +47,7 @@ public class OutfitCommand
 {
 	public OutfitCommand()
 	{
-		this.usage = " [list <filter>] | save <name> | checkpoint | <name> - list, save, restore, or change outfits.";
+        usage = " [list <filter>] | save <name> | checkpoint | <name> - list, save, restore, or change outfits.";
 	}
 
 	@Override

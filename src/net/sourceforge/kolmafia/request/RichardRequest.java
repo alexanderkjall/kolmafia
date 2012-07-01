@@ -62,9 +62,9 @@ public class RichardRequest
 	public RichardRequest( final int equipmentId )
 	{
 		super( "clan_hobopolis.php" );
-		this.addFormField( "place", "3" );
-		this.addFormField( "preaction", "spendturns" );
-		this.addFormField( "whichservice", String.valueOf( equipmentId ) );
+        addFormField( "place", "3" );
+        addFormField( "preaction", "spendturns" );
+        addFormField( "whichservice", String.valueOf( equipmentId ) );
 	}
 
 	public RichardRequest setTurnCount( final int turnCount )
@@ -76,9 +76,9 @@ public class RichardRequest
 	@Override
 	public void run()
 	{
-		this.addFormField( "numturns", String.valueOf( this.turnCount ) );
+        addFormField( "numturns", String.valueOf( turnCount ) );
 
-		if ( KoLCharacter.getAdventuresLeft() < this.turnCount )
+		if ( KoLCharacter.getAdventuresLeft() < turnCount )
 		{
 			KoLmafia.updateDisplay( MafiaState.ERROR, "Insufficient adventures." );
 			return;
@@ -106,7 +106,7 @@ public class RichardRequest
 	@Override
 	public int getAdventuresUsed()
 	{
-		return this.turnCount;
+		return turnCount;
 	}
 
 	public static boolean registerRequest( final String urlString )

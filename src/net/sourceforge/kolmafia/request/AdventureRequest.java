@@ -119,47 +119,47 @@ public class AdventureRequest
 
 		if ( formSource.equals( "adventure.php" ) )
 		{
-			this.addFormField( "snarfblat", adventureId );
+            addFormField( "snarfblat", adventureId );
 		}
 		else if ( formSource.equals( "shore.php" ) )
 		{
-			this.addFormField( "whichtrip", adventureId );
+            addFormField( "whichtrip", adventureId );
 		}
 		else if ( formSource.equals( "casino.php" ) )
 		{
-			this.addFormField( "action", "slot" );
-			this.addFormField( "whichslot", adventureId );
+            addFormField( "action", "slot" );
+            addFormField( "whichslot", adventureId );
 		}
 		else if ( formSource.equals( "crimbo10.php" ) )
 		{
-			this.addFormField( "place", adventureId );
+            addFormField( "place", adventureId );
 		}
 		else if ( formSource.equals( "cobbsknob.php" ) )
 		{
-			this.addFormField( "action", "throneroom" );
+            addFormField( "action", "throneroom" );
 		}
 		else if ( formSource.equals( "mountains.php" ) )
 		{
-			this.addFormField( "orcs", "1" );
+            addFormField( "orcs", "1" );
 		}
 		else if ( formSource.equals( "friars.php" ) )
 		{
-			this.addFormField( "action", "ritual" );
+            addFormField( "action", "ritual" );
 		}
 		else if ( formSource.equals( "lair6.php" ) )
 		{
-			this.addFormField( "place", adventureId );
+            addFormField( "place", adventureId );
 		}
 		else if ( formSource.equals( "invasion.php" ) )
 		{
-			this.addFormField( "action", adventureId );
+            addFormField( "action", adventureId );
 		}
 		else if ( !formSource.equals( "dungeon.php" ) &&
 			  !formSource.equals( "basement.php" ) &&
 			  !formSource.equals( "cellar.php" ) &&
 			  !formSource.equals( "barrel.php" ) )
 		{
-			this.addFormField( "action", adventureId );
+            addFormField( "action", adventureId );
 		}
 	}
 
@@ -180,7 +180,7 @@ public class AdventureRequest
 			return;
 		}
 
-		if ( this.formSource.equals( "mountains.php" ) )
+		if ( formSource.equals( "mountains.php" ) )
 		{
 			AdventureRequest.ZONE_UNLOCK.constructURLString( "mountains.php" ).run();
 			if ( AdventureRequest.ZONE_UNLOCK.responseText.contains( "value=80" ) )
@@ -190,7 +190,7 @@ public class AdventureRequest
 			}
 		}
 
-		else if ( this.formSource.equals( "shore.php" ) )
+		else if ( formSource.equals( "shore.php" ) )
 		{
 			int adv = KoLCharacter.inFistcore() ? 5 : 3;
 			if ( KoLCharacter.getAdventuresLeft() < adv )
@@ -200,7 +200,7 @@ public class AdventureRequest
 			}
 		}
 
-		else if ( this.formSource.equals( "mountains.php" ) )
+		else if ( formSource.equals( "mountains.php" ) )
 		{
 			if ( !InventoryManager.retrieveItem( ItemPool.BRIDGE ) )
 			{
@@ -209,19 +209,19 @@ public class AdventureRequest
 			}
 		}
 
-		if ( this.formSource.equals( "dungeon.php" ) )
+		if ( formSource.equals( "dungeon.php" ) )
 		{
-			this.data.clear();
+            data.clear();
 		}
 
-		else if ( this.formSource.equals( "adventure.php" ) && this.adventureId.equals( "120" ) )
+		else if ( formSource.equals( "adventure.php" ) && adventureId.equals( "120" ) )
 		{
 			// Replace with a (not-so-)randomly chosen corner
-			this.removeFormField( "snarfblat" );
-			this.addFormField( "snarfblat", String.valueOf( CellarDecorator.recommendCorner() ) );
+            removeFormField( "snarfblat" );
+            addFormField( "snarfblat", String.valueOf( CellarDecorator.recommendCorner() ) );
 		}
 
-		else if ( this.formSource.equals( "barrel.php" ) )
+		else if ( formSource.equals( "barrel.php" ) )
 		{
 			int square = BarrelDecorator.recommendSquare();
 			if ( square == 0 )
@@ -230,10 +230,10 @@ public class AdventureRequest
 					"All booze in the specified rows has been collected." );
 				return;
 			}
-			this.addFormField( "smash", String.valueOf( square ) );
+            addFormField( "smash", String.valueOf( square ) );
 		}
 
-		else if ( this.formSource.equals( "cellar.php" ) )
+		else if ( formSource.equals( "cellar.php" ) )
 		{
 			int square = TavernManager.recommendSquare();
 			if ( square == 0 )
@@ -241,33 +241,33 @@ public class AdventureRequest
 				KoLmafia.updateDisplay( MafiaState.ERROR, "Don't know which square to visit in the Tavern Cellar." );
 				return;
 			}
-			this.addFormField( "whichspot", String.valueOf( square ) );
-			this.addFormField( "action", "explore" );
+            addFormField( "whichspot", String.valueOf( square ) );
+            addFormField( "action", "explore" );
 		}
 
 		super.run();
 
-		if ( this.responseCode != 200 )
+		if ( responseCode != 200 )
 		{
 			return;
 		}
 
-		if ( this.formSource.equals( "dungeon.php" ) )
+		if ( formSource.equals( "dungeon.php" ) )
 		{
-			this.addFormField( "action", "Yep." );
+            addFormField( "action", "Yep." );
 
-			if ( this.responseText.contains( "Locked Door" ) && AdventureRequest.SKELETON_KEY.getCount( KoLConstants.inventory ) + AdventureRequest.SKELETON_KEY.getCount( KoLConstants.closet ) > 1 )
+			if ( responseText.contains( "Locked Door" ) && AdventureRequest.SKELETON_KEY.getCount( KoLConstants.inventory ) + AdventureRequest.SKELETON_KEY.getCount( KoLConstants.closet ) > 1 )
 			{
 				ResultProcessor.processResult( AdventureRequest.SKELETON_KEY.getInstance( -1 ) );
-				this.addFormField( "option", "2" );
+                addFormField( "option", "2" );
 			}
-			else if ( this.responseText.contains( "\"Move on\"" ) )
+			else if ( responseText.contains( "\"Move on\"" ) )
 			{
-				this.addFormField( "option", "2" );
+                addFormField( "option", "2" );
 			}
 			else
 			{
-				this.addFormField( "option", "1" );
+                addFormField( "option", "1" );
 			}
 
 			super.run();
@@ -280,7 +280,7 @@ public class AdventureRequest
 		// Sometimes, there's no response from the server.
 		// In this case, skip and continue onto the next one.
 
-		if ( this.responseText == null || this.responseText.trim().length() == 0 )
+		if ( responseText == null || responseText.trim().length() == 0 )
 		{
 			KoLmafia.updateDisplay( MafiaState.ERROR, "You can't get to that area yet." );
 			return;
@@ -291,7 +291,7 @@ public class AdventureRequest
 		// if the hedge maze is not complete, use up all their
 		// pieces first, then go adventuring.
 
-		if ( this.formSource.equals( "lair3.php" ) )
+		if ( formSource.equals( "lair3.php" ) )
 		{
 			if ( InventoryManager.hasItem( HedgePuzzleRequest.HEDGE_KEY ) && InventoryManager.hasItem( HedgePuzzleRequest.PUZZLE_PIECE ) )
 			{
@@ -301,7 +301,7 @@ public class AdventureRequest
 			return;
 		}
 
-		if ( this.formSource.equals( "dungeon.php" ) && this.responseText.contains( "You have reached the bottom of today's Dungeon" ) )
+		if ( formSource.equals( "dungeon.php" ) && responseText.contains( "You have reached the bottom of today's Dungeon" ) )
 		{
 			KoLmafia.updateDisplay( MafiaState.PENDING, "Daily dungeon completed." );
 			return;
@@ -310,7 +310,7 @@ public class AdventureRequest
 		// The sorceress fight should always result in you getting
 		// a fight redirect.
 
-		if ( this.formSource.equals( "lair6.php" ) )
+		if ( formSource.equals( "lair6.php" ) )
 		{
 			KoLmafia.updateDisplay( MafiaState.PENDING, "The sorceress has already been defeated." );
 			return;
@@ -318,14 +318,14 @@ public class AdventureRequest
 
 		// If you haven't unlocked the orc chasm yet, try doing so now.
 
-		if ( this.adventureId.equals( "80" ) && this.responseText.contains( "You shouldn't be here." ) )
+		if ( adventureId.equals( "80" ) && responseText.contains( "You shouldn't be here." ) )
 		{
 			AdventureRequest bridge = new AdventureRequest( "Bridge the Orc Chasm", "mountains.php", "" );
 			bridge.run();
 
 			if ( KoLmafia.permitsContinue() )
 			{
-				this.run();
+                run();
 			}
 
 			return;
@@ -334,20 +334,20 @@ public class AdventureRequest
 		// We're missing an item, haven't been given a quest yet, or
 		// otherwise trying to go somewhere not allowed.
 
-		int index = KoLAdventure.findAdventureFailure( this.responseText );
+		int index = KoLAdventure.findAdventureFailure( responseText );
 		if ( index >= 0 )
 		{
 			String failure = KoLAdventure.adventureFailureMessage( index );
 			MafiaState severity = KoLAdventure.adventureFailureSeverity( index );
 			KoLmafia.updateDisplay( severity, failure );
-			this.override = 0;
+            override = 0;
 			return;
 		}
 
 		// This is a server error. Hope for the best and repeat the
 		// request.
 
-		if ( this.responseText.contains( "No adventure data exists for this location" ) )
+		if ( responseText.contains( "No adventure data exists for this location" ) )
 		{
 			KoLmafia.updateDisplay( MafiaState.ERROR, "Server error.  Please wait and try again." );
 			return;
@@ -355,11 +355,11 @@ public class AdventureRequest
 
 		// Nothing more to do in this area
 
-		if ( this.formSource.equals( "adventure.php" ) &&
-                !this.responseText.contains( "adventure.php" ) &&
-                !this.responseText.contains( "You acquire" ) )
+		if ( formSource.equals( "adventure.php" ) &&
+                !responseText.contains( "adventure.php" ) &&
+                !responseText.contains( "You acquire" ) )
 		{
-			if ( !KoLmafia.isAutoStop( this.encounter ) )
+			if ( !KoLmafia.isAutoStop( encounter ) )
 			{
 				KoLmafia.updateDisplay( MafiaState.PENDING, "Nothing more to do here." );
 			}
@@ -370,27 +370,27 @@ public class AdventureRequest
 		// If you're at the casino, each of the different slot
 		// machines deducts meat from your tally
 
-		if ( this.formSource.equals( "casino.php" ) )
+		if ( formSource.equals( "casino.php" ) )
 		{
-			if ( this.adventureId.equals( "1" ) )
+			if ( adventureId.equals( "1" ) )
 			{
 				ResultProcessor.processMeat( -5 );
 			}
-			else if ( this.adventureId.equals( "2" ) )
+			else if ( adventureId.equals( "2" ) )
 			{
 				ResultProcessor.processMeat( -10 );
 			}
-			else if ( this.adventureId.equals( "11" ) )
+			else if ( adventureId.equals( "11" ) )
 			{
 				ResultProcessor.processMeat( -10 );
 			}
 		}
 
-		if ( this.adventureId.equals( "70" ) )
+		if ( adventureId.equals( "70" ) )
 		{
 			ResultProcessor.processMeat( -10 );
 		}
-		else if ( this.adventureId.equals( "71" ) )
+		else if ( adventureId.equals( "71" ) )
 		{
 			ResultProcessor.processMeat( -30 );
 		}
@@ -398,7 +398,7 @@ public class AdventureRequest
 		// Trick-or-treating requires a costume;
 		// notify the user of this error.
 
-		if ( this.formSource.equals( "trickortreat.php" ) && this.responseText.contains( "without a costume" ) )
+		if ( formSource.equals( "trickortreat.php" ) && responseText.contains( "without a costume" ) )
 		{
 			KoLmafia.updateDisplay( MafiaState.ERROR, "You must wear a costume." );
 			return;
@@ -1139,33 +1139,33 @@ public class AdventureRequest
 	@Override
 	public int getAdventuresUsed()
 	{
-		if ( this.override >= 0 )
+		if ( override >= 0 )
 		{
-			return this.override;
+			return override;
 		}
-		if ( this.adventureId.equals( "123" ) )
+		if ( adventureId.equals( "123" ) )
 		{	// Desert (Ultrahydrated) may also visit the Oasis
 			return KoLConstants.activeEffects.contains(
 				EffectPool.get( Effect.HYDRATED ) ) ? 1 : 2;
 		}
-		String zone = AdventureDatabase.getZone( this.adventureName );
+		String zone = AdventureDatabase.getZone( adventureName );
 		if ( zone != null && zone.equals( "The Sea" ) )
 		{
 			return KoLConstants.activeEffects.contains(
 				EffectPool.get( Effect.FISHY ) ) ? 1 : 2;
 		}
-		return this.formSource.startsWith( "shore" ) ? 3 : 1;
+		return formSource.startsWith( "shore" ) ? 3 : 1;
 	}
 
 	public void overrideAdventuresUsed( int used )
 	{
-		this.override = used;
+        override = used;
 	}
 
 	@Override
 	public String toString()
 	{
-		return this.adventureName;
+		return adventureName;
 	}
 
 	public static void handleServerRedirect( final String redirectLocation )

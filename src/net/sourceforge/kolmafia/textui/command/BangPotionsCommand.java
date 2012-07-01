@@ -50,7 +50,7 @@ public class BangPotionsCommand
 {
 	public BangPotionsCommand()
 	{
-		this.usage = " - list the potions you've identified.";
+        usage = " - list the potions you've identified.";
 	}
 
 	@Override

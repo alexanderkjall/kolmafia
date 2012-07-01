@@ -42,7 +42,7 @@ public class StickersCommand
 {
 	public StickersCommand()
 	{
-		this.usage = " <sticker1> [, <sticker2> [, <sticker3>]] - replace worn stickers.";
+        usage = " <sticker1> [, <sticker2> [, <sticker3>]] - replace worn stickers.";
 	}
 
 	@Override

@@ -51,7 +51,7 @@ public abstract class InterpreterState
 	@Override
 	public String toString()
 	{
-		return this.state;
+		return state;
 	}
 
 	@Override
@@ -60,10 +60,10 @@ public abstract class InterpreterState
 		if ( interpreter.isTracing() )
 		{
 			interpreter.traceIndent();
-			interpreter.trace( this.toString() );
+			interpreter.trace( toString() );
 			interpreter.traceUnindent();
 		}
-		interpreter.setState( this.state );
+		interpreter.setState( state );
 		return DataTypes.VOID_VALUE;
 	}
 
@@ -71,7 +71,7 @@ public abstract class InterpreterState
 	public void print( final PrintStream stream, final int indent )
 	{
 		Interpreter.indentLine( stream, indent );
-		stream.println( "<COMMAND " + this.state + ">" );
+		stream.println( "<COMMAND " + state + ">" );
 	}
 	
 	@Override

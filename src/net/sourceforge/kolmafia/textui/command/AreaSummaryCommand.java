@@ -43,7 +43,7 @@ public class AreaSummaryCommand
 {
 	public AreaSummaryCommand()
 	{
-		this.usage = " <location> - show summary data for the specified area.";
+        usage = " <location> - show summary data for the specified area.";
 	}
 
 	@Override
@@ -67,6 +67,6 @@ public class AreaSummaryCommand
 		data.getSummary( buffer, false );
 		buffer.append( "</html>" );
 
-		this.CLI.showHTML( "", buffer.toString() );
+        CLI.showHTML( "", buffer.toString() );
 	}
 }

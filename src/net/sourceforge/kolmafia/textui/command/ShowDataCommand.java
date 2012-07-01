@@ -76,7 +76,7 @@ public class ShowDataCommand
 {
 	public ShowDataCommand()
 	{
-		this.usage = " [<param>] - list indicated type of data, possibly filtered by param.";
+        usage = " [<param>] - list indicated type of data, possibly filtered by param.";
 	}
 
 	@Override

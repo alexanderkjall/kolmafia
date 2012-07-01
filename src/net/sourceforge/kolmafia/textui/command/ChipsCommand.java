@@ -44,7 +44,7 @@ public class ChipsCommand
 {
 	public ChipsCommand()
 	{
-		this.usage = " type [,type [,type]] - buy chips from your clan's snack machine";
+        usage = " type [,type [,type]] - buy chips from your clan's snack machine";
 	}
 
 	@Override

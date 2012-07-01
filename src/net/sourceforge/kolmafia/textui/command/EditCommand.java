@@ -50,7 +50,7 @@ public class EditCommand
 {
 	public EditCommand()
 	{
-		this.usage = " <filename> - launch external editor for a script or map file.";
+        usage = " <filename> - launch external editor for a script or map file.";
 	}
 
 	@Override

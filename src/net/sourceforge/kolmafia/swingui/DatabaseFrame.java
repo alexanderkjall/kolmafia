@@ -73,12 +73,12 @@ public class DatabaseFrame
 	{
 		super( "Internal Database" );
 
-		this.tabs.addTab( "Items", new ExamineItemsPanel() );
-		this.tabs.addTab( "Familiars", new ItemLookupPanel( DatabaseFrame.allFamiliars, "familiar", "which" ) );
-		this.tabs.addTab( "Skills", new ItemLookupPanel( DatabaseFrame.allSkills, "skill", "whichskill" ) );
-		this.tabs.addTab( "Effects", new ExamineEffectsPanel() );
+        tabs.addTab( "Items", new ExamineItemsPanel() );
+        tabs.addTab( "Familiars", new ItemLookupPanel( DatabaseFrame.allFamiliars, "familiar", "which" ) );
+        tabs.addTab( "Skills", new ItemLookupPanel( DatabaseFrame.allSkills, "skill", "whichskill" ) );
+        tabs.addTab( "Effects", new ExamineEffectsPanel() );
 
-		this.setCenterComponent( this.tabs );
+        setCenterComponent( tabs );
 	}
 
 	private class ItemLookupPanel
@@ -94,19 +94,19 @@ public class DatabaseFrame
 			this.type = type;
 			this.which = which;
 
-			this.elementList.setSelectionMode( ListSelectionModel.SINGLE_SELECTION );
-			this.elementList.addMouseListener( new ShowEntryListener() );
-			this.elementList.contextMenu.add( new ThreadedMenuItem( "Game description", new DescriptionListener() ), 0 );
-			
-			this.setPreferredSize( new Dimension(400, 400) );
+            elementList.setSelectionMode( ListSelectionModel.SINGLE_SELECTION );
+            elementList.addMouseListener( new ShowEntryListener() );
+            elementList.contextMenu.add( new ThreadedMenuItem( "Game description", new DescriptionListener() ), 0 );
 
-			this.actionConfirmed();
+            setPreferredSize( new Dimension(400, 400) );
+
+            actionConfirmed();
 		}
 
 		@Override
 		public AutoFilterTextField getWordFilter()
 		{
-			return new AutoFilterTextField( this.elementModel );
+			return new AutoFilterTextField( elementModel );
 		}
 
 		/**
@@ -119,11 +119,11 @@ public class DatabaseFrame
 			@Override
 			protected void execute()
 			{
-				int index = ItemLookupPanel.this.elementList.getSelectedIndex();
+				int index = elementList.getSelectedIndex();
 				if ( index != -1 )
 				{
-					Entry entry = (Entry) ItemLookupPanel.this.elementList.getDisplayModel().getElementAt( index );
-					ItemLookupPanel.this.showDescription( entry );
+					Entry entry = (Entry) elementList.getDisplayModel().getElementAt( index );
+                    showDescription( entry );
 				}
 			}
 		}
@@ -141,22 +141,22 @@ public class DatabaseFrame
 					return;
 				}
 
-				int index = ItemLookupPanel.this.elementList.locationToIndex( e.getPoint() );
-				Object entry = ItemLookupPanel.this.elementList.getDisplayModel().getElementAt( index );
+				int index = elementList.locationToIndex( e.getPoint() );
+				Object entry = elementList.getDisplayModel().getElementAt( index );
 
 				if ( !( entry instanceof Entry ) )
 				{
 					return;
 				}
 
-				ItemLookupPanel.this.elementList.ensureIndexIsVisible( index );
-				ItemLookupPanel.this.showDescription( (Entry) entry );
+                elementList.ensureIndexIsVisible( index );
+                showDescription( (Entry) entry );
 			}
 		}
 
 		public void showDescription( final Entry entry )
 		{
-			StaticEntity.openRequestFrame( "desc_" + this.type + ".php?" + this.which + "=" + this.getId( entry ) );
+			StaticEntity.openRequestFrame( "desc_" + type + ".php?" + which + "=" + getId( entry ) );
 		}
 
 		public String getId( final Entry e )

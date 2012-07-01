@@ -61,21 +61,21 @@ public class KoLMailMessage
 	public KoLMailMessage( final String message )
 	{
 		// Blank lines are not displayed correctly
-		this.completeHTML = StringUtilities.globalStringReplace( message, "<br><br>", "<br>&nbsp;<br>" );
+        completeHTML = StringUtilities.globalStringReplace( message, "<br><br>", "<br>&nbsp;<br>" );
 
 		// Extract message ID
-		this.messageId = message.substring( message.indexOf( "name=" ) + 6, message.indexOf( "\">" ) );
+        messageId = message.substring( message.indexOf( "name=" ) + 6, message.indexOf( "\">" ) );
 
 		// Tokenize message
 		StringTokenizer messageParser = new StringTokenizer( message, "<>" );
 		String lastToken = messageParser.nextToken();
 
 		// Trim off message ID
-		this.completeHTML = this.completeHTML.substring( this.completeHTML.indexOf( ">" ) + 1 );
+        completeHTML = completeHTML.substring( completeHTML.indexOf( ">" ) + 1 );
 
 
 		// Messages from pseudo-characters do not have a [reply] link
-		int replyLink = this.completeHTML.indexOf( "reply</a>]" );
+		int replyLink = completeHTML.indexOf( "reply</a>]" );
 		if ( replyLink > 0 )
 		{
 			// Real sender. Trim message, parse and register sender
@@ -84,15 +84,15 @@ public class KoLMailMessage
 				lastToken = messageParser.nextToken();
 			}
 
-			this.senderId = lastToken.substring( lastToken.indexOf( "who=" ) + 4, lastToken.length() - 1 );
-			this.senderName = messageParser.nextToken();
+            senderId = lastToken.substring( lastToken.indexOf( "who=" ) + 4, lastToken.length() - 1 );
+            senderName = messageParser.nextToken();
 
-			ContactManager.registerPlayerId( this.senderName, this.senderId );
+			ContactManager.registerPlayerId( senderName, senderId );
 		}
 		else
 		{
 			// Pseudo player.
-			this.senderId = "";
+            senderId = "";
 
 			while ( !lastToken.startsWith( "/b" ) )
 			{
@@ -105,7 +105,7 @@ public class KoLMailMessage
 			{
 				name = name.substring( 0, sp );
 			}
-			this.senderName = name.trim();
+            senderName = name.trim();
 		}
 
 		while ( !messageParser.nextToken().startsWith( "Date" ) )
@@ -114,8 +114,8 @@ public class KoLMailMessage
 		}
 		messageParser.nextToken();
 
-		this.messageDate = messageParser.nextToken().trim();
-		this.messageHTML = message.substring( message.indexOf( this.messageDate ) + this.messageDate.length() + 4 );
+        messageDate = messageParser.nextToken().trim();
+        messageHTML = message.substring( message.indexOf( messageDate ) + messageDate.length() + 4 );
 
 		try
 		{
@@ -123,67 +123,67 @@ public class KoLMailMessage
 			// the given string; note it may throw
 			// an exception (but probably not)
 
-			this.timestamp = KoLMailMessage.TIMESTAMP_FORMAT.parse( this.messageDate );
+            timestamp = KoLMailMessage.TIMESTAMP_FORMAT.parse( messageDate );
 		}
 		catch ( Exception e )
 		{
 			// This should not happen.  Therefore, print
 			// a stack trace for debug purposes.
 
-			StaticEntity.printStackTrace( e, "Could not parse date \"" + this.messageDate + "\"" );
+			StaticEntity.printStackTrace( e, "Could not parse date \"" + messageDate + "\"" );
 
 			// Initialize the date to the current time,
 			// since that's about as close as it gets
 
-			this.timestamp = new Date();
-			this.messageDate = KoLMailMessage.TIMESTAMP_FORMAT.format( this.timestamp );
+            timestamp = new Date();
+            messageDate = KoLMailMessage.TIMESTAMP_FORMAT.format( timestamp );
 		}
 	}
 
 	@Override
 	public String toString()
 	{
-		return this.senderName + " @ " + this.messageDate;
+		return senderName + " @ " + messageDate;
 	}
 
 	public int compareTo( final Object o )
 	{
-		return o == null || !( o instanceof KoLMailMessage ) ? -1 : this.messageId.compareTo( ( (KoLMailMessage) o ).messageId );
+		return o == null || !( o instanceof KoLMailMessage ) ? -1 : messageId.compareTo( ((KoLMailMessage) o).messageId );
 	}
 
 	@Override
 	public boolean equals( final Object o )
 	{
-		return o == null || !( o instanceof KoLMailMessage ) ? false : this.messageId.equals( ( (KoLMailMessage) o ).messageId );
+		return o == null || !( o instanceof KoLMailMessage ) ? false : messageId.equals( ((KoLMailMessage) o).messageId );
 	}
 
 	public String getMessageId()
 	{
-		return this.messageId;
+		return messageId;
 	}
 
 	public Date getTimestamp()
 	{
-		return this.timestamp;
+		return timestamp;
 	}
 
 	public String getCompleteHTML()
 	{
-		return this.completeHTML;
+		return completeHTML;
 	}
 
 	public String getMessageHTML()
 	{
-		return this.messageHTML.toString();
+		return messageHTML.toString();
 	}
 
 	public String getSenderName()
 	{
-		return this.senderName;
+		return senderName;
 	}
 
 	public String getSenderId()
 	{
-		return this.senderId;
+		return senderId;
 	}
 }

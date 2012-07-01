@@ -47,7 +47,7 @@ public class AshMultiLineCommand
 {
 	public AshMultiLineCommand()
 	{
-		this.usage = " - embed an ASH script in a CLI script.";
+        usage = " - embed an ASH script in a CLI script.";
 	}
 
 	@Override
@@ -55,7 +55,7 @@ public class AshMultiLineCommand
 	{
 		ByteArrayStream ostream = new ByteArrayStream();
 
-		String currentLine = this.CLI.getNextLine( null );
+		String currentLine = CLI.getNextLine( null );
 
 		while ( currentLine != null && !currentLine.equals( "</inline-ash-script>" ) )
 		{
@@ -72,7 +72,7 @@ public class AshMultiLineCommand
 				StaticEntity.printStackTrace( e );
 			}
 
-			currentLine = this.CLI.getNextLine( null );
+			currentLine = CLI.getNextLine( null );
 		}
 
 		if ( currentLine == null )

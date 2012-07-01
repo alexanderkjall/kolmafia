@@ -65,12 +65,12 @@ public abstract class Function
 
 	public Type getType()
 	{
-		return this.type;
+		return type;
 	}
 	
 	public String getSignature()
 	{
-		if ( this.signature == null )
+		if ( signature == null )
 		{
 			StringBuilder buf = new StringBuilder();
 			// Since you can't usefully have multiple overloads with the
@@ -78,10 +78,10 @@ public abstract class Function
 			// the return type in the signature isn't very useful.
 			//buf.append( this.type );
 			//buf.append( " " );
-			buf.append( this.name );
+			buf.append( name );
 			buf.append( "(" );
 		
-			Iterator i = this.getReferences();
+			Iterator i = getReferences();
 			boolean first = true;
 			while ( i.hasNext()  )
 			{
@@ -98,14 +98,14 @@ public abstract class Function
 			}
 			
 			buf.append( ")" );
-			this.signature = buf.toString();
+            signature = buf.toString();
 		}
-		return this.signature;
+		return signature;
 	}
 
 	public VariableReferenceList getVariableReferences()
 	{
-		return this.variableReferences;
+		return variableReferences;
 	}
 
 	public void setVariableReferences( final VariableReferenceList variableReferences )
@@ -115,7 +115,7 @@ public abstract class Function
 
 	public Iterator getReferences()
 	{
-		return this.variableReferences.iterator();
+		return variableReferences.iterator();
 	}
 
 	public void saveBindings( Interpreter interpreter )
@@ -133,7 +133,7 @@ public abstract class Function
 			return true;
 		}
 
-		Iterator refIterator = this.getReferences();
+		Iterator refIterator = getReferences();
 		Iterator valIterator = params.iterator();
 
 		while ( refIterator.hasNext() && valIterator.hasNext() )
@@ -167,11 +167,11 @@ public abstract class Function
 		try
 		{
 			StringBuilder message = new StringBuilder( "Called disabled function: " );
-			message.append( this.getName() );
+			message.append( getName() );
 
 			message.append( "(" );
 
-			Iterator it = this.variableReferences.iterator();
+			Iterator it = variableReferences.iterator();
 			for ( int i = 0; it.hasNext(); ++i )
 			{
 				VariableReference current = (VariableReference) it.next();
@@ -202,9 +202,9 @@ public abstract class Function
 	public void print( final PrintStream stream, final int indent )
 	{
 		Interpreter.indentLine( stream, indent );
-		stream.println( "<FUNC " + this.type + " " + this.getName() + ">" );
+		stream.println( "<FUNC " + type + " " + getName() + ">" );
 
-		Iterator it = this.getReferences();
+		Iterator it = getReferences();
 		while ( it.hasNext() )
 		{
 			VariableReference current = (VariableReference) it.next();

@@ -44,9 +44,9 @@ public class Crimbo06Request
 	{
 		super( "crimbo06.php", conc );
 
-		this.addFormField( "place", "toys" );
-		this.addFormField( "action", "toys" );
-		this.addFormField( "whichitem", String.valueOf( this.getItemId() ) );
+        addFormField( "place", "toys" );
+        addFormField( "action", "toys" );
+        addFormField( "whichitem", String.valueOf( getItemId() ) );
 	}
 
 	@Override
@@ -62,13 +62,13 @@ public class Crimbo06Request
 		// In this case, it will also create the needed white
 		// pixels if they are not currently available.
 
-		if ( !this.makeIngredients() )
+		if ( !makeIngredients() )
 		{
 			return;
 		}
 
-		KoLmafia.updateDisplay( "Creating " + this.getQuantityNeeded() + " " + this.getName() + "..." );
-		this.addFormField( "quantity", String.valueOf( this.getQuantityNeeded() ) );
+		KoLmafia.updateDisplay( "Creating " + getQuantityNeeded() + " " + getName() + "..." );
+        addFormField( "quantity", String.valueOf( getQuantityNeeded() ) );
 		super.run();
 	}
 }

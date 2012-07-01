@@ -43,12 +43,12 @@ public class StatusPanel
 	public StatusPanel()
 	{
 		super( null, false );
-		this.container = new JPanel();
-		this.container.setLayout( new BorderLayout( 0, 0 ) );
-		this.setLayout( new BorderLayout( 0, 0 ) );
-		this.add( this.container, BorderLayout.NORTH );
-		this.contentSet = true;
-		this.addStatusLabel();
+        container = new JPanel();
+        container.setLayout( new BorderLayout( 0, 0 ) );
+        setLayout( new BorderLayout( 0, 0 ) );
+        add( container, BorderLayout.NORTH );
+        contentSet = true;
+        addStatusLabel();
 	}
 
 	@Override

@@ -54,7 +54,7 @@ public class Mood
 	public Mood( String name )
 	{
 		this.name = name;
-		this.parentNames = new ArrayList();
+        parentNames = new ArrayList();
 		
 		int extendsIndex = this.name.indexOf( " extends " );
 		
@@ -66,10 +66,10 @@ public class Mood
 			
 			for ( int i = 0; i < parentNameArray.length; ++i )
 			{
-				this.parentNames.add( this.getName( parentNameArray[ i ] ) );
+                parentNames.add( getName( parentNameArray[i] ) );
 			}
 			
-			this.name = this.getName( this.name.substring( 0, extendsIndex ) );
+			this.name = getName( this.name.substring( 0, extendsIndex ) );
 		}
 		else if ( this.name.contains( "," ) )
 		{
@@ -79,33 +79,33 @@ public class Mood
 			
 			for ( int i = 0; i < parentNameArray.length; ++i )
 			{
-				this.parentNames.add( this.getName( parentNameArray[ i ] ) );
+                parentNames.add( getName( parentNameArray[i] ) );
 			}
 		}
 		else
 		{
-			this.name = this.getName( this.name );
+			this.name = getName( this.name );
 		}
 
-		this.localTriggers = new SortedListModel();
+        localTriggers = new SortedListModel();
 	}
 
 	public String getName()
 	{
-		return this.name;
+		return name;
 	}
 
 	public void copyFrom( Mood copyFromMood )
 	{
-		this.parentNames.clear();
-		this.parentNames.addAll( copyFromMood.parentNames );
+        parentNames.clear();
+        parentNames.addAll( copyFromMood.parentNames );
 
-		this.localTriggers.addAll( copyFromMood.localTriggers );
+        localTriggers.addAll( copyFromMood.localTriggers );
 	}
 	
 	public List getParentNames()
 	{
-		return this.parentNames;
+		return parentNames;
 	}
 	
 	public void setParentNames( List parentNames )
@@ -117,16 +117,16 @@ public class Mood
 
 	public boolean isExecutable()
 	{
-		return !this.name.equals( "apathetic" ) && !getTriggers().isEmpty();
+		return !name.equals( "apathetic" ) && !getTriggers().isEmpty();
 	}
 	
 	public List getTriggers()
 	{
 		ArrayList triggers = new ArrayList();
 		
-		if ( !this.parentNames.isEmpty() )
+		if ( !parentNames.isEmpty() )
 		{
-			Iterator parentNameIterator = this.parentNames.iterator();
+			Iterator parentNameIterator = parentNames.iterator();
 			
 			while ( parentNameIterator.hasNext() )
 			{
@@ -139,8 +139,8 @@ public class Mood
 			}
 		}
 		
-		triggers.removeAll( this.localTriggers );
-		triggers.addAll( this.localTriggers );
+		triggers.removeAll( localTriggers );
+		triggers.addAll( localTriggers );
 		
 		return triggers;
 	}
@@ -164,42 +164,42 @@ public class Mood
 	
 	public boolean addTrigger( MoodTrigger trigger )
 	{
-		if ( this.name.equals( "apathetic" ) )
+		if ( name.equals( "apathetic" ) )
 		{
 			return false;
 		}
-		
-		this.localTriggers.remove( trigger );
-		this.localTriggers.add( trigger );
+
+        localTriggers.remove( trigger );
+        localTriggers.add( trigger );
 		
 		return true;
 	}
 	
 	public boolean removeTrigger( MoodTrigger trigger )
 	{
-		if ( !this.localTriggers.contains( trigger ) )
+		if ( !localTriggers.contains( trigger ) )
 		{
 			return false;
 		}
-		
-		this.localTriggers.remove( trigger );
+
+        localTriggers.remove( trigger );
 		return true;
 	}
 	
 	public String toSettingString()
 	{
-		if ( this.name.equals( "" ) )
+		if ( name.equals( "" ) )
 		{
 			return "";
 		}
 		
 		StringBuilder buffer = new StringBuilder();
 		buffer.append( "[ " );
-		buffer.append( this.toString() );
+		buffer.append( toString() );
 		buffer.append( " ]" );
 		buffer.append( KoLConstants.LINE_BREAK );
 		
-		Iterator triggerIterator = this.localTriggers.iterator();
+		Iterator triggerIterator = localTriggers.iterator();
 		
 		while ( triggerIterator.hasNext() )
 		{
@@ -216,16 +216,16 @@ public class Mood
 	{
 		StringBuilder buffer = new StringBuilder();
 
-		buffer.append( this.name );
+		buffer.append( name );
 		
-		if ( !this.parentNames.isEmpty() )
+		if ( !parentNames.isEmpty() )
 		{
-			if ( !this.name.equals( "" ) )
+			if ( !name.equals( "" ) )
 			{
 				buffer.append( " extends " );
 			}
 			
-			Iterator parentNameIterator = this.parentNames.iterator();
+			Iterator parentNameIterator = parentNames.iterator();
 			
 			while ( parentNameIterator.hasNext() )
 			{
@@ -246,7 +246,7 @@ public class Mood
 	@Override
 	public int hashCode()
 	{
-		return this.name.hashCode();
+		return name.hashCode();
 	}
 
 	public int compareTo( Object o )
@@ -258,7 +258,7 @@ public class Mood
 		
 		Mood m = (Mood) o;
 		
-		return this.name.compareTo( m.name );
+		return name.compareTo( m.name );
 	}
 	
 	@Override
@@ -271,7 +271,7 @@ public class Mood
 		
 		Mood m = (Mood) o;
 		
-		return this.name.equals( m.name );
+		return name.equals( m.name );
 	}
 
 	private String getName( String moodName )

@@ -169,7 +169,7 @@ public class CampgroundRequest
 	public CampgroundRequest( final String action )
 	{
 		super( "campground.php" );
-		this.addFormField( "action", action );
+        addFormField( "action", action );
 		this.action = action;
 	}
 
@@ -185,7 +185,7 @@ public class CampgroundRequest
 	@Override
 	public int getAdventuresUsed()
 	{
-		return this.action.equals( "rest" ) ? 1 : 0;
+		return action.equals( "rest" ) ? 1 : 0;
 	}
 
 	private static void setCampgroundItem( final int itemId, int count )
@@ -309,7 +309,7 @@ public class CampgroundRequest
 	@Override
 	public void run()
 	{
-		if ( this.action.equals( "rest" ) &&
+		if ( action.equals( "rest" ) &&
 		     KoLCharacter.getCurrentHP() == KoLCharacter.getMaximumHP() &&
 		     KoLCharacter.getCurrentMP() == KoLCharacter.getMaximumMP() )
 		{
@@ -323,7 +323,7 @@ public class CampgroundRequest
 	@Override
 	public void processResults()
 	{
-		CampgroundRequest.parseResponse( this.getURLString(), this.responseText );
+		CampgroundRequest.parseResponse( getURLString(), responseText );
 	}
 
 	public static void parseResponse( final String urlString, final String responseText )

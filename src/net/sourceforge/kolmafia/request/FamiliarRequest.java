@@ -68,11 +68,11 @@ public class FamiliarRequest
 	public FamiliarRequest()
 	{
 		super( "familiar.php" );
-		this.changeTo = null;
-		this.item = null;
-		this.locking = false;
-		this.unequip = false;
-		this.enthrone = false;
+        changeTo = null;
+        item = null;
+        locking = false;
+        unequip = false;
+        enthrone = false;
 	}
 
 	public static FamiliarRequest enthroneRequest( final FamiliarData changeTo )
@@ -98,71 +98,71 @@ public class FamiliarRequest
 		super( "familiar.php" );
 
 		this.changeTo = changeTo == null ? FamiliarData.NO_FAMILIAR : changeTo;
-		this.item = null;
-		this.locking = false;
+        item = null;
+        locking = false;
 		this.unequip = unequip;
-		this.enthrone = false;
+        enthrone = false;
 
 		if ( this.changeTo == FamiliarData.NO_FAMILIAR )
 		{
-			this.addFormField( "action", "putback" );
+            addFormField( "action", "putback" );
 		}
 		else
 		{
-			this.addFormField( "action", "newfam" );
-			this.addFormField( "newfam", String.valueOf( this.changeTo.getId() ) );
+            addFormField( "action", "newfam" );
+            addFormField( "newfam", String.valueOf( this.changeTo.getId() ) );
 		}
-		this.addFormField( "ajax", "1" );
+        addFormField( "ajax", "1" );
 	}
 
 	public FamiliarRequest( final FamiliarData familiar, final AdventureResult item )
 	{
 		super( "familiar.php" );
 
-		this.changeTo = familiar;
+        changeTo = familiar;
 		this.item = item;
-		this.locking = false;
-		this.unequip = false;
-		this.enthrone = false;
+        locking = false;
+        unequip = false;
+        enthrone = false;
 
-		this.addFormField( "action", "equip" );
-		this.addFormField( "whichfam", String.valueOf( familiar.getId() ) );
-		this.addFormField( "whichitem", String.valueOf( item.getItemId() ) );
+        addFormField( "action", "equip" );
+        addFormField( "whichfam", String.valueOf( familiar.getId() ) );
+        addFormField( "whichitem", String.valueOf( item.getItemId() ) );
 	}
 
 	public FamiliarRequest( boolean locking )
 	{
 		super( "familiar.php" );
-		this.addFormField( "action", "lockequip" );
-		this.changeTo = null;
-		this.item = null;
+        addFormField( "action", "lockequip" );
+        changeTo = null;
+        item = null;
 		this.locking = true;
-		this.unequip = false;
-		this.enthrone = false;
+        unequip = false;
+        enthrone = false;
 	}
 
 	public String getFamiliarChange()
 	{
-		return this.changeTo == null ? null : this.changeTo.toString();
+		return changeTo == null ? null : changeTo.toString();
 	}
 
 	@Override
 	protected boolean retryOnTimeout()
 	{
-		return !this.locking;
+		return !locking;
 	}
 
 	@Override
 	public void run()
 	{
-		if ( this.item != null )
+		if ( item != null )
 		{
-			KoLmafia.updateDisplay( "Equipping " + this.changeTo.getName() + " the " + this.changeTo.getRace() + " with " + this.item.getName() + "..." );
+			KoLmafia.updateDisplay( "Equipping " + changeTo.getName() + " the " + changeTo.getRace() + " with " + item.getName() + "..." );
 			super.run();
 			return;
 		}
 
-		if ( this.locking )
+		if ( locking )
 		{
 			String verb = EquipmentManager.familiarItemLocked() ? "Unlocking" : "Locking";
 			KoLmafia.updateDisplay( verb + " familiar item..." );
@@ -170,7 +170,7 @@ public class FamiliarRequest
 			return;
 		}
 
-		if ( this.changeTo == null )
+		if ( changeTo == null )
 		{
 			KoLmafia.updateDisplay( "Retrieving familiar data..." );
 			super.run();
@@ -178,7 +178,7 @@ public class FamiliarRequest
 		}
 
 		FamiliarData familiar = KoLCharacter.getFamiliar();
-		if ( this.enthrone )
+		if ( enthrone )
 		{
 			if ( EquipmentManager.getEquipment( EquipmentManager.HAT ).getItemId()
 				!= ItemPool.HATSEAT )
@@ -188,7 +188,7 @@ public class FamiliarRequest
 
 			FamiliarData enthroned = KoLCharacter.getEnthroned();
 
-			if ( enthroned.getId() == this.changeTo.getId() )
+			if ( enthroned.getId() == changeTo.getId() )
 			{
 				return;
 			}
@@ -198,14 +198,14 @@ public class FamiliarRequest
 				KoLmafia.updateDisplay( "Kicking " + enthroned.getName() + " the " + enthroned.getRace() + " off the throne..." );
 			}
 
-			if ( this.changeTo != FamiliarData.NO_FAMILIAR )
+			if ( changeTo != FamiliarData.NO_FAMILIAR )
 			{
-				KoLmafia.updateDisplay( "Carrying " + this.changeTo.getName() + " the " + this.changeTo.getRace() + " in the Crown of Thrones..." );
+				KoLmafia.updateDisplay( "Carrying " + changeTo.getName() + " the " + changeTo.getRace() + " in the Crown of Thrones..." );
 			}
 		}
 		else	// !enthrone
 		{
-			if ( familiar.getId() == this.changeTo.getId() )
+			if ( familiar.getId() == changeTo.getId() )
 			{
 				return;
 			}
@@ -217,9 +217,9 @@ public class FamiliarRequest
 
 			KoLCharacter.setFamiliar( FamiliarData.NO_FAMILIAR );
 
-			if ( this.changeTo != FamiliarData.NO_FAMILIAR )
+			if ( changeTo != FamiliarData.NO_FAMILIAR )
 			{
-				KoLmafia.updateDisplay( "Taking " + this.changeTo.getName() + " the " + this.changeTo.getRace() + " out of terrarium..." );
+				KoLmafia.updateDisplay( "Taking " + changeTo.getName() + " the " + changeTo.getRace() + " out of terrarium..." );
 			}
 		}
 
@@ -236,8 +236,8 @@ public class FamiliarRequest
 		// If we didn't have a familiar before or don't have one now,
 		// leave equipment alone.
 
-		if ( this.enthrone || familiar == FamiliarData.NO_FAMILIAR ||
-		     this.changeTo == FamiliarData.NO_FAMILIAR )
+		if ( enthrone || familiar == FamiliarData.NO_FAMILIAR ||
+                changeTo == FamiliarData.NO_FAMILIAR )
 		{
 			return;
 		}
@@ -257,10 +257,10 @@ public class FamiliarRequest
 
 		if ( item == EquipmentManager.lockedFamiliarItem() )
 		{
-			if ( this.changeTo.canEquip( item ) )
+			if ( changeTo.canEquip( item ) )
 			{
 				FamiliarRequest.unequipFamiliar( familiar.getId() );
-				FamiliarRequest.equipFamiliar( this.changeTo.getId(), item.getItemId() );
+				FamiliarRequest.equipFamiliar( changeTo.getId(), item.getItemId() );
 			}
 			return;
 		}
@@ -268,7 +268,7 @@ public class FamiliarRequest
 		// If we are switching to certain specialized familiars, don't
 		// steal any equipment from the old familiar
 
-		switch ( this.changeTo.getId() )
+		switch ( changeTo.getId() )
 		{
 		case FamiliarPool.CHAMELEON:	// Comma Chameleon
 		case FamiliarPool.BLACKBIRD:	// Reassembled Blackbird
@@ -284,13 +284,13 @@ public class FamiliarRequest
 
 		// If the new familiar already has an item, leave it alone.
 
-		if ( !this.changeTo.getItem().equals( EquipmentRequest.UNEQUIP ) )
+		if ( !changeTo.getItem().equals( EquipmentRequest.UNEQUIP ) )
 		{
 			return;
 		}
 
 		// The new familiar has no item. Find a good one to steal.
-		AdventureResult use = this.changeTo.findGoodItem( true );
+		AdventureResult use = changeTo.findGoodItem( true );
 		if ( use == null )
 		{
 			return;
@@ -309,21 +309,21 @@ public class FamiliarRequest
 	@Override
 	public void processResults()
 	{
-		if ( this.getFormField( "ajax" ) == null )
+		if ( getFormField( "ajax" ) == null )
 		{
-			FamiliarData.registerFamiliarData( this.responseText );
+			FamiliarData.registerFamiliarData( responseText );
 		}
 
-		if ( this.item != null )
+		if ( item != null )
 		{
 			KoLmafia.updateDisplay( "Familiar equipped." );
 		}
-		else if ( this.locking )
+		else if ( locking )
 		{
 			String locked = EquipmentManager.familiarItemLocked() ? "locked" : "unlocked";
 			KoLmafia.updateDisplay( "Familiar item " + locked + "." );
 		}
-		else if ( this.changeTo == null )
+		else if ( changeTo == null )
 		{
 			KoLmafia.updateDisplay( "Familiar data retrieved." );
 		}

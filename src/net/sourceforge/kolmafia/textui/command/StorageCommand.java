@@ -57,7 +57,7 @@ public class StorageCommand
 {
 	public StorageCommand()
 	{
-		this.usage = " outfit <name> | <item> [, <item>]... - pull items from Hagnk's storage.";
+        usage = " outfit <name> | <item> [, <item>]... - pull items from Hagnk's storage.";
 	}
 
 	@Override

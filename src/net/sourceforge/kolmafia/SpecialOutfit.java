@@ -73,20 +73,20 @@ public class SpecialOutfit
 		// The name is normally a substring of the equipment page,
 		// and would keep that entire page in memory if not copied.
 		this.outfitName = new String( outfitName );
-		this.pieces = new ArrayList();
-		this.hash = 0;
+        pieces = new ArrayList();
+        hash = 0;
 	}
 
 	public boolean hasAllPieces()
 	{
-		for ( int i = 0; i < this.pieces.size(); ++i )
+		for ( int i = 0; i < pieces.size(); ++i )
 		{
-			if ( !InventoryManager.hasItem( (AdventureResult) this.pieces.get( i ) ) )
+			if ( !InventoryManager.hasItem( (AdventureResult) pieces.get( i ) ) )
 			{
 				return false;
 			}
 
-			if ( !EquipmentManager.canEquip( ( (AdventureResult) this.pieces.get( i ) ).getName() ) )
+			if ( !EquipmentManager.canEquip( ( (AdventureResult) pieces.get( i ) ).getName() ) )
 			{
 				return false;
 			}
@@ -97,16 +97,16 @@ public class SpecialOutfit
 
 	public boolean isWearing()
 	{
-		return this.isWearing( -1 );
+		return isWearing( -1 );
 	}
 
 	public boolean isWearing( int hash )
 	{
 		if ( (hash & this.hash) != this.hash ) return false;
 
-		for ( int i = 0; i < this.pieces.size(); ++i )
+		for ( int i = 0; i < pieces.size(); ++i )
 		{
-			if ( !KoLCharacter.hasEquipped( (AdventureResult) this.pieces.get( i ) ) )
+			if ( !KoLCharacter.hasEquipped( (AdventureResult) pieces.get( i ) ) )
 			{
 				return false;
 			}
@@ -117,17 +117,17 @@ public class SpecialOutfit
 
 	public boolean isWearing( AdventureResult[] equipment )
 	{
-		return this.isWearing( equipment, -1 );
+		return isWearing( equipment, -1 );
 	}
 
 	public boolean isWearing( AdventureResult[] equipment, int hash )
 	{
 		if ( (hash & this.hash) != this.hash ) return false;
 
-		for ( int i = 0; i < this.pieces.size(); ++i )
+		for ( int i = 0; i < pieces.size(); ++i )
 		{
 			if ( !KoLCharacter.hasEquipped( equipment,
-				(AdventureResult) this.pieces.get( i ) ) )
+				(AdventureResult) pieces.get( i ) ) )
 			{
 				return false;
 			}
@@ -138,8 +138,8 @@ public class SpecialOutfit
 
 	public AdventureResult[] getPieces()
 	{
-		AdventureResult[] piecesArray = new AdventureResult[ this.pieces.size() ];
-		this.pieces.toArray( piecesArray );
+		AdventureResult[] piecesArray = new AdventureResult[pieces.size() ];
+        pieces.toArray( piecesArray );
 		return piecesArray;
 	}
 
@@ -167,25 +167,25 @@ public class SpecialOutfit
 	{
 		if ( piece != EquipmentRequest.UNEQUIP )
 		{
-			this.pieces.add( piece );
-			this.hash |= this.pieceHash( piece );
+            pieces.add( piece );
+            hash |= pieceHash( piece );
 		}
 	}
 
 	@Override
 	public String toString()
 	{
-		return this.outfitName;
+		return outfitName;
 	}
 
 	public int getOutfitId()
 	{
-		return this.outfitId;
+		return outfitId;
 	}
 
 	public String getName()
 	{
-		return this.outfitName;
+		return outfitName;
 	}
 
 	@Override
@@ -196,12 +196,12 @@ public class SpecialOutfit
 			return false;
 		}
 
-		if ( this.outfitId != ( (SpecialOutfit) o ).outfitId )
+		if ( outfitId != ( (SpecialOutfit) o ).outfitId )
 		{
 			return false;
 		}
 
-		return this.outfitName.equalsIgnoreCase( ( (SpecialOutfit) o ).outfitName );
+		return outfitName.equalsIgnoreCase( ((SpecialOutfit) o).outfitName );
 	}
 
 	public int compareTo( final Object o )
@@ -211,7 +211,7 @@ public class SpecialOutfit
 			return -1;
 		}
 
-		return this.outfitName.compareToIgnoreCase( ( (SpecialOutfit) o ).outfitName );
+		return outfitName.compareToIgnoreCase( ((SpecialOutfit) o).outfitName );
 	}
 
 	/**

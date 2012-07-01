@@ -190,9 +190,9 @@ public class EquipmentRequest
 		super( EquipmentRequest.choosePage( requestType ) );
 
 		this.requestType = requestType;
-		this.outfit = null;
-		this.outfitName = null;
-		this.error = null;
+        outfit = null;
+        outfitName = null;
+        error = null;
 
 		// Otherwise, add the form field indicating which page
 		// of the inventory you want to request
@@ -200,19 +200,19 @@ public class EquipmentRequest
 		switch ( requestType )
 		{
 		case EquipmentRequest.EQUIPMENT:
-			this.addFormField( "which", "2" );
+            addFormField( "which", "2" );
 			break;
 		case EquipmentRequest.BEDAZZLEMENTS:
 			// no fields necessary
 			break;
 		case EquipmentRequest.SAVE_OUTFIT:
-			this.addFormField( "ajax", "1" );
-			this.addFormField( "which", "2" );
+            addFormField( "ajax", "1" );
+            addFormField( "which", "2" );
 			break;
 		case EquipmentRequest.UNEQUIP_ALL:
-			this.addFormField( "ajax", "1" );
-			this.addFormField( "which", "2" );
-			this.addFormField( "action", "unequipall" );
+            addFormField( "ajax", "1" );
+            addFormField( "which", "2" );
+            addFormField( "action", "unequipall" );
 			break;
 		}
 	}
@@ -234,10 +234,10 @@ public class EquipmentRequest
 	public EquipmentRequest( final String changeName )
 	{
 		this( EquipmentRequest.SAVE_OUTFIT );
-		this.addFormField( "action", "customoutfit" );
-		this.addFormField( "outfitname", changeName );
-		this.addFormField( "ajax", "1" );
-		this.outfitName = changeName;
+        addFormField( "action", "customoutfit" );
+        addFormField( "outfitname", changeName );
+        addFormField( "ajax", "1" );
+        outfitName = changeName;
 	}
 
 	public EquipmentRequest( final AdventureResult changeItem )
@@ -256,15 +256,15 @@ public class EquipmentRequest
 	{
 		super( equipmentSlot >= EquipmentManager.STICKER1 ? "bedazzle.php" : "inv_equip.php" );
 
-		this.error = null;
+        error = null;
 
 		if ( equipmentSlot >= EquipmentManager.STICKER1 )
 		{
-			this.initializeStickerData( changeItem, equipmentSlot, force );
+            initializeStickerData( changeItem, equipmentSlot, force );
 		}
 		else
 		{
-			this.initializeChangeData( changeItem, equipmentSlot, force );
+            initializeChangeData( changeItem, equipmentSlot, force );
 		}
 	}
 
@@ -272,16 +272,16 @@ public class EquipmentRequest
 	{
 		super( "inv_equip.php" );
 
-		this.addFormField( "which", "2" );
-		this.addFormField( "action", "outfit" );
-		this.addFormField( "whichoutfit",
+        addFormField( "which", "2" );
+        addFormField( "action", "outfit" );
+        addFormField( "whichoutfit",
 				   change == SpecialOutfit.PREVIOUS_OUTFIT?
 				   "last" : String.valueOf( change.getOutfitId() ) );
-		this.addFormField( "ajax", "1" );
+        addFormField( "ajax", "1" );
 
-		this.requestType = EquipmentRequest.CHANGE_OUTFIT;
-		this.outfit = change;
-		this.error = null;
+        requestType = EquipmentRequest.CHANGE_OUTFIT;
+        outfit = change;
+        error = null;
 	}
 
 	public static  boolean isEquipmentChange( final String path )
@@ -310,163 +310,163 @@ public class EquipmentRequest
 
 	private void initializeChangeData( final AdventureResult changeItem, final int equipmentSlot, final boolean force )
 	{
-		this.addFormField( "which", "2" );
-		this.addFormField( "ajax", "1" );
+        addFormField( "which", "2" );
+        addFormField( "ajax", "1" );
 		this.equipmentSlot = equipmentSlot;
 
 		if ( changeItem.equals( EquipmentRequest.UNEQUIP ) )
 		{
-			this.requestType = EquipmentRequest.REMOVE_ITEM;
-			this.addFormField( "action", "unequip" );
-			this.addFormField( "type", EquipmentRequest.phpSlotNames[ equipmentSlot ] );
+            requestType = EquipmentRequest.REMOVE_ITEM;
+            addFormField( "action", "unequip" );
+            addFormField( "type", EquipmentRequest.phpSlotNames[ equipmentSlot ] );
 			return;
 		}
 
 		// Find out what item is being equipped
-		this.itemId = changeItem.getItemId();
+        itemId = changeItem.getItemId();
 
 		// Find out what kind of item it is
-		this.equipmentType = ItemDatabase.getConsumptionType( this.itemId );
+        equipmentType = ItemDatabase.getConsumptionType( itemId );
 
 		if ( this.equipmentSlot == -1 )
 		{
-			this.error = "No suitable slot available for " + changeItem;
+            error = "No suitable slot available for " + changeItem;
 			return;
 		}
 
 		// Make sure you can equip it in the requested slot
-		String action = this.getAction( force );
+		String action = getAction( force );
 		if ( action == null )
 		{
 			return;
 		}
 
-		this.requestType = EquipmentRequest.CHANGE_ITEM;
+        requestType = EquipmentRequest.CHANGE_ITEM;
 		this.changeItem = changeItem.getCount() == 1 ? changeItem : changeItem.getInstance( 1 );
 
-		this.addFormField( "action", action );
-		this.addFormField( "whichitem", String.valueOf( this.itemId ) );
+        addFormField( "action", action );
+        addFormField( "whichitem", String.valueOf( itemId ) );
 	}
 
 	private void initializeStickerData( final AdventureResult sticker, final int equipmentSlot, final boolean force )
 	{
 		this.equipmentSlot = equipmentSlot;
-		this.addFormField( "slot",
+        addFormField( "slot",
 			String.valueOf( equipmentSlot - EquipmentManager.STICKER1 + 1 ) );
 
 		if ( sticker.equals( EquipmentRequest.UNEQUIP ) )
 		{
-			this.requestType = EquipmentRequest.REMOVE_ITEM;
-			this.addFormField( "action", "peel" );
+            requestType = EquipmentRequest.REMOVE_ITEM;
+            addFormField( "action", "peel" );
 			return;
 		}
 
 		// Find out what item is being equipped
-		this.itemId = sticker.getItemId();
+        itemId = sticker.getItemId();
 
 		// Find out what kind of item it is
-		this.equipmentType = ItemDatabase.getConsumptionType( this.itemId );
+        equipmentType = ItemDatabase.getConsumptionType( itemId );
 
-		if ( this.equipmentType != KoLConstants.CONSUME_STICKER )
+		if ( equipmentType != KoLConstants.CONSUME_STICKER )
 		{
-			this.error = "You can't equip a " + ItemDatabase.getItemName( this.itemId ) +
+            error = "You can't equip a " + ItemDatabase.getItemName( itemId ) +
 				" in a sticker slot.";
 			return;
 		}
 
-		this.addFormField( "sticker", String.valueOf( this.itemId ) );
-		this.requestType = EquipmentRequest.CHANGE_ITEM;
-		this.changeItem = sticker.getCount() == 1 ? sticker : sticker.getInstance( 1 );
+        addFormField( "sticker", String.valueOf( itemId ) );
+        requestType = EquipmentRequest.CHANGE_ITEM;
+        changeItem = sticker.getCount() == 1 ? sticker : sticker.getInstance( 1 );
 
 		if ( EquipmentManager.hasStickerWeapon() )
 		{
-			this.addFormField( "action", "stick" );
+            addFormField( "action", "stick" );
 		}
 		else
 		{
-			this.addFormField( "action", "juststick" );
-			this.removeFormField( "slot" );
+            addFormField( "action", "juststick" );
+            removeFormField( "slot" );
 		}
 	}
 
 	private String getAction( final boolean force )
 	{
-		switch ( this.equipmentSlot )
+		switch ( equipmentSlot )
 		{
 		case EquipmentManager.HAT:
-			if ( this.equipmentType == KoLConstants.EQUIP_HAT )
+			if ( equipmentType == KoLConstants.EQUIP_HAT )
 			{
 				return "equip";
 			}
 			break;
 
 		case EquipmentManager.WEAPON:
-			if ( this.equipmentType == KoLConstants.EQUIP_WEAPON )
+			if ( equipmentType == KoLConstants.EQUIP_WEAPON )
 			{
 				return "equip";
 			}
 			break;
 
 		case EquipmentManager.OFFHAND:
-			if ( this.equipmentType == KoLConstants.EQUIP_OFFHAND )
+			if ( equipmentType == KoLConstants.EQUIP_OFFHAND )
 			{
 				return "equip";
 			}
 
-			if ( this.equipmentType == KoLConstants.EQUIP_WEAPON &&
-			     EquipmentDatabase.getHands( this.itemId ) == 1 )
+			if ( equipmentType == KoLConstants.EQUIP_WEAPON &&
+			     EquipmentDatabase.getHands( itemId ) == 1 )
 			{
 				return "dualwield";
 			}
 			break;
 
 		case EquipmentManager.CONTAINER:
-			if ( this.equipmentType == KoLConstants.EQUIP_CONTAINER )
+			if ( equipmentType == KoLConstants.EQUIP_CONTAINER )
 			{
 				return "equip";
 			}
 			break;
 
 		case EquipmentManager.SHIRT:
-			if ( this.equipmentType == KoLConstants.EQUIP_SHIRT )
+			if ( equipmentType == KoLConstants.EQUIP_SHIRT )
 			{
 				return "equip";
 			}
 			break;
 
 		case EquipmentManager.PANTS:
-			if ( this.equipmentType == KoLConstants.EQUIP_PANTS )
+			if ( equipmentType == KoLConstants.EQUIP_PANTS )
 			{
 				return "equip";
 			}
 			break;
 
 		case EquipmentManager.ACCESSORY1:
-			if ( this.equipmentType == KoLConstants.EQUIP_ACCESSORY )
+			if ( equipmentType == KoLConstants.EQUIP_ACCESSORY )
 			{
-				this.addFormField( "slot", "1" );
+                addFormField( "slot", "1" );
 				return "equip";
 			}
 			break;
 
 		case EquipmentManager.ACCESSORY2:
-			if ( this.equipmentType == KoLConstants.EQUIP_ACCESSORY )
+			if ( equipmentType == KoLConstants.EQUIP_ACCESSORY )
 			{
-				this.addFormField( "slot", "2" );
+                addFormField( "slot", "2" );
 				return "equip";
 			}
 			break;
 
 		case EquipmentManager.ACCESSORY3:
-			if ( this.equipmentType == KoLConstants.EQUIP_ACCESSORY )
+			if ( equipmentType == KoLConstants.EQUIP_ACCESSORY )
 			{
-				this.addFormField( "slot", "3" );
+                addFormField( "slot", "3" );
 				return "equip";
 			}
 			break;
 
 		case EquipmentManager.FAMILIAR:
-			switch ( this.equipmentType )
+			switch ( equipmentType )
 			{
 			case KoLConstants.EQUIP_FAMILIAR:
 				return "equip";
@@ -482,8 +482,8 @@ public class EquipmentRequest
 			return "equip";
 		}
 
-		this.error =
-			"You can't equip a " + ItemDatabase.getItemName( this.itemId ) + " in the " + EquipmentRequest.slotNames[ this.equipmentSlot ] + " slot.";
+        error =
+			"You can't equip a " + ItemDatabase.getItemName( itemId ) + " in the " + EquipmentRequest.slotNames[equipmentSlot] + " slot.";
 
 		return null;
 	}
@@ -574,7 +574,7 @@ public class EquipmentRequest
 
 	public String getOutfitName()
 	{
-		return this.outfit == null ? null : this.outfit.toString();
+		return outfit == null ? null : outfit.toString();
 	}
 
 	/**
@@ -585,26 +585,26 @@ public class EquipmentRequest
 	@Override
 	public void run()
 	{
-		if ( this.requestType == EquipmentRequest.REFRESH )
+		if ( requestType == EquipmentRequest.REFRESH )
 		{
 			InventoryManager.refresh();
 			return;
 		}
 
 		// If we were given bogus parameters, report the error now
-		if ( this.error != null )
+		if ( error != null )
 		{
-			KoLmafia.updateDisplay( MafiaState.ERROR, this.error );
+			KoLmafia.updateDisplay( MafiaState.ERROR, error );
 			return;
 		}
 
 		// Outfit changes are a bit quirky, so they're handled
 		// first for easy visibility.
 
-		if ( this.requestType == EquipmentRequest.CHANGE_OUTFIT )
+		if ( requestType == EquipmentRequest.CHANGE_OUTFIT )
 		{
 			// If this is a birthday suit outfit, then remove everything.
-			if ( this.outfit == SpecialOutfit.BIRTHDAY_SUIT )
+			if ( outfit == SpecialOutfit.BIRTHDAY_SUIT )
 			{
 				// See if you are wearing anything.
 				boolean found = false;
@@ -641,13 +641,13 @@ public class EquipmentRequest
 			}
 
 			// If you are already wearing the outfit, nothing to do
-			if ( EquipmentManager.isWearingOutfit( this.outfit ) )
+			if ( EquipmentManager.isWearingOutfit( outfit ) )
 			{
 				return;
 			}
 
 			// Make sure we have all the pieces
-			if ( !EquipmentManager.retrieveOutfit( this.outfit ) )
+			if ( !EquipmentManager.retrieveOutfit( outfit ) )
 			{
 				return;
 			}
@@ -664,12 +664,12 @@ public class EquipmentRequest
 			}
 		}
 
-		if ( this.requestType == EquipmentRequest.CHANGE_ITEM )
+		if ( requestType == EquipmentRequest.CHANGE_ITEM )
 		{
 			// Do not submit a request if the item matches what you
 			// want to equip on the character.
 
-			if ( EquipmentManager.getEquipment( this.equipmentSlot ).equals( this.changeItem ) )
+			if ( EquipmentManager.getEquipment( equipmentSlot ).equals( changeItem ) )
 			{
 				return;
 			}
@@ -680,9 +680,9 @@ public class EquipmentRequest
 			// off-hand weapon. If it doesn't, unequip the off-hand
 			// weapon first
 
-			int itemId = this.changeItem.getItemId();
+			int itemId = changeItem.getItemId();
 
-			if ( this.equipmentSlot == EquipmentManager.WEAPON &&
+			if ( equipmentSlot == EquipmentManager.WEAPON &&
 			     EquipmentDatabase.getHands( itemId ) == 1 )
 			{
 				int offhand = EquipmentManager.getEquipment( EquipmentManager.OFFHAND ).getItemId();
@@ -698,7 +698,7 @@ public class EquipmentRequest
 			// bother trying if unless it is compatible with the
 			// main weapon.
 
-			if ( this.equipmentSlot == EquipmentManager.OFFHAND )
+			if ( equipmentSlot == EquipmentManager.OFFHAND )
 			{
 				int itemType = ItemDatabase.getConsumptionType( itemId );
 				AdventureResult weapon = EquipmentManager.getEquipment( EquipmentManager.WEAPON );
@@ -722,31 +722,31 @@ public class EquipmentRequest
 				if ( itemType == KoLConstants.EQUIP_WEAPON &&
 				     EquipmentDatabase.getWeaponType( itemId ) != EquipmentDatabase.getWeaponType( weaponItemId ) )
 				{
-					KoLmafia.updateDisplay( MafiaState.ERROR, "You can't hold a " + this.changeItem.getName() + " in your off-hand when wielding a " + weapon.getName() );
+					KoLmafia.updateDisplay( MafiaState.ERROR, "You can't hold a " + changeItem.getName() + " in your off-hand when wielding a " + weapon.getName() );
 					return;
 				}
 			}
 
-			if ( !InventoryManager.retrieveItem( this.changeItem ) )
+			if ( !InventoryManager.retrieveItem( changeItem ) )
 			{
 				return;
 			}
 
-			if ( this.equipmentSlot >= EquipmentManager.STICKER1 &&
-			     this.equipmentSlot <= EquipmentManager.STICKER3 &&
-			     !EquipmentManager.getEquipment( this.equipmentSlot ).equals( EquipmentRequest.UNEQUIP ) )
+			if ( equipmentSlot >= EquipmentManager.STICKER1 &&
+                    equipmentSlot <= EquipmentManager.STICKER3 &&
+			     !EquipmentManager.getEquipment( equipmentSlot ).equals( EquipmentRequest.UNEQUIP ) )
 			{
-				( new EquipmentRequest( EquipmentRequest.UNEQUIP, this.equipmentSlot ) ).run();
+				( new EquipmentRequest( EquipmentRequest.UNEQUIP, equipmentSlot ) ).run();
 			}
 		}
 
-		if ( this.requestType == EquipmentRequest.REMOVE_ITEM &&
-		     EquipmentManager.getEquipment( this.equipmentSlot ).equals( EquipmentRequest.UNEQUIP ) )
+		if ( requestType == EquipmentRequest.REMOVE_ITEM &&
+		     EquipmentManager.getEquipment( equipmentSlot ).equals( EquipmentRequest.UNEQUIP ) )
 		{
 			return;
 		}
 
-		switch ( this.requestType )
+		switch ( requestType )
 		{
 		case EquipmentRequest.EQUIPMENT:
 			KoLmafia.updateDisplay( "Retrieving equipment..." );
@@ -757,19 +757,19 @@ public class EquipmentRequest
 			break;
 
 		case EquipmentRequest.SAVE_OUTFIT:
-			KoLmafia.updateDisplay( "Saving outfit: " + this.outfitName );
+			KoLmafia.updateDisplay( "Saving outfit: " + outfitName );
 			break;
 
 		case EquipmentRequest.CHANGE_OUTFIT:
-			KoLmafia.updateDisplay( "Putting on outfit: " + this.outfit );
+			KoLmafia.updateDisplay( "Putting on outfit: " + outfit );
 			break;
 
 		case EquipmentRequest.CHANGE_ITEM:
-			KoLmafia.updateDisplay( ( this.equipmentSlot == EquipmentManager.WEAPON ? "Wielding " : this.equipmentSlot == EquipmentManager.OFFHAND ? "Holding " : "Putting on " ) + ItemDatabase.getItemName( this.itemId ) + "..." );
+			KoLmafia.updateDisplay( (equipmentSlot == EquipmentManager.WEAPON ? "Wielding " : equipmentSlot == EquipmentManager.OFFHAND ? "Holding " : "Putting on " ) + ItemDatabase.getItemName( itemId ) + "..." );
 			break;
 
 		case EquipmentRequest.REMOVE_ITEM:
-			KoLmafia.updateDisplay( "Taking off " + EquipmentManager.getEquipment( this.equipmentSlot ).getName() + "..." );
+			KoLmafia.updateDisplay( "Taking off " + EquipmentManager.getEquipment( equipmentSlot ).getName() + "..." );
 			break;
 
 		case EquipmentRequest.UNEQUIP_ALL:
@@ -784,7 +784,7 @@ public class EquipmentRequest
 			return;
 		}
 
-		switch ( this.requestType )
+		switch ( requestType )
 		{
 		case EquipmentRequest.REFRESH:
 			return;
@@ -808,7 +808,7 @@ public class EquipmentRequest
 	@Override
 	public void processResults()
 	{
-		String urlString = this.getURLString();
+		String urlString = getURLString();
 		String responseText = this.responseText;
 
 		if ( urlString.startsWith( "bedazzle.php" ) )
@@ -817,7 +817,7 @@ public class EquipmentRequest
 			return;
 		}
 
-		switch ( this.requestType )
+		switch ( requestType )
 		{
 		case EquipmentRequest.REFRESH:
 			return;
@@ -875,7 +875,7 @@ public class EquipmentRequest
 		case EquipmentRequest.SAVE_OUTFIT:
 		case EquipmentRequest.REMOVE_ITEM:
 		case EquipmentRequest.UNEQUIP_ALL:
-			if ( this.getURLString().contains( "ajax=1" ) )
+			if ( getURLString().contains( "ajax=1" ) )
 			{
 				EquipmentRequest.parseEquipmentChange( urlString, responseText );
 			}

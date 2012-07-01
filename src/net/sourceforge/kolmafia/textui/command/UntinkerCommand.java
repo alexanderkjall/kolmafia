@@ -46,7 +46,7 @@ public class UntinkerCommand
 {
 	public UntinkerCommand()
 	{
-		this.usage = " [ <item>... ] - complete quest, or untinker items.";
+        usage = " [ <item>... ] - complete quest, or untinker items.";
 	}
 
 	@Override

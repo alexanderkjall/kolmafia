@@ -64,7 +64,7 @@ public class Crimbo09Request
 	@Override
 	public void processResults()
 	{
-		Crimbo09Request.parseResponse( this.getURLString(), this.responseText );
+		Crimbo09Request.parseResponse( getURLString(), responseText );
 	}
 
 	public static int getTurnsUsed( GenericRequest request )

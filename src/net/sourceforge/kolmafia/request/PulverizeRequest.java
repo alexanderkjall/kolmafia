@@ -76,15 +76,15 @@ public class PulverizeRequest
 	public PulverizeRequest( final AdventureResult item )
 	{
 		super( "craft.php" );
-		this.addFormField( "action", "pulverize" );
+        addFormField( "action", "pulverize" );
 
 		this.item = item;
-		this.addFormField( "smashitem", String.valueOf( item.getItemId() ) );
-		this.addFormField( "qty", String.valueOf( item.getCount() ) );
-		this.addFormField( "ajax", "1" );
+        addFormField( "smashitem", String.valueOf( item.getItemId() ) );
+        addFormField( "qty", String.valueOf( item.getCount() ) );
+        addFormField( "ajax", "1" );
 
 		// 1 to confirm smashing untradables
-		this.addFormField( "conftrade", "1" );
+        addFormField( "conftrade", "1" );
 	}
 
 	public void useMalus( final String itemName, final int quantity )
@@ -122,32 +122,32 @@ public class PulverizeRequest
 	@Override
 	public void run()
 	{
-		if ( Preferences.getBoolean( "mementoListActive" ) && KoLConstants.mementoList.contains( this.item ) )
+		if ( Preferences.getBoolean( "mementoListActive" ) && KoLConstants.mementoList.contains( item ) )
 		{
-			KoLmafia.updateDisplay( "(smashing of 'Memento' item " + this.item + " disallowed)" );
+			KoLmafia.updateDisplay( "(smashing of 'Memento' item " + item + " disallowed)" );
 			return;
 		}
 
-		if ( this.item.getCount( KoLConstants.inventory ) == this.item.getCount() )
+		if ( item.getCount( KoLConstants.inventory ) == item.getCount() )
 		{
-			if ( !KoLCharacter.canInteract() && !KoLConstants.junkList.contains( this.item ) )
+			if ( !KoLCharacter.canInteract() && !KoLConstants.junkList.contains( item ) )
 			{
-				KoLConstants.junkList.add( this.item );
+				KoLConstants.junkList.add( item );
 			}
 
-			if ( KoLConstants.singletonList.contains( this.item ) && !KoLConstants.closet.contains( this.item ) )
+			if ( KoLConstants.singletonList.contains( item ) && !KoLConstants.closet.contains( item ) )
 			{
-				KoLmafia.updateDisplay( "(smashable quantity of 'Keep One' item " + this.item + " reduced by 1)" );
-				this.item = this.item.getInstance( this.item.getCount() - 1 );
-				if ( this.item.getCount() <= 0 )
+				KoLmafia.updateDisplay( "(smashable quantity of 'Keep One' item " + item + " reduced by 1)" );
+                item = item.getInstance( item.getCount() - 1 );
+				if ( item.getCount() <= 0 )
 				{
 					return;
 				}
-				this.addFormField( "qty", String.valueOf( this.item.getCount() ) );
+                addFormField( "qty", String.valueOf( item.getCount() ) );
 			}
 		}
 
-		switch ( ItemDatabase.getConsumptionType( this.item.getItemId() ) )
+		switch ( ItemDatabase.getConsumptionType( item.getItemId() ) )
 		{
 		case KoLConstants.EQUIP_ACCESSORY:
 		case KoLConstants.EQUIP_HAT:
@@ -158,14 +158,14 @@ public class PulverizeRequest
 			break;
 
 		default:
-			int qty = this.item.getCount();
-			String name = this.item.getName();
+			int qty = item.getCount();
+			String name = item.getName();
 			int space = name.lastIndexOf( " " ) + 1;
 			String upgrade = (String) PulverizeRequest.UPGRADES.get(
 				name.substring( space ) );
 			if ( upgrade != null )
 			{
-				this.useMalus( name.substring( 0, space ) + upgrade, qty / 5 );
+                useMalus( name.substring( 0, space ) + upgrade, qty / 5 );
 			}
 
 			return;
@@ -182,26 +182,26 @@ public class PulverizeRequest
 			return;
 		}
 
-		if ( this.item.getCount( KoLConstants.inventory ) < this.item.getCount() )
+		if ( item.getCount( KoLConstants.inventory ) < item.getCount() )
 		{
-			KoLmafia.updateDisplay( MafiaState.ERROR, "You don't have that many " + this.item.getName() + "." );
+			KoLmafia.updateDisplay( MafiaState.ERROR, "You don't have that many " + item.getName() + "." );
 			return;
 		}
 
-		KoLmafia.updateDisplay( "Pulverizing " + this.item + "..." );
+		KoLmafia.updateDisplay( "Pulverizing " + item + "..." );
 		super.run();
 	}
 
 	@Override
 	public void processResults()
 	{
-		if ( PulverizeRequest.parseResponse( this.getURLString(), this.responseText ) == 0 )
+		if ( PulverizeRequest.parseResponse( getURLString(), responseText ) == 0 )
 		{
-			KoLmafia.updateDisplay( MafiaState.ERROR, "The " + this.item + " could not be smashed." );
+			KoLmafia.updateDisplay( MafiaState.ERROR, "The " + item + " could not be smashed." );
 			return;
 		}
 
-		KoLmafia.updateDisplay( this.item + " smashed." );
+		KoLmafia.updateDisplay( item + " smashed." );
 	}
 
 	public static int parseResponse( final String urlString, final String responseText )

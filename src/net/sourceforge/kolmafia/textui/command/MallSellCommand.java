@@ -38,7 +38,7 @@ public class MallSellCommand
 {
 	public MallSellCommand()
 	{
-		this.usage = " <item> [[@] <price> [[limit] <num>]] [, <another>]... - sell in Mall.";
+        usage = " <item> [[@] <price> [[limit] <num>]] [, <another>]... - sell in Mall.";
 	}
 
 	@Override

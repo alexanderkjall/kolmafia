@@ -65,22 +65,22 @@ public class CakeArenaRequest
 	public CakeArenaRequest()
 	{
 		super( "arena.php" );
-		this.isCompetition = false;
+        isCompetition = false;
 	}
 
 	public CakeArenaRequest( final int opponentId, final int eventId )
 	{
 		super( "arena.php" );
-		this.addFormField( "action", "go" );
-		this.addFormField( "whichopp", String.valueOf( opponentId ) );
-		this.addFormField( "event", String.valueOf( eventId ) );
-		this.isCompetition = true;
+        addFormField( "action", "go" );
+        addFormField( "whichopp", String.valueOf( opponentId ) );
+        addFormField( "event", String.valueOf( eventId ) );
+        isCompetition = true;
 	}
 
 	@Override
 	public void run()
 	{
-		if ( !this.isCompetition )
+		if ( !isCompetition )
 		{
 			KoLmafia.updateDisplay( "Retrieving opponent list..." );
 		}
@@ -91,20 +91,20 @@ public class CakeArenaRequest
 	@Override
 	public void processResults()
 	{
-		if ( this.responseText.contains( "You can't" ) ||
-                this.responseText.contains( "You shouldn't" ) ||
-                this.responseText.contains( "You don't" ) ||
-                this.responseText.contains( "You need" ) ||
-                this.responseText.contains( "You're way too beaten" ) ||
-                this.responseText.contains( "You're too drunk" ) )
+		if ( responseText.contains( "You can't" ) ||
+                responseText.contains( "You shouldn't" ) ||
+                responseText.contains( "You don't" ) ||
+                responseText.contains( "You need" ) ||
+                responseText.contains( "You're way too beaten" ) ||
+                responseText.contains( "You're too drunk" ) )
 		{
 			KoLmafia.updateDisplay( MafiaState.ERROR, "Arena battles aborted!" );
 			return;
 		}
 
-		CakeArenaRequest.parseResponse( this.getURLString(), this.responseText );
+		CakeArenaRequest.parseResponse( getURLString(), responseText );
 
-		if ( !this.isCompetition )
+		if ( !isCompetition )
 		{
 			KoLmafia.updateDisplay( "Opponent list retrieved." );
 		}
@@ -276,6 +276,6 @@ public class CakeArenaRequest
 	@Override
 	public int getAdventuresUsed()
 	{
-		return this.isCompetition ? 1 : 0;
+		return isCompetition ? 1 : 0;
 	}
 }

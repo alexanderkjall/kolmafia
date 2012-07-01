@@ -97,8 +97,8 @@ public class MallPurchaseRequest
 	{
 		super( "mallstore.php" );
 
-		this.isMallStore = true;
-		this.hashField = "pwd";
+        isMallStore = true;
+        hashField = "pwd";
 		this.item = item;
 
 		this.shopName = shopName;
@@ -109,12 +109,12 @@ public class MallPurchaseRequest
 		this.limit = Math.min( quantity, limit );
 		this.canPurchase = canPurchase;
 
-		this.addFormField( "whichstore", String.valueOf( shopId ) );
-		this.addFormField( "buying", "1" );
-		this.addFormField( "ajax", "1" );
-		this.addFormField( "whichitem", MallPurchaseRequest.getStoreString( item.getItemId(), price ) );
+        addFormField( "whichstore", String.valueOf( shopId ) );
+        addFormField( "buying", "1" );
+        addFormField( "ajax", "1" );
+        addFormField( "whichitem", MallPurchaseRequest.getStoreString( item.getItemId(), price ) );
 
-		this.timestamp = System.currentTimeMillis();
+        timestamp = System.currentTimeMillis();
 	}
 
 	public static String getStoreString( final int itemId, final int price )
@@ -138,13 +138,13 @@ public class MallPurchaseRequest
 	@Override
 	public void run()
 	{
-		if ( this.shopId == KoLCharacter.getUserId() )
+		if ( shopId == KoLCharacter.getUserId() )
 		{
 			return;
 		}
 
-		this.itemSequenceCount = ResultProcessor.itemSequenceCount;
-		this.addFormField( "quantity", String.valueOf( this.limit ) );
+        itemSequenceCount = ResultProcessor.itemSequenceCount;
+        addFormField( "quantity", String.valueOf( limit ) );
 
 		super.run();
 	}
@@ -153,23 +153,23 @@ public class MallPurchaseRequest
 	@Override
 	public void processResults()
 	{
-		MallPurchaseRequest.parseResponse( this.getURLString(), this.responseText );
+		MallPurchaseRequest.parseResponse( getURLString(), responseText );
 
-		int quantityAcquired = this.item.getCount( KoLConstants.inventory ) - this.initialCount;
+		int quantityAcquired = item.getCount( KoLConstants.inventory ) - initialCount;
 		if ( quantityAcquired > 0 )
 		{
 			return;
 		}
 
-		if ( this.itemSequenceCount != ResultProcessor.itemSequenceCount )
+		if ( itemSequenceCount != ResultProcessor.itemSequenceCount )
 		{
 			KoLmafia.updateDisplay( MafiaState.ERROR,
 				"Wrong item received - possibly its name or plural has changed." );
 			return;
 		}
 
-		int startIndex = this.responseText.indexOf( "<center>" );
-		int stopIndex = this.responseText.indexOf( "</table>" );
+		int startIndex = responseText.indexOf( "<center>" );
+		int stopIndex = responseText.indexOf( "</table>" );
 
 		if ( startIndex == -1 || stopIndex == -1 )
 		{
@@ -177,14 +177,14 @@ public class MallPurchaseRequest
 			return;
 		}
 
-		String result = this.responseText.substring( startIndex, stopIndex );
+		String result = responseText.substring( startIndex, stopIndex );
 
 		// One error is that the item price changed, or the item
 		// is no longer available because someone was faster at
 		// purchasing the item.	 If that's the case, just return
 		// without doing anything; nothing left to do.
 
-		if ( this.responseText.contains( "You can't afford" ) )
+		if ( responseText.contains( "You can't afford" ) )
 		{
 			KoLmafia.updateDisplay( MafiaState.ERROR, "Not enough funds." );
 			return;
@@ -192,9 +192,9 @@ public class MallPurchaseRequest
 
 		// If you are on a player's ignore list, you can't buy from his store
 
-		if ( this.responseText.contains( "That player will not sell to you" ) )
+		if ( responseText.contains( "That player will not sell to you" ) )
 		{
-			KoLmafia.updateDisplay( "You are on this shop's ignore list (#" + this.shopId + "). Skipping..." );
+			KoLmafia.updateDisplay( "You are on this shop's ignore list (#" + shopId + "). Skipping..." );
 			return;
 		}
 
@@ -203,11 +203,11 @@ public class MallPurchaseRequest
 		// to yield" message.  In that case, you may wish to
 		// re-attempt the purchase.
 
-		if ( this.responseText.contains( "This store doesn't" ) || this.responseText.contains( "failed to yield" ) )
+		if ( responseText.contains( "This store doesn't" ) || responseText.contains( "failed to yield" ) )
 		{
 			Matcher itemChangedMatcher =
 				Pattern.compile(
-					"<td valign=center><b>" + this.item.getName() + "</b> \\(([\\d,]+)\\) </td><td>([\\d,]+) Meat" ).matcher(
+					"<td valign=center><b>" + item.getName() + "</b> \\(([\\d,]+)\\) </td><td>([\\d,]+) Meat" ).matcher(
 					result );
 
 			if ( itemChangedMatcher.find() )
@@ -219,19 +219,19 @@ public class MallPurchaseRequest
 				// price, then you should re-attempt the purchase
 				// of the item.
 
-				if ( this.price >= newPrice )
+				if ( price >= newPrice )
 				{
 					KoLmafia.updateDisplay( "Failed to yield.  Attempting repurchase..." );
 					( new MallPurchaseRequest(
-						this.item,
-						Math.min( limit, this.quantity ),
-						this.shopId, this.shopName,
-						newPrice, Math.min( limit, this.quantity ),
+                            item,
+						Math.min( limit, quantity ),
+                            shopId, shopName,
+						newPrice, Math.min( limit, quantity ),
 						true ) ).run();
 				}
 				else
 				{
-					KoLmafia.updateDisplay( "Price switch detected (#" + this.shopId + "). Skipping..." );
+					KoLmafia.updateDisplay( "Price switch detected (#" + shopId + "). Skipping..." );
 				}
 			}
 			else
@@ -258,13 +258,13 @@ public class MallPurchaseRequest
 			if ( limit != alreadyPurchased )
 			{
 				( new MallPurchaseRequest(
-					this.item,
+                        item,
 					limit - alreadyPurchased,
-					this.shopId, this.shopName,
-					this.price, limit, true ) ).run();
+                        shopId, shopName,
+                        price, limit, true ) ).run();
 			}
 
-			this.canPurchase = false;
+            canPurchase = false;
 			return;
 		}
 	}

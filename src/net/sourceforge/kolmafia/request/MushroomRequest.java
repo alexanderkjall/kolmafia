@@ -58,22 +58,22 @@ public class MushroomRequest
 	public MushroomRequest( final int square )
 	{
 		this();
-		this.addFormField( "action", "click" );
-		this.addFormField( "pos", String.valueOf( square - 1 ) );
+        addFormField( "action", "click" );
+        addFormField( "pos", String.valueOf( square - 1 ) );
 	}
 
 	public MushroomRequest( final int square, final int spore )
 	{
 		this();
-		this.addFormField( "action", "plant" );
-		this.addFormField( "pos", String.valueOf( square - 1 ) );
-		this.addFormField( "whichspore", String.valueOf( spore ) );
+        addFormField( "action", "plant" );
+        addFormField( "pos", String.valueOf( square - 1 ) );
+        addFormField( "whichspore", String.valueOf( spore ) );
 	}
 
 	@Override
 	public void processResults()
 	{
-		MushroomRequest.parseResponse( this.getURLString(), this.responseText );
+		MushroomRequest.parseResponse( getURLString(), responseText );
 	}
 
 	public static void parseResponse( final String urlString, final String responseText )

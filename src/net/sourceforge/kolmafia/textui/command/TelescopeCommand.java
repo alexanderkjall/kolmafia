@@ -54,7 +54,7 @@ public class TelescopeCommand
 {
 	public TelescopeCommand()
 	{
-		this.usage = " [look] high | low - get daily buff, or Lair hints from your telescope.";
+        usage = " [look] high | low - get daily buff, or Lair hints from your telescope.";
 	}
 
 	@Override
@@ -123,7 +123,7 @@ public class TelescopeCommand
 		{
 			String name = SorceressLairManager.gateName( desc );
 			String effect = SorceressLairManager.gateEffect( desc );
-			String remedy = this.locateItem( desc[ 3 ] );
+			String remedy = locateItem( desc[ 3 ] );
 			RequestLogger.printLine( "Outer gate: " + name + " (" + effect + "/" + remedy + ")" );
 		}
 		else
@@ -139,7 +139,7 @@ public class TelescopeCommand
 			if ( desc != null )
 			{
 				String name = SorceressLairManager.guardianName( desc );
-				String item = this.locateItem( SorceressLairManager.guardianItem( desc ) );
+				String item = locateItem( SorceressLairManager.guardianItem( desc ) );
 				RequestLogger.printLine( "Tower Guardian #" + i + ": " + name + " (" + item + ")" );
 			}
 			else

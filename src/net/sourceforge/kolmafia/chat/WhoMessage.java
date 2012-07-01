@@ -48,6 +48,6 @@ public class WhoMessage extends EventMessage
 
 	public Map getContacts()
 	{
-		return this.contacts;
+		return contacts;
 	}
 }

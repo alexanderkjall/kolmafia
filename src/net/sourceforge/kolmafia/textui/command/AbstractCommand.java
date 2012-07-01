@@ -78,7 +78,7 @@ public abstract class AbstractCommand
 
 	public String getUsage( final String cmd )
 	{
-		return this.usage;
+		return usage;
 	}
 
 	// If the command is being called from an ASH Interpreter, here is
@@ -116,7 +116,7 @@ public abstract class AbstractCommand
 	{
 		// For commands that must be typed with an exact name
 		AbstractCommand.lookup.putExact( name.toLowerCase(), this );
-		this.registerFlags( name );
+        registerFlags( name );
 		return this;
 	}
 
@@ -124,7 +124,7 @@ public abstract class AbstractCommand
 	{
 		// For commands that are parsed as startsWith(...)
 		AbstractCommand.lookup.putPrefix( prefix.toLowerCase(), this );
-		this.registerFlags( prefix );
+        registerFlags( prefix );
 		return this;
 	}
 
@@ -137,7 +137,7 @@ public abstract class AbstractCommand
 
 		// Make it visible in the normal lookup map:
 		AbstractCommand.lookup.putExact( "*" + substring + "*", this );
-		this.registerFlags( substring );
+        registerFlags( substring );
 		return this;
 	}
 
@@ -162,11 +162,11 @@ public abstract class AbstractCommand
 
 	private void registerFlags( final String name )
 	{
-		if ( this.flags == KoLmafiaCLI.FULL_LINE_CMD )
+		if ( flags == KoLmafiaCLI.FULL_LINE_CMD )
 		{
 			AbstractCommand.fullLineCmds += AbstractCommand.fullLineCmds.length() == 0 ? name : ", " + name;
 		}
-		if ( this.flags == KoLmafiaCLI.FLOW_CONTROL_CMD )
+		if ( flags == KoLmafiaCLI.FLOW_CONTROL_CMD )
 		{
 			AbstractCommand.flowControlCmds += AbstractCommand.flowControlCmds.length() == 0 ? name : ", " + name;
 		}

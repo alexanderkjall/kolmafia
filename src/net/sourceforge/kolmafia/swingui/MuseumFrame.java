@@ -82,17 +82,17 @@ public class MuseumFrame
 	{
 		super( "Museum Display" );
 
-		this.general = new AddRemovePanel();
-		this.restock = new DisplayCaseMatchPanel();
-		this.shelves = new MuseumShelfList();
-		this.ordering = new OrderingPanel();
+        general = new AddRemovePanel();
+        restock = new DisplayCaseMatchPanel();
+        shelves = new MuseumShelfList();
+        ordering = new OrderingPanel();
 
-		this.addTab( "General", this.general );
-		this.addTab( "End of Run", this.restock );
-		this.addTab( "Shelves", this.shelves );
-		this.tabs.addTab( "Ordering", this.ordering );
+        addTab( "General", general );
+        addTab( "End of Run", restock );
+        addTab( "Shelves", shelves );
+        tabs.addTab( "Ordering", ordering );
 
-		this.setCenterComponent( this.tabs );
+        setCenterComponent( tabs );
 	}
 
 	private class DisplayCaseMatchPanel
@@ -150,26 +150,26 @@ public class MuseumFrame
 
 		public AddRemovePanel()
 		{
-			this.setLayout( new GridLayout( 2, 1, 10, 10 ) );
+            setLayout( new GridLayout( 2, 1, 10, 10 ) );
 
-			this.inventoryPanel = new OutsideDisplayPanel();
-			this.displayPanel = new InsideDisplayPanel();
+            inventoryPanel = new OutsideDisplayPanel();
+            displayPanel = new InsideDisplayPanel();
 
-			this.add( this.inventoryPanel );
-			this.add( this.displayPanel );
+            add( inventoryPanel );
+            add( displayPanel );
 		}
 
 		@Override
 		public void setEnabled( final boolean isEnabled )
 		{
-			if ( this.inventoryPanel == null || this.displayPanel == null )
+			if ( inventoryPanel == null || displayPanel == null )
 			{
 				return;
 			}
 
 			super.setEnabled( isEnabled );
-			this.inventoryPanel.setEnabled( isEnabled );
-			this.displayPanel.setEnabled( isEnabled );
+            inventoryPanel.setEnabled( isEnabled );
+            displayPanel.setEnabled( isEnabled );
 		}
 
 		private Object[] getSelectedValues( final Object[] selection, boolean moveAll )
@@ -197,26 +197,26 @@ public class MuseumFrame
 			public OutsideDisplayPanel()
 			{
 				super( "Inventory", "add all", "add some", new ShowDescriptionList( KoLConstants.inventory ) );
-				this.elementList = (ShowDescriptionList) this.scrollComponent;
+                elementList = (ShowDescriptionList) scrollComponent;
 			}
 
 			private void move( final boolean moveAll )
 			{
-				RequestThread.postRequest( new DisplayCaseRequest( AddRemovePanel.this.getSelectedValues(
-					this.elementList.getSelectedValues(), moveAll ), true ) );
+				RequestThread.postRequest( new DisplayCaseRequest( getSelectedValues(
+                        elementList.getSelectedValues(), moveAll ), true ) );
 				RequestThread.postRequest( new DisplayCaseRequest() );
 			}
 
 			@Override
 			public void actionConfirmed()
 			{
-				this.move( true );
+                move( true );
 			}
 
 			@Override
 			public void actionCancelled()
 			{
-				this.move( false );
+                move( false );
 			}
 		}
 
@@ -228,26 +228,26 @@ public class MuseumFrame
 			public InsideDisplayPanel()
 			{
 				super( "Display Case", "take all", "take some", new ShowDescriptionList( KoLConstants.collection ) );
-				this.elementList = (ShowDescriptionList) this.scrollComponent;
+                elementList = (ShowDescriptionList) scrollComponent;
 			}
 
 			private void move( final boolean moveAll )
 			{
-				RequestThread.postRequest( new DisplayCaseRequest( AddRemovePanel.this.getSelectedValues(
-					this.elementList.getSelectedValues(), moveAll ), false ) );
+				RequestThread.postRequest( new DisplayCaseRequest( getSelectedValues(
+                        elementList.getSelectedValues(), moveAll ), false ) );
 				RequestThread.postRequest( new DisplayCaseRequest() );
 			}
 
 			@Override
 			public void actionConfirmed()
 			{
-				this.move( true );
+                move( true );
 			}
 
 			@Override
 			public void actionCancelled()
 			{
-				this.move( false );
+                move( false );
 			}
 		}
 	}
@@ -286,7 +286,7 @@ public class MuseumFrame
 			super( DisplayCaseManager.getHeader( index ), "move", "remove", new ShowDescriptionList( value ), false );
 
 			this.index = index;
-			this.elementList = (ShowDescriptionList) this.scrollComponent;
+            elementList = (ShowDescriptionList) scrollComponent;
 		}
 
 		@Override
@@ -305,7 +305,7 @@ public class MuseumFrame
 			{
 				if ( selectedValue.equals( headerArray[ i ] ) )
 				{
-					DisplayCaseManager.move( this.elementList.getSelectedValues(), this.index, i );
+					DisplayCaseManager.move( elementList.getSelectedValues(), index, i );
 					break;
 				}
 			}
@@ -314,7 +314,7 @@ public class MuseumFrame
 		@Override
 		public void actionCancelled()
 		{
-			RequestThread.postRequest( new DisplayCaseRequest( this.elementList.getSelectedValues(), false ) );
+			RequestThread.postRequest( new DisplayCaseRequest( elementList.getSelectedValues(), false ) );
 			RequestThread.postRequest( new DisplayCaseRequest() );
 		}
 
@@ -330,7 +330,7 @@ public class MuseumFrame
 		{
 			super( (LockableListModel) DisplayCaseManager.getHeaders().clone() );
 
-			this.setButtons(
+            setButtons(
 				false,
 				new ActionListener[] {
 					new MoveUpListener(),
@@ -344,15 +344,15 @@ public class MuseumFrame
 		{
 			public void actionPerformed( final ActionEvent e )
 			{
-				int selectedIndex = OrderingPanel.this.elementList.getSelectedIndex();
+				int selectedIndex = elementList.getSelectedIndex();
 				if ( selectedIndex < 1 )
 				{
 					return;
 				}
 
-				Comparable<?> removed = OrderingPanel.this.elementModel.remove( selectedIndex );
-				OrderingPanel.this.elementModel.add( selectedIndex - 1, removed );
-				OrderingPanel.this.elementList.setSelectedIndex( selectedIndex - 1 );
+				Comparable<?> removed = elementModel.remove( selectedIndex );
+                elementModel.add( selectedIndex - 1, removed );
+                elementList.setSelectedIndex( selectedIndex - 1 );
 			}
 
 			@Override
@@ -367,15 +367,15 @@ public class MuseumFrame
 		{
 			public void actionPerformed( final ActionEvent e )
 			{
-				int selectedIndex = OrderingPanel.this.elementList.getSelectedIndex();
-				if ( selectedIndex < 0 || selectedIndex == OrderingPanel.this.elementModel.size() - 1 )
+				int selectedIndex = elementList.getSelectedIndex();
+				if ( selectedIndex < 0 || selectedIndex == elementModel.size() - 1 )
 				{
 					return;
 				}
 
-				Comparable<?> removed = OrderingPanel.this.elementModel.remove( selectedIndex );
-				OrderingPanel.this.elementModel.add( selectedIndex + 1, removed );
-				OrderingPanel.this.elementList.setSelectedIndex( selectedIndex + 1 );
+				Comparable<?> removed = elementModel.remove( selectedIndex );
+                elementModel.add( selectedIndex + 1, removed );
+                elementList.setSelectedIndex( selectedIndex + 1 );
 			}
 
 			@Override
@@ -387,8 +387,8 @@ public class MuseumFrame
 
 		public void apply()
 		{
-			String[] headerArray = new String[ this.elementModel.size() ];
-			this.elementModel.toArray( headerArray );
+			String[] headerArray = new String[elementModel.size() ];
+            elementModel.toArray( headerArray );
 			DisplayCaseManager.reorder( headerArray );
 		}
 	}

@@ -81,7 +81,7 @@ public class StorageRequest
 	public StorageRequest()
 	{
 		super( "storage.php" );
-		this.moveType = StorageRequest.REFRESH;
+        moveType = StorageRequest.REFRESH;
 	}
 
 	public StorageRequest( final int moveType )
@@ -111,34 +111,34 @@ public class StorageRequest
 		switch ( moveType )
 		{
 		case MEAT:
-			this.addFormField( "which", "5" );
+            addFormField( "which", "5" );
 			break;
 		case CONSUMABLES:
-			this.addFormField( "which", "1" );
+            addFormField( "which", "1" );
 			break;
 		case EQUIPMENT:
-			this.addFormField( "which", "2" );
+            addFormField( "which", "2" );
 			break;
 		case MISCELLANEOUS:
-			this.addFormField( "which", "3" );
+            addFormField( "which", "3" );
 			break;
 
 		case EMPTY_STORAGE:
-			this.addFormField( "action", "pullall" );
-			this.source = KoLConstants.storage;
-			this.destination = KoLConstants.inventory;
+            addFormField( "action", "pullall" );
+            source = KoLConstants.storage;
+            destination = KoLConstants.inventory;
 			break;
 
 		case STORAGE_TO_INVENTORY:
 			// storage.php?action=pull&whichitem1=1649&howmany1=1&pwd
-			this.addFormField( "action", "pull" );
-			this.addFormField( "ajax", "1" );
-			this.source = KoLConstants.storage;
-			this.destination = KoLConstants.inventory;
+            addFormField( "action", "pull" );
+            addFormField( "ajax", "1" );
+            source = KoLConstants.storage;
+            destination = KoLConstants.inventory;
 			break;
 
 		case PULL_MEAT_FROM_STORAGE:
-			this.addFormField( "action", "takemeat" );
+            addFormField( "action", "takemeat" );
 			break;
 		}
 	}
@@ -146,15 +146,15 @@ public class StorageRequest
 	@Override
 	protected boolean retryOnTimeout()
 	{
-		return this.moveType == StorageRequest.MEAT ||
-		       this.moveType == StorageRequest.CONSUMABLES ||
-		       this.moveType == StorageRequest.EQUIPMENT ||
-		       this.moveType == StorageRequest.MISCELLANEOUS;
+		return moveType == StorageRequest.MEAT ||
+                moveType == StorageRequest.CONSUMABLES ||
+                moveType == StorageRequest.EQUIPMENT ||
+                moveType == StorageRequest.MISCELLANEOUS;
 	}
 
 	public int getMoveType()
 	{
-		return this.moveType;
+		return moveType;
 	}
 
 	@Override
@@ -179,14 +179,14 @@ public class StorageRequest
 	{
 		List itemList = new ArrayList();
 
-		if ( this.attachments == null )
+		if ( attachments == null )
 		{
 			return itemList;
 		}
 
-		for ( int i = 0; i < this.attachments.length; ++i )
+		for ( int i = 0; i < attachments.length; ++i )
 		{
-			itemList.add( this.attachments[ i ] );
+			itemList.add( attachments[ i ] );
 		}
 
 		return itemList;
@@ -201,13 +201,13 @@ public class StorageRequest
 	@Override
 	public boolean forceGETMethod()
 	{
-		return this.moveType == STORAGE_TO_INVENTORY;
+		return moveType == STORAGE_TO_INVENTORY;
 	}
 
 	@Override
 	public TransferItemRequest getSubInstance( final Object[] attachments )
 	{
-		return new StorageRequest( this.moveType, attachments );
+		return new StorageRequest( moveType, attachments );
 	}
 
 	@Override
@@ -215,7 +215,7 @@ public class StorageRequest
 	{
 		if ( KoLCharacter.inBadMoon() && !KoLCharacter.canInteract() )
 		{
-			switch ( this.moveType )
+			switch ( moveType )
 			{
 			case EMPTY_STORAGE:
 			case STORAGE_TO_INVENTORY:
@@ -225,7 +225,7 @@ public class StorageRequest
 			}
 		}
 
-		if ( this.moveType == REFRESH )
+		if ( moveType == REFRESH )
 		{
 			// If we are refreshing storage, we need to do all four pages.
 			KoLmafia.updateDisplay( "Refreshing storage..." );
@@ -248,7 +248,7 @@ public class StorageRequest
 	@Override
 	public void processResults()
 	{
-		switch ( this.moveType )
+		switch ( moveType )
 		{
 		case StorageRequest.REFRESH:
 			return;
@@ -256,7 +256,7 @@ public class StorageRequest
 		case StorageRequest.CONSUMABLES:
 		case StorageRequest.EQUIPMENT:
 		case StorageRequest.MISCELLANEOUS:
-			StorageRequest.parseStorage( this.getURLString(), this.responseText );
+			StorageRequest.parseStorage( getURLString(), responseText );
 			return;
 		default:
 			super.processResults();
@@ -375,7 +375,7 @@ public class StorageRequest
 	@Override
 	public boolean parseTransfer()
 	{
-		return StorageRequest.parseTransfer( this.getURLString(), this.responseText );
+		return StorageRequest.parseTransfer( getURLString(), responseText );
 	}
 
 	public static boolean parseTransfer( final String urlString, final String responseText )
@@ -582,7 +582,7 @@ public class StorageRequest
 	@Override
 	public String getStatusMessage()
 	{
-		switch ( this.moveType )
+		switch ( moveType )
 		{
 		case REFRESH:
 			return "Retrieving storage list";

@@ -123,28 +123,28 @@ public class AdventureSelectPanel
 	{
 		super( new BorderLayout( 10, 10 ) );
 
-		this.matchingAdventures = AdventureDatabase.getAsLockableListModel().getMirrorImage();
+        matchingAdventures = AdventureDatabase.getAsLockableListModel().getMirrorImage();
 
 		// West pane is a scroll pane which lists all of the available
 		// locations -- to be included is a map on a separate tab.
 
-		this.locationSelect = new JList( this.matchingAdventures );
-		this.locationSelect.setVisibleRowCount( 4 );
+        locationSelect = new JList( matchingAdventures );
+        locationSelect.setVisibleRowCount( 4 );
 
 		JPanel zonePanel = new JPanel( new BorderLayout( 5, 5 ) );
 
 		boolean useZoneComboBox = Preferences.getBoolean( "useZoneComboBox" );
 		if ( useZoneComboBox )
 		{
-			this.zoneSelect = new FilterAdventureComboBox();
-			this.matchingAdventures.setFilter( (FilterAdventureComboBox) this.zoneSelect );
+            zoneSelect = new FilterAdventureComboBox();
+            matchingAdventures.setFilter( (FilterAdventureComboBox) zoneSelect );
 		}
 		else
 		{
-			this.zoneSelect = new AutoFilterTextField( AdventureSelectPanel.this.locationSelect );
+            zoneSelect = new AutoFilterTextField( locationSelect );
 		}
 
-		this.zoneMap = new TreeMap();
+        zoneMap = new TreeMap();
 		Object[] zones = AdventureDatabase.PARENT_LIST.toArray();
 
 		Object currentZone;
@@ -152,60 +152,60 @@ public class AdventureSelectPanel
 		for ( int i = 0; i < zones.length; ++i )
 		{
 			currentZone = AdventureDatabase.ZONE_DESCRIPTIONS.get( zones[ i ] );
-			this.zoneMap.put( currentZone, zones[ i ] );
+            zoneMap.put( currentZone, zones[i] );
 
 			if ( useZoneComboBox )
 			{
-				( (JComboBox) this.zoneSelect ).addItem( currentZone );
+				( (JComboBox) zoneSelect).addItem( currentZone );
 			}
 		}
 
-		JComponentUtilities.setComponentSize( this.zoneSelect, 200, -1 );
-		zonePanel.add( this.zoneSelect, BorderLayout.CENTER );
+		JComponentUtilities.setComponentSize( zoneSelect, 200, -1 );
+		zonePanel.add( zoneSelect, BorderLayout.CENTER );
 
 		if ( enableAdventures )
 		{
-			this.countField = new AdventureCountSpinner();
-			this.countField.setHorizontalAlignment( AutoHighlightTextField.RIGHT );
-			JComponentUtilities.setComponentSize( this.countField, 56, -1 );
-			zonePanel.add( this.countField, BorderLayout.EAST );
+            countField = new AdventureCountSpinner();
+            countField.setHorizontalAlignment( AutoHighlightTextField.RIGHT );
+			JComponentUtilities.setComponentSize( countField, 56, -1 );
+			zonePanel.add( countField, BorderLayout.EAST );
 		}
 
 		JPanel contentHolder = new JPanel( new BorderLayout( 5, 5 ) );
 
 		contentHolder.add( zonePanel, BorderLayout.NORTH );
-		contentHolder.add( new GenericScrollPane( this.locationSelect ), BorderLayout.CENTER );
+		contentHolder.add( new GenericScrollPane( locationSelect ), BorderLayout.CENTER );
 
-		this.locationSelect.addListSelectionListener( new ConditionChangeListener() );
+        locationSelect.addListSelectionListener( new ConditionChangeListener() );
 
 		JPanel conditionPanel = new JPanel( new BorderLayout( 5, 5 ) );
 
-		conditionPanel.add( AdventureSelectPanel.this.conditionField, BorderLayout.CENTER );
-		conditionPanel.add( AdventureSelectPanel.this.conditionsFieldActive, BorderLayout.EAST );
+		conditionPanel.add( conditionField, BorderLayout.CENTER );
+		conditionPanel.add( conditionsFieldActive, BorderLayout.EAST );
 
-		this.conditionsFieldActive.setSelected( Preferences.getBoolean( "autoSetConditions" ) );
-		this.conditionField.setEnabled( Preferences.getBoolean( "autoSetConditions" ) );
+        conditionsFieldActive.setSelected( Preferences.getBoolean( "autoSetConditions" ) );
+        conditionField.setEnabled( Preferences.getBoolean( "autoSetConditions" ) );
 
-		this.conditionsFieldActive.addActionListener( new EnableObjectivesListener() );
+        conditionsFieldActive.addActionListener( new EnableObjectivesListener() );
 
 		contentHolder.add( conditionPanel, BorderLayout.SOUTH );
 
 		JPanel contentPanel = new JPanel( new BorderLayout( 10, 10 ) );
 		contentPanel.add( contentHolder, BorderLayout.CENTER );
 
-		this.setLayout( new CardLayout( 5, 5 ) );
-		this.add( "", contentPanel );
+        setLayout( new CardLayout( 5, 5 ) );
+        add( "", contentPanel );
 
 		if ( enableAdventures )
 		{
 			JPanel buttonHolder = new JPanel( new GridLayout( 3, 1, 5, 5 ) );
 
-			this.begin = new ThreadedButton( "begin", new ExecuteRunnable() );
-			this.begin.setToolTipText( "Start Adventuring" );
+            begin = new ThreadedButton( "begin", new ExecuteRunnable() );
+            begin.setToolTipText( "Start Adventuring" );
 
-			JComponentUtilities.addHotKey( this, KeyEvent.VK_ENTER, AdventureSelectPanel.this.begin );
+			JComponentUtilities.addHotKey( this, KeyEvent.VK_ENTER, begin );
 
-			buttonHolder.add( AdventureSelectPanel.this.begin );
+			buttonHolder.add( begin );
 			buttonHolder.add( new InvocationButton( "stop now", RequestThread.class, "declareWorldPeace" ) );
 			buttonHolder.add( new StopButton() );
 
@@ -214,8 +214,8 @@ public class AdventureSelectPanel
 
 			contentPanel.add( buttonPanel, BorderLayout.EAST );
 
-			this.zoneSelect.addKeyListener( this.begin );
-			this.countField.addKeyListener( this.begin );
+            zoneSelect.addKeyListener( begin );
+            countField.addKeyListener( begin );
 		}
 	}
 
@@ -226,14 +226,14 @@ public class AdventureSelectPanel
 		String pref = Preferences.getString( "lastAdventure" );
 		KoLAdventure location = AdventureDatabase.getAdventure( pref );
 
-		this.updateSelectedAdventure( location );
+        updateSelectedAdventure( location );
 	}
 
 	public void updateSafetyDetails()
 	{
-		if ( this.safetyField != null )
+		if ( safetyField != null )
 		{
-			this.safetyField.run();
+            safetyField.run();
 		}
 	}
 
@@ -249,27 +249,27 @@ public class AdventureSelectPanel
 			return;
 		}
 
-		if ( this.zoneSelect instanceof AutoFilterTextField )
+		if ( zoneSelect instanceof AutoFilterTextField )
 		{
-			( (AutoFilterTextField) this.zoneSelect ).setText( location.getZone() );
+			( (AutoFilterTextField) zoneSelect).setText( location.getZone() );
 		}
 		else
 		{
-			( (JComboBox) this.zoneSelect ).setSelectedItem( location.getParentZoneDescription() );
+			( (JComboBox) zoneSelect).setSelectedItem( location.getParentZoneDescription() );
 		}
 
-		if ( this.locationSelect.getSelectedValue() == location && Preferences.getInteger( "currentBountyItem" ) == 0 )
+		if ( locationSelect.getSelectedValue() == location && Preferences.getInteger( "currentBountyItem" ) == 0 )
 		{
 			return;
 		}
 
-		this.locationSelect.setSelectedValue( location, true );
-		this.locationSelect.ensureIndexIsVisible( this.locationSelect.getSelectedIndex() );
+        locationSelect.setSelectedValue( location, true );
+        locationSelect.ensureIndexIsVisible( locationSelect.getSelectedIndex() );
 	}
 
 	public void addSelectedLocationListener( final ListSelectionListener listener )
 	{
-		this.locationSelect.addListSelectionListener( listener );
+        locationSelect.addListSelectionListener( listener );
 	}
 
 	private class FilterAdventureComboBox
@@ -282,13 +282,13 @@ public class AdventureSelectPanel
 		public void setSelectedItem( final Object element )
 		{
 			super.setSelectedItem( element );
-			this.selectedZone = element;
-			AdventureSelectPanel.this.matchingAdventures.updateFilter( false );
+            selectedZone = element;
+            matchingAdventures.updateFilter( false );
 		}
 
 		public boolean isVisible( final Object element )
 		{
-			return ( (KoLAdventure) element ).getParentZoneDescription().equals( this.selectedZone );
+			return ( (KoLAdventure) element ).getParentZoneDescription().equals( selectedZone );
 		}
 	}
 
@@ -320,9 +320,9 @@ public class AdventureSelectPanel
 		@Override
 		public void setEnabled( final boolean isEnabled )
 		{
-			if ( AdventureSelectPanel.this.begin != null )
+			if ( begin != null )
 			{
-				AdventureSelectPanel.this.begin.setEnabled( isEnabled );
+                begin.setEnabled( isEnabled );
 			}
 		}
 	}
@@ -334,9 +334,9 @@ public class AdventureSelectPanel
 		protected void execute()
 		{
 			Preferences.setBoolean(
-				"autoSetConditions", AdventureSelectPanel.this.conditionsFieldActive.isSelected() );
+				"autoSetConditions", conditionsFieldActive.isSelected() );
 
-			AdventureSelectPanel.this.conditionField.setEnabled( AdventureSelectPanel.this.conditionsFieldActive.isSelected() && !KoLmafia.isAdventuring() );
+            conditionField.setEnabled( conditionsFieldActive.isSelected() && !KoLmafia.isAdventuring() );
 		}
 	}
 
@@ -346,7 +346,7 @@ public class AdventureSelectPanel
 		public ConditionChangeListener()
 		{
 			GoalManager.getGoals().addListDataListener( this );
-			AdventureSelectPanel.this.fillDefaultConditions();
+            fillDefaultConditions();
 		}
 
 		public void valueChanged( final ListSelectionEvent e )
@@ -356,22 +356,22 @@ public class AdventureSelectPanel
 				return;
 			}
 
-			AdventureSelectPanel.this.fillDefaultConditions();
+            fillDefaultConditions();
 		}
 
 		public void intervalAdded( final ListDataEvent e )
 		{
-			AdventureSelectPanel.this.fillCurrentConditions();
+            fillCurrentConditions();
 		}
 
 		public void intervalRemoved( final ListDataEvent e )
 		{
-			AdventureSelectPanel.this.fillCurrentConditions();
+            fillCurrentConditions();
 		}
 
 		public void contentsChanged( final ListDataEvent e )
 		{
-			AdventureSelectPanel.this.fillCurrentConditions();
+            fillCurrentConditions();
 		}
 	}
 
@@ -382,8 +382,8 @@ public class AdventureSelectPanel
 		public StopButton()
 		{
 			super( "stop after" );
-			this.addActionListener( this );
-			this.setToolTipText( "Stop after current adventure" );
+            addActionListener( this );
+            setToolTipText( "Stop after current adventure" );
 		}
 
 		public void actionPerformed( final ActionEvent e )
@@ -399,7 +399,7 @@ public class AdventureSelectPanel
 		{
 			KoLmafia.updateDisplay( "Validating adventure sequence..." );
 
-			KoLAdventure request = (KoLAdventure) AdventureSelectPanel.this.locationSelect.getSelectedValue();
+			KoLAdventure request = (KoLAdventure) locationSelect.getSelectedValue();
 			if ( request == null )
 			{
 				KoLmafia.updateDisplay( MafiaState.ERROR, "No location selected." );
@@ -409,8 +409,8 @@ public class AdventureSelectPanel
 			// If there are conditions in the condition field, be
 			// sure to process them.
 
-			boolean conditionsActive = AdventureSelectPanel.this.conditionsFieldActive.isSelected();
-			String text = ( (String) AdventureSelectPanel.this.conditionField.getText() );
+			boolean conditionsActive = conditionsFieldActive.isSelected();
+			String text = ( (String) conditionField.getText() );
 			String conditionList = text == null ? "" : text.trim().toLowerCase();
 
 			List previousGoals = new ArrayList( GoalManager.getGoals() );
@@ -432,7 +432,7 @@ public class AdventureSelectPanel
 
 			if ( conditionsActive && conditionList.length() > 0 && !conditionList.equals( "none" ) )
 			{
-				shouldAdventure = this.handleConditions( conditionList, request );
+				shouldAdventure = handleConditions( conditionList, request );
 			}
 
 			if ( !shouldAdventure )
@@ -442,17 +442,17 @@ public class AdventureSelectPanel
 
 			int requestCount =
 				Math.min(
-					InputFieldUtilities.getValue( AdventureSelectPanel.this.countField, 1 ),
+					InputFieldUtilities.getValue( countField, 1 ),
 					KoLCharacter.getAdventuresLeft() );
 
-			AdventureSelectPanel.this.countField.setValue( requestCount );
+            countField.setValue( requestCount );
 			boolean resetCount = requestCount == KoLCharacter.getAdventuresLeft();
 
 			StaticEntity.getClient().makeRequest( request, requestCount );
 
 			if ( resetCount )
 			{
-				AdventureSelectPanel.this.countField.setValue( KoLCharacter.getAdventuresLeft() );
+                countField.setValue( KoLCharacter.getAdventuresLeft() );
 			}
 		}
 
@@ -514,9 +514,9 @@ public class AdventureSelectPanel
 				return false;
 			}
 
-			if ( InputFieldUtilities.getValue( AdventureSelectPanel.this.countField ) == 0 )
+			if ( InputFieldUtilities.getValue( countField ) == 0 )
 			{
-				AdventureSelectPanel.this.countField.setValue( KoLCharacter.getAdventuresLeft() );
+                countField.setValue( KoLCharacter.getAdventuresLeft() );
 			}
 
 			return true;
@@ -525,9 +525,9 @@ public class AdventureSelectPanel
 
 	private String getDefaultConditions()
 	{
-		KoLAdventure location = (KoLAdventure) this.locationSelect.getSelectedValue();
-		AdventureDatabase.getDefaultConditionsList( location, this.locationConditions );
-		return (String) this.locationConditions.get( 0 );
+		KoLAdventure location = (KoLAdventure) locationSelect.getSelectedValue();
+		AdventureDatabase.getDefaultConditionsList( location, locationConditions );
+		return (String) locationConditions.get( 0 );
 	}
 
 	public void fillCurrentConditions()
@@ -536,15 +536,15 @@ public class AdventureSelectPanel
 
 		if ( text.length() == 0 )
 		{
-			text = this.getDefaultConditions();
+			text = getDefaultConditions();
 		}
 
-		this.conditionField.setText( text );
+        conditionField.setText( text );
 	}
 
 	public void fillDefaultConditions()
 	{
-		this.conditionField.setText( this.getDefaultConditions() );
+        conditionField.setText( getDefaultConditions() );
 	}
 
 	public static JPanel getAdventureSummary( final String property )
@@ -616,9 +616,9 @@ public class AdventureSelectPanel
 
 		public void actionPerformed( final ActionEvent e )
 		{
-			String index = String.valueOf( this.resultSelect.getSelectedIndex() );
-			this.resultCards.show( this.resultPanel, index );
-			Preferences.setString( this.property, index );
+			String index = String.valueOf( resultSelect.getSelectedIndex() );
+            resultCards.show( resultPanel, index );
+			Preferences.setString( property, index );
 
 		}
 	}
@@ -634,24 +634,24 @@ public class AdventureSelectPanel
 		{
 			super( new BorderLayout() );
 
-			this.safetyDisplay = new RequestPane();
+            safetyDisplay = new RequestPane();
 
 			JScrollPane safetyScroller =
 				new JScrollPane(
-					this.safetyDisplay, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS,
+                        safetyDisplay, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS,
 					ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER );
 
-			JComponentUtilities.setComponentSize( this.safetyDisplay, 100, 100 );
-			this.add( safetyScroller, BorderLayout.CENTER );
+			JComponentUtilities.setComponentSize( safetyDisplay, 100, 100 );
+            add( safetyScroller, BorderLayout.CENTER );
 
 			KoLCharacter.addCharacterListener( new KoLCharacterAdapter( this ) );
 
-			this.setSafetyString();
+            setSafetyString();
 		}
 
 		public void run()
 		{
-			this.setSafetyString();
+            setSafetyString();
 		}
 
 		private synchronized void setSafetyString()
@@ -670,13 +670,13 @@ public class AdventureSelectPanel
 			// Compare with our own copy of what we set, since
 			// getText() returns a modified version.
 
-			if ( text.equals( this.savedText ) )
+			if ( text.equals( savedText ) )
 			{
 				return;
 			}
 
-			this.savedText = text;
-			this.safetyDisplay.setText( text );
+            savedText = text;
+            safetyDisplay.setText( text );
 		}
 	}
 
@@ -685,7 +685,7 @@ public class AdventureSelectPanel
 	{
 		public ConditionsComboBox()
 		{
-			super( AdventureSelectPanel.this.locationConditions, true );
+			super( locationConditions, true );
 		}
 	}
 
@@ -696,7 +696,7 @@ public class AdventureSelectPanel
 		public AdventureCountSpinner()
 		{
 			super();
-			this.addChangeListener( this );
+            addChangeListener( this );
 		}
 
 		public void stateChanged( final ChangeEvent e )
@@ -704,18 +704,18 @@ public class AdventureSelectPanel
 			int maximum = KoLCharacter.getAdventuresLeft();
 			if ( maximum == 0 )
 			{
-				this.setValue( IntegerPool.get( 0 ) );
+                setValue( IntegerPool.get( 0 ) );
 				return;
 			}
 
 			int desired = InputFieldUtilities.getValue( this, maximum );
 			if ( desired == maximum + 1 )
 			{
-				this.setValue( IntegerPool.get( 1 ) );
+                setValue( IntegerPool.get( 1 ) );
 			}
 			else if ( desired <= 0 || desired > maximum )
 			{
-				this.setValue( IntegerPool.get( maximum ) );
+                setValue( IntegerPool.get( maximum ) );
 			}
 		}
 	}

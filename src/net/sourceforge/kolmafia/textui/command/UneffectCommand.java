@@ -52,7 +52,7 @@ public class UneffectCommand
 {
 	public UneffectCommand()
 	{
-		this.usage = "[?] <effect> [, <effect>]... - remove effects using appropriate means.";
+        usage = "[?] <effect> [, <effect>]... - remove effects using appropriate means.";
 	}
 
 	@Override
@@ -63,7 +63,7 @@ public class UneffectCommand
 			String[] effects = parameters.split( "\\s*,\\s*" );
 			for ( int i = 0; i < effects.length; ++i )
 			{
-				this.run( "uneffect", effects[ i ] );
+                run( "uneffect", effects[ i ] );
 			}
 
 			return;

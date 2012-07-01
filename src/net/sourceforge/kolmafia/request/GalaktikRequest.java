@@ -81,8 +81,8 @@ public class GalaktikRequest
 	{
 		super( "galaktik.php" );
 
-		this.addFormField( "action", type );
-		this.action = type;
+        addFormField( "action", type );
+        action = type;
 
 		if ( restoreAmount > 0 )
 		{
@@ -105,7 +105,7 @@ public class GalaktikRequest
 
 		if ( this.restoreAmount > 0 )
 		{
-			this.addFormField( "quantity", String.valueOf( this.restoreAmount ) );
+            addFormField( "quantity", String.valueOf( this.restoreAmount ) );
 		}
 	}
 
@@ -171,7 +171,7 @@ public class GalaktikRequest
 	@Override
 	public void run()
 	{
-		if ( GalaktikRequest.cureType( this.action ) != null && this.restoreAmount == 0 )
+		if ( GalaktikRequest.cureType( action ) != null && restoreAmount == 0 )
 		{
 			KoLmafia.updateDisplay( MafiaState.CONTINUE, "You don't need that cure." );
 			return;
@@ -185,17 +185,17 @@ public class GalaktikRequest
 	@Override
 	public void processResults()
 	{
-		GalaktikRequest.parseResponse( this.getURLString(), this.responseText );
+		GalaktikRequest.parseResponse( getURLString(), responseText );
 
-		if ( this.responseText.contains( "You can't afford that" ) )
+		if ( responseText.contains( "You can't afford that" ) )
 		{
 			KoLmafia.updateDisplay( MafiaState.ERROR, "You can't afford that cure." );
 			return;
 		}
 
-		if ( this.action != null )
+		if ( action != null )
 		{
-			String message =  this.action.equals( "startquest" ) ?
+			String message = action.equals( "startquest" ) ?
 				"Quest accepted." : "Cure purchased.";
 			KoLmafia.updateDisplay( message );
 		}

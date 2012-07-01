@@ -166,23 +166,23 @@ public class AdventureResult
 	{
 		this.name = name;
 		this.count = count;
-		this.priority = subType;
-		if ( this.priority == AdventureResult.EFFECT_PRIORITY )
+        priority = subType;
+		if ( priority == AdventureResult.EFFECT_PRIORITY )
 		{
-			this.normalizeEffectName();
+            normalizeEffectName();
 		}
-		else if ( this.priority == AdventureResult.ITEM_PRIORITY )
+		else if ( priority == AdventureResult.ITEM_PRIORITY )
 		{
-			this.normalizeItemName();
+            normalizeItemName();
 		}
 		else
 		{
 			// Detach substring from larger text
 			this.name = new String( name );
-			if ( this.priority == AdventureResult.PSEUDO_ITEM_PRIORITY )
+			if ( priority == AdventureResult.PSEUDO_ITEM_PRIORITY )
 			{	// bypass normalizeItemName()
-				this.itemId = -1;
-				this.priority = AdventureResult.ITEM_PRIORITY;
+                itemId = -1;
+                priority = AdventureResult.ITEM_PRIORITY;
 			}
 		}
 	}
@@ -229,20 +229,20 @@ public class AdventureResult
 		this.name = name != null ? name : "(unknown item " + String.valueOf( itemId ) + ")";
 		this.itemId = itemId;
 		this.count = count;
-		this.priority = AdventureResult.ITEM_PRIORITY;
+        priority = AdventureResult.ITEM_PRIORITY;
 	}
 
 	public void normalizeEffectName()
 	{
-		this.priority = AdventureResult.EFFECT_PRIORITY;
+        priority = AdventureResult.EFFECT_PRIORITY;
 
-		if ( this.name == null )
+		if ( name == null )
 		{
-			this.name = "(unknown effect)";
+            name = "(unknown effect)";
 			return;
 		}
 
-		int effectId = EffectDatabase.getEffectId( this.name );
+		int effectId = EffectDatabase.getEffectId( name );
 		if ( effectId != -1 )
 		{
 			String name = EffectDatabase.getEffectName( effectId );
@@ -257,43 +257,43 @@ public class AdventureResult
 		}
 		else
 		{
-			this.name = new String( this.name );
+            name = new String( name );
 		}
 	}
 
 	public void normalizeItemName()
 	{
-		this.priority = AdventureResult.ITEM_PRIORITY;
+        priority = AdventureResult.ITEM_PRIORITY;
 
-		if ( this.name == null )
+		if ( name == null )
 		{
-			this.name = "(unknown item " + String.valueOf( this.itemId ) + ")";
+            name = "(unknown item " + String.valueOf( itemId ) + ")";
 			return;
 		}
 
-		if ( this.name.equals( "(none)" ) || this.name.equals( "-select an item-" ) )
+		if ( name.equals( "(none)" ) || name.equals( "-select an item-" ) )
 		{
 			return;
 		}
 
-		this.itemId = ItemDatabase.getItemId( this.name, this.getCount() );
+        itemId = ItemDatabase.getItemId( name, getCount() );
 
-		if ( this.itemId > 0 )
+		if ( itemId > 0 )
 		{
-			String name = ItemDatabase.getItemDataName( this.itemId );
+			String name = ItemDatabase.getItemDataName( itemId );
 			if ( name != null )
 			{
 				this.name = name;
 			}
 			else
 			{
-				RequestLogger.printLine( "Item database error: id = " + this.itemId + " name = \"" + this.name + "\"" );
+				RequestLogger.printLine( "Item database error: id = " + itemId + " name = \"" + this.name + "\"" );
 			}
 		}
 		else
 		{
-			this.name = new String( this.name );
-			RequestLogger.printLine( "Unknown item found: " + this.name );
+            name = new String( name );
+			RequestLogger.printLine( "Unknown item found: " + name );
 		}
 	}
 
@@ -345,7 +345,7 @@ public class AdventureResult
 
 	public boolean isStatusEffect()
 	{
-		return this.priority == AdventureResult.EFFECT_PRIORITY;
+		return priority == AdventureResult.EFFECT_PRIORITY;
 	}
 
 	/**
@@ -390,17 +390,17 @@ public class AdventureResult
 
 	public boolean isItem()
 	{
-		return this.priority == AdventureResult.ITEM_PRIORITY;
+		return priority == AdventureResult.ITEM_PRIORITY;
 	}
 
 	public boolean isMeat()
 	{
-		return this.priority == AdventureResult.MEAT_PRIORITY;
+		return priority == AdventureResult.MEAT_PRIORITY;
 	}
 
 	public boolean isMP()
 	{
-		return this.name.equals( AdventureResult.MP );
+		return name.equals( AdventureResult.MP );
 	}
 
 	/**
@@ -411,7 +411,7 @@ public class AdventureResult
 
 	public String getName()
 	{
-		switch ( this.itemId )
+		switch ( itemId )
 		{
 		case ItemPool.DUSTY_BOTTLE_OF_MERLOT:
 		case ItemPool.DUSTY_BOTTLE_OF_PORT:
@@ -420,7 +420,7 @@ public class AdventureResult
 		case ItemPool.DUSTY_BOTTLE_OF_MARSALA:
 		case ItemPool.DUSTY_BOTTLE_OF_MUSCAT:
 
-			return AdventureResult.dustyBottleName( this.itemId );
+			return AdventureResult.dustyBottleName( itemId );
 
 		case ItemPool.MILKY_POTION:
 		case ItemPool.SWIRLY_POTION:
@@ -432,7 +432,7 @@ public class AdventureResult
 		case ItemPool.DARK_POTION:
 		case ItemPool.MURKY_POTION:
 
-			return AdventureResult.bangPotionName( this.itemId );
+			return AdventureResult.bangPotionName( itemId );
 
 		case ItemPool.VIAL_OF_RED_SLIME:
 		case ItemPool.VIAL_OF_YELLOW_SLIME:
@@ -447,14 +447,14 @@ public class AdventureResult
 		case ItemPool.VIAL_OF_INDIGO_SLIME:
 		case ItemPool.VIAL_OF_PURPLE_SLIME:
 
-			return AdventureResult.slimeVialName( this.itemId );
+			return AdventureResult.slimeVialName( itemId );
 
 		case ItemPool.MOSSY_STONE_SPHERE:
 		case ItemPool.SMOOTH_STONE_SPHERE:
 		case ItemPool.CRACKED_STONE_SPHERE:
 		case ItemPool.ROUGH_STONE_SPHERE:
 
-			return AdventureResult.stoneSphereName( this.itemId );
+			return AdventureResult.stoneSphereName( itemId );
 
 		case ItemPool.PUNCHCARD_ATTACK:
 		case ItemPool.PUNCHCARD_REPAIR:
@@ -468,10 +468,10 @@ public class AdventureResult
 		case ItemPool.PUNCHCARD_WALL:
 		case ItemPool.PUNCHCARD_SPHERE:
 
-			return AdventureResult.punchCardName( this.itemId );
+			return AdventureResult.punchCardName( itemId );
 
 		default:
-			return this.name;
+			return name;
 		}
 	}
 
@@ -483,7 +483,7 @@ public class AdventureResult
 
 	public int getItemId()
 	{
-		return this.itemId;
+		return itemId;
 	}
 
 	/**
@@ -513,7 +513,7 @@ public class AdventureResult
 
 	public int getCount( final int index )
 	{
-		return index != 0 ? 0 : this.count;
+		return index != 0 ? 0 : count;
 	}
 
 	/**
@@ -649,69 +649,69 @@ public class AdventureResult
 	@Override
 	public String toString()
 	{
-		if ( this.name == null )
+		if ( name == null )
 		{
 			return "(Unrecognized result)";
 		}
 
-		if ( this.name.equals( AdventureResult.ADV ) )
+		if ( name.equals( AdventureResult.ADV ) )
 		{
-			return " Advs Used: " + KoLConstants.COMMA_FORMAT.format( this.count );
+			return " Advs Used: " + KoLConstants.COMMA_FORMAT.format( count );
 		}
 		
-		if ( this.name.equals( AdventureResult.FREE_CRAFT ) )
+		if ( name.equals( AdventureResult.FREE_CRAFT ) )
 		{
-			return " Free Crafts: " + KoLConstants.COMMA_FORMAT.format( this.count );
+			return " Free Crafts: " + KoLConstants.COMMA_FORMAT.format( count );
 		}
 
-		if ( this.name.equals( AdventureResult.MEAT ) )
+		if ( name.equals( AdventureResult.MEAT ) )
 		{
-			return " Meat Gained: " + KoLConstants.COMMA_FORMAT.format( this.count );
+			return " Meat Gained: " + KoLConstants.COMMA_FORMAT.format( count );
 		}
 
-		if ( this.name.equals( AdventureResult.MEAT_SPENT ) )
+		if ( name.equals( AdventureResult.MEAT_SPENT ) )
 		{
-			return " Meat Spent: " + KoLConstants.COMMA_FORMAT.format( this.count );
+			return " Meat Spent: " + KoLConstants.COMMA_FORMAT.format( count );
 		}
 
-		if ( this.name.equals( AdventureResult.CHOICE ) )
+		if ( name.equals( AdventureResult.CHOICE ) )
 		{
-			return " Choices Left: " + KoLConstants.COMMA_FORMAT.format( this.count );
+			return " Choices Left: " + KoLConstants.COMMA_FORMAT.format( count );
 		}
 
-		if ( this.name.equals( AdventureResult.AUTOSTOP ) )
+		if ( name.equals( AdventureResult.AUTOSTOP ) )
 		{
-			return " Autostops Left: " + KoLConstants.COMMA_FORMAT.format( this.count );
+			return " Autostops Left: " + KoLConstants.COMMA_FORMAT.format( count );
 		}
 
-		if ( this.name.equals( AdventureResult.PULL ) )
+		if ( name.equals( AdventureResult.PULL ) )
 		{
-			return " Budgeted Pulls: " + KoLConstants.COMMA_FORMAT.format( this.count );
+			return " Budgeted Pulls: " + KoLConstants.COMMA_FORMAT.format( count );
 		}
 
-		if ( this.name.equals( AdventureResult.STILL ) )
+		if ( name.equals( AdventureResult.STILL ) )
 		{
-			return " Still Usages: " + KoLConstants.COMMA_FORMAT.format( this.count );
+			return " Still Usages: " + KoLConstants.COMMA_FORMAT.format( count );
 		}
 
-		if ( this.name.equals( AdventureResult.TOME ) )
+		if ( name.equals( AdventureResult.TOME ) )
 		{
-			return " Tome Summons: " + KoLConstants.COMMA_FORMAT.format( this.count );
+			return " Tome Summons: " + KoLConstants.COMMA_FORMAT.format( count );
 		}
 
-		if ( this.name.equals( AdventureResult.HP ) || this.name.equals( AdventureResult.MP ) || this.name.equals( AdventureResult.DRUNK ) )
+		if ( name.equals( AdventureResult.HP ) || name.equals( AdventureResult.MP ) || name.equals( AdventureResult.DRUNK ) )
 		{
-			return " " + this.name + ": " + KoLConstants.COMMA_FORMAT.format( this.count );
+			return " " + name + ": " + KoLConstants.COMMA_FORMAT.format( count );
 		}
 
-		if ( this.priority == AdventureResult.MONSTER_PRIORITY )
+		if ( priority == AdventureResult.MONSTER_PRIORITY )
 		{
-			return this.name;
+			return name;
 		}
 
-		String name = this.getName();
+		String name = getName();
 
-		if ( this.priority == AdventureResult.EFFECT_PRIORITY )
+		if ( priority == AdventureResult.EFFECT_PRIORITY )
 		{
 			if ( name.equals( "On the Trail" ) )
 			{
@@ -745,37 +745,37 @@ public class AdventureResult
 
 	public String getConditionType()
 	{
-		if ( this.name == null )
+		if ( name == null )
 		{
 			return "";
 		}
 
-		if ( this.priority == AdventureResult.PSEUDO_ITEM_PRIORITY )
+		if ( priority == AdventureResult.PSEUDO_ITEM_PRIORITY )
 		{
-			return this.name.toLowerCase();
+			return name.toLowerCase();
 		}
 
-		if ( this.name.equals( AdventureResult.ADV ) || this.name.equals( AdventureResult.CHOICE ) )
+		if ( name.equals( AdventureResult.ADV ) || name.equals( AdventureResult.CHOICE ) )
 		{
 			return "choiceadv";
 		}
 
-		if ( this.name.equals( AdventureResult.AUTOSTOP ) )
+		if ( name.equals( AdventureResult.AUTOSTOP ) )
 		{
 			return "autostop";
 		}
 
-		if ( this.name.equals( AdventureResult.MEAT ) )
+		if ( name.equals( AdventureResult.MEAT ) )
 		{
 			return "meat";
 		}
 
-		if ( this.name.equals( AdventureResult.HP ) )
+		if ( name.equals( AdventureResult.HP ) )
 		{
 			return "health";
 		}
 
-		if ( this.name.equals( AdventureResult.MP ) )
+		if ( name.equals( AdventureResult.MP ) )
 		{
 			return "mana";
 		}
@@ -785,19 +785,19 @@ public class AdventureResult
 
 	public String toConditionString()
 	{
-		if ( this.name == null )
+		if ( name == null )
 		{
 			return "";
 		}
 
-		String conditionType = this.getConditionType();
+		String conditionType = getConditionType();
 
 		if ( !conditionType.equals( "item" ) )
 		{
-			return this.count + " " + conditionType;
+			return count + " " + conditionType;
 		}
 
-		return "+" + this.count + " " + this.name.replaceAll( "[,\"]", "" );
+		return "+" + count + " " + name.replaceAll( "[,\"]", "" );
 	}
 
 	/**
@@ -818,7 +818,7 @@ public class AdventureResult
 		}
 
 		AdventureResult ar = (AdventureResult) o;
-		if ( this.name == null || ar.name == null )
+		if ( name == null || ar.name == null )
 		{
 			return false;
 		}
@@ -827,19 +827,19 @@ public class AdventureResult
 			return ar.equals( this );
 		}
 
-		return ( !ar.isItem() || this.itemId == ar.itemId ) &&
-			this.name.equalsIgnoreCase( ar.name );
+		return ( !ar.isItem() || itemId == ar.itemId ) &&
+                name.equalsIgnoreCase( ar.name );
 	}
 
 	@Override
 	public int hashCode()
 	{
-		if ( this.name == null )
+		if ( name == null )
 		{
 			return 0;
 		}
 
-		return this.name.hashCode();
+		return name.hashCode();
 	}
 
 	/**
@@ -857,7 +857,7 @@ public class AdventureResult
 
 		AdventureResult ar = (AdventureResult) o;
 
-		int priorityDifference = this.priority - ar.priority;
+		int priorityDifference = priority - ar.priority;
 		if ( priorityDifference != 0 )
 		{
 			return priorityDifference;
@@ -865,7 +865,7 @@ public class AdventureResult
 
 		// Do not take exceptions if name is null
 
-		if ( this.name == null )
+		if ( name == null )
 		{
 			return 1;
 		}
@@ -875,15 +875,15 @@ public class AdventureResult
 			return -1;
 		}
 
-		int nameComparison = this.name.compareToIgnoreCase( ar.name );
+		int nameComparison = name.compareToIgnoreCase( ar.name );
 		if ( nameComparison == 0 )
 		{
 			return 0;
 		}
 
-		if ( this.isStatusEffect() )
+		if ( isStatusEffect() )
 		{
-			return this.getCount() - ar.getCount();
+			return getCount() - ar.getCount();
 		}
 
 		return nameComparison;
@@ -1030,46 +1030,46 @@ public class AdventureResult
 
 	public AdventureResult getNegation()
 	{
-		if ( this.isItem() && this.itemId != -1 )
+		if ( isItem() && itemId != -1 )
 		{
-			return this.count == 0 ? this : new AdventureResult( this.itemId, 0 - this.count );
+			return count == 0 ? this : new AdventureResult( itemId, 0 - count );
 		}
-		else if ( this.isStatusEffect() )
+		else if ( isStatusEffect() )
 		{
-			return this.count == 0 ? this : new AdventureResult( this.name, 0 - this.count, true );
+			return count == 0 ? this : new AdventureResult( name, 0 - count, true );
 		}
 
-		return this.getInstance( -this.count );
+		return getInstance( -count );
 	}
 
 	public AdventureResult getInstance( final int quantity )
 	{
-		if ( this.isItem() )
+		if ( isItem() )
 		{
-			if ( this.count == quantity )
+			if ( count == quantity )
 			{
 				return this;
 			}
 
 			// Handle pseudo and tally items
-			AdventureResult item = new AdventureResult( AdventureResult.NO_PRIORITY, this.name );
+			AdventureResult item = new AdventureResult( AdventureResult.NO_PRIORITY, name );
 			item.priority = AdventureResult.ITEM_PRIORITY;
-			item.itemId = this.itemId;
+			item.itemId = itemId;
 			item.count = quantity;
 			return item;
 		}
 
-		if ( this.isStatusEffect() )
+		if ( isStatusEffect() )
 		{
-			return this.count == quantity ? this : new AdventureResult( this.name, quantity, true );
+			return count == quantity ? this : new AdventureResult( name, quantity, true );
 		}
 
-		return new AdventureResult( this.name, quantity );
+		return new AdventureResult( name, quantity );
 	}
 
 	public AdventureResult getInstance( final int[] quantity )
 	{
-		return this.getInstance( quantity[ 0 ] );
+		return getInstance( quantity[ 0 ] );
 	}
 
 	/**
@@ -1138,28 +1138,28 @@ public class AdventureResult
 
 	public final String bangPotionAlias()
 	{
-		if ( this.itemId >= 819 && this.itemId <= 827 )
+		if ( itemId >= 819 && itemId <= 827 )
 		{
-			String effect = Preferences.getString( "lastBangPotion" + this.itemId );
+			String effect = Preferences.getString( "lastBangPotion" + itemId );
 			if ( effect.equals( "" ) )
 			{
-				return this.name;
+				return name;
 			}
 
 			return "potion of " + effect;
 		}
-		if ( this.itemId >= ItemPool.VIAL_OF_RED_SLIME && this.itemId <= ItemPool.VIAL_OF_PURPLE_SLIME )
+		if ( itemId >= ItemPool.VIAL_OF_RED_SLIME && itemId <= ItemPool.VIAL_OF_PURPLE_SLIME )
 		{
-			String effect = Preferences.getString( "lastSlimeVial" + this.itemId );
+			String effect = Preferences.getString( "lastSlimeVial" + itemId );
 			if ( effect.equals( "" ) )
 			{
-				return this.name;
+				return name;
 			}
 
 			return "vial of slime: " + effect;
 		}
 
-		return this.name;
+		return name;
 	}
 
 	public static String stoneSphereName( final int itemId )
@@ -1217,7 +1217,7 @@ public class AdventureResult
 		@Override
 		public boolean isMuscleGain()
 		{
-			return this.priority == AdventureResult.SUBSTAT_PRIORITY && this.counts[ 0 ] != 0;
+			return priority == AdventureResult.SUBSTAT_PRIORITY && counts[ 0 ] != 0;
 		}
 	
 		/**
@@ -1229,7 +1229,7 @@ public class AdventureResult
 		@Override
 		public boolean isMysticalityGain()
 		{
-			return this.priority == AdventureResult.SUBSTAT_PRIORITY && this.counts[ 1 ] != 0;
+			return priority == AdventureResult.SUBSTAT_PRIORITY && counts[ 1 ] != 0;
 		}
 	
 		/**
@@ -1241,7 +1241,7 @@ public class AdventureResult
 		@Override
 		public boolean isMoxieGain()
 		{
-			return this.priority == AdventureResult.SUBSTAT_PRIORITY && this.counts[ 2 ] != 0;
+			return priority == AdventureResult.SUBSTAT_PRIORITY && counts[ 2 ] != 0;
 		}
 	
 		/**
@@ -1256,9 +1256,9 @@ public class AdventureResult
 		public int getCount()
 		{
 			int totalCount = 0;
-			for ( int i = 0; i < this.counts.length; ++i )
+			for ( int i = 0; i < counts.length; ++i )
 			{
-				totalCount += this.counts[ i ];
+				totalCount += counts[ i ];
 			}
 			return totalCount;
 		}
@@ -1266,7 +1266,7 @@ public class AdventureResult
 		@Override
 		public int[] getCounts()
 		{
-			return this.counts;
+			return counts;
 		}
 
 		/**
@@ -1279,7 +1279,7 @@ public class AdventureResult
 		@Override
 		public int getCount( final int index )
 		{
-			return index < 0 || index >= this.counts.length ? 0 : this.counts[ index ];
+			return index < 0 || index >= counts.length ? 0 : counts[ index ];
 		}
 
 		/**
@@ -1292,9 +1292,9 @@ public class AdventureResult
 		@Override
 		public String toString()
 		{
-			if ( this.name.equals( AdventureResult.SUBSTATS ) || this.name.equals( AdventureResult.FULLSTATS ) )
+			if ( name.equals( AdventureResult.SUBSTATS ) || name.equals( AdventureResult.FULLSTATS ) )
 			{
-				return " " + this.name + ": " + KoLConstants.COMMA_FORMAT.format( this.counts[ 0 ] ) + " / " + KoLConstants.COMMA_FORMAT.format( this.counts[ 1 ] ) + " / " + KoLConstants.COMMA_FORMAT.format( this.counts[ 2 ] );
+				return " " + name + ": " + KoLConstants.COMMA_FORMAT.format( counts[ 0 ] ) + " / " + KoLConstants.COMMA_FORMAT.format( counts[ 1 ] ) + " / " + KoLConstants.COMMA_FORMAT.format( counts[ 2 ] );
 			}
 	
 			return "(Unrecognized multi-result)";
@@ -1303,33 +1303,33 @@ public class AdventureResult
 		@Override
 		public String toConditionString()
 		{
-			if ( this.name.equals( AdventureResult.SUBSTATS ) )
+			if ( name.equals( AdventureResult.SUBSTATS ) )
 			{
 				StringBuilder stats = new StringBuilder();
 	
-				if ( this.counts[ 0 ] > 0 )
+				if ( counts[ 0 ] > 0 )
 				{
-					stats.append( KoLCharacter.calculateBasePoints( KoLCharacter.getTotalMuscle() + this.counts[ 0 ] ) + " muscle" );
+					stats.append( KoLCharacter.calculateBasePoints( KoLCharacter.getTotalMuscle() + counts[ 0 ] ) + " muscle" );
 				}
 	
-				if ( this.counts[ 1 ] > 0 )
+				if ( counts[ 1 ] > 0 )
 				{
-					if ( this.counts[ 0 ] > 0 )
+					if ( counts[ 0 ] > 0 )
 					{
 						stats.append( ", " );
 					}
 	
-					stats.append( KoLCharacter.calculateBasePoints( KoLCharacter.getTotalMysticality() + this.counts[ 1 ] ) + " mysticality" );
+					stats.append( KoLCharacter.calculateBasePoints( KoLCharacter.getTotalMysticality() + counts[ 1 ] ) + " mysticality" );
 				}
 	
-				if ( this.counts[ 2 ] > 0 )
+				if ( counts[ 2 ] > 0 )
 				{
-					if ( this.counts[ 0 ] > 0 || this.counts[ 1 ] > 0 )
+					if ( counts[ 0 ] > 0 || counts[ 1 ] > 0 )
 					{
 						stats.append( ", " );
 					}
 	
-					stats.append( KoLCharacter.calculateBasePoints( KoLCharacter.getTotalMoxie() + this.counts[ 2 ] ) + " moxie" );
+					stats.append( KoLCharacter.calculateBasePoints( KoLCharacter.getTotalMoxie() + counts[ 2 ] ) + " moxie" );
 				}
 	
 				return stats.toString();
@@ -1340,28 +1340,28 @@ public class AdventureResult
 		
 		protected void addResultInPlace( AdventureMultiResult result )
 		{
-			for ( int i = 0; i < this.counts.length; ++i )
+			for ( int i = 0; i < counts.length; ++i )
 			{
-				this.counts[ i ] += result.counts[ i ];
+                counts[ i ] += result.counts[ i ];
 			}
 		}
 
 		@Override
 		public AdventureResult getNegation()
 		{
-			int[] newcounts = new int[ this.counts.length ];
-			for ( int i = 0; i < this.counts.length; ++i )
+			int[] newcounts = new int[counts.length ];
+			for ( int i = 0; i < counts.length; ++i )
 			{
-				newcounts[ i ] = 0 - this.counts[ i ];
+				newcounts[ i ] = 0 - counts[ i ];
 			}
 	
-			return this.getInstance( newcounts );
+			return getInstance( newcounts );
 		}
 
 		@Override
 		public AdventureResult getInstance( final int[] quantity )
 		{
-			if ( this.priority == AdventureResult.SUBSTAT_PRIORITY )
+			if ( priority == AdventureResult.SUBSTAT_PRIORITY )
 			{
 				return new AdventureMultiResult( AdventureResult.SUBSTATS, quantity );
 			}
@@ -1384,11 +1384,11 @@ public class AdventureResult
 			super( AdventureResult.ITEM_PRIORITY, name, count );
 
 			this.match = match;
-			this.matches = match.split( "\\s*[|/]\\s*" );
+            matches = match.split( "\\s*[|/]\\s*" );
 
 			for ( int i = 0; i < matches.length; ++i )
 			{
-				this.matches[ i ] = this.matches[ i ].toLowerCase();
+                matches[ i ] = matches[ i ].toLowerCase();
 			}
 
 			this.negated = negated;
@@ -1397,7 +1397,7 @@ public class AdventureResult
 		@Override
 		public AdventureResult getInstance( int count )
 		{
-			return new WildcardResult( this.getName(), count, this.match, this.negated );
+			return new WildcardResult( getName(), count, match, negated );
 		}
 
 		@Override
@@ -1412,13 +1412,13 @@ public class AdventureResult
 			AdventureResult ar = (AdventureResult) o;
 			String arName = ar.getName().toLowerCase();
 
-			for ( int i = 0; i < this.matches.length && !hasMatch; ++i )
+			for ( int i = 0; i < matches.length && !hasMatch; ++i )
 			{
-				String match = this.matches[ i ];
-				hasMatch = arName.contains( this.matches[i] );
+				String match = matches[ i ];
+				hasMatch = arName.contains( matches[i] );
 			}
 
-			return hasMatch ^ this.negated;
+			return hasMatch ^ negated;
 		}
 
 		@Override
@@ -1429,7 +1429,7 @@ public class AdventureResult
 			while ( i.hasNext() )
 			{
 				AdventureResult ar = (AdventureResult) i.next();
-				if ( this.equals( ar ) )
+				if ( equals( ar ) )
 				{
 					count += ar.getCount();
 				}

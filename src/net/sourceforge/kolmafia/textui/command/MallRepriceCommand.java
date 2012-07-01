@@ -40,7 +40,7 @@ public class MallRepriceCommand
 {
 	public MallRepriceCommand()
 	{
-		this.usage = " - price all max-priced items at or below current Mall minimum price.";
+        usage = " - price all max-priced items at or below current Mall minimum price.";
 	}
 
 	@Override

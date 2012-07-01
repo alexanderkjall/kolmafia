@@ -60,17 +60,17 @@ public class ClanWarRequest
 	public ClanWarRequest()
 	{
 		super( "clan_attack.php" );
-		this.name = null;
-		this.isPurchase = false;
+        name = null;
+        isPurchase = false;
 	}
 
 	private ClanWarRequest( final String id, final String name )
 	{
 		super( "clan_attack.php" );
-		this.addFormField( "whichclan", id );
+        addFormField( "whichclan", id );
 
 		this.name = name;
-		this.isPurchase = false;
+        isPurchase = false;
 	}
 
 	public ClanWarRequest( final int goodies, final int oatmeal, final int recliners, final int grunts,
@@ -78,30 +78,30 @@ public class ClanWarRequest
 	{
 		super( "clan_war.php" );
 
-		this.name = null;
-		this.isPurchase = true;
+        name = null;
+        isPurchase = true;
 
-		this.addFormField( "action", "Yep." );
-		this.addFormField( "goodies", String.valueOf( goodies ) );
-		this.addFormField( "oatmeal", String.valueOf( oatmeal ) );
-		this.addFormField( "recliners", String.valueOf( recliners ) );
-		this.addFormField( "grunts", String.valueOf( grunts ) );
-		this.addFormField( "flyers", String.valueOf( flyers ) );
-		this.addFormField( "archers", String.valueOf( archers ) );
+        addFormField( "action", "Yep." );
+        addFormField( "goodies", String.valueOf( goodies ) );
+        addFormField( "oatmeal", String.valueOf( oatmeal ) );
+        addFormField( "recliners", String.valueOf( recliners ) );
+        addFormField( "grunts", String.valueOf( grunts ) );
+        addFormField( "flyers", String.valueOf( flyers ) );
+        addFormField( "archers", String.valueOf( archers ) );
 	}
 
 	@Override
 	public void run()
 	{
-		if ( this.getPath().equals( "clan_attack.php" ) )
+		if ( getPath().equals( "clan_attack.php" ) )
 		{
-			if ( this.name == null )
+			if ( name == null )
 			{
 				KoLmafia.updateDisplay( "Retrieving clan attack state..." );
 			}
 			else
 			{
-				KoLmafia.updateDisplay( "Attacking " + this.name + "..." );
+				KoLmafia.updateDisplay( "Attacking " + name + "..." );
 			}
 		}
 
@@ -121,14 +121,14 @@ public class ClanWarRequest
 	@Override
 	public void processResults()
 	{
-		if ( this.isPurchase || this.name != null )
+		if ( isPurchase || name != null )
 		{
 			return;
 		}
 
 		ClanWarRequest.nextAttack = null;
 
-		if ( this.getPath().equals( "clan_attack.php" ) )
+		if ( getPath().equals( "clan_attack.php" ) )
 		{
 			parseTargets();
 		}
@@ -143,7 +143,7 @@ public class ClanWarRequest
 		ClanWarRequest.enemyClans.clear();
 
 		int bagCount = 0;
-		Matcher clanMatcher = ClanWarRequest.CLANID_PATTERN.matcher( this.responseText );
+		Matcher clanMatcher = ClanWarRequest.CLANID_PATTERN.matcher( responseText );
 
 		while ( clanMatcher.find() )
 		{
@@ -157,7 +157,7 @@ public class ClanWarRequest
 
 		if ( ClanWarRequest.enemyClans.isEmpty() )
 		{
-			this.constructURLString( "clan_war.php" ).run();
+            constructURLString( "clan_war.php" ).run();
 			return;
 		}
 
@@ -171,7 +171,7 @@ public class ClanWarRequest
 
 	private void parseWaitTime()
 	{
-		Matcher nextMatcher = ClanWarRequest.WAIT_PATTERN.matcher( this.responseText );
+		Matcher nextMatcher = ClanWarRequest.WAIT_PATTERN.matcher( responseText );
 		if ( nextMatcher.find() )
 		{
 			ClanWarRequest.nextAttack = "You may attack again in " + nextMatcher.group( 1 );
@@ -189,16 +189,16 @@ public class ClanWarRequest
 	@Override
 	public String toString()
 	{
-		return this.name;
+		return name;
 	}
 
 	public int compareTo( final Object o )
 	{
-		return o == null || !( o instanceof ClanWarRequest ) ? -1 : this.compareTo( (ClanWarRequest) o );
+		return o == null || !( o instanceof ClanWarRequest ) ? -1 : compareTo( (ClanWarRequest) o );
 	}
 
 	public int compareTo( final ClanWarRequest car )
 	{
-		return this.name.compareToIgnoreCase( car.name );
+		return name.compareToIgnoreCase( car.name );
 	}
 }

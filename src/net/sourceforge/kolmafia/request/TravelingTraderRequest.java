@@ -116,12 +116,12 @@ public class TravelingTraderRequest
 	@Override
 	public void processResults()
 	{
-		if ( this.responseText.length() == 0 )
+		if ( responseText.length() == 0 )
 		{
 			KoLmafia.updateDisplay( MafiaState.ERROR, "The Traveling Trader is not in the Market Square." );
 			return;
 		}
-		TravelingTraderRequest.parseResponse( this.getURLString(), this.responseText );
+		TravelingTraderRequest.parseResponse( getURLString(), responseText );
 	}
 
 	// The traveling trader is looking to acquire:<br><img class='hand

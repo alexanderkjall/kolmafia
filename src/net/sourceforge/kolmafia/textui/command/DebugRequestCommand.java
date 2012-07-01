@@ -40,7 +40,7 @@ public class DebugRequestCommand
 {
 	public DebugRequestCommand()
 	{
-		this.usage = " [on] | off - start or stop logging of debugging data.";
+        usage = " [on] | off - start or stop logging of debugging data.";
 	}
 
 	@Override

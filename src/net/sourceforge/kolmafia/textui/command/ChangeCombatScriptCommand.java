@@ -47,7 +47,7 @@ public class ChangeCombatScriptCommand
 {
 	public ChangeCombatScriptCommand()
 	{
-		this.usage = " [<script>] - show [or select] Custom Combat Script in use.";
+        usage = " [<script>] - show [or select] Custom Combat Script in use.";
 	}
 
 	@Override

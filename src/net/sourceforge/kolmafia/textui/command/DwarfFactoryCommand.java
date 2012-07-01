@@ -48,7 +48,7 @@ public class DwarfFactoryCommand
 {
 	public DwarfFactoryCommand()
 	{
-		this.usage = " report <digits> - Given a string of 7 dwarven digits, report on factory.";
+        usage = " report <digits> - Given a string of 7 dwarven digits, report on factory.";
 	}
 
 	@Override

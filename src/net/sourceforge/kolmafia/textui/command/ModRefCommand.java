@@ -42,7 +42,7 @@ public class ModRefCommand
 {
 	public ModRefCommand()
 	{
-		this.usage = " [<object>] - list all modifiers, show values for player [and object].";
+        usage = " [<object>] - list all modifiers, show values for player [and object].";
 	}
 
 	@Override

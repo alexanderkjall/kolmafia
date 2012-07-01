@@ -43,7 +43,7 @@ public class UpdateDataCommand
 {
 	public UpdateDataCommand()
 	{
-		this.usage =
+        usage =
 			" clear | save | prices <URL or filename> - revert to built-in data or save override files for new objects.";
 	}
 
@@ -52,13 +52,13 @@ public class UpdateDataCommand
 	{
 		if ( parameters.equalsIgnoreCase( "clear" ) )
 		{
-			this.CLI.deleteAdventureOverride();
+            CLI.deleteAdventureOverride();
 			return;
 		}
 
 		if ( parameters.equalsIgnoreCase( "save" ) )
 		{
-			this.CLI.saveDataOverride();
+            CLI.saveDataOverride();
 			return;
 		}
 

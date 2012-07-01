@@ -86,7 +86,7 @@ public class CoinMasterRequest
 		if ( action != null )
 		{
 			this.action = action;
-			this.addFormField( "action", action );
+            addFormField( "action", action );
 		}
 	}
 
@@ -98,9 +98,9 @@ public class CoinMasterRequest
 		String itemField = this.data.getItemField();
 		if ( itemField != null )
 		{
-			this.addFormField( itemField, String.valueOf( itemId ) );
+            addFormField( itemField, String.valueOf( itemId ) );
 		}
-		this.setQuantity( quantity );
+        setQuantity( quantity );
 	}
 
 	public CoinMasterRequest( final CoinmasterData data, final String action, final int itemId )
@@ -116,10 +116,10 @@ public class CoinMasterRequest
 	public void setQuantity( final int quantity )
 	{
 		this.quantity = quantity;
-		String countField = this.data.getCountField();
+		String countField = data.getCountField();
 		if ( countField != null )
 		{
-			this.addFormField( countField, String.valueOf( quantity ) );
+            addFormField( countField, String.valueOf( quantity ) );
 		}
 	}
 
@@ -215,10 +215,10 @@ public class CoinMasterRequest
 		}
 
 		// Suit up for a visit
-		this.equip();
+        equip();
 
 		// If we cannot specify the count, we must get 1 at a time.
-		int visits = data.getCountField() == null ? this.quantity : 1;
+		int visits = data.getCountField() == null ? quantity : 1;
 		String master = data.getMaster();
 
 		int i = 1;
@@ -236,13 +236,13 @@ public class CoinMasterRequest
 
 			super.run();
 
-			if ( this.responseText.contains( "You don't have enough" ) )
+			if ( responseText.contains( "You don't have enough" ) )
 			{
 				KoLmafia.updateDisplay( MafiaState.ERROR, "You can't afford that item." );
 				return;
 			}
 
-			if ( this.responseText.contains( "You don't have that many of that item" ) )
+			if ( responseText.contains( "You don't have that many of that item" ) )
 			{
 				KoLmafia.updateDisplay( MafiaState.ERROR, "You don't have that many of that item to turn in." );
 				return;
@@ -250,12 +250,12 @@ public class CoinMasterRequest
 		}
 		while ( KoLmafia.permitsContinue() && ++i <= visits );
 
-		if ( KoLmafia.permitsContinue() && this.action != null )
+		if ( KoLmafia.permitsContinue() && action != null )
 		{
 			KoLmafia.updateDisplay( master + " successfully looted!" );
 		}
 
-		this.unequip();
+        unequip();
 	}
 
 	public void equip()
@@ -269,7 +269,7 @@ public class CoinMasterRequest
 	@Override
 	public void processResults()
 	{
-		CoinMasterRequest.parseResponse( this.data, this.getURLString(), this.responseText );
+		CoinMasterRequest.parseResponse( data, getURLString(), responseText );
 	}
 
 	/*

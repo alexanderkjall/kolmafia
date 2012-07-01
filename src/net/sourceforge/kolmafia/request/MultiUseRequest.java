@@ -63,13 +63,13 @@ public class MultiUseRequest
 			return;
 		}
 
-		this.ingredient = ingredients[ 0 ];
-		int use = this.ingredient.getItemId();
-		int count = this.ingredient.getCount();
+        ingredient = ingredients[ 0 ];
+		int use = ingredient.getItemId();
+		int count = ingredient.getCount();
 
-		this.addFormField( "action", "useitem" );
-		this.addFormField( "quantity", String.valueOf( count ) );
-		this.addFormField( "whichitem", String.valueOf( use ) );
+        addFormField( "action", "useitem" );
+        addFormField( "quantity", String.valueOf( count ) );
+        addFormField( "whichitem", String.valueOf( use ) );
 	}
 
 	public MultiUseRequest( final int itemId )
@@ -80,7 +80,7 @@ public class MultiUseRequest
 	@Override
 	public void reconstructFields()
 	{
-		this.constructURLString( this.getURLString() );
+        constructURLString( getURLString() );
 	}
 
 	@Override
@@ -89,7 +89,7 @@ public class MultiUseRequest
 		// Attempting to make the ingredients will pull the
 		// needed items from the closet if they are missing.
 
-		if ( !this.makeIngredients() )
+		if ( !makeIngredients() )
 		{
 			return;
 		}

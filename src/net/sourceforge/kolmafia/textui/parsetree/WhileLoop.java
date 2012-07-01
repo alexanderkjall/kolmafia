@@ -53,7 +53,7 @@ public class WhileLoop
 
 	public Value getCondition()
 	{
-		return this.condition;
+		return condition;
 	}
 
 	@Override
@@ -68,17 +68,17 @@ public class WhileLoop
 		interpreter.traceIndent();
 		if ( interpreter.isTracing() )
 		{
-			interpreter.trace( this.toString() );
+			interpreter.trace( toString() );
 		}
 
 		while ( true )
 		{
 			if ( interpreter.isTracing() )
 			{
-				interpreter.trace( "Test: " + this.condition );
+				interpreter.trace( "Test: " + condition );
 			}
 
-			Value conditionResult = this.condition.execute( interpreter );
+			Value conditionResult = condition.execute( interpreter );
 			interpreter.captureValue( conditionResult );
 
 			if ( interpreter.isTracing() )
@@ -120,8 +120,8 @@ public class WhileLoop
 	@Override
 	public boolean assertBarrier()
 	{
-		return this.condition == DataTypes.TRUE_VALUE &&
-			!this.getScope().assertBreakable();
+		return condition == DataTypes.TRUE_VALUE &&
+			!getScope().assertBreakable();
 	}
 
 	@Override
@@ -135,7 +135,7 @@ public class WhileLoop
 	{
 		Interpreter.indentLine( stream, indent );
 		stream.println( "<WHILE>" );
-		this.getCondition().print( stream, indent + 1 );
-		this.getScope().print( stream, indent + 1 );
+        getCondition().print( stream, indent + 1 );
+        getScope().print( stream, indent + 1 );
 	}
 }

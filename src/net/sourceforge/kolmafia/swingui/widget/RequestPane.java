@@ -60,13 +60,13 @@ public class RequestPane
 		// Ensure that the background is off-white so that the
 		// text is always legible.
 
-		this.setContentType( "text/html" );
-		this.setEditable( false );
+        setContentType( "text/html" );
+        setEditable( false );
 
 		HTMLDocument currentHTML = (HTMLDocument) getDocument();
 		currentHTML.putProperty( "multiByte", Boolean.FALSE );
-		
-		this.setBackground( new Color( 252, 252, 252 ) );
+
+        setBackground( new Color( 252, 252, 252 ) );
 	}
 
 	@Override
@@ -79,8 +79,8 @@ public class RequestPane
 
 		try
 		{
-			this.getEditorKit().write(
-				sw, this.getDocument(), this.getSelectionStart(), this.getSelectionEnd() - this.getSelectionStart() );
+            getEditorKit().write(
+				sw, getDocument(), getSelectionStart(), getSelectionEnd() - getSelectionStart() );
 		}
 		catch ( Exception e )
 		{

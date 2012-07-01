@@ -63,30 +63,30 @@ public class HeyDezeRequest
 	{
 		super( "heydeze.php" );
 
-		this.addFormField( "action", "styxbuff" );
+        addFormField( "action", "styxbuff" );
 
 		switch ( stat )
 		{
 		case KoLConstants.MUSCLE:
 			// Hella Tough
-			this.effectId = 446;
-			this.desc = "tougher";
+            effectId = 446;
+            desc = "tougher";
 			break;
 		case KoLConstants.MYSTICALITY:
 			// Hella Smart
-			this.effectId = 447;
-			this.desc = "smarter";
+            effectId = 447;
+            desc = "smarter";
 			break;
 		case KoLConstants.MOXIE:
 			// Hella Smooth
-			this.effectId = 448;
-			this.desc = "smoother";
+            effectId = 448;
+            desc = "smoother";
 			break;
 		}
 
-		if ( this.effectId != 0 )
+		if ( effectId != 0 )
 		{
-			this.addFormField( "whichbuff", String.valueOf( this.effectId ) );
+            addFormField( "whichbuff", String.valueOf( effectId ) );
 		}
 	}
 
@@ -105,7 +105,7 @@ public class HeyDezeRequest
 			return;
 		}
 
-		if ( this.effectId == 0 )
+		if ( effectId == 0 )
 		{
 			KoLmafia.updateDisplay( MafiaState.ERROR, "Choose a stat to buff." );
 			return;
@@ -141,22 +141,22 @@ public class HeyDezeRequest
 	@Override
 	public void processResults()
 	{
-		HeyDezeRequest.parseResponse( this.getURLString(), this.responseText );
+		HeyDezeRequest.parseResponse( getURLString(), responseText );
 
-		if ( this.responseText == null || this.responseText.equals( "" ) )
+		if ( responseText == null || responseText.equals( "" ) )
 		{
 			KoLmafia.updateDisplay( MafiaState.ERROR, "You can't find the Styx Pixie." );
 			return;
 		}
 
 		// "You already got a buff today"
-		if ( this.responseText.contains( "already got a buff today" ) )
+		if ( responseText.contains( "already got a buff today" ) )
 		{
 			KoLmafia.updateDisplay( MafiaState.ERROR, "You can only visit the Styx Pixie once a day." );
 			return;
 		}
 
-		KoLmafia.updateDisplay( "You feel " + this.desc + "." );
+		KoLmafia.updateDisplay( "You feel " + desc + "." );
 		RequestFrame.refreshStatus();
 	}
 

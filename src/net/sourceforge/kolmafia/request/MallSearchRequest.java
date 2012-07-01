@@ -77,10 +77,10 @@ public class MallSearchRequest
 	public MallSearchRequest( final int storeId )
 	{
 		super( "mallstore.php" );
-		this.addFormField( "whichstore", String.valueOf( storeId ) );
+        addFormField( "whichstore", String.valueOf( storeId ) );
 
-		this.results = new ArrayList();
-		this.retainAll = true;
+        results = new ArrayList();
+        retainAll = true;
 	}
 
 	/**
@@ -115,19 +115,19 @@ public class MallSearchRequest
 		super( searchString == null || searchString.trim().length() == 0 ? "mall.php" : "searchmall.php" );
 
 		this.searchString = searchString;
-		this.addFormField( "pudnuggler", this.searchString );
-		this.addFormField( "category", "allitems" );
-		this.addFormField( "consumable_byme", "0" );
-		this.addFormField( "weaponattribute", "3" );
-		this.addFormField( "wearable_byme", "0" );
-		this.addFormField( "nolimits", "0" );
-		this.addFormField( "max_price", "0" );
-		this.addFormField( "sortresultsby", "price" );
-		this.addFormField( "justitems", "0" );
+        addFormField( "pudnuggler", this.searchString );
+        addFormField( "category", "allitems" );
+        addFormField( "consumable_byme", "0" );
+        addFormField( "weaponattribute", "3" );
+        addFormField( "wearable_byme", "0" );
+        addFormField( "nolimits", "0" );
+        addFormField( "max_price", "0" );
+        addFormField( "sortresultsby", "price" );
+        addFormField( "justitems", "0" );
 
 		if ( cheapestCount > 0 )
 		{
-			this.addFormField( "x_cheapest", String.valueOf( cheapestCount ) );
+            addFormField( "x_cheapest", String.valueOf( cheapestCount ) );
 		}
 
 		this.results = results;
@@ -169,7 +169,7 @@ public class MallSearchRequest
 
 	public List getResults()
 	{
-		return this.results;
+		return results;
 	}
 
 	public void setResults( final List results )
@@ -187,25 +187,25 @@ public class MallSearchRequest
 	public void run()
 	{
 		boolean items;
-		if ( this.searchString == null || this.searchString.trim().length() == 0 )
+		if ( searchString == null || searchString.trim().length() == 0 )
 		{
-			KoLmafia.updateDisplay( this.retainAll ? "Scanning store inventories..." : "Looking up favorite stores list..." );
+			KoLmafia.updateDisplay( retainAll ? "Scanning store inventories..." : "Looking up favorite stores list..." );
 			items = false;
 		}
 		else
 		{
 			// If only NPC items, no mall search needed
-			if ( !this.updateSearchString() )
+			if ( !updateSearchString() )
 			{
 				return;
 			}
 
-			KoLmafia.updateDisplay( "Searching for " + this.searchString + "..." );
+			KoLmafia.updateDisplay( "Searching for " + searchString + "..." );
 			items = true;
 		}
 
 		// We may need to iterate over multiple pages of search results
-		this.removeFormField( "start" );
+        removeFormField( "start" );
 		int next = 0;
 		int page = 1;
 		int limit = 0;
@@ -214,7 +214,7 @@ public class MallSearchRequest
 		{
 			if ( page > 1 )
 			{
-				KoLmafia.updateDisplay( "Searching for " + this.searchString + " (" + page + " of " + limit + ")..." );
+				KoLmafia.updateDisplay( "Searching for " + searchString + " (" + page + " of " + limit + ")..." );
 			}
 
 			super.run();
@@ -224,12 +224,12 @@ public class MallSearchRequest
 				break;
 			}
 
-			if ( this.responseText == null || !KoLmafia.permitsContinue() )
+			if ( responseText == null || !KoLmafia.permitsContinue() )
 			{
 				return;
 			}
 
-			Matcher matcher = MallSearchRequest.ITERATION_PATTERN.matcher( this.responseText );
+			Matcher matcher = MallSearchRequest.ITERATION_PATTERN.matcher( responseText );
 			if ( !matcher.find() )
 			{
 				break;
@@ -248,7 +248,7 @@ public class MallSearchRequest
 
 			int end = StringUtilities.parseInt( matcher.group(2) );
 			next = end + 1;
-			this.addFormField( "start", String.valueOf( end ) );
+            addFormField( "start", String.valueOf( end ) );
 		}
 
 		KoLmafia.updateDisplay( "Search complete." );
@@ -256,15 +256,15 @@ public class MallSearchRequest
 
 	private boolean updateSearchString()
 	{
-		this.results.clear();
+        results.clear();
 
-		boolean exact = this.searchString.startsWith( "\"" ) && this.searchString.endsWith( "\"" );
+		boolean exact = searchString.startsWith( "\"" ) && searchString.endsWith( "\"" );
 
 		// If the search string is enclosed in "", the Item Matcher
 		// will look for an exact match. Otherwise, it will do fuzzy
 		// matching.
 
-		List itemNames = ItemDatabase.getMatchingNames( this.searchString );
+		List itemNames = ItemDatabase.getMatchingNames( searchString );
 
 		// Check for any items which are not available in NPC stores and
 		// known not to be tradeable to see if there's an exact match.
@@ -310,7 +310,7 @@ public class MallSearchRequest
 
 		if ( count == untradeableCount || ( !canInteract && count == npcItemCount ) )
 		{
-			this.finalizeList( itemNames );
+            finalizeList( itemNames );
 			return false;
 		}
 
@@ -321,9 +321,9 @@ public class MallSearchRequest
 		{
 			if ( !exact )
 			{
-				this.searchString = "\"" + MallSearchRequest.getSearchString( (String) itemNames.get( 0 ) ) + "\"";
+                searchString = "\"" + MallSearchRequest.getSearchString( (String) itemNames.get( 0 ) ) + "\"";
 			}
-			this.addFormField( "pudnuggler", this.searchString );
+            addFormField( "pudnuggler", searchString );
 		}
 
 		return true;
@@ -333,9 +333,9 @@ public class MallSearchRequest
 	{
 		Pattern mangledEntityPattern = Pattern.compile( "\\s+;" );
 
-		if ( this.retainAll )
+		if ( retainAll )
 		{
-			Matcher shopMatcher = MallSearchRequest.STOREID_PATTERN.matcher( this.responseText );
+			Matcher shopMatcher = MallSearchRequest.STOREID_PATTERN.matcher( responseText );
 			if ( !shopMatcher.find() )
 			{
 				return;	// no mall store
@@ -348,7 +348,7 @@ public class MallSearchRequest
 			String shopName = mangledEntityPattern.matcher( shopMatcher.group( 1 ) ).replaceAll( ";" );
 
 			int lastFindIndex = 0;
-			Matcher priceMatcher = MallSearchRequest.STOREPRICE_PATTERN.matcher( this.responseText );
+			Matcher priceMatcher = MallSearchRequest.STOREPRICE_PATTERN.matcher( responseText );
 
 			while ( priceMatcher.find( lastFindIndex ) )
 			{
@@ -368,14 +368,14 @@ public class MallSearchRequest
 				}
 
 				int price = StringUtilities.parseInt( priceId.substring( priceId.length() - 9 ) );
-				this.results.add( new MallPurchaseRequest(
-					itemId, quantity, shopId, shopName, price, limit, true ) );
+                results.add( new MallPurchaseRequest(
+                        itemId, quantity, shopId, shopName, price, limit, true ) );
 			}
 		}
 		else
 		{
 			MallSearchRequest individualStore;
-			Matcher storeMatcher = MallSearchRequest.FAVORITES_PATTERN.matcher( this.responseText );
+			Matcher storeMatcher = MallSearchRequest.FAVORITES_PATTERN.matcher( responseText );
 
 			int lastFindIndex = 0;
 			while ( storeMatcher.find( lastFindIndex ) )
@@ -384,14 +384,14 @@ public class MallSearchRequest
 				individualStore = new MallSearchRequest( StringUtilities.parseInt( storeMatcher.group( 1 ) ) );
 				individualStore.run();
 
-				this.results.addAll( individualStore.results );
+                results.addAll( individualStore.results );
 			}
 		}
 	}
 
 	private void searchMall()
 	{
-		List itemNames = ItemDatabase.getMatchingNames( this.searchString );
+		List itemNames = ItemDatabase.getMatchingNames( searchString );
 
 		// Change all multi-line store names into single line store
 		// names so that the parser doesn't get confused; remove all
@@ -399,8 +399,8 @@ public class MallSearchRequest
 		// been greyed out), and then remove all non-anchor tags to
 		// make everything easy to parse.
 
-		int startIndex = this.responseText.indexOf( "Search Results:" );
-		String storeListResult = this.responseText.substring( startIndex < 0 ? 0 : startIndex );
+		int startIndex = responseText.indexOf( "Search Results:" );
+		String storeListResult = responseText.substring( startIndex < 0 ? 0 : startIndex );
 
 		int previousItemId = -1;
 		Matcher itemMatcher = MallSearchRequest.ITEMDETAIL_PATTERN.matcher( storeListResult );
@@ -451,8 +451,8 @@ public class MallSearchRequest
 				if ( previousItemId != itemId )
 				{
 					previousItemId = itemId;
-					this.addNPCStoreItem( itemName );
-					this.addCoinMasterItem( itemName );
+                    addNPCStoreItem( itemName );
+                    addCoinMasterItem( itemName );
 					itemNames.remove( itemName );
 				}
 
@@ -463,14 +463,14 @@ public class MallSearchRequest
 				int price = StringUtilities.parseInt( detailsMatcher.group( 3 ) );
 				String shopName = detailsMatcher.group( 4 ).replaceAll( "<br>", " " );
 
-				this.results.add( new MallPurchaseRequest( itemId, quantity, shopId, shopName, price, limit, canPurchase ) );
+                results.add( new MallPurchaseRequest( itemId, quantity, shopId, shopName, price, limit, canPurchase ) );
 			}
 		}
 
 		// Once the search is complete, add in any remaining NPC
 		// store data and finalize the list.
 
-		this.finalizeList( itemNames );
+        finalizeList( itemNames );
 	}
 
 	private void addNPCStoreItem( final String itemName )
@@ -478,9 +478,9 @@ public class MallSearchRequest
 		if ( NPCStoreDatabase.contains( itemName, false ) )
 		{
 			PurchaseRequest item = NPCStoreDatabase.getPurchaseRequest( itemName );
-			if ( !this.results.contains( item ) )
+			if ( !results.contains( item ) )
 			{
-				this.results.add( item );
+                results.add( item );
 			}
 		}
 	}
@@ -490,9 +490,9 @@ public class MallSearchRequest
 		PurchaseRequest item = CoinmastersDatabase.getPurchaseRequest( itemName );
 		if ( item != null )
 		{
-			if ( !this.results.contains( item ) )
+			if ( !results.contains( item ) )
 			{
-				this.results.add( item );
+                results.add( item );
 			}
 		}
 	}
@@ -507,21 +507,21 @@ public class MallSearchRequest
 		for ( int i = 0; i < itemNames.size(); ++i )
 		{
 			String itemName = (String) itemNames.get( i );
-			this.addNPCStoreItem( itemName );
-			this.addCoinMasterItem( itemName );
+            addNPCStoreItem( itemName );
+            addCoinMasterItem( itemName );
 		}
 	}
 
 	@Override
 	public void processResults()
 	{
-		if ( this.searchString == null || this.searchString.trim().length() == 0 )
+		if ( searchString == null || searchString.trim().length() == 0 )
 		{
-			this.searchStore();
+            searchStore();
 			return;
 		}
 
-		this.searchMall();
+        searchMall();
 	}
 
 	private static final Pattern NOBUYERS_PATTERN = Pattern.compile( "<td valign=\"center\" class=\"buyers\">&nbsp;</td>" );

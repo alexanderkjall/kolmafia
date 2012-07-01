@@ -55,31 +55,31 @@ public class RecordType
 		//   Integers don't require a lookup
 		//   Strings make debugging easier.
 
-		this.fieldIndices = new Value[ fieldNames.length ];
+        fieldIndices = new Value[ fieldNames.length ];
 		for ( int i = 0; i < fieldNames.length; ++i )
 		{
-			this.fieldIndices[ i ] = new Value( fieldNames[ i ] );
+            fieldIndices[ i ] = new Value( fieldNames[ i ] );
 		}
 	}
 
 	public String[] getFieldNames()
 	{
-		return this.fieldNames;
+		return fieldNames;
 	}
 
 	public Type[] getFieldTypes()
 	{
-		return this.fieldTypes;
+		return fieldTypes;
 	}
 
 	public Value[] getFieldIndices()
 	{
-		return this.fieldIndices;
+		return fieldIndices;
 	}
 
 	public int fieldCount()
 	{
-		return this.fieldTypes.length;
+		return fieldTypes.length;
 	}
 
 	@Override
@@ -95,22 +95,22 @@ public class RecordType
 		{
 			throw new ScriptException( "Internal error: key is not a Value" );
 		}
-		int index = this.indexOf( (Value) key );
-		if ( index < 0 || index >= this.fieldTypes.length )
+		int index = indexOf( (Value) key );
+		if ( index < 0 || index >= fieldTypes.length )
 		{
 			return null;
 		}
-		return this.fieldTypes[ index ];
+		return fieldTypes[ index ];
 	}
 
 	public Value getFieldIndex( final String field )
 	{
 		String val = field.toLowerCase();
-		for ( int index = 0; index < this.fieldNames.length; ++index )
+		for ( int index = 0; index < fieldNames.length; ++index )
 		{
-			if ( val.equals( this.fieldNames[ index ] ) )
+			if ( val.equals( fieldNames[ index ] ) )
 			{
-				return this.fieldIndices[ index ];
+				return fieldIndices[ index ];
 			}
 		}
 		return null;
@@ -124,21 +124,21 @@ public class RecordType
 		if ( type.equals( DataTypes.TYPE_INT ) )
 		{
 			int index = (int) key.intValue();
-			if ( index < 0 || index >= this.fieldNames.length )
+			if ( index < 0 || index >= fieldNames.length )
 			{
 				return null;
 			}
-			return this.fieldIndices[ index ];
+			return fieldIndices[ index ];
 		}
 
 		if ( type.equals( DataTypes.TYPE_STRING ) )
 		{
 			String str = key.toString();
-			for ( int index = 0; index < this.fieldNames.length; ++index )
+			for ( int index = 0; index < fieldNames.length; ++index )
 			{
-				if ( this.fieldNames[ index ].equals( str ) )
+				if ( fieldNames[ index ].equals( str ) )
 				{
-					return this.fieldIndices[ index ];
+					return fieldIndices[ index ];
 				}
 			}
 			return null;
@@ -154,7 +154,7 @@ public class RecordType
 		if ( type.equals( DataTypes.TYPE_INT ) )
 		{
 			int index = (int) key.intValue();
-			if ( index < 0 || index >= this.fieldNames.length )
+			if ( index < 0 || index >= fieldNames.length )
 			{
 				return -1;
 			}
@@ -163,9 +163,9 @@ public class RecordType
 
 		if ( type.equals( DataTypes.TYPE_STRING ) )
 		{
-			for ( int index = 0; index < this.fieldNames.length; ++index )
+			for ( int index = 0; index < fieldNames.length; ++index )
 			{
-				if ( key == this.fieldIndices[ index ] )
+				if ( key == fieldIndices[ index ] )
 				{
 					return index;
 				}
@@ -179,7 +179,7 @@ public class RecordType
 	@Override
 	public boolean equals( final Type o )
 	{
-		return o instanceof RecordType && this.name.equals( ( (RecordType) o ).name );
+		return o instanceof RecordType && name.equals( ((RecordType) o).name );
 	}
 
 	@Override
@@ -191,7 +191,7 @@ public class RecordType
 	@Override
 	public String toString()
 	{
-		return this.name;
+		return name;
 	}
 
 	@Override
@@ -213,9 +213,9 @@ public class RecordType
 	@Override
 	public boolean containsAggregate()
 	{
-		for ( int i = 0; i < this.fieldTypes.length; ++i )
+		for ( int i = 0; i < fieldTypes.length; ++i )
 		{
-			if ( this.fieldTypes[ i ].containsAggregate() )
+			if ( fieldTypes[ i ].containsAggregate() )
 			{
 				return true;
 			}

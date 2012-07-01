@@ -49,13 +49,13 @@ public class PluralValue
 	{
 		super( new AggregateType( DataTypes.BOOLEAN_TYPE, type ) );
 
-		this.content = values.toArray( new Value[ 0 ] );
+        content = values.toArray( new Value[ 0 ] );
 	}
 
 	@Override
 	public Value aref( final Value key, final Interpreter interpreter )
 	{
-		return DataTypes.makeBooleanValue( this.contains( key ) );
+		return DataTypes.makeBooleanValue( contains( key ) );
 	}
 
 	@Override
@@ -78,24 +78,24 @@ public class PluralValue
 	@Override
 	public int count()
 	{
-		Value[] array = (Value[]) this.content;
+		Value[] array = (Value[]) content;
 		return array.length;
 	}
 
 	@Override
 	public boolean contains( final Value key )
 	{
-		if ( this.lookup == null )
+		if ( lookup == null )
 		{
-			this.lookup = new TreeSet<Value>();
-			this.lookup.addAll( Arrays.asList( (Value[]) this.content ) );
+            lookup = new TreeSet<Value>();
+            lookup.addAll( Arrays.asList( (Value[]) content ) );
 		}
-		return this.lookup.contains( key );
+		return lookup.contains( key );
 	}
 
 	@Override
 	public Value[] keys()
 	{
-		return (Value[]) this.content;
+		return (Value[]) content;
 	}
 }

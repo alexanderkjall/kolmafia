@@ -118,18 +118,18 @@ public class PrefixMap
 
 	public void putExact( String key, Object value )
 	{
-		this.putRange( key, key + EXACT_SUFFIX, value );
+        putRange( key, key + EXACT_SUFFIX, value );
 	}
 
 	public void putPrefix( String key, Object value )
 	{
-		this.putRange( key, key + PREFIX_SUFFIX, value );
+        putRange( key, key + PREFIX_SUFFIX, value );
 	}
 
 	private void putRange( String startKey, String endKey, Object value )
 	{
 		super.put( startKey, value );
-		super.put( endKey, this.getBelow( startKey ) );
+		super.put( endKey, getBelow( startKey ) );
 	}
 	
 	public Object remove( String key )

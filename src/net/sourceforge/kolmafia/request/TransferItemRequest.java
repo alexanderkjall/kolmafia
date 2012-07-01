@@ -78,15 +78,15 @@ public abstract class TransferItemRequest
 	public TransferItemRequest( final String formSource )
 	{
 		super( formSource );
-		this.attachments = new Object[ 0 ];
+        attachments = new Object[ 0 ];
 	}
 
 	public TransferItemRequest( final String formSource, final AdventureResult attachment )
 	{
 		this( formSource );
 
-		this.attachments = new Object[ 1 ];
-		this.attachments[ 0 ] = attachment;
+        attachments = new Object[ 1 ];
+        attachments[ 0 ] = attachment;
 	}
 
 	public TransferItemRequest( final String formSource, final Object[] attachments )
@@ -99,24 +99,24 @@ public abstract class TransferItemRequest
 	{
 		String which, quantity;
 
-		if ( this.getCapacity() > 1 )
+		if ( getCapacity() > 1 )
 		{
-			which = this.getItemField() + index;
-			quantity = this.getQuantityField() + index;
+			which = getItemField() + index;
+			quantity = getQuantityField() + index;
 		}
-		else if ( this.alwaysIndex() )
+		else if ( alwaysIndex() )
 		{
-			which = this.getItemField() + "1";
-			quantity = this.getQuantityField() + "1";
+			which = getItemField() + "1";
+			quantity = getQuantityField() + "1";
 		}
 		else
 		{
-			which = this.getItemField();
-			quantity = this.getQuantityField();
+			which = getItemField();
+			quantity = getQuantityField();
 		}
 
-		this.addFormField( which, String.valueOf( item.getItemId() ) );
-		this.addFormField( quantity, String.valueOf( item.getCount() ) );
+        addFormField( which, String.valueOf( item.getItemId() ) );
+        addFormField( quantity, String.valueOf( item.getCount() ) );
 	}
 
 	public boolean alwaysIndex()
@@ -146,13 +146,13 @@ public abstract class TransferItemRequest
 		// Generate the subinstances. Subclasses can override how this
 		// is done. The first request will have the Meat, if any.
 
-		ArrayList subinstances = this.generateSubInstances();
+		ArrayList subinstances = generateSubInstances();
 
 		// Run the subinstances.
 		TransferItemRequest[] requests = new TransferItemRequest[ subinstances.size() ];
 		subinstances.toArray( requests );
 
-		String status = this.getStatusMessage();
+		String status = getStatusMessage();
 		for ( int i = 0; i < requests.length; ++i )
 		{
 			if ( requests.length == 1 )
@@ -177,25 +177,25 @@ public abstract class TransferItemRequest
 			return subinstances;
 		}
 
-		boolean allowNoDisplay = this.allowUndisplayableTransfer();
-		boolean allowNoGift = this.allowUngiftableTransfer();
-		boolean allowSingleton = this.allowSingletonTransfer();
-		boolean allowNoTrade = this.allowUntradeableTransfer();
-		boolean allowMemento = !Preferences.getBoolean( "mementoListActive" ) || this.allowMementoTransfer();
-		int capacity = this.getCapacity();
+		boolean allowNoDisplay = allowUndisplayableTransfer();
+		boolean allowNoGift = allowUngiftableTransfer();
+		boolean allowSingleton = allowSingletonTransfer();
+		boolean allowNoTrade = allowUntradeableTransfer();
+		boolean allowMemento = !Preferences.getBoolean( "mementoListActive" ) || allowMementoTransfer();
+		int capacity = getCapacity();
 
 		int meatAttachment = 0;
 
 		ArrayList nextAttachments = new ArrayList();
 		int index = 0;
 
-		while ( index < this.attachments.length )
+		while ( index < attachments.length )
 		{
 			nextAttachments.clear();
 
 			do
 			{
-				AdventureResult item = (AdventureResult) this.attachments[ index++ ];
+				AdventureResult item = (AdventureResult) attachments[ index++ ];
 
 				if ( item == null )
 				{
@@ -228,7 +228,7 @@ public abstract class TransferItemRequest
 					continue;
 				}
 
-				int availableCount = item.getCount( this.source );
+				int availableCount = item.getCount( source );
 
 				if ( !allowSingleton && KoLConstants.singletonList.contains( item ) )
 				{
@@ -242,14 +242,14 @@ public abstract class TransferItemRequest
 
 				nextAttachments.add( item.getInstance( Math.min( item.getCount(), availableCount ) ) );
 			}
-			while ( index < this.attachments.length && nextAttachments.size() < capacity );
+			while ( index < attachments.length && nextAttachments.size() < capacity );
 
 			// For each broken-up request, create a new request
 			// which will has the appropriate data to post.
 
 			if ( !nextAttachments.isEmpty() )
 			{
-				TransferItemRequest subinstance = this.getSubInstance( nextAttachments.toArray() );
+				TransferItemRequest subinstance = getSubInstance( nextAttachments.toArray() );
 				subinstance.isSubInstance = true;
 				subinstances.add( subinstance );
 			}
@@ -258,7 +258,7 @@ public abstract class TransferItemRequest
 		if ( subinstances.size() == 0 )
 		{
 			// This can only happen if we are sending no items
-			this.isSubInstance = true;
+            isSubInstance = true;
 			subinstances.add( this );
 		}
 
@@ -266,7 +266,7 @@ public abstract class TransferItemRequest
 		{
 			// Attach all the Meat to the first request
 			TransferItemRequest first = (TransferItemRequest) subinstances.get(0);
-			first.addFormField( this.getMeatField(), String.valueOf( meatAttachment ) );
+			first.addFormField( getMeatField(), String.valueOf( meatAttachment ) );
 
 		}
 
@@ -306,18 +306,18 @@ public abstract class TransferItemRequest
 		// transferred. If there are too many, then you'll need to
 		// break up the request
 
-		if ( !this.isSubInstance )
+		if ( !isSubInstance )
 		{
-			this.runSubInstances();
+            runSubInstances();
 			return;
 		}
 
-		for ( int i = 1; i <= this.attachments.length; ++i )
+		for ( int i = 1; i <= attachments.length; ++i )
 		{
-			AdventureResult it = (AdventureResult) this.attachments[ i - 1 ];
+			AdventureResult it = (AdventureResult) attachments[ i - 1 ];
 			if ( it != null && it.isItem() )
 			{
-				this.attachItem( it, i );
+                attachItem( it, i );
 			}
 		}
 
@@ -326,9 +326,9 @@ public abstract class TransferItemRequest
 		// to execute the request.
 
 		TransferItemRequest.hadSendMessageFailure = false;
-		if ( this.forceGETMethod() )
+		if ( forceGETMethod() )
 		{
-			this.constructURLString( this.getFullURLString(), false );
+            constructURLString( getFullURLString(), false );
 		}
 		super.run();
 	}
@@ -336,7 +336,7 @@ public abstract class TransferItemRequest
 	@Override
 	public void processResults()
 	{
-		if ( this.parseTransfer() )
+		if ( parseTransfer() )
 		{
 			return;
 		}
@@ -347,14 +347,14 @@ public abstract class TransferItemRequest
 			return;
 		}
 
-		for ( int i = 0; i < this.attachments.length; ++i )
+		for ( int i = 0; i < attachments.length; ++i )
 		{
-			AdventureResult item = (AdventureResult) this.attachments[ i ];
+			AdventureResult item = (AdventureResult) attachments[ i ];
 			KoLmafia.updateDisplay( MafiaState.ERROR,
 						"Transfer failed for " + item.toString() );
 		}
 
-		int totalMeat = StringUtilities.parseInt( this.getFormField( this.getMeatField() ) );
+		int totalMeat = StringUtilities.parseInt( getFormField( getMeatField() ) );
 		if ( totalMeat != 0 )
 		{
 			KoLmafia.updateDisplay( MafiaState.ERROR,

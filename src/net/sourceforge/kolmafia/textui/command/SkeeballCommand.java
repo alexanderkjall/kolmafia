@@ -47,7 +47,7 @@ public class SkeeballCommand
 {
 	public SkeeballCommand()
 	{
-		this.usage = "[<count>] - squander Game Grid tokens at the broken Skeeball machine";
+        usage = "[<count>] - squander Game Grid tokens at the broken Skeeball machine";
 	}
 
 	@Override

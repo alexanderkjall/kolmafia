@@ -207,9 +207,9 @@ public class UseItemRequest
 		super( location );
 
 		this.consumptionType = consumptionType;
-		this.itemUsed = item;
+        itemUsed = item;
 
-		this.addFormField( "whichitem", String.valueOf( item.getItemId() ) );
+        addFormField( "whichitem", String.valueOf( item.getItemId() ) );
 	}
 
 	public static int getConsumptionType( final AdventureResult item )
@@ -288,7 +288,7 @@ public class UseItemRequest
 
 	private boolean isBingeRequest()
 	{
-		switch ( this.consumptionType )
+		switch ( consumptionType )
 		{
 		case KoLConstants.CONSUME_HOBO:
 		case KoLConstants.CONSUME_GHOST:
@@ -343,12 +343,12 @@ public class UseItemRequest
 
 	public int getConsumptionType()
 	{
-		return this.consumptionType;
+		return consumptionType;
 	}
 
 	public AdventureResult getItemUsed()
 	{
-		return this.itemUsed;
+		return itemUsed;
 	}
 
 	public static int maximumUses( final int itemId )
@@ -907,9 +907,9 @@ public class UseItemRequest
 	public void run()
 	{
 		// Hide memento items from your familiars
-		if ( this.isBingeRequest() &&
+		if ( isBingeRequest() &&
 		     Preferences.getBoolean( "mementoListActive" ) &&
-		     KoLConstants.mementoList.contains( this.itemUsed ) )
+		     KoLConstants.mementoList.contains( itemUsed ) )
 		{
 			KoLmafia.updateDisplay( MafiaState.ERROR, "Don't feed mementos to your familiars." );
 			return;
@@ -917,7 +917,7 @@ public class UseItemRequest
 
 		// Equipment should be handled by a different kind of request.
 
-		int itemId = this.itemUsed.getItemId();
+		int itemId = itemUsed.getItemId();
 		boolean isSealFigurine = ItemDatabase.isSealFigurine( itemId );
 		boolean isBRICKOMonster = ItemDatabase.isBRICKOMonster( itemId );
 
@@ -934,7 +934,7 @@ public class UseItemRequest
 		case ItemPool.BRICKO_SWORD:
 		case ItemPool.BRICKO_HAT:
 		case ItemPool.BRICKO_PANTS:
-			if ( !InventoryManager.retrieveItem( this.itemUsed ) )
+			if ( !InventoryManager.retrieveItem( itemUsed ) )
 			{
 				KoLmafia.updateDisplay( MafiaState.ERROR,
 					"You don't have one of those." );
@@ -947,7 +947,7 @@ public class UseItemRequest
 
 		case ItemPool.STICKER_SWORD:
 		case ItemPool.STICKER_CROSSBOW:
-			if ( !InventoryManager.retrieveItem( this.itemUsed ) )
+			if ( !InventoryManager.retrieveItem( itemUsed ) )
 			{
 				KoLmafia.updateDisplay( MafiaState.ERROR,
 					"You don't have one of those." );
@@ -1028,7 +1028,7 @@ public class UseItemRequest
 			break;
 		}
 
-		switch ( this.consumptionType )
+		switch ( consumptionType )
 		{
 		case KoLConstants.CONSUME_STICKER:
 		case KoLConstants.EQUIP_HAT:
@@ -1039,42 +1039,42 @@ public class UseItemRequest
 		case KoLConstants.EQUIP_CONTAINER:
 		case KoLConstants.EQUIP_ACCESSORY:
 		case KoLConstants.EQUIP_FAMILIAR:
-			RequestThread.postRequest( new EquipmentRequest( this.itemUsed ) );
+			RequestThread.postRequest( new EquipmentRequest( itemUsed ) );
 			return;
 
 		case KoLConstants.CONSUME_SPHERE:
-			RequestThread.postRequest( new PortalRequest( this.itemUsed ) );
+			RequestThread.postRequest( new PortalRequest( itemUsed ) );
 			return;
 
 		case KoLConstants.NO_CONSUME:
 			// no primary use, but a secondary use may be applicable
 			if ( ItemDatabase.getAttribute( itemId, ItemDatabase.ATTR_CURSE ) )
 			{
-				RequestThread.postRequest( new CurseRequest( this.itemUsed ) );
+				RequestThread.postRequest( new CurseRequest( itemUsed ) );
 				return;
 			}
-			KoLmafia.updateDisplay( this.itemUsed.getName() + " is unusable." );
+			KoLmafia.updateDisplay( itemUsed.getName() + " is unusable." );
 			return;
 		}
 
 		UseItemRequest.lastUpdate = "";
-		if ( !ItemDatabase.meetsLevelRequirement( this.itemUsed.getName() ) )
+		if ( !ItemDatabase.meetsLevelRequirement( itemUsed.getName() ) )
 		{
-			UseItemRequest.lastUpdate = "Insufficient level to consume " + this.itemUsed;
+			UseItemRequest.lastUpdate = "Insufficient level to consume " + itemUsed;
 			KoLmafia.updateDisplay( MafiaState.ERROR, UseItemRequest.lastUpdate );
 			return;
 		}
 
-		int maximumUses = UseItemRequest.maximumUses( itemId, this.consumptionType );
-		if ( maximumUses < this.itemUsed.getCount() )
+		int maximumUses = UseItemRequest.maximumUses( itemId, consumptionType );
+		if ( maximumUses < itemUsed.getCount() )
 		{
-			KoLmafia.updateDisplay( "(usable quantity of " + this.itemUsed +
+			KoLmafia.updateDisplay( "(usable quantity of " + itemUsed +
 				" is limited to " + maximumUses + " by " +
 				UseItemRequest.limiter + ")" );
-			this.itemUsed = this.itemUsed.getInstance( maximumUses );
+            itemUsed = itemUsed.getInstance( maximumUses );
 		}
 
-		if ( this.itemUsed.getCount() < 1 )
+		if ( itemUsed.getCount() < 1 )
 		{
 			return;
 		}
@@ -1089,7 +1089,7 @@ public class UseItemRequest
 		case ItemPool.WHEN_CARD:
 		case ItemPool.WHO_CARD:
 		case ItemPool.WHERE_CARD:
-			this.addFormField( "answerplz", "1" );
+            addFormField( "answerplz", "1" );
 			break;
 
 		case ItemPool.PHIAL_OF_HOTNESS:
@@ -1135,32 +1135,32 @@ public class UseItemRequest
 			break;
 		}
 
-		if ( this.consumptionType != KoLConstants.INFINITE_USES &&
+		if ( consumptionType != KoLConstants.INFINITE_USES &&
 		     !UseItemRequest.sequentialConsume( itemId ) &&
-		     !InventoryManager.retrieveItem( this.itemUsed ) )
+		     !InventoryManager.retrieveItem( itemUsed ) )
 		{
 			return;
 		}
 
 		int iterations = 1;
-		int origCount = this.itemUsed.getCount();
+		int origCount = itemUsed.getCount();
 
 		if ( origCount != 1 )
 		{
 			if ( itemId == ItemPool.YUMMY_TUMMY_BEAN )
 			{	// If not divisible by 20, make the first iteration short
 				iterations = (origCount + 19) / 20;
-				this.itemUsed = this.itemUsed.getInstance( (origCount + 19) % 20 + 1 );
+                itemUsed = itemUsed.getInstance( (origCount + 19) % 20 + 1 );
 			}
-			else switch ( this.consumptionType )
+			else switch ( consumptionType )
 			{
 			case  KoLConstants.INFINITE_USES:
 			{
-				int type = ItemDatabase.getConsumptionType( this.itemUsed.getItemId() );
+				int type = ItemDatabase.getConsumptionType( itemUsed.getItemId() );
 				if ( type != KoLConstants.CONSUME_MULTIPLE )
 				{
 					iterations = origCount;
-					this.itemUsed = this.itemUsed.getInstance( 1 );
+                    itemUsed = itemUsed.getInstance( 1 );
 				}
 				break;
 			}
@@ -1174,7 +1174,7 @@ public class UseItemRequest
 				break;
 			default:
 				iterations = origCount;
-				this.itemUsed = this.itemUsed.getInstance( 1 );
+                itemUsed = itemUsed.getInstance( 1 );
 			}
 		}
 
@@ -1188,21 +1188,21 @@ public class UseItemRequest
 			}
 		}
 
-		String originalURLString = this.getURLString();
+		String originalURLString = getURLString();
 
 		for ( int i = 1; i <= iterations && KoLmafia.permitsContinue(); ++i )
 		{
-			this.constructURLString( originalURLString );
-			this.useOnce( i, iterations, "Using" );
+            constructURLString( originalURLString );
+            useOnce( i, iterations, "Using" );
 
 			if ( itemId == ItemPool.YUMMY_TUMMY_BEAN )
 			{	// the first iteration may have been short
-				this.itemUsed = this.itemUsed.getInstance( 20 );
+                itemUsed = itemUsed.getInstance( 20 );
 			}
 
 			if ( ( isSealFigurine || isBRICKOMonster ) && KoLmafia.permitsContinue() )
 			{
-				this.addFormField( "checked", "1" );
+                addFormField( "checked", "1" );
 				super.run();
 			}
 		}
@@ -1214,7 +1214,7 @@ public class UseItemRequest
 
 		if ( KoLmafia.permitsContinue() )
 		{
-			KoLmafia.updateDisplay( "Finished using " + origCount + " " + this.itemUsed.getName() + "." );
+			KoLmafia.updateDisplay( "Finished using " + origCount + " " + itemUsed.getName() + "." );
 		}
 	}
 
@@ -1247,9 +1247,9 @@ public class UseItemRequest
 	{
 		UseItemRequest.lastUpdate = "";
 
-		if ( this.consumptionType == KoLConstants.CONSUME_ZAP )
+		if ( consumptionType == KoLConstants.CONSUME_ZAP )
 		{
-			ZapCommand.zap( this.getItemUsed().getName() );
+			ZapCommand.zap( getItemUsed().getName() );
 			return;
 		}
 
@@ -1257,13 +1257,13 @@ public class UseItemRequest
 		// inventory first - if not, report the error message and
 		// return from the method.
 
-		if ( !InventoryManager.retrieveItem( this.itemUsed ) )
+		if ( !InventoryManager.retrieveItem( itemUsed ) )
 		{
 			UseItemRequest.lastUpdate = "Insufficient items to use.";
 			return;
 		}
 
-		if ( this.getAdventuresUsed() > 0 )
+		if ( getAdventuresUsed() > 0 )
 		{
 			// If we are about to use an item which can use adventures, set location to "None"
 			// for the benefit of betweenBattleScripts
@@ -1271,7 +1271,7 @@ public class UseItemRequest
 			RecoveryManager.runBetweenBattleChecks( true );
 		}
 
-		switch ( this.consumptionType )
+		switch ( consumptionType )
 		{
 		case KoLConstants.CONSUME_HOBO:
 			if ( KoLCharacter.getFamiliar().getId() != FamiliarPool.HOBO )
@@ -1280,8 +1280,8 @@ public class UseItemRequest
 				return;
 			}
 			EatItemRequest.clearFoodHelper();
-			this.addFormField( "action", "binge" );
-			this.addFormField( "qty", String.valueOf( this.itemUsed.getCount() ) );
+            addFormField( "action", "binge" );
+            addFormField( "qty", String.valueOf( itemUsed.getCount() ) );
 			useTypeAsString = "Boozing hobo with";
 			break;
 
@@ -1292,8 +1292,8 @@ public class UseItemRequest
 				return;
 			}
 			DrinkItemRequest.clearDrinkHelper();
-			this.addFormField( "action", "binge" );
-			this.addFormField( "qty", String.valueOf( this.itemUsed.getCount() ) );
+            addFormField( "action", "binge" );
+            addFormField( "qty", String.valueOf( itemUsed.getCount() ) );
 			useTypeAsString = "Feeding ghost with";
 			break;
 
@@ -1303,8 +1303,8 @@ public class UseItemRequest
 				KoLmafia.updateDisplay( MafiaState.ERROR, "You don't have a Slimeling equipped" );
 				return;
 			}
-			this.addFormField( "action", "binge" );
-			this.addFormField( "qty", String.valueOf( this.itemUsed.getCount() ) );
+            addFormField( "action", "binge" );
+            addFormField( "qty", String.valueOf( itemUsed.getCount() ) );
 			useTypeAsString = "Feeding slimeling with";
 			break;
 
@@ -1314,7 +1314,7 @@ public class UseItemRequest
 				KoLmafia.updateDisplay( MafiaState.ERROR, "You don't have a Stocking Mimic equipped" );
 				return;
 			}
-			this.addFormField( "action", "candy" );
+            addFormField( "action", "candy" );
 			useTypeAsString = "Feeding stocking mimic with";
 			break;
 
@@ -1322,22 +1322,22 @@ public class UseItemRequest
 		case KoLConstants.HP_RESTORE:
 		case KoLConstants.MP_RESTORE:
 		case KoLConstants.HPMP_RESTORE:
-			if ( this.itemUsed.getCount() > 1 )
+			if ( itemUsed.getCount() > 1 )
 			{
-				this.addFormField( "action", "useitem" );
-				this.addFormField( "quantity", String.valueOf( this.itemUsed.getCount() ) );
+                addFormField( "action", "useitem" );
+                addFormField( "quantity", String.valueOf( itemUsed.getCount() ) );
 			}
 			// Fall through
 		default:
-			this.addFormField( "ajax", "1" );
-			if ( UseItemRequest.needsConfirmation( this.itemUsed ) )
+            addFormField( "ajax", "1" );
+			if ( UseItemRequest.needsConfirmation( itemUsed ) )
 			{
-				this.addFormField( "confirm", "true" );
+                addFormField( "confirm", "true" );
 			}
 			break;
 		}
 
-		this.runOneIteration( currentIteration, totalIterations, useTypeAsString );
+        runOneIteration( currentIteration, totalIterations, useTypeAsString );
 	}
 
 	protected void runOneIteration( final int currentIteration, final int totalIterations, String useTypeAsString )
@@ -1348,10 +1348,10 @@ public class UseItemRequest
 		message.append( " " );
 		if ( totalIterations == 1 )
 		{
-			message.append( String.valueOf( this.itemUsed.getCount() ) );
+			message.append( String.valueOf( itemUsed.getCount() ) );
 			message.append( " " );
 		}
-		message.append( this.itemUsed.getName() );
+		message.append( itemUsed.getName() );
 		if ( totalIterations != 1 )
 		{
 			message.append( " (" );
@@ -1366,20 +1366,20 @@ public class UseItemRequest
 
 		super.run();
 
-		if ( this.responseCode == 302 )
+		if ( responseCode == 302 )
 		{
-			if ( this.redirectLocation.startsWith( "inventory" ) )
+			if ( redirectLocation.startsWith( "inventory" ) )
 			{
-				GenericRequest request = new GenericRequest( this.redirectLocation );
+				GenericRequest request = new GenericRequest( redirectLocation );
 				request.run();
 				// GenericRequest.processResults will call UseItemRequest.parseConsumption.
-				ResponseTextParser.learnRecipe( this.getURLString(), request.responseText );
+				ResponseTextParser.learnRecipe( getURLString(), request.responseText );
 			}
-			else if ( this.redirectLocation.startsWith( "choice.php" ) )
+			else if ( redirectLocation.startsWith( "choice.php" ) )
 			{
 				// The choice has already been handled by GenericRequest,
 				// but we still need to account for the item used.
-				this.parseConsumption();
+                parseConsumption();
 			}
 		}
 	}
@@ -1412,23 +1412,23 @@ public class UseItemRequest
 	@Override
 	public void processResults()
 	{
-		switch ( this.consumptionType )
+		switch ( consumptionType )
 		{
 		case KoLConstants.CONSUME_GHOST:
 		case KoLConstants.CONSUME_HOBO:
 		case KoLConstants.CONSUME_SLIME:
 		case KoLConstants.CONSUME_MIMIC:
-			if ( !UseItemRequest.parseBinge( this.getURLString(), this.responseText ) )
+			if ( !UseItemRequest.parseBinge( getURLString(), responseText ) )
 			{
 				KoLmafia.updateDisplay( MafiaState.ERROR, "Your current familiar can't use that." );
 			}
 			return;
 		}
 
-		UseItemRequest.lastItemUsed = this.itemUsed;
-		UseItemRequest.currentItemId = this.itemUsed.getItemId();
-		UseItemRequest.parseConsumption( this.responseText, true );
-		ResponseTextParser.learnRecipe( this.getURLString(), this.responseText );
+		UseItemRequest.lastItemUsed = itemUsed;
+		UseItemRequest.currentItemId = itemUsed.getItemId();
+		UseItemRequest.parseConsumption( responseText, true );
+		ResponseTextParser.learnRecipe( getURLString(), responseText );
 	}
 
 	public static boolean parseBinge( final String urlString, final String responseText )
@@ -4909,7 +4909,7 @@ public class UseItemRequest
 	@Override
 	public int getAdventuresUsed()
 	{
-		return UseItemRequest.getAdventuresUsedByItem( this.itemUsed );
+		return UseItemRequest.getAdventuresUsedByItem( itemUsed );
 	}
 
 	public static int getAdventuresUsed( final String urlString )

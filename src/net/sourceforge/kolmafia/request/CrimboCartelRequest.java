@@ -105,7 +105,7 @@ public class CrimboCartelRequest
 	@Override
 	public void processResults()
 	{
-		CrimboCartelRequest.parseResponse( this.getURLString(), this.responseText );
+		CrimboCartelRequest.parseResponse( getURLString(), responseText );
 	}
 
 	public static void parseResponse( final String location, final String responseText )

@@ -49,7 +49,7 @@ public class HellKitchenRequest
 
 		int itemId = ItemDatabase.getItemId( name );
 		int price = Math.max( 1, ItemDatabase.getPriceById( itemId ) ) * 3;
-		this.setItem( name, itemId, price );
+        setItem( name, itemId, price );
 	}
 
 	@Override

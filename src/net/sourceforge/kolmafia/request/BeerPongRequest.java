@@ -259,13 +259,13 @@ public class BeerPongRequest
 	public BeerPongRequest( final int response)
 	{
 		this();
-		this.addFormField( "response", String.valueOf( response ) );
+        addFormField( "response", String.valueOf( response ) );
 	}
 
 	@Override
 	public void processResults()
 	{
-		BeerPongRequest.parseResponse( this.getURLString(), this.responseText );
+		BeerPongRequest.parseResponse( getURLString(), responseText );
 	}
 
 	private static final Pattern RETORT_FORM_PATTERN = Pattern.compile( "<form action=beerpong.php.*?</form>" );

@@ -62,7 +62,7 @@ public class ScriptMenu
 	@Override
 	public JComponent constructMenuItem( final Object o )
 	{
-		return o instanceof JSeparator ? new JSeparator() : this.constructMenuItem( (File) o, "scripts" );
+		return o instanceof JSeparator ? new JSeparator() : constructMenuItem( (File) o, "scripts" );
 	}
 
 	private JComponent constructMenuItem( final File file, final String prefix )
@@ -102,7 +102,7 @@ public class ScriptMenu
 			{
 				if ( scriptList[ i ].isDirectory() && ScriptMenu.shouldAddScript( scriptList[ i ] ) )
 				{
-					menu.add( this.constructMenuItem( scriptList[ i ], path ) );
+					menu.add( constructMenuItem( scriptList[ i ], path ) );
 				}
 			}
 
@@ -110,7 +110,7 @@ public class ScriptMenu
 			{
 				if ( !scriptList[ i ].isDirectory() )
 				{
-					menu.add( this.constructMenuItem( scriptList[ i ], path ) );
+					menu.add( constructMenuItem( scriptList[ i ], path ) );
 				}
 			}
 

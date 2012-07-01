@@ -48,7 +48,7 @@ public class NamespaceListCommand
 {
 	public NamespaceListCommand()
 	{
-		this.usage = " [<filter>] - list namespace scripts and the functions they define.";
+        usage = " [<filter>] - list namespace scripts and the functions they define.";
 	}
 
 	@Override

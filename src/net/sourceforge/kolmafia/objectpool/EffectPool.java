@@ -119,12 +119,12 @@ public class EffectPool
 
 		public String effectName()
 		{
-			return this.name;
+			return name;
 		}
 
 		public int effectId()
 		{
-			return this.id;
+			return id;
 		}
 	}
 

@@ -54,31 +54,31 @@ public class UserDefinedFunction
 	{
 		super( name, type, variableReferences );
 
-		this.scope = null;
-		this.callStack = new Stack();
+        scope = null;
+        callStack = new Stack();
 	}
 
 	public void setScope( final Scope s )
 	{
-		this.scope = s;
+        scope = s;
 	}
 
 	public Scope getScope()
 	{
-		return this.scope;
+		return scope;
 	}
 
 	@Override
 	public void saveBindings( Interpreter interpreter )
 	{
-		if ( this.scope == null )
+		if ( scope == null )
 		{
 			return;
 		}
 		
 		ArrayList values = new ArrayList();
 
-		Iterator scopes = this.scope.getScopes();
+		Iterator scopes = scope.getScopes();
 		while ( scopes.hasNext() )
 		{
 			Iterator variables = ((BasicScope) scopes.next()).getVariables();
@@ -92,21 +92,21 @@ public class UserDefinedFunction
 				}
 			}
 		}
-		this.callStack.push( values );
+        callStack.push( values );
 	}
 
 	@Override
 	public void restoreBindings( Interpreter interpreter )
 	{
-		if ( this.scope == null )
+		if ( scope == null )
 		{
 			return;
 		}
 
-		ArrayList values = (ArrayList) this.callStack.pop();
+		ArrayList values = (ArrayList) callStack.pop();
 		int i = 0;
 
-		Iterator scopes = this.scope.getScopes();
+		Iterator scopes = scope.getScopes();
 		while ( scopes.hasNext() )
 		{
 			Iterator variables = ((BasicScope) scopes.next()).getVariables();
@@ -125,40 +125,40 @@ public class UserDefinedFunction
 	@Override
 	public Value execute( final Interpreter interpreter )
 	{
-		if ( StaticEntity.isDisabled( this.getName() ) )
+		if ( StaticEntity.isDisabled( getName() ) )
 		{
-			this.printDisabledMessage( interpreter );
-			return this.getType().initialValue();
+            printDisabledMessage( interpreter );
+			return getType().initialValue();
 		}
 
-		if ( this.scope == null )
+		if ( scope == null )
 		{
-			throw interpreter.runtimeException( "Calling undefined user function: " + this.getName() );
+			throw interpreter.runtimeException( "Calling undefined user function: " + getName() );
 		}
 
-		Value result = this.scope.execute( interpreter );
+		Value result = scope.execute( interpreter );
 
-		if ( result.getType().equals( this.type.getBaseType() ) )
+		if ( result.getType().equals( type.getBaseType() ) )
 		{
 			return result;
 		}
 
-		return this.getType().initialValue();
+		return getType().initialValue();
 	}
 
 	@Override
 	public boolean assertBarrier()
 	{
-		return this.scope.assertBarrier();
+		return scope.assertBarrier();
 	}
 
 	@Override
 	public void print( final PrintStream stream, final int indent )
 	{
 		super.print( stream, indent );
-		if ( this.scope != null )
+		if ( scope != null )
 		{
-			this.scope.print( stream, indent + 1 );
+            scope.print( stream, indent + 1 );
 		}
 	}
 }

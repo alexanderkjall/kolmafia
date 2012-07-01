@@ -47,7 +47,7 @@ public class FakeAddItemCommand
 {
 	public FakeAddItemCommand()
 	{
-		this.usage = null;
+        usage = null;
 	}
 
 	@Override

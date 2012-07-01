@@ -69,32 +69,32 @@ public abstract class PurchaseRequest
 	@Override
 	public String getHashField()
 	{
-		return this.hashField;
+		return hashField;
 	}
 
 	public AdventureResult getItem()
 	{
-		return this.item;
+		return item;
 	}
 
 	public int getItemId()
 	{
-		return this.item.getItemId();
+		return item.getItemId();
 	}
 
 	public String getItemName()
 	{
-		return this.item.getName();
+		return item.getName();
 	}
 
 	public String getShopName()
 	{
-		return this.shopName;
+		return shopName;
 	}
 
 	public long getTimestamp()
 	{
-		return this.timestamp;
+		return timestamp;
 	}
 
 	/**
@@ -105,17 +105,17 @@ public abstract class PurchaseRequest
 
 	public int getPrice()
 	{
-		return this.price;
+		return price;
 	}
 
 	public String getPriceString()
 	{
-		return KoLConstants.COMMA_FORMAT.format( this.getPrice() );
+		return KoLConstants.COMMA_FORMAT.format( getPrice() );
 	}
 
 	public AdventureResult getCost()
 	{
-		return new AdventureResult( AdventureResult.MEAT, this.price );
+		return new AdventureResult( AdventureResult.MEAT, price );
 	}
 
 	public String getCurrency( final int count )
@@ -131,7 +131,7 @@ public abstract class PurchaseRequest
 
 	public int getQuantity()
 	{
-		return this.quantity;
+		return quantity;
 	}
 
 	/**
@@ -153,7 +153,7 @@ public abstract class PurchaseRequest
 
 	public int getLimit()
 	{
-		return this.limit;
+		return limit;
 	}
 
 	/**
@@ -164,7 +164,7 @@ public abstract class PurchaseRequest
 
 	public void setLimit( final int limit )
 	{
-		this.limit = Math.min( this.quantity, limit );
+		this.limit = Math.min( quantity, limit );
 	}
 
 	/**
@@ -177,39 +177,39 @@ public abstract class PurchaseRequest
 		StringBuilder buffer = new StringBuilder();
 
 		buffer.append( "<html><nobr>" );
-		if ( !this.canPurchase() )
+		if ( !canPurchase() )
 		{
 			buffer.append( "<font color=gray>" );
 		}
 
-		buffer.append( this.item.getName() );
+		buffer.append( item.getName() );
 		buffer.append( " (" );
 
-		if ( this.quantity == PurchaseRequest.MAX_QUANTITY )
+		if ( quantity == PurchaseRequest.MAX_QUANTITY )
 		{
 			buffer.append( "unlimited" );
 		}
-		else if ( this.quantity < 0 )
+		else if ( quantity < 0 )
 		{
 			buffer.append( "unknown" );
 		}
 		else
 		{
-			buffer.append( KoLConstants.COMMA_FORMAT.format( this.quantity ) );
+			buffer.append( KoLConstants.COMMA_FORMAT.format( quantity ) );
 
-			if ( this.limit < this.quantity || !this.canPurchase() )
+			if ( limit < quantity || !canPurchase() )
 			{
 				buffer.append( " limit " );
-				buffer.append( KoLConstants.COMMA_FORMAT.format( this.limit ) );
+				buffer.append( KoLConstants.COMMA_FORMAT.format( limit ) );
 			}
 		}
 
 		buffer.append( " @ " );
-		buffer.append( this.getPriceString() );
+		buffer.append( getPriceString() );
 		buffer.append( "): " );
-		buffer.append( this.shopName );
+		buffer.append( shopName );
 
-		if ( !this.canPurchase() )
+		if ( !canPurchase() )
 		{
 			buffer.append( "</font>" );
 		}
@@ -226,22 +226,22 @@ public abstract class PurchaseRequest
 
 	public void setCanPurchase()
 	{
-		this.setCanPurchase( KoLCharacter.getAvailableMeat() >= this.price );
+        setCanPurchase( KoLCharacter.getAvailableMeat() >= price );
 	}
 
 	public boolean canPurchase()
 	{
-		return this.canPurchase && KoLCharacter.getAvailableMeat() >= this.price;
+		return canPurchase && KoLCharacter.getAvailableMeat() >= price;
 	}
 
 	public boolean canPurchaseIgnoringMeat()
 	{
-		return this.canPurchase;
+		return canPurchase;
 	}
 
 	public int affordableCount()
 	{
-		return KoLCharacter.getAvailableMeat() / this.price;
+		return KoLCharacter.getAvailableMeat() / price;
 	}
 
 	public boolean isAccessible()
@@ -259,7 +259,7 @@ public abstract class PurchaseRequest
 	@Override
 	public void run()
 	{
-		if ( this.limit < 1 || !this.canPurchase() )
+		if ( limit < 1 || !canPurchase() )
 		{
 			return;
 		}
@@ -268,7 +268,7 @@ public abstract class PurchaseRequest
 		// should never happen, since we automatically detect and
 		// register new items in mall stores and in NPC stores.
 
-		if ( this.item.getItemId() == -1 )
+		if ( item.getItemId() == -1 )
 		{
 			KoLmafia.updateDisplay( MafiaState.ERROR, "Item not present in KoLmafia database." );
 			return;
@@ -276,30 +276,30 @@ public abstract class PurchaseRequest
 
 		// Make sure we have enough Meat to buy what we want.
 
-		if ( KoLCharacter.getAvailableMeat() < this.limit * this.price )
+		if ( KoLCharacter.getAvailableMeat() < limit * price )
 		{
 			return;
 		}
 
 		// Make sure we are wearing the appropriate outfit, if necessary
 
-		if ( !this.ensureProperAttire() )
+		if ( !ensureProperAttire() )
 		{
 			return;
 		}
 
 		// Now that we're ready, make the purchase!
 
-		KoLmafia.updateDisplay( "Purchasing " + this.item.getName() + " (" + KoLConstants.COMMA_FORMAT.format( this.limit ) + " @ " + this.getPriceString() + ")..." );
+		KoLmafia.updateDisplay( "Purchasing " + item.getName() + " (" + KoLConstants.COMMA_FORMAT.format( limit ) + " @ " + getPriceString() + ")..." );
 
-		this.initialCount = this.item.getCount( KoLConstants.inventory );
+        initialCount = item.getCount( KoLConstants.inventory );
 
 		super.run();
 	}
 
 	public int compareTo( final Object o )
 	{
-		return o == null || !( o instanceof PurchaseRequest ) ? 1 : this.compareTo( (PurchaseRequest) o );
+		return o == null || !( o instanceof PurchaseRequest ) ? 1 : compareTo( (PurchaseRequest) o );
 	}
 
 	public static void setUsePriceComparison( final boolean usePriceComparison )
@@ -311,34 +311,34 @@ public abstract class PurchaseRequest
 	{
 		if ( !PurchaseRequest.usePriceComparison )
 		{
-			int nameComparison = this.item.getName().compareToIgnoreCase( pr.item.getName() );
+			int nameComparison = item.getName().compareToIgnoreCase( pr.item.getName() );
 			if ( nameComparison != 0 )
 			{
 				return nameComparison;
 			}
 		}
 
-		if ( this.price != pr.price )
+		if ( price != pr.price )
 		{
-			return this.price - pr.price;
+			return price - pr.price;
 		}
 
-		if ( !this.isMallStore && pr.isMallStore )
+		if ( !isMallStore && pr.isMallStore )
 		{
 			return KoLCharacter.isHardcore() ? -1 : 1;
 		}
 
-		if ( this.isMallStore && !pr.isMallStore )
+		if ( isMallStore && !pr.isMallStore )
 		{
 			return KoLCharacter.isHardcore() ? 1 : -1;
 		}
 
-		if ( this.quantity != pr.quantity )
+		if ( quantity != pr.quantity )
 		{
-			return pr.quantity - this.quantity;
+			return pr.quantity - quantity;
 		}
 
-		return this.shopName.compareToIgnoreCase( pr.shopName );
+		return shopName.compareToIgnoreCase( pr.shopName );
 	}
 
 	public boolean ensureProperAttire()
@@ -349,7 +349,7 @@ public abstract class PurchaseRequest
 	@Override
 	public boolean equals( final Object o )
 	{
-		return o == null || !( o instanceof PurchaseRequest ) ? false : this.shopName.equals( ( (PurchaseRequest) o ).shopName ) && this.item.getItemId() == ( (PurchaseRequest) o ).item.getItemId();
+		return o == null || !( o instanceof PurchaseRequest ) ? false : shopName.equals( ((PurchaseRequest) o).shopName ) && item.getItemId() == ( (PurchaseRequest) o ).item.getItemId();
 	}
 
 	public static boolean registerRequest( final String urlString )

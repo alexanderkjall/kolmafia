@@ -62,33 +62,33 @@ public class ForLoop
 		this.last = last;
 		this.increment = increment;
 		this.direction = direction;
-		this.fileName = parser.getShortFileName();
-		this.lineNumber = parser.getLineNumber();
+        fileName = parser.getShortFileName();
+        lineNumber = parser.getLineNumber();
 	}
 
 	public VariableReference getVariable()
 	{
-		return this.variable;
+		return variable;
 	}
 
 	public Value getInitial()
 	{
-		return this.initial;
+		return initial;
 	}
 
 	public Value getLast()
 	{
-		return this.last;
+		return last;
 	}
 
 	public Value getIncrement()
 	{
-		return this.increment;
+		return increment;
 	}
 
 	public int getDirection()
 	{
-		return this.direction;
+		return direction;
 	}
 
 	@Override
@@ -104,12 +104,12 @@ public class ForLoop
 
 		if ( interpreter.isTracing() )
 		{
-			interpreter.trace( this.toString() );
-			interpreter.trace( "Initial: " + this.initial );
+			interpreter.trace( toString() );
+			interpreter.trace( "Initial: " + initial );
 		}
 
 		// Get the initial value
-		Value initialValue = this.initial.execute( interpreter );
+		Value initialValue = initial.execute( interpreter );
 		interpreter.captureValue( initialValue );
 
 		if ( interpreter.isTracing() )
@@ -125,11 +125,11 @@ public class ForLoop
 
 		if ( interpreter.isTracing() )
 		{
-			interpreter.trace( "Last: " + this.last );
+			interpreter.trace( "Last: " + last );
 		}
 
 		// Get the final value
-		Value lastValue = this.last.execute( interpreter );
+		Value lastValue = last.execute( interpreter );
 		interpreter.captureValue( lastValue );
 
 		if ( interpreter.isTracing() )
@@ -145,11 +145,11 @@ public class ForLoop
 
 		if ( interpreter.isTracing() )
 		{
-			interpreter.trace( "Increment: " + this.increment );
+			interpreter.trace( "Increment: " + increment );
 		}
 
 		// Get the increment
-		Value incrementValue = this.increment.execute( interpreter );
+		Value incrementValue = increment.execute( interpreter );
 		interpreter.captureValue( incrementValue );
 
 		if ( interpreter.isTracing() )
@@ -169,11 +169,11 @@ public class ForLoop
 
 		boolean up = false;
 
-		if ( this.direction > 0 )
+		if ( direction > 0 )
 		{
 			up = true;
 		}
-		else if ( this.direction < 0 )
+		else if ( direction < 0 )
 		{
 			up = false;
 		}
@@ -191,13 +191,13 @@ public class ForLoop
 
 		if ( current != end && increment == 0 )
 		{
-			throw interpreter.runtimeException( "Start not equal to end and increment equals 0", this.fileName, this.lineNumber );
+			throw interpreter.runtimeException( "Start not equal to end and increment equals 0", fileName, lineNumber );
 		}
 
 		while ( up && current <= end || !up && current >= end )
 		{
 			// Bind variable to current value
-			this.variable.setValue( interpreter, new Value( current ) );
+            variable.setValue( interpreter, new Value( current ) );
 
 			// Execute the scope
 			Value result = super.execute( interpreter );
@@ -233,12 +233,12 @@ public class ForLoop
 	public void print( final PrintStream stream, final int indent )
 	{
 		Interpreter.indentLine( stream, indent );
-		int direction = this.getDirection();
+		int direction = getDirection();
 		stream.println( "<FOR " + ( direction < 0 ? "downto" : direction > 0 ? "upto" : "to" ) + " >" );
-		this.getVariable().print( stream, indent + 1 );
-		this.getInitial().print( stream, indent + 1 );
-		this.getLast().print( stream, indent + 1 );
-		this.getIncrement().print( stream, indent + 1 );
-		this.getScope().print( stream, indent + 1 );
+        getVariable().print( stream, indent + 1 );
+        getInitial().print( stream, indent + 1 );
+        getLast().print( stream, indent + 1 );
+        getIncrement().print( stream, indent + 1 );
+        getScope().print( stream, indent + 1 );
 	}
 }

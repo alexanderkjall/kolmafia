@@ -45,7 +45,7 @@ public class RecoverCommand
 {
 	public RecoverCommand()
 	{
-		this.usage = " hp | health | mp | mana | both - attempt to regain some HP or MP.";
+        usage = " hp | health | mp | mana | both - attempt to regain some HP or MP.";
 	}
 
 	@Override

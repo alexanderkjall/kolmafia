@@ -93,7 +93,7 @@ public class TrophyFrame
 	public TrophyFrame()
 	{
 		super( "Trophy Arranger" );
-		this.setCenterComponent( new TrophyArrangePanel() );
+        setCenterComponent( new TrophyArrangePanel() );
 	}
 
 	public static class TrophyArrangePanel
@@ -103,9 +103,9 @@ public class TrophyFrame
 
 		public TrophyArrangePanel()
 		{
-			this.setLayout( new BorderLayout() );
+            setLayout( new BorderLayout() );
 			JPanel eastPanel = new JPanel( new BorderLayout() );
-			this.add( eastPanel, BorderLayout.EAST );
+            add( eastPanel, BorderLayout.EAST );
 			JPanel buttonPanel = new JPanel( new GridLayout( 0, 1, 5, 5 ) );
 			eastPanel.add( buttonPanel, BorderLayout.NORTH );
 			buttonPanel.add( new InvocationButton( "refresh", this, "doRefresh" ) );
@@ -121,14 +121,14 @@ public class TrophyFrame
 				new TrophyScrollPane( hiddenList ) );
 			split.setOneTouchExpandable( true );
 			split.setResizeWeight( 0.8 );
-			this.add( split, BorderLayout.CENTER );
-			this.doRefresh();
+            add( split, BorderLayout.CENTER );
+            doRefresh();
 		}
 
 		public void doRefresh()
 		{
-			this.shownList.removeAll();
-			this.hiddenList.removeAll();
+            shownList.removeAll();
+            hiddenList.removeAll();
 			TrophyRequest req = new TrophyRequest();
 			RequestThread.postRequest( req );
 			ArrayList trophies = req.getTrophies();
@@ -142,51 +142,51 @@ public class TrophyFrame
 				Trophy t = (Trophy) i.next();
 				FileUtilities.downloadImage( "http://images.kingdomofloathing.com/" + 
 					t.filename );
-				(t.visible ? this.shownList : this.hiddenList).add(
+				(t.visible ? shownList : hiddenList).add(
 					new DraggableTrophy( t ) );
 			}
-			this.shownList.revalidate();
-			this.shownList.repaint();
-			this.hiddenList.revalidate();
-			this.hiddenList.repaint();
+            shownList.revalidate();
+            shownList.repaint();
+            hiddenList.revalidate();
+            hiddenList.repaint();
 		}
 		
 		public void doSave()
 		{
 			ArrayList trophies = new ArrayList();
-			this.shownList.addChildrenToList( trophies );
-			this.hiddenList.addChildrenToList( trophies );
+            shownList.addChildrenToList( trophies );
+            hiddenList.addChildrenToList( trophies );
 			RequestThread.postRequest( new TrophyRequest( trophies ) );
 		}
 
 		public void doShowAll()
 		{
-			while ( this.hiddenList.getComponentCount() > 0 )
+			while ( hiddenList.getComponentCount() > 0 )
 			{
-				this.shownList.add( this.hiddenList.getComponent( 0 ) );
+                shownList.add( hiddenList.getComponent( 0 ) );
 			}
-			this.shownList.revalidate();
-			this.shownList.repaint();
-			this.hiddenList.revalidate();
-			this.hiddenList.repaint();
+            shownList.revalidate();
+            shownList.repaint();
+            hiddenList.revalidate();
+            hiddenList.repaint();
 		}
 
 		public void doHideAll()
 		{
-			while ( this.shownList.getComponentCount() > 0 )
+			while ( shownList.getComponentCount() > 0 )
 			{
-				this.hiddenList.add( this.shownList.getComponent( 0 ) );
+                hiddenList.add( shownList.getComponent( 0 ) );
 			}
-			this.shownList.revalidate();
-			this.shownList.repaint();
-			this.hiddenList.revalidate();
-			this.hiddenList.repaint();
+            shownList.revalidate();
+            shownList.repaint();
+            hiddenList.revalidate();
+            hiddenList.repaint();
 		}
 
 		public void doAutoSort()
 		{
-			this.shownList.doAutoSort();
-			this.hiddenList.doAutoSort();
+            shownList.doAutoSort();
+            hiddenList.doAutoSort();
 		}
 	}
 	
@@ -197,7 +197,7 @@ public class TrophyFrame
 		{
 			super( component, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
 				JScrollPane.HORIZONTAL_SCROLLBAR_NEVER );
-			this.getVerticalScrollBar().setUnitIncrement( 25 );
+            getVerticalScrollBar().setUnitIncrement( 25 );
 		}
 	}
 	
@@ -215,38 +215,38 @@ public class TrophyFrame
 		{
 			super( null );
 			this.shown = shown;
-			this.setLayout( this );
+            setLayout( this );
 			new DropTarget( this, DnDConstants.ACTION_MOVE | DnDConstants.ACTION_LINK,
 				(DropTargetListener) this );
 		}
 		
 		public void addChildrenToList( ArrayList list )
 		{
-			int nc = this.getComponentCount();
+			int nc = getComponentCount();
 			for ( int i = 0; i < nc; ++i )
 			{
-				DraggableTrophy t = (DraggableTrophy) this.getComponent( i );
-				t.trophy.visible = this.shown;
+				DraggableTrophy t = (DraggableTrophy) getComponent( i );
+				t.trophy.visible = shown;
 				list.add( t.trophy );
 			}
 		}
 
 		public void doAutoSort()
 		{
-			int nc = this.getComponentCount();
+			int nc = getComponentCount();
 			for ( int i = 0; i < nc; ++i )
 			{
-				((DraggableTrophy) this.getComponent( i )).score = Integer.MAX_VALUE;
+				((DraggableTrophy) getComponent( i )).score = Integer.MAX_VALUE;
 			}
 			
 			for ( int i = 0; i < nc - 2; ++i )
 			{
-				DraggableTrophy one = (DraggableTrophy) this.getComponent( i );
+				DraggableTrophy one = (DraggableTrophy) getComponent( i );
 				DraggableTrophy best = null;
 				int bestScore = Integer.MAX_VALUE;
 				for ( int j = i + 1; j < nc; ++j )
 				{
-					DraggableTrophy two = (DraggableTrophy) this.getComponent( j );
+					DraggableTrophy two = (DraggableTrophy) getComponent( j );
 					int score = Math.min( two.score, one.getSimilarity( two ) );
 					two.score = score;
 					if ( score < bestScore )
@@ -255,9 +255,9 @@ public class TrophyFrame
 						best = two;
 					}
 				}
-				this.add( best, i + 1 );
-				this.revalidate();
-				this.repaint();
+                add( best, i + 1 );
+                revalidate();
+                repaint();
 			}
 		}
 
@@ -270,13 +270,13 @@ public class TrophyFrame
 		public void dragOver( DropTargetDragEvent dtde )
 		{
 			Point xy = dtde.getLocation();
-			dtde.acceptDrag( this.findDrop( xy.x, xy.y ) );
+			dtde.acceptDrag( findDrop( xy.x, xy.y ) );
 		}
 		
 		public void dropActionChanged( DropTargetDragEvent dtde )
 		{
 			Point xy = dtde.getLocation();
-			dtde.acceptDrag( this.findDrop( xy.x, xy.y ) );
+			dtde.acceptDrag( findDrop( xy.x, xy.y ) );
 		}
 		
 		public void dragExit( DropTargetEvent dte )
@@ -286,55 +286,55 @@ public class TrophyFrame
 		public void drop( DropTargetDropEvent dtde )
 		{
 			Point xy = dtde.getLocation();
-			dtde.acceptDrop( this.findDrop( xy.x, xy.y ) );
-			if ( this.source == null )
+			dtde.acceptDrop( findDrop( xy.x, xy.y ) );
+			if ( source == null )
 			{	// something dropped from elsewhere, ignore it.
 			}
 			else
 			{
-				int sourceIndex = this.source.getIndex();
+				int sourceIndex = source.getIndex();
 				int destIndex = this.destIndex;
-				if ( this.isExchange )
+				if ( isExchange )
 				{
 					DraggableTrophy dest =
-						(DraggableTrophy) this.getComponent( destIndex );
+						(DraggableTrophy) getComponent( destIndex );
 					//System.out.println( this.source.getSimilarity( dest ) + " " +
 					//	this.source.trophy.name + "/" + dest.trophy.name );
-					if ( this.sourceList == this )
+					if ( sourceList == this )
 					{
 						if ( sourceIndex < destIndex )
 						{
-							this.add( dest, sourceIndex );
-							this.add( this.source, destIndex );
+                            add( dest, sourceIndex );
+                            add( source, destIndex );
 						}
 						else
 						{
-							this.add( this.source, destIndex );
-							this.add( dest, sourceIndex );
+                            add( source, destIndex );
+                            add( dest, sourceIndex );
 						}
 					}
 					else
 					{
-						this.add( this.source, destIndex );
-						this.sourceList.add( dest, sourceIndex );
+                        add( source, destIndex );
+                        sourceList.add( dest, sourceIndex );
 					}
 				}
 				else	// move, instead of exchange
 				{
-					if ( this.sourceList == this && destIndex >= sourceIndex )
+					if ( sourceList == this && destIndex >= sourceIndex )
 					{
 						--destIndex;
 					}
-					this.add( this.source, destIndex );
+                    add( source, destIndex );
 				}
-				this.revalidate();
-				this.repaint();
-				if ( this.sourceList != this )
+                revalidate();
+                repaint();
+				if ( sourceList != this )
 				{
-					this.sourceList.revalidate();
-					this.sourceList.repaint();
+                    sourceList.revalidate();
+                    sourceList.repaint();
 				}
-				this.source = null;
+                source = null;
 			}
 			dtde.dropComplete( true );
 		}
@@ -351,7 +351,7 @@ public class TrophyFrame
 		
 		public Dimension minimumLayoutSize( Container parent )
 		{
-			return this.preferredLayoutSize( parent );
+			return preferredLayoutSize( parent );
 		}
 		
 		public Dimension preferredLayoutSize( Container parent )
@@ -398,8 +398,8 @@ public class TrophyFrame
 		
 		private int findDrop( int x, int y )
 		{
-			Insets ins = this.getInsets();
-			int nc = this.getComponentCount();
+			Insets ins = getInsets();
+			int nc = getComponentCount();
 			y -= ins.top;
 			y = Math.max( 0, y / 100 );
 			int sol = (y / 2) * 11 + 5 * (y & 1);
@@ -418,7 +418,7 @@ public class TrophyFrame
 				x = nl;
 				isExchange = false;
 			}
-			this.destIndex = Math.min( x + sol, nc );
+            destIndex = Math.min( x + sol, nc );
 			this.isExchange = isExchange;
 			return isExchange ? DnDConstants.ACTION_LINK : DnDConstants.ACTION_MOVE;
 		}
@@ -438,17 +438,17 @@ public class TrophyFrame
 		{
 			super( JComponentUtilities.getImage( trophy.filename ) );
 			this.trophy = trophy;
-			this.setToolTipText( "<html>" + trophy.name + "<br>" +
+            setToolTipText( "<html>" + trophy.name + "<br>" +
 				trophy.filename.substring( trophy.filename.lastIndexOf( "/" ) + 1 )
 				+ "</html>" );
-			this.dragSource.createDefaultDragGestureRecognizer( this,
-				DnDConstants.ACTION_MOVE | DnDConstants.ACTION_LINK,
-				(DragGestureListener) this );
+            dragSource.createDefaultDragGestureRecognizer( this,
+                    DnDConstants.ACTION_MOVE | DnDConstants.ACTION_LINK,
+                    (DragGestureListener) this );
 		}
 		
 		public int getIndex()
 		{
-			Container parent = this.getParent();
+			Container parent = getParent();
 			int nc = parent.getComponentCount();
 			for ( int i = 0; i < nc; ++i )
 			{
@@ -463,13 +463,13 @@ public class TrophyFrame
 		public int getSimilarity( DraggableTrophy other )
 		{
 			Integer key, rv;
-			int id1 = this.trophy.id;
+			int id1 = trophy.id;
 			int id2 = other.trophy.id;
 			key = IntegerPool.get( id1 < id2 ? (id1 << 16 ) | id2 :
 				(id2 << 16) | id1 );
 			rv = (Integer) DraggableTrophy.similarities.get( key );
 			if ( rv != null ) return rv;
-			int[] img1 = this.grab();
+			int[] img1 = grab();
 			int[] img2 = other.grab();
 			int score = 0;
 			for ( int i = Math.min( img1.length, img2.length ) - 1; i >= 0; --i )
@@ -483,12 +483,12 @@ public class TrophyFrame
 		
 		private int[] grab()
 		{
-			if ( this.cache != null ) return this.cache;
+			if ( cache != null ) return cache;
 			
 			PixelGrabber g = new PixelGrabber(
-				this.createImage(
+                    createImage(
 					new FilteredImageSource(
-						((ImageIcon) this.getIcon()).getImage().getSource(),
+						((ImageIcon) getIcon()).getImage().getSource(),
 						new AreaAveragingScaleFilter( 25, 25 ) ) ),
 				0, 0, 25, 25, true );
 			try
@@ -503,8 +503,8 @@ public class TrophyFrame
 			Object rv = g.getPixels();
 			if ( rv instanceof int[] )
 			{
-				this.cache = (int[]) rv;
-				return this.cache;
+                cache = (int[]) rv;
+				return cache;
 			}
 			return new int[ 0 ];	// don't know how to handle any other format
 		}
@@ -514,8 +514,8 @@ public class TrophyFrame
 		public void dragGestureRecognized( DragGestureEvent dge )
 		{
 			TrophyPanel.source = this;
-			TrophyPanel.sourceList = (TrophyPanel) this.getParent();
-			dge.startDrag( null, new StringSelection( this.trophy.name ),
+			TrophyPanel.sourceList = (TrophyPanel) getParent();
+			dge.startDrag( null, new StringSelection( trophy.name ),
 				(DragSourceListener) this );
 			//dge.startDrag( null, ((ImageIcon) this.getIcon()).getImage(),
 			//	new Point( -50, -50 ), new StringSelection( this.trophy.name ),

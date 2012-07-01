@@ -51,7 +51,7 @@ public class PvpAttackCommand
 {
 	public PvpAttackCommand()
 	{
-		this.usage = " <target> [, <target>...] - PvP for items or fame";
+        usage = " <target> [, <target>...] - PvP for items or fame";
 	}
 
 	@Override

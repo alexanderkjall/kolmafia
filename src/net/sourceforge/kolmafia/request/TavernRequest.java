@@ -70,13 +70,13 @@ public class TavernRequest
 		switch (itemId )
 		{
 		case ItemPool.GOOFBALLS:
-			this.addFormField( "action", "buygoofballs" );
+            addFormField( "action", "buygoofballs" );
 			break;
 		case ItemPool.OILY_GOLDEN_MUSHROOM:
-			this.addFormField( "sleazy", "1" );
+            addFormField( "sleazy", "1" );
 			break;
 		default:
-			this.addFormField( "place", "susguy" );
+            addFormField( "place", "susguy" );
 
 			break;
 		}
@@ -85,7 +85,7 @@ public class TavernRequest
 	@Override
 	public void processResults()
 	{
-		TavernRequest.parseResponse( this.getURLString(), this.responseText );
+		TavernRequest.parseResponse( getURLString(), responseText );
 	}
 
 	public static void parseResponse( final String location, final String responseText )

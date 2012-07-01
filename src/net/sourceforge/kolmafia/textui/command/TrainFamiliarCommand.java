@@ -45,7 +45,7 @@ public class TrainFamiliarCommand
 {
 	public TrainFamiliarCommand()
 	{
-		this.usage = " base <weight> | buffed <weight> | turns <number> - train familiar.";
+        usage = " base <weight> | buffed <weight> | turns <number> - train familiar.";
 	}
 
 	@Override
