@@ -185,36 +185,8 @@ public class TabbedChatFrame
 		{
 			if ( tabName.equals( this.tabs.getTitleAt( i ).trim() ) )
 			{
-				SwingUtilities.invokeLater( new TabHighlighter( i ) );
+				SwingUtilities.invokeLater( new TabHighlighter( tabs, i ) );
 				return;
-			}
-		}
-	}
-
-	private class TabHighlighter
-		implements Runnable
-	{
-		private final int tabIndex;
-
-		public TabHighlighter( final int tabIndex )
-		{
-			this.tabIndex = tabIndex;
-		}
-
-		public void run()
-		{
-			if ( TabbedChatFrame.this.tabs.getSelectedIndex() == this.tabIndex )
-			{
-				return;
-			}
-
-			if ( TabbedChatFrame.this.tabs instanceof CloseTabbedPane )
-			{
-				( (CloseTabbedPane) TabbedChatFrame.this.tabs ).highlightTab( this.tabIndex );
-			}
-			else
-			{
-				( (CloseableTabbedPane) TabbedChatFrame.this.tabs ).highlightTab( this.tabIndex );
 			}
 		}
 	}

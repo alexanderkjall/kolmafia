@@ -25,7 +25,7 @@ public class ChatPanel
     private final RequestPane chatDisplay;
     private final String associatedContact;
 
-    public ChatPanel( final String associatedContact, GenericRequest profiler, ChatFrame chatFrame )
+    public ChatPanel( final String associatedContact, GenericRequest profiler, ChatFrame chatFrame, JTabbedPane tabs )
     {
         super( new BorderLayout() );
         chatDisplay = new RequestPane();
@@ -33,7 +33,7 @@ public class ChatPanel
 
         this.associatedContact = associatedContact;
 
-        ChatEntryListener listener = new ChatEntryListener( this );
+        ChatEntryListener listener = new ChatEntryListener( this, tabs );
 
         JPanel entryPanel = new JPanel( new BorderLayout() );
         entryField = new JTextField();

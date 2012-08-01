@@ -421,6 +421,14 @@ public abstract class StaticEntity
 		}
 		else
 		{
+            t.printStackTrace();
+            /*java.lang.IndexOutOfBoundsException: Index: 0, Tab count: 0
+	at javax.swing.JTabbedPane.checkIndex(JTabbedPane.java:1738)
+	at javax.swing.JTabbedPane.setSelectedIndex(JTabbedPane.java:572)
+	at net.sourceforge.kolmafia.swingui.ChatEntryListener.execute(ChatEntryListener.java:64)
+	at net.sourceforge.kolmafia.swingui.listener.ThreadedListener.run(ThreadedListener.java:244)
+	at net.sourceforge.kolmafia.RequestThread$ThreadWrappedRunnable.run(RequestThread.java:342)
+*/
 			KoLmafia.updateDisplay( "Unexpected error, debug log printed." );
 		}
 

@@ -18,10 +18,10 @@ public class ChatEntryListenerTest {
     public void setup()
     {
         GenericRequest profiler = mock(GenericRequest.class);
-        ChatFrame chatFrame = mock(ChatFrame.class);
-        panel = new ChatPanel("test", profiler, chatFrame);
+        TabbedChatFrame chatFrame = mock(TabbedChatFrame.class);
+        panel = new ChatPanel("test", profiler, chatFrame, chatFrame.getTabbedPane());
 
-        instance = new ChatEntryListener(panel);
+        instance = new ChatEntryListener(panel, chatFrame.getTabbedPane() );
     }
 
     @Test

@@ -7,30 +7,30 @@ import javax.swing.*;
 public class TabAdder implements Runnable
 {
     private final String tabName;
-    private ChatFrame chatFrame;
+    private TabbedChatFrame chatFrame;
     private GenericRequest genericRequest;
-    private JTabbedPane jTabbedPane;
+    private JTabbedPane tabs;
 
-    public TabAdder( final String tabName, ChatFrame chatFrame, GenericRequest genericRequest, JTabbedPane jTabbedPane )
+    public TabAdder( final String tabName, TabbedChatFrame chatFrame, GenericRequest genericRequest, JTabbedPane tabs )
     {
         this.tabName = tabName;
         this.chatFrame = chatFrame;
         this.genericRequest = genericRequest;
-        this.jTabbedPane = jTabbedPane;
+        this.tabs = tabs;
     }
 
     public void run()
     {
-        ChatPanel createdPanel = new ChatPanel( tabName, genericRequest, chatFrame );
+        ChatPanel createdPanel = new ChatPanel( tabName, genericRequest, chatFrame, tabs );
 
         int tabOrder = getTabOrder( tabName );
 
-        int tabCount = jTabbedPane.getTabCount();
+        int tabCount = tabs.getTabCount();
         int tabIndex = tabCount;
 
         for ( int i = 0; i < tabCount; ++i )
         {
-            String currentTabName = jTabbedPane.getTitleAt( i ).trim();
+            String currentTabName = tabs.getTitleAt( i ).trim();
 
             int currentTabOrder = getTabOrder( currentTabName );
 
@@ -41,7 +41,7 @@ public class TabAdder implements Runnable
             }
         }
 
-        jTabbedPane.insertTab( tabName, null, createdPanel, "", tabIndex );
+        tabs.insertTab( tabName, null, createdPanel, "", tabIndex );
     }
 
     private int getTabOrder( final String tabName )

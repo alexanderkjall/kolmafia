@@ -83,23 +83,33 @@ public abstract class ThreadedListener
 		return this.keyEvent.getKeyCode();
 	}
 
-	public boolean hasShiftModifier()
-	{
-		int modifiers = 0;
+    private boolean hasModifier(int mask)
+    {
+        int modifiers = 0;
 
-		if ( this.actionEvent != null )
-		{
-			modifiers = this.actionEvent.getModifiers();
-		}
-		else if ( this.keyEvent != null )
-		{
-			modifiers = this.keyEvent.getModifiers();
-		}
+        if ( this.actionEvent != null )
+        {
+            modifiers = this.actionEvent.getModifiers();
+        }
+        else if ( this.keyEvent != null )
+        {
+            modifiers = this.keyEvent.getModifiers();
+        }
 
-		return ( modifiers & ActionEvent.SHIFT_MASK ) != 0;
-	}
+        return ( modifiers & mask ) != 0;
+    }
 
-	protected boolean isValidEvent( final ActionEvent e )
+    public boolean hasShiftModifier()
+    {
+        return hasModifier(ActionEvent.SHIFT_MASK);
+    }
+
+    public boolean hasCtrlModifier()
+    {
+        return hasModifier(ActionEvent.CTRL_MASK);
+    }
+
+    protected boolean isValidEvent( final ActionEvent e )
 	{
 		if ( e == null || e.getSource() == null )
 		{
