@@ -1,4 +1,4 @@
-package net.sourceforge.kolmafia.swingui;
+package net.sourceforge.kolmafia.swingui.listener;
 
 import net.sourceforge.kolmafia.chat.ChatManager;
 import net.sourceforge.kolmafia.chat.ChatSender;
@@ -6,6 +6,7 @@ import net.sourceforge.kolmafia.preferences.Preferences;
 import net.sourceforge.kolmafia.request.GenericRequest;
 import net.sourceforge.kolmafia.request.MallSearchRequest;
 import net.sourceforge.kolmafia.session.ContactManager;
+import net.sourceforge.kolmafia.swingui.*;
 import net.sourceforge.kolmafia.swingui.listener.HyperlinkAdapter;
 import net.sourceforge.kolmafia.utilities.StringUtilities;
 import net.sourceforge.kolmafia.webui.RelayLoader;

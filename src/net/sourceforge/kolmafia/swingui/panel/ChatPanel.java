@@ -1,8 +1,11 @@
-package net.sourceforge.kolmafia.swingui;
+package net.sourceforge.kolmafia.swingui.panel;
 
 import net.java.dev.spellcast.utilities.ChatBuffer;
 import net.sourceforge.kolmafia.chat.ChatManager;
 import net.sourceforge.kolmafia.request.GenericRequest;
+import net.sourceforge.kolmafia.swingui.ChatFrame;
+import net.sourceforge.kolmafia.swingui.listener.ChatEntryListener;
+import net.sourceforge.kolmafia.swingui.listener.ChatLinkClickedListener;
 import net.sourceforge.kolmafia.swingui.listener.DefaultComponentFocusTraversalPolicy;
 import net.sourceforge.kolmafia.swingui.listener.StickyListener;
 import net.sourceforge.kolmafia.swingui.widget.RequestPane;

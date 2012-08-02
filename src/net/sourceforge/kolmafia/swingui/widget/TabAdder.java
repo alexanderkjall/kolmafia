@@ -1,6 +1,8 @@
-package net.sourceforge.kolmafia.swingui;
+package net.sourceforge.kolmafia.swingui.widget;
 
 import net.sourceforge.kolmafia.request.GenericRequest;
+import net.sourceforge.kolmafia.swingui.TabbedChatFrame;
+import net.sourceforge.kolmafia.swingui.panel.ChatPanel;
 
 import javax.swing.*;
 

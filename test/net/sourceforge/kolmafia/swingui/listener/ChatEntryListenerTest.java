@@ -1,6 +1,9 @@
-package net.sourceforge.kolmafia.swingui;
+package net.sourceforge.kolmafia.swingui.listener;
 
 import net.sourceforge.kolmafia.request.GenericRequest;
+import net.sourceforge.kolmafia.swingui.TabbedChatFrame;
+import net.sourceforge.kolmafia.swingui.listener.ChatEntryListener;
+import net.sourceforge.kolmafia.swingui.panel.ChatPanel;
 import org.junit.Before;
 import org.junit.Test;
 

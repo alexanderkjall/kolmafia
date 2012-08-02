@@ -1,5 +1,6 @@
-package net.sourceforge.kolmafia.swingui;
+package net.sourceforge.kolmafia.swingui.listener;
 
+import net.sourceforge.kolmafia.swingui.listener.ChatWindowStateListener;
 import org.junit.Test;
 
 import javax.swing.*;

@@ -1,4 +1,4 @@
-package net.sourceforge.kolmafia.swingui;
+package net.sourceforge.kolmafia.swingui.listener;
 
 import javax.swing.*;
 import java.awt.event.WindowAdapter;

@@ -1,4 +1,4 @@
-package net.sourceforge.kolmafia.swingui;
+package net.sourceforge.kolmafia.swingui.widget;
 
 import com.sun.java.forums.CloseableTabbedPane;
 import tab.CloseTabbedPane;

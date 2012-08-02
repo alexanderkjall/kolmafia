@@ -1,9 +1,9 @@
-package net.sourceforge.kolmafia.swingui;
+package net.sourceforge.kolmafia.swingui.listener;
 
 import net.sourceforge.kolmafia.chat.ChatManager;
 import net.sourceforge.kolmafia.chat.ChatSender;
 import net.sourceforge.kolmafia.chat.StyledChatBuffer;
-import net.sourceforge.kolmafia.swingui.listener.ThreadedListener;
+import net.sourceforge.kolmafia.swingui.panel.ChatPanel;
 import net.sourceforge.kolmafia.webui.RelayLoader;
 
 import javax.swing.*;

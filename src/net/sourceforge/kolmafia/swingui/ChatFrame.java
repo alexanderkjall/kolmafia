@@ -53,6 +53,7 @@ import net.sourceforge.kolmafia.request.GenericRequest;
 import net.sourceforge.kolmafia.swingui.button.InvocationButton;
 
 import net.sourceforge.kolmafia.swingui.listener.DefaultComponentFocusTraversalPolicy;
+import net.sourceforge.kolmafia.swingui.panel.ChatPanel;
 
 public class ChatFrame
 	extends GenericFrame
@@ -207,7 +208,7 @@ public class ChatFrame
 
 	public void initialize( final String associatedContact )
 	{
-		this.mainPanel = new ChatPanel( associatedContact, PROFILER, this );
+		this.mainPanel = new ChatPanel( associatedContact, PROFILER, this, getTabbedPane() );
 		this.setCenterComponent( this.mainPanel );
 	}
 

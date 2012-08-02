@@ -47,10 +47,13 @@ import net.sourceforge.kolmafia.chat.ChatManager;
 
 import net.sourceforge.kolmafia.preferences.Preferences;
 
+import net.sourceforge.kolmafia.swingui.listener.ChatWindowStateListener;
 import net.sourceforge.kolmafia.swingui.listener.TabFocusingListener;
 
 import net.sourceforge.kolmafia.swingui.panel.CommandDisplayPanel;
 
+import net.sourceforge.kolmafia.swingui.widget.TabAdder;
+import net.sourceforge.kolmafia.swingui.widget.TabHighlighter;
 import tab.CloseListener;
 import tab.CloseTabPaneUI;
 import tab.CloseTabbedPane;

@@ -1,5 +1,6 @@
-package net.sourceforge.kolmafia.swingui;
+package net.sourceforge.kolmafia.swingui.widget;
 
+import net.sourceforge.kolmafia.swingui.widget.TabHighlighter;
 import org.junit.Test;
 
 import javax.swing.*;
