@@ -56,6 +56,31 @@ public class ChatEntryListener extends ThreadedListener
                 tabs.setSelectedIndex( key2tab.get(keyCode) );
             }
         }
+        else if(hasCtrlModifier() && hasShiftModifier() && keyCode == KeyEvent.VK_TAB)
+        {
+            int selected = tabs.getSelectedIndex();
+
+            if( selected > 0 )
+            {
+                tabs.setSelectedIndex( selected - 1 );
+            }
+            else
+            {
+                tabs.setSelectedIndex( tabs.getTabCount() - 1 );
+            }
+        }
+        else if(hasCtrlModifier() && keyCode == KeyEvent.VK_TAB)
+        {
+            int selected = tabs.getSelectedIndex();
+            if( tabs.getTabCount() - 1 > selected )
+            {
+                tabs.setSelectedIndex( selected + 1 );
+            }
+            else
+            {
+                tabs.setSelectedIndex( 0 );
+            }
+        }
     }
 
     @Override

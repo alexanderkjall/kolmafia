@@ -2,11 +2,11 @@ package net.sourceforge.kolmafia.swingui.listener;
 
 import net.sourceforge.kolmafia.request.GenericRequest;
 import net.sourceforge.kolmafia.swingui.TabbedChatFrame;
-import net.sourceforge.kolmafia.swingui.listener.ChatEntryListener;
 import net.sourceforge.kolmafia.swingui.panel.ChatPanel;
 import org.junit.Before;
 import org.junit.Test;
 
+import javax.swing.*;
 import java.awt.event.KeyEvent;
 
 import static junit.framework.Assert.assertEquals;
@@ -16,15 +16,22 @@ public class ChatEntryListenerTest {
 
     private ChatPanel panel;
     private ChatEntryListener instance;
+    private JTabbedPane tabs;
 
     @Before
     public void setup()
     {
         GenericRequest profiler = mock(GenericRequest.class);
         TabbedChatFrame chatFrame = mock(TabbedChatFrame.class);
-        panel = new ChatPanel("test", profiler, chatFrame, chatFrame.getTabbedPane());
+        tabs = new JTabbedPane();
 
-        instance = new ChatEntryListener(panel, chatFrame.getTabbedPane() );
+        panel = new ChatPanel("first", profiler, chatFrame, chatFrame.getTabbedPane());
+        tabs.insertTab("first", null, panel, "", 0);
+
+        panel = new ChatPanel("second", profiler, chatFrame, chatFrame.getTabbedPane());
+        tabs.insertTab("second", null, panel, "", 0);
+
+        instance = new ChatEntryListener(panel, tabs );
     }
 
     @Test
@@ -33,17 +40,17 @@ public class ChatEntryListenerTest {
         String line2 = "line2";
 
         panel.getEntryField().setText(line1);
-        sendEvent( getEvent( KeyEvent.VK_ENTER ), instance );
+        sendEvent( getEvent( KeyEvent.VK_ENTER, false, false ), instance );
         panel.getEntryField().setText( line2 );
-        sendEvent( getEvent( KeyEvent.VK_ENTER ), instance );
+        sendEvent( getEvent( KeyEvent.VK_ENTER, false, false ), instance );
 
         assertEquals("check that the enter event clears current line of text", "", panel.getEntryField().getText());
 
-        sendEvent( getEvent( KeyEvent.VK_UP ), instance );
+        sendEvent( getEvent( KeyEvent.VK_UP, false, false ), instance );
 
         assertEquals("check that the key up event restores one line back from history", line2, panel.getEntryField().getText());
 
-        sendEvent( getEvent( KeyEvent.VK_UP ), instance );
+        sendEvent( getEvent( KeyEvent.VK_UP, false, false ), instance );
 
         assertEquals("check that the key up event restores one line back from history", line1, panel.getEntryField().getText());
     }
@@ -53,19 +60,19 @@ public class ChatEntryListenerTest {
         String line1 = "line1";
 
         panel.getEntryField().setText(line1);
-        sendEvent( getEvent( KeyEvent.VK_ENTER ), instance );
+        sendEvent( getEvent( KeyEvent.VK_ENTER, false, false ), instance );
 
         assertEquals( "check that the enter event clears current line of text", "", panel.getEntryField().getText() );
 
-        sendEvent( getEvent( KeyEvent.VK_UP ), instance );
+        sendEvent( getEvent( KeyEvent.VK_UP, false, false ), instance );
 
         assertEquals("check that the key up event restores one line back from history", line1, panel.getEntryField().getText());
 
-        sendEvent( getEvent( KeyEvent.VK_UP ), instance );
+        sendEvent( getEvent( KeyEvent.VK_UP, false, false ), instance );
 
         assertEquals("going above the top of history should do nothing", line1, panel.getEntryField().getText());
 
-        sendEvent( getEvent( KeyEvent.VK_DOWN ), instance );
+        sendEvent( getEvent( KeyEvent.VK_DOWN, false, false ), instance );
 
         assertEquals("check that the key down event empties the line when the history is over", "", panel.getEntryField().getText());
     }
@@ -76,20 +83,20 @@ public class ChatEntryListenerTest {
         String line2 = "line2";
 
         panel.getEntryField().setText(line1);
-        sendEvent( getEvent( KeyEvent.VK_ENTER ), instance );
+        sendEvent( getEvent( KeyEvent.VK_ENTER, false, false ), instance );
         panel.getEntryField().setText(line2);
-        sendEvent( getEvent( KeyEvent.VK_ENTER ), instance );
+        sendEvent( getEvent( KeyEvent.VK_ENTER, false, false ), instance );
 
-        sendEvent( getEvent( KeyEvent.VK_UP ), instance );
+        sendEvent( getEvent( KeyEvent.VK_UP, false, false ), instance );
         assertEquals("check that the key up event restores one line back from history", line2, panel.getEntryField().getText());
 
-        sendEvent( getEvent( KeyEvent.VK_UP ), instance );
+        sendEvent( getEvent( KeyEvent.VK_UP, false, false ), instance );
         assertEquals("second up should give first line", line1, panel.getEntryField().getText());
 
-        sendEvent( getEvent( KeyEvent.VK_DOWN ), instance );
+        sendEvent( getEvent( KeyEvent.VK_DOWN, false, false ), instance );
         assertEquals("down gives second line again", line2, panel.getEntryField().getText());
 
-        sendEvent( getEvent( KeyEvent.VK_DOWN ), instance );
+        sendEvent( getEvent( KeyEvent.VK_DOWN, false, false ), instance );
         assertEquals("check that the key down event empties the line when the history is over", "", panel.getEntryField().getText());
     }
 
@@ -99,12 +106,72 @@ public class ChatEntryListenerTest {
         String unsentLine = "unsentLine";
 
         panel.getEntryField().setText(line1);
-        sendEvent( getEvent( KeyEvent.VK_ENTER ), instance );
+        sendEvent( getEvent( KeyEvent.VK_ENTER, false, false ), instance );
         panel.getEntryField().setText( unsentLine );
-        sendEvent( getEvent( KeyEvent.VK_UP ), instance );
-        sendEvent( getEvent( KeyEvent.VK_DOWN ), instance );
+        sendEvent( getEvent( KeyEvent.VK_UP, false, false ), instance );
+        sendEvent( getEvent( KeyEvent.VK_DOWN, false, false ), instance );
 
         assertEquals("check that the key down event restores the not sent line when", unsentLine, panel.getEntryField().getText());
+    }
+
+    @Test
+    public void testCtrl1WithTwoTabs() throws InterruptedException {
+        tabs.setSelectedIndex(1);
+        assertEquals("check that the second tab is selected", 1, tabs.getSelectedIndex());
+
+        sendEvent( getEvent( KeyEvent.VK_1, true, false ), instance );
+
+        assertEquals("check that the first tab is selected", 0, tabs.getSelectedIndex());
+    }
+
+    @Test
+    public void testCtrl2WithTwoTabs() throws InterruptedException {
+        tabs.setSelectedIndex(0);
+        assertEquals("check that the first tab is selected", 0, tabs.getSelectedIndex());
+
+        sendEvent( getEvent( KeyEvent.VK_2, true, false ), instance );
+
+        assertEquals("check that the second tab is selected", 1, tabs.getSelectedIndex());
+    }
+
+    @Test
+    public void testCtrlTabWithTwoTabs() throws InterruptedException {
+        tabs.setSelectedIndex(0);
+        assertEquals("check that the first tab is selected", 0, tabs.getSelectedIndex());
+
+        sendEvent( getEvent( KeyEvent.VK_TAB, true, false ), instance );
+
+        assertEquals("check that the second tab is selected", 1, tabs.getSelectedIndex());
+    }
+
+    @Test
+    public void testCtrlShiftTabWithTwoTabs() throws InterruptedException {
+        tabs.setSelectedIndex(1);
+        assertEquals("check that the second tab is selected", 1, tabs.getSelectedIndex());
+
+        sendEvent( getEvent( KeyEvent.VK_TAB, true, true ), instance );
+
+        assertEquals("check that the first tab is selected", 0, tabs.getSelectedIndex());
+    }
+
+    @Test
+    public void testCtrlTabWithTwoTabsAroundTheCorner() throws InterruptedException {
+        tabs.setSelectedIndex(1);
+        assertEquals("check that the second tab is selected", 1, tabs.getSelectedIndex());
+
+        sendEvent( getEvent( KeyEvent.VK_TAB, true, false ), instance );
+
+        assertEquals("check that the first tab is selected", 0, tabs.getSelectedIndex());
+    }
+
+    @Test
+    public void testCtrlShiftTabWithTwoTabsAroundTheCorner() throws InterruptedException {
+        tabs.setSelectedIndex(0);
+        assertEquals("check that the first tab is selected", 0, tabs.getSelectedIndex());
+
+        sendEvent( getEvent( KeyEvent.VK_TAB, true, true ), instance );
+
+        assertEquals("check that the second tab is selected", 1, tabs.getSelectedIndex());
     }
 
     private void sendEvent(KeyEvent event, ChatEntryListener instance) throws InterruptedException {
@@ -112,8 +179,14 @@ public class ChatEntryListenerTest {
         Thread.sleep( 200 );
     }
 
-    private KeyEvent getEvent( int key )
+    private KeyEvent getEvent( int key, boolean ctrl, boolean shift )
     {
-        return new KeyEvent( panel.getEntryField(), KeyEvent.KEY_RELEASED, System.currentTimeMillis(), 0, key, KeyEvent.CHAR_UNDEFINED );
+        int modifier = 0;
+        if(ctrl)
+            modifier |= KeyEvent.CTRL_DOWN_MASK;
+        if(shift)
+            modifier |= KeyEvent.SHIFT_DOWN_MASK;
+
+        return new KeyEvent( panel.getEntryField(), KeyEvent.KEY_RELEASED, System.currentTimeMillis(), modifier, key, KeyEvent.CHAR_UNDEFINED );
     }
 }

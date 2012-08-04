@@ -14,6 +14,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
+import java.util.Collections;
 
 /**
  * Utility method for creating a single panel containing the chat display and the entry area. Note that calling this
@@ -41,6 +42,8 @@ public class ChatPanel
         JPanel entryPanel = new JPanel( new BorderLayout() );
         entryField = new JTextField();
         entryField.addKeyListener( listener );
+        entryField.setFocusTraversalKeys(KeyboardFocusManager.FORWARD_TRAVERSAL_KEYS, Collections.EMPTY_SET);
+        entryField.setFocusTraversalKeys(KeyboardFocusManager.BACKWARD_TRAVERSAL_KEYS, Collections.EMPTY_SET);
 
         JButton entryButton = new JButton( "chat" );
         entryButton.addActionListener( listener );
